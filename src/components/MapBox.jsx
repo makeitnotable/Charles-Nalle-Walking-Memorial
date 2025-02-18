@@ -35,7 +35,7 @@ const LOCATIONS = [
 // Fallback icon for locations without an explicit image
 const DEFAULT_IMAGE = '/assets/default-marker.png';
 
-const MapBox = () => {
+const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButtons = false }) => {
     const mapRef = useRef(null);
     const mapContainerRef = useRef(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -62,7 +62,7 @@ const MapBox = () => {
                 [-73.7300, 42.7000],
                 [-73.6500, 42.7500],
             ],
-            interactive: true, // Enable map interactions
+            interactive: interactive, // Use the interactive prop
         });
 
         mapRef.current.on('load', () => {
@@ -121,31 +121,30 @@ const MapBox = () => {
                 });
             });
 
-            // Auto zoom to the Bakery location after the map has loaded.
-            const bakery = LOCATIONS.find((loc) => loc.name === 'Bakery');
-            if (bakery) {
+            // Auto zoom to the specified initial location after the map has loaded.
+            const initialLocation = LOCATIONS.find((loc) => loc.name === initialLocationName);
+            if (initialLocation) {
                 // Delay the fly-to so the initial camera position is visible.
                 setTimeout(() => {
                     // Close any previously open popup
                     if (currentPopupRef.current) {
                         currentPopupRef.current.remove();
                     }
-                    // Retrieve and open the popup for Bakery
-                    const bakeryPopup = popupsRef.current[bakery.name];
-                    if (bakeryPopup) {
-                        bakeryPopup.addTo(mapRef.current);
-                        currentPopupRef.current = bakeryPopup;
+                    // Retrieve and open the popup for the initial location
+                    const initialPopup = popupsRef.current[initialLocation.name];
+                    if (initialPopup) {
+                        initialPopup.addTo(mapRef.current);
+                        currentPopupRef.current = initialPopup;
                     }
 
                     mapRef.current.easeTo({
-                        center: bakery.coordinates,
+                        center: initialLocation.coordinates,
                         zoom: 20,
-                        // speed: 0.2,
                         curve: 1.4,
                         duration: 5000,
                         essential: true,
                     });
-                    setSelectedLocation(bakery.name);
+                    setSelectedLocation(initialLocation.name);
                 }, 250);
             }
         });
@@ -153,7 +152,7 @@ const MapBox = () => {
         return () => {
             mapRef.current.remove();
         };
-    }, []);
+    }, [initialLocationName, interactive]);
 
     // Helper: fly and open popup for a specific location when a button is clicked.
     const flyToLocation = (loc) => {
@@ -181,7 +180,7 @@ const MapBox = () => {
     };
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
             {/* Map container */}
             <div
                 ref={mapContainerRef}
@@ -193,57 +192,17 @@ const MapBox = () => {
                     left: 0,
                 }}
             />
-            {/* Updated buttons container in the return statement of MapBox component: */}
-            {/* <div
-                style={{
-                    position: 'absolute',
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    zIndex: 999, // higher than the map
-                    backgroundColor: "blue",
-                    overflowX: 'auto',    // enables horizontal scroll
-                    whiteSpace: 'nowrap', // keeps buttons in one line
-                    padding: '0 20px',
-                }}
-            >
-                <div
-                    style={{
-                        display: 'inline-flex', // ensures buttons are rendered side by side
-                        gap: '8px',
-                        flexWrap: 'nowrap',
-                    }}
-                >
-                    {LOCATIONS.map((loc) => (
-                        <div key={loc.name} style={{ minWidth: '120px', display: 'inline-block' }}>
-                            <button
-                                onClick={() => flyToLocation(loc)}
-                                style={{
-                                    background: '#ffffff',
-                                    color: '#333',
-                                    border: 'none',
-                                    borderRadius: '4px',
-                                    padding: '5px 10px',
-                                    cursor: 'pointer',
-                                    fontWeight: 'bold',
-                                    width: '100%', // let the button expand to contain text
-                                }}
-                            >
-                                {loc.name}
-                            </button>
-                        </div>
-                    ))}
+            {showButtons && (
+                <div className='fixed bottom-3 left-0 right-0 z-10'>
+                    <div className='flex flex-row gap-4 overflow-x-auto'>
+                        {LOCATIONS.map((loc) => (
+                            <div className='h-32 min-w-72'>
+                                <button key={loc.name} className={`bg-white ${selectedLocation === loc.name ? "border-2 border-black" : ""} text-black px-4 py-2 rounded-md whitespace-nowrap w-full h-full`} onClick={() => flyToLocation(loc)}>{loc.name}</button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div> */}
-            <div className='fixed bottom-3 left-0 right-0 z-10'>
-                <div className='flex flex-row gap-4 overflow-x-auto'>
-                    {LOCATIONS.map((loc) => (
-                        <div className='h-32 min-w-72'>
-                            <button key={loc.name} className={`bg-white ${selectedLocation === loc.name ? "border-2 border-black" : ""} text-black px-4 py-2 rounded-md whitespace-nowrap w-full h-full`} onClick={() => flyToLocation(loc)}>{loc.name}</button>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            )}
         </div>
     );
 };
