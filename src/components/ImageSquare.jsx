@@ -6,7 +6,7 @@ const ImageSquare = ({ src, alt, size = 'w-32 h-32' }) => {
             <div className={`flex items-center justify-center bg-gray-200 h-72 w-72 rounded-md`}>
                 <h1>Placeholder</h1>
             </div>
-            <p>Image Credits</p>
+            {/* <p>Image Credits</p> */}
         </div>
     );
 };

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import MapBox from './components/MapBox';
+import Drawer from './components/Drawer';
 export default function Home() {
 
     return (
         <div className="bg-background">
-            {/* <div className="absolute inset-0 z-0">
-                <MapBox />
-            </div> */}
             <div className="h-dvh flex flex-col justify-between items-center">
                 <div className="flex flex-col justify-center items-center h-full">
                     <p className="text-text-secondary font-thin">Troy, New York</p>

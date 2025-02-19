@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MapBox from './components/MapBox';
 import ImageSquare from './components/ImageSquare';
+import { useNavigate } from 'react-router';
+
 export default function BakeryPage() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="space-y-16">
             <div className="relative">
                 <div className="h-screen">
                     <MapBox />
-                    <div className="absolute inset-0 z-10 bg-background bg-opacity-70">
+                    <div className="absolute inset-0 z-10 bg-background bg-opacity-70 pt-16">
                         <h1 className="text-4xl font-bold mb-4 text-text-primary">Welcome to the Bakery</h1>
                         <p className="text-lg mb-8 text-text-secondary">
                             We offer a delightful selection of freshly baked goods. Enjoy our artisan breads, flaky croissants, decadent cakes and more.
                         </p>
-                        <button className="bg-button hover:bg-amber-600 text-white font-bold py-2 px-4 rounded">
-                            View Menu
-                        </button>
+
                     </div>
                 </div>
             </div>
@@ -23,7 +29,7 @@ export default function BakeryPage() {
             </div>
             <div className='p-4'>
                 <h1 className='text-4xl font-bold'>1860</h1>
-                <p className='text-lg'>“Charles Nalle, I hereby arrest you in the name of the United States of America!” - United States Deputy Marshal Holmes</p>
+                <p className='text-lg'>"Charles Nalle, I hereby arrest you in the name of the United States of America!" - United States Deputy Marshal Holmes</p>
             </div>
             <div className='w-full h-0.5 bg-gray-200' />
             <div className="flex flex-col justify-center items-center">
@@ -53,13 +59,18 @@ export default function BakeryPage() {
                 <div className='h-16 w-16 rounded-full bg-gray-200' />
             </div>
 
-            <div className='flex flex-col justify-center items-center bg-gray-500'>
+            <div className='flex flex-col justify-center items-center bg-[#7D776C] space-y-4 p-4'>
                 <ImageSquare src="/assets/bakery.jpg" alt="Bakery" />
-                <p>What you can do:</p>
-                <p>Educate yourself on unjust laws, vote against them, and support organizations like the ACLU in fighting against systemic injustices and reforming the legal system.</p>
-                <div className='flex flex-row justify-center items-center'>
-                    <button className='bg-button hover:bg-amber-600 text-white font-bold py-2 px-4 rounded'>Share</button>
-                    <button className='bg-button hover:bg-amber-600 text-white font-bold py-2 px-4 rounded'>Share</button>
+                <p className="text-center">What you can do:</p>
+                <p className="text-center">Educate yourself on unjust laws, vote against them, and support organizations like the ACLU in fighting against systemic injustices and reforming the legal system.</p>
+                <div className='flex flex-row justify-center items-center gap-4 w-full'>
+                    <button className='border border-white hover:bg-amber-600 text-white font-bold py-4 rounded w-full'>Share</button>
+                    <button
+                        onClick={() => navigate('/bank')}
+                        className='bg-button hover:bg-amber-600 font-bold py-4 text-background rounded w-full'
+                    >
+                        Next Scene
+                    </button>
                 </div>
             </div>
             <div className='h-64 w-full' />

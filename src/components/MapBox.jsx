@@ -26,7 +26,7 @@ const LOCATIONS = [
         description: 'Where travelers boarded ferries to cross the river...',
     },
     {
-        name: 'Peter Baltimore\'s Barbershop',
+        name: "Peter Baltimore's Barbershop",
         coordinates: [-73.6910, 42.7280],
         description: 'A communal gathering spot where news was shared...',
     },
