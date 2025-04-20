@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MapBox from './components/MapBox';
+import MapBox from './components/map';
 import ImageSquare from './components/ImageSquare';
 import { useNavigate } from 'react-router';
 

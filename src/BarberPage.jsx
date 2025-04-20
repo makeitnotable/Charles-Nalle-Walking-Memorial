@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MapBox from './components/MapBox';
+import MapBox from './components/map';
 import ImageSquare from './components/ImageSquare';
 import { useNavigate } from 'react-router';
 
@@ -14,7 +14,7 @@ function BarberPage() {
         <div className="space-y-16">
             <div className="relative">
                 <div className="h-screen">
-                    <MapBox initialLocationName="Peter Baltimore's Barbershop" />
+                    {/* <MapBox initialLocationName="Peter Baltimore's Barbershop" /> */}
                     <div className="absolute inset-0 z-10 bg-background bg-opacity-70 pt-16">
                         <h1 className="text-4xl font-bold mb-4 text-text-primary">Peter Baltimore's Barbershop</h1>
                         <p className="text-lg mb-8 text-text-secondary">
