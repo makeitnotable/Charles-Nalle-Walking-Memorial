@@ -4,17 +4,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Menu from './Menu';
 import { LOCATIONS, MAP_CONFIG } from './constants';
 import { createMarkerElement, getFlyToParams } from './utils';
-import LocationButtons from './LocationButtons';
 import LocationCard from './LocationCard';
 import BackButton from './BackButton';
+
 const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButtons = true }) => {
     const mapRef = useRef(null);
     const mapContainerRef = useRef(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
+    const [isOverview, setIsOverview] = useState(true);
     const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
     // Map reference objects
-
     useEffect(() => {
         mapboxgl.accessToken = mapboxAccessToken;
 
@@ -36,8 +36,6 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                 // Create marker element using utility function
                 const markerDiv = createMarkerElement(location.name, index + 1);
 
-
-
                 // Create and add the marker
                 new mapboxgl.Marker({ element: markerDiv })
                     .setLngLat(location.coordinates)
@@ -45,8 +43,9 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
 
                 // When the marker is clicked, fly to the location
                 markerDiv.addEventListener('click', () => {
-
                     mapRef.current.flyTo(getFlyToParams(location.coordinates));
+                    setSelectedLocation(location.name);
+                    setIsOverview(false);
                 });
             });
 
@@ -55,8 +54,6 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
             if (initialLocation) {
                 // Delay the fly-to so the initial camera position is visible.
                 setTimeout(() => {
-
-
                     mapRef.current.easeTo({
                         center: initialLocation.coordinates,
                         zoom: 20,
@@ -65,6 +62,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                         essential: true,
                     });
                     setSelectedLocation(initialLocation.name);
+                    setIsOverview(false);
                 }, 250);
             }
         });
@@ -78,10 +76,24 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
     const flyToLocation = (loc) => {
         if (!mapRef.current) return;
         setSelectedLocation(loc.name);
-
-
-
+        setIsOverview(false);
         mapRef.current.flyTo(getFlyToParams(loc.coordinates));
+    };
+
+    // Helper: return to overview/all locations view
+    const handleBackToOverview = () => {
+        if (!mapRef.current) return;
+        setIsOverview(true);
+        setSelectedLocation(null);
+
+        mapRef.current.easeTo({
+            center: MAP_CONFIG.initialCenter,
+            zoom: MAP_CONFIG.defaultZoom,
+            pitch: MAP_CONFIG.defaultPitch,
+            bearing: MAP_CONFIG.defaultBearing,
+            duration: 2000,
+            essential: true,
+        });
     };
 
     return (
@@ -96,8 +108,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                     left: 0,
                 }}
             />
-            {/* {showButtons && <LocationButtons selectedLocation={selectedLocation} onLocationSelect={flyToLocation} />} */}
-            {selectedLocation && (
+            {selectedLocation && !isOverview && (
                 <div className="fixed top-16 right-4 z-10">
                     <LocationCard
                         location={LOCATIONS.find(loc => loc.name === selectedLocation)}
@@ -106,8 +117,8 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                     />
                 </div>
             )}
-            <Menu />
-            <BackButton />
+            <Menu onLocationSelect={flyToLocation} locations={LOCATIONS} />
+            {!isOverview && <div onClick={handleBackToOverview}><BackButton /></div>}
         </div>
     );
 };

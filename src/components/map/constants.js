@@ -5,26 +5,26 @@ export const LOCATIONS = [
         coordinates: [-73.6916, 42.7261],
         description: 'A historic bakery known for feeding travelers...',
     },
-    // {
-    //     name: 'Mutual Bank Building',
-    //     coordinates: [-73.6920, 42.7289],
-    //     description: 'The grand bank that served as a community hub...',
-    // },
-    // {
-    //     name: 'Gilbert Mansion',
-    //     coordinates: [-73.6932, 42.7295],
-    //     description: 'Home to the illustrious Gilbert family...',
-    // },
-    // {
-    //     name: 'Ferry Landing',
-    //     coordinates: [-73.6988, 42.7193],
-    //     description: 'Where travelers boarded ferries to cross the river...',
-    // },
-    // {
-    //     name: "Peter Baltimore's Barbershop",
-    //     coordinates: [-73.6910, 42.7280],
-    //     description: 'A communal gathering spot where news was shared...',
-    // },
+    {
+        name: 'Mutual Bank Building',
+        coordinates: [-73.6920, 42.7289],
+        description: 'The grand bank that served as a community hub...',
+    },
+    {
+        name: 'Gilbert Mansion',
+        coordinates: [-73.6932, 42.7295],
+        description: 'Home to the illustrious Gilbert family...',
+    },
+    {
+        name: 'Ferry Landing',
+        coordinates: [-73.6988, 42.7193],
+        description: 'Where travelers boarded ferries to cross the river...',
+    },
+    {
+        name: "Peter Baltimore's Barbershop",
+        coordinates: [-73.6910, 42.7280],
+        description: 'A communal gathering spot where news was shared...',
+    },
 ];
 
 // Fallback icon for locations without an explicit image
