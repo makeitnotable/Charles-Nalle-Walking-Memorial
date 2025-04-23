@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import MapBox from './components/MapBox';
 import ImageSquare from './components/ImageSquare';
 import { useNavigate } from 'react-router';
 
@@ -14,8 +13,7 @@ export default function BakeryPage() {
         <div className="space-y-16">
             <div className="relative">
                 <div className="h-screen">
-                    <MapBox />
-                    <div className="absolute inset-0 z-10 bg-background bg-opacity-70 pt-16">
+                    <div className="absolute inset-0 z-10 pt-16">
                         <h1 className="text-4xl font-bold mb-4 text-text-primary">Welcome to the Bakery</h1>
                         <p className="text-lg mb-8 text-text-secondary">
                             We offer a delightful selection of freshly baked goods. Enjoy our artisan breads, flaky croissants, decadent cakes and more.

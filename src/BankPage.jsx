@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import MapBox from './components/MapBox';
+import MapBox from './components/map';
 import ImageSquare from './components/ImageSquare';
 
 const BankPage = () => {
