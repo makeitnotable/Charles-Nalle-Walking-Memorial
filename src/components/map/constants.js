@@ -4,26 +4,31 @@ export const LOCATIONS = [
         name: 'Bakery',
         coordinates: [-73.6916, 42.7261],
         description: 'A historic bakery known for feeding travelers...',
+        path: '/bakery',
     },
     {
         name: 'Mutual Bank Building',
         coordinates: [-73.6920, 42.7289],
         description: 'The grand bank that served as a community hub...',
+        path: '/bank',
     },
     {
         name: 'Gilbert Mansion',
         coordinates: [-73.6932, 42.7295],
         description: 'Home to the illustrious Gilbert family...',
+        path: '/mansion',
     },
     {
         name: 'Ferry Landing',
         coordinates: [-73.6988, 42.7193],
         description: 'Where travelers boarded ferries to cross the river...',
+        path: '/ferry',
     },
     {
         name: "Peter Baltimore's Barbershop",
         coordinates: [-73.6910, 42.7280],
         description: 'A communal gathering spot where news was shared...',
+        path: '/barber',
     },
 ];
 
