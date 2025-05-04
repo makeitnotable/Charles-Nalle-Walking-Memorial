@@ -1,7 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Menu from './Menu';
 import { LOCATIONS, MAP_CONFIG } from './constants';
 import { createMarkerElement, getFlyToParams } from './utils';
 import LocationCard from './LocationCard';
@@ -12,11 +12,15 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
     const mapContainerRef = useRef(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [isOverview, setIsOverview] = useState(true);
-    const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+    // Fix token by removing % character at the end
+    const mapboxAccessToken = 'pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw';
+    const navigate = useNavigate();
+    console.log('mapboxAccessToken', mapboxAccessToken);
 
     // Map reference objects
     useEffect(() => {
         mapboxgl.accessToken = mapboxAccessToken;
+        console.log('mapboxAccessToken', mapboxAccessToken);
 
         // Initialize map
         mapRef.current = new mapboxgl.Map({
@@ -29,6 +33,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
             maxBounds: MAP_CONFIG.maxBounds,
             interactive: interactive,
         });
+        console.log('mapRef', mapRef.current);
 
         mapRef.current.on('load', () => {
             // Create custom markers & popups without image references
@@ -96,8 +101,17 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
         });
     };
 
+    // Navigate to the location page
+    const navigateToLocation = (location) => {
+        const locationData = LOCATIONS.find(loc => loc.name === location);
+        if (locationData && locationData.path) {
+            navigate(locationData.path);
+        }
+    };
+
     return (
         <div className='w-full h-dvh bg-black'>
+            <p className='text-white'>MapBox</p>
             <div
                 ref={mapContainerRef}
                 style={{
@@ -114,10 +128,10 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                         location={LOCATIONS.find(loc => loc.name === selectedLocation)}
                         isSelected={true}
                         onSelect={flyToLocation}
+                        onNavigate={() => navigateToLocation(selectedLocation)}
                     />
                 </div>
             )}
-            <Menu onLocationSelect={flyToLocation} locations={LOCATIONS} />
             {!isOverview && <div onClick={handleBackToOverview}><BackButton /></div>}
         </div>
     );

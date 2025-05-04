@@ -1,16 +1,10 @@
-import { Routes, Route, Link, useLocation } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router';
 import './App.css';
 import Home from './Home';
 import MapBox from './components/map';
-import BakeryPage from './BakeryPage';
-import BankPage from './BankPage';
-import MansionPage from './MansionPage';
-import FerryPage from './FerryPage';
-import BarberPage from './BarberPage';
-import Drawer from './components/Drawer';
-import { useState } from 'react';
-import ComponentsLibrary from './components/ComponentsLibrary';
-// import MapDemo from './components/mapdemo'
+import LocationPage from './components/LocationPage';
+import MenuOverlay from './components/MenuOverlay';
+import { LOCATIONS } from './components/map/constants';
 
 export const Layout = () => {
   const location = useLocation();
@@ -19,27 +13,24 @@ export const Layout = () => {
   return (
     <>
       <div className={`w-full ${isRootRoute ? 'hidden' : 'block'}`}>
-        <MapBox interactive />
+        <MapBox interactive={true} showButtons={true} />
       </div>
     </>
   );
 }
+
 function App() {
   return (
     <div className="">
-      {/* <Drawer /> */}
-      {/* <Layout />  */}
-      <Routes>
+      {/* Global menu overlay - available on all pages */}
+      <MenuOverlay locations={LOCATIONS} position="top-right" />
 
-        {/* <Route path="/components" element={<ComponentsLibrary />} /> */}
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/map" element={<Layout />} />
-        {/* <Route path="map" element={<MapDemo />} /> */}
-        <Route path="bakery" element={<BakeryPage />} />
-        {/* <Route path="/bank" element={<BankPage />} />
-        <Route path="/mansion" element={<MansionPage />} />
-        <Route path="/ferry" element={<FerryPage />} />
-        <Route path="/barber" element={<BarberPage />} /> */}
+
+        {/* Location routes */}
+        <Route path="/:location" element={<LocationPage />} />
       </Routes>
     </div>
   );

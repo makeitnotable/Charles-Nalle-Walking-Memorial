@@ -1,14 +1,126 @@
+@import "tailwindcss";
+
+
+@theme {
+  /* Grayscale Colors */
+  --color-gray-1: #EFEFF2;
+  /* 1-BG */
+  --color-gray-2: #EAEBF0;
+  /* 2-BG */
+  --color-gray-3: #E0E2E8;
+  /* 3-IC */
+  --color-gray-4: #D6D9E2;
+  /* 4-IC */
+  --color-gray-5: #CED1DC;
+  /* 5-IC */
+  --color-gray-6: #C5C9D6;
+  /* 6-BS */
+  --color-gray-7: #B8BDCD;
+  /* 7-BS */
+  --color-gray-8: #A3A9BE;
+  /* 8-BS */
+  --color-gray-9: #767C8F;
+  /* 9-SC */
+  --color-gray-10: #6C7184;
+  /* 10-SC */
+  --color-gray-11: #4F5465;
+  /* 11-AT */
+  --color-gray-12: #1C1F29;
+  /* 12-AT */
+
+  /* Neutral Colors */
+  --color-neutral-1: #F6F3EE;
+  /* 1-BG */
+  --color-neutral-2: #E6DECF;
+  /* 2-BG */
+  --color-neutral-3: #D7C9B0;
+  /* 3-IC */
+  --color-neutral-4: #C9B490;
+  /* 4-IC */
+  --color-neutral-5: #BB9E70;
+  /* 5-IC */
+  --color-neutral-6: #AD8950;
+  /* 6-BS */
+  --color-neutral-7: #8F7040;
+  /* 7-BS */
+  --color-neutral-8: #705731;
+  /* 8-BS */
+  --color-neutral-9: #503D22;
+  /* 9-SC */
+  --color-neutral-10: #302414;
+  /* 10-SC */
+  --color-neutral-11: #100A06;
+  /* 11-AT */
+  --color-neutral-12: #070912;
+  /* 12-AT */
+
+  /* Tertiary Colors */
+  --color-tertiary-1: #EDF0F4;
+  /* 1-BG */
+  --color-tertiary-2: #E6ECF8;
+  /* 2-BG */
+  --color-tertiary-3: #D8E3F8;
+  /* 3-IC */
+  --color-tertiary-4: #C9DAFD;
+  /* 4-IC */
+  --color-tertiary-5: #BAD1FF;
+  /* 5-IC */
+  --color-tertiary-6: #A9C7FF;
+  /* 6-BS */
+  --color-tertiary-7: #95B9FF;
+  /* 7-BS */
+  --color-tertiary-8: #75A1FF;
+  /* 8-BS */
+  --color-tertiary-9: #010440;
+  /* 9-SC */
+  --color-tertiary-10: #0F2460;
+  /* 10-SC */
+  --color-tertiary-11: #294CAB;
+  /* 11-AT */
+  --color-tertiary-12: #081B56;
+  /* 12-AT */
+
+  /* Light Mode */
+  --color-background-light: #EFEFF2;
+  /* Gray 1 */
+  --color-text-primary-light: #1C1F29;
+  /* Gray 12 */
+  --color-text-secondary-light: #4F5465;
+  /* Gray 11 */
+  --color-button-light: #767C8F;
+  /* Gray 9 */
+
+  /* Dark Mode */
+  --color-background-dark: #000000;
+  --color-text-primary-dark: #EFEFF2;
+  /* Gray 1 */
+  --color-text-secondary-dark: #B8BDCD;
+  /* Gray 7 */
+  --color-button-dark: #A3A9BE;
+  /* Gray 8 */
+
+  /* Default Theme (maintains compatibility with existing code) */
+  --color-background: var(--color-background-dark);
+  --color-text-primary: var(--color-text-primary-dark);
+  --color-text-secondary: var(--color-text-secondary-dark);
+  --color-button: var(--color-button-dark);
+
+  /* Fonts */
+  --font-sans: "Martel Sans", sans-serif;
+}
+
 #root {
-  background-color: #000;
+  background-color: var(--color-background);
 }
 
 #map-container {
   height: 100%;
   width: 100%;
 }
+
 .sidebar {
   color: #fff;
-  font-family: monospace;
+  font-family: var(--font-sans);
   z-index: 1;
   position: absolute;
   top: 0;
@@ -24,5 +136,7 @@
   left: 12px;
   padding: 4px 10px;
   border-radius: 10px;
+  background-color: var(--color-button);
+  color: var(--color-background);
   cursor: pointer;
 }

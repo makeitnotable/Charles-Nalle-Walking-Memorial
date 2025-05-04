@@ -18,7 +18,7 @@ export default function Home() {
                 }}></div>
                 <div className="flex flex-col justify-between items-center h-full z-10">
                     <div className="flex flex-col justify-between items-center gap-8 pt-16">
-                        <p className="text-[#FF9770] font-thin">Troy, NY</p>
+                        <p className="text-[#FF9770] font-thin">Troy, NY ooo</p>
                         <div className='flex flex-col'>
                             <p className="text-6xl text-white font-bold tracking-[-2.5px]">Charles</p>
                             <p className="text-6xl text-white self-end font-bold tracking-[-2.5px]">Nalle</p>
