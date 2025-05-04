@@ -138,6 +138,15 @@ export default function BakeryPage() {
                     </div>
                 </div>
             </div>
+            <div className='text-white space-y-2'>
+                <p className='text-4xl'>WHERE TO NEXT?</p>
+                <p className=''>(4)</p>
+            </div>
+            <div className="w-full h-48 bg-blue-400 rounded-3xl" />
+            <div className='flex flex-row justify-center items-center'>
+
+                <button className='bg-[#4A1B0A] px-6 py-4 rounded-full w-fit text-text-primary'>Get Directions</button>
+            </div>
         </div>
     );
 } 
