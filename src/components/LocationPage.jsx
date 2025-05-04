@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { locationData } from '../data/locationData';
+import { useTransition } from '../stores/useTransitionStore';
 
 export default function LocationPage() {
     const navigate = useNavigate();
     const { location } = useParams();
     const data = locationData[location];
+    const { play } = useTransition();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const handleNavigate = (path) => {
+        play(() => {
+            navigate(path);
+        });
+    };
 
     if (!data) {
         return <div className="p-4 text-text-primary text-center">Location not found</div>;
@@ -141,6 +149,15 @@ export default function LocationPage() {
             <div className="w-full h-48 bg-tertiary-7 rounded-3xl" />
             <div className='flex flex-row justify-center items-center'>
                 <button className='bg-neutral-11 px-6 py-4 rounded-full w-fit text-text-secondary'>Get Directions</button>
+            </div>
+
+            {/* Example for a "back to map" button */}
+            <div className='flex flex-row justify-center items-center mt-4'>
+                <button
+                    onClick={() => handleNavigate('/map')}
+                    className='bg-neutral-11 px-6 py-4 rounded-full w-fit text-text-secondary'>
+                    Back to Map
+                </button>
             </div>
         </div>
     );

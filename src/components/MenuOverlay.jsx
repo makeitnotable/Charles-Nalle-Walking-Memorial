@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useTransition } from '../stores/useTransitionStore';
 
-export const OpenMenu = ({ locations = [], position = 'top-right' }) => {
+export const OpenMenu = ({ locations = [], position = 'top-right', onClose }) => {
     // Map location names to their original labels in the UI
     const locationLabels = {
         'Bakery': '1. Bakery',
@@ -12,16 +13,23 @@ export const OpenMenu = ({ locations = [], position = 'top-right' }) => {
     };
 
     const navigate = useNavigate();
+    const { play } = useTransition();
 
-    // Navigate to home
+    // Navigate to home with transition
     const goToHome = () => {
-        navigate('/');
+        onClose();
+        play(() => {
+            navigate('/');
+        });
     };
 
-    // Handle navigation to location page
+    // Handle navigation to location page with transition
     const navigateToLocation = (location) => {
         if (location && location.path) {
-            navigate(location.path);
+            onClose();
+            play(() => {
+                navigate(location.path);
+            });
         }
     };
 
@@ -82,6 +90,10 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
         'bottom-right': 'bottom-3 right-3'
     };
 
+    const handleClose = () => {
+        setIsOpen(false);
+    };
+
     return (
         <>
             <button onClick={() => setIsOpen(!isOpen)}>
@@ -89,6 +101,7 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
                     <OpenMenu
                         locations={locations}
                         position={position}
+                        onClose={handleClose}
                     />
                 ) : (
                     <div className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>

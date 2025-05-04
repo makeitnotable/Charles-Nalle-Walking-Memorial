@@ -20,18 +20,29 @@ export const Layout = () => {
 }
 
 function App() {
+  const location = useLocation();
+
+  // Determine if the current path is a location page route (e.g., /bakery)
+  // It should start with '/' and have only one segment, excluding '/' and '/map'
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map';
+
+  const menuPosition = isLocationPageRoute ? 'bottom-right' : 'top-right';
+
   return (
     <div className="">
       {/* Global menu overlay - available on all pages */}
-      <MenuOverlay locations={LOCATIONS} position="top-right" />
+      <MenuOverlay locations={LOCATIONS} position={menuPosition} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/map" element={<Layout />} />
+      <div id="page-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/map" element={<Layout />} />
 
-        {/* Location routes */}
-        <Route path="/:location" element={<LocationPage />} />
-      </Routes>
+          {/* Location routes */}
+          <Route path="/:location" element={<LocationPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }
