@@ -8,10 +8,11 @@ import { Link } from 'react-router';
 // Image mapping for locations
 const locationImages = {
     'Bakery': bakeryImg,
-    'Mutual Bank Building': bankImg,
+    'Commissioner Part 1': bankImg,
+    'Commissioner Part 2': bankImg,
     'Gilbert Mansion': gilbertMansionImg,
     'Ferry Landing': ferryLandingImg,
-    "Peter Baltimore's Barbershop": barberImg,
+    "Baltimore's Barbershop": barberImg,
 };
 
 const LocationCard = ({ location, isSelected, onSelect, onNavigate }) => {

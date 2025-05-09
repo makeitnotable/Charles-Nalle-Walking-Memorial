@@ -4,7 +4,7 @@ export const locationData = {
         title: "HOLEUR'S FASHIONABLE BAKERY",
         backgroundImage: "/bakery.png",
         quote: {
-            text: "Charles Nalle, I hereby arrest youin the name of the United States of America!",
+            text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
             author: "- United States Deputy Marshal Holmes"
         },
         audioPlayer: {
@@ -43,24 +43,25 @@ export const locationData = {
             number: "(4)"
         }
     },
-    bank: {
+    commissioner1: {
         chapterNumber: 2,
-        title: "TROY SAVINGS BANK",
+        title: "PART 1 OFFICE OF THE COMMISSIONER",
         backgroundImage: "/placeholder.png",
         quote: {
-            text: "Sample quote for the bank chapter",
-            author: "- Historical Figure"
+            text: "If we can get him out into the crowd, we can raise the money in five minutes.",
+            author: "- Abolitionist Martin Townsend"
         },
         audioPlayer: {
             chapterName: "Chapter 2",
-            subtitle: "Troy Savings Bank"
+            subtitle: "Part 1 Office of the Commissioner"
         },
         narrative: {
             title: "(1) Narrative",
             content: [
-                "Placeholder narrative for the bank chapter.",
-                "More placeholder text for the bank narrative.",
-                "Additional placeholder content for the bank narrative."
+                "It's hard to imagine that the hands of Marshal Holmes and the slave catchers weren't white with strain as they forcibly marched Charles with a vice-tight grip to the Mutual Bank Building—a grand three-story brick and stone structure on State Street.",
+                "In the commissioner's office on the second floor, Charles's fate was being sealed. Cuffed and bruised, he faced Horatio Averill—the lawyer who had helped Charles write letters to his wife, Kitty, but secretly betrayed him by sharing his story with officials. Now, Charles could only listen helplessly as the scratching of pens on paper signed away his freedom.",
+                "Outside, the city of Troy was waking up.",
+                "The bells of Liberty Street Presbyterian Church rang out with urgency. As word of Charles's capture spread like wildfire, people poured into the streets. Neighbors gathered, their anger mounting. Through the sea of people, Harriet Tubman—who happened to be in Troy visiting her cousin—pushed forward, her voice thundering above the crowd: \"Drag us out! Drag him to the river! Drown him! But don't let them have him!\""
             ]
         },
         nextChapter: "Chapter 3",
@@ -68,18 +69,18 @@ export const locationData = {
             title: "Historical Context",
             number: "(2)",
             points: [
-                "Historical fact 1 about the bank.",
-                "Historical fact 2 about the bank.",
-                "Historical fact 3 about the bank."
+                "In 1847, Frederick Douglass, James McCune Smith—the first Black doctor in the United States—and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
+                "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
+                "Prior to betraying Charles, Horatio Averill was incarcerated in Tombs Prison for his involvement in a embezzlement scheme."
             ]
         },
         moralMessage: {
-            title: "SAMPLE MORAL MESSAGE",
+            title: "WHEN NOT CHALLENGED INJUSTICE THRIVES",
             number: "(3)",
-            message: "Placeholder moral message for the bank chapter.",
+            message: "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
             callToAction: {
                 title: "Make a Difference",
-                content: "Placeholder call to action for the bank chapter."
+                content: "Challenge injustice by supporting grassroots organizations, engaging in local activism, community meetings, attending and fighting for justice."
             }
         },
         whereToNext: {
@@ -87,136 +88,183 @@ export const locationData = {
             number: "(4)"
         }
     },
-    mansion: {
+    commissioner2: {
         chapterNumber: 3,
-        title: "KEENAN'S MANSION",
+        title: "PART 2 OFFICE OF THE COMMISSIONER",
         backgroundImage: "/placeholder.png",
         quote: {
-            text: "Sample quote for the mansion chapter",
-            author: "- Historical Figure"
+            text: "Drag him to the river! Drown him! But don't let them have him!",
+            author: "- Harriet Tubman"
         },
         audioPlayer: {
             chapterName: "Chapter 3",
-            subtitle: "Keenan's Mansion"
+            subtitle: "Part 2 Office of the Commissioner"
         },
         narrative: {
-            title: "(1) Narrative",
+            title: "Section 1/4",
             content: [
-                "Placeholder narrative for the mansion chapter.",
-                "More placeholder text for the mansion narrative.",
-                "Additional placeholder content for the mansion narrative."
+                'Outside the Mutual Bank Building, the crowd grew larger, emotions heightened, and the sounds of protest grew deafening. Inside, sweat and the desperation of uncontrollable moments beaded down the frustrated faces of Chief Civil Rights attorney Martin Townsend and fellow Abolitionist and underground railroad barber Peter Baltimore as they frantically negotiated for Charles\'s freedom. With thinning patience, Martin Townsend exclaimed, "If we can get him out into the crowd, we can raise the money in five minutes."',
+                'Moments later the downstairs door of the Mutual bank building flung open and the protestors, primed by the words of Harriet Tubman—"Drag him to the river! Drown him! But don\'t let them have him!"—erupted like a bull out of a bullpen. Charles was dragged out, the chains cuffing his hands shimmered in the sunlight. By the time he and his captors made it into the cobblestone street, "The crowd was like a lynch mob in reverse—instead of unleashing their fury to string him up, the ringleaders of this mass chaos vented all of their pent-up rage to turn the Negro loose and rescue him from doom" (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113).',
+                "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they through punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged—torn free by the sweeping mob—broke into a sprint and started running."
+            ]
+        },
+        nextChapter: "Chapter 3",
+        historicalContext: {
+            title: "Historical Context",
+            number: "Section 2/4",
+            points: [
+                "After being brought to Commissioner William A. Beach, Charles Nalle's case was sent to Judge George Gould, who issued a habeas corpus to determine if he could be legally detained.",
+                'According to a New York Times column published on Saturday, April 28, 1860, the mob that gathered outside the commissioner\'s office to rescue Charles Nalle was "some one thousand persons" in size.',
+            ]
+        },
+        moralMessage: {
+            title: "FREEDOM ISN'T FREE",
+            number: "Section 3/4",
+            message: "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
+            callToAction: {
+                title: "Make a Difference",
+                content: "Stand up for your freedom and others by learning about past, present, and future laws, then share what you learn, and use your vote to support what's right."
+            }
+        },
+        whereToNext: {
+            title: "WHERE TO NEXT?",
+            number: "Section 4/4"
+        }
+    },
+    mansion: {
+        chapterNumber: 4,
+        title: "URI GILBERT MANSION",
+        backgroundImage: "/placeholder.png",
+        quote: {
+            text: "Are you a Negro?",
+            author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
+        },
+        audioPlayer: {
+            chapterName: "Chapter 4",
+            subtitle: "Uri Gilbert Mansion"
+        },
+        narrative: {
+            title: "Section 1/4",
+            content: [
+                "Each stride closed the distance between Charles and the ferryman waiting on the bank of the Hudson River, ready to help him cross to freedom. What was feet away must have felt like miles, and Charles's mind slipped between the present moment and every step he had previously run north from the fields in Culpeper County, Virginia. Though those fields held his footprints, Charles was determined they would not hold his future.",
+                "By the time he reached New York, the weight of those southern skies seemingly disappeared. In Troy, Charles found refuge; the bustling streets of the city hummed with industry and abolitionists' quiet acts of defiance against the slave catchers who prowled too far from home.",
+                "Shortly upon his arrival, Charles's steady but guarded gaze met the focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy's wealthiest men.\"Are you a Negro ? \" Charles was so taken aback by it, he didn't know how or on what level to respond. It was, after all, the central and defining characteristic of his life, even if it was not always obvious in his appearance. Finally, he pulled himself together and managed to reply, \"Well, sir, I suppose so.\" Gilbert nodded and smiled.(Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95).",
+                "It was there, surrounded by the opulence of Uri Gilbert's grand brownstone mansion on 189 Second Street in Troy, NY, that Charles was offered work as a coachman. Day by day, Charles began to fall into the life of Troy, building an unassuming reputation known secretly by those who mattered. With time, his hands and the unspoken history written in their lines mastered the navigation of Gilbert's carriages across cobbled streets, and his presence became familiar enough to seem invisible. But even in the most peaceful of places, the shadows of the past can cast themselves.",
+                "Charles's freedom was a thin veil, with captivity patiently watching from the other side. Unbeknownst to him, the fields of Culpeper County, Virginia, were closer to Charles than he could imagine. Just a few blocks away, on a morning in April 1860, outside a bakery where he was sent to fetch bread, captivity stepped out from the shadows to reveal its face."
             ]
         },
         nextChapter: "Chapter 4",
         historicalContext: {
             title: "Historical Context",
-            number: "(2)",
+            number: "Section 2/4",
             points: [
-                "Historical fact 1 about the mansion.",
-                "Historical fact 2 about the mansion.",
-                "Historical fact 3 about the mansion."
+                "Initially Mr. Gilbert's son asked Mr. Henry, a Black grocery store owner and Charles's landlord, about Charles's whereabouts. Despite Mr. Henry not knowing, they worked together to rally Troy's citizens to find and free Charles.",
+                "The Uri Gilbert Mansion served as a backdrop for the 1992 filming of Martin Scorsese's \"The Age of Innocence,\" became the home of the Rensselaer County Arts Council, and was the Vanguard Show House of 2001.",
+                "With a population of 12,063, Culpeper was larger than half of Virginia's 148 counties in 1860. More than half of that population was African American, including 6,675 slaves."
             ]
         },
         moralMessage: {
-            title: "SAMPLE MORAL MESSAGE",
-            number: "(3)",
-            message: "Placeholder moral message for the mansion chapter.",
+            title: "THE INVISIBLE MATTER AS MUCH AS THE VISIBLE",
+            number: "Section 3/4",
+            message: "Despite Charles becoming \"invisible\" in Troy, his presence there reflects the importance of one's reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.",
             callToAction: {
                 title: "Make a Difference",
-                content: "Placeholder call to action for the mansion chapter."
+                content: "Help good people build good reputations by amplifying their voices and fighting for the representation of diverse perspectives in media, politics, and community leadership."
             }
         },
         whereToNext: {
             title: "WHERE TO NEXT?",
-            number: "(4)"
+            number: "Section 4/4"
         }
     },
     ferry: {
-        chapterNumber: 4,
-        title: "FERRY CROSSING",
+        chapterNumber: 5,
+        title: "WASHINGTON STREET FERRY LANDING",
         backgroundImage: "/placeholder.png",
         quote: {
-            text: "Sample quote for the ferry chapter",
-            author: "- Historical Figure"
+            text: "The crowd was like a lynch mob in reverse.",
+            author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
         },
         audioPlayer: {
-            chapterName: "Chapter 4",
-            subtitle: "Ferry Crossing"
+            chapterName: "Chapter 5",
+            subtitle: "Washington Street Ferry Landing"
         },
         narrative: {
             title: "(1) Narrative",
             content: [
-                "Placeholder narrative for the ferry chapter.",
-                "More placeholder text for the ferry narrative.",
-                "Additional placeholder content for the ferry narrative."
+                "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn't come easily or without a fight.",
+                "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
+                "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water's grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
+                "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot's distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community."
             ]
         },
         nextChapter: "Chapter 5",
         historicalContext: {
             title: "Historical Context",
-            number: "(2)",
+            number: "Section 2/4",
             points: [
-                "Historical fact 1 about the ferry.",
-                "Historical fact 2 about the ferry.",
-                "Historical fact 3 about the ferry."
+                "At the height of the Underground Railroad, the Hudson River had up to 500 ships moving upstream a day, many with black captains, making it an efficient escape route, transporting freedom-seekers from New York City to Canada in just one week—far faster than the more dangerous overland routes.",
+                "After Charles crossed the river into Watervliet and was taken into custody by Albany County sheriff's deputies and federal postmaster, Harriet Tubman and several hundred citizens crossed the river and surrounded the justice's office at Corporation Hall Building, where Charles was being held.",
+                "In 1790, throughout the Hudson Valley—the region along both sides of the Hudson River from Yonkers to Albany—the first federal census counted more than 21,000 enslaved New Yorkers, nearly as many as documented in the State of Georgia, which had 29,264. By 1860, when Charles Nalle escaped, Georgia had as many as 462,198 enslaved people."
             ]
         },
         moralMessage: {
-            title: "SAMPLE MORAL MESSAGE",
-            number: "(3)",
-            message: "Placeholder moral message for the ferry chapter.",
+            title: "AUTHORITARI-ANISM IS PERSISTENT",
+            number: "Section 3/4",
+            message: "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
             callToAction: {
                 title: "Make a Difference",
-                content: "Placeholder call to action for the ferry chapter."
+                content: "Stand up against authoritarian laws & leaders by staying informed, voting, protesting, using your voice & the press to promote democratic values & hold leaders accountable."
             }
         },
         whereToNext: {
             title: "WHERE TO NEXT?",
-            number: "(4)"
+            number: "Section 4/4"
         }
     },
     barber: {
-        chapterNumber: 5,
-        title: "BARBER SHOP",
+        chapterNumber: 6,
+        title: "PETER BALTIMORE'S BARBERSHOP",
         backgroundImage: "/placeholder.png",
         quote: {
-            text: "Sample quote for the barber chapter",
-            author: "- Historical Figure"
+            text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
+            author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
         },
         audioPlayer: {
-            chapterName: "Chapter 5",
-            subtitle: "Barber Shop"
+            chapterName: "Chapter 6",
+            subtitle: "Peter Baltimore's Barbershop"
         },
         narrative: {
             title: "(1) Narrative",
             content: [
-                "Placeholder narrative for the barber chapter.",
-                "More placeholder text for the barber narrative.",
-                "Additional placeholder content for the barber narrative."
+                "Refusing to accept defeat, Martin Townsend—Chief Civil Rights Attorney—and Peter Baltimore—a pillar of Troy's Underground Railroad—immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (Almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
+                "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice's office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice's office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Commissioner's office grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
+                "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
+                "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom."
             ]
         },
         nextChapter: "Chapter 1",
         historicalContext: {
             title: "Historical Context",
-            number: "(2)",
+            number: "Section 2/4",
             points: [
-                "Historical fact 1 about the barber shop.",
-                "Historical fact 2 about the barber shop.",
-                "Historical fact 3 about the barber shop."
+                "Peter Baltimore's younger son, Garnet Douglass Baltimore (1859–1946), was the first Black graduate of Rensselaer Polytechnic Institute (RPI) and the civil engineer and architect of Prospect Park.",
+                "Peter Baltimore's barbershop was a part of Troy's local underground railroad. Peter often helped freedom seeker wanting to stay in Troy find work at the Troy House.",
+                "After Charles Nalle's escape, radical Southern leaders known as \"Fire - Eaters\" used the event to create anger toward the North and cited it as a key reason for why the South should leave the Union, ultimately triggering the Civil War."
             ]
         },
         moralMessage: {
-            title: "SAMPLE MORAL MESSAGE",
-            number: "(3)",
-            message: "Placeholder moral message for the barber chapter.",
+            title: "WE ARE RESPONSIBLE FOR JUSTICE",
+            number: "Section 3/4",
+            message: "The collective effort of the Troy community to secure Charles's freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
             callToAction: {
                 title: "Make a Difference",
-                content: "Placeholder call to action for the barber chapter."
+                content: "Get involved in local activism, volunteer, or contribute resources to initiatives that fight against injustice and support those in need."
             }
         },
         whereToNext: {
             title: "WHERE TO NEXT?",
-            number: "(4)"
+            number: "Section 4/4"
         }
     }
 }; 
