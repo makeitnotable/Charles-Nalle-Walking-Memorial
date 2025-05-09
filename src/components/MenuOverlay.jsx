@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useTransition } from '../stores/useTransitionStore';
 
-export const OpenMenu = ({ locations, onLocationSelect, onNavigateToLocation }) => {
+export const OpenMenu = ({ locations = [], position = 'top-right', onClose }) => {
     // Map location names to their original labels in the UI
     const locationLabels = {
         'Bakery': '1. Bakery',
@@ -12,25 +13,34 @@ export const OpenMenu = ({ locations, onLocationSelect, onNavigateToLocation }) 
     };
 
     const navigate = useNavigate();
+    const { play } = useTransition();
 
-    // Navigate to home
+    // Navigate to home with transition
     const goToHome = () => {
-        navigate('/');
+        onClose();
+        play(() => {
+            navigate('/');
+        });
     };
 
-    // Handle location selection with option to view details
-    const handleLocationClick = (location, viewDetails = false) => {
-        // If viewDetails is true, navigate to location page
-        if (viewDetails && location.path) {
-            navigate(location.path);
-        } else {
-            // Otherwise, select the location in the map
-            onLocationSelect && onLocationSelect(location);
+    // Handle navigation to location page with transition
+    const navigateToLocation = (location) => {
+        if (location && location.path) {
+            onClose();
+            play(() => {
+                navigate(location.path);
+            });
         }
     };
 
+    // Position classes
+    const positionClasses = {
+        'top-right': 'top-3 right-3',
+        'bottom-right': 'bottom-3 right-3'
+    };
+
     return (
-        <div className='fixed top-3 right-3 z-10'>
+        <div className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
             <div className="bg-[#1D1411] border-2 border-[#69311D] rounded-xl">
                 <div className='bg-[#4A1B0A] rounded-t-xl border-b-2 border-[#69311D] h-auto w-[225px] flex items-center justify-center py-6'>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,13 +60,13 @@ export const OpenMenu = ({ locations, onLocationSelect, onNavigateToLocation }) 
                                 <div key={location.name} className="flex flex-col">
                                     <button
                                         className='text-lg text-left hover:text-[#F26835] transition-colors'
-                                        onClick={() => handleLocationClick(location)}
+                                        onClick={() => navigateToLocation(location)}
                                     >
                                         {locationLabels[location.name] || `${location.name}`}
                                     </button>
                                     <button
                                         className='text-sm text-left hover:text-[#F26835] transition-colors ml-4 mt-1'
-                                        onClick={() => handleLocationClick(location, true)}
+                                        onClick={() => navigateToLocation(location)}
                                     >
                                         View Details →
                                     </button>
@@ -68,21 +78,33 @@ export const OpenMenu = ({ locations, onLocationSelect, onNavigateToLocation }) 
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-const Menu = ({ onLocationSelect, locations = [], onNavigateToLocation }) => {
-    const [isOpen, setIsOpen] = useState(true);
+const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    // Position classes
+    const positionClasses = {
+        'top-right': 'top-3 right-3',
+        'bottom-right': 'bottom-3 right-3'
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
+
     return (
-        <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ?
-                <OpenMenu
-                    locations={locations}
-                    onLocationSelect={onLocationSelect}
-                    onNavigateToLocation={onNavigateToLocation}
-                /> :
-                (
-                    <div className='fixed top-3 right-3 z-10'>
+        <>
+            <button onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? (
+                    <OpenMenu
+                        locations={locations}
+                        position={position}
+                        onClose={handleClose}
+                    />
+                ) : (
+                    <div className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
                         <div className='bg-[#4A1B0A] border-2 border-[#69311D] rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
                             <div className='flex flex-col gap-2 w-full items-center'>
                                 <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
@@ -92,8 +114,9 @@ const Menu = ({ onLocationSelect, locations = [], onNavigateToLocation }) => {
                         </div>
                     </div>
                 )}
-        </button>
+            </button>
+        </>
     );
 };
 
-export default Menu;
+export default MenuOverlay; 

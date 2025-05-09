@@ -1,6 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useTransition } from './stores/useTransitionStore';
+
 export default function Home() {
+    const { play } = useTransition();
+    const navigate = useNavigate();
+
+    const handleContinue = (e) => {
+        e.preventDefault();
+        play(() => {
+            navigate('/map');
+        });
+    };
 
     return (
         <div className="p-4 h-dvh">
@@ -28,13 +39,12 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="px-4 w-full flex justify-center">
-                        <Link to="/map" className="w-full max-w-[200px]">
-                            <button
-                                className="bg-[#F7DCD3] hover:bg-amber-600 text-white font-bold p-4 w-full rounded-full"
-                            >
-                                <p className="text-[#BD3900]">Continue</p>
-                            </button>
-                        </Link>
+                        <button
+                            onClick={handleContinue}
+                            className="bg-[#F7DCD3] hover:bg-amber-600 text-white font-bold p-4 w-full max-w-[200px] rounded-full"
+                        >
+                            <p className="text-[#BD3900]">Continue</p>
+                        </button>
                     </div>
                     <div className="flex flex-col justify-between items-center p-4">
                         <p className="text-[#B7B3AB] text-center">The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy and the story of Charles Nalle</p>
