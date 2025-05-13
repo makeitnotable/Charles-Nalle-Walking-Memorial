@@ -106,11 +106,11 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
                     />
                 ) : (
                     <div className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
-                        <div className='bg-[#4A1B0A] border-2 border-[#69311D] rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
+                        <div className='bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
                             <div className='flex flex-col gap-2 w-full items-center'>
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
                             </div>
                         </div>
                     </div>

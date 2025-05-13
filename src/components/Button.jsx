@@ -1,29 +1,31 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 
-const Button = ({
+export const Button = ({
     children,
     className = '',
-    onClick
+    onClick,
+    variant = 'filled',
+    state = 'default'
 }) => {
+    const getVariantClasses = () => {
+        switch (variant) {
+            case 'ghost':
+                return 'text-primary-11';
+            case 'outline':
+                return 'border border-1 border-primary-8 text-primary-11';
+            case 'filled':
+                return 'bg-primary-4 text-primary-11 hover:bg-primary-5';
+            default:
+                return 'text-primary-11';
+        }
+    };
+
     return (
         <button
-            className={`bg-[#EFEDE9] hover:bg-amber-600 text-white font-bold py-5 px-4 rounded-lg w-full ${className}`}
+            className={`py-4 px-10 rounded-full cursor-pointer ${getVariantClasses()} ${className}`}
             onClick={onClick}
         >
-            <p className="text-[#7D776C] text-xl">{children}</p>
+            <p className="text-xl">{children}</p>
         </button>
     );
 };
-
-Button.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    onClick: PropTypes.func.isRequired
-};
-
-Button.defaultProps = {
-    className: ''
-};
-
-export default Button; 

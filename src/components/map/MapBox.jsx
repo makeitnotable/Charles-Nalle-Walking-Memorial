@@ -58,7 +58,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                     />
                 </div>
             )}
-            {!isOverview && <div onClick={handleBackToOverview}><BackButton /></div>}
+            {!isOverview && <div className="cursor-pointer" onClick={handleBackToOverview}><BackButton /></div>}
         </div>
     );
 };
