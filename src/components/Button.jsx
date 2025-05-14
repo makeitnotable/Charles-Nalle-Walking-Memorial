@@ -12,9 +12,9 @@ export const Button = ({
             case 'ghost':
                 return 'text-primary-11';
             case 'outline':
-                return 'border border-1 border-primary-8 text-primary-11';
+                return 'border border-2 border-primary-8 text-primary-11';
             case 'filled':
-                return 'bg-primary-4 text-primary-11 hover:bg-primary-5';
+                return 'bg-primary-4 text-primary-11 hover:bg-primary-5 border-2 border-primary-6';
             default:
                 return 'text-primary-11';
         }

@@ -12,7 +12,7 @@ export const locationData = {
             subtitle: "Holeur's fashion bakery"
         },
         narrative: {
-            title: "(1) Narrative",
+            title: "Section 1/4",
             content: [
                 "As the sun rose on the morning of April 27, 1860, and light spilled across the cobblestone streets of Troy, New York, Charles Nalle, a humble coachman in his thirties, was walking to George Holeur's Fashionable Bakery to pick up bread for his employers, the Gilberts. Charles wasn't a man of grandeur or heroic postures—just a man who carried the scars of his past silently, a past he'd escaped years before in Virginia. He had built a life here in Troy, far from the lash of Blucher Hansbrough, the man who once owned him.",
                 "But freedom, as Charles would be reminded, is fragile.",
@@ -21,8 +21,9 @@ export const locationData = {
         },
         nextChapter: "Chapter 2",
         historicalContext: {
+            backgroundImage: "/historical-context-bakery.png",
             title: "Historical Context",
-            number: "(2)",
+            number: "Section 2/4",
             points: [
                 "George Holeur's Fashionable Bakery at 3rd and Division Streets is where Charles Nalle was arrested.",
                 "At the time of Charles Nalle's capture, Troy, New York, was the richest city in the United States and a hub for abolitionist activity, with the town and its citizens playing pivotal roles in the Underground Railroad.",
@@ -30,8 +31,9 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "./moral-message-bakery.png",
             title: "NOT ALL LAWS ARE MORAL",
-            number: "(3)",
+            number: "Section 3/4",
             message: "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
             callToAction: {
                 title: "Make a Difference",
@@ -40,7 +42,7 @@ export const locationData = {
         },
         whereToNext: {
             title: "WHERE TO NEXT?",
-            number: "(4)"
+            number: "Section 4/4"
         }
     },
     commissioner1: {
