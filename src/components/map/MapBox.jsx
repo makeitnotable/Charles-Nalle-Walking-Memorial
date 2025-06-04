@@ -6,7 +6,14 @@ import LocationCard from './LocationCard';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
 
-const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButtons = true }) => {
+const MapBox = ({
+    initialLocationName = 'Bakery',
+    interactive = false,
+    showButtons = true,
+    height = '100vh',
+    width = '100%',
+    className = ''
+}) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
 
@@ -37,7 +44,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
     };
 
     return (
-        <div className='w-full h-dvh bg-black'>
+        <div className={`bg-black relative ${className}`} style={{ height: height, width: width }}>
             <div
                 ref={mapContainerRef}
                 style={{
@@ -48,8 +55,8 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                     left: 0,
                 }}
             />
-            {selectedLocation && !isOverview && (
-                <div className="fixed top-16 right-4 z-10">
+            {selectedLocation && !isOverview && showButtons && (
+                <div className="absolute top-16 right-4 z-10">
                     <LocationCard
                         location={LOCATIONS.find(loc => loc.name === selectedLocation)}
                         isSelected={true}
@@ -58,7 +65,7 @@ const MapBox = ({ initialLocationName = 'Bakery', interactive = false, showButto
                     />
                 </div>
             )}
-            {!isOverview && <div className="cursor-pointer" onClick={handleBackToOverview}><BackButton /></div>}
+            {!isOverview && showButtons && <div className="cursor-pointer" onClick={handleBackToOverview}><BackButton /></div>}
         </div>
     );
 };

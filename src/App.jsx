@@ -12,9 +12,7 @@ export const Layout = () => {
 
   return (
     <>
-      <div className={`w-full ${isRootRoute ? 'hidden' : 'block'}`}>
-        <MapBox interactive={true} showButtons={true} />
-      </div>
+      <MapBox interactive={true} showButtons={true} />
     </>
   );
 }
@@ -31,9 +29,10 @@ function App() {
   const menuPosition = isLocationPageRoute ? 'bottom-right' : 'top-right';
 
   return (
-    <div className="">
-
-      {!isRootRoute && <MenuOverlay locations={LOCATIONS} position={menuPosition} />}
+    <div className="relative">
+      <div className="absolute top-0 right-0">
+        {!isRootRoute && <MenuOverlay locations={LOCATIONS} position={menuPosition} />}
+      </div>
 
       <div id="page-content">
         <Routes>

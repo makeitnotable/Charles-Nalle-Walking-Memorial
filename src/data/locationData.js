@@ -31,7 +31,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
-            backgroundImage: "./moral-message-bakery.png",
+            backgroundImage: "/moral-message-bakery.png",
             title: "NOT ALL LAWS ARE MORAL",
             number: "Section 3/4",
             message: "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
@@ -48,7 +48,7 @@ export const locationData = {
     commissioner1: {
         chapterNumber: 2,
         title: "PART 1 OFFICE OF THE COMMISSIONER",
-        backgroundImage: "/placeholder.png",
+        backgroundImage: "/commisioner1.png",
         quote: {
             text: "If we can get him out into the crowd, we can raise the money in five minutes.",
             author: "- Abolitionist Martin Townsend"
@@ -68,6 +68,7 @@ export const locationData = {
         },
         nextChapter: "Chapter 3",
         historicalContext: {
+            backgroundImage: "/historical-context-com-1.png",
             title: "Historical Context",
             number: "(2)",
             points: [
@@ -77,6 +78,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "/moral-commission1.png",
             title: "WHEN NOT CHALLENGED INJUSTICE THRIVES",
             number: "(3)",
             message: "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
@@ -93,7 +95,7 @@ export const locationData = {
     commissioner2: {
         chapterNumber: 3,
         title: "PART 2 OFFICE OF THE COMMISSIONER",
-        backgroundImage: "/placeholder.png",
+        backgroundImage: "/commisioner2.png",
         quote: {
             text: "Drag him to the river! Drown him! But don't let them have him!",
             author: "- Harriet Tubman"
@@ -112,6 +114,7 @@ export const locationData = {
         },
         nextChapter: "Chapter 3",
         historicalContext: {
+            backgroundImage: "/historical-context-com-2.png",
             title: "Historical Context",
             number: "Section 2/4",
             points: [
@@ -120,6 +123,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "/moral-commission2.png",
             title: "FREEDOM ISN'T FREE",
             number: "Section 3/4",
             message: "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
@@ -136,7 +140,7 @@ export const locationData = {
     mansion: {
         chapterNumber: 4,
         title: "URI GILBERT MANSION",
-        backgroundImage: "/placeholder.png",
+        backgroundImage: "/mansion.png",
         quote: {
             text: "Are you a Negro?",
             author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
@@ -157,6 +161,7 @@ export const locationData = {
         },
         nextChapter: "Chapter 4",
         historicalContext: {
+            backgroundImage: "/historical-context-mansion.png",
             title: "Historical Context",
             number: "Section 2/4",
             points: [
@@ -166,6 +171,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "/moral-mansion.png",
             title: "THE INVISIBLE MATTER AS MUCH AS THE VISIBLE",
             number: "Section 3/4",
             message: "Despite Charles becoming \"invisible\" in Troy, his presence there reflects the importance of one's reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.",
@@ -182,7 +188,7 @@ export const locationData = {
     ferry: {
         chapterNumber: 5,
         title: "WASHINGTON STREET FERRY LANDING",
-        backgroundImage: "/placeholder.png",
+        backgroundImage: "/ferry.png",
         quote: {
             text: "The crowd was like a lynch mob in reverse.",
             author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
@@ -202,6 +208,7 @@ export const locationData = {
         },
         nextChapter: "Chapter 5",
         historicalContext: {
+            backgroundImage: "/historical-context-ferry.png",
             title: "Historical Context",
             number: "Section 2/4",
             points: [
@@ -211,6 +218,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "/moral-ferry.png",
             title: "AUTHORITARI-ANISM IS PERSISTENT",
             number: "Section 3/4",
             message: "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
@@ -227,7 +235,7 @@ export const locationData = {
     barber: {
         chapterNumber: 6,
         title: "PETER BALTIMORE'S BARBERSHOP",
-        backgroundImage: "/placeholder.png",
+        backgroundImage: "/barber.png",
         quote: {
             text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
             author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15"
@@ -247,6 +255,7 @@ export const locationData = {
         },
         nextChapter: "Chapter 1",
         historicalContext: {
+            backgroundImage: "/historical-context-barber.png",
             title: "Historical Context",
             number: "Section 2/4",
             points: [
@@ -256,6 +265,7 @@ export const locationData = {
             ]
         },
         moralMessage: {
+            backgroundImage: "/moral-barber.png",
             title: "WE ARE RESPONSIBLE FOR JUSTICE",
             number: "Section 3/4",
             message: "The collective effort of the Troy community to secure Charles's freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
