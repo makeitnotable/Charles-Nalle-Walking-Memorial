@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router';
 import Home from './Home';
 import MapBox from './components/map';
-import LocationPage from './components/LocationPage';
+import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
 import { LOCATIONS } from './components/map/constants';

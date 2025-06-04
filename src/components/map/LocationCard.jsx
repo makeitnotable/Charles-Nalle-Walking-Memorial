@@ -5,6 +5,7 @@ import gilbertMansionImg from '../../assets/mansion.png';
 import ferryLandingImg from '../../assets/ferry.png';
 import barberImg from '../../assets/barber.png';
 import { Link } from 'react-router';
+import Arrow from '../Arrow';
 // Image mapping for locations
 const locationImages = {
     'Bakery': bakeryImg,
@@ -51,10 +52,14 @@ const LocationCard = ({ location, isSelected, onSelect, onNavigate }) => {
                         </div>
                         <div className='flex flex-col gap-2'>
                             <p className='text-2xl text-primary-12 text-left'>{location.name}</p>
-                            {/* @todo: get proper arrow icon */}
                             <div className='flex flex-row items-center'>
-                                <div className='w-full h-[1px] bg-primary-12' />
-                                <p className='text-primary-12 mt-1 -ml-1'>→</p>
+                                <Arrow
+                                    length={300}
+                                    direction={0}
+                                    className="text-primary-12"
+                                    strokeWidth={1}
+                                    triangleSize={8}
+                                />
                             </div>
                         </div>
                     </div>
