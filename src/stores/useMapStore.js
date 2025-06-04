@@ -7,6 +7,8 @@ const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
 // Hold the map instance outside the store's state
 let mapInstance = null;
+// Store markers to update them later
+let markers = [];
 
 export const useMapStore = create((set, get) => ({
     selectedLocation: null,
@@ -31,16 +33,28 @@ export const useMapStore = create((set, get) => ({
         });
 
         map.on('load', () => {
+            // Clear existing markers
+            markers.forEach(marker => marker.remove());
+            markers = [];
+
             // Create custom markers
             LOCATIONS.forEach((location, index) => {
-                const markerDiv = createMarkerElement(location.name, index + 1);
+                const isActive = location.name === initialLocationName;
+                const markerDiv = createMarkerElement(location.name, index + 1, isActive);
 
-                new mapboxgl.Marker({ element: markerDiv })
+                const marker = new mapboxgl.Marker({ element: markerDiv })
                     .setLngLat(location.coordinates)
                     .addTo(map);
 
                 markerDiv.addEventListener('click', () => {
                     get().flyToLocation(location);
+                });
+
+                // Store marker reference and location name for later updates
+                markers.push({
+                    marker,
+                    locationName: location.name,
+                    index: index + 1
                 });
             });
 
@@ -69,15 +83,30 @@ export const useMapStore = create((set, get) => ({
         if (mapInstance) {
             mapInstance.remove();
             mapInstance = null; // Clear the instance
+            markers = []; // Clear markers
             set({ selectedLocation: null, isOverview: true }); // Reset state
         }
+    },
+
+    // Helper to update marker styles
+    updateMarkerStyles: (selectedLocationName) => {
+        markers.forEach(({ marker, locationName, index }) => {
+            const isActive = locationName === selectedLocationName;
+            const markerDiv = createMarkerElement(locationName, index, isActive);
+            marker.getElement().innerHTML = markerDiv.innerHTML;
+        });
     },
 
     // Action to fly to a specific location
     flyToLocation: (loc) => {
         if (!mapInstance) return;
 
-        set({ selectedLocation: loc.name, isOverview: false });
+        const newSelectedLocation = loc.name;
+        set({ selectedLocation: newSelectedLocation, isOverview: false });
+
+        // Update marker styles
+        get().updateMarkerStyles(newSelectedLocation);
+
         mapInstance.flyTo(getFlyToParams(loc.coordinates));
     },
 
@@ -86,6 +115,10 @@ export const useMapStore = create((set, get) => ({
         if (!mapInstance) return;
 
         set({ selectedLocation: null, isOverview: true });
+
+        // Update marker styles (none active)
+        get().updateMarkerStyles(null);
+
         mapInstance.easeTo({
             center: MAP_CONFIG.initialCenter,
             zoom: MAP_CONFIG.defaultZoom,

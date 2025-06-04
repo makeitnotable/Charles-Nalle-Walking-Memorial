@@ -1,9 +1,9 @@
 import { Routes, Route, useLocation } from 'react-router';
-import './App.css';
 import Home from './Home';
 import MapBox from './components/map';
 import LocationPage from './components/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
+import BrandingPage from './components/BrandingPage';
 import { LOCATIONS } from './components/map/constants';
 
 export const Layout = () => {
@@ -12,9 +12,7 @@ export const Layout = () => {
 
   return (
     <>
-      <div className={`w-full ${isRootRoute ? 'hidden' : 'block'}`}>
-        <MapBox interactive={true} showButtons={true} />
-      </div>
+      <MapBox interactive={true} showButtons={true} />
     </>
   );
 }
@@ -26,18 +24,21 @@ function App() {
   // It should start with '/' and have only one segment, excluding '/' and '/map'
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map';
+  const isRootRoute = location.pathname === '/';
 
   const menuPosition = isLocationPageRoute ? 'bottom-right' : 'top-right';
 
   return (
-    <div className="">
-      {/* Global menu overlay - available on all pages */}
-      <MenuOverlay locations={LOCATIONS} position={menuPosition} />
+    <div className="relative">
+      <div className="absolute top-0 right-0">
+        {!isRootRoute && <MenuOverlay locations={LOCATIONS} position={menuPosition} />}
+      </div>
 
       <div id="page-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<Layout />} />
+          <Route path="/branding" element={<BrandingPage />} />
 
           {/* Location routes */}
           <Route path="/:location" element={<LocationPage />} />
