@@ -3,5 +3,81 @@
 @import "tailwindcss";
 
 body {
-    background-color: var(--color-background);
+    background-color: var(--color-primary-2);
+}
+
+@theme {
+
+    /* Font Family */
+    --font-sans: "Martel Sans", sans-serif;
+
+    /* Primary Colors */
+    --color-primary-1: #0E0807;
+    --color-primary-2: #1D1411;
+    --color-primary-3: #341A11;
+    --color-primary-4: #4A1B0A;
+    --color-primary-5: #592411;
+    --color-primary-6: #69311D;
+    --color-primary-7: #80412B;
+    --color-primary-8: #A55438;
+    --color-primary-9: #F28835;
+    --color-primary-10: #E45B27;
+    --color-primary-11: #FF9770;
+    --color-primary-12: #FED9CC;
+
+    /* Secondary Colors */
+    --color-secondary-1: #0F0707;
+    --color-secondary-2: #1F1110;
+    --color-secondary-3: #3D0E0E;
+    --color-secondary-4: #55050B;
+    --color-secondary-5: #660B11;
+    --color-secondary-6: #791B1D;
+    --color-secondary-7: #932C2B;
+    --color-secondary-8: #BE3A3A;
+    --color-secondary-9: #BF3B3B;
+    --color-secondary-10: #AF2B2E;
+    --color-secondary-11: #FF8F8B;
+    --color-secondary-12: #FFD0CB;
+
+    /* Tertiary Colors */
+    --color-tertiary-1: #010036;
+    --color-tertiary-2: #010550;
+    --color-tertiary-3: #040F74;
+    --color-tertiary-4: #0921B3;
+    --color-tertiary-5: #133092;
+    --color-tertiary-6: #1E3FA2;
+    --color-tertiary-7: #2C50B4;
+    --color-tertiary-8: #3C63C9;
+    --color-tertiary-9: #537DE5;
+    --color-tertiary-10: #477DD7;
+    --color-tertiary-11: #8AB2FF;
+    --color-tertiary-12: #CCE1FF;
+
+    /* Grayscale Colors */
+    --color-gray-1: #080907;
+    --color-gray-2: #191715;
+    --color-gray-3: #24211D;
+    --color-gray-4: #2C2924;
+    --color-gray-5: #34302A;
+    --color-gray-6: #3D3A34;
+    --color-gray-7: #4B4741;
+    --color-gray-8: #648059;
+    --color-gray-9: #706D66;
+    --color-gray-10: #7E7A73;
+    --color-gray-11: #B7B3AB;
+    --color-gray-12: #F0EDEB;
+
+    /* Neutral Colors */
+    --color-neutral-1: #070912;
+    --color-neutral-2: #100A06;
+    --color-neutral-3: #302414;
+    --color-neutral-4: #503D22;
+    --color-neutral-5: #705731;
+    --color-neutral-6: #8F7040;
+    --color-neutral-7: #AD8950;
+    --color-neutral-8: #BB9E70;
+    --color-neutral-9: #C9B490;
+    --color-neutral-10: #D7C9B0;
+    --color-neutral-11: #E6DECF;
+    --color-neutral-12: #F6F3EE;
 }

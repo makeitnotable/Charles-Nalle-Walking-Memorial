@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router';
 export const OpenMenu = ({ locations, onLocationSelect, onNavigateToLocation }) => {
     // Map location names to their original labels in the UI
     const locationLabels = {
-        'Bakery': '1. Bakery',
-        'Mutual Bank Building': '2. Bank',
-        'Gilbert Mansion': '3. Mansion',
-        'Ferry Landing': '4. Ferry',
-        "Peter Baltimore's Barbershop": '5. Barbershop'
+        'Bakery': '1. Holeur\'s Fashionable Bakery',
+        'Commissioner Part 1': '2. Part 1 Office of the Commissioner',
+        'Commissioner Part 2': '3. Part 2 Office of the Commissioner',
+        'Gilbert Mansion': '4. Uri Gilbert Mansion',
+        'Ferry Landing': '5. Washington Street Ferry Landing',
+        "Baltimore's Barbershop": '6. Peter Baltimore\'s Barbershop'
     };
 
     const navigate = useNavigate();

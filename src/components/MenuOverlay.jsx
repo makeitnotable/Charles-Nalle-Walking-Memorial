@@ -5,11 +5,12 @@ import { useTransition } from '../stores/useTransitionStore';
 export const OpenMenu = ({ locations = [], position = 'top-right', onClose }) => {
     // Map location names to their original labels in the UI
     const locationLabels = {
-        'Bakery': '1. Bakery',
-        'Mutual Bank Building': '2. Bank',
-        'Gilbert Mansion': '3. Mansion',
-        'Ferry Landing': '4. Ferry',
-        "Peter Baltimore's Barbershop": '5. Barbershop'
+        'Bakery': '1. Holeur\'s Fashionable Bakery',
+        'Commissioner Part 1': '2. Part 1 Office of the Commissioner',
+        'Commissioner Part 2': '3. Part 2 Office of the Commissioner',
+        'Gilbert Mansion': '4. Uri Gilbert Mansion',
+        'Ferry Landing': '5. Washington Street Ferry Landing',
+        "Baltimore's Barbershop": '6. Peter Baltimore\'s Barbershop'
     };
 
     const navigate = useNavigate();
@@ -105,11 +106,11 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
                     />
                 ) : (
                     <div className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
-                        <div className='bg-[#4A1B0A] border-2 border-[#69311D] rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
+                        <div className='bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
                             <div className='flex flex-col gap-2 w-full items-center'>
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
-                                <div className='bg-[#F26835] h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
+                                <div className='bg-primary-10 h-0.5 w-10 rounded-full' />
                             </div>
                         </div>
                     </div>
