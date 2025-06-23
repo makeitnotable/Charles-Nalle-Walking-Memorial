@@ -3,7 +3,7 @@ import { Button } from '../Button';
 
 export default function NarrativeSection({ data }) {
     return (
-        <div className='space-y-4'>
+        <div className='space-y-4 p-4'>
             <div className='text-text-primary space-y-4'>
                 <p className='text-primary-12 text-sm'>{data.narrative.title}</p>
                 {data.narrative.content.map((paragraph, index) => (

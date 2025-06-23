@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const ArrowDown = ({ className = 'text-primary-12' }) => {
     return (
         <svg
-            width="20"
-            height="20"
+            width="auto"
+            height="100%"
             viewBox="0 0 20 20"
             className={className}
             fill="none"

@@ -31,7 +31,7 @@ export default function LocationPage() {
     }
 
     return (
-        <div className="h-full space-y-8">
+        <div className="space-y-8">
             <HeroSection data={data} />
             <QuoteSection data={data} />
             <AudioPlayerSection data={data} />

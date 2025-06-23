@@ -39,7 +39,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="px-4 w-full flex justify-center">
-                        <Button variant="filled" onClick={handleContinue}>Continue</Button>
+                        <Button variant="filled-secondary" onClick={handleContinue}>Continue</Button>
                     </div>
                     <div className="flex flex-col justify-between items-center p-4">
                         <p className="text-gray-11 text-sm text-center">The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy and the story of Charles Nalle</p>

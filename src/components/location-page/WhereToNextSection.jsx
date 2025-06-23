@@ -5,7 +5,7 @@ import { LOCATIONS } from '../map/constants';
 
 export default function WhereToNextSection({ data }) {
     return (
-        <div className='space-y-4'>
+        <div className='space-y-4 p-4'>
             <div className='space-y-2'>
                 <p className='text-primary-12 text-5xl'>{data.whereToNext.title}</p>
                 <p className='text-primary-12'>{data.whereToNext.number}</p>
@@ -19,7 +19,7 @@ export default function WhereToNextSection({ data }) {
                 interactive={false}
                 showButtons={false}
             />
-            <div className='flex flex-row justify-center items-center'>
+            <div className='flex flex-row justify-center items-center pt-10'>
                 <Button variant='filled'>
                     Get Directions
                 </Button>

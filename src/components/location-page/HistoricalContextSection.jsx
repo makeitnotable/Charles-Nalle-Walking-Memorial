@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function HistoricalContextSection({ data }) {
     return (
-        <div className='space-y-15'>
+        <div className='space-y-15 p-4'>
             <div className="space-y-4">
                 <p className='text-primary-12 text-5xl'>{data.historicalContext.title}</p>
                 <p className='text-primary-12'>{data.historicalContext.number}</p>

@@ -15,6 +15,8 @@ export const Button = ({
                 return 'border border-2 border-primary-8 text-primary-11';
             case 'filled':
                 return 'bg-primary-4 text-primary-11 hover:bg-primary-5 border-2 border-primary-6';
+            case 'filled-secondary':
+                return 'bg-[#FFC6B3] text-[#BD3900] border-2 border-[#F7A98F]';
             default:
                 return 'text-primary-11';
         }

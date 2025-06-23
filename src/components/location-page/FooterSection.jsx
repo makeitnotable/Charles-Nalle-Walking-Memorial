@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function FooterSection() {
     return (
-        <div className='pt-6 pb-6 space-y-6'>
+        <div className='pt-6 pb-6 space-y-6 p-4'>
             <p className='text-5xl text-primary-12'>Share</p>
             <div className='flex gap-5 items-center'>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
