@@ -9,11 +9,11 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
     // Map location names to their original labels in the UI
     const locationLabels = {
         'Bakery': '1. Bakery',
-        'Commissioner Part 1': '2. Commissioner Part 1',
+        'Bank': '2. Bank',
         'Commissioner Part 2': '3. Commissioner Part 2',
-        'Gilbert Mansion': '4. Gilbert',
-        'Ferry Landing': '5. Ferry',
-        "Baltimore's Barbershop": '6. Barbershop'
+        'Mansion': '4. Mansion',
+        'Ferry': '5. Ferry',
+        "Barbershop": '6. Barbershop'
     };
 
     const navigate = useNavigate();

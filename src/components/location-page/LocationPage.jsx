@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { locationData } from '../../data/locationData';
-import { useTransition } from '../../stores/useTransitionStore';
+import { useEffect } from 'react';
+import { useNavigation } from '../hooks/useNavigation'; // Corrected import path
 import HeroSection from './HeroSection';
 import QuoteSection from './QuoteSection';
 import AudioPlayerSection from './AudioPlayerSection';
@@ -12,34 +10,35 @@ import WhereToNextSection from './WhereToNextSection';
 import FooterSection from './FooterSection';
 
 export default function LocationPage() {
-    const navigate = useNavigate();
-    const { location } = useParams();
-    const data = locationData[location];
-    const { play } = useTransition();
+
+    const { currentChapter, goToNextChapter, goToPrevChapter } = useNavigation();
+
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [currentChapter]);
 
-    const handleNavigate = (path) => {
-        play(() => {
-            navigate(path);
-        });
-    };
-
-    if (!data) {
+    if (!currentChapter) {
         return <div className="p-4 text-text-primary text-center">Location not found</div>;
     }
 
     return (
-        <div className="space-y-8">
-            <HeroSection data={data} />
-            <QuoteSection data={data} />
-            <AudioPlayerSection data={data} />
-            <NarrativeSection data={data} />
-            <HistoricalContextSection data={data} />
-            <MoralMessageSection data={data} handleNavigate={handleNavigate} />
-            <WhereToNextSection data={data} />
+        <div className=''> 
+            <HeroSection data={currentChapter} />
+            <QuoteSection data={currentChapter} />
+            <AudioPlayerSection data={currentChapter} />
+            <NarrativeSection
+                data={currentChapter}
+                goToNextChapter={goToNextChapter}
+                goToPrevChapter={goToPrevChapter}
+            />
+            <HistoricalContextSection data={currentChapter} />
+            <MoralMessageSection
+                data={currentChapter}
+                goToNextChapter={goToNextChapter}
+                goToPrevChapter={goToPrevChapter}
+            />
+            <WhereToNextSection data={currentChapter} />
             <FooterSection />
         </div>
     );
-} 
+}

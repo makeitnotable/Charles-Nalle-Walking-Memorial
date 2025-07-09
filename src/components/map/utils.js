@@ -30,7 +30,9 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
     justify-content: center;
     color: ${textColor};
     border: 1px solid ${borderColor};
-    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
     cursor: pointer;
   ">
   <div style="
