@@ -8,11 +8,11 @@ export default function HistoricalContextSection({ data }) {
         <p className="text-[#F6F3EE] text-xs font-medium font-['Poppins']">{data.historicalContext.number}</p>
       </div>
       <div
-        className='w-full h-72 rounded-3xl border-2 border-primary-6'
+        className='w-auto h-65 rounded-2xl border-2 border-primary-6'
         style={{
           backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.historicalContext.backgroundImage}')`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top",
           backgroundRepeat: "no-repeat",
         }}
       />

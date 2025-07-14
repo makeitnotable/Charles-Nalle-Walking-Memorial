@@ -6,7 +6,7 @@ export default function HeroSection({ data }) {
             <div className="flex-none space-y-4">
                 <div className="pt-6 px-6 space-y-4">
                     <div className="flex flex-row justify-between items-center">
-                        <p className="font-poppins text-[12px] font-normal leading-[15px] text-primary-10">CHAPTER</p>
+                        <p className="font-poppins text-[12px] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
                         <div className="h-5 w-5 rounded-full bg-primary-10 flex items-center justify-center">
                             <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>

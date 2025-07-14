@@ -51,10 +51,10 @@ export default function AudioPlayerSection({ data }) {
                 preload="metadata"
             />
             <div className='bg-primary-3 border-b-2 border-primary-6 rounded-b-3xl space-y-6 p-4'>
-                <div className="w-full h-100 bg-tertiary-4 rounded-2xl border-primary-6 border-2" style={{
-                    backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage}')`,
+                <div className="w-auto h-65 rounded-2xl border-primary-6 border-2" style={{
+                    backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage}')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: 'top',
                     backgroundRepeat: 'no-repeat',
                 }} />
                 <div className="flex flex-row justify-between items-start">
@@ -81,7 +81,7 @@ export default function AudioPlayerSection({ data }) {
                             <p className="text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
-                    <div className='bg-primary-10 rounded-3xl px-2 py-1 mr-3'>
+                    <div className='bg-primary-10 rounded-3xl px-2  mr-3'>
                         <p className='text-primary-12 font-poppins font-[500] text-[12px]'>{formatTime(currentTime)}</p>
                     </div>
                 </div>
