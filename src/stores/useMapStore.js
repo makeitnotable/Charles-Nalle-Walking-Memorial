@@ -80,8 +80,6 @@ export const useMapStore = create((set, get) => ({
 
         // Store the instance in the module-scoped variable
         mapInstance = map;
-        // No need to set it in the state anymore
-        // set({ map });
     },
 
     // Action to destroy the map instance
