@@ -7,12 +7,9 @@ import BrandingPage from './components/BrandingPage';
 import { LOCATIONS } from './components/map/constants';
 
 export const Layout = () => {
-  const location = useLocation();
-  const isRootRoute = location.pathname === '/';
-
   return (
     <>
-      <MapBox interactive={true} showButtons={true} />
+      <MapBox interactive={true} showButtons={true} initialLocationName={null} />
     </>
   );
 }

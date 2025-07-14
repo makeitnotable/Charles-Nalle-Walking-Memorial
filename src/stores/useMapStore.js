@@ -40,7 +40,7 @@ export const useMapStore = create((set, get) => ({
             // Create custom markers only for locations where showPin is true or not explicitly set to false
             LOCATIONS.filter(location => location.showPin !== false)
                 .forEach((location, index) => {
-                    const isActive = location.name === initialLocationName;
+                    const isActive = initialLocationName && location.name === initialLocationName;
                     const markerDiv = createMarkerElement(location.name, index + 1, isActive);
 
                     const marker = new mapboxgl.Marker({ element: markerDiv })
@@ -59,17 +59,22 @@ export const useMapStore = create((set, get) => ({
                     });
                 });
 
-            // Initial zoom
-            const initialLocation = LOCATIONS.find((loc) => loc.name === initialLocationName);
-            if (initialLocation) {
-                map.easeTo({
-                    center: initialLocation.coordinates,
-                    zoom: 20,
-                    curve: 1.4,
-                    duration: 5000,
-                    essential: true,
-                });
-                set({ selectedLocation: initialLocation.name, isOverview: false });
+            // Initial zoom - only if initialLocationName is provided
+            if (initialLocationName) {
+                const initialLocation = LOCATIONS.find((loc) => loc.name === initialLocationName);
+                if (initialLocation) {
+                    map.easeTo({
+                        center: initialLocation.coordinates,
+                        zoom: 20,
+                        curve: 1.4,
+                        duration: 5000,
+                        essential: true,
+                    });
+                    set({ selectedLocation: initialLocation.name, isOverview: false });
+                }
+            } else {
+                // Stay in overview mode
+                set({ selectedLocation: null, isOverview: true });
             }
         });
 
