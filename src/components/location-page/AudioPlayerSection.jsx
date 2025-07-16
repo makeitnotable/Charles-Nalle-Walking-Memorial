@@ -50,7 +50,7 @@ export default function AudioPlayerSection({ data }) {
                 src="/bakery.mp3"
                 preload="metadata"
             />
-            <div className='bg-primary-3 border-b-2 border-primary-6 rounded-b-3xl space-y-6 p-4'>
+            <div className='bg-primary-3 border-b-2 border-primary-6 pt-10 rounded-b-3xl space-y-6 p-4'>
                 <div className="w-auto h-65 rounded-2xl border-primary-6 border-2" style={{
                     backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage}')`,
                     backgroundSize: 'cover',

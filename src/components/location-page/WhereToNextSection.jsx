@@ -18,11 +18,11 @@ export default function WhereToNextSection({ data }) {
                 initialLocationName={LOCATIONS[1].name}
                 height="300px"
                 width="100%"
-                className="rounded-3xl overflow-hidden mt-10 border-2 border-primary-6"
+                className="rounded-3xl overflow-hidden mt-10 mb-5 border-2 border-primary-6"
                 interactive={false}
                 showButtons={false}
             />
-            <div className='flex w-flex-row justify-center items-center p-8'>
+            <div className='flex w-full flex-row justify-center items-center p-8 mt-'>
                 <Button variant='filled'>
                     Get Directions
                 </Button>
