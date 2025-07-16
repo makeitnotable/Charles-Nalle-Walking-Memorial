@@ -40,8 +40,8 @@ const LocationCard = ({ location, onNavigate }) => {
                 <p>{firstLine}</p>
                 {secondLine && <p>{secondLine}</p>}
               </div>
-              <div className='flex flex-row items-center'>
-                <Arrow length={300} direction={0} className='text-primary-12' strokeWidth={1} triangleSize={8} />
+              <div className='flex flex-row items-center '>
+                <Arrow length={300} direction={0} className=' -mb-2 text-primary-12' strokeWidth={2} triangleSize={10} />
               </div>
             </div>
           </div>
