@@ -129,7 +129,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                 <div className="absolute inset-0 z-0" style={{
                     backgroundImage: `linear-gradient(#1D1411, rgba(16, 10, 6, 0.9), #1D1411), url('${data.moralMessage.backgroundImage}')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: 'top',
                     backgroundRepeat: 'no-repeat',
                 }} />
                 <div className=' text-text-primary space-y-6 relative z-10 m-4'>
