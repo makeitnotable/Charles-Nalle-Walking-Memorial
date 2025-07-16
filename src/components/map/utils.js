@@ -94,7 +94,7 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
  * @param {number} speed - Animation speed
  * @returns {Object} - Animation parameters object
  */
-export const getFlyToParams = (coordinates, zoom = 20, speed = 0.8) => {
+export const getFlyToParams = (coordinates, zoom = 20, speed = 0.6) => {
   return {
     center: coordinates,
     zoom,

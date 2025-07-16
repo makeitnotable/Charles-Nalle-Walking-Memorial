@@ -5,6 +5,7 @@ import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
 import { LOCATIONS } from './components/map/constants';
+import { useMapStore } from './stores/useMapStore';
 
 export const Layout = () => {
   return (
@@ -16,14 +17,21 @@ export const Layout = () => {
 
 function App() {
   const location = useLocation();
+  const { isOverview } = useMapStore();
 
   // Determine if the current path is a location page route (e.g., /bakery)
   // It should start with '/' and have only one segment, excluding '/' and '/map'
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map';
   const isRootRoute = location.pathname === '/';
+  const isMapRoute = location.pathname === '/map';
 
-  const menuPosition = isLocationPageRoute ? 'bottom-right' : 'top-right';
+  // Menu position logic:
+  // - Location pages: bottom-right
+  // - Map overview: bottom-right
+  // - Map with location selected: top-right  
+  // - Other routes: top-right
+  const menuPosition = isLocationPageRoute || (isMapRoute && isOverview) ? 'bottom-right' : 'top-right';
 
   return (
     <div className="relative">

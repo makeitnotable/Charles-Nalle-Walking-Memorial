@@ -81,7 +81,7 @@ export const MAP_CONFIG = {
             lineColor: '#F26835'
         },
         inactive: {
-            scale: 0.7,
+            scale: 0.8,
             backgroundColor: '#4A1B0A',
             textColor: '#FF9770',
             borderColor: '#80412B',
