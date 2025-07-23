@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LOCATIONS } from './constants';
-import LocationCard from './SwipeableLocationCard';
+import LocationCard from './LocationCard';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
 
