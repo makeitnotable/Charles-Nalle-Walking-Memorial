@@ -1,7 +1,7 @@
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useCallback, useRef } from 'react';
-import { LOCATIONS } from './constants';
+import { SWIPEABLE_LOCATIONS } from './constants';
 import LocationCard from './LocationCard';
 import { useMapStore } from '../../stores/useMapStore';
 import { memo } from 'react';
@@ -9,26 +9,9 @@ import { memo } from 'react';
 // Memoize LocationCard to prevent unnecessary re-renders
 const MemoizedLocationCard = memo(LocationCard);
 
-// Lazy loading plugin for images
-const lazyLoadPlugin = (slider) => {
-  slider.on('slideChanged', () => {
-    const currentIndex = slider.track.details.rel;
-    const preloadIndices = [currentIndex - 1, currentIndex, currentIndex + 1];
-    preloadIndices.forEach((index) => {
-      if (LOCATIONS[index]?.image) {
-        const img = new Image();
-        img.src = LOCATIONS[index].image; // Preload image
-      }
-    });
-  });
-};
-
 const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   const { flyToLocation } = useMapStore();
   const timeoutRef = useRef(null);
-
-  // Get only locations with showPin: true for the carousel
-  const swipeableLocations = LOCATIONS.filter(loc => loc.showPin !== false);
 
   // Simplified debounced map update
   const debouncedMapUpdate = useCallback(
@@ -44,63 +27,60 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   );
 
   const initialIndex = currentLocation
-    ? swipeableLocations.findIndex((loc) => loc.name === currentLocation)
+    ? SWIPEABLE_LOCATIONS.findIndex((loc) => loc.name === currentLocation)
     : 0;
 
-  const [sliderRef] = useKeenSlider(
-    {
-      slides: {
-        perView: 1.1, 
-        spacing: 10,
-        origin: 'center',
-      },
-      breakpoints: {
-        '(min-width: 640px)': {
-          slides: {
-            perView: 1.2,
-            spacing: 12,
-            origin: 'center',
-          },
-        },
-        '(min-width: 1024px)': {
-          slides: {
-            perView: 3,
-            spacing: 24,
-            origin: 'center',
-          },
+  const [sliderRef] = useKeenSlider({
+    slides: {
+      perView: 1.1, 
+      spacing: 10,
+      origin: 'center',
+    },
+    breakpoints: {
+      '(min-width: 640px)': {
+        slides: {
+          perView: 1.2,
+          spacing: 12,
+          origin: 'center',
         },
       },
-      mode: 'snap',
-      initial: initialIndex >= 0 ? initialIndex : 0,
-      drag: true,
-      rubberband: false, 
-      dragSpeed: 1,
-      renderMode: 'performance', // Optimize rendering
-      defaultAnimation: {
-        duration: 400, 
-        easing: (t) => t, 
-      },
-      created: (s) => {
-        s.container.style.willChange = 'transform';
-      },
-      destroyed: (s) => {
-        if (s.container) {
-          s.container.style.willChange = 'auto';
-        }
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      },
-      animationEnded: (s) => {
-        const currentIndex = s.track.details.rel;
-        const location = swipeableLocations[currentIndex];
-        if (location) {
-          debouncedMapUpdate(location);
-        }
+      '(min-width: 1024px)': {
+        slides: {
+          perView: 3,
+          spacing: 24,
+          origin: 'center',
+        },
       },
     },
-    [lazyLoadPlugin]
-  );
+    mode: 'snap',
+    initial: initialIndex >= 0 ? initialIndex : 0,
+    drag: true,
+    rubberband: false, 
+    dragSpeed: 1,
+    renderMode: 'performance', // Optimize rendering
+    defaultAnimation: {
+      duration: 400, 
+      easing: (t) => t, 
+    },
+    created: (s) => {
+      s.container.style.willChange = 'transform';
+    },
+    destroyed: (s) => {
+      if (s.container) {
+        s.container.style.willChange = 'auto';
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    },
+    animationEnded: (s) => {
+      const currentIndex = s.track.details.rel;
+      const location = SWIPEABLE_LOCATIONS[currentIndex];
+      if (location) {
+        debouncedMapUpdate(location);
+      }
+    },
+  });
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-10">
@@ -115,7 +95,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
         role="region"
         aria-label="Location cards slider"
       >
-        {swipeableLocations.map((location) => (
+        {SWIPEABLE_LOCATIONS.map((location) => (
           <div
             key={location.name}
             className="keen-slider__slide"

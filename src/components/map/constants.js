@@ -50,6 +50,9 @@ export const LOCATIONS = [
     },
 ];
 
+// Locations that should appear in the carousel (only those with showPin: true)
+export const SWIPEABLE_LOCATIONS = LOCATIONS.filter(location => location.showPin === true);
+
 // Fallback icon for locations without an explicit image
 export const DEFAULT_IMAGE = '/assets/default-marker.png';
 
