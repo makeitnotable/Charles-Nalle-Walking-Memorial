@@ -4,7 +4,7 @@ import { locationData } from "../../data/locationData";
 
 const LocationCard = memo(({ location, onNavigate }) => {
   const locationKey = location.path.slice(1); // Remove leading slash
-  const { title, cardTitle, backgroundImage } = locationData[locationKey];
+  const { title, cardTitle, backgroundImage, chapterNumber } = locationData[locationKey];
 
   const [firstLine, secondLine] = cardTitle === "Holeur's Fashionable Bakery" 
     ? ["Holeur's", "Fashionable Bakery"]
@@ -48,7 +48,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
           <div className='flex flex-row justify-between items-center'>
             <p className='uppercase text-xs font-normal font-poppins text-primary-11 leading-none'>Chapter</p>
             <div className='rounded-full w-[16px] h-[16px] flex justify-center items-center px-[6px] aspect-square bg-primary-10'>
-              <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>1</p>
+              <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{chapterNumber}</p>
             </div>
           </div>
           <div className='flex flex-col gap-2'>
