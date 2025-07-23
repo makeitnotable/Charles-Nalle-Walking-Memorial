@@ -27,6 +27,9 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   const { flyToLocation } = useMapStore();
   const timeoutRef = useRef(null);
 
+  // Get only locations with showPin: true for the carousel
+  const swipeableLocations = LOCATIONS.filter(loc => loc.showPin !== false);
+
   // Simplified debounced map update
   const debouncedMapUpdate = useCallback(
     (location) => {
@@ -41,7 +44,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   );
 
   const initialIndex = currentLocation
-    ? LOCATIONS.findIndex((loc) => loc.name === currentLocation)
+    ? swipeableLocations.findIndex((loc) => loc.name === currentLocation)
     : 0;
 
   const [sliderRef] = useKeenSlider(
@@ -90,7 +93,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
       },
       animationEnded: (s) => {
         const currentIndex = s.track.details.rel;
-        const location = LOCATIONS[currentIndex];
+        const location = swipeableLocations[currentIndex];
         if (location) {
           debouncedMapUpdate(location);
         }
@@ -112,7 +115,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
         role="region"
         aria-label="Location cards slider"
       >
-        {LOCATIONS.map((location) => (
+        {swipeableLocations.map((location) => (
           <div
             key={location.name}
             className="keen-slider__slide"
