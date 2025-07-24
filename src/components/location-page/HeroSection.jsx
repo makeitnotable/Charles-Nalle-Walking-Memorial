@@ -1,4 +1,4 @@
-import Arrow from '../Arrow';
+// import Arrow from '../Arrow';
 
 export default function HeroSection({ data }) {
     return (
@@ -26,7 +26,7 @@ export default function HeroSection({ data }) {
                 </div>
             </div>
             <img
-                src={data.backgroundImage}
+                src={data.backgroundImage.vertical}
                 alt={data.title}
                 className="mt-5 w-full flex-1 bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t  object-cover object-center"
             />

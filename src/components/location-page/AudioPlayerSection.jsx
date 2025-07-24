@@ -51,10 +51,10 @@ export default function AudioPlayerSection({ data }) {
                 preload="metadata"
             />
             <div className='bg-primary-3 border-b-2 border-primary-6 pt-10 rounded-b-3xl space-y-6 p-4'>
-                <div className="w-auto h-65 rounded-2xl border-primary-6 border-2" style={{
-                    backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage}')`,
+                <div className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2" style={{
+                    backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'top',
+                    backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                 }} />
                 <div className="flex flex-row justify-between items-start">

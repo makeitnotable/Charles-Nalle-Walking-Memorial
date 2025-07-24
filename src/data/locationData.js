@@ -3,7 +3,13 @@ export const locationData = {
     chapterNumber: 1,
     title: "HOLEUR'S FASHIONABLE BAKERY",
     cardTitle: "Holeur's Fashionable Bakery",
-    backgroundImage: "/bakery.png",
+    backgroundImage: {
+      horizontal: "holeurs-fashionable-bakery/horizontal.png",
+      vertical: "holeurs-fashionable-bakery/vertical.png",
+      square: "holeurs-fashionable-bakery/square.png",
+      historical: "holeurs-fashionable-bakery/historical.png",
+      moral: "holeurs-fashionable-bakery/moral.png",
+    },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
       author: "- United States Deputy Marshal Holmes",
@@ -22,7 +28,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 2",
     historicalContext: {
-      backgroundImage: "/historical-context-bakery.png",
+      backgroundImage: "holeurs-fashionable-bakery/historical.png",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -32,7 +38,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-message-bakery.png",
+      backgroundImage: "holeurs-fashionable-bakery/moral.png",
       title: "NOT ALL LAWS ARE MORAL",
       number: "Section 3/4",
       message:
@@ -52,7 +58,13 @@ export const locationData = {
     chapterNumber: 2,
     title: "PART 1 OFFICE OF THE COMMISSIONER",
     cardTitle: "Office of The Commissioner",
-    backgroundImage: "/commisioner1.png",
+    backgroundImage: {
+      horizontal: "office-commissioner-pt1/horizontal.png",
+      vertical: "office-commissioner-pt1/vertical.png",
+      square: "office-commissioner-pt1/square.png",
+      historical: "office-commissioner-pt1/historical.png",
+      moral: "office-commissioner-pt1/moral.png",
+    },
     quote: {
       text: "If we can get him out into the crowd, we can raise the money in five minutes.",
       author: "- Abolitionist Martin Townsend",
@@ -62,7 +74,7 @@ export const locationData = {
       subtitle: "Part 1 Office of The Commissioner",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4",
       content: [
         "It's hard to imagine that the hands of Marshal Holmes and the slave catchers weren't white with strain as they forcibly marched Charles with a vice-tight grip to the Mutual Bank Building—a grand three-story brick and stone structure on State Street.",
         "In the commissioner's office on the second floor, Charles's fate was being sealed. Cuffed and bruised, he faced Horatio Averill—the lawyer who had helped Charles write letters to his wife, Kitty, but secretly betrayed him by sharing his story with officials. Now, Charles could only listen helplessly as the scratching of pens on paper signed away his freedom.",
@@ -74,7 +86,7 @@ export const locationData = {
     historicalContext: {
       backgroundImage: "/historical-context-com-1.png",
       title: "Historical Context",
-      number: "(2)",
+      number: "Section 2/4",
       points: [
         "In 1847, Frederick Douglass, James McCune Smith—the first Black doctor in the United States—and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
         "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
@@ -84,7 +96,7 @@ export const locationData = {
     moralMessage: {
       backgroundImage: "/moral-commission1.png",
       title: "WHEN NOT CHALLENGED INJUSTICE THRIVES",
-      number: "(3)",
+      number: "Section 3/4",
       message:
         "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
       callToAction: {
@@ -95,7 +107,7 @@ export const locationData = {
     },
     whereToNext: {
       title: "WHERE TO NEXT?",
-      number: "(4)",
+      number: "Section 4/4",
     },
   },
   commissioner2: {

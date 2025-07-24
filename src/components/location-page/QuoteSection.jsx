@@ -45,7 +45,7 @@ export default function QuoteSection({ data }) {
                     ref={backgroundRef}
                     className="absolute inset-0 z-0 will-change-transform"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)), url('${data.backgroundImage}')`,
+                        backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)), url('${data.backgroundImage.vertical}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',

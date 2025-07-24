@@ -138,9 +138,9 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                     </div>
                     <div className='flex justify-end w-full'>
                         <div ref={imageRef} className="w-3/4 h-72 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
-                            backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.moralMessage.backgroundImage}')`,
+                            backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.moral}')`,
                             backgroundSize: 'cover',
-                            backgroundPosition: 'top',
+                            backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
                         }} />
                     </div>

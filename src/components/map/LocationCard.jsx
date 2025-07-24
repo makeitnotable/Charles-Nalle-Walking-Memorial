@@ -31,7 +31,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
           <div className='w-full h-full'>
             {backgroundImage && (
               <img 
-                src={backgroundImage} 
+                src={backgroundImage.square} 
                 alt={title} 
                 className="w-full h-full object-cover border-r-1 border-r-[rgba(105,49,29,1)]" 
                 loading="lazy"
