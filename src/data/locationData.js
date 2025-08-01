@@ -28,7 +28,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 2",
     historicalContext: {
-      backgroundImage: "holeurs-fashionable-bakery/historical.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -38,7 +38,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "holeurs-fashionable-bakery/moral.png",
+      backgroundImage: "backgroundImage.moral",
       title: "NOT ALL LAWS ARE MORAL",
       number: "Section 3/4",
       message:
@@ -114,7 +114,13 @@ export const locationData = {
     chapterNumber: 2,
     title: "PART 2 OFFICE OF THE COMMISSIONER",
     cardTitle: "Part 2: Office of The Commissioner",
-    backgroundImage: "/commisioner2.png",
+    backgroundImage: {
+      horizontal: "office-commissioner-pt2/vertical.png",
+      vertical: "office-commissioner-pt2/vertical.png",
+      square: "office-commissioner-pt2/square.png",
+      historical: "office-commissioner-pt2/historical.png",
+      moral: "office-commissioner-pt2/moral-bg.png",
+    },
     quote: {
       text: "Drag him to the river! Drown him! But don't let them have him!",
       author: "- Harriet Tubman",
@@ -133,7 +139,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 3",
     historicalContext: {
-      backgroundImage: "/historical-context-com-2.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -142,7 +148,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-commission2.png",
+      backgroundImage: "backgroundImage.moral",
       title: "FREEDOM ISN'T FREE",
       number: "Section 3/4",
       message:
@@ -162,7 +168,13 @@ export const locationData = {
     chapterNumber: 3,
     title: "URI GILBERT MANSION",
     cardTitle: "Uri Gilbert Mansion",
-    backgroundImage: "/mansion.png",
+    backgroundImage: {
+      square: "uri-gilbert-mansion/square.png",
+      historical: "uri-gilbert-mansion/historical.png",
+      moral: "uri-gilbert-mansion/moral.png",
+      horizontal: "uri-gilbert-mansion/horizontal.png",
+      vertical: "uri-gilbert-mansion/vertical.png",
+    },
     quote: {
       text: "Are you a Negro?",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
@@ -213,7 +225,16 @@ export const locationData = {
     chapterNumber: 4,
     title: "WASHINGTON STREET FERRY LANDING",
     cardTitle: "Washington Street Ferry Landing",
-    backgroundImage: "/ferry.png",
+    backgroundImage: {
+      square: "washington-ferry/square.png",
+      historical: "washington-ferry/historical.png",
+      moral: "washington-ferry/moral.png",
+      horizontal: "washington-ferry/horizontal.png",
+      vertical: "washington-ferry/vertical.png",
+      narrative1: "washington-ferry/narrative.png",
+      narrative2: "washington-ferry/narrative2.png",
+
+    },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
@@ -233,7 +254,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 5",
     historicalContext: {
-      backgroundImage: "/historical-context-ferry.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -243,7 +264,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-ferry.png",
+      backgroundImage: "backgroundImage.moral",
       title: "AUTHORITARI-ANISM IS PERSISTENT",
       number: "Section 3/4",
       message:
@@ -263,7 +284,16 @@ export const locationData = {
     chapterNumber: 5,
     title: "PETER BALTIMORE'S BARBERSHOP",
     cardTitle: "Peter Baltimore's Barbershop",
-    backgroundImage: "/barber.png",
+    backgroundImage: {
+      square: "peter-baltimores-barbershop/square.png",
+      historical: "peter-baltimores-barbershop/historical.png",
+      moral: "peter-baltimores-barbershop/moral.png",
+      horizontal: "peter-baltimores-barbershop/horizontal.png",
+      vertical: "peter-baltimores-barbershop/vertical.png",
+      narrative1: "peter-baltimores-barbershop/narrative.png",
+      narrative2: "peter-baltimores-barbershop/narrative2.png",
+
+    },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",

@@ -10,7 +10,7 @@ export default function HistoricalContextSection({ data }) {
       <div
         className='w-auto h-65 rounded-2xl mb-12 border-2 border-primary-6'
         style={{
-          backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.historicalContext.backgroundImage}')`,
+          backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.historical}')`,
           backgroundSize: "cover",
           backgroundPosition: "top",
           backgroundRepeat: "no-repeat",
