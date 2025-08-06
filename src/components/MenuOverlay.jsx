@@ -75,40 +75,53 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         'bottom-right': 'bottom-3 right-3'
     };
 
+    // Close button component
+    const CloseButton = ({ isTop = true }) => (
+        <button
+            onClick={handleClose}
+            className={`bg-[#341A11] ${isTop ? 'rounded-t-xl border-b-2' : 'rounded-b-xl border-t-2'} border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors`}
+        >
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        </button>
+    );
+
+    // Menu content component
+    const MenuContent = () => (
+        <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-start p-8'>
+            <div className='text-left gap-6 flex flex-col w-full ml-5'>
+                <button
+                    className='text-lg hover:text-[#F26835] transition-colors text-left'
+                    onClick={goToHome}
+                >
+                    Home
+                </button>
+                <div className='flex flex-col gap-6 ml-3'>
+                    {locations.map((location) => (
+                        <div key={location.name} className="flex flex-col">
+                            <button
+                                className='text-lg text-left hover:text-[#F26835] transition-colors'
+                                onClick={() => navigateToLocation(location)}
+                            >
+                                {locationLabels[location.name] || `${location.name}`}
+                            </button>
+                        </div>
+                    ))}
+                    <p className='text-lg -ml-3'>About</p>
+                </div>
+            </div>
+        </div>
+    );
+
+    const isTopPosition = position === 'top-right';
+
     return (
         <div ref={menuRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
             <div className="bg-[#341A11] border-2 border-[#69311D] rounded-xl">
-                <button
-                    onClick={handleClose}
-                    className='bg-[#341A11] rounded-t-xl border-b-2 border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors'
-                >
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-                <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-start p-8'>
-                    <div className='text-left gap-6 flex flex-col w-full ml-5'>
-                        <button
-                            className='text-lg hover:text-[#F26835] transition-colors text-left'
-                            onClick={goToHome}
-                        >
-                            Home
-                        </button>
-                        <div className='flex flex-col gap-6 ml-3'>
-                            {locations.map((location) => (
-                                <div key={location.name} className="flex flex-col">
-                                    <button
-                                        className='text-lg text-left hover:text-[#F26835] transition-colors'
-                                        onClick={() => navigateToLocation(location)}
-                                    >
-                                        {locationLabels[location.name] || `${location.name}`}
-                                    </button>
-                                </div>
-                            ))}
-                            <p className='text-lg -ml-3'>About</p>
-                        </div>
-                    </div>
-                </div>
+                {isTopPosition && <CloseButton isTop={true} />}
+                <MenuContent />
+                {!isTopPosition && <CloseButton isTop={false} />}
             </div>
         </div>
     );
