@@ -169,7 +169,9 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
             {!isOpen && (
                 <button onClick={handleToggle}>
                     <div ref={hamburgerRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
-                        <div className='bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-br-4xl rounded-tr-xl rounded-bl-xl h-[72px] w-[72px] flex items-center justify-center'>
+                        <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${
+                            position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
+                        }`}>
                             <div className='flex flex-col gap-2 w-full items-center'>
                                 <div
                                     ref={el => barsRef.current[0] = el}
