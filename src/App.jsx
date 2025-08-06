@@ -4,7 +4,7 @@ import MapBox from './components/map';
 import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
-import { LOCATIONS } from './components/map/constants';
+import { SWIPEABLE_LOCATIONS } from './components/map/constants';
 import { useMapStore } from './stores/useMapStore';
 
 export const Layout = () => {
@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="relative">
       <div className="absolute top-0 right-0">
-        {!isRootRoute && <MenuOverlay locations={LOCATIONS} position={menuPosition} />}
+        {!isRootRoute && <MenuOverlay locations={SWIPEABLE_LOCATIONS} position={menuPosition} />}
       </div>
 
       <div id="page-content">
