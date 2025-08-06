@@ -77,24 +77,24 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
 
     return (
         <div ref={menuRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
-            <div className="bg-[#1D1411] border-2 border-[#69311D] rounded-xl">
+            <div className="bg-[#341A11] border-2 border-[#69311D] rounded-xl">
                 <button
                     onClick={handleClose}
-                    className='bg-[#4A1B0A] rounded-t-xl border-b-2 border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors'
+                    className='bg-[#341A11] rounded-t-xl border-b-2 border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors'
                 >
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </button>
-                <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-center p-8'>
-                    <div className='text-left gap-6 flex flex-col'>
+                <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-start p-8'>
+                    <div className='text-left gap-6 flex flex-col w-full ml-5'>
                         <button
-                            className='text-lg hover:text-[#F26835] transition-colors'
+                            className='text-lg hover:text-[#F26835] transition-colors text-left'
                             onClick={goToHome}
                         >
                             Home
                         </button>
-                        <div className='flex flex-col pl-3 gap-6'>
+                        <div className='flex flex-col gap-6 ml-3'>
                             {locations.map((location) => (
                                 <div key={location.name} className="flex flex-col">
                                     <button
@@ -105,7 +105,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
                                     </button>
                                 </div>
                             ))}
-                            <p className='text-lg'>About</p>
+                            <p className='text-lg -ml-3'>About</p>
                         </div>
                     </div>
                 </div>
