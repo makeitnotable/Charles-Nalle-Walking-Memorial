@@ -51,7 +51,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
               <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{chapterNumber}</p>
             </div>
           </div>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col'>
             <div className='flex flex-col text-[18px] font-semibold font-["Martel_Sans"] text-primary-12 text-left leading-tight'>
               <p>{firstLine}</p>
               {secondLine && <p>{secondLine}</p>}
@@ -61,7 +61,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
                 length={300} 
                 direction={0} 
                 className='-mb-2 text-primary-12' 
-                strokeWidth={2} 
+                strokeWidth={1} 
                 triangleSize={10} 
               />
             </div>
