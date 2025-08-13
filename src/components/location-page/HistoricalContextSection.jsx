@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function HistoricalContextSection({ data }) {
   return (
     <div className='space-y-8 p-4'>

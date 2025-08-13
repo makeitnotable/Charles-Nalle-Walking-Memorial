@@ -69,6 +69,14 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         }
     };
 
+    // Navigate to about with transition
+    const goToAbout = () => {
+        handleClose();
+        play(() => {
+            navigate('/about');
+        });
+    };
+
     // Position classes
     const positionClasses = {
         'top-right': 'top-3 right-3',
@@ -108,7 +116,12 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
                             </button>
                         </div>
                     ))}
-                    <p className='text-lg -ml-3'>About</p>
+                    <button
+                        className='text-lg -ml-3 text-left hover:text-[#F26835] transition-colors'
+                        onClick={goToAbout}
+                    >
+                        About
+                    </button>
                 </div>
             </div>
         </div>

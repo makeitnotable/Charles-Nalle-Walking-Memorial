@@ -4,6 +4,8 @@ import MapBox from './components/map';
 import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
+import AboutPage from './AboutPage';
+
 import { SWIPEABLE_LOCATIONS } from './components/map/constants';
 import { useMapStore } from './stores/useMapStore';
 
@@ -22,7 +24,7 @@ function App() {
   // Determine if the current path is a location page route (e.g., /bakery)
   // It should start with '/' and have only one segment, excluding '/' and '/map'
   const pathSegments = location.pathname.split('/').filter(Boolean);
-  const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map';
+  const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map' && location.pathname !== '/about';
   const isRootRoute = location.pathname === '/';
   const isMapRoute = location.pathname === '/map';
 
@@ -44,6 +46,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<Layout />} />
           <Route path="/branding" element={<BrandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
 
           {/* Location routes */}
           <Route path="/:location" element={<LocationPage />} />
