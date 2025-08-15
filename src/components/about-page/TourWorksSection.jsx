@@ -1,0 +1,40 @@
+import { aboutData } from '../../data/aboutData';
+import MapBox from '../map/MapBox';
+import { Button } from '../Button';
+import { LOCATIONS } from '../map/constants';
+
+const TourWorksSection = () => {
+  return (
+    <div className='space-y-8 p-4'>
+      <div className='space-y-4'>
+        <p className="text-[#F6F3EE] uppercase text-5xl font-semibold font-['Martel_Sans']">{aboutData.tourworks.header}</p>
+        <p className="text-[#F6F3EE] text-start ml-1 text-xs font-medium font-['Poppins']">{aboutData.tourworks.section}</p>
+      </div>
+      <div className='space-y-5'>
+        {aboutData.tourworks.numberedSection.points.map((point, index) => (
+          <div key={index} className='flex flex-row items-start m-4 space-x-2 mb-4'>
+            <div className='h-4 w-4 rounded-full bg-primary-10 flex-shrink-0 flex items-center justify-center'>
+              <p className='text-primary-12 text-[8px]'>{index + 1}</p>
+            </div>
+            <p className='text-primary-12 text-[18px] font-[300] leading-relaxed'>{point}</p>
+          </div>
+        ))}
+      </div>
+      <MapBox
+        initialLocationName={LOCATIONS[1].name}
+        height="300px"
+        width="100%"
+        className="rounded-3xl overflow-hidden mt-10 mb-5 border-2 border-primary-6"
+        interactive={false}
+        showButtons={false}
+      />
+      <div className='flex w-full flex-row justify-center items-center p-8 mt-'>
+        <Button variant='filled'>
+          Get Directions
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default TourWorksSection;

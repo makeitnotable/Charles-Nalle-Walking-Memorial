@@ -1,7 +1,7 @@
-import React from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
-const Arrow = ({ length = 100, direction = 0, className = 'text-white', strokeWidth = 1, triangleSize = 10 }) => {
+const Arrow = memo(({ length = 100, direction = 0, className = 'text-white', strokeWidth = 1, triangleSize = 10 }) => {
     // Calculate the end point based on length
     const endX = length;
 
@@ -10,7 +10,11 @@ const Arrow = ({ length = 100, direction = 0, className = 'text-white', strokeWi
             width={length + triangleSize}
             height={triangleSize * 2}
             viewBox={`0 0 ${length + triangleSize} ${triangleSize * 2}`}
-            style={{ transform: `rotate(${direction}deg)` }}
+            style={{ 
+              transform: `rotate(${direction}deg)`,
+              willChange: 'auto', // SVGs don't need will-change usually
+              backfaceVisibility: 'hidden',
+            }}
             className={className}
         >
             {/* Line part */}
@@ -21,6 +25,7 @@ const Arrow = ({ length = 100, direction = 0, className = 'text-white', strokeWi
                 y2={triangleSize}
                 stroke="currentColor"
                 strokeWidth={strokeWidth}
+                vectorEffect="non-scaling-stroke" // Performance optimization
             />
 
             {/* Triangle part */}
@@ -30,7 +35,9 @@ const Arrow = ({ length = 100, direction = 0, className = 'text-white', strokeWi
             />
         </svg>
     );
-};
+});
+
+Arrow.displayName = 'Arrow';
 
 Arrow.propTypes = {
     length: PropTypes.number,

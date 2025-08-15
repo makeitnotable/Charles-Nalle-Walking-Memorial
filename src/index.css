@@ -7,6 +7,28 @@ body {
   background-color: var(--color-primary-2);
 }
 
+/* Performance optimizations for slider animations */
+.location-cards-slider {
+  contain: layout style paint;
+}
+
+.location-cards-slider .keen-slider__slide {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Force GPU layer */
+}
+
+/* GPU acceleration utility classes */
+.transform-gpu {
+  transform: translateZ(0);
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 @theme {
   /* Font Family */
   --font-sans: "Martel Sans", sans-serif;

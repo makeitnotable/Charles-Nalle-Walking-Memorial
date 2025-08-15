@@ -69,46 +69,72 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         }
     };
 
+    // Navigate to about with transition
+    const goToAbout = () => {
+        handleClose();
+        play(() => {
+            navigate('/about');
+        });
+    };
+
     // Position classes
     const positionClasses = {
         'top-right': 'top-3 right-3',
         'bottom-right': 'bottom-3 right-3'
     };
 
+    // Close button component
+    const CloseButton = ({ isTop = true }) => (
+        <button
+            onClick={handleClose}
+            className={`bg-[#341A11] ${isTop ? 'rounded-t-xl border-b-2' : 'rounded-b-xl border-t-2'} border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors`}
+        >
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        </button>
+    );
+
+    // Menu content component
+    const MenuContent = () => (
+        <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-start p-8'>
+            <div className='text-left gap-6 flex flex-col w-full ml-5'>
+                <button
+                    className='text-lg hover:text-[#F26835] transition-colors text-left'
+                    onClick={goToHome}
+                >
+                    Home
+                </button>
+                <div className='flex flex-col gap-6 ml-3'>
+                    {locations.map((location) => (
+                        <div key={location.name} className="flex flex-col">
+                            <button
+                                className='text-lg text-left hover:text-[#F26835] transition-colors'
+                                onClick={() => navigateToLocation(location)}
+                            >
+                                {locationLabels[location.name] || `${location.name}`}
+                            </button>
+                        </div>
+                    ))}
+                    <button
+                        className='text-lg -ml-3 text-left hover:text-[#F26835] transition-colors'
+                        onClick={goToAbout}
+                    >
+                        About
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    const isTopPosition = position === 'top-right';
+
     return (
         <div ref={menuRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-10`}>
-            <div className="bg-[#1D1411] border-2 border-[#69311D] rounded-xl">
-                <button
-                    onClick={handleClose}
-                    className='bg-[#4A1B0A] rounded-t-xl border-b-2 border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors'
-                >
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-                <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-center p-8'>
-                    <div className='text-left gap-6 flex flex-col'>
-                        <button
-                            className='text-lg hover:text-[#F26835] transition-colors'
-                            onClick={goToHome}
-                        >
-                            Home
-                        </button>
-                        <div className='flex flex-col pl-3 gap-6'>
-                            {locations.map((location) => (
-                                <div key={location.name} className="flex flex-col">
-                                    <button
-                                        className='text-lg text-left hover:text-[#F26835] transition-colors'
-                                        onClick={() => navigateToLocation(location)}
-                                    >
-                                        {locationLabels[location.name] || `${location.name}`}
-                                    </button>
-                                </div>
-                            ))}
-                            <p className='text-lg'>About</p>
-                        </div>
-                    </div>
-                </div>
+            <div className="bg-[#341A11] border-2 border-[#69311D] rounded-xl">
+                {isTopPosition && <CloseButton isTop={true} />}
+                <MenuContent />
+                {!isTopPosition && <CloseButton isTop={false} />}
             </div>
         </div>
     );
@@ -169,19 +195,21 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
             {!isOpen && (
                 <button onClick={handleToggle}>
                     <div ref={hamburgerRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
-                        <div className='bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-br-xl rounded-tr-xl rounded-bl-3xl h-[72px] w-[72px] flex items-center justify-center'>
+                        <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${
+                            position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
+                        }`}>
                             <div className='flex flex-col gap-2 w-full items-center'>
                                 <div
                                     ref={el => barsRef.current[0] = el}
-                                    className='bg-primary-10 h-0.5 w-10 rounded-full'
+                                    className='bg-primary-10 h-0.5 w-8 rounded-full'
                                 />
                                 <div
                                     ref={el => barsRef.current[1] = el}
-                                    className='bg-primary-10 h-0.5 w-10 rounded-full'
+                                    className='bg-primary-10 h-0.5 w-8 rounded-full'
                                 />
                                 <div
                                     ref={el => barsRef.current[2] = el}
-                                    className='bg-primary-10 h-0.5 w-10 rounded-full'
+                                    className='bg-primary-10 h-0.5 w-6 rounded-full self-start ml-4.5'
                                 />
                             </div>
                         </div>

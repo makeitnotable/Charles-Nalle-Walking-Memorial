@@ -3,7 +3,13 @@ export const locationData = {
     chapterNumber: 1,
     title: "HOLEUR'S FASHIONABLE BAKERY",
     cardTitle: "Holeur's Fashionable Bakery",
-    backgroundImage: "/bakery.png",
+    backgroundImage: {
+      horizontal: "holeurs-fashionable-bakery/horizontal.png",
+      vertical: "holeurs-fashionable-bakery/vertical.png",
+      square: "holeurs-fashionable-bakery/square.png",
+      historical: "holeurs-fashionable-bakery/historical.png",
+      moral: "holeurs-fashionable-bakery/moral.png",
+    },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
       author: "- United States Deputy Marshal Holmes",
@@ -22,7 +28,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 2",
     historicalContext: {
-      backgroundImage: "/historical-context-bakery.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -32,7 +38,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-message-bakery.png",
+      backgroundImage: "backgroundImage.moral",
       title: "NOT ALL LAWS ARE MORAL",
       number: "Section 3/4",
       message:
@@ -52,7 +58,13 @@ export const locationData = {
     chapterNumber: 2,
     title: "PART 1 OFFICE OF THE COMMISSIONER",
     cardTitle: "Office of The Commissioner",
-    backgroundImage: "/commisioner1.png",
+    backgroundImage: {
+      horizontal: "office-commissioner-pt1/horizontal.png",
+      vertical: "office-commissioner-pt1/vertical.png",
+      square: "office-commissioner-pt1/square.png",
+      historical: "office-commissioner-pt1/historical.png",
+      moral: "office-commissioner-pt1/moral.png",
+    },
     quote: {
       text: "If we can get him out into the crowd, we can raise the money in five minutes.",
       author: "- Abolitionist Martin Townsend",
@@ -62,7 +74,7 @@ export const locationData = {
       subtitle: "Part 1 Office of The Commissioner",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4",
       content: [
         "It's hard to imagine that the hands of Marshal Holmes and the slave catchers weren't white with strain as they forcibly marched Charles with a vice-tight grip to the Mutual Bank Building—a grand three-story brick and stone structure on State Street.",
         "In the commissioner's office on the second floor, Charles's fate was being sealed. Cuffed and bruised, he faced Horatio Averill—the lawyer who had helped Charles write letters to his wife, Kitty, but secretly betrayed him by sharing his story with officials. Now, Charles could only listen helplessly as the scratching of pens on paper signed away his freedom.",
@@ -74,7 +86,7 @@ export const locationData = {
     historicalContext: {
       backgroundImage: "/historical-context-com-1.png",
       title: "Historical Context",
-      number: "(2)",
+      number: "Section 2/4",
       points: [
         "In 1847, Frederick Douglass, James McCune Smith—the first Black doctor in the United States—and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
         "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
@@ -84,7 +96,7 @@ export const locationData = {
     moralMessage: {
       backgroundImage: "/moral-commission1.png",
       title: "WHEN NOT CHALLENGED INJUSTICE THRIVES",
-      number: "(3)",
+      number: "Section 3/4",
       message:
         "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
       callToAction: {
@@ -95,14 +107,20 @@ export const locationData = {
     },
     whereToNext: {
       title: "WHERE TO NEXT?",
-      number: "(4)",
+      number: "Section 4/4",
     },
   },
   commissioner2: {
     chapterNumber: 2,
     title: "PART 2 OFFICE OF THE COMMISSIONER",
     cardTitle: "Part 2: Office of The Commissioner",
-    backgroundImage: "/commisioner2.png",
+    backgroundImage: {
+      horizontal: "office-commissioner-pt2/vertical.png",
+      vertical: "office-commissioner-pt2/vertical.png",
+      square: "office-commissioner-pt2/square.png",
+      historical: "office-commissioner-pt2/historical.png",
+      moral: "office-commissioner-pt2/moral-bg.png",
+    },
     quote: {
       text: "Drag him to the river! Drown him! But don't let them have him!",
       author: "- Harriet Tubman",
@@ -121,7 +139,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 3",
     historicalContext: {
-      backgroundImage: "/historical-context-com-2.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -130,7 +148,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-commission2.png",
+      backgroundImage: "backgroundImage.moral",
       title: "FREEDOM ISN'T FREE",
       number: "Section 3/4",
       message:
@@ -150,7 +168,13 @@ export const locationData = {
     chapterNumber: 3,
     title: "URI GILBERT MANSION",
     cardTitle: "Uri Gilbert Mansion",
-    backgroundImage: "/mansion.png",
+    backgroundImage: {
+      square: "uri-gilbert-mansion/square.png",
+      historical: "uri-gilbert-mansion/historical.png",
+      moral: "uri-gilbert-mansion/moral.png",
+      horizontal: "uri-gilbert-mansion/horizontal.png",
+      vertical: "uri-gilbert-mansion/vertical.png",
+    },
     quote: {
       text: "Are you a Negro?",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
@@ -201,7 +225,16 @@ export const locationData = {
     chapterNumber: 4,
     title: "WASHINGTON STREET FERRY LANDING",
     cardTitle: "Washington Street Ferry Landing",
-    backgroundImage: "/ferry.png",
+    backgroundImage: {
+      square: "washington-ferry/square.png",
+      historical: "washington-ferry/historical.png",
+      moral: "washington-ferry/moral.png",
+      horizontal: "washington-ferry/horizontal.png",
+      vertical: "washington-ferry/vertical.png",
+      narrative1: "washington-ferry/narrative.png",
+      narrative2: "washington-ferry/narrative2.png",
+
+    },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
@@ -221,7 +254,7 @@ export const locationData = {
     },
     nextChapter: "Chapter 5",
     historicalContext: {
-      backgroundImage: "/historical-context-ferry.png",
+      backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
       number: "Section 2/4",
       points: [
@@ -231,7 +264,7 @@ export const locationData = {
       ],
     },
     moralMessage: {
-      backgroundImage: "/moral-ferry.png",
+      backgroundImage: "backgroundImage.moral",
       title: "AUTHORITARI-ANISM IS PERSISTENT",
       number: "Section 3/4",
       message:
@@ -251,7 +284,16 @@ export const locationData = {
     chapterNumber: 5,
     title: "PETER BALTIMORE'S BARBERSHOP",
     cardTitle: "Peter Baltimore's Barbershop",
-    backgroundImage: "/barber.png",
+    backgroundImage: {
+      square: "peter-baltimores-barbershop/square.png",
+      historical: "peter-baltimores-barbershop/historical.png",
+      moral: "peter-baltimores-barbershop/moral.png",
+      horizontal: "peter-baltimores-barbershop/horizontal.png",
+      vertical: "peter-baltimores-barbershop/vertical.png",
+      narrative1: "peter-baltimores-barbershop/narrative.png",
+      narrative2: "peter-baltimores-barbershop/narrative2.png",
+
+    },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
       author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",

@@ -6,8 +6,8 @@ export default function NarrativeSection({ data, goToNextChapter }) {
             <div className='text-text-primary space-y-4'>
                 <p className='text-primary-12 text-xs font-[500] font-poppins mt-8 mb-8'>{data.narrative.title}</p>
                 {data.narrative.content.map((paragraph, index) => (
-                    <p className='text-primary-12 text-2xl font-[300] leading-[1.5]' key={index}>
-                        {index === 0 ? <span className='text-3xl font-medium'>{paragraph.substring(0, 2)}</span> : null}
+                    <p className='m-5 text-primary-12 text-[18px] font-[300] leading-[1.6]' key={index}>
+                        {index === 0 ? <span className='text-[32px] leading-[1.6] font-medium'>{paragraph.substring(0, 2)}</span> : null}
                         {index === 0 ? paragraph.substring(2) : paragraph}
                     </p>
                 ))}

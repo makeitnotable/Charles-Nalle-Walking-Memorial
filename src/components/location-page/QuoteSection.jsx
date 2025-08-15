@@ -45,7 +45,7 @@ export default function QuoteSection({ data }) {
                     ref={backgroundRef}
                     className="absolute inset-0 z-0 will-change-transform"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)), url('${data.backgroundImage}')`,
+                        backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)), url('${data.backgroundImage.vertical}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
@@ -53,13 +53,13 @@ export default function QuoteSection({ data }) {
                 />
                 <div className="flex flex-col justify-center items-center h-full relative z-10">
                     <div className="max-w-md flex flex-col items-center">
-                        <div className="h-27 bg-primary-12 w-0.5 mb-10" />
+                        <div className="h-[100px] bg-primary-12 w-[1px] mb-10" /></div>
                         <div className="flex flex-col items-center w-[319px] p-0 gap-6">
                             <div className="border-l-2 border-primary-10 pl-2">
                                 <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
                             </div>
                             <div className="w-full">
-                                <div className="flex flex-col items-start text-primary-11 leading-[0.7]">
+                                <div className="flex flex-col items-start text-primary-11 leading-[0.7] italic">
                                     <p className="mb-0 pl-2">United States Deputy</p>
                                     <p className="self-start my-0">-</p>
                                     <p className="mt-0 pl-2">Marshal Holmes</p>
@@ -68,16 +68,15 @@ export default function QuoteSection({ data }) {
                         </div>
                         <div>
                             <Arrow
-                                length={96}
+                                length={100}
                                 direction={90}
                                 className="text-primary-12 mt-20"
-                                strokeWidth={1}
+                                strokeWidth={1.2}
                                 triangleSize={10}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 } 

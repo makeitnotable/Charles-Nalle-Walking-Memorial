@@ -1,4 +1,5 @@
 // Helper functions for the Map component
+import { MAP_CONFIG, LOCATIONS } from './constants';
 
 /**
  * Creates a marker element for a location
@@ -11,56 +12,80 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
   const markerDiv = document.createElement('div');
   markerDiv.className = 'custom-marker';
 
-  const backgroundColor = isActive ? '#F26835' : '#4A1B0A';
-  const textColor = isActive ? '#FED9CC' : '#FF9770'
-  const borderColor = isActive ? '#F26835' : '#80412B';
-  const indexBgColor = '#E45B27';
-  const indexTextColor = '#FED9CC';
-  const lineColor = isActive ? '#F26835' : '#80412B';
+  const config = MAP_CONFIG.markerConfig;
+  const style = isActive ? config.active : config.inactive;
+  
+  // Find the location data to get pin position
+  const location = LOCATIONS.find(loc => loc.name === locationName);
+  const isPinAbove = location?.pinPosition === 'above';
+
+  // Create the pin and label elements
+  const pinElement = `
+    <div style="
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      height: ${config.lineHeight}px;
+    ">
+      <div style="
+        background: ${style.lineColor}; 
+        width: 2px; 
+        height: ${config.lineHeight}px;
+      "></div>
+      <div style="
+        background: ${style.lineColor}; 
+        width: ${config.dotSize}px; 
+        height: ${config.dotSize}px; 
+        border-radius: 100%;
+      "></div>
+    </div>
+  `;
+
+  const labelElement = `
+    <div style="
+      background: ${style.backgroundColor};
+      border-radius: ${config.borderRadius}px;
+      padding: ${config.padding}px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: ${style.textColor};
+      border: 1px solid ${style.borderColor};
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: ${config.fontSize}px;
+      cursor: pointer;
+    ">
+      <div style="
+        display: flex;
+        background: ${style.indexBgColor};
+        border-radius: 100%;
+        width: ${config.indexSize}px;
+        height: ${config.indexSize}px;
+        align-items: center;
+        justify-content: center;
+        margin-right: 5px;
+      ">
+        <p style="color: ${style.indexTextColor};">${index}</p>
+      </div>
+      <p>${locationName}</p>
+    </div>
+  `;
 
   markerDiv.innerHTML = `
-  <div style="display: flex; flex-direction: column; align-items: center;">
- 
-  <div style="
-    background: ${backgroundColor};
-    border-radius: 30px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: ${textColor};
-    border: 1px solid ${borderColor};
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    cursor: pointer;
-  ">
-  <div style="
-    display: flex;
-    background: ${indexBgColor};
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5px;
-  ">
-  <p style="color: ${indexTextColor};">${index}</p>
-  </div>
- <p>${locationName}</p>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: center; height: 30px;">
-  <div style="background: ${lineColor}; width: 2px; height: 30px;"></div>
-  <div style="background: ${lineColor}; width: 8px; height: 8px; border-radius: 100%;"></div>
-  </div>
-  </div>
-  
+    <div style="
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      transform: scale(${style.scale});
+      transition: transform 0.3s ease-in-out;
+    ">
+      ${isPinAbove ? pinElement + labelElement : labelElement + pinElement}
+    </div>
   `;
 
   return markerDiv;
 };
-
-
 
 /**
  * Calculates fly-to animation parameters
@@ -69,7 +94,7 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
  * @param {number} speed - Animation speed
  * @returns {Object} - Animation parameters object
  */
-export const getFlyToParams = (coordinates, zoom = 20, speed = 0.8) => {
+export const getFlyToParams = (coordinates, zoom = 20, speed = 0.6) => {
   return {
     center: coordinates,
     zoom,

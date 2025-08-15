@@ -4,34 +4,41 @@ import MapBox from './components/map';
 import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
-import { LOCATIONS } from './components/map/constants';
+import AboutPage from './AboutPage';
+
+import { SWIPEABLE_LOCATIONS } from './components/map/constants';
+import { useMapStore } from './stores/useMapStore';
 
 export const Layout = () => {
-  const location = useLocation();
-  const isRootRoute = location.pathname === '/';
-
   return (
     <>
-      <MapBox interactive={true} showButtons={true} />
+      <MapBox interactive={true} showButtons={true} initialLocationName={null} />
     </>
   );
 }
 
 function App() {
   const location = useLocation();
+  const { isOverview } = useMapStore();
 
   // Determine if the current path is a location page route (e.g., /bakery)
   // It should start with '/' and have only one segment, excluding '/' and '/map'
   const pathSegments = location.pathname.split('/').filter(Boolean);
-  const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map';
+  const isLocationPageRoute = pathSegments.length === 1 && location.pathname !== '/map' && location.pathname !== '/about';
   const isRootRoute = location.pathname === '/';
+  const isMapRoute = location.pathname === '/map';
 
-  const menuPosition = isLocationPageRoute ? 'bottom-right' : 'top-right';
+  // Menu position logic:
+  // - Location pages: bottom-right
+  // - Map overview: bottom-right
+  // - Map with location selected: top-right  
+  // - Other routes: top-right
+  const menuPosition = isLocationPageRoute || (isMapRoute && isOverview) ? 'bottom-right' : 'top-right';
 
   return (
     <div className="relative">
       <div className="absolute top-0 right-0">
-        {!isRootRoute && <MenuOverlay locations={LOCATIONS} position={menuPosition} />}
+        {!isRootRoute && <MenuOverlay locations={SWIPEABLE_LOCATIONS} position={menuPosition} />}
       </div>
 
       <div id="page-content">
@@ -39,6 +46,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<Layout />} />
           <Route path="/branding" element={<BrandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
 
           {/* Location routes */}
           <Route path="/:location" element={<LocationPage />} />

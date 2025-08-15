@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LOCATIONS } from './constants';
-import LocationCard from './LocationCard';
+import LocationCardsSlider from './LocationCardsSlider';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
 
@@ -22,7 +22,6 @@ const MapBox = ({
         isOverview,
         initializeMap,
         destroyMap,
-        flyToLocation,
         handleBackToOverview
     } = useMapStore();
 
@@ -55,15 +54,11 @@ const MapBox = ({
                     left: 0,
                 }}
             />
-            {selectedLocation && !isOverview && showButtons && (
-                <div className="absolute top-16 right-4 z-10">
-                    <LocationCard
-                        location={LOCATIONS.find(loc => loc.name === selectedLocation)}
-                        isSelected={true}
-                        onSelect={flyToLocation}
-                        onNavigate={() => navigateToLocation(selectedLocation)}
-                    />
-                </div>
+            {!isOverview && showButtons && (
+                <LocationCardsSlider
+                    currentLocation={selectedLocation}
+                    onLocationNavigate={navigateToLocation}
+                />
             )}
             {!isOverview && showButtons && <div className="cursor-pointer" onClick={handleBackToOverview}><BackButton /></div>}
         </div>

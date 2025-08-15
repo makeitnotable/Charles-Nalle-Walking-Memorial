@@ -126,27 +126,29 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
     return (
         <div className="h-full">
             <div className="relative h-full">
-                <div className="absolute inset-0 z-0" style={{
-                    backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.9), rgba(16, 10, 6, 0.9)), url('${data.moralMessage.backgroundImage}')`,
+                <div className="absolute inset-0 z-0 will-change-auto" style={{
+                    backgroundImage: `linear-gradient(#1D1411, rgba(16, 10, 6, 0.9), #1D1411), url('${data.backgroundImage.moral}')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                 }} />
-                <div className='p-4 text-text-primary space-y-6 relative z-10'>
-                    <p ref={titleRef} className='text-[#F6F3EE] text-5xl'>{data.moralMessage.title}</p>
+                <div className=' text-text-primary space-y-6 relative z-10 m-4'>
+                    <div className="flex justify-center">
+                        <p ref={titleRef} className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{data.moralMessage.title}</p>
+                    </div>
                     <div className='flex justify-end w-full'>
-                        <div ref={imageRef} className="w-3/4 h-72 rounded-3xl border-2 border-primary-6 mr-5 mb-5" style={{
-                            backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.moralMessage.backgroundImage}')`,
+                        <div ref={imageRef} className="w-3/4 h-68 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+                            backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.moral}')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
                         }} />
                     </div>
-                    <p ref={numberRef} className=' text-primary-12'>{data.moralMessage.number}</p>
-                    <p ref={messageRef} className=' text-primary-12 text-lg leading-relaxed'>{data.moralMessage.message}</p>
+                    <p ref={numberRef} className=' text-[12px] ml-4 text-[#f6f3ee]'>{data.moralMessage.number}</p>
+                    <p ref={messageRef} className=' text-primary-12 ml-4 mr-4 text-lg leading-relaxed'>{data.moralMessage.message}</p>
 
-                    <div ref={callToActionRef} className='space-y-4'>
-                        <p className='text-primary-11 text-2xl'>{data.moralMessage.callToAction.title}</p>
+                    <div ref={callToActionRef} className='space-y-4 m-4'>
+                        <p className='text-primary-11 text-2xl font-[Poppins]'>{data.moralMessage.callToAction.title}</p>
                         <p className=' text-primary-12 text-lg leading-relaxed'>{data.moralMessage.callToAction.content}</p>
                     </div>
 
@@ -165,7 +167,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         {/* Use goToNextChapter*/}
                         {data.nextChapter && (
                             <Button onClick={goToNextChapter} variant='filled'>
-                                <div className='flex items-center gap-2'>
+                                <div className='flex items-center gap-2 text-[18px]'>
                                     <p>Next</p>
                                     <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.5 13.667L7.5 7.66699L1.5 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
