@@ -231,7 +231,7 @@ export const locationData = {
       moral: "washington-ferry/moral.png",
       horizontal: "washington-ferry/horizontal.png",
       vertical: "washington-ferry/vertical.png",
-      narrative1: "washington-ferry/narrative.png",
+      narrative1: "washington-ferry/narrative1.png",
       narrative2: "washington-ferry/narrative2.png",
 
     },
@@ -244,10 +244,12 @@ export const locationData = {
       subtitle: "Washington Street Ferry Landing",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4",
       content: [
         "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn't come easily or without a fight.",
+        "backgroundImage.narrative1",
         "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
+        "backgroundImage.narrative2",
         "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water's grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
         "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot's distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community.",
       ],
@@ -290,7 +292,7 @@ export const locationData = {
       moral: "peter-baltimores-barbershop/moral.png",
       horizontal: "peter-baltimores-barbershop/horizontal.png",
       vertical: "peter-baltimores-barbershop/vertical.png",
-      narrative1: "peter-baltimores-barbershop/narrative.png",
+      narrative1: "peter-baltimores-barbershop/narrative1.png",
       narrative2: "peter-baltimores-barbershop/narrative2.png",
 
     },
@@ -303,10 +305,12 @@ export const locationData = {
       subtitle: "Peter Baltimore's Barbershop",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4 ",
       content: [
         "Refusing to accept defeat, Martin Townsend—Chief Civil Rights Attorney—and Peter Baltimore—a pillar of Troy's Underground Railroad—immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (Almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
+        "backgroundImage.narrative1",
         "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice's office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice's office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Commissioner's office grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
+        "backgroundImage.narrative2",
         "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
         "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom.",
       ],
