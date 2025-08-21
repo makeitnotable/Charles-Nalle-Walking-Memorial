@@ -17,8 +17,8 @@ const ScottSection = () => {
     <div className="h-full">
       <div className="relative h-full">
         <div className=' text-text-primary space-y-6 relative z-10 m-4'>
-          <div className="flex justify-center">
-            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{aboutData.scott.header}</p>
+          <div className="flex justify-start">
+            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>{aboutData.scott.header}</p>
           </div>
           <div className='flex justify-end w-full'>
             <div className="w-3/4 h-68 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
@@ -28,7 +28,7 @@ const ScottSection = () => {
               backgroundRepeat: 'no-repeat',
             }} />
           </div>
-          <p className=' text-[12px] ml-4 text-[#f6f3ee]'>{aboutData.scott.section}</p>
+          <p className=' text-[12px] ml-4 text-[#ff9770]'>{aboutData.scott.section}</p>
           
           <div className='space-y-5'>
             {aboutData.scott.narrative.content.map((paragraph, index) => (
