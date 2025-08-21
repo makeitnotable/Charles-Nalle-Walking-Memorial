@@ -1,6 +1,6 @@
 export default function HistoricalContextSection({ data }) {
   return (
-    <div className='space-y-8 p-4'>
+    <div className='space-y-8 pt-4 px-4 pb-0'>
       <div className='space-y-4'>
         <p className=" text-[#F6F3EE] uppercase text-5xl font-semibold font-['Martel_Sans']">{data.historicalContext.title}</p>
         <p className="text-[#F6F3EE] text-start ml-1 text-xs font-medium font-['Poppins']">{data.historicalContext.number}</p>

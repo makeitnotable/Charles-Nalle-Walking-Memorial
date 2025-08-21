@@ -8,7 +8,7 @@ export const locationData = {
       vertical: "holeurs-fashionable-bakery/vertical.png",
       square: "holeurs-fashionable-bakery/square.png",
       historical: "holeurs-fashionable-bakery/historical.png",
-      moral: "holeurs-fashionable-bakery/moral.png",
+      moral: "holeurs-fashionable-bakery/moral1.png",
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
