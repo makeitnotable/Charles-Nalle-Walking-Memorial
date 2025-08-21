@@ -40,7 +40,7 @@ export default function NarrativeSection({ data, goToNextChapter }) {
             </div>
 
             <div className='flex flex-row justify-center items-center gap-5 pt-8 p-8 m-8'>
-                {data.nextChapterPath && (
+                {data.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter}>
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">
                             {data.nextChapter}

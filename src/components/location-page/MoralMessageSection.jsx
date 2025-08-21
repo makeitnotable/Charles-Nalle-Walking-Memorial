@@ -164,8 +164,8 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                                 </div>
                             </Button>
                         )}
-                        {/* Use goToNextChapter*/}
-                        {data.nextChapter && (
+                        {/* Use goToNextChapter - but don't show on final chapter */}
+                        {data.nextChapter && data.chapterNumber !== 5 && (
                             <Button onClick={goToNextChapter} variant='filled'>
                                 <div className='flex items-center gap-2 text-[18px]'>
                                     <p>Next</p>

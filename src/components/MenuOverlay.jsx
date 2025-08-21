@@ -10,10 +10,10 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
     const locationLabels = {
         'Bakery': '1. Bakery',
         'Bank': '2. Bank',
-        'Commissioner Part 2': '3. Commissioner Part 2',
-        'Mansion': '4. Mansion',
-        'Ferry': '5. Ferry',
-        "Barbershop": '6. Barbershop'
+        'Commissioner Part 2': '2. Commissioner Part 2',
+        'Mansion': '3. Mansion',
+        'Ferry': '4. Ferry',
+        "Barbershop": '5. Barbershop'
     };
 
     const navigate = useNavigate();
