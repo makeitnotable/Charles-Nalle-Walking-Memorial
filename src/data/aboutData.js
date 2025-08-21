@@ -3,8 +3,7 @@ export const aboutData = {
     header: "About THE PROJECT",
     section: "Section 1/2",
     img: {
-      horizontal: "/holeurs-fashionable-bakery/horizontal.png",
-      square: ""  
+      horizontal: "/about-page/barbershop.png",
     }, 
     narrative: {
       content: [
@@ -19,9 +18,30 @@ export const aboutData = {
     section: "Section 2/2",
     numberedSection: {
       points: [
-        "In 1847, Frederick Douglass, James McCune Smith—the first Black doctor in the United States—and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
-        "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
-        "Prior to betraying Charles, Horatio Averill was incarcerated in Tombs Prison for his involvement in a embezzlement scheme.",
+        {
+          title: "Start at the Memorial Kiosk"
+        },
+        {
+          title: "Follow the map to visit five historic locations from 1860:",
+          bullets: [
+            "Houler's Fashionable Bakery",
+            "The Mutual Bank Building",
+            "Uri Gilbert's Mansion",
+            "Washington St. Ferry Landing",
+            "Peter Baltimore's Barbershop"
+          ]
+        },
+        {
+          title: "At each stop, scan the QR code on the plaque to learn:",
+          bullets: [
+            "The location's historical significance",
+            "Key events that happened there",
+            "How it connects to Charles Nalle's story and the present day"
+          ]
+        },
+        {
+          title: "Use the map below to begin the tour."
+        }
       ],
     }, 
   },
@@ -29,8 +49,8 @@ export const aboutData = {
     header: "CHARLES NALLE",
     section: "Freedom Seeker",
     img: {
-      horizontal: "",
-      square: ""
+      horizontal: "/about-page/charles.png",
+      square: "/about-page/charles.png"
     },
     narrative: {
       content: [
@@ -48,8 +68,8 @@ export const aboutData = {
     header: "MARK PRIEST",
 
     img: {
-      horizontal: "",
-      square: ""
+      horizontal: "/about-page/mark.png",
+      square: "/about-page/mark.png"
     },
     section: "Painter & Professor",
     narrative: {
@@ -61,8 +81,8 @@ export const aboutData = {
   scott: {
     header: "SCOTT CHRISTIANSON",
     img: {
-      horizontal: "",
-      square: ""
+      horizontal: "/about-page/scott.png",
+      square: "/about-page/scott.png"
     },
     section:  "Author",
     narrative: {
