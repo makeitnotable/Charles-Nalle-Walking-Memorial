@@ -1,26 +1,22 @@
-// import Arrow from '../Arrow';
+import ArrowDown from '../ArrowDown';
 
 export default function HeroSection({ data }) {
     return (
         <div className="h-screen flex flex-col">
             <div className="flex-none space-y-4">
-                <div className="pt-6 px-6 space-y-4">
+                <div className="pt-8 px-6 ">
                     <div className="flex flex-row justify-between items-center">
                         <p className="font-poppins text-[12px] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
                         <div className="h-5 w-5 rounded-full bg-primary-10 flex items-center justify-center">
                             <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>
                     </div>
-                    <div className='flex items-center'>
+                    <div className='flex items-start mt-8'>
                         <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">{data.title}</h1>
-                        <div>
-                            {/* <Arrow
-                                length={97}
-                                direction={90}
-                                className="text-primary-12" 
-                                strokeWidth={2}
-                                triangleSize={10}
-                            /> */}
+                        <div className="flex-col mr-2 justify-self-center h-full">
+                            <ArrowDown 
+                                className="text-primary-12 h-full w-6 ml-1"
+                            />
                     </div>
                     </div>
                 </div>

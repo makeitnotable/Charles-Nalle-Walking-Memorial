@@ -1,28 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { memo } from 'react';
+import ArrowSvg from '../assets/downarrow.svg';
 
-const ArrowDown = ({ className = 'text-primary-12' }) => {
+const Arrow = memo(({ width, height, direction = 0, className = 'text-white' }) => {
     return (
-        <svg
-            width="auto"
-            height="100%"
-            viewBox="0 0 20 20"
+        <img
+            src={ArrowSvg}
+            alt="Arrow"
+            width={width}
+            height={height}
+            style={{ 
+              transform: `rotate(${direction}deg)`,
+              willChange: 'auto',
+              backfaceVisibility: 'hidden',
+            }}
             className={className}
-            fill="none"
-        >
-            <path
-                d="M10 4L10 14M10 14L6 10M10 14L14 10"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
+        />
     );
-};
+});
 
-ArrowDown.propTypes = {
-    className: PropTypes.string,
-};
+Arrow.displayName = 'Arrow';
 
-export default ArrowDown; 
+
+
+export default Arrow; 

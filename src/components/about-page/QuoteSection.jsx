@@ -58,11 +58,10 @@ export default function QuoteSection() {
                         </div>
                         <div>
                             <Arrow
-                                length={100}
+                                width={100}
+                                height={17}
                                 direction={90}
                                 className="text-primary-12 mt-20"
-                                strokeWidth={1.2}
-                                triangleSize={10}
                             />
                         </div>
                     </div>

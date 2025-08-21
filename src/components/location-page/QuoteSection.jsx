@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Arrow from '../Arrow';
+import ArrowDown from '../ArrowDown';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -58,21 +58,19 @@ export default function QuoteSection({ data }) {
                             <div className="border-l-2 border-primary-10 pl-2">
                                 <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
                             </div>
-                            <div className="w-full">
-                                <div className="flex flex-col items-start text-primary-11 leading-[0.7] italic">
-                                    <p className="mb-0 pl-2">United States Deputy</p>
-                                    <p className="self-start my-0">-</p>
-                                    <p className="mt-0 pl-2">Marshal Holmes</p>
+                            <div className="w-full ml-2">
+                                <div className="flex items-start text-primary-11 leading-[0.7] italic">
+                                    <div className="mr-2 my-3 w-[10px] h-[2px] bg-primary-11"></div>
+                                    <div className="flex flex-col">
+                                        <p className="mb-2">United States Deputy</p>
+                                        <p className="mt-0">Marshal Holmes</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <Arrow
-                                length={100}
-                                direction={90}
-                                className="text-primary-12 mt-20"
-                                strokeWidth={1.2}
-                                triangleSize={10}
+                        <div className="mt-12">
+                            <ArrowDown 
+                                className="text-primary-12 w-full h-'auto'"
                             />
                         </div>
                     </div>
