@@ -4,7 +4,7 @@ export default function HeroSection({ data }) {
     return (
         <div className="h-screen flex flex-col">
             <div className="flex-none space-y-4">
-                <div className="pt-8 px-6 ">
+                <div className="pt-2 px-6 ">
                     <div className="flex flex-row justify-between items-center">
                         <p className="font-poppins text-[12px] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
                         <div className="h-5 w-5 rounded-full bg-primary-10 flex items-center justify-center">
