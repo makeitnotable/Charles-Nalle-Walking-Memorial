@@ -11,7 +11,7 @@ export default function HeroSection({ data }) {
                             <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>
                     </div>
-                    <div className='flex items-start mt-8'>
+                    <div className='flex items-start mt-6'>
                         <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">{data.title}</h1>
                         <div className="flex-col mr-2 justify-self-center h-full">
                             <ArrowDown 

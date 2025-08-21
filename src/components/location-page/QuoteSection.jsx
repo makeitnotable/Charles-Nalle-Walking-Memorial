@@ -39,7 +39,7 @@ export default function QuoteSection({ data }) {
     }, []);
 
     return (
-        <div className="h-dvh">
+        <div className="h-screen">
             <div className="relative h-full p-4 text-left  overflow-hidden">
                 <div
                     ref={backgroundRef}
