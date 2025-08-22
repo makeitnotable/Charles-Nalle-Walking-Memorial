@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 right-0">
+      <div className="absolute top-0 right-0 z-50">
         {!isRootRoute && <MenuOverlay locations={SWIPEABLE_LOCATIONS} position={menuPosition} />}
       </div>
 

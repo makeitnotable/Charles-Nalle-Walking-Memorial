@@ -14,7 +14,7 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
 
   const config = MAP_CONFIG.markerConfig;
   const style = isActive ? config.active : config.inactive;
-  
+
   // Find the location data to get pin position
   const location = LOCATIONS.find(loc => loc.name === locationName);
   const isPinAbove = location?.pinPosition === 'above';
@@ -27,17 +27,31 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
       align-items: center; 
       height: ${config.lineHeight}px;
     ">
-      <div style="
-        background: ${style.lineColor}; 
-        width: 2px; 
-        height: ${config.lineHeight}px;
-      "></div>
-      <div style="
-        background: ${style.lineColor}; 
-        width: ${config.dotSize}px; 
-        height: ${config.dotSize}px; 
-        border-radius: 100%;
-      "></div>
+      ${!isPinAbove ? `
+        <div style="
+          background: ${style.lineColor}; 
+          width: 2px; 
+          height: ${config.lineHeight}px;
+        "></div>
+        <div style="
+          background: ${style.lineColor}; 
+          width: ${config.dotSize}px; 
+          height: ${config.dotSize}px; 
+          border-radius: 100%;
+        "></div>
+      ` : `
+        <div style="
+          background: ${style.lineColor}; 
+          width: ${config.dotSize}px; 
+          height: ${config.dotSize}px; 
+          border-radius: 100%;
+        "></div>
+        <div style="
+          background: ${style.lineColor}; 
+          width: 2px; 
+          height: ${config.lineHeight}px;
+        "></div>
+      `}
     </div>
   `;
 

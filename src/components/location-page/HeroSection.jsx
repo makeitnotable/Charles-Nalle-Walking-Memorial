@@ -14,10 +14,10 @@ export default function HeroSection({ data }) {
                     <div className='flex items-start mt-6'>
                         <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">{data.title}</h1>
                         <div className="flex-col mr-2 justify-self-center h-full">
-                            <ArrowDown 
+                            <ArrowDown
                                 className="text-primary-12 h-full w-6 ml-1"
                             />
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -28,6 +28,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 2",
+    nextLocationPin: "Bank",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
@@ -85,6 +86,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Part 2",
+    nextLocationPin: "Bank",
     historicalContext: {
       backgroundImage: "/historical-context-com-1.png",
       title: "Historical Context",
@@ -140,6 +142,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 3",
+    nextLocationPin: "Mansion",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
@@ -197,6 +200,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 4",
+    nextLocationPin: "Ferry",
     historicalContext: {
       backgroundImage: "/historical-context-mansion.png",
       title: "Historical Context",
@@ -259,6 +263,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 5",
+    nextLocationPin: "Barbershop",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",

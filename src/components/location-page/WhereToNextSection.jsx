@@ -1,21 +1,20 @@
 import { Button } from '../Button';
 import MapBox from '../map/MapBox';
-import { LOCATIONS } from '../map/constants';
 
-export default function WhereToNextSection({ data }) {
+export default function WhereToNextSection({ currentChapter }) {
     return (
         <div className='space-y-4 p-4'>
             <div className='space-y-2'>
                 <p className='text-[#F6F3EE] text-5xl font-["Martel_Sans"] font-semibold leading-[38px] tracking-[-1.5px]'>
-                    {data.whereToNext.title.split(' ')[0]}
+                    {currentChapter.whereToNext.title.split(' ')[0]}
                     <br />
-                    {data.whereToNext.title.split(' ').slice(1).join(' ')}
+                    {currentChapter.whereToNext.title.split(' ').slice(1).join(' ')}
                 </p>
-                <p className='text-[#F6F3EE] ml-2 my-4 text-xs font-["Poppins"] font-medium leading-[18px]'>{data.whereToNext.number}</p>
+                <p className='text-[#F6F3EE] ml-2 my-4 text-xs font-["Poppins"] font-medium leading-[18px]'>{currentChapter.whereToNext.number}</p>
             </div>
 
             <MapBox
-                initialLocationName={LOCATIONS[1].name}
+                initialLocationName={currentChapter.nextLocationPin}
                 height="300px"
                 width="100%"
                 className="rounded-3xl overflow-hidden mt-10 mb-5 border-2 border-primary-6"
