@@ -12,7 +12,8 @@ export const locationData = {
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
-      author: "- United States Deputy Marshal Holmes",
+      author1: "United States Deputy",
+      author2: "Marshal Holmes",
     },
     audioPlayer: {
       chapterName: "Chapter 1",
@@ -67,7 +68,8 @@ export const locationData = {
     },
     quote: {
       text: "If we can get him out into the crowd, we can raise the money in five minutes.",
-      author: "- Abolitionist Martin Townsend",
+      author1: "Abolitionist",
+      author2: "Martin Townsend",
     },
     audioPlayer: {
       chapterName: "Chapter 2 | pt.1",
@@ -123,7 +125,7 @@ export const locationData = {
     },
     quote: {
       text: "Drag him to the river! Drown him! But don't let them have him!",
-      author: "- Harriet Tubman",
+      author1: "Harriet Tubman",
     },
     audioPlayer: {
       chapterName: "Chapter 2 | pt.2",
@@ -177,7 +179,8 @@ export const locationData = {
     },
     quote: {
       text: "Are you a Negro?",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.95",
     },
     audioPlayer: {
       chapterName: "Chapter 3",
@@ -237,7 +240,8 @@ export const locationData = {
     },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.113",
     },
     audioPlayer: {
       chapterName: "Chapter 4",
@@ -298,7 +302,8 @@ export const locationData = {
     },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.1",
     },
     audioPlayer: {
       chapterName: "Chapter 5",

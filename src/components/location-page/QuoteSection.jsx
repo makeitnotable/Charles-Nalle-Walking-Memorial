@@ -59,11 +59,11 @@ export default function QuoteSection({ data }) {
                                 <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
                             </div>
                             <div className="w-full ml-2">
-                                <div className="flex items-start text-primary-11 leading-[0.7] italic">
+                                <div className="flex items-start text-primary-11 leading-[1] italic">
                                     <div className="mr-2 my-3 w-[10px] h-[2px] bg-primary-11"></div>
                                     <div className="flex flex-col">
-                                        <p className="mb-2">United States Deputy</p>
-                                        <p className="mt-0">Marshal Holmes</p>
+                                        <p className="mb-2">{data.quote.author1}</p>
+                                        <p className="mt-0">{data.quote.author2}</p>
                                     </div>
                                 </div>
                             </div>
