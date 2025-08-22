@@ -70,8 +70,8 @@ export const locationData = {
       author: "- Abolitionist Martin Townsend",
     },
     audioPlayer: {
-      chapterName: "Chapter 2",
-      subtitle: "Part 1 Office of The Commissioner",
+      chapterName: "Chapter 2 | pt.1",
+      subtitle: "Office of The Commissioner",
     },
     narrative: {
       title: "Section 1/4",
@@ -126,8 +126,8 @@ export const locationData = {
       author: "- Harriet Tubman",
     },
     audioPlayer: {
-      chapterName: "Chapter 2",
-      subtitle: "Part 2 Office of The Commissioner",
+      chapterName: "Chapter 2 | pt.2",
+      subtitle: "Office of The Commissioner",
     },
     narrative: {
       title: "Section 1/4",
