@@ -11,11 +11,17 @@ export default function HeroSection({ data }) {
                             <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>
                     </div>
-                    <div className='flex items-start mt-6'>
-                        <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">{data.title}</h1>
-                        <div className="flex-col mr-2 justify-self-center h-full">
+                    <div className='flex items-start justify-between mt-6 -ml-1'>
+                        <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">
+                            {data.title.one}
+                            <br />
+                            {data.title.two}
+                            <br />
+                            {data.title.three}
+                        </h1>
+                        <div className="flex-col justify-evenly items-end mr-1 h-full">
                             <ArrowDown
-                                className="text-primary-12 h-full w-6 ml-1"
+                                className="text-primary-12 h-fit ml-1" 
                             />
                         </div>
                     </div>
@@ -23,7 +29,7 @@ export default function HeroSection({ data }) {
             </div>
             <img
                 src={data.backgroundImage.vertical}
-                alt={data.title}
+                alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
                 className="mt-5 w-full flex-1 bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t  object-cover object-center"
             />
         </div>

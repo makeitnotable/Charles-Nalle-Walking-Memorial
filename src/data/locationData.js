@@ -1,7 +1,11 @@
 export const locationData = {
   bakery: {
     chapterNumber: 1,
-    title: "HOLEUR'S FASHIONABLE BAKERY",
+    title: {
+      one: "HOLEUR'S",
+      two: "FASHIONABLE",
+      three: "BAKERY",
+    },
     cardTitle: "Holeur's Fashionable Bakery",
     backgroundImage: {
       horizontal: "holeurs-fashionable-bakery/horizontal.png",
@@ -58,7 +62,11 @@ export const locationData = {
   },
   commissioner1: {
     chapterNumber: 2,
-    title: "PART 1 OFFICE OF THE COMMISSIONER",
+    title: {
+      one: "PART 1.",
+      two: "OFFICE OF THE",
+      three: "COMMISSIONER",
+    },
     cardTitle: "Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt1/horizontal.png",
@@ -116,7 +124,11 @@ export const locationData = {
   },
   commissioner2: {
     chapterNumber: 2,
-    title: "PART 2 OFFICE OF THE COMMISSIONER",
+    title: {
+      one: "PART 2.",
+      two: "OFFICE OF THE",
+      three: "COMMISSIONER",
+    },
     cardTitle: "Part 2: Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt2/vertical.png",
@@ -171,7 +183,11 @@ export const locationData = {
   },
   mansion: {
     chapterNumber: 3,
-    title: "URI GILBERT MANSION",
+    title: {
+      one: "URI",
+      two: "GILBERT",
+      three: "MANSION",
+    },
     cardTitle: "Uri Gilbert Mansion",
     backgroundImage: {
       square: "uri-gilbert-mansion/square.png",
@@ -230,7 +246,11 @@ export const locationData = {
   },
   ferry: {
     chapterNumber: 4,
-    title: "WASHINGTON STREET FERRY LANDING",
+    title: {
+      one: "WASHINGTON",
+      two: "STREET",
+      three: "FERRY LANDING",
+    },
     cardTitle: "Washington Street Ferry Landing",
     backgroundImage: {
       square: "washington-ferry/square.png",
@@ -293,7 +313,11 @@ export const locationData = {
   },
   barber: {
     chapterNumber: 5,
-    title: "PETER BALTIMORE'S BARBERSHOP",
+    title: {
+      one: "PETER",
+      two: "BALTIMORE'S",
+      three: "BARBERSHOP",
+    },
     cardTitle: "Peter Baltimore's Barbershop",
     backgroundImage: {
       square: "peter-baltimores-barbershop/square.png",

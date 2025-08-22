@@ -116,8 +116,8 @@ export default function AudioPlayerSection({ data }) {
                             <p className="text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
-                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-2'>
-                        <p className='text-primary-12 font-poppins font-[500] text-[12px] py-1 px-1'>{formatTime(currentTime)}</p>
+                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1'>
+                        <p className='text-primary-12 font-poppins font-[500] text-[12px] py-1 px-1.5'>{formatTime(currentTime)}</p>
                     </div>
                 </div>
             </div>
