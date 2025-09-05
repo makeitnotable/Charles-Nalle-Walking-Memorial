@@ -5,6 +5,7 @@ import CharlesSection from './components/about-page/CharlesSection';
 import MarkSection from './components/about-page/MarkSection';
 import QuoteSection from './components/about-page/QuoteSection';
 import ScottSection from './components/about-page/ScottSection';
+import FooterSection from './components/location-page/FooterSection';
 
 export default function AboutPage() {
     useEffect(() => {
@@ -19,6 +20,7 @@ export default function AboutPage() {
             <QuoteSection />
             <MarkSection />
             <ScottSection />
+            <FooterSection />
         </div>
     );
 }

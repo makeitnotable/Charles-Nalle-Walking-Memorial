@@ -126,14 +126,16 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
     return (
         <div className="h-full">
             <div className="relative h-full">
-                <div className="absolute inset-0 z-0 will-change-auto" style={{
-                    backgroundImage: `linear-gradient(#1D1411, rgba(16, 10, 6, 0.9), #1D1411), url('${data.backgroundImage.moral}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                }} />
+
+
+                <div className='absolute inset-0 h-full'>
+                    <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .9), #1D1411)" }} />
+                    <div className='h-full py-0.5'>
+                        <img src={data.backgroundImage.moral} alt="Moral Message" className='w-full h-full object-cover' />
+                    </div>
+                </div>
                 <div className=' text-text-primary space-y-6 relative z-10 m-4'>
-                    <div className="flex justify-center">
+                    <div className="flex justify-start ml-3">
                         <p ref={titleRef} className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>
                     <div className='flex justify-end w-full'>
@@ -164,10 +166,10 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                                 </div>
                             </Button>
                         )}
-                        {/* Use goToNextChapter*/}
-                        {data.nextChapter && (
+                        {/* Use goToNextChapter - but don't show on final chapter */}
+                        {data.nextChapter && data.chapterNumber !== 5 && (
                             <Button onClick={goToNextChapter} variant='filled'>
-                                <div className='flex items-center gap-2 text-[18px]'>
+                                <div className='flex items-center gap-2'>
                                     <p>Next</p>
                                     <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.5 13.667L7.5 7.66699L1.5 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

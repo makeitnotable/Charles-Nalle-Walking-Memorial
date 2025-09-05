@@ -22,7 +22,7 @@ export default function LocationPage() {
     }
 
     return (
-        <div className=''> 
+        <div className=''>
             <HeroSection data={currentChapter} />
             <QuoteSection data={currentChapter} />
             <AudioPlayerSection data={currentChapter} />
@@ -37,7 +37,7 @@ export default function LocationPage() {
                 goToNextChapter={goToNextChapter}
                 goToPrevChapter={goToPrevChapter}
             />
-            <WhereToNextSection data={currentChapter} />
+            <WhereToNextSection currentChapter={currentChapter} />
             <FooterSection />
         </div>
     );

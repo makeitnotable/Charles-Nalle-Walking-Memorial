@@ -45,24 +45,21 @@ const LocationCard = memo(({ location, onNavigate }) => {
           </div>
         </div>
         <div className='w-2/3 h-full p-3 flex flex-col justify-between'>
-          <div className='flex flex-row justify-between items-center'>
-            <p className='uppercase text-xs font-normal font-poppins text-primary-11 leading-none'>Chapter</p>
+          <div className='flex flex-row justify-between items-center m-1'>
+            <p className='uppercase text-[12px] font-normal font-poppins text-primary-11 leading-none'>Chapter</p>
             <div className='rounded-full w-[16px] h-[16px] flex justify-center items-center px-[6px] aspect-square bg-primary-10'>
               <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{chapterNumber}</p>
             </div>
           </div>
           <div className='flex flex-col'>
-            <div className='flex flex-col text-[18px] font-semibold font-["Martel_Sans"] text-primary-12 text-left leading-tight'>
+            <div className='flex flex-col text-[18px] font-medium font-["Martel_Sans"] text-primary-12 text-left leading-tight ml-1' >
               <p>{firstLine}</p>
               {secondLine && <p>{secondLine}</p>}
             </div>
-            <div className='flex flex-row items-center'>
+            <div className='flex flex-row items-center ml-1 mr-3'>
               <Arrow 
-                length={300} 
+                className="w-full h-auto -mb-2"
                 direction={0} 
-                className='-mb-2 text-primary-12' 
-                strokeWidth={1} 
-                triangleSize={10} 
               />
             </div>
           </div>
@@ -71,6 +68,8 @@ const LocationCard = memo(({ location, onNavigate }) => {
     </div>
   );
 });
+
+
 
 LocationCard.displayName = 'LocationCard';
 

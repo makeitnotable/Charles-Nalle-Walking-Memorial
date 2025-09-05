@@ -10,10 +10,10 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
     const locationLabels = {
         'Bakery': '1. Bakery',
         'Bank': '2. Bank',
-        'Commissioner Part 2': '3. Commissioner Part 2',
-        'Mansion': '4. Mansion',
-        'Ferry': '5. Ferry',
-        "Barbershop": '6. Barbershop'
+        'Commissioner Part 2': '2. Commissioner Part 2',
+        'Mansion': '3. Mansion',
+        'Ferry': '4. Ferry',
+        "Barbershop": '5. Barbershop'
     };
 
     const navigate = useNavigate();
@@ -195,9 +195,8 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
             {!isOpen && (
                 <button onClick={handleToggle}>
                     <div ref={hamburgerRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
-                        <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${
-                            position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
-                        }`}>
+                        <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
+                            }`}>
                             <div className='flex flex-col gap-2 w-full items-center'>
                                 <div
                                     ref={el => barsRef.current[0] = el}

@@ -1,12 +1,20 @@
 import { aboutData } from '../../data/aboutData';
 
+
 const MarkSection = () => {
   return (
+
     <div className="h-full">
-      <div className="relative h-full">
+      <div className="relative h-full">        
+          <div className='absolute inset-0 h-full'>
+              <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
+              <div className='h-full py-0.5'>
+                  <img src={aboutData.mark.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
+              </div>
+          </div>
         <div className=' text-text-primary space-y-6 relative z-10 m-4'>
-          <div className="flex justify-center">
-            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{aboutData.mark.header}</p>
+          <div className="flex justify-start">
+            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>MARK<br /> PRIEST</p>
           </div>
           <div className='flex justify-end w-full'>
             <div className="w-3/4 h-68 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
@@ -16,11 +24,11 @@ const MarkSection = () => {
               backgroundRepeat: 'no-repeat',
             }} />
           </div>
-          <p className=' text-[12px] ml-4 text-[#f6f3ee]'>{aboutData.mark.section}</p>
+          <p className=' text-[12px] ml-4 text-[#ff9770]'>{aboutData.mark.section}</p>
           
           <div className='space-y-5'>
             {aboutData.mark.narrative.content.map((paragraph, index) => (
-              <div key={index} className='m-4 mb-4'>
+              <div key={index} className='m-4'>
                 <p className='text-primary-12 text-[18px] font-[300] leading-relaxed'>{paragraph}</p>
               </div>
             ))}

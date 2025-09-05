@@ -1,18 +1,23 @@
 export const locationData = {
   bakery: {
     chapterNumber: 1,
-    title: "HOLEUR'S FASHIONABLE BAKERY",
+    title: {
+      one: "HOLEUR'S",
+      two: "FASHIONABLE",
+      three: "BAKERY",
+    },
     cardTitle: "Holeur's Fashionable Bakery",
     backgroundImage: {
       horizontal: "holeurs-fashionable-bakery/horizontal.png",
       vertical: "holeurs-fashionable-bakery/vertical.png",
       square: "holeurs-fashionable-bakery/square.png",
       historical: "holeurs-fashionable-bakery/historical.png",
-      moral: "holeurs-fashionable-bakery/moral.png",
+      moral: "holeurs-fashionable-bakery/moral1.png",
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
-      author: "- United States Deputy Marshal Holmes",
+      author1: "United States Deputy",
+      author2: "Marshal Holmes",
     },
     audioPlayer: {
       chapterName: "Chapter 1",
@@ -27,6 +32,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 2",
+    nextLocationPin: "Bank",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
@@ -56,7 +62,11 @@ export const locationData = {
   },
   commissioner1: {
     chapterNumber: 2,
-    title: "PART 1 OFFICE OF THE COMMISSIONER",
+    title: {
+      one: "PART 1.",
+      two: "OFFICE OF THE",
+      three: "COMMISSIONER",
+    },
     cardTitle: "Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt1/horizontal.png",
@@ -67,11 +77,12 @@ export const locationData = {
     },
     quote: {
       text: "If we can get him out into the crowd, we can raise the money in five minutes.",
-      author: "- Abolitionist Martin Townsend",
+      author1: "Abolitionist",
+      author2: "Martin Townsend",
     },
     audioPlayer: {
-      chapterName: "Chapter 2",
-      subtitle: "Part 1 Office of The Commissioner",
+      chapterName: "Chapter 2 | pt.1",
+      subtitle: "Office of The Commissioner",
     },
     narrative: {
       title: "Section 1/4",
@@ -83,6 +94,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Part 2",
+    nextLocationPin: "Bank",
     historicalContext: {
       backgroundImage: "/historical-context-com-1.png",
       title: "Historical Context",
@@ -112,7 +124,11 @@ export const locationData = {
   },
   commissioner2: {
     chapterNumber: 2,
-    title: "PART 2 OFFICE OF THE COMMISSIONER",
+    title: {
+      one: "PART 2.",
+      two: "OFFICE OF THE",
+      three: "COMMISSIONER",
+    },
     cardTitle: "Part 2: Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt2/vertical.png",
@@ -123,11 +139,11 @@ export const locationData = {
     },
     quote: {
       text: "Drag him to the river! Drown him! But don't let them have him!",
-      author: "- Harriet Tubman",
+      author1: "Harriet Tubman",
     },
     audioPlayer: {
-      chapterName: "Chapter 2",
-      subtitle: "Part 2 Office of The Commissioner",
+      chapterName: "Chapter 2 | pt.2",
+      subtitle: "Office of The Commissioner",
     },
     narrative: {
       title: "Section 1/4",
@@ -138,6 +154,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 3",
+    nextLocationPin: "Mansion",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
@@ -166,7 +183,11 @@ export const locationData = {
   },
   mansion: {
     chapterNumber: 3,
-    title: "URI GILBERT MANSION",
+    title: {
+      one: "URI",
+      two: "GILBERT",
+      three: "MANSION",
+    },
     cardTitle: "Uri Gilbert Mansion",
     backgroundImage: {
       square: "uri-gilbert-mansion/square.png",
@@ -177,7 +198,8 @@ export const locationData = {
     },
     quote: {
       text: "Are you a Negro?",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.95",
     },
     audioPlayer: {
       chapterName: "Chapter 3",
@@ -194,6 +216,7 @@ export const locationData = {
       ],
     },
     nextChapter: "Chapter 4",
+    nextLocationPin: "Ferry",
     historicalContext: {
       backgroundImage: "/historical-context-mansion.png",
       title: "Historical Context",
@@ -223,7 +246,11 @@ export const locationData = {
   },
   ferry: {
     chapterNumber: 4,
-    title: "WASHINGTON STREET FERRY LANDING",
+    title: {
+      one: "WASHINGTON",
+      two: "STREET",
+      three: "FERRY LANDING",
+    },
     cardTitle: "Washington Street Ferry Landing",
     backgroundImage: {
       square: "washington-ferry/square.png",
@@ -231,28 +258,32 @@ export const locationData = {
       moral: "washington-ferry/moral.png",
       horizontal: "washington-ferry/horizontal.png",
       vertical: "washington-ferry/vertical.png",
-      narrative1: "washington-ferry/narrative.png",
+      narrative1: "washington-ferry/narrative1.png",
       narrative2: "washington-ferry/narrative2.png",
 
     },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.113",
     },
     audioPlayer: {
       chapterName: "Chapter 4",
       subtitle: "Washington Street Ferry Landing",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4",
       content: [
         "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn't come easily or without a fight.",
+        "backgroundImage.narrative1",
         "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
+        "backgroundImage.narrative2",
         "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water's grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
         "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot's distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community.",
       ],
     },
     nextChapter: "Chapter 5",
+    nextLocationPin: "Barbershop",
     historicalContext: {
       backgroundImage: "backgroundImage.historical",
       title: "Historical Context",
@@ -282,7 +313,11 @@ export const locationData = {
   },
   barber: {
     chapterNumber: 5,
-    title: "PETER BALTIMORE'S BARBERSHOP",
+    title: {
+      one: "PETER",
+      two: "BALTIMORE'S",
+      three: "BARBERSHOP",
+    },
     cardTitle: "Peter Baltimore's Barbershop",
     backgroundImage: {
       square: "peter-baltimores-barbershop/square.png",
@@ -290,23 +325,26 @@ export const locationData = {
       moral: "peter-baltimores-barbershop/moral.png",
       horizontal: "peter-baltimores-barbershop/horizontal.png",
       vertical: "peter-baltimores-barbershop/vertical.png",
-      narrative1: "peter-baltimores-barbershop/narrative.png",
+      narrative1: "peter-baltimores-barbershop/narrative1.png",
       narrative2: "peter-baltimores-barbershop/narrative2.png",
 
     },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
-      author: "- Christianson ~ Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.15",
+      author1: "Christianson",
+      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.1",
     },
     audioPlayer: {
       chapterName: "Chapter 5",
       subtitle: "Peter Baltimore's Barbershop",
     },
     narrative: {
-      title: "(1) Narrative",
+      title: "Section 1/4 ",
       content: [
         "Refusing to accept defeat, Martin Townsend—Chief Civil Rights Attorney—and Peter Baltimore—a pillar of Troy's Underground Railroad—immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (Almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
+        "backgroundImage.narrative1",
         "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice's office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice's office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Commissioner's office grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
+        "backgroundImage.narrative2",
         "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
         "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom.",
       ],

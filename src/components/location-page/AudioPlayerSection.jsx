@@ -1,17 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function AudioPlayerSection({ data }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
+    const [isSticky, setIsSticky] = useState(false);
     const audioRef = useRef(null);
+    const imageRef = useRef(null);
+    const controlsRef = useRef(null);
 
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
 
         const updateTime = () => setCurrentTime(audio.currentTime);
-        const updateDuration = () => setDuration(audio.duration);
+        const updateDuration = () => {}; // Duration not used currently
 
         audio.addEventListener('timeupdate', updateTime);
         audio.addEventListener('loadedmetadata', updateDuration);
@@ -23,6 +25,22 @@ export default function AudioPlayerSection({ data }) {
             audio.removeEventListener('ended', () => setIsPlaying(false));
         };
     }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!imageRef.current) return;
+            
+            const imageBottom = imageRef.current.getBoundingClientRect().bottom;
+            const shouldBeSticky = imageBottom <= 0;
+            
+            if (shouldBeSticky !== isSticky) {
+                setIsSticky(shouldBeSticky);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isSticky]);
 
     const togglePlayPause = () => {
         const audio = audioRef.current;
@@ -50,13 +68,30 @@ export default function AudioPlayerSection({ data }) {
                 src="/bakery.mp3"
                 preload="metadata"
             />
-            <div className='bg-primary-3 border-b-2 border-primary-6 pt-10 rounded-b-3xl space-y-6 p-4'>
-                <div className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2" style={{
-                    backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                }} />
+            
+            {/* Image Section */}
+            <div className='bg-primary-3 pt-10 p-4'>
+                <div 
+                    ref={imageRef}
+                    className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2" 
+                    style={{
+                        backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                    }} 
+                />
+            </div>
+
+            {/* Audio Controls - Sticky when scrolled past image */}
+            <div 
+                ref={controlsRef}
+                className={`bg-primary-3 border-b-2 border-primary-6 p-4 transition-all duration-300 ${
+                    isSticky 
+                        ? 'fixed top-0 left-0 right-0 z-50 shadow-lg rounded-b-3xl' 
+                        : 'rounded-b-3xl'
+                }`}
+            >
                 <div className="flex flex-row justify-between items-start">
                     <div className="flex flex-row justify-between items-start space-x-2">
                         <button
@@ -71,21 +106,24 @@ export default function AudioPlayerSection({ data }) {
                                 </svg>
                             ) : (
                                 // Play icon
-                                <svg width="19" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="20" height="22" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 3.65626C1 2.6851 1 2.19951 1.20249 1.93184C1.37889 1.69865 1.64852 1.55435 1.9404 1.53693C2.27544 1.51692 2.67946 1.78627 3.48752 2.32498L14.0031 9.33535C14.6708 9.78048 15.0046 10.003 15.1209 10.2836C15.2227 10.5288 15.2227 10.8044 15.1209 11.0497C15.0046 11.3302 14.6708 11.5528 14.0031 11.9979L3.48752 19.0083C2.67946 19.547 2.27544 19.8163 1.9404 19.7963C1.64852 19.7789 1.37889 19.6346 1.20249 19.4014C1 19.1337 1 18.6482 1 17.677V3.65626Z" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             )}
                         </button>
-                        <div className="space-y-1">
+                        <div className="mt-1 ml-2">
                             <p className="text-primary-12 font-martel-sans font-semibold text-[18px] uppercase">{data.audioPlayer.chapterName}</p>
-                            <p className="text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
+                            <p className="mt-1 text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
-                    <div className='bg-primary-10 rounded-3xl px-2  mr-3'>
-                        <p className='text-primary-12 font-poppins font-[500] text-[12px] py-0.5 px-1'>{formatTime(currentTime)}</p>
+                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1.5'>
+                        <p className='text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5'>{formatTime(currentTime)}</p>
                     </div>
                 </div>
             </div>
+            
+            {/* Spacer to prevent content jump when sticky is active */}
+            {isSticky && <div style={{ height: controlsRef.current?.offsetHeight || 0 }} />}
         </div>
     );
 } 
