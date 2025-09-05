@@ -31,9 +31,11 @@ function App() {
   // Menu position logic:
   // - Location pages: bottom-right
   // - Map overview: bottom-right
+  // - About page: bottom-right
   // - Map with location selected: top-right  
   // - Other routes: top-right
-  const menuPosition = isLocationPageRoute || (isMapRoute && isOverview) ? 'bottom-right' : 'top-right';
+  const isAboutRoute = location.pathname === '/about';
+  const menuPosition = isLocationPageRoute || (isMapRoute && isOverview) || isAboutRoute ? 'bottom-right' : 'top-right';
 
   return (
     <div className="relative">

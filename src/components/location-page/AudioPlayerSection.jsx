@@ -106,14 +106,14 @@ export default function AudioPlayerSection({ data }) {
                                 </svg>
                             ) : (
                                 // Play icon
-                                <svg width="19" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="20" height="22" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 3.65626C1 2.6851 1 2.19951 1.20249 1.93184C1.37889 1.69865 1.64852 1.55435 1.9404 1.53693C2.27544 1.51692 2.67946 1.78627 3.48752 2.32498L14.0031 9.33535C14.6708 9.78048 15.0046 10.003 15.1209 10.2836C15.2227 10.5288 15.2227 10.8044 15.1209 11.0497C15.0046 11.3302 14.6708 11.5528 14.0031 11.9979L3.48752 19.0083C2.67946 19.547 2.27544 19.8163 1.9404 19.7963C1.64852 19.7789 1.37889 19.6346 1.20249 19.4014C1 19.1337 1 18.6482 1 17.677V3.65626Z" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             )}
                         </button>
                         <div className="mt-1">
                             <p className="text-primary-12 font-martel-sans font-semibold text-[18px] uppercase">{data.audioPlayer.chapterName}</p>
-                            <p className="text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
+                            <p className="mt-1 text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
                     <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1'>

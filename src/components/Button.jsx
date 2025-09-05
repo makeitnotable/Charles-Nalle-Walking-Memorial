@@ -8,7 +8,7 @@ export const Button = ({ children, className = "", onClick, variant = "filled", 
       case "outline":
         return "border border-2 border-primary-8 text-primary-11 font-medium font-['Poppins'] py-4 px-4 text-[18px] h-[57px] flex items-center justify-center";
       case "filled":
-        return "bg-primary-4 text-primary-11 font-medium font-['Poppins'] border-2 border-primary-6 py-4 px-4 text-[18px] h-[57px] flex items-center justify-center";
+        return "bg-primary-4 text-primary-11 font-medium font-['Poppins'] border-1 border-primary-6 py-6 px-8 text-[18px] h-[57px] flex items-center justify-center";
       case "filled-secondary":
         return "bg-[#FFC6B3] text-[#BD3900] border border-[#F7A98F] font-['Poppins'] font-medium leading-[24px] text-center flex items-center justify-center w-[148px] h-[64px] pt-[20px] pb-[20px] px-4 text-[18px]";
       default:

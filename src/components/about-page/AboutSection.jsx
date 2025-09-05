@@ -18,7 +18,7 @@ const AboutSection = () => {
       />
       <div className='space-y-5'>
         {aboutData.about.narrative.content.map((paragraph, index) => (
-          <div key={index} className='m-7'>
+          <div key={index} className='m-6'>
             <p className='text-primary-12 text-[18px] font-[400] leading-relaxed'>{paragraph}</p>
           </div>
         ))}

@@ -1,7 +1,7 @@
 export const aboutData = {
   about: {
     header: "About THE PROJECT",
-    section: "Section 1/2",
+    section: "Section 1/4",
     img: {
       horizontal: "/about-page/barbershop.png",
     }, 
@@ -15,7 +15,7 @@ export const aboutData = {
   },
   tourworks: {
     header: "How the tour works",
-    section: "Section 2/2",
+    section: "Section 2/4",
     numberedSection: {
       points: [
         {
@@ -50,6 +50,7 @@ export const aboutData = {
     section: "Freedom Seeker",
     img: {
       horizontal: "/about-page/charles.png",
+      vertical: "/about-page/vertical-bg1.png",
       square: "/about-page/charles.png"
     },
     narrative: {
@@ -69,6 +70,7 @@ export const aboutData = {
 
     img: {
       horizontal: "/about-page/mark.png",
+      vertical: "/about-page/mark-bg.png",
       square: "/about-page/mark.png"
     },
     section: "Painter & Professor",
@@ -82,7 +84,8 @@ export const aboutData = {
     header: "SCOTT CHRISTIANSON",
     img: {
       horizontal: "/about-page/scott.png",
-      square: "/about-page/scott.png"
+      square: "/about-page/scott.png",
+      vertical: "/about-page/scott.png"
     },
     section:  "Author",
     narrative: {

@@ -4,6 +4,12 @@ const CharlesSection = () => {
   return (
     <div className="h-full">
       <div className="relative h-full">
+          <div className='absolute inset-0 h-full'>
+              <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
+              <div className='h-full py-0.5'>
+                  <img src={aboutData.charles.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
+              </div>
+          </div>
         <div className='text-text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">
             <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>{aboutData.charles.header}</p>

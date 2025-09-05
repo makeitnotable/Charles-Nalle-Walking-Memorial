@@ -135,7 +135,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                     </div>
                 </div>
                 <div className=' text-text-primary space-y-6 relative z-10 m-4'>
-                    <div className="flex justify-center">
+                    <div className="flex justify-start ml-3">
                         <p ref={titleRef} className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>
                     <div className='flex justify-end w-full'>

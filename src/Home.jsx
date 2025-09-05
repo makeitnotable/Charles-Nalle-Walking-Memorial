@@ -23,11 +23,7 @@ export default function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1) opacity(0.9)",
-            borderTopLeftRadius: "32px",
-            borderTopRightRadius: "32px",
-            borderBottomRightRadius: "32px",
-            borderBottomLeftRadius: "32px",
+            filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1) opacity(0.6)",
           }}
         ></div>
         <div className='flex flex-col justify-between items-center h-full z-10'>

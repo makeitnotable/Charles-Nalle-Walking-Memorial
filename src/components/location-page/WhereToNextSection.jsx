@@ -21,8 +21,8 @@ export default function WhereToNextSection({ currentChapter }) {
                 interactive={false}
                 showButtons={false}
             />
-            <div className='flex w-full flex-row justify-center items-center p-8 mt-'>
-                <Button variant='filled'>
+            <div className='flex w-full flex-row justify-center items-center p-8 mt-10'>
+                <Button variant='filled' className=''>
                     Get Directions
                 </Button>
             </div>
