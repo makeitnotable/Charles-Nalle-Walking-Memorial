@@ -6,7 +6,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
   const locationKey = location.path.slice(1); // Remove leading slash
   const { title, cardTitle, backgroundImage, chapterNumber } = locationData[locationKey];
 
-  const [firstLine, secondLine] = cardTitle === "Holeur's Fashionable Bakery" 
+  const [firstLine, secondLine] = cardTitle === "Holeur's Fashionable Bakery"
     ? ["Holeur's", "Fashionable Bakery"]
     : [cardTitle, ''];
 
@@ -18,8 +18,8 @@ const LocationCard = memo(({ location, onNavigate }) => {
   };
 
   return (
-    <div 
-      className='cursor-pointer transform-gpu hover:scale-105 transition-transform duration-200 ease-out' 
+    <div
+      className='cursor-pointer transform-gpu'
       onClick={handleViewDetails}
       style={{
         willChange: 'transform',
@@ -30,10 +30,10 @@ const LocationCard = memo(({ location, onNavigate }) => {
         <div className='w-1/3 h-full'>
           <div className='w-full h-full'>
             {backgroundImage && (
-              <img 
-                src={backgroundImage.square} 
-                alt={title} 
-                className="w-full h-full object-cover border-r-1 border-r-[rgba(105,49,29,1)]" 
+              <img
+                src={backgroundImage.square}
+                alt={title}
+                className="w-full h-full object-cover border-r-1 border-r-[rgba(105,49,29,1)]"
                 loading="lazy"
                 decoding="async"
                 style={{
@@ -57,9 +57,9 @@ const LocationCard = memo(({ location, onNavigate }) => {
               {secondLine && <p>{secondLine}</p>}
             </div>
             <div className='flex flex-row items-center ml-1 mr-3'>
-              <Arrow 
+              <Arrow
                 className="w-full h-auto -mb-2"
-                direction={0} 
+                direction={0}
               />
             </div>
           </div>
