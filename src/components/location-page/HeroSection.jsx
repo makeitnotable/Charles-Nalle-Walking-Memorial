@@ -1,6 +1,12 @@
+import { isMobile } from 'react-device-detect';
 import ArrowDown from '../ArrowDown';
 
 export default function HeroSection({ data }) {
+    // Use horizontal image for desktop, vertical for mobile
+    const backgroundImage = isMobile
+        ? data.backgroundImage.vertical
+        : data.backgroundImage.horizontal;
+
     return (
         <div className="h-screen flex flex-col">
             <div className="flex-none space-y-4">
@@ -21,14 +27,14 @@ export default function HeroSection({ data }) {
                         </h1>
                         <div className="flex-col justify-evenly items-end mr-1 h-full">
                             <ArrowDown
-                                className="text-primary-12 h-fit ml-1" 
+                                className="text-primary-12 h-fit ml-1"
                             />
                         </div>
                     </div>
                 </div>
             </div>
             <img
-                src={data.backgroundImage.vertical}
+                src={backgroundImage}
                 alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
                 className="mt-5 w-full flex-1 bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t  object-cover object-center"
             />

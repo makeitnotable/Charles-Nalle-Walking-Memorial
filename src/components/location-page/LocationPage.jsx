@@ -22,7 +22,7 @@ export default function LocationPage() {
     }
 
     return (
-        <div className=''>
+        <div className='max-w-7xl mx-auto'>
             <HeroSection data={currentChapter} />
             <QuoteSection data={currentChapter} />
             <AudioPlayerSection data={currentChapter} />
