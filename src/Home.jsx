@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useTransition } from "./stores/useTransitionStore";
 import { Button } from "./components/Button";
+import { isMobile } from 'react-device-detect';
 export default function Home() {
   const { play } = useTransition();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Home() {
           className='absolute inset-0 z-0'
           style={{
             backgroundImage:
-              "linear-gradient(to bottom, rgba(16, 10, 6, 0.1), rgba(16,10, 5, .89)), linear-gradient(to bottom, rgba(101, 67, 33, 0.30), rgba(101, 30, 33, 0.30)), url('/homepage-overlay.png'), url('/home-bg.png')",
+              `linear-gradient(to bottom, rgba(16, 10, 6, 0.1), rgba(16,10, 5, .89)), linear-gradient(to bottom, rgba(101, 67, 33, 0.30), rgba(101, 30, 33, 0.30)), url('/homepage-overlay.png'), url('${isMobile ? '/home-bg.png' : '/home-bg-horizontal.png'}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
