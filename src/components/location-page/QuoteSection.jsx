@@ -44,7 +44,7 @@ export default function QuoteSection({ data }) {
             <div className="relative h-full p-4 text-left  overflow-hidden">
                 <div
                     ref={backgroundRef}
-                    className="absolute inset-0 z-0 will-change-transform"
+                    className="absolute inset-0 z-0 will-change-transform h-full"
                     style={{
                         backgroundImage: `linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)), url('${isMobile ? data.backgroundImage.vertical : data.backgroundImage.horizontal}')`,
                         backgroundSize: 'cover',
