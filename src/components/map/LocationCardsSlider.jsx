@@ -8,7 +8,7 @@ import { useMapStore } from '../../stores/useMapStore';
 import { memo } from 'react';
 import Arrow from '../Arrow';
 
-// Memoize LocationCard to prevent unnecessary re-renders
+
 const MemoizedLocationCard = memo(LocationCard);
 
 const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
