@@ -13,7 +13,7 @@ export default function AudioPlayerSection({ data }) {
         if (!audio) return;
 
         const updateTime = () => setCurrentTime(audio.currentTime);
-        const updateDuration = () => {}; // Duration not used currently
+        const updateDuration = () => { }; // Duration not used currently
 
         audio.addEventListener('timeupdate', updateTime);
         audio.addEventListener('loadedmetadata', updateDuration);
@@ -29,10 +29,10 @@ export default function AudioPlayerSection({ data }) {
     useEffect(() => {
         const handleScroll = () => {
             if (!imageRef.current) return;
-            
+
             const imageBottom = imageRef.current.getBoundingClientRect().bottom;
             const shouldBeSticky = imageBottom <= 0;
-            
+
             if (shouldBeSticky !== isSticky) {
                 setIsSticky(shouldBeSticky);
             }
@@ -62,35 +62,34 @@ export default function AudioPlayerSection({ data }) {
     };
 
     return (
-        <div className=''>
+        <div className='max-w-7xl mx-auto'>
             <audio
                 ref={audioRef}
                 src="/bakery.mp3"
                 preload="metadata"
             />
-            
+
             {/* Image Section */}
             <div className='bg-primary-3 pt-10 p-4'>
-                <div 
+                <div
                     ref={imageRef}
-                    className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2" 
+                    className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2"
                     style={{
                         backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
-                    }} 
+                    }}
                 />
             </div>
 
             {/* Audio Controls - Sticky when scrolled past image */}
-            <div 
+            <div
                 ref={controlsRef}
-                className={`bg-primary-3 border-b-2 border-primary-6 p-4 transition-all duration-300 ${
-                    isSticky 
-                        ? 'fixed top-0 left-0 right-0 z-50 shadow-lg rounded-b-3xl' 
-                        : 'rounded-b-3xl'
-                }`}
+                className={`bg-primary-3 border-b-2 border-primary-6 p-4 max-w-7xl mx-auto transition-all duration-300 ${isSticky
+                    ? 'fixed top-0 left-0 right-0 z-50 shadow-lg rounded-b-3xl'
+                    : 'rounded-b-3xl'
+                    }`}
             >
                 <div className="flex flex-row justify-between items-start">
                     <div className="flex flex-row justify-between items-start space-x-2">
@@ -121,7 +120,7 @@ export default function AudioPlayerSection({ data }) {
                     </div>
                 </div>
             </div>
-            
+
             {/* Spacer to prevent content jump when sticky is active */}
             {isSticky && <div style={{ height: controlsRef.current?.offsetHeight || 0 }} />}
         </div>
