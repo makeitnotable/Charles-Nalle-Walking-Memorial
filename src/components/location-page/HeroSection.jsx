@@ -36,7 +36,7 @@ export default function HeroSection({ data }) {
             <img
                 src={backgroundImage}
                 alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
-                className="mt-5 w-full flex-1 bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t  object-cover object-center"
+                className="mt-5 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t  object-cover object-center"
             />
         </div>
     );
