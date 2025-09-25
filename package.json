@@ -15,6 +15,7 @@
     "framer-motion": "^12.9.4",
     "gsap": "^3.13.0",
     "keen-slider": "^6.8.6",
+    "lucide-react": "^0.544.0",
     "mapbox-gl": "^3.11.1",
     "react": "^19.1.0",
     "react-device-detect": "^2.2.3",

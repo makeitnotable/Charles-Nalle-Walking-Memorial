@@ -35,11 +35,11 @@ const TourWorksSection = () => {
       </div>
       <MapBox
         initialLocationName={LOCATIONS[0].name}
-        height="300px"
         width="100%"
         className="rounded-3xl overflow-hidden mt-10 mb-5 border-1 border-primary-6"
         interactive={false}
         showButtons={false}
+        useResponsiveHeight={true}
       />
       <div className='flex w-full flex-row justify-center items-center p-8 mt-10'>
         <Button variant='filled'>

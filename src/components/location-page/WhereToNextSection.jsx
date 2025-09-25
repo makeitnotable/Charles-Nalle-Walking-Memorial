@@ -1,9 +1,9 @@
 import { Button } from '../Button';
 import MapBox from '../map/MapBox';
-import { isMobile } from 'react-device-detect';
 import { LOCATIONS } from '../map/constants';
 
 export default function WhereToNextSection({ currentChapter }) {
+    
     const handleGetDirections = () => {
         if (!currentChapter?.nextLocationPin) return;
         const target = LOCATIONS.find(loc => loc.name === currentChapter.nextLocationPin);
@@ -27,17 +27,17 @@ export default function WhereToNextSection({ currentChapter }) {
 
             <MapBox
                 initialLocationName={currentChapter.nextLocationPin}
-                height={isMobile ? "300px" : "500px"}
                 width="100%"
                 className="rounded-3xl overflow-hidden mt-10 mb-5 border-2 border-primary-6"
                 interactive={false}
                 showButtons={false}
+                useResponsiveHeight={true}
             />
             <div className='flex w-full flex-row justify-center items-center p-8 mt-10'>
                 <Button variant='filled' className='' onClick={handleGetDirections}>
                     Get Directions
                 </Button>
             </div>
-        </div>
+    </div>
     );
 } 

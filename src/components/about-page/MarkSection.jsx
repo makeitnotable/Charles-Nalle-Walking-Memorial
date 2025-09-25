@@ -17,7 +17,7 @@ const MarkSection = () => {
             <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>MARK<br /> PRIEST</p>
           </div>
           <div className='flex justify-end w-full'>
-            <div className="w-3/4 h-68 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+            <div className="w-3/4 h-68 lg:w-[500px] lg:h-[500px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
               backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${aboutData.mark.img.horizontal}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
