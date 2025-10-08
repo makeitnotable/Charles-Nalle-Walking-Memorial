@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useNavigation } from '../hooks/useNavigation';
+import { Button } from '../Button';
 import HeroSection from './HeroSection';
 import QuoteSection from './QuoteSection';
 import AudioPlayerSection from './AudioPlayerSection';
@@ -35,8 +36,8 @@ export default function LocationPage() {
                     invalidateOnRefresh: false,
                 }
             })
-            .to(gradientRef.current, { opacity: 1 }, 0.3)
-            .to(quoteRef.current, { opacity: 1 }, 0.45);
+                .to(gradientRef.current, { opacity: 1 }, 0.3)
+                .to(quoteRef.current, { opacity: 1 }, 0.45);
         });
 
         return () => ctx.revert();
@@ -50,24 +51,39 @@ export default function LocationPage() {
         <div className='max-w-7xl mx-auto'>
             <div ref={heroRef} className="relative">
                 <HeroSection data={currentChapter} />
-                <div 
-                    ref={gradientRef} 
-                    style={{ 
+                <div
+                    ref={gradientRef}
+                    style={{
                         opacity: 0,
                         background: 'linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8))'
-                    }} 
+                    }}
                     className="absolute inset-0 pointer-events-none"
                 />
                 <div ref={quoteRef} style={{ opacity: 0 }} className="absolute inset-0 pointer-events-none">
                     <QuoteSection data={currentChapter} />
                 </div>
             </div>
-            <AudioPlayerSection data={currentChapter} />
-            <NarrativeSection
-                data={currentChapter}
-                goToNextChapter={goToNextChapter}
-                goToPrevChapter={goToPrevChapter}
-            />
+            <div className='w-full flex flex-col md:flex-row justify-between mt-10 space-x-10 p-4 md:p-0 space-y-10'>
+                <div className='w-full md:w-1/3'>
+                    <AudioPlayerSection data={currentChapter} />
+                </div>
+                <div className='flex-1 w-full'>
+                    <NarrativeSection
+                        data={currentChapter}
+                        goToNextChapter={goToNextChapter}
+                        goToPrevChapter={goToPrevChapter}
+                    />
+                </div>
+            </div>
+            <div className='flex flex-row justify-center items-center m-10'>
+                {currentChapter.nextChapter && (
+                    <Button variant='filled' onClick={goToNextChapter}>
+                        <span className="text-lg font-medium font-['Poppins'] leading-normal">
+                            {currentChapter.nextChapter}
+                        </span>
+                    </Button>
+                )}
+            </div>
             <HistoricalContextSection data={currentChapter} />
             <MoralMessageSection
                 data={currentChapter}

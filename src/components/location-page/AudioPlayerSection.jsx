@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 
 export default function AudioPlayerSection({ data }) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -30,10 +31,13 @@ export default function AudioPlayerSection({ data }) {
         const handleScroll = () => {
             if (!imageRef.current) return;
 
+            if (!isMobile) return;
+
             const imageBottom = imageRef.current.getBoundingClientRect().bottom;
             const shouldBeSticky = imageBottom <= 0;
 
             if (shouldBeSticky !== isSticky) {
+
                 setIsSticky(shouldBeSticky);
             }
         };
@@ -62,7 +66,7 @@ export default function AudioPlayerSection({ data }) {
     };
 
     return (
-        <div className='max-w-7xl mx-auto'>
+        <div className='rounded-3xl'>
             <audio
                 ref={audioRef}
                 src="/bakery.mp3"
@@ -70,12 +74,12 @@ export default function AudioPlayerSection({ data }) {
             />
 
             {/* Image Section */}
-            <div className='bg-primary-3 pt-10 p-4'>
+            <div className='bg-primary-3 pt-10 p-4 rounded-t-3xl'>
                 <div
                     ref={imageRef}
-                    className="w-full aspect-[16/9] rounded-2xl border-primary-6 border-2"
+                    className="w-full aspect-[16/9] rounded-xl border-primary-6 border-2"
                     style={{
-                        backgroundImage: ` linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
+                        backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
@@ -86,7 +90,7 @@ export default function AudioPlayerSection({ data }) {
             {/* Audio Controls - Sticky when scrolled past image */}
             <div
                 ref={controlsRef}
-                className={`bg-primary-3 border-b-2 border-primary-6 p-4 max-w-7xl mx-auto transition-all duration-300 ${isSticky
+                className={`bg-primary-3 border-b-2 border-primary-6 p-4 mx-auto transition-all duration-300 ${isSticky
                     ? 'fixed top-0 left-0 right-0 z-50 shadow-lg rounded-b-3xl'
                     : 'rounded-b-3xl'
                     }`}
