@@ -5,6 +5,7 @@ import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
 import AboutPage from './AboutPage';
+import {AppToolbar} from './components/VercelToolbar';
 
 import { SWIPEABLE_LOCATIONS } from './components/map/constants';
 import { useMapStore } from './stores/useMapStore';
@@ -54,6 +55,9 @@ function App() {
           <Route path="/:location" element={<LocationPage />} />
         </Routes>
       </div>
+      
+      {/* Vercel Toolbar */}
+      {AppToolbar()}
     </div>
   );
 }

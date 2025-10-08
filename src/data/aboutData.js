@@ -3,7 +3,7 @@ export const aboutData = {
     header: "About THE PROJECT",
     section: "Section 1/4",
     img: {
-      horizontal: "/about-page/barbershop.png",
+      horizontal: "/historical-context-barber.png",
     }, 
     narrative: {
       content: [

@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
-import { useNavigation } from '../hooks/useNavigation'; // Corrected import path
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useNavigation } from '../hooks/useNavigation';
 import HeroSection from './HeroSection';
 import QuoteSection from './QuoteSection';
 import AudioPlayerSection from './AudioPlayerSection';
@@ -9,12 +11,35 @@ import MoralMessageSection from './MoralMessageSection';
 import WhereToNextSection from './WhereToNextSection';
 import FooterSection from './FooterSection';
 
-export default function LocationPage() {
+gsap.registerPlugin(ScrollTrigger);
 
+export default function LocationPage() {
+    const heroRef = useRef(null);
+    const quoteRef = useRef(null);
+    const gradientRef = useRef(null);
     const { currentChapter, goToNextChapter, goToPrevChapter } = useNavigation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
+    }, [currentChapter]);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: "top top",
+                    end: "+=250%",
+                    scrub: 0.3,
+                    pin: heroRef.current,
+                    invalidateOnRefresh: false,
+                }
+            })
+            .to(gradientRef.current, { opacity: 1 }, 0.3)
+            .to(quoteRef.current, { opacity: 1 }, 0.45);
+        });
+
+        return () => ctx.revert();
     }, [currentChapter]);
 
     if (!currentChapter) {
@@ -22,9 +47,21 @@ export default function LocationPage() {
     }
 
     return (
-        <div className=''>
-            <HeroSection data={currentChapter} />
-            <QuoteSection data={currentChapter} />
+        <div className='max-w-7xl mx-auto'>
+            <div ref={heroRef} className="relative">
+                <HeroSection data={currentChapter} />
+                <div 
+                    ref={gradientRef} 
+                    style={{ 
+                        opacity: 0,
+                        background: 'linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8))'
+                    }} 
+                    className="absolute inset-0 pointer-events-none"
+                />
+                <div ref={quoteRef} style={{ opacity: 0 }} className="absolute inset-0 pointer-events-none">
+                    <QuoteSection data={currentChapter} />
+                </div>
+            </div>
             <AudioPlayerSection data={currentChapter} />
             <NarrativeSection
                 data={currentChapter}

@@ -12,7 +12,8 @@ const MapBox = ({
     showButtons = true,
     height = '100vh',
     width = '100%',
-    className = ''
+    className = '',
+    useResponsiveHeight = false
 }) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
@@ -42,8 +43,16 @@ const MapBox = ({
         }
     };
 
+    const containerStyle = useResponsiveHeight 
+        ? { width: width }
+        : { height: height, width: width };
+
+    const containerClasses = useResponsiveHeight 
+        ? `bg-black relative h-[300px] md:h-[450px] ${className}`
+        : `bg-black relative ${className}`;
+
     return (
-        <div className={`bg-black relative ${className}`} style={{ height: height, width: width }}>
+        <div className={containerClasses} style={containerStyle}>
             <div
                 ref={mapContainerRef}
                 style={{

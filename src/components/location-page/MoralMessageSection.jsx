@@ -139,7 +139,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         <p ref={titleRef} className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>
                     <div className='flex justify-end w-full'>
-                        <div ref={imageRef} className="w-3/4 h-68 rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+                        <div ref={imageRef} className="w-[250px] h-[250px] lg:w-[500px] lg:h-[500px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
                             backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.moral}')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
@@ -150,6 +150,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                     <p ref={messageRef} className=' text-primary-12 ml-4 mr-4 text-lg leading-relaxed'>{data.moralMessage.message}</p>
 
                     <div ref={callToActionRef} className='space-y-4 m-4'>
+
                         <p className='text-primary-11 text-2xl font-[Poppins]'>{data.moralMessage.callToAction.title}</p>
                         <p className=' text-primary-12 text-lg leading-relaxed'>{data.moralMessage.callToAction.content}</p>
                     </div>

@@ -12,6 +12,7 @@ export const locationData = {
       vertical: "holeurs-fashionable-bakery/vertical.png",
       square: "holeurs-fashionable-bakery/square.png",
       historical: "holeurs-fashionable-bakery/historical.png",
+      historicalHorizontal: "holeurs-fashionable-bakery/historical-horizontal.png",
       moral: "holeurs-fashionable-bakery/moral1.png",
     },
     quote: {
@@ -70,6 +71,7 @@ export const locationData = {
     cardTitle: "Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt1/horizontal.png",
+      historicalHorizontal: "office-commissioner-pt1/historical.png",
       vertical: "office-commissioner-pt1/vertical.png",
       square: "office-commissioner-pt1/square.png",
       historical: "office-commissioner-pt1/historical.png",
@@ -131,10 +133,11 @@ export const locationData = {
     },
     cardTitle: "Part 2: Office of The Commissioner",
     backgroundImage: {
-      horizontal: "office-commissioner-pt2/vertical.png",
+      horizontal: "office-commissioner-pt2/horizontal.png",
       vertical: "office-commissioner-pt2/vertical.png",
       square: "office-commissioner-pt2/square.png",
       historical: "office-commissioner-pt2/historical.png",
+      historicalHorizontal: "office-commissioner-pt2/historical.png",
       moral: "office-commissioner-pt2/moral-bg.png",
     },
     quote: {
@@ -195,6 +198,7 @@ export const locationData = {
       moral: "uri-gilbert-mansion/moral.png",
       horizontal: "uri-gilbert-mansion/horizontal.png",
       vertical: "uri-gilbert-mansion/vertical.png",
+      historicalHorizontal: "uri-gilbert-mansion/historical.png",
     },
     quote: {
       text: "Are you a Negro?",
@@ -260,7 +264,7 @@ export const locationData = {
       vertical: "washington-ferry/vertical.png",
       narrative1: "washington-ferry/narrative1.png",
       narrative2: "washington-ferry/narrative2.png",
-
+      historicalHorizontal: "washington-ferry/historical.png",
     },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
@@ -327,7 +331,7 @@ export const locationData = {
       vertical: "peter-baltimores-barbershop/vertical.png",
       narrative1: "peter-baltimores-barbershop/narrative1.png",
       narrative2: "peter-baltimores-barbershop/narrative2.png",
-
+      historicalHorizontal: "peter-baltimores-barbershop/historical.png",
     },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
