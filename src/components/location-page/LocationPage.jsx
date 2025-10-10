@@ -48,8 +48,8 @@ export default function LocationPage() {
     }
 
     return (
-        <div className='max-w-7xl mx-auto'>
-            <div ref={heroRef} className="relative">
+        <div className='w-full'>
+            <div ref={heroRef} className="relative max-w-7xl mx-auto">
                 <HeroSection data={currentChapter} />
                 <div
                     ref={gradientRef}
@@ -63,7 +63,7 @@ export default function LocationPage() {
                     <QuoteSection data={currentChapter} />
                 </div>
             </div>
-            <div className='w-full flex flex-col md:flex-row justify-between mt-10 space-x-10 p-4 md:p-0 space-y-10'>
+            <div className='w-full flex flex-col md:flex-row justify-between mt-10 space-x-10 p-4 space-y-10 max-w-7xl mx-auto'>
                 <div className='w-full md:w-1/3'>
                     <AudioPlayerSection data={currentChapter} />
                 </div>
@@ -75,7 +75,7 @@ export default function LocationPage() {
                     />
                 </div>
             </div>
-            <div className='flex flex-row justify-center items-center m-10'>
+            <div className='flex flex-row justify-center items-center mb-6'>
                 {currentChapter.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter}>
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">
@@ -84,14 +84,18 @@ export default function LocationPage() {
                     </Button>
                 )}
             </div>
-            <HistoricalContextSection data={currentChapter} />
+            <div className='max-w-7xl mx-auto'>
+                <HistoricalContextSection data={currentChapter} />
+            </div>
             <MoralMessageSection
                 data={currentChapter}
                 goToNextChapter={goToNextChapter}
                 goToPrevChapter={goToPrevChapter}
             />
-            <WhereToNextSection currentChapter={currentChapter} />
-            <FooterSection />
+            <div className='max-w-7xl mx-auto'>
+                <WhereToNextSection currentChapter={currentChapter} />
+                <FooterSection />
+            </div>
         </div>
     );
 }

@@ -29,12 +29,14 @@ export const useNavigation = () => {
     return chapters.find(chapter => chapter.key === location);
   }, [location]);
 
+
+
   // Navigation handlers that components can call directly.
   const goToNextChapter = () => {
     if (currentChapter?.nextChapterPath) {
       play(() => {
         navigate(currentChapter.nextChapterPath);
-      });
+      }, currentChapter.nextChapter);
     }
   };
 
@@ -42,14 +44,14 @@ export const useNavigation = () => {
     if (currentChapter?.prevChapterPath) {
       play(() => {
         navigate(currentChapter.prevChapterPath);
-      });
+      }, currentChapter.prevChapter);
     }
   };
 
   return {
     chapters,
     currentChapter,
-    goToNextChapter, 
-    goToPrevChapter, 
+    goToNextChapter,
+    goToPrevChapter,
   };
 };

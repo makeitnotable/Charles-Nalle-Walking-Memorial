@@ -56,7 +56,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         handleClose();
         play(() => {
             navigate('/');
-        });
+        }, 'Home');
     };
 
     // Handle navigation to location page with transition
@@ -65,7 +65,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
             handleClose();
             play(() => {
                 navigate(location.path);
-            });
+            }, location.name);
         }
     };
 
@@ -74,7 +74,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         handleClose();
         play(() => {
             navigate('/about');
-        });
+        }, 'About');
     };
 
     // Position classes
@@ -194,7 +194,7 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
             {/* Menu toggle button */}
             {!isOpen && (
                 <button onClick={handleToggle}>
-                    <div ref={hamburgerRef} className={`fixed ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
+                    <div ref={hamburgerRef} className={`fixed z-[1000] ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
                         <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
                             }`}>
                             <div className='flex flex-col gap-2 w-full items-center'>
@@ -218,7 +218,7 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
 
             {/* Open menu - rendered separately to avoid nested buttons */}
             {isOpen && (
-                <div data-menu="open">
+                <div data-menu="open" className='z-[1000]'>
                     <OpenMenu
                         locations={locations}
                         position={position}

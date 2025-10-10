@@ -1,37 +1,38 @@
 import { create } from 'zustand';
-import { useLocation } from 'react-router';
-import gsap from 'gsap';
 
 // Define the Zustand store
 export const useTransitionStore = create((set, get) => ({
     isTransitioning: false,
     setIsTransitioning: (value) => set({ isTransitioning: value }),
+    overlayRef: null,
+    setOverlayRef: (ref) => set({ overlayRef: ref }),
 
-    // Setup transition timeline
-    play: (callback) => {
-        const { setIsTransitioning } = get();
+    // Setup transition timeline with overlay component
+    // callback: function to execute during transition (usually navigation)
+    // text: optional text to display during transition (defaults to "Charles Nalle")
+    play: (callback, text = null) => {
+        const { setIsTransitioning, overlayRef } = get();
+
+        if (!overlayRef || !overlayRef.animate) {
+            console.warn('TransitionOverlay not ready, falling back to immediate navigation');
+            if (callback) callback();
+            return;
+        }
+
         setIsTransitioning(true);
 
-        // Fade out
-        gsap.to('#page-content', {
-            opacity: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            onComplete: () => {
-                if (callback) callback();
+        // Trigger the overlay's internal animation with optional custom text
+        // The overlay will handle: slide in -> hold -> navigate -> slide out
+        overlayRef.animate(() => {
+            // This callback runs during the hold phase
+            if (callback) callback();
 
-                // Fade in (delayed slightly)
-                gsap.to('#page-content', {
-                    opacity: 1,
-                    duration: 0.7,
-                    delay: 0.1,
-                    ease: 'power3.in',
-                    onComplete: () => {
-                        setIsTransitioning(false);
-                    }
-                });
-            }
-        });
+            // Reset transitioning state after the full animation completes
+            // Total duration: 0.6s (slide in) + 1.0s (hold) + 0.6s (slide out) = 2.2s
+            setTimeout(() => {
+                setIsTransitioning(false);
+            }, 2200);
+        }, text);
     },
 
     // Function to handle route changes (optional, can be managed outside the store)

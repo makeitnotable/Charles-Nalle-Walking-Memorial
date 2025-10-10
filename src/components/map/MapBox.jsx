@@ -5,6 +5,7 @@ import { LOCATIONS } from './constants';
 import LocationCardsSlider from './LocationCardsSlider';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
+import { useTransition } from '../../stores/useTransitionStore';
 
 const MapBox = ({
     initialLocationName = 'Bakery',
@@ -17,7 +18,7 @@ const MapBox = ({
 }) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
-
+    const { play } = useTransition();
     const {
         selectedLocation,
         isOverview,
@@ -39,15 +40,17 @@ const MapBox = ({
     const navigateToLocation = (locationName) => {
         const locationData = LOCATIONS.find(loc => loc.name === locationName);
         if (locationData && locationData.path) {
-            navigate(locationData.path);
+            play(() => {
+                navigate(locationData.path);
+            }, locationData.name);
         }
     };
 
-    const containerStyle = useResponsiveHeight 
+    const containerStyle = useResponsiveHeight
         ? { width: width }
         : { height: height, width: width };
 
-    const containerClasses = useResponsiveHeight 
+    const containerClasses = useResponsiveHeight
         ? `bg-black relative h-[300px] md:h-[450px] ${className}`
         : `bg-black relative ${className}`;
 

@@ -5,10 +5,11 @@ import LocationPage from './components/location-page/LocationPage';
 import MenuOverlay from './components/MenuOverlay';
 import BrandingPage from './components/BrandingPage';
 import AboutPage from './AboutPage';
-import {AppToolbar} from './components/VercelToolbar';
-
+import { AppToolbar } from './components/VercelToolbar';
+import PersistentMapRoot from './components/PersistentMap';
 import { SWIPEABLE_LOCATIONS } from './components/map/constants';
 import { useMapStore } from './stores/useMapStore';
+import { TransitionOverlay } from './components/TransitionOverlay';
 
 export const Layout = () => {
   return (
@@ -40,7 +41,8 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 right-0 z-50">
+      <PersistentMapRoot />
+      <div className="z-[1000] absolute top-0 right-0">
         {!isRootRoute && <MenuOverlay locations={SWIPEABLE_LOCATIONS} position={menuPosition} />}
       </div>
 
@@ -55,7 +57,10 @@ function App() {
           <Route path="/:location" element={<LocationPage />} />
         </Routes>
       </div>
-      
+
+      {/* Transition Overlay - renders above everything */}
+      <TransitionOverlay />
+
       {/* Vercel Toolbar */}
       {AppToolbar()}
     </div>
