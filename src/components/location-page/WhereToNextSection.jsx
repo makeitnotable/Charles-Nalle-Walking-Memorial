@@ -22,13 +22,13 @@ export default function WhereToNextSection({ currentChapter }) {
                     <br />
                     {currentChapter.whereToNext.title.split(' ').slice(1).join(' ')}
                 </p>
-                <p className='text-[#F6F3EE] ml-2 my-4 text-xs font-["Poppins"] font-medium leading-[18px]'>{currentChapter.whereToNext.number}</p>
+                <p className='text-[#F6F3EE] ml-2 my-4 text-xs md: text-[14px] font-["Poppins"] font-medium leading-[18px]'>{currentChapter.whereToNext.number}</p>
             </div>
 
             <MapBox
                 initialLocationName={currentChapter.nextLocationPin}
                 width="100%"
-                className="rounded-3xl overflow-hidden mt-10 mb-5 border-2 border-primary-6"
+                className="rounded-3xl overflow-hidden mt-10 mb-5 border-1 border-primary-6 md:border-none md:shadow-lg md:shadow-black/20 md:backdrop-blur-sm max-w-2xl mx-auto"
                 interactive={false}
                 showButtons={false}
                 useResponsiveHeight={true}

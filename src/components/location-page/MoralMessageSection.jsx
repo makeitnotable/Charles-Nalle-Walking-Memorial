@@ -137,7 +137,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         <p ref={titleRef} className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>
                     <div className='flex justify-end sm:justify-center w-full'>
-                        <div ref={imageRef} className="w-[250px] h-[250px] lg:w-[500px] lg:h-[500px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+                        <div ref={imageRef} className="w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
                             backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.moral}')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',

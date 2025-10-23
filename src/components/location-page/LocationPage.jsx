@@ -63,18 +63,41 @@ export default function LocationPage() {
                     <QuoteSection data={currentChapter} />
                 </div>
             </div>
-            <div className='w-full flex flex-col md:flex-row justify-between mt-10 space-x-10 p-4 space-y-10 max-w-7xl mx-auto'>
-                <div className='w-full md:w-1/3'>
-                    <AudioPlayerSection data={currentChapter} />
+            {currentChapter.narrative.contentDesktop ? (
+                // Chapter 4: Split layout on desktop
+                <>
+                    <div className='md:hidden w-full flex flex-col space-y-10 p-4 max-w-7xl mx-auto'>
+                        <AudioPlayerSection data={currentChapter} />
+                        <NarrativeSection data={currentChapter} />
+                    </div>
+                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 p-4 max-w-7xl mx-auto'>
+                        <div className='w-1/2 space-y-10'>
+                            <AudioPlayerSection data={currentChapter} />
+                            <NarrativeSection
+                                data={currentChapter}
+                                contentItems={currentChapter.narrative.contentDesktop.slice(0, 3)}
+                            />
+                        </div>
+                        <div className='w-1/2'>
+                            <NarrativeSection
+                                data={currentChapter}
+                                contentItems={currentChapter.narrative.contentDesktop.slice(3, 8)}
+                                showTitle={false}
+                            />
+                        </div>
+                    </div>
+                </>
+            ) : (
+                // Other chapters: Standard layout
+                <div className='w-full flex flex-col md:flex-row mt-10 md:space-x-10 p-4 space-y-10 md:space-y-0 max-w-7xl mx-auto'>
+                    <div className='w-full md:w-1/3'>
+                        <AudioPlayerSection data={currentChapter} />
+                    </div>
+                    <div className='flex-1 w-full'>
+                        <NarrativeSection data={currentChapter} />
+                    </div>
                 </div>
-                <div className='flex-1 w-full'>
-                    <NarrativeSection
-                        data={currentChapter}
-                        goToNextChapter={goToNextChapter}
-                        goToPrevChapter={goToPrevChapter}
-                    />
-                </div>
-            </div>
+            )}
             <div className='flex flex-row justify-center items-center mb-6'>
                 {currentChapter.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter}>
