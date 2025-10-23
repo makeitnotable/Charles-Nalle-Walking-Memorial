@@ -1,12 +1,10 @@
-import { Button } from '../Button';
-
-export default function NarrativeSection({ data, goToNextChapter }) {
+export default function NarrativeSection({ data }) {
     let firstTextParagraph = true;
 
     return (
         <div className='space-y-4'>
             <div className='text-text-primary space-y-4'>
-                <p className='text-primary-12 text-xs font-[500] font-poppins mb-8'>{data.narrative.title}</p>
+                <p className='text-primary-12 text-xs md:text-[14px] font-[500] font-poppins mb-8'>{data.narrative.title}</p>
                 {data.narrative.content.map((item, index) => {
                     // Handle image references
                     if (item.startsWith('backgroundImage.')) {

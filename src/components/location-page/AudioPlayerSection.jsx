@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 
 export default function AudioPlayerSection({ data }) {
     const [isPlaying, setIsPlaying] = useState(false);
