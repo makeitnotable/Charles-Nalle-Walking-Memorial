@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HeroSection({ data }) {
     const imageRef = useRef(null);
     const textContentRef = useRef(null);
-    
+
     // Use horizontal image for desktop, vertical for mobile
     const backgroundImage = isMobile
         ? data.backgroundImage.vertical
@@ -27,8 +27,8 @@ export default function HeroSection({ data }) {
                     invalidateOnRefresh: false,
                 }
             })
-            .to(imageRef.current, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
-            .to(textContentRef.current, { y: -200 }, 0);
+                .to(imageRef.current, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
+                .to(textContentRef.current, { y: -200 }, 0);
         });
 
         return () => ctx.revert();
@@ -36,7 +36,7 @@ export default function HeroSection({ data }) {
 
     return (
         <div className="h-screen flex flex-col relative overflow-hidden">
-            <div ref={textContentRef} className="flex-none space-y-4 relative z-10">
+            <div ref={textContentRef} className="flex-none space-y-4 relative z-20">
                 <div className="pt-2 px-6 ">
                     <div className="flex flex-row justify-between items-center">
                         <p className="font-poppins text-[12px] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
@@ -66,8 +66,9 @@ export default function HeroSection({ data }) {
                 alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
                 className="mt-5 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
             />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[var(--color-primary-2)] to-transparent z-10" />
         </div>
     );
-} 
+}
 
 // linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8)

@@ -24,25 +24,6 @@ export default function LocationPage() {
         window.scrollTo(0, 0);
     }, [currentChapter]);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: "top top",
-                    end: "+=250%",
-                    scrub: 0.3,
-                    pin: heroRef.current,
-                    invalidateOnRefresh: false,
-                }
-            })
-                .to(gradientRef.current, { opacity: 1 }, 0.3)
-                .to(quoteRef.current, { opacity: 1 }, 0.45);
-        });
-
-        return () => ctx.revert();
-    }, [currentChapter]);
-
     if (!currentChapter) {
         return <div className="p-4 text-text-primary text-center">Location not found</div>;
     }
