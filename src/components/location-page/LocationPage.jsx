@@ -16,8 +16,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LocationPage() {
     const heroRef = useRef(null);
-    const quoteRef = useRef(null);
-    const gradientRef = useRef(null);
     const { currentChapter, goToNextChapter, goToPrevChapter } = useNavigation();
 
     useEffect(() => {
@@ -32,17 +30,7 @@ export default function LocationPage() {
         <div className='w-full'>
             <div ref={heroRef} className="relative max-w-7xl mx-auto">
                 <HeroSection data={currentChapter} />
-                <div
-                    ref={gradientRef}
-                    style={{
-                        opacity: 0,
-                        background: 'linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8))'
-                    }}
-                    className="absolute inset-0 pointer-events-none"
-                />
-                <div ref={quoteRef} style={{ opacity: 0 }} className="absolute inset-0 pointer-events-none">
-                    <QuoteSection data={currentChapter} />
-                </div>
+                <QuoteSection data={currentChapter} />
             </div>
             {currentChapter.narrative.contentDesktop ? (
                 // Chapter 4: Split layout on desktop

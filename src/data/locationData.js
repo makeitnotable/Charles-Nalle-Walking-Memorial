@@ -17,8 +17,7 @@ export const locationData = {
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
-      author1: "United States Deputy",
-      author2: "Marshal Holmes",
+      author1: "United States Deputy Marshal Holmes",
     },
     audioPlayer: {
       chapterName: "Chapter 1",
