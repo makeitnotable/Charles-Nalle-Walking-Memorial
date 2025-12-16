@@ -2,8 +2,6 @@ import ArrowDown from "../ArrowDown";
 import { isMobile } from "react-device-detect";
 
 export default function QuoteSection({ data }) {
-  console.log("data", data);
-
   const backgroundImage = isMobile
     ? data.backgroundImage.vertical
     : data.backgroundImage.horizontal;

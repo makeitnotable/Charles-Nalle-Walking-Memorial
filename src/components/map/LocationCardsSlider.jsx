@@ -1,10 +1,10 @@
-import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react';
-import { useCallback, useRef, useState } from 'react';
-import { SWIPEABLE_LOCATIONS } from './constants';
-import LocationCard from './LocationCard';
-import { useMapStore } from '../../stores/useMapStore';
-import { memo } from 'react';
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
+import { useCallback, useRef, useState } from "react";
+import { SWIPEABLE_LOCATIONS } from "./constants";
+import LocationCard from "./LocationCard";
+import { useMapStore } from "../../stores/useMapStore";
+import { memo } from "react";
 
 // Memoize LocationCard to prevent unnecessary re-renders
 const MemoizedLocationCard = memo(LocationCard);
@@ -27,51 +27,50 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
     [flyToLocation]
   );
 
-
   const initialIndex = currentLocation
     ? SWIPEABLE_LOCATIONS.findIndex((loc) => loc.name === currentLocation)
     : 0;
 
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      perView: 1.1, 
+      perView: 1.1,
       spacing: 10,
-      origin: 'center',
+      origin: "center",
     },
     breakpoints: {
-      '(min-width: 640px)': {
+      "(min-width: 640px)": {
         slides: {
           perView: 1.5,
           spacing: 12,
-          origin: 'center',
+          origin: "center",
         },
       },
-      '(min-width: 1024px)': {
+      "(min-width: 1024px)": {
         slides: {
-          perView: 2.0, 
+          perView: 2.0,
           spacing: 20,
-          origin: 'center', // Center the active card
+          origin: "center", // Center the active card
         },
         drag: true, // Enable drag on desktop
       },
     },
-    mode: 'snap',
+    mode: "snap",
     initial: initialIndex >= 0 ? initialIndex : 0,
     drag: true, // Enable drag on mobile
-    rubberband: false, 
+    rubberband: false,
     dragSpeed: 1,
-    renderMode: 'performance',
+    renderMode: "performance",
     defaultAnimation: {
-      duration: 400, 
-      easing: (t) => t, 
+      duration: 400,
+      easing: (t) => t,
     },
     created: (s) => {
-      s.container.style.willChange = 'transform';
+      s.container.style.willChange = "transform";
       setActiveSlide(s.track.details.rel);
     },
     destroyed: (s) => {
       if (s.container) {
-        s.container.style.willChange = 'auto';
+        s.container.style.willChange = "auto";
       }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -90,7 +89,6 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
     },
   });
 
-
   return (
     <div className="fixed bottom-0 left-0 right-0 z-10 pb-6">
       <div className="flex items-center justify-center gap-4 w-full background-red-400 mx-auto">
@@ -106,15 +104,15 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
             return (
               <div
                 key={location.name}
-                className={`keen-slider__slide transition-opacity duration-300 ease-out ${
-                  isActive 
-                    ? 'opacity-100' 
-                    : 'lg:opacity-60'
-                }`}
+                className={
+                  "keen-slider__slide transition-opacity duration-300 ease-out"
+                }
               >
-                <div className={`duration-300 ease-out ${
-                  isActive ? 'scale-100' : 'lg:scale-85'
-                }`}>
+                <div
+                  className={`duration-300 ease-out origin-bottom ${
+                    isActive ? "scale-100" : "scale-85"
+                  }`}
+                >
                   <MemoizedLocationCard
                     location={location}
                     onNavigate={() => {
