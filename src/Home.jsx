@@ -51,7 +51,7 @@ export default function Home() {
             </Button>
           </div>
           <div className='flex flex-col justify-between items-center p-4'>
-            <p className='text-gray-11 text-[12px] mx-4  mb-2 text-center font-normal'>
+            <p className='text-gray-11 text-4 max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal'>
               The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy
               and the story of Charles Nalle
             </p>
