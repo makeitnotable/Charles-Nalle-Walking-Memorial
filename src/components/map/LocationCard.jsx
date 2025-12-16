@@ -26,7 +26,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
         backfaceVisibility: 'hidden',
       }}
     >
-      <div className='h-32 w-full bg-primary-2 border-2 border-primary-3 text-white flex rounded-xl overflow-hidden'>
+      <div className='h-32 md:h-40 lg:h-48 w-full bg-primary-2 border-2 border-primary-3 text-white flex rounded-xl overflow-hidden'>
         <div className='w-1/3 h-full'>
           <div className='w-full h-full'>
             {backgroundImage && (
