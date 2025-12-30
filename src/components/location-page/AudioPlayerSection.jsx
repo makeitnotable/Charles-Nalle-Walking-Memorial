@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 export default function AudioPlayerSection({ data }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
     const [showMiniPlayer, setShowMiniPlayer] = useState(false);
     const audioRef = useRef(null);
     const controlsRef = useRef(null);
@@ -13,7 +14,7 @@ export default function AudioPlayerSection({ data }) {
         if (!audio) return;
 
         const updateTime = () => setCurrentTime(audio.currentTime);
-        const updateDuration = () => { }; // Duration not used currently
+        const updateDuration = () => setDuration(audio.duration);
 
         audio.addEventListener('timeupdate', updateTime);
         audio.addEventListener('loadedmetadata', updateDuration);
@@ -36,6 +37,7 @@ export default function AudioPlayerSection({ data }) {
         audio.currentTime = 0;
         setIsPlaying(false);
         setCurrentTime(0);
+        setDuration(0);
         setShowMiniPlayer(false);
     }, [data]);
 
@@ -61,7 +63,7 @@ export default function AudioPlayerSection({ data }) {
     };
 
     return (
-        <div className='rounded-3xl border-2 border-primary-6'>
+        <div className={`rounded-3xl border-2 border-primary-6 transition-colors duration-300 ${isPlaying ? 'bg-primary-4' : 'bg-primary-3'}`}>
             <audio
                 ref={audioRef}
                 src="/bakery.mp3"
@@ -69,9 +71,9 @@ export default function AudioPlayerSection({ data }) {
             />
 
             {/* Image Section */}
-            <div className='bg-primary-3 p-4 rounded-t-3xl'>
+            <div className='p-4 rounded-t-3xl'>
                 <div
-                    className="w-full aspect-[16/9] rounded-xl border-primary-6 border-2"
+                    className={`w-full aspect-[16/9] rounded-xl border-primary-6 border-2 transition-transform duration-300 ${isPlaying ? 'scale-102' : 'scale-100'}`}
                     style={{
                         backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
                         backgroundSize: 'cover',
@@ -84,13 +86,14 @@ export default function AudioPlayerSection({ data }) {
             {/* Audio Controls */}
             <div
                 ref={controlsRef}
-                className="bg-primary-3 p-4 mx-auto rounded-b-3xl"
+                id="audio-controls-section"
+                className={`p-4 mx-auto rounded-b-3xl transition-all duration-300 ${isPlaying ? 'pb-6' : 'pb-4'}`}
             >
                 <div className="flex flex-row justify-between items-start">
                     <div className="flex flex-row justify-between items-start space-x-2">
                         <button
                             onClick={togglePlayPause}
-                            className="w-14 h-14 bg-primary-4 border-2 border-primary-6 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors"
+                            className="w-14 h-14 bg-primary-4 border-2 border-primary-6 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors hover:cursor-pointer"
                         >
                             {isPlaying ? (
                                 // Pause icon
@@ -110,8 +113,21 @@ export default function AudioPlayerSection({ data }) {
                             <p className="mt-1 text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
-                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1.5'>
-                        <p className='text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5'>{formatTime(currentTime)}</p>
+                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1.5 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
+                        <div className='relative whitespace-nowrap'>
+                            {/* Duration text (in flow when paused, determines smaller width) */}
+                            <span 
+                                className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5 inline-block ${!isPlaying ? '' : 'absolute opacity-0'}`}
+                            >
+                                {formatTime(duration)}
+                            </span>
+                            {/* Playing text (in flow when playing, determines larger width) */}
+                            <span 
+                                className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5 inline-block ${isPlaying ? '' : 'absolute opacity-0'}`}
+                            >
+                                {formatTime(currentTime)} | {formatTime(duration)}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +141,7 @@ export default function AudioPlayerSection({ data }) {
                                 <div className="flex flex-row items-center space-x-2">
                                     <button
                                         onClick={togglePlayPause}
-                                        className="w-14 h-14 bg-primary-4 border-2 border-primary-6 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors"
+                                        className="w-14 h-14 bg-primary-4 border-2 border-primary-6 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors hover:cursor-pointer"
                                     >
                                         {isPlaying ? (
                                             // Pause icon
@@ -145,8 +161,21 @@ export default function AudioPlayerSection({ data }) {
                                         <p className="text-primary-11 font-poppins font-normal text-[11px]">{data.audioPlayer.subtitle}</p>
                                     </div>
                                 </div>
-                                <div className='bg-primary-10 rounded-3xl px-2'>
-                                    <p className='text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0'>{formatTime(currentTime)}</p>
+                                <div className='bg-primary-10 rounded-3xl px-2 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
+                                    <div className='relative whitespace-nowrap'>
+                                        {/* Duration text (in flow when paused, determines smaller width) */}
+                                        <span 
+                                            className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 inline-block ${!isPlaying ? '' : 'absolute opacity-0'}`}
+                                        >
+                                            {formatTime(duration)}
+                                        </span>
+                                        {/* Playing text (in flow when playing, determines larger width) */}
+                                        <span 
+                                            className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 inline-block ${isPlaying ? '' : 'absolute opacity-0'}`}
+                                        >
+                                            {formatTime(currentTime)} | {formatTime(duration)}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
