@@ -20,7 +20,7 @@ export default function QuoteSection({ data }) {
           <div className="max-w-md flex flex-col items-center">
             <div className="h-[144px] bg-primary-12 w-[1px] mb-10" />
           </div>
-          <div className="flex flex-col items-center w-[700px] p-0 gap-6">
+          <div className="flex flex-col items-center md:w-[700px] p-0 gap-6">
             <div className="border-l-2 border-primary-10 pl-2">
               <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
             </div>

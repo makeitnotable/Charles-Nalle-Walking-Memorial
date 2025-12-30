@@ -37,15 +37,15 @@ export default function HeroSection({ data }) {
     return (
         <div className="h-screen flex flex-col relative overflow-hidden">
             <div ref={textContentRef} className="flex-none space-y-4 relative z-20">
-                <div className="pt-2 px-6 ">
-                    <div className="flex flex-row justify-between items-center">
-                        <p className="font-poppins text-[12px] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
-                        <div className="h-5 w-5 rounded-full bg-primary-10 flex items-center justify-center">
-                            <p className='text-[10px] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
+                <div className="pt-7 md:pt-10 lg:pt-17 px-6">
+                    <div className="flex flex-row justify-between items-center ">
+                        <p className="font-poppins text-[0.75rem] md:text-[0.9375rem] lg:text-[1.125rem] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
+                        <div className="w-[1rem] h-[1rem] md:w-[1.25rem] md:h-[1.25rem] lg:w-[1.5rem] lg:h-[1.5rem] rounded-full bg-primary-10 flex items-center justify-center">
+                            <p className='text-[.625rem] md:text-[0.78125rem] lg:text-[.9375rem] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>
                     </div>
                     <div className='flex items-start justify-between mt-6 -ml-1'>
-                        <h1 className="font-['Martel_Sans'] text-[42px] font-semibold leading-[34px] tracking-[-1.5px] text-[#F6F3EE]">
+                        <h1 className="font-['Martel_Sans'] text-[2.625rem] leading-[2.125rem] md:text-[3.28125rem] md:leading-[2.65625rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] font-semibold tracking-[-1.5px] text-[#F6F3EE]">
                             {data.title.one}
                             <br />
                             {data.title.two}
