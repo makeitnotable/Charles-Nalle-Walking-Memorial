@@ -136,7 +136,7 @@ export default function AudioPlayerSection({ data }) {
             {showMiniPlayer && (
                 <div className='fixed bottom-0 left-0 right-0 w-full z-[999]'>
                     <div className='max-w-7xl mx-auto w-full p-3'>
-                        <div className='bg-primary-3 border-2 border-primary-6 p-2 shadow-lg w-72 rounded-2xl'>
+                        <div className={`border-2 border-primary-6 p-2 shadow-lg w-72 rounded-2xl ${isPlaying ? 'bg-primary-4' : 'bg-primary-3'}`}>
                             <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto">
                                 <div className="flex flex-row items-center space-x-2">
                                     <button
