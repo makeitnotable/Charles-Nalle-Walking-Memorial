@@ -41,14 +41,14 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
       "(min-width: 640px)": {
         slides: {
           perView: 1.5,
-          spacing: 12,
+          spacing: 0,
           origin: "center",
         },
       },
       "(min-width: 1024px)": {
         slides: {
           perView: 2.0,
-          spacing: 20,
+          spacing: 0,
           origin: "center", // Center the active card
         },
         drag: true, // Enable drag on desktop
@@ -91,7 +91,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-10 pb-6">
-      <div className="flex items-center justify-center gap-4 w-full background-red-400 mx-auto">
+      <div className="flex items-center justify-center gap-4 w-full mx-auto">
         {/* Slider */}
         <div
           ref={sliderRef}
