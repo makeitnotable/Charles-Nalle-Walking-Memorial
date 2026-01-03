@@ -51,9 +51,16 @@ export default function Home() {
             </Button>
           </div>
           <div className='flex flex-col justify-between items-center p-4'>
-            <p className='text-gray-11 text-[12px] md:text[15px] lg:text-[18px] max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal'>
-              The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy
-              and the story of Charles Nalle
+            {/* Mobile and Tablet: break at "digital" and "history" */}
+            <p className='text-gray-11 text-[12px] md:text-[15px] lg:text-[18px] max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal block lg:hidden'>
+              The Charles Nalle Walking Memorial is a digital<br/>
+              physical experience designed to share the history<br/>
+              of Troy and the story of Charles Nalle
+            </p>
+            {/* Desktop: break at "designed" */}
+            <p className='text-gray-11 text-[12px] md:text[15px] lg:text-[18px] mx-4 mb-2 text-center font-normal hidden lg:block'>
+              The Charles Nalle Walking Memorial is a digital physical experience designed<br/>
+              to share the history of Troy and the story of Charles Nalle
             </p>
           </div>
         </div>
