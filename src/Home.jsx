@@ -14,7 +14,7 @@ export default function Home() {
   };
 
   return (
-    <div className='p-4 h-dvh'>
+    <div className='p-4 md:p-12 h-dvh'>
       <div className='h-full flex flex-col justify-between items-center relative'>
         <div
           className='absolute inset-0 z-0'
