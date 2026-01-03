@@ -30,19 +30,19 @@ export default function Home() {
         ></div>
         <div className='flex flex-col justify-between items-center h-full z-10'>
           <div className='flex flex-col justify-between items-center gap-8 pt-16'>
-            <p className='text-primary-11 font-normal text-sm'>Troy, NY</p>
+            <p className='text-primary-11 font-normal text-[14px] md:text-[17.5px] lg:text-[21px]'>Troy, NY</p>
             <div className='flex flex-col'>
-              <p className='text-[54px] text-neutral-12 font-semibold tracking-[-2.5px] uppercase leading-none'>
+              <p className='text-[54px] md:text-[67.5px] lg:text-[81px] text-neutral-12 font-semibold tracking-[-2.5px] uppercase leading-none'>
                 Charles
               </p>
-              <p className='text-[54px] text-neutral-12 self-end font-semibold tracking-[-2.5px] uppercase leading-none -mt-3'>
+              <p className='text-[54px] md:text-[67.5px] lg:text-[81px] text-neutral-12 self-end font-semibold tracking-[-2.5px] uppercase leading-none -mt-3'>
                 Nalle
               </p>
             </div>
             <div className='flex items-center gap-2'>
-              <p className='text-primary-11 font-normal text-sm'>1821</p>
-              <div className='w-[28px] h-[1px] bg-primary-10'></div>
-              <p className='text-primary-11 font-normal text-sm'>1875</p>
+              <p className='text-primary-11 font-normal text-[14px] md:text-[17.5px] lg:text-[21px]'>1821</p>
+              <div className='w-[28px] h-[1px] -mt-0.5 bg-primary-10'></div>
+              <p className='text-primary-11 font-normal text-sm text-[14px] md:text-[17.5px] lg:text-[21px]'>1875</p>
             </div>
           </div>
           <div className='px-4 w-full flex justify-center'>
@@ -51,7 +51,7 @@ export default function Home() {
             </Button>
           </div>
           <div className='flex flex-col justify-between items-center p-4'>
-            <p className='text-gray-11 text-4 max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal'>
+            <p className='text-gray-11 text-[12px] md:text[15px] lg:text-[18px] max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal'>
               The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy
               and the story of Charles Nalle
             </p>
