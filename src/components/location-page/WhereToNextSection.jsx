@@ -1,6 +1,7 @@
 import { Button } from '../Button';
 import MapBox from '../map/MapBox';
 import { LOCATIONS } from '../map/constants';
+import ProgressIndicator from './ProgressIndicator';
 
 export default function WhereToNextSection({ currentChapter }) {
     
@@ -22,7 +23,7 @@ export default function WhereToNextSection({ currentChapter }) {
                     <br />
                     {currentChapter.whereToNext.title.split(' ').slice(1).join(' ')}
                 </p>
-                <p className='text-[#F6F3EE] ml-2 my-4 text-xs md: text-[14px] font-["Poppins"] font-medium leading-[18px]'>{currentChapter.whereToNext.number}</p>
+                <ProgressIndicator className='text-[#F6F3EE] ml-2 my-4'>{currentChapter.whereToNext.number}</ProgressIndicator>
             </div>
 
             <MapBox

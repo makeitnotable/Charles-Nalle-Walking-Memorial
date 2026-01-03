@@ -1,4 +1,5 @@
 import { isMobile } from 'react-device-detect';
+import ProgressIndicator from './ProgressIndicator';
 
 export default function HistoricalContextSection({ data }) {
   return (
@@ -15,7 +16,7 @@ export default function HistoricalContextSection({ data }) {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <p className="text-[#F6F3EE] text-start ml-1 text-xs md:text-[14px] md:ml-4 font-[500] font-poppins">{data.historicalContext.number}</p>
+      <ProgressIndicator className="text-[#F6F3EE] text-start ml-1 md:ml-4">{data.historicalContext.number}</ProgressIndicator>
       <div className='space-y-5 flex sm:flex-row flex-col'>
         {data.historicalContext.points.map((point, index) => (
           <div key={index} className='flex flex-row items-start m-4 space-x-2 mb-4 flex-1'>

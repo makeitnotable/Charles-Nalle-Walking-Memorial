@@ -1,3 +1,5 @@
+import ProgressIndicator from "./ProgressIndicator";
+
 export default function NarrativeSection({ data, contentItems = null, showTitle = true }) {
     let firstTextParagraph = true;
     const content = contentItems || data.narrative.content;
@@ -5,7 +7,7 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
     return (
         <div className='space-y-4'>
             <div className='text-text-primary space-y-4'>
-                {showTitle && <p className='text-primary-12 text-xs md:text-[14px] font-[500] font-poppins mb-8'>{data.narrative.title}</p>}
+                {showTitle && <ProgressIndicator className="mb-8 text-primary-12">{data.narrative.title}</ProgressIndicator>}
                 {content.map((item, index) => {
                     // Handle image references
                     if (item.startsWith('backgroundImage.')) {
