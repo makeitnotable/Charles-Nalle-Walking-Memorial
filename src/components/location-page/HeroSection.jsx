@@ -38,7 +38,7 @@ export default function HeroSection({ data }) {
         <div className="h-screen flex flex-col relative overflow-hidden">
             <div ref={textContentRef} className="flex-none space-y-4 relative z-20">
                 <div className="pt-7 md:pt-10 lg:pt-17 px-6">
-                    <div className="flex flex-row justify-between items-center ">
+                    <div className="flex flex-row justify-between items-center">
                         <p className="font-poppins text-[0.75rem] md:text-[0.9375rem] lg:text-[1.125rem] font-normal leading-[15px] text-[#ff9770]">CHAPTER</p>
                         <div className="w-[1rem] h-[1rem] md:w-[1.25rem] md:h-[1.25rem] lg:w-[1.5rem] lg:h-[1.5rem] rounded-full bg-primary-10 flex items-center justify-center">
                             <p className='text-[.625rem] md:text-[0.78125rem] lg:text-[.9375rem] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>

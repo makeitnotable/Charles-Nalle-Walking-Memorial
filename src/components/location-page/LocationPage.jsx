@@ -28,7 +28,7 @@ export default function LocationPage() {
 
     return (
         <div className='w-full'>
-            <div ref={heroRef} className="relative max-w-7xl mx-auto">
+            <div ref={heroRef} className="relative mx-auto pt-6 md:pt-6 lg:pt-12 px-0 md:px-10 lg:px-12">
                 <HeroSection data={currentChapter} />
                 <QuoteSection data={currentChapter} />
             </div>
