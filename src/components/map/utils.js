@@ -21,79 +21,37 @@ export const createMarkerElement = (locationName, index, isActive = false) => {
 
   // Create the pin and label elements
   const pinElement = `
-    <div style="
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      height: ${config.lineHeight}px;
-    ">
+    <div class="flex flex-col items-center" style="height: ${config.lineHeight}px;">
       ${!isPinAbove ? `
-        <div style="
-          background: ${style.lineColor}; 
-          width: 2px; 
-          height: ${config.lineHeight}px;
-        "></div>
-        <div style="
-          background: ${style.lineColor}; 
-          width: ${config.dotSize}px; 
-          height: ${config.dotSize}px; 
-          border-radius: 100%;
-        "></div>
+        <div class="w-0.5" style="background: ${style.lineColor}; height: ${config.lineHeight}px;"></div>
+        <div class="rounded-full" style="background: ${style.lineColor}; width: ${config.dotSize}px; height: ${config.dotSize}px;"></div>
       ` : `
-        <div style="
-          background: ${style.lineColor}; 
-          width: ${config.dotSize}px; 
-          height: ${config.dotSize}px; 
-          border-radius: 100%;
-        "></div>
-        <div style="
-          background: ${style.lineColor}; 
-          width: 2px; 
-          height: ${config.lineHeight}px;
-        "></div>
+        <div class="rounded-full" style="background: ${style.lineColor}; width: ${config.dotSize}px; height: ${config.dotSize}px;"></div>
+        <div class="w-0.5" style="background: ${style.lineColor}; height: ${config.lineHeight}px;"></div>
       `}
     </div>
   `;
 
   const labelElement = `
-    <div style="
+    <div class="flex items-center justify-center font-medium cursor-pointer p-[8px] md:p-[10px] lg:p-3 rounded-[30px]" style="
       background: ${style.backgroundColor};
-      border-radius: ${config.borderRadius}px;
-      padding: ${config.padding}px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: ${style.textColor};
       border: 1px solid ${style.borderColor};
       font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: ${config.fontSize}px;
-      cursor: pointer;
     ">
-      <div style="
-        display: flex;
+      <div class="flex items-center justify-center rounded-full mr-1.5" style="
         background: ${style.indexBgColor};
-        border-radius: 100%;
         width: ${config.indexSize}px;
         height: ${config.indexSize}px;
-        align-items: center;
-        justify-content: center;
-        margin-right: 5px;
       ">
         <p style="color: ${style.indexTextColor};">${index}</p>
       </div>
-      <p>${locationName}</p>
+      <p class="text-[12px] md:text-[15px] lg:text-[18px] leading-[18px] md:leading-[22.5px] lg:leading-[27px]">${locationName}</p>
     </div>
   `;
 
   markerDiv.innerHTML = `
-    <div style="
-      display: flex; 
-      flex-direction: column; 
-      align-items: center;
-      transform: scale(${style.scale});
-      transition: transform 0.3s ease-in-out;
-    ">
+    <div class="flex flex-col items-center transition-transform duration-300 ease-in-out" style="transform: scale(${style.scale});">
       ${isPinAbove ? pinElement + labelElement : labelElement + pinElement}
     </div>
   `;
