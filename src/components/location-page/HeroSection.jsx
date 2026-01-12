@@ -36,15 +36,15 @@ export default function HeroSection({ data }) {
 
     return (
         <div className="h-screen flex flex-col relative overflow-hidden">
-            <div ref={textContentRef} className="flex-none space-y-4 relative z-20">
-                <div className="pt-7 md:pt-10 lg:pt-17 px-6">
+            <div ref={textContentRef} className="flex-none relative z-20">
+                <div className="px-8 space-y-6 py-6" id="header">
                     <div className="flex flex-row justify-between items-center">
                         <p className="font-poppins text-[.75rem] md:text-[0.9375rem] lg:text-[1.125rem] font-normal leading-[15px] md:leading-[18.75px] lg:leading-[22.5px] text-[#ff9770]">CHAPTER</p>
                         <div className="w-[1rem] h-[1rem] md:w-[1.25rem] md:h-[1.25rem] lg:w-[1.5rem] lg:h-[1.5rem] rounded-full bg-primary-10 flex items-center justify-center">
                             <p className='text-[.625rem] md:text-[0.78125rem] lg:text-[.9375rem] font-medium font-poppins text-primary-12 leading-none mt-0.5'>{data.chapterNumber}</p>
                         </div>
                     </div>
-                    <div className='flex items-start justify-between mt-6 -ml-1'>
+                    <div className='flex items-start justify-between -ml-1'>
                         <h1 className="font-['Martel_Sans'] text-[2.625rem] leading-[2.125rem] md:text-[3.28125rem] md:leading-[2.65625rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] font-semibold tracking-[-1.5px] text-[#F6F3EE]">
                             {data.title.one}
                             <br />
@@ -64,7 +64,7 @@ export default function HeroSection({ data }) {
                 ref={imageRef}
                 src={backgroundImage}
                 alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
-                className="mt-5 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
+                className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
             />
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[var(--color-primary-2)] to-transparent z-10" />
         </div>
