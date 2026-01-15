@@ -144,7 +144,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                             backgroundRepeat: 'no-repeat',
                         }} />
                     </div>
-                    <div className='flex flex-col sm:flex-row w-full space-y-4 p-4'>
+                  <div className='flex flex-col sm:flex-row w-full space-y-4 p-4 pb-4 md:pb-8'>
                         <div className='sm:w-1/2 w-full'>
                             <p ref={numberRef} className='text-[#f6f3ee] text-[0.75rem] md:text-[0.938rem] lg:text-[1.125rem] font-[500] font-poppins'>{data.moralMessage.number}</p>
                         </div>
