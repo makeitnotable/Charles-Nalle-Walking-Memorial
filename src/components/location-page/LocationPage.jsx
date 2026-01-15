@@ -67,7 +67,7 @@ export default function LocationPage() {
                     </div>
                 </div>
             )}
-            <div className='flex flex-row justify-center items-center mb-6'>
+          <div className='flex flex-row justify-center items-center my-8 md:my-12'>
                 {currentChapter.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter}>
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">

@@ -3,9 +3,9 @@ import ProgressIndicator from './ProgressIndicator';
 
 export default function HistoricalContextSection({ data }) {
   return (
-    <div className='space-y-8 pt-4 px-4 pb-0'>
+    <div className='space-y-8 md:space-y-12 sm:py-0 md:py-4 py-8 px-4' id="historical-context-section">
       <div className='space-y-4'>
-        <p className="text-[#F6F3EE] uppercase text-5xl font-semibold font-['Martel_Sans']">Historical <br /> Context</p>
+        <p className="text-[#F6F3EE] uppercase sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-semibold font-['Martel_Sans']">Historical <br /> Context</p>
       </div>
       <div
         className='mx-auto w-auto max-w-md h-65 lg:h-[450px] rounded-2xl mb-12 border-2 border-primary-6'

@@ -16,14 +16,17 @@ export default function WhereToNextSection({ currentChapter }) {
         window.open(url, '_blank');
     };
     return (
-        <div className='space-y-4 p-4'>
+        <div className='space-y-4 px-4 py-8 mt-4 md:py-16'>
             <div className='space-y-2'>
-                <p className='text-[#F6F3EE] text-5xl font-["Martel_Sans"] font-semibold leading-[38px] tracking-[-1.5px]'>
+                <p className='text-[#F6F3EE] sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold'>
                     {currentChapter.whereToNext.title.split(' ')[0]}
                     <br />
                     {currentChapter.whereToNext.title.split(' ').slice(1).join(' ')}
                 </p>
+              {/* Show progress indicator above mapbox on mobile */}
+              <div className="mt-4 hidden md:block">
                 <ProgressIndicator className='text-[#F6F3EE] ml-2 my-4'>{currentChapter.whereToNext.number}</ProgressIndicator>
+              </div>
             </div>
 
             <MapBox
@@ -34,7 +37,13 @@ export default function WhereToNextSection({ currentChapter }) {
                 showButtons={false}
                 useResponsiveHeight={true}
             />
-            <div className='flex w-full flex-row justify-center items-center p-8 mt-10'>
+
+          {/* Show progress indicator below mapbox on tablet & up */}
+          <div className="mt-12 sm:hidden">
+            <ProgressIndicator className='text-[#F6F3EE] ml-2 my-4'>{currentChapter.whereToNext.number}</ProgressIndicator>
+          </div>
+
+          <div className='flex w-full flex-row justify-center items-center p-8 mt-10 md:mt-12'>
                 <Button variant='filled' className='' onClick={handleGetDirections}>
                     Get Directions
                 </Button>
