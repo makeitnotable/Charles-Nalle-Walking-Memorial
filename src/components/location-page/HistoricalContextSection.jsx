@@ -8,7 +8,7 @@ export default function HistoricalContextSection({ data }) {
         <p className="text-[#F6F3EE] uppercase sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-semibold font-['Martel_Sans']">Historical <br /> Context</p>
       </div>
       <div
-        className='mx-auto w-auto max-w-md h-65 lg:h-[450px] rounded-2xl mb-12 border-2 border-primary-6'
+        className='mx-auto w-auto max-w-md h-65 max-h-[363px] rounded-2xl mb-12 border-2 border-primary-6'
         style={{
           backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${isMobile ? data.backgroundImage.historical : data.backgroundImage.historicalHorizontal}')`,
           backgroundSize: "cover",
