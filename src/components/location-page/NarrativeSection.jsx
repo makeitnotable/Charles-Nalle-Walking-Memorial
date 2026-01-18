@@ -46,7 +46,7 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
                         <p key={index} className='m-5 text-primary-12 text-[18px] font-[300] leading-[1.6]'>
                             {isFirst ? (
                                 <>
-                                    <span className='text-[32px] leading-[1.6] font-medium'>{item.split(' ')[0]}</span>
+                                    <span className='text-[32px] inline-block -mb-2 font-medium'>{item.split(' ')[0]}</span>
                                     {item.substring(item.indexOf(' '))}
                                 </>
                             ) : item}
