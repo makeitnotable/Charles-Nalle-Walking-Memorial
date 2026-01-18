@@ -19,7 +19,7 @@ export default function HistoricalContextSection({ data }) {
           loop
           muted
           playsInline
-          className='mx-auto w-auto max-w-md max-h-[363px] rounded-2xl mb-12 border-2 border-primary-6 object-cover'
+          className='mx-auto w-auto max-w-[100%] max-h-[363px] rounded-2xl mb-12 border-2 border-primary-6 object-cover'
         />
       ) : (
         <div
@@ -33,9 +33,9 @@ export default function HistoricalContextSection({ data }) {
         />
       )}
       <ProgressIndicator className="text-[#F6F3EE] text-start ml-1 md:ml-4">{data.historicalContext.number}</ProgressIndicator>
-      <div className='space-y-5 flex sm:flex-row flex-col'>
+      <div className='flex flex-col md:flex-row gap-y-4 md:gap-x-4 lg:gap-x-12'>
         {data.historicalContext.points.map((point, index) => (
-          <div key={index} className='flex flex-row items-start m-4 space-x-2 mb-4 flex-1'>
+          <div key={index} className='flex flex-row items-start mb-4 flex-1'>
             <div className='flex flex-row items-top space-x-2'>
               <div className='h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 rounded-full bg-primary-10 weight-500 flex-shrink-0 flex items-center justify-center'>
                 <p className='h-full text-primary-12 text-[10px] font-medium text-center text-[0.625rem] md:text-[0.78125rem] lg:text-[0.9375rem] mt-1'>{index + 1}</p>
