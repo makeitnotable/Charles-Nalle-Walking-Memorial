@@ -37,8 +37,8 @@ export default function HistoricalContextSection({ data }) {
         {data.historicalContext.points.map((point, index) => (
           <div key={index} className='flex flex-row items-start m-4 space-x-2 mb-4 flex-1'>
             <div className='flex flex-row items-top space-x-2'>
-              <div className='h-5 w-5 rounded-full bg-primary-10 weight-500 flex-shrink-0 flex items-center justify-center'>
-                <p className='h-full text-primary-12 text-[10px] font-medium leading-none mt-3'>{index + 1}</p>
+              <div className='h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 rounded-full bg-primary-10 weight-500 flex-shrink-0 flex items-center justify-center'>
+                <p className='h-full text-primary-12 text-[10px] font-medium text-center text-[0.625rem] md:text-[0.78125rem] lg:text-[0.9375rem] mt-1'>{index + 1}</p>
               </div>
               <p className='text-primary-12 text-[18px] font-[300] leading-relaxed'>{point}</p>
             </div>
