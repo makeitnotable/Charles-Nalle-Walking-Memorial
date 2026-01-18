@@ -16,7 +16,7 @@ export default function WhereToNextSection({ currentChapter }) {
         window.open(url, '_blank');
     };
     return (
-        <div className='space-y-4 px-4 py-8 md:py-16'>
+        <div className='space-y-8 md:space-y-12 px-4 pt-4 md:py-4 lg:py-8'>
             <div className='space-y-2'>
                 <p className='text-[#F6F3EE] sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold'>
                     {currentChapter.whereToNext.title.split(' ')[0]}

@@ -132,7 +132,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         <img src={data.backgroundImage.moral} alt="Moral Message" className='w-full h-full object-cover' />
                     </div>
                 </div>
-                <div className='text-text-primary space-y-12 space-y-8 relative z-10 m-4 max-w-7xl mx-auto'>
+                <div className='text-text-primary space-y-12 relative z-10 my-8 md:my-4 lg:my-8 max-w-7xl mx-auto'>
                     <div className="flex justify-start ml-3">
                         <p ref={titleRef} className='text-[#F6F3EE] sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold text-left my-5 max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>

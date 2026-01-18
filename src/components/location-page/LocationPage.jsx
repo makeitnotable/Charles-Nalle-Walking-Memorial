@@ -79,6 +79,7 @@ export default function LocationPage() {
             <div className='max-w-7xl mx-auto'>
                 <HistoricalContextSection data={currentChapter} />
             </div>
+            {/* TODO: spacing is wrong between these. */}
             <MoralMessageSection
                 data={currentChapter}
                 goToNextChapter={goToNextChapter}
