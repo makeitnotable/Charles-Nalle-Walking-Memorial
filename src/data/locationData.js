@@ -16,7 +16,7 @@ export const locationData = {
       moral: "holeurs-fashionable-bakery/moral1.png",
       animatedHorizontal: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery-1_animation_horizontal.mp4",
       animatedVertical: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/1. Bakery/1. Holeur's Fashionable Bakery_animation_historical.mp4",
+      animatedHistorical: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_historical.mp4",
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
