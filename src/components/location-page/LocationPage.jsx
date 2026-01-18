@@ -35,11 +35,11 @@ export default function LocationPage() {
             {currentChapter.narrative.contentDesktop ? (
                 // Chapter 4: Split layout on desktop
                 <>
-                    <div className='md:hidden w-full flex flex-col space-y-10 p-4 max-w-7xl mx-auto'>
+                    <div className='md:hidden w-full flex flex-col space-y-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
                         <AudioPlayerSection data={currentChapter} />
                         <NarrativeSection data={currentChapter} />
                     </div>
-                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 p-4 max-w-7xl mx-auto'>
+                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
                         <div className='w-1/2 space-y-10'>
                             <AudioPlayerSection data={currentChapter} />
                             <NarrativeSection
@@ -58,7 +58,7 @@ export default function LocationPage() {
                 </>
             ) : (
                 // Other chapters: Standard layout
-                <div className='w-full flex flex-col md:flex-row mt-10 md:space-x-10 p-4 space-y-10 md:space-y-0 max-w-7xl mx-auto'>
+                <div className='w-full flex flex-col md:flex-row mt-10 md:space-x-10 p-4 py-0 md:py-4 lg:py-8 space-y-10 md:space-y-0 max-w-7xl mx-auto'>
                     <div className='w-full md:w-1/3'>
                         <AudioPlayerSection data={currentChapter} />
                     </div>

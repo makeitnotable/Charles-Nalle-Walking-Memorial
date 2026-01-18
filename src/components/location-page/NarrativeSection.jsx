@@ -43,7 +43,10 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
                     firstTextParagraph = false;
 
                     return (
-                        <p key={index} className='m-5 text-primary-12 text-[18px] font-[300] leading-[1.6]'>
+                        <p
+                            key={index}
+                            className={`mx-5 text-primary-12 text-[18px] font-[300] leading-[1.6] ${index === content.length - 1 ? 'mt-12 mb-0' : 'my-12'}`}
+                        >
                             {isFirst ? (
                                 <>
                                     <span className='text-[32px] inline-block -mb-2 font-medium'>{item.split(' ')[0]}</span>
