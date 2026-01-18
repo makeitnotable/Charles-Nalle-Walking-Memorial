@@ -8,26 +8,33 @@ import ArrowDown from '../ArrowDown';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection({ data }) {
-    const imageRef = useRef(null);
+    const mediaRef = useRef(null);
     const textContentRef = useRef(null);
 
-    // Use horizontal image for desktop, vertical for mobile
+    // Use horizontal image/video for desktop, vertical for mobile
     const backgroundImage = isMobile
         ? data.backgroundImage.vertical
         : data.backgroundImage.horizontal;
+
+    // Check if animated video is available
+    const animatedVideo = isMobile
+        ? data.backgroundImage.animatedVertical
+        : data.backgroundImage.animatedHorizontal;
+    
+    const hasAnimatedVideo = !!animatedVideo;
 
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.timeline({
                 scrollTrigger: {
-                    trigger: imageRef.current,
+                    trigger: mediaRef.current,
                     start: "top top",
                     end: "+=100%",
                     scrub: 0.5,
                     invalidateOnRefresh: false,
                 }
             })
-                .to(imageRef.current, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
+                .to(mediaRef.current, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
                 .to(textContentRef.current, { y: -200 }, 0);
         });
 
@@ -60,12 +67,25 @@ export default function HeroSection({ data }) {
                     </div>
                 </div>
             </div>
-            <img
-                ref={imageRef}
-                src={backgroundImage}
-                alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
-                className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
-            />
+            {hasAnimatedVideo ? (
+                <video
+                    ref={mediaRef}
+                    src={`/${animatedVideo}`}
+                    poster={`/${backgroundImage}`}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
+                />
+            ) : (
+                <img
+                    ref={mediaRef}
+                    src={backgroundImage}
+                    alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
+                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
+                />
+            )}
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[var(--color-primary-2)] to-transparent z-10" />
         </div>
     );

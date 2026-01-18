@@ -9,18 +9,33 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
             <div className='text-text-primary space-y-4'>
                 {showTitle && <ProgressIndicator className="mb-8 text-primary-12">{data.narrative.title}</ProgressIndicator>}
                 {content.map((item, index) => {
-                    // Handle image references
+                    // Handle image/video references
                     if (item.startsWith('backgroundImage.')) {
-                        const imagePath = data.backgroundImage?.[item.split('.')[1]];
-                        return imagePath ? (
+                        const mediaPath = data.backgroundImage?.[item.split('.')[1]];
+                        if (!mediaPath) return null;
+                        
+                        const isVideo = mediaPath.endsWith('.mp4');
+                        
+                        return (
                             <div key={index} className='flex justify-center my-8 mx-5'>
-                                <img
-                                    src={`/${imagePath}`}
-                                    alt="Narrative illustration"
-                                    className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full'
-                                />
+                                {isVideo ? (
+                                    <video
+                                        src={`/${mediaPath}`}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full'
+                                    />
+                                ) : (
+                                    <img
+                                        src={`/${mediaPath}`}
+                                        alt="Narrative illustration"
+                                        className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full'
+                                    />
+                                )}
                             </div>
-                        ) : null;
+                        );
                     }
 
                     // Handle text paragraphs
