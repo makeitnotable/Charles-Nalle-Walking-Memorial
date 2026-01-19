@@ -132,12 +132,12 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         <img src={data.backgroundImage.moral} alt="Moral Message" className='w-full h-full object-cover' />
                     </div>
                 </div>
-                <div className='text-text-primary space-y-12 relative z-10 my-8 md:my-4 lg:my-8 max-w-7xl mx-auto'>
+                <div className='text-text-primary space-y-8 md:space-y-12 relative z-10 my-8 md:my-4 lg:my-8 max-w-7xl mx-auto'>
                     <div className="flex justify-start ml-3">
-                        <p ref={titleRef} className='text-[#F6F3EE] sm:text-[2.625rem] sm:leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] text-[3.9375rem] leading-[3.1875rem] tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold text-left my-5 max-w-[300px]'>{data.moralMessage.title}</p>
+                        <p ref={titleRef} className='text-[#F6F3EE] text-[2.625rem] leading-[2.125rem] tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] lg:tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold text-left my-5 max-w-[300px]'>{data.moralMessage.title}</p>
                     </div>
-                    <div className='flex justify-end sm:justify-center w-full'>
-                        <div ref={imageRef} className="w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+                    <div className='flex justify-end sm:justify-center w-full overflow-none'>
+                        <div ref={imageRef} className="w-[250px] h-[250px] md:h-[281.25px] md:w-[281.25px] lg:w-[375px] lg:h-[375px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
                             backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.moral}')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
