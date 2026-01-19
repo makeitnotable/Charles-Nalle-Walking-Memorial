@@ -11,10 +11,7 @@ const MapBox = ({
     initialLocationName = 'Bakery',
     interactive = false,
     showButtons = true,
-    height = '100vh',
-    width = '100%',
     className = '',
-    useResponsiveHeight = false
 }) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
@@ -46,16 +43,10 @@ const MapBox = ({
         }
     };
 
-    const containerStyle = useResponsiveHeight
-        ? { width: width }
-        : { height: height, width: width };
-
-    const containerClasses = useResponsiveHeight
-        ? `bg-black relative h-[300px] md:h-[450px] ${className}`
-        : `bg-black relative ${className}`;
+    const containerClasses = `bg-black relative w-[343px] h-[229px] md:w-[386px] md:h-[257px] lg:w-[514.5px] lg:h-[343px] ${className}`;
 
     return (
-        <div className={containerClasses} style={containerStyle}>
+        <div className={containerClasses}>
             <div
                 ref={mapContainerRef}
                 style={{
