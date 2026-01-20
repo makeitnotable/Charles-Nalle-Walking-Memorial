@@ -40,7 +40,7 @@ export const aboutData = {
           ]
         },
         {
-          title: "Use the map below to begin the tour."
+          title: "Use the map to begin the tour."
         }
       ],
     }, 
