@@ -1,28 +1,16 @@
-import { useNavigate } from 'react-router';
-import { useTransition } from '../../stores/useTransitionStore';
-import { Button } from '../Button';
 import { aboutData } from '../../data/aboutData';
 
 const ScottSection = () => {
-  const navigate = useNavigate();
-  const { play } = useTransition();
-
-  const goToChapter1 = () => {
-    play(() => {
-      navigate('/bakery');
-    });
-  };
-
   return (
     <div className="h-full mt-10">
       <div className="relative h-full">
 
         <div className='absolute inset-0 h-full'>
-          <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
-          <div className='h-full py-0.5'>
-            <img src={aboutData.scott.img.vertical} alt="Scott Background" className='w-full h-full object-cover' style={{ filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1) opacity(0.2)" }} />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden opacity-15 py-0.5'>
+            <img src={aboutData.scott.img.vertical} alt="Scott Background" className='w-full h-full object-cover' style={{ maskImage: "linear-gradient(to bottom,transparent 0%, black 30%, black 70%, transparent 100%)", filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1)"
+            }}/>
           </div>
-          <div className='absolute inset-0' style={{ background: "linear-gradient(to bottom, rgba(29, 20, 17, 1) 0%, transparent 50%, transparent 5%, rgba(29, 20, 17, 1) 100%)" }} />
         </div>
         <div className=' text-text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">

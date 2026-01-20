@@ -3,13 +3,12 @@ import { aboutData } from '../../data/aboutData';
 
 const MarkSection = () => {
   return (
-
-    <div className="h-full">
+    <div className="h-full px-4 md:px-10 lg:px-20">
       <div className="relative h-full">
         <div className='absolute inset-0 h-full'>
-          <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
-          <div className='h-full py-0.5'>
-            <img src={aboutData.mark.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden opacity-15 py-0.5'>
+            <img src={aboutData.mark.img.vertical} alt="Mark Priest Background Picture" className='w-full h-full object-cover' style={{ maskImage: "linear-gradient(to bottom,transparent 0%, black 30%, black 70%, transparent 100%)" }}/>
           </div>
         </div>
         <div className=' text-text-primary space-y-6 relative z-10 m-4'>

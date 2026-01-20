@@ -2,12 +2,11 @@ import { aboutData } from '../../data/aboutData';
 
 const CharlesSection = () => {
   return (
-    <div className="h-full">
+    <div className="h-full px-4 md:px-10 lg:px-20">
       <div className="relative h-full">
         <div className='absolute inset-0 h-full'>
-          <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
           <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden'>
-            <img src={aboutData.charles.img.vertical} alt="Moral Message" className='opacity-15 w-full h-full object-cover' />
+            <img src={aboutData.charles.img.vertical} alt="Charles Nalle Background Picture" className='opacity-15 w-full h-full object-cover' style={{ maskImage: "linear-gradient(to bottom,transparent 0%, black 30%, black 70%, transparent 100%)" }} />
           </div>
         </div>
         <div className='text-primary space-y-6 relative z-10 m-4'>

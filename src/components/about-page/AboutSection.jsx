@@ -2,7 +2,7 @@ import { aboutData } from '../../data/aboutData';
 
 const AboutSection = () => {
   return (
-    <div className='space-y-8 md:space-y-12 pt-8 pb-0 md:py-4 lg:py-8 px-4'>
+    <div className='space-y-8 md:space-y-12 pt-8 pb-0 md:py-4 lg:py-8 px-4 md:px-10 lg:px-20'>
       <div className=''>
         <p className="text-[#F6F3EE] uppercase text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] md:w-[450px] font-semibold font-['Martel_Sans']">{aboutData.about.header}</p>
         <p className="mt-2 mb-12 text-[#F6F3EE] text-start ml-1 text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] md:hidden font-medium font-['Poppins']">{aboutData.about.section}</p>
