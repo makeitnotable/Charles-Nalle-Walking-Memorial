@@ -12,7 +12,7 @@ const CharlesSection = () => {
         </div>
         <div className='text-text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">
-            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>{aboutData.charles.header}</p>
+            <p className='text-[#F6F3EE] font-["Martel_Sans"] font-semibold leading-[34px] text-left my-5 text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] max-w-[300px] ml-4'>{aboutData.charles.header}</p>
           </div>
           <div className='flex justify-end md:justify-center w-full'>
             <div className="lg:w-[500px] lg:h-[500px] w-[250px] h-[250px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{

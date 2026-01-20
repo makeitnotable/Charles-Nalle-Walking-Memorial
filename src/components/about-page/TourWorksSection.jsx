@@ -7,7 +7,7 @@ const TourWorksSection = () => {
   return (
     <div className="flex flex-col gap-8 md:gap-12 space-y-8 md:space-y-12 pt-8 pb-0 md:py-4 lg:py-8 px-4">
       <div className="m-0">
-        <p className="text-[#F6F3EE] uppercase text-[42px]  font-semibold font-['Martel_Sans'] tracking-[-1.5px] leading-[34px]">
+        <p className="text-[#F6F3EE] uppercase text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] font-semibold font-['Martel_Sans']">
           How the
           <br />
           tour works
@@ -23,7 +23,7 @@ const TourWorksSection = () => {
           useResponsiveHeight={true}
         />
       </div>
-      <div className="space-y-5 -ml-3 md:flex md:flex-wrap md:gap-6 md:space-y-0 md:ml-0 lg:flex-nowrap">
+      <div className="space-y-5 -ml-3 md:flex md:flex-wrap md:gap-6 md:space-y-0 md:ml-0 lg:flex-nowrap mb-0">
         {aboutData.tourworks.numberedSection.points.map((point, index) => (
           <div
             key={index}
@@ -54,7 +54,7 @@ const TourWorksSection = () => {
           </div>
         ))}
       </div>
-      <div className="flex w-full flex-row justify-center items-center my-8 md:my-0">
+      <div className="flex w-full flex-row justify-center items-center mb-8 md:mb-0 md:mt-8 md:my-0">
         <Button variant="outline">Get Directions</Button>
       </div>
     </div>

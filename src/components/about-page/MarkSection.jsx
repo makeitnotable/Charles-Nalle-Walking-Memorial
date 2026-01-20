@@ -14,7 +14,7 @@ const MarkSection = () => {
         </div>
         <div className=' text-text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">
-            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>MARK<br /> PRIEST</p>
+            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] font-semibold text-left my-5 max-w-[300px] ml-4'>MARK<br /> PRIEST</p>
           </div>
           <div className='flex justify-end w-full'>
             <div className="w-3/4 h-68 lg:w-[500px] lg:h-[500px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
