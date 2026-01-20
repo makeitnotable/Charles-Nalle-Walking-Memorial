@@ -24,7 +24,7 @@ const MarkSection = () => {
               backgroundRepeat: 'no-repeat',
             }} />
           </div>
-          <p className=' text-[12px] ml-4 text-[#ff9770]'>{aboutData.mark.section}</p>
+          <p className='text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] ml-4 text-[#ff9770]'>{aboutData.mark.section}</p>
 
           <div className='space-y-5 w-full md:w-1/2 md:ml-auto'>
             {aboutData.mark.narrative.content.map((paragraph, index) => (

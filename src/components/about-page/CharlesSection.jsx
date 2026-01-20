@@ -10,7 +10,7 @@ const CharlesSection = () => {
             <img src={aboutData.charles.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
           </div>
         </div>
-        <div className='text-text-primary space-y-6 relative z-10 m-4'>
+        <div className='text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">
             <p className='text-[#F6F3EE] font-["Martel_Sans"] font-semibold leading-[34px] text-left my-5 text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] max-w-[300px] ml-4'>{aboutData.charles.header}</p>
           </div>
@@ -22,7 +22,7 @@ const CharlesSection = () => {
               backgroundRepeat: 'no-repeat',
             }} />
           </div>
-          <p className='text-[14px] ml-4 text-[#ff9770]'>{aboutData.charles.section}</p>
+          <p className='text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] ml-4 text-[#ff9770]'>{aboutData.charles.section}</p>
 
           <div className='space-y-5 w-full md:w-1/2 md:ml-auto'>
             {aboutData.charles.narrative.content.map((paragraph, index) => (
