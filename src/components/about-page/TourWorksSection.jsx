@@ -12,8 +12,9 @@ const TourWorksSection = () => {
           <br />
           tour works
         </p>
+        <p className="mt-6 mb-12 text-[#F6F3EE] text-start ml-1 text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] md:hidden font-medium font-['Poppins']">Instructions</p>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-0">
         <MapBox
           initialLocationName={LOCATIONS[0].name}
           width="100%"
@@ -23,6 +24,7 @@ const TourWorksSection = () => {
           useResponsiveHeight={true}
         />
       </div>
+      <p className="hidden md:block mb-4 text-[#F6F3EE] text-start text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] font-medium font-['Poppins']">Instructions</p>
       <div className="space-y-5 -ml-3 md:flex md:flex-wrap md:gap-6 md:space-y-0 md:ml-0 lg:flex-nowrap mb-0">
         {aboutData.tourworks.numberedSection.points.map((point, index) => (
           <div
