@@ -62,7 +62,7 @@ export const aboutData = {
     },
   },
   quote: {
-    text: "In Troy, many residents continued to regard his (Charles Nalle)liberation and their participation in it as the greatest thing that hadever happened in that city. Yet freeing Charles had not poved easyor quick - not simple for anyone, especially for himself. Even aftersuck a dificult and protracted ordeal, the struggle for freedom andequality would continue going on for some time to come",
+    text: "In Troy, many residents continued to regard his (Charles Nalle) liberation and their participation in it as the greatest thing that had ever happened in that city. Yet freeing Charles had not proved easy or quick; it was not simple for anyone, especially for Nalle himself. Even after such a difficult and protracted ordeal, the struggle for freedom and equality would continue for some time to come",
     author: "Scott Christianson\nFreeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.151",
   },
   mark: {
