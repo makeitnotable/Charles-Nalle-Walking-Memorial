@@ -46,13 +46,7 @@ const ScottSection = () => {
             ))}
           </div>
 
-          <div className='flex flex-row justify-center items-center mt-10 mb-10'>
-            <Button onClick={goToChapter1} variant='filled'>
-              <div className='flex items-center justify-center text-[18px]'>
-                <p>Chapter 1</p>
-              </div>
-            </Button>
-          </div>
+          {/* TODO: share */}
         </div>
       </div>
     </div>

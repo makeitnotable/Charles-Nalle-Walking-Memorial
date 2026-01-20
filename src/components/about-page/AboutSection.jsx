@@ -8,7 +8,7 @@ const AboutSection = () => {
         <p className="mt-2 mb-12 text-[#F6F3EE] text-start ml-1 text-xs md:hidden font-medium font-['Poppins']">{aboutData.about.section}</p>
       </div>
       <div
-        className='mx-auto w-auto max-w-xl h-65 md:h-[450px] rounded-2xl mb-12 border-2 border-primary-6'
+        className='mx-auto w-auto max-w-xl w-[21.43rem] h-[14.29rem] md:w-[22.5rem] md:h-[17rem] lg:w-[34rem] lg:h-[22.66rem] rounded-2xl mb-12 border-2 border-primary-6 overflow-x-none'
         style={{
           backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${aboutData.about.img.horizontal }')`,
           backgroundSize: "cover",
