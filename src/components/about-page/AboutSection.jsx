@@ -16,15 +16,15 @@ const AboutSection = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className='flex flex-col md:flex-row md:gap-8 md:space-y-0'>
+      <div className='flex flex-col md:flex-row md:gap-8 lg:gap-12 md:space-y-0'>
         <div className='mx-6 md:flex-1 md:flex md:flex-col md:justify-start'>
           <p className="hidden md:block mb-4 text-[#F6F3EE] text-start text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] font-medium font-['Poppins']">{aboutData.about.section}</p>
-          <p className='text-primary-12 text-[18px] font-[400] leading-relaxed'>{aboutData.about.narrative.content[0]}</p>
+          <p className='text-primary-12 text-[18px] font-[400] md:mt-12 lg:mt-8 leading-relaxed'>{aboutData.about.narrative.content[0]}</p>
         </div>
         <div className='md:flex-1 md:space-y-5'>
           {aboutData.about.narrative.content.slice(1).map((paragraph, index) => (
-            <div key={index} className='m-6'>
-              <p className='text-primary-12 text-[18px] font-[400] leading-relaxed'>{paragraph}</p>
+            <div key={index} className='mx-6'>
+              <p className='text-primary-12 text-[18px] md:my-0 my-4 font-[400] leading-relaxed'>{paragraph}</p>
             </div>
           ))}
         </div>
