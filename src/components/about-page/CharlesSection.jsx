@@ -6,8 +6,8 @@ const CharlesSection = () => {
       <div className="relative h-full">
         <div className='absolute inset-0 h-full'>
           <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
-          <div className='h-full py-0.5'>
-            <img src={aboutData.charles.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden'>
+            <img src={aboutData.charles.img.vertical} alt="Moral Message" className='opacity-15 w-full h-full object-cover' />
           </div>
         </div>
         <div className='text-primary space-y-6 relative z-10 m-4'>
