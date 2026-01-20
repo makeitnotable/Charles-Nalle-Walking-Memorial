@@ -27,7 +27,6 @@ const TourWorksSection = () => {
             className="rounded-[12px] overflow-hidden border border-primary-6 shadow-[0px_4px_5px_rgba(0,0,0,0.2),0px_7px_10px_rgba(0,0,0,0.14),0px_2px_16px_rgba(0,0,0,0.12)]"
             interactive={false}
             showButtons={false}
-            useResponsiveHeight={true}
           />
         </div>
         <div className="order-1 md:order-2 w-full lg:max-w-[528px]">
