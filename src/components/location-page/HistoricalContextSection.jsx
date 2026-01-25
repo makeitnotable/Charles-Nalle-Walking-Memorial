@@ -32,7 +32,7 @@ export default function HistoricalContextSection({ data }) {
           }}
         />
       )}
-      <ProgressIndicator className="text-[#F6F3EE] text-start ml-1 md:ml-4">{data.historicalContext.number}</ProgressIndicator>
+      <ProgressIndicator className="text-[#F6F3EE] text-start md:ml-2">{data.historicalContext.number}</ProgressIndicator>
       <div className='flex flex-col md:flex-row gap-y-4 md:gap-x-4 lg:gap-x-12'>
         {data.historicalContext.points.map((point, index) => (
           <div key={index} className='flex flex-row items-start mb-4 flex-1'>
