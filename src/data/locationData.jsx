@@ -130,7 +130,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-commission1.png",
-      title: <>WHEN NOT CHALLENGED INJUSTICE THRIVES</>,
+      title: <>WHEN NOT <br /> CHALLENGED <br /> INJUSTICE <br /> THRIVES</>,
       number: "Section 3/4",
       message:
         "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
