@@ -1,11 +1,23 @@
 export const locationData = {
   bakery: {
     chapterNumber: 1,
-    title: {
-      one: "HOLEUR'S",
-      two: "FASHIONABLE",
-      three: "BAKERY",
-    },
+    title: (
+      <>
+        <div className="block lg:hidden">
+          {"HOLEUR'S"}
+          <br />
+          FASHIONABLE
+          <br />
+          BAKERY
+        </div>
+
+        <div className="hidden lg:block">
+          {"HOLEUR'S"}
+          <br />
+          FASHIONABLE BAKERY
+        </div>
+      </>
+    ),
     cardTitle: "Holeur's Fashionable Bakery",
     backgroundImage: {
       horizontal: "holeurs-fashionable-bakery/horizontal.png",
@@ -65,11 +77,15 @@ export const locationData = {
   },
   commissioner1: {
     chapterNumber: 2,
-    title: {
-      one: "PART 1.",
-      two: "OFFICE OF THE",
-      three: "COMMISSIONER",
-    },
+    title: (
+      <>
+        PART 1.
+        <br />
+        OFFICE OF THE
+        <br />
+        COMMISSIONER
+      </>
+    ),
     cardTitle: "Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt1/horizontal.png",
@@ -131,11 +147,15 @@ export const locationData = {
   },
   commissioner2: {
     chapterNumber: 2,
-    title: {
-      one: "PART 2.",
-      two: "OFFICE OF THE",
-      three: "COMMISSIONER",
-    },
+    title: (
+      <>
+        PART 2.
+        <br />
+        OFFICE OF THE
+        <br />
+        COMMISSIONER
+      </>
+    ),
     cardTitle: "Part 2: Office of The Commissioner",
     backgroundImage: {
       horizontal: "office-commissioner-pt2/horizontal.png",
@@ -194,11 +214,15 @@ export const locationData = {
   },
   mansion: {
     chapterNumber: 3,
-    title: {
-      one: "URI",
-      two: "GILBERT",
-      three: "MANSION",
-    },
+    title: (
+      <>
+        URI
+        <br />
+        GILBERT
+        <br />
+        MANSION
+      </>
+    ),
     cardTitle: "Uri Gilbert Mansion",
     backgroundImage: {
       square: "uri-gilbert-mansion/square.png",
@@ -261,11 +285,15 @@ export const locationData = {
   },
   ferry: {
     chapterNumber: 4,
-    title: {
-      one: "WASHINGTON",
-      two: "STREET",
-      three: "FERRY LANDING",
-    },
+    title: (
+      <>
+        WASHINGTON
+        <br />
+        STREET
+        <br />
+        FERRY LANDING
+      </>
+    ),
     cardTitle: "Washington Street Ferry Landing",
     backgroundImage: {
       square: "washington-ferry/square.png",
@@ -340,11 +368,15 @@ export const locationData = {
   },
   barber: {
     chapterNumber: 5,
-    title: {
-      one: "PETER",
-      two: "BALTIMORE'S",
-      three: "BARBERSHOP",
-    },
+    title: (
+      <>
+        PETER
+        <br />
+        {"BALTIMORE'S"}
+        <br />
+        BARBERSHOP
+      </>
+    ),
     cardTitle: "Peter Baltimore's Barbershop",
     backgroundImage: {
       square: "peter-baltimores-barbershop/square.png",

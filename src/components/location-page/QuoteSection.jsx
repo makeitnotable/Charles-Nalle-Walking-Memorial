@@ -1,6 +1,23 @@
 import ArrowDown from "../ArrowDown";
 import { isMobile } from "react-device-detect";
 
+// Helper function to extract text from React children for alt attributes
+const getTextFromChildren = (children) => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) {
+    return children
+      .map(child => {
+        if (typeof child === 'string') return child;
+        if (child?.props?.children) return getTextFromChildren(child.props.children);
+        return '';
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+  if (children?.props?.children) return getTextFromChildren(children.props.children);
+  return '';
+};
+
 export default function QuoteSection({ data }) {
   const backgroundImage = isMobile
     ? data.backgroundImage.vertical
@@ -11,7 +28,7 @@ export default function QuoteSection({ data }) {
       <div className="absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden">
         <img
           src={backgroundImage}
-          alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
+          alt={getTextFromChildren(data.title)}
           className="opacity-15 w-full h-full object-cover"
         />
       </div>

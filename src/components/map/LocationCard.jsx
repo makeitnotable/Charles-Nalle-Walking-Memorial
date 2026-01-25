@@ -2,6 +2,23 @@ import { memo } from "react";
 import Arrow from "../Arrow";
 import { locationData } from "../../data/locationData";
 
+// Helper function to extract text from React children for alt attributes
+const getTextFromChildren = (children) => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) {
+    return children
+      .map(child => {
+        if (typeof child === 'string') return child;
+        if (child?.props?.children) return getTextFromChildren(child.props.children);
+        return '';
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+  if (children?.props?.children) return getTextFromChildren(children.props.children);
+  return '';
+};
+
 const LocationCard = memo(({ location, onNavigate }) => {
   const locationKey = location.path.slice(1); // Remove leading slash
   const { title, cardTitle, backgroundImage, chapterNumber } = locationData[locationKey];
@@ -32,7 +49,7 @@ const LocationCard = memo(({ location, onNavigate }) => {
             {backgroundImage && (
               <img
                 src={backgroundImage.square}
-                alt={title.one + ' ' + title.two + ' ' + title.three + ' image'}
+                alt={getTextFromChildren(title) + ' image'}
                 className="w-full h-full object-cover border-r-1 border-r-[rgba(105,49,29,1)]"
                 loading="lazy"
                 decoding="async"

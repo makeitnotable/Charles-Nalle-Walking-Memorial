@@ -4,6 +4,23 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ArrowDown from '../ArrowDown';
 
+// Helper function to extract text from React children for alt attributes
+const getTextFromChildren = (children) => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) {
+    return children
+      .map(child => {
+        if (typeof child === 'string') return child;
+        if (child?.props?.children) return getTextFromChildren(child.props.children);
+        return '';
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+  if (children?.props?.children) return getTextFromChildren(children.props.children);
+  return '';
+};
+
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,11 +70,7 @@ export default function HeroSection({ data }) {
                     </div>
                     <div className='flex items-start justify-between -ml-1'>
                         <h1 className="font-['Martel_Sans'] text-[2.625rem] leading-[2.125rem] md:text-[3.28125rem] md:leading-[2.65625rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] font-semibold tracking-[-1.5px] text-[#F6F3EE]">
-                            {data.title.one}
-                            <br />
-                            {data.title.two}
-                            <br />
-                            {data.title.three}
+                            {data.title}
                         </h1>
                         <div className="flex-col justify-evenly items-end mr-1 h-full">
                             <ArrowDown
@@ -82,7 +95,7 @@ export default function HeroSection({ data }) {
                 <img
                     ref={mediaRef}
                     src={backgroundImage}
-                    alt={`${data.title.one} ${data.title.two} ${data.title.three}`}
+                    alt={getTextFromChildren(data.title)}
                     className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
                 />
             )}
