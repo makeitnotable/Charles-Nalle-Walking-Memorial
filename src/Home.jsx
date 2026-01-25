@@ -19,8 +19,10 @@ export default function Home() {
         <div
           className='absolute inset-0 z-0'
           style={{
-            backgroundImage:
-              `linear-gradient(to bottom, rgba(16, 10, 6, 0.1), rgba(16,10, 5, .89)), linear-gradient(to bottom, rgba(101, 67, 33, 0.30), rgba(101, 30, 33, 0.30)), url('/homepage-overlay.png'), url('${isMobile ? '/home-bg.png' : '/home-bg-horizontal.png'}')`,
+            background:
+              `linear-gradient(180deg, rgba(16, 10, 6, 0.00) 65%, #100A06 100%),
+               url('/homepage-overlay.png'),
+               url('${isMobile ? '/home-bg.png' : '/home-bg-horizontal.png'}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
