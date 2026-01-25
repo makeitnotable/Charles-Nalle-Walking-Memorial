@@ -19,7 +19,7 @@ export default function HistoricalContextSection({ data }) {
           loop
           muted
           playsInline
-          className='mx-auto w-auto max-w-[100%] max-h-[363px] rounded-2xl mb-12 border-2 border-primary-6 object-cover'
+          className='mx-auto w-auto max-w-[100%] max-h-[363px] rounded-2xl mb-12 object-cover'
         />
       ) : (
         <div
