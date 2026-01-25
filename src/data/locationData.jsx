@@ -216,11 +216,18 @@ export const locationData = {
     chapterNumber: 3,
     title: (
       <>
-        URI
-        <br />
-        GILBERT
-        <br />
-        MANSION
+        <div className="block lg:hidden">
+          URI
+          <br />
+          GILBERT
+          <br />
+          MANSION
+        </div>
+        <div className="hidden lg:block">
+          URI GILBERT
+          <br />
+          MANSION
+        </div>
       </>
     ),
     cardTitle: "Uri Gilbert Mansion",
@@ -268,7 +275,14 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-mansion.png",
-      title: <>THE INVISIBLE MATTER AS MUCH AS THE VISIBLE</>,
+      title: (<>
+        <div className="block md:hidden">
+          THE INVISIBLE<br /> MATTER AS <br />MUCH AS<br />THE VISIBLE
+        </div>
+        <div className="hidden md:block">
+          THE INVISIBLE<br /> MATTER AS MUCH<br /> AS THE VISIBLE
+        </div>
+       </>),
       number: "Section 3/4",
       message:
         'Despite Charles becoming "invisible" in Troy, his presence there reflects the importance of one\'s reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.',
