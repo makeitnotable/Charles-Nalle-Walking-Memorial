@@ -87,7 +87,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
     const CloseButton = ({ isTop = true }) => (
         <button
             onClick={handleClose}
-            className={`bg-[#341A11] ${isTop ? 'rounded-t-xl border-b-2' : 'rounded-b-xl border-t-2'} border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:bg-[#5A2B1A] transition-colors`}
+            className={`bg-[#341A11] ${isTop ? 'rounded-t-xl border-b-2' : 'rounded-b-xl border-t-2'} border-[#69311D] h-auto flex items-center justify-center py-6 w-full hover:cursor-pointer hover:bg-[#5A2B1A] transition-colors`}
         >
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -100,7 +100,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
         <div className='h-auto space-y-2 text-[#FF9770] flex flex-col items-start p-8'>
             <div className='text-left gap-6 flex flex-col w-full ml-5'>
                 <button
-                    className='text-lg hover:text-[#F26835] transition-colors text-left'
+                    className='text-lg hover:cursor-pointer hover:text-[#F26835] transition-colors text-left'
                     onClick={goToHome}
                 >
                     Home
@@ -109,7 +109,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
                     {locations.map((location) => (
                         <div key={location.name} className="flex flex-col">
                             <button
-                                className='text-lg text-left hover:text-[#F26835] transition-colors'
+                                className='text-lg text-left hover:cursor-pointer hover:text-[#F26835] transition-colors'
                                 onClick={() => navigateToLocation(location)}
                             >
                                 {locationLabels[location.name] || `${location.name}`}
@@ -117,7 +117,7 @@ export const OpenMenu = ({ locations = [], position = 'bottom-right', onClose })
                         </div>
                     ))}
                     <button
-                        className='text-lg -ml-3 text-left hover:text-[#F26835] transition-colors'
+                        className='text-lg -ml-3 text-left hover:cursor-pointer hover:text-[#F26835] transition-colors'
                         onClick={goToAbout}
                     >
                         About
@@ -195,7 +195,7 @@ const MenuOverlay = ({ locations = [], position = 'top-right' }) => {
             {!isOpen && (
                 <button onClick={handleToggle}>
                     <div ref={hamburgerRef} className={`fixed z-[1000] ${positionClasses[position] || 'top-3 right-3'} z-[1000]`}>
-                        <div className={`bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
+                        <div className={`hover:cursor-pointer bg-primary-3 border-2 border-primary-6 rounded-tl-xl rounded-tr-xl h-[72px] w-[72px] flex items-center justify-center ${position === 'bottom-right' ? 'rounded-br-4xl rounded-bl-xl' : 'rounded-bl-4xl rounded-br-xl'
                             }`}>
                             <div className='flex flex-col gap-2 w-full items-center'>
                                 <div
