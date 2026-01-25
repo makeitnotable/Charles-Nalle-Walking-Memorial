@@ -25,7 +25,8 @@ export default function Home() {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1) opacity(0.9)",
-            borderRadius: "32px"
+            borderRadius: "32px",
+            border: "1px solid #4B4741",
           }}
         ></div>
         <div className='flex flex-col justify-between items-center h-full z-10'>
