@@ -60,7 +60,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "backgroundImage.moral",
-      title: "NOT ALL LAWS ARE MORAL",
+      title: <>NOT ALL LAWS <br /> ARE MORAL</>,
       number: "Section 3/4",
       message:
         "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
@@ -130,7 +130,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-commission1.png",
-      title: "WHEN NOT CHALLENGED INJUSTICE THRIVES",
+      title: <>WHEN NOT CHALLENGED INJUSTICE THRIVES</>,
       number: "Section 3/4",
       message:
         "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
@@ -197,7 +197,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "backgroundImage.moral",
-      title: "FREEDOM ISN'T FREE",
+      title: <>{'FREEDOM ISN\'T FREE'}</>,
       number: "Section 3/4",
       message:
         "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
@@ -268,7 +268,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-mansion.png",
-      title: "THE INVISIBLE MATTER AS MUCH AS THE VISIBLE",
+      title: <>THE INVISIBLE MATTER AS MUCH AS THE VISIBLE</>,
       number: "Section 3/4",
       message:
         'Despite Charles becoming "invisible" in Troy, his presence there reflects the importance of one\'s reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.',
@@ -351,7 +351,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "backgroundImage.moral",
-      title: "AUTHORITARI-ANISM IS PERSISTENT",
+      title: <>AUTHORITARI-ANISM IS PERSISTENT</>,
       number: "Section 3/4",
       message:
         "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
@@ -433,7 +433,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-barber.png",
-      title: "WE ARE RESPONSIBLE FOR JUSTICE",
+      title: <>WE ARE RESPONSIBLE FOR JUSTICE</>,
       number: "Section 3/4",
       message:
         "The collective effort of the Troy community to secure Charles's freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
