@@ -34,7 +34,7 @@ function NarrativeParagraph({ item, isFirst }) {
         >
             {isFirst ? (
                 <>
-                    <span className='text-[32px] inline-block -mb-2 font-medium'>{item.split(' ')[0]}</span>
+                    <span className='text-[32px] inline-block -mt-2 -mb-2 font-medium'>{item.split(' ')[0]}</span>
                     {item.substring(item.indexOf(' '))}
                 </>
             ) : item}
@@ -56,8 +56,8 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
 
     return (
         <div>
-            <div className='text-text-primary'>
-                {showTitle && <ProgressIndicator className="text-primary-12 mb-0">{data.narrative.title}</ProgressIndicator>}
+            <div className='text-text-primary flex flex-col gap-y-8 lg:gap-y-12'>
+                {showTitle && <ProgressIndicator className="text-primary-12 px-4 py-4 mb-0">{data.narrative.title}</ProgressIndicator>}
                 <div className='flex flex-col gap-y-4 md:gap-y-8 lg:gap-y-12'>
                     {content.map((item, index) => {
                         if (isBackgroundImageItem(item)) {
