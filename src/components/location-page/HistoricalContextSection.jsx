@@ -9,7 +9,7 @@ export default function HistoricalContextSection({ data }) {
   return (
     <div className='space-y-8 md:space-y-12 py-0 md:py-4 lg:py-8 px-4' id="historical-context-section">
       <div className='space-y-4'>
-        <p className="text-[#F6F3EE] uppercase text-[2.625rem] leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] tracking-[-0.14063rem] font-semibold font-['Martel_Sans']">Historical <br /> Context</p>
+        <p className="text-[#F6F3EE] uppercase text-[2.625rem] leading-[2.125rem] sm:tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] tracking-[-0.14063rem] font-semibold font-['Martel_Sans'] pt-0.5">Historical <br /> Context</p>
       </div>
       {hasAnimatedVideo ? (
         <video
