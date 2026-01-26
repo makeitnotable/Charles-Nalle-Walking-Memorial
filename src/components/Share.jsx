@@ -61,10 +61,10 @@ const YoutubeIcon = () => (
  * Share component with social media icons
  * @param {Object} props
  * @param {string} props.className - Additional CSS classes
- * @param {'default' | 'unstacked'} props.variant - Component variant style
+ * @param {'default' | 'unstacked'} props.variant - Component variant style. Unstacked for desktop, default for mobile & tablet.
  */
 export default function Share({ className = '', variant = 'default', id = '' }) {
-    // Unstacked variant - horizontal layout with title, attribution, and icons in a row
+    // Unstacked variant - horizontal layout with title, attribution, and icons in a row for desktop
     if (variant === 'unstacked') {
         return (
             <div id={id} className={`flex items-center justify-between w-full ${className}`}>
@@ -129,6 +129,7 @@ export default function Share({ className = '', variant = 'default', id = '' }) 
                     <YoutubeIcon />
                 </a>
             </div>
+            <span className='block h-0'></span>
             <p className='text-primary-12 self-center text-center mx-auto text-[0.625rem]'>Made By <a href="#" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70 transition-opacity">Notable</a></p>
         </div>
     );
