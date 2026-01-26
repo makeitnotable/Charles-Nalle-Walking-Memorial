@@ -274,7 +274,7 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
                 </div>
             </div>
 
-            <div data-moral-buttons className='flex flex-row justify-center items-center my-8 md:my-12 gap-5'>
+            <div data-moral-buttons className='flex flex-row justify-center items-center my-8 md:my-0 gap-5'>
                 {/* Show Back button only if not on first chapter */}
                 {data.chapterNumber > 1 && (
                     <Button onClick={goToPrevChapter} variant='outline'>
@@ -298,6 +298,7 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
                     </Button>
                 )}
             </div>
+            <span className='block h-0'></span>
         </div>
     );
 }
