@@ -7,7 +7,7 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
     return (
         <div className='space-y-4'>
             <div className='text-text-primary space-y-4'>
-                {showTitle && <ProgressIndicator className="mb-8 text-primary-12">{data.narrative.title}</ProgressIndicator>}
+                {showTitle && <ProgressIndicator className="text-primary-12 mb-0">{data.narrative.title}</ProgressIndicator>}
                 {content.map((item, index) => {
                     // Handle image/video references
                     if (item.startsWith('backgroundImage.')) {
