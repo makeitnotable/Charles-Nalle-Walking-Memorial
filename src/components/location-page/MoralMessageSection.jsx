@@ -132,9 +132,10 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
                         <img src={data.backgroundImage.moral} alt="Moral Message" className='w-full h-full object-cover' />
                     </div>
                 </div>
-                <div className='text-text-primary space-y-8 md:space-y-12 relative z-10 my-8 md:my-4 lg:my-8 max-w-7xl mx-auto'>
+                <div className='text-text-primary space-y-8 md:space-y-12 relative z-10 pt-8 md:py-4 lg:py-8 max-w-7xl mx-auto'>
                     <div className="flex justify-start ml-3">
-                        <p ref={titleRef} className='text-[#F6F3EE] text-[2.625rem] leading-[2.125rem] tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] lg:tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold text-left my-5'>{data.moralMessage.title}</p>
+                        {/* Extra padding added so text fills container better. Without padding, overflows container due to larger custom leading / line-height */}
+                        <p ref={titleRef} className='text-[#F6F3EE] text-[2.625rem] leading-[2.125rem] tracking-[-0.09375rem] md:text-[3.28125rem] md:leading-[2.65625rem] md:tracking-[-0.11719rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] lg:tracking-[-0.14063rem] font-["Martel_Sans"] font-semibold text-left pt-1 lg:pt-0.5'>{data.moralMessage.title}</p>
                     </div>
                     <div className='flex justify-end sm:justify-center w-full overflow-none'>
                         <div ref={imageRef} className="w-[250px] h-[250px] md:h-[281.25px] md:w-[281.25px] lg:w-[375px] lg:h-[375px] rounded-3xl border-1 border-primary-6 mr-5 mb-6" style={{
