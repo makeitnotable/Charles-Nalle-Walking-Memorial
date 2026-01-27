@@ -14,20 +14,25 @@ export const useMapStore = create((set, get) => ({
     selectedLocation: null,
     isOverview: true,
     mapboxAccessToken: mapboxAccessToken,
+    pitch: MAP_CONFIG.defaultPitch,
+    bearing: MAP_CONFIG.defaultBearing,
 
     // Action to initialize the map
-    initializeMap: (mapContainerRef, initialLocationName, interactive) => {
+    initializeMap: (mapContainerRef, initialLocationName, interactive, pitch = MAP_CONFIG.defaultPitch, bearing = MAP_CONFIG.defaultBearing, targetZoom = 20) => {
         if (mapInstance) return; // Already initialized
 
         mapboxgl.accessToken = get().mapboxAccessToken;
+
+        // Store the pitch and bearing in state
+        set({ pitch, bearing });
 
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: MAP_CONFIG.mapStyle,
             center: MAP_CONFIG.initialCenter,
             zoom: MAP_CONFIG.defaultZoom,
-            pitch: MAP_CONFIG.defaultPitch,
-            bearing: MAP_CONFIG.defaultBearing,
+            pitch: pitch,
+            bearing: bearing,
             maxBounds: MAP_CONFIG.maxBounds,
             interactive: interactive,
         });
@@ -65,7 +70,7 @@ export const useMapStore = create((set, get) => ({
                 if (initialLocation) {
                     map.easeTo({
                         center: initialLocation.coordinates,
-                        zoom: 20,
+                        zoom: targetZoom,
                         curve: 1.4,
                         duration: 5000,
                         essential: true,
@@ -123,11 +128,12 @@ export const useMapStore = create((set, get) => ({
         // Update marker styles (none active)
         get().updateMarkerStyles(null);
 
+        const { pitch, bearing } = get();
         mapInstance.easeTo({
             center: MAP_CONFIG.initialCenter,
             zoom: MAP_CONFIG.defaultZoom,
-            pitch: MAP_CONFIG.defaultPitch,
-            bearing: MAP_CONFIG.defaultBearing,
+            pitch: pitch,
+            bearing: bearing,
             duration: 2000,
             essential: true,
         });

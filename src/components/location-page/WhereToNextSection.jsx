@@ -35,6 +35,9 @@ export default function WhereToNextSection({ currentChapter }) {
         className="rounded-3xl overflow-hidden border-1 border-primary-6 md:border-none md:shadow-lg md:shadow-black/20 md:backdrop-blur-sm max-w-2xl mx-auto"
         interactive={false}
         showButtons={false}
+        initialPitch={45}
+        initialBearing={45}
+        targetZoom={16}
       />
 
       {/* Show progress indicator below mapbox on tablet & up */}

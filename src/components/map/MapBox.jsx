@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { LOCATIONS } from './constants';
+import { LOCATIONS, MAP_CONFIG } from './constants';
 import LocationCardsSlider from './LocationCardsSlider';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
@@ -15,6 +15,9 @@ const MapBox = ({
     height = '100vh',
     width = '100%',
     className = '',
+    initialPitch = MAP_CONFIG.defaultPitch,
+    initialBearing = MAP_CONFIG.defaultBearing,
+    targetZoom = 20,
 }) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
@@ -29,13 +32,13 @@ const MapBox = ({
 
     useEffect(() => {
         if (mapContainerRef.current) {
-            initializeMap(mapContainerRef, initialLocationName, interactive);
+            initializeMap(mapContainerRef, initialLocationName, interactive, initialPitch, initialBearing, targetZoom);
         }
 
         return () => {
             destroyMap();
         };
-    }, [initializeMap, destroyMap, initialLocationName, interactive]);
+    }, [initializeMap, destroyMap, initialLocationName, interactive, initialPitch, initialBearing, targetZoom]);
 
     const navigateToLocation = (locationName) => {
         const locationData = LOCATIONS.find(loc => loc.name === locationName);
