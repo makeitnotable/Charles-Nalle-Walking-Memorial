@@ -3,6 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '../Button';
 import ProgressIndicator from './ProgressIndicator';
+import { ChevronRight } from '../ChevronRight';
+import { ChevronLeft } from '../ChevronLeft';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -209,23 +211,23 @@ function MobileLayout({ data, goToNextChapter, goToPrevChapter }) {
             <div data-moral-buttons className='flex flex-row justify-center items-center my-8 md:my-12 gap-5'>
                 {/* Show Back button only if not on first chapter */}
                 {data.chapterNumber > 1 && (
-                    <Button onClick={goToPrevChapter} variant='outline'>
-                        <div className='flex items-center gap-2'>
-                            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.25 13.667L1.25 7.66699L7.25 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                    <Button onClick={goToPrevChapter} variant='outline' className="md:w-[11.69rem] lg:w-[13.828rem]">
+                        <div className='flex items-center gap-2 mx-auto'>
+                            <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
+                                <ChevronLeft className='text-[#FF9770] w-full h-full' />
+                            </div>
                             <p>Back</p>
                         </div>
                     </Button>
                 )}
                 {/* Use goToNextChapter - but don't show on final chapter */}
                 {data.nextChapter && data.chapterNumber !== 5 && (
-                    <Button onClick={goToNextChapter} variant='filled'>
-                        <div className='flex items-center gap-2'>
+                    <Button onClick={goToNextChapter} variant='filled' className="md:w-[11.69rem] lg:w-[13.828rem]">
+                        <div className='flex items-center gap-2 mx-auto'>
                             <p>Next</p>
-                            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.5 13.667L7.5 7.66699L1.5 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
+                                <ChevronRight className="text-[#FF9770] w-full h-full" />
+                            </div>
                         </div>
                     </Button>
                 )}
@@ -277,23 +279,23 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
             <div data-moral-buttons className='flex flex-row justify-center items-center my-8 md:my-0 gap-5'>
                 {/* Show Back button only if not on first chapter */}
                 {data.chapterNumber > 1 && (
-                    <Button onClick={goToPrevChapter} variant='outline'>
-                        <div className='flex items-center gap-2'>
-                            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.25 13.667L1.25 7.66699L7.25 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                    <Button onClick={goToPrevChapter} variant='outline' className="md:w-[11.69rem] lg:w-[13.828rem]">
+                        <div className='flex items-center gap-2 mx-auto'>
+                            <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
+                                <ChevronLeft className='text-[#FF9770] w-full h-full' />
+                            </div>
                             <p>Back</p>
                         </div>
                     </Button>
                 )}
                 {/* Use goToNextChapter - but don't show on final chapter */}
                 {data.nextChapter && data.chapterNumber !== 5 && (
-                    <Button onClick={goToNextChapter} variant='filled'>
-                        <div className='flex items-center gap-2'>
+                    <Button onClick={goToNextChapter} variant="filled" className="md:w-[11.69rem] lg:w-[13.828rem]">
+                        <div className="flex items-center gap-2 mx-auto">
                             <p>Next</p>
-                            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.5 13.667L7.5 7.66699L1.5 1.66699" stroke="#FF9770" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
+                                <ChevronRight className="text-[#FF9770] w-full h-full" />
+                            </div>
                         </div>
                     </Button>
                 )}
