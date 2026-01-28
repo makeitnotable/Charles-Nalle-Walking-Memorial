@@ -54,6 +54,7 @@ const MapBox = ({
     const containerClasses = fillScreen
         ? `bg-black relative ${className}`
         : `bg-black relative w-[343px] h-[229px] md:w-[386px] md:h-[257px] lg:w-[514.5px] lg:h-[343px] ${className}`;
+    console.log('containerClasses', containerClasses)
 
     return (
         <div className={containerClasses} style={containerStyle}>

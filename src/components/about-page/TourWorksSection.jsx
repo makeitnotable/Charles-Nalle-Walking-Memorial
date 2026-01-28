@@ -15,25 +15,24 @@ const TourWorksSection = () => {
           <br />
           tour works
         </p>
-        <p className="mt-2 text-[#F6F3EE] text-start ml-1 text-[0.75rem] md:text-[0.94rem] lg:text-[1.125rem] md:hidden font-medium font-['Poppins']">
+        <p className="block md:hidden my-4 text-[#F6F3EE] text-start ml-1 text-[0.75rem] md:text-[0.94rem] lg:text-[1.125rem] font-medium font-['Poppins']">
           Instructions
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
+      <div className="flex flex-col lg:flex-row gap-8 md:gap-0 items-center">
         <div className="order-2 md:order-1 w-full flex justify-center lg:justify-start">
           <MapBox
             initialLocationName={LOCATIONS[0].name}
-            width="100%"
-            className="rounded-[12px] overflow-hidden border border-primary-6 shadow-[0px_4px_5px_rgba(0,0,0,0.2),0px_7px_10px_rgba(0,0,0,0.14),0px_2px_16px_rgba(0,0,0,0.12)]"
+            className="rounded-[12px] overflow-hidden border border-primary-6 shadow-[0px_4px_5px_rgba(0,0,0,0.2),0px_7px_10px_rgba(0,0,0,0.14),0px_2px_16px_rgba(0,0,0,0.12)] !w-[21.4375rem] !h-[14.291rem] md:!w-[24.1175rem] md:!h-[16.078rem] lg:!w-[34rem] lg:!h-[34.69rem]"
             interactive={false}
             showButtons={false}
           />
         </div>
         <div className="order-1 md:order-2 w-full lg:max-w-[528px]">
-          <p className="hidden md:block mb-4 text-[#F6F3EE] text-start text-[0.75rem] md:text-[0.94rem] lg:text-[1.125rem] font-medium font-['Poppins']">
+          <p className="hidden md:block md:mt-12 md:mb-12 lg:mt-0 lg:mb-12 text-[#F6F3EE] text-start text-[0.75rem] md:text-[0.94rem] lg:text-[1.125rem] font-medium font-['Poppins']">
             Instructions
           </p>
-          <div className="flex flex-col gap-6 md:flex-row md:gap-6 lg:flex-col">
+          <div className="flex flex-col gap-4 md:flex-row md:gap-6 lg:flex-col">
             {columns.map((columnPoints, columnIndex) => (
               <div
                 key={`column-${columnIndex}`}
@@ -71,9 +70,9 @@ const TourWorksSection = () => {
         </div>
       </div>
       <div className="flex w-full flex-row justify-center items-center my-8 md:mb-0 md:mt-8">
-          <Button variant="outline">
-            Get Directions
-          </Button>
+        <Button variant="outline">
+          Get Directions
+        </Button>
       </div>
     </section>
   );
