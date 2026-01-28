@@ -359,11 +359,18 @@ export const locationData = {
     chapterNumber: 4,
     title: (
       <>
-        WASHINGTON
-        <br />
-        STREET
-        <br />
-        FERRY LANDING
+        <div className="block lg:hidden">
+          WASHINGTON
+          <br />
+          STREET FERRY
+          <br />
+          LANDING
+        </div>
+        <div className="hidden lg:block">
+          WASHINGTON STREET
+          <br />
+          FERRY LANDING
+        </div>
       </>
     ),
     cardTitle: "Washington Street Ferry Landing",
