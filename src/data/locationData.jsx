@@ -24,11 +24,15 @@ export const locationData = {
       vertical: "holeurs-fashionable-bakery/vertical.png",
       square: "holeurs-fashionable-bakery/square.png",
       historical: "holeurs-fashionable-bakery/historical.png",
-      historicalHorizontal: "holeurs-fashionable-bakery/historical-horizontal.png",
+      historicalHorizontal:
+        "holeurs-fashionable-bakery/historical-horizontal.png",
       moral: "holeurs-fashionable-bakery/moral1.png",
-      animatedHorizontal: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery-1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery-1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_historical.mp4",
     },
     quote: {
       text: "Charles Nalle, I hereby arrest you in the name of the United States of America!",
@@ -60,7 +64,11 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "backgroundImage.moral",
-      title: <>NOT ALL LAWS <br /> ARE MORAL</>,
+      title: (
+        <>
+          NOT ALL LAWS <br /> ARE MORAL
+        </>
+      ),
       number: "Section 3/4",
       message:
         "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
@@ -79,11 +87,25 @@ export const locationData = {
     chapterNumber: 2,
     title: (
       <>
-        PART 1.
-        <br />
-        OFFICE OF THE
-        <br />
-        COMMISSIONER
+        <div className="block md:hidden">
+          PART 1.
+          <br />
+          OFFICE OF THE
+          <br />
+          COMMISSIONER
+        </div>
+        <div className="hidden md:block lg:hidden">
+          PART 1.
+          <br />
+          OFFICE OF
+          <br />
+          THE COMMISSIONER
+        </div>
+        <div className="hidden lg:block">
+          PART 1. OFFICE OF
+          <br />
+          THE COMMISSIONER
+        </div>
       </>
     ),
     cardTitle: "Office of The Commissioner",
@@ -94,9 +116,12 @@ export const locationData = {
       square: "office-commissioner-pt1/square.png",
       historical: "office-commissioner-pt1/historical.png",
       moral: "office-commissioner-pt1/moral.png",
-      animatedHorizontal: "CNWM - Animated Images/2. Bank/2. Commissioner`s Office pt1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/2. Bank/2. The Commissioner`s Office pt1_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/2. Bank/2. The Commissioners Office_animation_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/2. Bank/2. Commissioner`s Office pt1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/2. Bank/2. The Commissioner`s Office pt1_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/2. Bank/2. The Commissioners Office_animation_historical.mp4",
     },
     quote: {
       text: "If we can get him out into the crowd, we can raise the money in five minutes.",
@@ -130,7 +155,11 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-commission1.png",
-      title: <>WHEN NOT <br /> CHALLENGED <br /> INJUSTICE <br /> THRIVES</>,
+      title: (
+        <>
+          WHEN NOT <br /> CHALLENGED <br /> INJUSTICE <br /> THRIVES
+        </>
+      ),
       number: "Section 3/4",
       message:
         "In 1860, the bells of Liberty Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
@@ -149,11 +178,25 @@ export const locationData = {
     chapterNumber: 2,
     title: (
       <>
-        PART 2.
-        <br />
-        OFFICE OF THE
-        <br />
-        COMMISSIONER
+        <div className="block md:hidden">
+          PART 2.
+          <br />
+          OFFICE OF THE
+          <br />
+          COMMISSIONER
+        </div>
+        <div className="hidden md:block lg:hidden">
+          PART 2.
+          <br />
+          OFFICE OF
+          <br />
+          THE COMMISSIONER
+        </div>
+        <div className="hidden lg:block">
+          PART 2. OFFICE OF
+          <br />
+          THE COMMISSIONER
+        </div>
       </>
     ),
     cardTitle: "Part 2: Office of The Commissioner",
@@ -164,9 +207,12 @@ export const locationData = {
       historical: "office-commissioner-pt2/historical.png",
       historicalHorizontal: "office-commissioner-pt2/historical.png",
       moral: "office-commissioner-pt2/moral-bg.png",
-      animatedHorizontal: "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2-1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/2. Bank/6. Map of Troy New York_animation -The commissioner's Office pt2-1_animation_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2-1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/2. Bank/6. Map of Troy New York_animation -The commissioner's Office pt2-1_animation_historical.mp4",
     },
     quote: {
       text: "Drag him to the river! Drown him! But don't let them have him!",
@@ -197,7 +243,7 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "backgroundImage.moral",
-      title: <>{'FREEDOM ISN\'T FREE'}</>,
+      title: <>{"FREEDOM ISN'T FREE"}</>,
       number: "Section 3/4",
       message:
         "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
@@ -238,14 +284,18 @@ export const locationData = {
       horizontal: "uri-gilbert-mansion/horizontal.png",
       vertical: "uri-gilbert-mansion/vertical.png",
       historicalHorizontal: "uri-gilbert-mansion/historical.png",
-      animatedHorizontal: "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion-1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/3. Mansion/3. Uri Gilbert Mansion_animation_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion-1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/3. Mansion/3. Uri Gilbert Mansion_animation_historical.mp4",
     },
     quote: {
       text: "Are you a Negro?",
       author1: "Christianson",
-      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.95",
+      author2:
+        "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.95",
     },
     audioPlayer: {
       chapterName: "Chapter 3",
@@ -275,14 +325,22 @@ export const locationData = {
     },
     moralMessage: {
       backgroundImage: "/moral-mansion.png",
-      title: (<>
-        <div className="block md:hidden">
-          THE INVISIBLE<br /> MATTER AS <br />MUCH AS<br />THE VISIBLE
-        </div>
-        <div className="hidden md:block">
-          THE INVISIBLE<br /> MATTER AS MUCH<br /> AS THE VISIBLE
-        </div>
-       </>),
+      title: (
+        <>
+          <div className="block md:hidden">
+            THE INVISIBLE
+            <br /> MATTER AS <br />
+            MUCH AS
+            <br />
+            THE VISIBLE
+          </div>
+          <div className="hidden md:block">
+            THE INVISIBLE
+            <br /> MATTER AS MUCH
+            <br /> AS THE VISIBLE
+          </div>
+        </>
+      ),
       number: "Section 3/4",
       message:
         'Despite Charles becoming "invisible" in Troy, his presence there reflects the importance of one\'s reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.',
@@ -315,17 +373,23 @@ export const locationData = {
       moral: "washington-ferry/moral.png",
       horizontal: "washington-ferry/horizontal.png",
       vertical: "washington-ferry/vertical.png",
-      narrative1: "CNWM - Animated Images/4. Ferry/4.1 Washington Street Ferry Landing_animation_narrative_1.mp4",
-      narrative2: "CNWM - Animated Images/4. Ferry/4.2 Washington Street Ferry Landing_animation_narrative_2.mp4",
+      narrative1:
+        "CNWM - Animated Images/4. Ferry/4.1 Washington Street Ferry Landing_animation_narrative_1.mp4",
+      narrative2:
+        "CNWM - Animated Images/4. Ferry/4.2 Washington Street Ferry Landing_animation_narrative_2.mp4",
       historicalHorizontal: "washington-ferry/historical.png",
-      animatedHorizontal: "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing-1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation (1)_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing-1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation (1)_historical.mp4",
     },
     quote: {
       text: "The crowd was like a lynch mob in reverse.",
       author1: "Christianson",
-      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.113",
+      author2:
+        "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.113",
     },
     audioPlayer: {
       chapterName: "Chapter 4",
@@ -398,17 +462,23 @@ export const locationData = {
       moral: "peter-baltimores-barbershop/moral.png",
       horizontal: "peter-baltimores-barbershop/horizontal.png",
       vertical: "peter-baltimores-barbershop/vertical.png",
-      narrative1: "CNWM - Animated Images/5. Barbershop/5.1 Peter Baltimores Barbershop_animation_narrative_1.mp4",
-      narrative2: "CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4",
+      narrative1:
+        "CNWM - Animated Images/5. Barbershop/5.1 Peter Baltimores Barbershop_animation_narrative_1.mp4",
+      narrative2:
+        "CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4",
       historicalHorizontal: "peter-baltimores-barbershop/historical.png",
-      animatedHorizontal: "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop-1_animation_horizontal.mp4",
-      animatedVertical: "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_vertical.mp4",
-      animatedHistorical: "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_historical.mp4",
+      animatedHorizontal:
+        "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop-1_animation_horizontal.mp4",
+      animatedVertical:
+        "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_vertical.mp4",
+      animatedHistorical:
+        "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_historical.mp4",
     },
     quote: {
       text: "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
       author1: "Christianson",
-      author2: "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.1",
+      author2:
+        "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p.1",
     },
     audioPlayer: {
       chapterName: "Chapter 5",
@@ -432,7 +502,7 @@ export const locationData = {
         "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
         "backgroundImage.narrative2",
         "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom.",
-      ], 
+      ],
     },
     nextChapter: "Chapter 1",
     historicalContext: {
