@@ -455,11 +455,18 @@ export const locationData = {
     chapterNumber: 5,
     title: (
       <>
-        PETER
-        <br />
-        {"BALTIMORE'S"}
-        <br />
-        BARBERSHOP
+        <div className="block lg:hidden">
+          PETER
+          <br />
+          {"BALTIMORE'S"}
+          <br />
+          BARBERSHOP
+        </div>
+        <div className="hidden lg:block">
+          PETER BALTIMORE{"'"}S
+          <br />
+          BARBERSHOP
+        </div>
       </>
     ),
     cardTitle: "Peter Baltimore's Barbershop",
