@@ -214,7 +214,7 @@ function MobileLayout({ data, goToNextChapter, goToPrevChapter }) {
                     <Button onClick={goToPrevChapter} variant='outline' className="md:w-[11.69rem] lg:w-[13.828rem]">
                         <div className='flex items-center gap-2 mx-auto'>
                             <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
-                                <ChevronLeft className='text-[#FF9770] w-full h-full' />
+                                <ChevronLeft className='w-full h-full' />
                             </div>
                             <p>Back</p>
                         </div>
@@ -226,7 +226,7 @@ function MobileLayout({ data, goToNextChapter, goToPrevChapter }) {
                         <div className='flex items-center gap-2 mx-auto'>
                             <p>Next</p>
                             <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
-                                <ChevronRight className="text-[#FF9770] w-full h-full" />
+                                <ChevronRight className="w-full h-full" />
                             </div>
                         </div>
                     </Button>
@@ -282,7 +282,7 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
                     <Button onClick={goToPrevChapter} variant='outline' className="md:w-[11.69rem] lg:w-[13.828rem]">
                         <div className='flex items-center gap-2 mx-auto'>
                             <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
-                                <ChevronLeft className='text-[#FF9770] w-full h-full' />
+                                <ChevronLeft className='w-full h-full' />
                             </div>
                             <p>Back</p>
                         </div>
@@ -294,7 +294,7 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
                         <div className="flex items-center gap-2 mx-auto">
                             <p>Next</p>
                             <div className="md:w-4 md:h-4 lg:w-5 lg:h-5 flex flex-col justify-center items-center">
-                                <ChevronRight className="text-[#FF9770] w-full h-full" />
+                                <ChevronRight className="w-full h-full" />
                             </div>
                         </div>
                     </Button>
