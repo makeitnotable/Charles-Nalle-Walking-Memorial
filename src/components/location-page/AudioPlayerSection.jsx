@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-// import { isMobile } from 'react-device-detect';
 
 export default function AudioPlayerSection({ data }) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -66,7 +65,7 @@ export default function AudioPlayerSection({ data }) {
         <div className={`rounded-3xl border-2 border-primary-6 transition-colors duration-300 ${isPlaying ? 'bg-primary-4' : 'bg-primary-3'}`}>
             <audio
                 ref={audioRef}
-                src="/bakery.mp3"
+                src={data.audioPlayer.audioFile}
                 preload="metadata"
             />
 

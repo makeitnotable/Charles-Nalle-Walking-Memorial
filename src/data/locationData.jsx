@@ -41,6 +41,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 1",
       subtitle: "Holeur's fashion bakery",
+      audioFile: "/Audio Files/Chapter 1 - Bakery.mp3",
     },
     narrative: {
       title: "Section 1/4",
@@ -131,6 +132,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 2 | pt.1",
       subtitle: "Office of The Commissioner",
+      audioFile: "/Audio Files/Chapter 2 - Bank Part 1.mp3",
     },
     narrative: {
       title: "Section 1/4",
@@ -221,6 +223,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 2 | pt.2",
       subtitle: "Office of The Commissioner",
+      audioFile: "/Audio Files/Chapter 2 - Bank Part 2.mp3",
     },
     narrative: {
       title: "Section 1/4",
@@ -300,6 +303,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 3",
       subtitle: "Uri Gilbert Mansion",
+      audioFile: "/Audio Files/Chapter 3 - Mansion.mp3",
     },
     narrative: {
       title: "Section 1/4",
@@ -401,6 +405,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 4",
       subtitle: "Washington Street Ferry Landing",
+      audioFile: "/Audio Files/Chapter 4 - Ferry.mp3",
     },
     narrative: {
       title: "Section 1/4",
@@ -497,6 +502,7 @@ export const locationData = {
     audioPlayer: {
       chapterName: "Chapter 5",
       subtitle: "Peter Baltimore's Barbershop",
+      audioFile: "/Audio Files/Chapter 5 - Barbershop.mp3",
     },
     narrative: {
       title: "Section 1/4 ",
