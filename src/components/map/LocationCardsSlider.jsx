@@ -34,25 +34,49 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
       perView: 1.1,
-      spacing: 10,
+      spacing: 0,
       origin: "center",
     },
     breakpoints: {
       "(min-width: 640px)": {
         slides: {
-          perView: 1.5,
-          spacing: 0,
+          perView: 1.8,
+          spacing: -24,
           origin: "center",
         },
       },
       "(min-width: 1024px)": {
         slides: {
-          perView: 2.0,
-          spacing: 0,
+          perView: 2,
+          spacing: -16,
           origin: "center", // Center the active card
         },
         drag: true, // Enable drag on desktop
       },
+      "(min-width: 1280px)": {
+        slides: {
+          perView: 2.5,
+          spacing: -32,
+          origin: "center", // Center the active card
+        },
+        drag: true, // Enable drag on desktop
+      },
+      "(min-width: 1400px)": {
+        slides: {
+          perView: 2.66,
+          spacing: -32,
+          origin: "center", // Center the active card
+        },
+        drag: true, // Enable drag on desktop
+      },
+      "(min-width: 1536px)": {
+        slides: {
+          perView: 2.7,
+          spacing: -32,
+          origin: "center", // Center the active card
+        },
+        drag: true, // Enable drag on desktop
+      }
     },
     mode: "snap",
     initial: initialIndex >= 0 ? initialIndex : 0,
