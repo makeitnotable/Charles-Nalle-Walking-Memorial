@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import ProgressIndicator from "./ProgressIndicator";
 
 function NarrativeMedia({ mediaPath }) {
@@ -5,8 +6,14 @@ function NarrativeMedia({ mediaPath }) {
 
     const isVideo = mediaPath.endsWith('.mp4');
 
+    const isSkinnyBarbershopImage = mediaPath == 'CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4'
+    console.log('a', isSkinnyBarbershopImage)
+
     return (
-        <div className='flex justify-center mx-5'>
+      <div className={clsx('flex justify-center mx-auto', {
+        'w-[19.437rem] h-[12.96rem] md:w-[16.75rem] md:h-[11.167rem] lg:w-[28.5rem] lg:h-[19rem]': !isSkinnyBarbershopImage,
+        'w-[19.4375rem] h-[29.156rem] md:w-[13.75rem] md:h-[20.625rem] lg:w-[28.5rem] lg:h-[42.75rem]': isSkinnyBarbershopImage,
+      })}>
             {isVideo ? (
                 <video
                     src={`/${mediaPath}`}
@@ -14,13 +21,13 @@ function NarrativeMedia({ mediaPath }) {
                     loop
                     muted
                     playsInline
-                    className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full'
+                    className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full object-cover'
                 />
             ) : (
                 <img
                     src={`/${mediaPath}`}
                     alt="Narrative illustration"
-                    className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full'
+                    className='w-auto h-auto rounded-3xl border-1 border-primary-6 max-w-full object-cover'
                 />
             )}
         </div>

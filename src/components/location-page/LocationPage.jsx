@@ -39,7 +39,7 @@ export default function LocationPage() {
                         <AudioPlayerSection data={currentChapter} />
                         <NarrativeSection data={currentChapter} />
                     </div>
-                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 px-8 md:px-6 py-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
                         <div className='flex flex-col w-1/2 gap-y-8 lg:gap-y-12'>
                             <AudioPlayerSection data={currentChapter} />
                             <NarrativeSection
