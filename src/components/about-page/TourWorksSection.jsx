@@ -8,7 +8,7 @@ const TourWorksSection = () => {
   const columns = [points.slice(0, 2), points.slice(2)];
 
   return (
-    <section className="flex flex-col gap-8 md:gap-8 lg:gap-12 pt-8 pb-0 md:py-4 lg:py-8 px-4 md:px-10 lg:px-20">
+    <section className="flex flex-col gap-8 md:gap-12 lg:gap-12 pt-8 pb-0 md:py-4 lg:py-8 px-4 md:px-10 lg:px-20">
       <div className="m-0">
         <p className="text-[#F6F3EE] uppercase text-[42px] leading-[34px] tracking-[-1.5px] md:text-[52.5px] md:leading-[42.5px] md:tracking-[-1.875px] lg:text-[63px] lg:leading-[51px] lg:tracking-[-2.25px] font-semibold font-['Martel_Sans']">
           How the
@@ -32,14 +32,14 @@ const TourWorksSection = () => {
           <p className="hidden md:block md:mt-12 md:mb-12 lg:mt-0 lg:mb-12 text-[#F6F3EE] text-start text-[0.75rem] md:text-[0.94rem] lg:text-[1.125rem] font-medium font-['Poppins']">
             Instructions
           </p>
-          <div className="flex flex-col gap-4 md:flex-row md:gap-6 lg:flex-col">
+          <div className="pl-2 pr-2 pt-4 pb-0 md:p-0 flex flex-col gap-4 md:flex-row md:gap-6 lg:flex-col">
             {columns.map((columnPoints, columnIndex) => (
               <div
                 key={`column-${columnIndex}`}
                 className="flex flex-col gap-4 md:gap-6 flex-1"
               >
                 {columnPoints.map((point, index) => (
-                  <div key={point.title} className="flex flex-col gap-2">
+                  <div key={point.title} className="flex flex-col">
                     <div className="flex flex-row items-start gap-2">
                       <div className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 rounded-full bg-primary-10 flex-shrink-0 flex items-center justify-center text-center">
                         <span className="text-primary-12 text-[10px] md:text-[12.5px] lg:text-[15px] font-medium leading-none h-full w-full mt-1.5 md:mt-2.5">
@@ -50,8 +50,9 @@ const TourWorksSection = () => {
                         {point.title}
                       </p>
                     </div>
+                    <br className="hidden md:block"/>
                     {point.bullets && (
-                      <ul className="list-disc pl-6 mt-2 space-y-1">
+                      <ul className="list-disc pl-12 space-y-1">
                         {point.bullets.map((bullet) => (
                           <li
                             key={bullet}
@@ -69,7 +70,7 @@ const TourWorksSection = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-row justify-center items-center my-8 md:mb-0 md:mt-8">
+      <div className="flex w-full flex-row justify-center items-center my-8 md:my-0">
         <Button variant="outline">
           Get Directions
         </Button>
