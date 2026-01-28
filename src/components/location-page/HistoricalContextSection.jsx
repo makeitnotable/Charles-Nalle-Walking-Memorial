@@ -11,7 +11,7 @@ function HistoricalContextMedia({ staticImage, animatedHistorical, hasAnimatedVi
         loop
         muted
         playsInline
-        className='mx-auto w-auto max-w-[100%] max-h-[363px] rounded-2xl object-cover'
+        className='mx-auto w-auto max-w-[100%] max-h-[363px] rounded-2xl object-cover border-2 border-primary-6'
       />
     );
   }
