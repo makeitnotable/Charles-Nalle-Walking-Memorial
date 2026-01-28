@@ -1,10 +1,9 @@
 import { Button } from '../Button';
 import MapBox from '../map/MapBox';
-import { LOCATIONS } from '../map/constants';
+import { LOCATIONS, MAP_CONFIG } from '../map/constants';
 import ProgressIndicator from './ProgressIndicator';
 
 export default function WhereToNextSection({ currentChapter }) {
-
   const handleGetDirections = () => {
     if (!currentChapter?.nextLocationPin) return;
     const target = LOCATIONS.find(loc => loc.name === currentChapter.nextLocationPin);
@@ -35,9 +34,9 @@ export default function WhereToNextSection({ currentChapter }) {
         className="rounded-3xl overflow-hidden border-1 border-primary-6 md:border-none md:shadow-lg md:shadow-black/20 md:backdrop-blur-sm max-w-2xl mx-auto"
         interactive={false}
         showButtons={false}
-        initialPitch={45}
-        initialBearing={45}
-        targetZoom={16}
+        initialPitch={MAP_CONFIG.locationPage[currentChapter.chapterNumber]?.pitch || MAP_CONFIG.defaultPitch}
+        initialBearing={MAP_CONFIG.locationPage[currentChapter.chapterNumber]?.bearing || MAP_CONFIG.defaultBearing}
+        targetZoom={MAP_CONFIG.locationPage[currentChapter.chapterNumber]?.zoom || MAP_CONFIG.defaultZoom}
       />
 
       {/* Show progress indicator below mapbox on tablet & up */}
