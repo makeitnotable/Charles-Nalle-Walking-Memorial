@@ -63,7 +63,7 @@ export default function AudioPlayerSection({ data, id = 'audioplayersection' }) 
     };
 
     return (
-        <div id={id} className={clsx('rounded-3xl border-2 border-primary-6 transition-colors duration-300 w-full aspect-square md:w-[29.296rem] md:h-[26.05rem] lg:w-[32.5rem] lg:h-[29.291rem]', {
+        <div id={id} className={clsx('rounded-3xl border-2 border-primary-6 transition-colors duration-300 md:w-[29.296rem] md:h-[26.05rem] lg:w-[32.5rem] lg:h-[29.291rem]', {
             'bg-primary-4': isPlaying,
             'bg-primary-3': !isPlaying,
         })}>
@@ -76,7 +76,7 @@ export default function AudioPlayerSection({ data, id = 'audioplayersection' }) 
             {/* Image Section */}
             <div className='p-4 rounded-t-3xl'>
                 <div
-                    className={`w-full aspect-[16/9] rounded-xl border-primary-6 border-2 transition-transform duration-300 ${isPlaying ? 'scale-102' : 'scale-100'}`}
+                  className={`w-[21.44rem] h-[14.29rem] md:w-[26.79rem] md:h-[17.86rem] lg:min-w-[29.5rem] lg:min-h-[19.66rem] rounded-xl border-primary-6 border-2 transition-transform duration-300 ${isPlaying ? 'scale-102' : 'scale-100'}`}
                     style={{
                         backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${data.backgroundImage.horizontal}')`,
                         backgroundSize: 'cover',
@@ -96,7 +96,7 @@ export default function AudioPlayerSection({ data, id = 'audioplayersection' }) 
                     <div className="flex flex-row justify-between items-start space-x-2">
                         <button
                             onClick={togglePlayPause}
-                            className="w-14 h-14 bg-primary-4 border-2 border-primary-6 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors hover:cursor-pointer"
+                            className="w-14 h-14 md:w-13 md:h-13 lg:w-18 lg:h-18 hover:bg-[#592411] active:bg-[#341A11] bg-primary-4 border-2 border-primary-6 hover:border-[#80412B] active:shadow-none active:border-1 rounded-2xl flex items-center justify-center hover:bg-primary-5 transition-colors hover:cursor-pointer"
                         >
                             {isPlaying ? (
                                 // Pause icon
@@ -112,11 +112,11 @@ export default function AudioPlayerSection({ data, id = 'audioplayersection' }) 
                             )}
                         </button>
                         <div className="mt-1 ml-2">
-                            <p className="text-primary-12 font-martel-sans font-semibold text-[18px] uppercase">{data.audioPlayer.chapterName}</p>
+                            <p className="text-primary-12 font-martel-sans font-semibold lg:text-[1.6875rem] lg:leading-[2.25rem] uppercase">{data.audioPlayer.chapterName}</p>
                             <p className="mt-1 text-primary-11 font-poppins font-normal text-[12px]">{data.audioPlayer.subtitle}</p>
                         </div>
                     </div>
-                    <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1.5 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
+                    <div className='bg-primary-10 rounded-3xl px-3 py-0.5 mr-3 mt-1.5 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
                         <div className='relative whitespace-nowrap'>
                             {/* Duration text (in flow when paused, determines smaller width) */}
                             <span
@@ -164,7 +164,7 @@ export default function AudioPlayerSection({ data, id = 'audioplayersection' }) 
                                         <p className="text-primary-11 font-poppins font-normal text-[11px]">{data.audioPlayer.subtitle}</p>
                                     </div>
                                 </div>
-                                <div className='bg-primary-10 rounded-3xl px-2 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
+                                <div className='bg-primary-10 rounded-3xl px-3 py-0.5 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
                                     <div className='relative whitespace-nowrap'>
                                         {/* Duration text (in flow when paused, determines smaller width) */}
                                         <span

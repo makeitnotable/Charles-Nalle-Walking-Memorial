@@ -19,7 +19,7 @@ export const Button = ({ children, className = "", onClick, variant = "filled" }
   };
 
   return (
-    <button className={`rounded-full w-auto min-w-[147px] cursor-pointer transition-all duration-200 ${getVariantClasses()} ${className}`} onClick={onClick}>
+    <button className={`rounded-full w-auto min-w-[147px] cursor-pointer transition-all duration-300 ${getVariantClasses()} ${className}`} onClick={onClick}>
       {children}
     </button>
   );
