@@ -33,21 +33,33 @@ export default function LocationPage() {
                 <QuoteSection data={currentChapter} />
             </div>
             {currentChapter.narrative.contentDesktop ? (
-                // Chapter 4: Split layout on desktop
+                // Chapter 4: Split layout on desktop using CSS Grid
                 <>
-                    <div className='md:hidden w-full flex flex-col gap-y-8 lg:gap-y-12 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
-                        <AudioPlayerSection data={currentChapter} />
+                    {/* Mobile: Single column grid */}
+                    <div className='md:hidden w-full grid grid-cols-1 gap-y-8 lg:gap-y-12 p-4 py-0 max-w-7xl mx-auto'>
+                        <div className="mt-4">
+                            <AudioPlayerSection id="audioplayersection-mobile" data={currentChapter} />
+                        </div>
                         <NarrativeSection data={currentChapter} />
                     </div>
-                    <div className='hidden md:flex md:items-center w-full flex-row mt-10 space-x-10 px-8 md:px-6 py-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
-                        <div className='flex flex-col w-1/2 gap-y-8 lg:gap-y-12'>
-                            <AudioPlayerSection data={currentChapter} />
+                    {/*Tablet */}
+                    <div className="hidden md:block w-fit mx-auto lg:hidden mt-16">
+                        <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
+                    </div>
+                    {/* Tablet/Desktop: Two column grid */}
+                    <div className='hidden md:grid md:grid-cols-2 md:items-center w-full mt-4 gap-10 px-8 md:px-6 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+
+                        <div className='grid grid-cols-1 gap-y-8 lg:gap-y-12'>
+                            {/* Desktop */}
+                            <div className="hidden lg:block">
+                                <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
+                            </div>
                             <NarrativeSection
                                 data={currentChapter}
                                 contentItems={currentChapter.narrative.contentDesktop.slice(0, 3)}
                             />
                         </div>
-                        <div className='w-1/2'>
+                        <div>
                             <NarrativeSection
                                 data={currentChapter}
                                 contentItems={currentChapter.narrative.contentDesktop.slice(3, 8)}
@@ -57,17 +69,19 @@ export default function LocationPage() {
                     </div>
                 </>
             ) : (
-                // Other chapters: Standard layout
-                <div className='w-full flex flex-col md:flex-row mt-10 md:space-x-10 p-4 py-0 md:py-4 lg:py-8 space-y-8 md:space-y-0 max-w-7xl mx-auto'>
-                    <div className='w-full md:w-1/3'>
-                        <AudioPlayerSection data={currentChapter} />
+                // Other chapters: Standard layout using CSS Grid
+                <>
+                    <div className="w-fit mx-auto mt-16">
+                        <AudioPlayerSection id="audioplayersection-standard" data={currentChapter} />
                     </div>
-                    <div className='flex-1 w-full'>
-                        <NarrativeSection data={currentChapter} />
+                    <div className='w-full grid grid-cols-1 md:grid-cols-1 mt-4 gap-y-8 md:gap-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+                        <div className='w-full'>
+                            <NarrativeSection data={currentChapter} />
+                        </div>
                     </div>
-                </div>
+                </>
             )}
-          <div className='flex flex-row justify-center items-center my-8 md:my-12'>
+            <div className='flex flex-row justify-center items-center my-8 md:my-12'>
                 {currentChapter.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter} id="chapter-next-button">
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">

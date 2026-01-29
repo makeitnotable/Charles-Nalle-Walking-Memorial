@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import { useState, useRef, useEffect } from 'react';
 
-export default function AudioPlayerSection({ data }) {
+export default function AudioPlayerSection({ data, id = 'audioplayersection' }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -62,7 +63,10 @@ export default function AudioPlayerSection({ data }) {
     };
 
     return (
-        <div className={`rounded-3xl border-2 border-primary-6 transition-colors duration-300 ${isPlaying ? 'bg-primary-4' : 'bg-primary-3'}`}>
+        <div id={id} className={clsx('rounded-3xl border-2 border-primary-6 transition-colors duration-300 w-full aspect-square md:w-[29.296rem] md:h-[26.05rem] lg:w-[32.5rem] lg:h-[29.291rem]', {
+            'bg-primary-4': isPlaying,
+            'bg-primary-3': !isPlaying,
+        })}>
             <audio
                 ref={audioRef}
                 src={data.audioPlayer.audioFile}
@@ -115,13 +119,13 @@ export default function AudioPlayerSection({ data }) {
                     <div className='bg-primary-10 rounded-3xl px-2 mr-3 mt-1.5 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
                         <div className='relative whitespace-nowrap'>
                             {/* Duration text (in flow when paused, determines smaller width) */}
-                            <span 
+                            <span
                                 className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5 inline-block ${!isPlaying ? '' : 'absolute opacity-0'}`}
                             >
                                 {formatTime(duration)}
                             </span>
                             {/* Playing text (in flow when playing, determines larger width) */}
-                            <span 
+                            <span
                                 className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 mt-0.5 inline-block ${isPlaying ? '' : 'absolute opacity-0'}`}
                             >
                                 {formatTime(currentTime)} | {formatTime(duration)}
@@ -163,13 +167,13 @@ export default function AudioPlayerSection({ data }) {
                                 <div className='bg-primary-10 rounded-3xl px-2 transition-all duration-300 ease-in-out overflow-hidden relative inline-block'>
                                     <div className='relative whitespace-nowrap'>
                                         {/* Duration text (in flow when paused, determines smaller width) */}
-                                        <span 
+                                        <span
                                             className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 inline-block ${!isPlaying ? '' : 'absolute opacity-0'}`}
                                         >
                                             {formatTime(duration)}
                                         </span>
                                         {/* Playing text (in flow when playing, determines larger width) */}
-                                        <span 
+                                        <span
                                             className={`text-primary-12 font-poppins font-[500] text-[12px] py-1.0 px-1.0 inline-block ${isPlaying ? '' : 'absolute opacity-0'}`}
                                         >
                                             {formatTime(currentTime)} | {formatTime(duration)}
