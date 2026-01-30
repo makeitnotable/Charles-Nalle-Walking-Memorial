@@ -53,7 +53,7 @@ function isBackgroundImageItem(item) {
     return item.startsWith('backgroundImage.');
 }
 
-export default function NarrativeSection({ data, contentItems = null, showTitle = true }) {
+export default function NarrativeSection({ data, contentItems = null, showTitle = true, showDropCap = true }) {
     const content = contentItems || data.narrative.content;
 
     // Find index of the first text paragraph (not a backgroundImage item)
@@ -73,7 +73,7 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
                         }
 
                         // Only the very first text paragraph (by content order) gets special styling
-                        const isFirstTextParagraph = index === firstTextIndex;
+                        const isFirstTextParagraph = showDropCap && index === firstTextIndex;
                         return <NarrativeParagraph key={index} item={item} isFirst={isFirstTextParagraph} />;
                     })}
                 </div>

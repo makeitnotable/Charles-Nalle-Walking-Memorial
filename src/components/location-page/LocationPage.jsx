@@ -64,6 +64,7 @@ export default function LocationPage() {
                                 data={currentChapter}
                                 contentItems={currentChapter.narrative.contentDesktop.slice(3, 8)}
                                 showTitle={false}
+                                showDropCap={false}
                             />
                         </div>
                     </div>
