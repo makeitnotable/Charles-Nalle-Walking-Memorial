@@ -7,6 +7,7 @@ import HeroSection from './HeroSection';
 import QuoteSection from './QuoteSection';
 import AudioPlayerSection from './AudioPlayerSection';
 import NarrativeSection from './NarrativeSection';
+import NarrativeSectionOneThroughThree from './NarrativeSectionOneThroughThree';
 import HistoricalContextSection from './HistoricalContextSection';
 import MoralMessageSection from './MoralMessageSection';
 import WhereToNextSection from './WhereToNextSection';
@@ -33,7 +34,7 @@ export default function LocationPage() {
                 <QuoteSection data={currentChapter} />
             </div>
             {currentChapter.narrative.contentDesktop ? (
-                // Chapter 4: Split layout on desktop using CSS Grid
+                // Chapter 4 & 5: Split layout on desktop using CSS Grid
                 <>
                     {/* Mobile: Single column grid */}
                     <div className='md:hidden w-full grid grid-cols-1 gap-y-8 lg:gap-y-12 p-4 py-0 max-w-7xl mx-auto'>
@@ -47,11 +48,11 @@ export default function LocationPage() {
                         <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
                     </div>
                     {/* Tablet/Desktop: Two column grid */}
-                    <div className='hidden md:grid md:grid-cols-2 md:items-center w-full mt-4 gap-10 px-8 md:px-6 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+                    <div className='hidden md:grid md:grid-cols-2 md:items-start w-full mt-4 gap-10 px-8 md:px-6 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
 
                         <div className='grid grid-cols-1 gap-y-8 lg:gap-y-12'>
                             {/* Desktop */}
-                            <div className="hidden lg:block">
+                            <div className="hidden lg:block mx-auto">
                                 <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
                             </div>
                             <NarrativeSection
@@ -75,9 +76,9 @@ export default function LocationPage() {
                     <div className="w-fit mx-auto mt-16">
                         <AudioPlayerSection id="audioplayersection-standard" data={currentChapter} />
                     </div>
-                    <div className='w-full grid grid-cols-1 md:grid-cols-1 mt-4 gap-y-8 md:gap-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+                    <div className='w-full grid grid-cols-1 mt-4 gap-y-8 md:gap-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
                         <div className='w-full'>
-                            <NarrativeSection data={currentChapter} />
+                            <NarrativeSectionOneThroughThree data={currentChapter} />
                         </div>
                     </div>
                 </>

@@ -7,7 +7,6 @@ function NarrativeMedia({ mediaPath }) {
     const isVideo = mediaPath.endsWith('.mp4');
 
     const isSkinnyBarbershopImage = mediaPath == 'CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4'
-    console.log('a', isSkinnyBarbershopImage)
 
     return (
       <div className={clsx('flex justify-center mx-auto', {
@@ -64,7 +63,7 @@ export default function NarrativeSection({ data, contentItems = null, showTitle 
     return (
         <div>
             <div className='text-text-primary flex flex-col gap-y-8 lg:gap-y-12'>
-                {showTitle && <ProgressIndicator className="text-primary-12 px-4 py-4 mb-0">{data.narrative.title}</ProgressIndicator>}
+                {showTitle && <ProgressIndicator className="text-primary-12 px-4 pl-0 py-4 mb-0">{data.narrative.title}</ProgressIndicator>}
                 <div className='flex flex-col gap-y-4 md:gap-y-8 lg:gap-y-12'>
                     {content.map((item, index) => {
                         if (isBackgroundImageItem(item)) {
