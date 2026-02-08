@@ -229,7 +229,24 @@ export const locationData = {
       title: "Section 1/4",
       content: [
         'Outside the Mutual Bank Building, the crowd grew larger, emotions heightened, and the sounds of protest grew deafening. Inside, sweat and the desperation of uncontrollable moments beaded down the frustrated faces of Chief Civil Rights attorney Martin Townsend and fellow Abolitionist and underground railroad barber Peter Baltimore as they frantically negotiated for Charles\'s freedom. With thinning patience, Martin Townsend exclaimed, "If we can get him out into the crowd, we can raise the money in five minutes."',
-        'Moments later the downstairs door of the Mutual bank building flung open and the protestors, primed by the words of Harriet Tubman—"Drag him to the river! Drown him! But don\'t let them have him!"—erupted like a bull out of a bullpen. Charles was dragged out, the chains cuffing his hands shimmered in the sunlight. By the time he and his captors made it into the cobblestone street, "The crowd was like a lynch mob in reverse—instead of unleashing their fury to string him up, the ringleaders of this mass chaos vented all of their pent-up rage to turn the Negro loose and rescue him from doom" (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113).',
+        <span key="moments-later-the-downstairs">
+          Moments later the downstairs door of the Mutual bank building flung
+          open and the protestors, primed by the words of Harriet Tubman—"Drag
+          him to the river! Drown him! But don't let them have him!"—erupted
+          like a bull out of a bullpen. Charles was dragged out, the chains
+          cuffing his hands shimmered in the sunlight. By the time he and his
+          captors made it into the cobblestone street,{" "}
+          <b>
+            "The crowd was like a lynch mob in reverse—instead of unleashing
+            their fury to string him up, the ringleaders of this mass chaos
+            vented all of their pent-up rage to turn the Negro loose and rescue
+            him from doom"
+          </b>{" "}
+          <span style={{ color: "rgba(254, 217, 204, 0.64)" }}>
+            (Christianson, Freeing Charles: The Struggle to Free a Slave on the
+            Eve of the Civil War, p. 113).
+          </span>
+        </span>,
         "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they through punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged—torn free by the sweeping mob—broke into a sprint and started running.",
       ],
     },
@@ -310,7 +327,24 @@ export const locationData = {
       content: [
         "Each stride closed the distance between Charles and the ferryman waiting on the bank of the Hudson River, ready to help him cross to freedom. What was feet away must have felt like miles, and Charles's mind slipped between the present moment and every step he had previously run north from the fields in Culpeper County, Virginia. Though those fields held his footprints, Charles was determined they would not hold his future.",
         "By the time he reached New York, the weight of those southern skies seemingly disappeared. In Troy, Charles found refuge; the bustling streets of the city hummed with industry and abolitionists' quiet acts of defiance against the slave catchers who prowled too far from home.",
-        'Shortly upon his arrival, Charles\'s steady but guarded gaze met the focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy\'s wealthiest men."Are you a Negro ? " Charles was so taken aback by it, he didn\'t know how or on what level to respond. It was, after all, the central and defining characteristic of his life, even if it was not always obvious in his appearance. Finally, he pulled himself together and managed to reply, "Well, sir, I suppose so." Gilbert nodded and smiled.(Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95).',
+        <span key="are-you-a-negro">
+          Shortly upon his arrival, Charles's steady but guarded gaze met the
+          focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy's
+          wealthiest men.{" "}
+          <b>
+            "Are you a Negro?" Charles was so taken aback by it, he didn't know
+            how or on what level to respond. It was, after all, the central and
+            defining characteristic of his life, even if it was not always
+            obvious in his appearance. Finally, he pulled himself together and
+            managed to reply, "Well, sir, I suppose so." Gilbert nodded and
+            smiled.
+          </b>
+          <span style={{ color: "rgba(254, 217, 204, 0.64)" }}>
+            {" "}
+            (Christianson, Freeing Charles: The Struggle to Free a Slave on the
+            Eve of the Civil War, p. 95).
+          </span>
+        </span>,
         "It was there, surrounded by the opulence of Uri Gilbert's grand brownstone mansion on 189 Second Street in Troy, NY, that Charles was offered work as a coachman. Day by day, Charles began to fall into the life of Troy, building an unassuming reputation known secretly by those who mattered. With time, his hands and the unspoken history written in their lines mastered the navigation of Gilbert's carriages across cobbled streets, and his presence became familiar enough to seem invisible. But even in the most peaceful of places, the shadows of the past can cast themselves.",
         "Charles's freedom was a thin veil, with captivity patiently watching from the other side. Unbeknownst to him, the fields of Culpeper County, Virginia, were closer to Charles than he could imagine. Just a few blocks away, on a morning in April 1860, outside a bakery where he was sent to fetch bread, captivity stepped out from the shadows to reveal its face.",
       ],
