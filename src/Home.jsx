@@ -22,13 +22,14 @@ export default function Home() {
             background:
               `linear-gradient(180deg, rgba(16, 10, 6, 0.00) 65%, #100A06 100%),
                url('/homepage-overlay.png'),
-               url('${isMobile ? '/home-bg.png' : '/home-bg-horizontal.png'}')`,
+               url('/home-bg.png')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             filter: "grayscale(100%) brightness(0.7) contrast(1.0) sepia(0.1) opacity(0.9)",
             borderRadius: "32px",
             border: "1px solid #4B4741",
+            opacity: '50%',
           }}
         ></div>
         <div className='flex flex-col justify-between items-center h-full z-10'>
@@ -55,9 +56,8 @@ export default function Home() {
           </div>
           <div className='flex flex-col justify-between items-center p-4'>
             {/* Mobile and Tablet: break at "digital" and "history" */}
-            <p className='text-gray-11 text-[12px] md:text-[15px] lg:text-[18px] max-w-100 lg:max-w-prose mx-4 mb-2 text-center font-normal block lg:hidden'>
-              The Charles Nalle Walking Memorial is a digital<br/>
-              physical experience designed to share the history<br/>
+            <p className='text-gray-11 text-[12px] md:text-[15px] lg:text-[18px] max-w-100 lg:max-w-prose max-w-[283px] md:max-w-[353px] mx-4 mb-2 text-center font-normal block lg:hidden'>
+              The Charles Nalle Walking Memorial is a digital physical experience designed to share the history
               of Troy and the story of Charles Nalle
             </p>
             {/* Desktop: break at "designed" */}
