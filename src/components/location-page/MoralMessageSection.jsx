@@ -149,7 +149,7 @@ export default function MoralMessageSection({ data, goToNextChapter, goToPrevCha
     }, []);
 
     return (
-        <div className="h-full">
+      <div className="h-full">
             <div ref={sectionRef} className="relative h-full">
                 <div className='absolute inset-0 h-full'>
                     <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .95), #1D1411)" }} />
@@ -263,7 +263,7 @@ function DesktopAndTabletLayout({ data, goToNextChapter, goToPrevChapter }) {
                     }}
                 />
             </div>
-            <div className='flex flex-col sm:flex-row w-full px-4'>
+            <div className='flex flex-col sm:flex-row w-full px-4 md:py-4 lg:py-8'>
                 <div className='sm:w-1/2 w-full'>
                     <ProgressIndicator data-moral-number className='text-[#F6F3EE] text-start'>
                         {data.moralMessage.number}
