@@ -89,14 +89,14 @@ export default function HeroSection({ data }) {
                     loop
                     muted
                     playsInline
-                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
+                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-3xl border border-[rgba(105,49,29,1)] object-cover object-center"
                 />
             ) : (
                 <img
                     ref={mediaRef}
                     src={backgroundImage}
                     alt={getTextFromChildren(data.title)}
-                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-t-3xl border-[rgba(105,49,29,1)] border-t object-cover object-center"
+                    className="mt-0 md:mt-6 lg:mt-12 w-full flex-1 max-h-screen bg-neutral-1 rounded-3xl border border-[rgba(105,49,29,1)] object-cover object-center"
                 />
             )}
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[var(--color-primary-2)] to-transparent z-10" />
