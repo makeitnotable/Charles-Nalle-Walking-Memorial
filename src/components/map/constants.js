@@ -58,8 +58,8 @@ export const DEFAULT_IMAGE = '/assets/default-marker.png';
 
 // Map configuration
 export const MAP_CONFIG = {
-    initialCenter: [-73.6948, 42.7240],
-    defaultZoom: 15,
+    initialCenter: [-73.6948, 42.7235],
+    defaultZoom: 15.25,
     defaultPitch: 33,
     defaultBearing: 10,
     maxBounds: [
