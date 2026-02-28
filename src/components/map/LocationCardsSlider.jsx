@@ -33,50 +33,25 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
 
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      perView: 1.1,
-      spacing: 0,
+      perView: "auto",
+      spacing: 16,
       origin: "center",
     },
     breakpoints: {
       "(min-width: 640px)": {
         slides: {
-          perView: 1.8,
-          spacing: -24,
+          perView: "auto",
+          spacing: 16,
           origin: "center",
         },
       },
       "(min-width: 1024px)": {
         slides: {
-          perView: 2,
-          spacing: -16,
-          origin: "center", // Center the active card
+          perView: "auto",
+          spacing: 16,
+          origin: "center",
         },
-        drag: true, // Enable drag on desktop
       },
-      "(min-width: 1280px)": {
-        slides: {
-          perView: 2.5,
-          spacing: -32,
-          origin: "center", // Center the active card
-        },
-        drag: true, // Enable drag on desktop
-      },
-      "(min-width: 1400px)": {
-        slides: {
-          perView: 2.66,
-          spacing: -32,
-          origin: "center", // Center the active card
-        },
-        drag: true, // Enable drag on desktop
-      },
-      "(min-width: 1536px)": {
-        slides: {
-          perView: 2.7,
-          spacing: -32,
-          origin: "center", // Center the active card
-        },
-        drag: true, // Enable drag on desktop
-      }
     },
     mode: "snap",
     initial: initialIndex >= 0 ? initialIndex : 0,
@@ -129,7 +104,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
               <div
                 key={location.name}
                 className={
-                  "keen-slider__slide transition-opacity duration-300 ease-out"
+                  "keen-slider__slide !min-w-[343px] !max-w-[343px] sm:!min-w-[428.75px] sm:!max-w-[428.75px] lg:!min-w-[514.5px] lg:!max-w-[514.5px] transition-opacity duration-300 ease-out"
                 }
               >
                 <div
