@@ -17,8 +17,8 @@ export const HeroHeader = ({ chapterNumber, title }) => {
         <h1 className="font-['Martel_Sans'] text-[2.625rem] leading-[2.125rem] md:text-[3.28125rem] md:leading-[2.65625rem] lg:text-[3.9375rem] lg:leading-[3.1875rem] font-semibold tracking-[-1.5px] text-[#F6F3EE]">
           {title}
         </h1>
-        <div className="flex-col justify-evenly items-end mr-1 h-full">
-          <ArrowWithDynamicShaft className="text-primary-12 h-fit ml-1" />
+        <div className="flex flex-col justify-evenly items-end mr-1 self-stretch">
+          <ArrowWithDynamicShaft className="text-primary-12 h-full ml-1" />
         </div>
       </div>
     </div>
