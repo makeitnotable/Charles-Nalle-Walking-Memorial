@@ -34,7 +34,7 @@ const LocationCardsSlider = ({ onLocationNavigate, currentLocation }) => {
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
       perView: "auto",
-      spacing: 16,
+      spacing: -20,
       origin: "center",
     },
     breakpoints: {
