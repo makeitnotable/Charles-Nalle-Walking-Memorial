@@ -35,6 +35,7 @@ export default function QuoteSection({ data }) {
       <div className="relative h-full p-4 text-left">
         <div className="flex flex-col justify-center items-center h-full relative z-10">
           <div className="max-w-md flex flex-col items-center">
+            {/* Vertical line */}
             <div className="h-[144px] bg-primary-12 w-[1px] mb-10" />
           </div>
           <div className="flex flex-col items-center md:w-[700px] p-0 gap-6">

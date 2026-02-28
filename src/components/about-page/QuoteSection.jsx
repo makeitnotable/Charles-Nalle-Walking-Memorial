@@ -74,7 +74,7 @@ export default function QuoteSection() {
               </div>
             </div>
             <div className="mt-6">
-              <ArrowDown className="text-primary-12 w-full h-'auto'" />
+              <ArrowDown className="text-primary-12 w-full h-auto" />
             </div>
           </div>
         </div>
