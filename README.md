@@ -15,6 +15,7 @@ brew install asdf
 # install node with asdf
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf install nodejs 22.22.0
+asdf set nodejs 22.22.0
 
 # install js dependencies
 npm install
