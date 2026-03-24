@@ -84,13 +84,14 @@ export default function LocationPage() {
                 </>
             )}
             <div className='flex flex-row justify-center items-center my-8 md:my-12'>
-                {currentChapter.nextChapter && (
+                {/* Hide "Next Chapter" Button */}
+                {/*currentChapter.nextChapter && (
                     <Button variant='filled' onClick={goToNextChapter} id="chapter-next-button">
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">
                             {currentChapter.nextChapter}
                         </span>
                     </Button>
-                )}
+                )*/}
             </div>
             <div className='max-w-7xl mx-auto mb-8 md:mb-12'>
                 <HistoricalContextSection data={currentChapter} />
