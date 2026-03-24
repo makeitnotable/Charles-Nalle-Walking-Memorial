@@ -31,7 +31,7 @@ export default function LocationPage() {
         <div className='w-full'>
             <div ref={heroRef} className="relative mx-auto mt-6 md:mt-6 lg:mt-12 px-0 md:px-10 lg:px-12">
                 <HeroSection data={currentChapter} />
-                <QuoteSection data={currentChapter} />
+                {/* <QuoteSection data={currentChapter} /> */}
             </div>
             {currentChapter.narrative.contentDesktop ? (
                 // Chapter 4 & 5: Split layout on desktop using CSS Grid
