@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { LOCATIONS } from './constants';
+import { LOCATIONS, MAP_CONFIG } from './constants';
 import LocationCardsSlider from './LocationCardsSlider';
 import BackButton from './BackButton';
 import { useMapStore } from '../../stores/useMapStore';
@@ -11,10 +11,13 @@ const MapBox = ({
     initialLocationName = 'Bakery',
     interactive = false,
     showButtons = true,
+    fillScreen = false,
     height = '100vh',
     width = '100%',
     className = '',
-    useResponsiveHeight = false
+    initialPitch = MAP_CONFIG.defaultPitch,
+    initialBearing = MAP_CONFIG.defaultBearing,
+    targetZoom = 20,
 }) => {
     const mapContainerRef = useRef(null);
     const navigate = useNavigate();
@@ -29,13 +32,13 @@ const MapBox = ({
 
     useEffect(() => {
         if (mapContainerRef.current) {
-            initializeMap(mapContainerRef, initialLocationName, interactive);
+            initializeMap(mapContainerRef, initialLocationName, interactive, initialPitch, initialBearing, targetZoom);
         }
 
         return () => {
             destroyMap();
         };
-    }, [initializeMap, destroyMap, initialLocationName, interactive]);
+    }, [initializeMap, destroyMap, initialLocationName, interactive, initialPitch, initialBearing, targetZoom]);
 
     const navigateToLocation = (locationName) => {
         const locationData = LOCATIONS.find(loc => loc.name === locationName);
@@ -46,13 +49,11 @@ const MapBox = ({
         }
     };
 
-    const containerStyle = useResponsiveHeight
-        ? { width: width }
-        : { height: height, width: width };
+    const containerStyle = fillScreen ? { height: height, width: width } : undefined;
 
-    const containerClasses = useResponsiveHeight
-        ? `bg-black relative h-[300px] md:h-[450px] ${className}`
-        : `bg-black relative ${className}`;
+    const containerClasses = fillScreen
+        ? `bg-black relative ${className}`
+        : `bg-black relative w-[343px] h-[229px] md:w-[386px] md:h-[257px] lg:w-[514.5px] lg:h-[343px] ${className}`;
 
     return (
         <div className={containerClasses} style={containerStyle}>

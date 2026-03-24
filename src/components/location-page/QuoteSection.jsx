@@ -1,33 +1,66 @@
-import ArrowDown from '../ArrowDown';
+import ArrowDown from "../ArrowDown";
+import { isMobile } from "react-device-detect";
+
+// Helper function to extract text from React children for alt attributes
+const getTextFromChildren = (children) => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) {
+    return children
+      .map(child => {
+        if (typeof child === 'string') return child;
+        if (child?.props?.children) return getTextFromChildren(child.props.children);
+        return '';
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+  if (children?.props?.children) return getTextFromChildren(children.props.children);
+  return '';
+};
 
 export default function QuoteSection({ data }) {
-    return (
-        <div className="h-screen">
-            <div className="relative h-full p-4 text-left">
-                <div className="flex flex-col justify-center items-center h-full relative z-10">
-                    <div className="max-w-md flex flex-col items-center">
-                        <div className="h-[100px] bg-primary-12 w-[1px] mb-10" /></div>
-                    <div className="flex flex-col items-center w-[319px] p-0 gap-6">
-                        <div className="border-l-2 border-primary-10 pl-2">
-                            <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
-                        </div>
-                        <div className="w-full ml-2">
-                            <div className="flex items-start text-primary-11 leading-[1] italic">
-                                <div className="mr-2 my-3 w-[10px] h-[2px] bg-primary-11"></div>
-                                <div className="flex flex-col">
-                                    <p className="mb-2">{data.quote.author1}</p>
-                                    <p className="mt-0">{data.quote.author2}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mt-12">
-                        <ArrowDown
-                            className="text-primary-12 w-full h-'auto'"
-                        />
-                    </div>
-                </div>
+  const backgroundImage = isMobile
+    ? data.backgroundImage.vertical
+    : data.backgroundImage.horizontal;
+
+  return (
+    <div className="h-screen relative">
+      <div className="absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden">
+        <img
+          src={backgroundImage}
+          alt={getTextFromChildren(data.title)}
+          className="opacity-15 w-full h-full object-cover"
+        />
+      </div>
+      <div className="relative h-full p-4 text-left">
+        <div className="flex flex-col justify-center items-center h-full relative z-10">
+          <div className="max-w-md flex flex-col items-center">
+            {/* Vertical line */}
+            <div className="h-[144px] bg-primary-12 w-[1px] mb-10" />
+          </div>
+          <div className="flex flex-col items-center md:w-[700px] p-0 gap-6">
+            <div className="border-l-2 border-primary-10 pl-2">
+              <h3 className="text-primary-12 font-martel-sans font-semibold text-[32px] leading-[40px] tracking-[0px]">{`"${data.quote.text}"`}</h3>
             </div>
+            <div className="w-1/2 ml-2 flex items-center justify-center text-primary-11 leading-6 italic">
+              {/* styled dash */}
+              <div className="mr-2 w-[14px] h-[2px] bg-primary-11"></div>
+              <div className="flex flex-col ">
+                <p className="mt-1">
+                  {data.quote.author1}
+                  {data.quote.author2 && ","}
+                </p>
+                {data.quote.author2 && (
+                  <p className="mt-0">{data.quote.author2}</p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="mt-12">
+            <ArrowDown className="text-primary-12 w-full h-auto" />
+          </div>
         </div>
-    );
-} 
+      </div>
+    </div>
+  );
+}

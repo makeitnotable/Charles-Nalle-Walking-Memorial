@@ -14,7 +14,7 @@ import { TransitionOverlay } from './components/TransitionOverlay';
 export const Layout = () => {
   return (
     <>
-      <MapBox interactive={true} showButtons={true} initialLocationName={null} />
+      <MapBox fillScreen={true} interactive={true} showButtons={true} initialLocationName={null} />
     </>
   );
 }

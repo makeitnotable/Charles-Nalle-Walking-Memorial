@@ -2,27 +2,26 @@ import { aboutData } from '../../data/aboutData';
 
 const CharlesSection = () => {
   return (
-    <div className="h-full">
+    <div className="h-full px-4 md:px-10 lg:px-20">
       <div className="relative h-full">
         <div className='absolute inset-0 h-full'>
-          <div className='absolute inset-0' style={{ background: "linear-gradient(#1D1411, rgba(16, 10, 6, .8), #1D1411)" }} />
-          <div className='h-full py-0.5'>
-            <img src={aboutData.charles.img.vertical} alt="Moral Message" className='w-full h-full object-cover' />
+          <div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen h-full overflow-hidden'>
+            <img src={aboutData.charles.img.vertical} alt="Charles Nalle Background Picture" className='opacity-15 w-full h-full object-cover' style={{ maskImage: "linear-gradient(to bottom,transparent 0%, black 30%, black 70%, transparent 100%)" }} />
           </div>
         </div>
-        <div className='text-text-primary space-y-6 relative z-10 m-4'>
+        <div className='text-primary space-y-6 relative z-10 m-4'>
           <div className="flex justify-start">
-            <p className='text-[#F6F3EE] font-["Martel_Sans"] text-[42px] font-semibold leading-[34px] text-left my-5 tracking-[-1.5px] max-w-[300px] ml-4'>{aboutData.charles.header}</p>
+            <p className='text-[#F6F3EE] font-["Martel_Sans"] font-semibold leading-[34px] text-left my-5 text-[2.63rem] leading-[2.13rem] tracking-[-0.09rem] md:text-[3.28rem] md:leading-[2.66rem] md:tracking-[-0.12rem] lg:text-[3.94rem] lg:leading-[3.19rem] lg:tracking-[-0.14rem] max-w-[300px] ml-4'>{aboutData.charles.header}</p>
           </div>
           <div className='flex justify-end md:justify-center w-full'>
-            <div className="lg:w-[500px] lg:h-[500px] w-[250px] h-[250px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
+            <div className="w-[250px] h-[250px] md:w-[281.25px] md:h-[281.25px] lg:w-[375px] lg:h-[375px] rounded-3xl border-1 border-primary-6 mr-5 mb-5" style={{
               backgroundImage: `linear-gradient(rgba(16, 10, 6, 0), rgba(16, 10, 6, 0)), url('${aboutData.charles.img.horizontal}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             }} />
           </div>
-          <p className='text-[14px] ml-4 text-[#ff9770]'>{aboutData.charles.section}</p>
+          <p className='text-[.75rem] md:text-[0.94rem] lg:text-[1.13rem] ml-4 text-[#ff9770]'>{aboutData.charles.section}</p>
 
           <div className='space-y-5 w-full md:w-1/2 md:ml-auto'>
             {aboutData.charles.narrative.content.map((paragraph, index) => (

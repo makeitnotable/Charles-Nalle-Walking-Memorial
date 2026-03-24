@@ -13,7 +13,7 @@ export default function AboutPage() {
     }, []);
 
     return (
-        <div className='max-w-7xl mx-auto'>
+      <div className='max-w-7xl mx-auto lg:pt-12 lg:pb-28 space-y-8 md:space-y-12'>
             <AboutSection />
             <TourWorksSection />
             <CharlesSection />

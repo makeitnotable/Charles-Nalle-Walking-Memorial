@@ -58,10 +58,10 @@ export const DEFAULT_IMAGE = '/assets/default-marker.png';
 
 // Map configuration
 export const MAP_CONFIG = {
-    initialCenter: [-73.6948, 42.7240],
-    defaultZoom: 15,
-    defaultPitch: 50,
-    defaultBearing: 9,
+    initialCenter: [-73.6948, 42.7235],
+    defaultZoom: 15.25,
+    defaultPitch: 33,
+    defaultBearing: 10,
     maxBounds: [
         [-73.7300, 42.7000],
         [-73.6500, 42.7500],
@@ -92,5 +92,33 @@ export const MAP_CONFIG = {
             indexTextColor: '#FED9CC',
             lineColor: '#80412B'
         }
-    }
+    },
+    // Map of chapter number to mapbox configs
+    locationPage: {
+        1: {
+            pitch: 45,
+            bearing: 45,
+            zoom: 17,
+        },
+        2: {
+            pitch: 48,
+            bearing: 75,
+            zoom: 17.8,
+        },
+        3: {
+            pitch: 45,
+            bearing: 45,
+            zoom: 15.5,
+        },
+        4: {
+            pitch: 45,
+            bearing: 55,
+            zoom: 17.3,
+        },
+        5: {
+            pitch: 48,
+            bearing: 55,
+            zoom: 17.5,
+        },
+    },
 };

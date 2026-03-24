@@ -7,6 +7,7 @@ import HeroSection from './HeroSection';
 import QuoteSection from './QuoteSection';
 import AudioPlayerSection from './AudioPlayerSection';
 import NarrativeSection from './NarrativeSection';
+import NarrativeSectionOneThroughThree from './NarrativeSectionOneThroughThree';
 import HistoricalContextSection from './HistoricalContextSection';
 import MoralMessageSection from './MoralMessageSection';
 import WhereToNextSection from './WhereToNextSection';
@@ -16,8 +17,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LocationPage() {
     const heroRef = useRef(null);
-    const quoteRef = useRef(null);
-    const gradientRef = useRef(null);
     const { currentChapter, goToNextChapter, goToPrevChapter } = useNavigation();
 
     useEffect(() => {
@@ -30,65 +29,71 @@ export default function LocationPage() {
 
     return (
         <div className='w-full'>
-            <div ref={heroRef} className="relative max-w-7xl mx-auto">
+            <div ref={heroRef} className="relative mx-auto mt-6 md:mt-6 lg:mt-12 px-0 md:px-10 lg:px-12">
                 <HeroSection data={currentChapter} />
-                <div
-                    ref={gradientRef}
-                    style={{
-                        opacity: 0,
-                        background: 'linear-gradient(rgba(16, 10, 6, 0.8), rgba(16, 10, 6, 0.8))'
-                    }}
-                    className="absolute inset-0 pointer-events-none"
-                />
-                <div ref={quoteRef} style={{ opacity: 0 }} className="absolute inset-0 pointer-events-none">
-                    <QuoteSection data={currentChapter} />
-                </div>
+                {/* <QuoteSection data={currentChapter} /> */}
             </div>
             {currentChapter.narrative.contentDesktop ? (
-                // Chapter 4: Split layout on desktop
+                // Chapter 4 & 5: Split layout on desktop using CSS Grid
                 <>
-                    <div className='md:hidden w-full flex flex-col space-y-10 p-4 max-w-7xl mx-auto'>
-                        <AudioPlayerSection data={currentChapter} />
+                    {/* Mobile: Single column grid */}
+                    <div className='md:hidden w-full grid grid-cols-1 gap-y-8 lg:gap-y-12 p-4 py-0 max-w-7xl mx-auto'>
+                        <div className="mt-4">
+                            <AudioPlayerSection id="audioplayersection-mobile" data={currentChapter} />
+                        </div>
                         <NarrativeSection data={currentChapter} />
                     </div>
-                    <div className='hidden md:flex w-full flex-row mt-10 space-x-10 p-4 max-w-7xl mx-auto'>
-                        <div className='w-1/2 space-y-10'>
-                            <AudioPlayerSection data={currentChapter} />
+                    {/*Tablet */}
+                    <div className="hidden md:block w-fit mx-auto lg:hidden mt-16">
+                        <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
+                    </div>
+                    {/* Tablet/Desktop: Two column grid */}
+                    <div className='hidden md:grid md:grid-cols-2 md:items-start w-full mt-4 gap-10 px-8 md:px-6 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+
+                        <div className='grid grid-cols-1 gap-y-8 lg:gap-y-12'>
+                            {/* Desktop */}
+                            <div className="hidden lg:block mx-auto">
+                                <AudioPlayerSection id="audioplayersection-desktop" data={currentChapter} />
+                            </div>
                             <NarrativeSection
                                 data={currentChapter}
                                 contentItems={currentChapter.narrative.contentDesktop.slice(0, 3)}
                             />
                         </div>
-                        <div className='w-1/2'>
+                        <div>
                             <NarrativeSection
                                 data={currentChapter}
                                 contentItems={currentChapter.narrative.contentDesktop.slice(3, 8)}
                                 showTitle={false}
+                                showDropCap={false}
                             />
                         </div>
                     </div>
                 </>
             ) : (
-                // Other chapters: Standard layout
-                <div className='w-full flex flex-col md:flex-row mt-10 md:space-x-10 p-4 space-y-10 md:space-y-0 max-w-7xl mx-auto'>
-                    <div className='w-full md:w-1/3'>
-                        <AudioPlayerSection data={currentChapter} />
+                // Other chapters: Standard layout using CSS Grid
+                <>
+                    <div className="w-fit mx-auto mt-16">
+                        <AudioPlayerSection id="audioplayersection-standard" data={currentChapter} />
                     </div>
-                    <div className='flex-1 w-full'>
-                        <NarrativeSection data={currentChapter} />
+                    <div className='w-full grid grid-cols-1 mt-4 gap-y-8 md:gap-x-10 p-4 py-0 md:py-4 lg:py-8 max-w-7xl mx-auto'>
+                        <div className='w-full'>
+                            <NarrativeSectionOneThroughThree data={currentChapter} />
+                        </div>
                     </div>
-                </div>
+                </>
             )}
-            <div className='flex flex-row justify-center items-center mb-6'>
-                {currentChapter.nextChapter && (
-                    <Button variant='filled' onClick={goToNextChapter}>
+            <div className='flex flex-row justify-center items-center my-8 md:my-12'>
+                {/* Hide "Next Chapter" Button */}
+                {/*currentChapter.nextChapter && (
+                    <Button variant='filled' onClick={goToNextChapter} id="chapter-next-button">
                         <span className="text-lg font-medium font-['Poppins'] leading-normal">
                             {currentChapter.nextChapter}
                         </span>
                     </Button>
-                )}
+                )*/}
             </div>
-            <div className='max-w-7xl mx-auto'>
+            <div className='max-w-7xl mx-auto mb-8 md:mb-12'>
                 <HistoricalContextSection data={currentChapter} />
             </div>
             <MoralMessageSection
