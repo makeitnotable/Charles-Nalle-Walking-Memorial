@@ -9,15 +9,11 @@ Currently, two official plugins are available:
 
 ## Local development
 
-```
-# install asdf (programming language version manager)
-brew install asdf
-# install node with asdf
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs 22.22.0
-asdf set nodejs 22.22.0
+First, install node 22.22.0
+How you do this is up to you.
 
-# install js dependencies
+Then, install dependencies:
+```
 npm install
 ```
 
