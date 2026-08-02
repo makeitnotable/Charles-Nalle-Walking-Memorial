@@ -200,9 +200,10 @@ export default function PressReveal({
         }}
       >
         <span
-          className="t-meta rounded-full px-4 py-2 text-center"
+          className="t-meta rounded-full px-5 py-2.5 text-center"
           style={{
-            background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)",
+            background: "var(--color-primary-10)",
+            color: "var(--color-primary-2)",
             maxWidth: "min(86vw, 34rem)",
           }}
         >

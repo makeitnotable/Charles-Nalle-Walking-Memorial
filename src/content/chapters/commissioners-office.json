@@ -5,7 +5,7 @@
     "display": "COMMISSIONER'S\nOFFICE",
     "short": "Commissioner's Office"
   },
-  "pinPosition": "below",
+  "pinPosition": "above",
   "chapterLabel": "Chapter 2",
   "plaque": true,
   "map": {
@@ -169,5 +169,9 @@
   ],
   "next": {
     "slug": "mansion"
-  }
+  },
+  "pinOffset": [
+    72,
+    6
+  ]
 }

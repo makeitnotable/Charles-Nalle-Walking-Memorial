@@ -98,7 +98,6 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 <Base
   title={`${c.name.canonical} — Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
-  menuPosition="bottom-right"
   preloadImages={[
     { href: poster(vKey, "avif"), type: "image/avif", media: "(max-width: 767px)" },
     { href: poster(hKey, "avif"), type: "image/avif", media: "(min-width: 768px)" },
@@ -110,9 +109,8 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <p class="t-meta">
         Stop {pad2(c.order)} of 5 · Troy, NY · April 27, 1860
       </p>
-      <p class="t-spine mt-[max(4vh,32px)]">(CH. {pad2(c.order)})</p>
       <h1
-        class="t-display lines mt-4 whitespace-pre-line"
+        class="t-display lines mt-[max(4vh,32px)] whitespace-pre-line"
         style={`--fit-chars: ${longestLine(c.name.display)}`}
       >
         {c.name.display}
@@ -191,19 +189,20 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               </figure>
             )}
 
-            <div class="beat">
-              <AudioStory
-                client:visible
-                slug={slug}
-                audioSrc={withBase(scene.audio.file)}
-                label={scene.audio.label}
-                subtitle={c.name.canonical}
-                duration={scene.audio.duration}
-                timings={scene.audio.timings}
-                paragraphs={scene.paragraphs}
-              />
-            </div>
           </div>
+        </div>
+
+        <div class="beat">
+          <AudioStory
+            client:visible
+            slug={slug}
+            audioSrc={withBase(scene.audio.file)}
+            label={scene.audio.label}
+            subtitle={c.name.canonical}
+            duration={scene.audio.duration}
+            timings={scene.audio.timings}
+            paragraphs={scene.paragraphs}
+          />
         </div>
       </section>
     ))

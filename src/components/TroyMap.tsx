@@ -60,6 +60,8 @@ export interface Stop {
   canonical?: string;
   /** Pill stem direction; stops 2 and 5 sit ~50m apart. */
   pinPosition?: "above" | "below";
+  /** Pixel nudge at the overview camera so all five pills can keep names. */
+  pinOffset?: [number, number];
   slug: string;
   order: number;
   label: string;
@@ -91,22 +93,11 @@ function markerHtml(stop: Stop, active: boolean): string {
   const z = pillSizes();
   const above = stop.pinPosition === "above";
 
-  /* Five labelled pills inside a few blocks cannot avoid each other at the
-   * overview camera — v3 collided stops 1 and 2, and a static above/below
-   * split only moved the collision to another pair. Only the ACTIVE stop
-   * carries its name; the rest are numbered points. The names live in the
-   * carousel and in the typographic index below the map, and the label
-   * follows you as you walk the tour. Collision is now structurally
-   * impossible rather than tuned. */
-  if (!active) {
-    return `
-      <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform var(--dur-fast) var(--ease)">
-        <div style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:9999px;background:${s.bg};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500">
-          <p style="font-size:12px;line-height:1;margin:0;color:${s.text}">${stop.order}</p>
-        </div>
-      </div>`;
-  }
-
+  /* Every stop keeps its name — a numbered dot with no name is not wayfinding.
+   * Five pills inside a few blocks do collide at the overview camera, so each
+   * stop carries a measured pixel nudge (`pinOffset` in its JSON) alongside the
+   * above/below stem, and the pairs that sit closest are pushed apart along the
+   * axis they actually collide on. */
   const stem = `
     <div style="display:flex;flex-direction:column;align-items:center">
       <div style="width:2px;height:26px;background:${s.line}"></div>
@@ -321,6 +312,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         const marker = new mapboxgl.Marker({
           element: el,
           anchor: stop.pinPosition === "above" ? "top" : "bottom",
+          offset: stop.pinOffset ?? [0, 0],
         })
           .setLngLat(stop.coordinates)
           .addTo(map);

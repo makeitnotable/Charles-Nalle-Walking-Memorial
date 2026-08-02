@@ -29,23 +29,17 @@ interface Props {
 /** Approved active-state marker: Poppins pill + numbered chip + stem + dot.
  * Sizes follow the ladder (12→15→18 label, 8→10→12 padding). */
 function markerEl(label: string, order: number): HTMLDivElement {
-  const w = typeof window === "undefined" ? 390 : window.innerWidth;
-  const z =
-    w >= 1024
-      ? { font: 18, lh: 27, pad: 12 }
-      : w >= 768
-        ? { font: 15, lh: 22.5, pad: 10 }
-        : { font: 12, lh: 18, pad: 8 };
+  const font = typeof window !== "undefined" && window.innerWidth >= 1200 ? 13 : 12;
   const div = document.createElement("div");
   div.innerHTML = `
-    <div style="display:flex;flex-direction:column;align-items:center;transform:scale(0.9)">
-      <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:#F26835;color:#FED9CC;border:1px solid #F26835;font-family:var(--font-poppins),sans-serif;font-weight:500">
-        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:20px;height:20px">
-          <p style="color:#FED9CC;font-size:11px;margin:0">${order}</p>
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div style="display:flex;align-items:center;justify-content:center;padding:9px;border-radius:30px;background:#F26835;color:#1D1411;border:1px solid #F26835;font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
+          <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${order}</p>
         </div>
-        <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0">${label}</p>
+        <p style="font-size:${font}px;line-height:18px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${label}</p>
       </div>
-      <div style="width:2px;height:30px;background:#F26835"></div>
+      <div style="width:2px;height:26px;background:#F26835"></div>
       <div style="width:8px;height:8px;border-radius:9999px;background:#F26835"></div>
     </div>`;
   return div;
@@ -63,6 +57,7 @@ export default function EmbedMap({ coordinates, label, order, pitch, bearing, zo
       container: container.current,
       style: STYLE,
       center: reduced ? coordinates : OVERVIEW.center,
+      // Reduced motion gets the framed destination immediately, not a flight.
       zoom: reduced ? zoom : OVERVIEW.zoom,
       pitch: reduced ? 0 : pitch,
       bearing: reduced ? 0 : bearing,
@@ -81,11 +76,16 @@ export default function EmbedMap({ coordinates, label, order, pitch, bearing, zo
     if (!reduced) {
       // The 5s cinematic arrival (legacy easeTo verbatim)
       map.on("load", () => {
+        // `offset` drops the destination into the lower third so the pill has
+        // room above it — three of four chapter cards were clipping the label
+        // or, on /mansion, framing no pin at all because the 5s flight had not
+        // landed. 2.6s is inside the documented map-camera band (docs/v4/MOTION.md).
         map.easeTo({
           center: coordinates,
           zoom,
+          offset: [0, 54],
           curve: 1.4,
-          duration: 5000,
+          duration: 2600,
           essential: true,
         } as Parameters<mapboxgl.Map["easeTo"]>[0]);
       });

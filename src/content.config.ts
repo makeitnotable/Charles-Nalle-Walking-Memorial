@@ -59,6 +59,8 @@ const chapters = defineCollection({
     }),
     /** Map pin label placement; stop 2 sits above so it cannot hide inside it. */
     pinPosition: z.enum(["above", "below"]).default("below"),
+    /** Pixel nudge for the overview camera so five pills can all keep names. */
+    pinOffset: z.tuple([z.number(), z.number()]).default([0, 0]),
     chapterLabel: z.string(),
     plaque: z.boolean(),
     map: z.object({

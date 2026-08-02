@@ -31,9 +31,9 @@ const links = [
   <div
     class="shell flex flex-col gap-8 py-10 pb-28 md:flex-row md:items-center md:justify-between md:gap-10 md:pr-28 md:pb-10"
   >
-    <p class="t-meta-body max-w-[22ch] md:max-w-none">
-      Charles Nalle Walking Memorial<br class="hidden md:block" />
-      <span class="whitespace-nowrap"
+    <p class="t-meta-body">
+      <span class="block">Charles Nalle Walking Memorial</span>
+      <span class="block"
         >Made by <a
           href="https://makeitnotable.com"
           class="underline transition-opacity hover:opacity-70"
@@ -48,7 +48,7 @@ const links = [
     >
       {
         links.map((l) => (
-          <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta">
+          <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta w-fit justify-self-start">
             {l.label}
             <Icon name="arrow" size="sm" />
           </a>

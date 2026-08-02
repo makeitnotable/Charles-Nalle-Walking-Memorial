@@ -119,5 +119,9 @@
   ],
   "next": {
     "slug": "barbershop"
-  }
+  },
+  "pinOffset": [
+    0,
+    0
+  ]
 }

@@ -119,5 +119,9 @@
   ],
   "next": {
     "slug": "bakery"
-  }
+  },
+  "pinOffset": [
+    -40,
+    -6
+  ]
 }

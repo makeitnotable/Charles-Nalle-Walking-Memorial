@@ -5,7 +5,7 @@
     "display": "HOLEUR'S\nFASHIONABLE\nBAKERY",
     "short": "Bakery"
   },
-  "pinPosition": "above",
+  "pinPosition": "below",
   "chapterLabel": "Chapter 1",
   "plaque": true,
   "map": {
@@ -107,5 +107,9 @@
   ],
   "next": {
     "slug": "commissioners-office"
-  }
+  },
+  "pinOffset": [
+    86,
+    0
+  ]
 }
