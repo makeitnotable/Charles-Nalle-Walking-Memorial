@@ -70,11 +70,22 @@ interface Props {
   baseUrl: string;
 }
 
+/** The pill ladder (approved): label 12→15→18, padding 8→10→12 at md/lg —
+ * legacy markers carried real responsive classes; inline styles must ladder
+ * by viewport and re-render on resize. */
+function pillSizes() {
+  const w = typeof window === "undefined" ? 390 : window.innerWidth;
+  if (w >= 1024) return { font: 18, lh: 27, pad: 12 };
+  if (w >= 768) return { font: 15, lh: 22.5, pad: 10 };
+  return { font: 12, lh: 18, pad: 8 };
+}
+
 /** Approved marker: Poppins pill + 20px numbered chip + 2×30px stem + 8px
  * dot, above/below per stop. Pure inline styles — utility scanning can never
  * break these. */
 function markerHtml(stop: Stop, active: boolean): string {
   const s = active ? MARKER.active : MARKER.inactive;
+  const z = pillSizes();
   const stem = `
     <div style="display:flex;flex-direction:column;align-items:center">
       <div style="width:2px;height:30px;background:${s.line}"></div>
@@ -86,11 +97,11 @@ function markerHtml(stop: Stop, active: boolean): string {
       <div style="width:2px;height:30px;background:${s.line}"></div>
     </div>`;
   const pill = `
-    <div style="display:flex;align-items:center;justify-content:center;padding:8px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500">
+    <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500">
       <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:20px;height:20px">
         <p style="color:#FED9CC;font-size:11px;margin:0">${stop.order}</p>
       </div>
-      <p style="font-size:12px;line-height:18px;margin:0;white-space:nowrap">${stop.label}</p>
+      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;white-space:nowrap">${stop.label}</p>
     </div>`;
   const above = PIN_ABOVE.has(stop.label);
   return `
@@ -136,11 +147,24 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const activeLabelRef = useRef<string | null>(null);
   const setMarkers = useCallback((activeLabel: string | null) => {
+    activeLabelRef.current = activeLabel;
     for (const { marker, stop } of markersRef.current) {
       marker.getElement().innerHTML = markerHtml(stop, stop.label === activeLabel);
     }
   }, []);
+
+  // Pills re-render on breakpoint change so the ladder holds live
+  useEffect(() => {
+    let t: ReturnType<typeof setTimeout> | null = null;
+    const onResize = () => {
+      if (t) clearTimeout(t);
+      t = setTimeout(() => setMarkers(activeLabelRef.current), 200);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [setMarkers]);
 
   /** The approved overview on desktop; on narrow screens, the same tilt but
    * framed to fit all five pills (QA: fixed 15.25 clipped stops at 390). */

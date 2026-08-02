@@ -21,7 +21,7 @@ import { withBase } from "../lib/url";
       >
         <video
           class="h-full w-full object-cover motion-reduce:hidden"
-          style="filter: grayscale(100%) brightness(0.7) contrast(1) sepia(0.1)"
+          style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
           src={withBase("media/site/splash.mp4")}
           poster={withBase("media/site/home-bg-1440.jpg")}
           autoplay
@@ -30,9 +30,18 @@ import { withBase } from "../lib/url";
           playsinline></video>
         <img
           class="hidden h-full w-full object-cover motion-reduce:block"
-          style="filter: grayscale(100%) brightness(0.7) contrast(1) sepia(0.1)"
+          style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
           src={withBase("media/site/home-bg-1440.jpg")}
           alt=""
+        />
+        {/* The approved contour texture (homepage-overlay), re-budgeted to webp */}
+        <img
+          class="absolute inset-0 h-full w-full object-cover"
+          src={withBase("media/site/homepage-overlay-800.webp")}
+          srcset={`${withBase("media/site/homepage-overlay-800.webp")} 800w, ${withBase("media/site/homepage-overlay-1440.webp")} 1440w`}
+          sizes="100vw"
+          alt=""
+          aria-hidden="true"
         />
         <div class="absolute inset-0" style="background: var(--scrim-photo)"></div>
       </div>
