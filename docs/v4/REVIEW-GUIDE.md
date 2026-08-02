@@ -61,14 +61,25 @@ Commissioner" has no source anywhere.
 
 ## 4 · Numbers
 
+Measured on the **live deploy**, Lighthouse mobile on throttled 4G
+(`docs/v4/qa/p6-perf-live/summary.json`):
+
+| Route | Performance | Accessibility | LCP | CLS |
+|---|---|---|---|---|
+| Chapter (`/bakery`) | **100** | **100** | 1.6s | 0.003 |
+| People | **100** | **100** | 1.7s | 0.004 |
+| About | **100** | **100** | 1.3s | 0.001 |
+| Home | **98** | **100** | 2.3s | 0.000 |
+| Map | 69 | **100** | 4.5s | 0.001 |
+
+v3 shipped home at 90 and the chapter path at 89.
+
 | | v3 | v4 |
 |---|---|---|
-| Home — Lighthouse mobile | 90 | **97** |
-| Chapter — Lighthouse mobile | 89 | **95** |
-| Chapter — LCP | — | **2.56s** |
-| Accessibility (home / chapter / map) | 93–100 | **100 / 100 / 100** |
-| Home page weight | 1776 KB | **510 KB** |
-| Chapter page weight | 598 KB | 797 KB *(see below)* |
+| Home — Lighthouse mobile | 90 | **98** |
+| Chapter — Lighthouse mobile | 89 | **100** |
+| Accessibility, every route | 93–100 | **100** |
+| Home page weight | 1776 KB | **509 KB** |
 | Distinct section gaps in the chapter template | 9 | 4 tokens |
 | Button patterns / instances | 16 / 27 | 2 sizes × 2 variants |
 | Arrow idioms | 6 | **1** |
@@ -76,7 +87,7 @@ Commissioner" has no source anywhere.
 | Motion durations / live easing curves | 12 / 5 | **2 / 1** |
 | Naming conflicts | 25 | 0 |
 
-**The one budget I missed, honestly:** the chapter path is 797 KB against a
+**The one budget I missed, honestly:** the chapter path is ~1 MB against a
 650 KB target. That target was set when the hero was a still sketch; you asked
 for the finished animated painting, which is a 570 KB film. I did not compress
 Mark Priest's artwork further to hit a number. Mitigations: the poster (an AVIF,
@@ -85,9 +96,10 @@ it is **never fetched at all** on Save-Data or a 2g/3g connection — a visitor
 standing at a plaque on cellular gets the painting, not the download. Perf and
 LCP both improved anyway.
 
-**The map scores 60.** It loads Mapbox GL (2.6 MB of library and tiles) — that
-was true in v3 too and is not something a design pass can fix. Accessibility is
-100 and layout shift is 0.001.
+**The map scores 69.** It loads Mapbox GL — 2.6 MB of library and tiles before
+a single pixel of Troy appears. That was true in v3 and is not something a
+design pass can fix without dropping the live map, which is the one thing you
+said was working. Accessibility is 100 and layout shift is 0.001.
 
 ---
 
