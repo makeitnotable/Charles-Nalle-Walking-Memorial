@@ -2,6 +2,14 @@
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/newsreader";
 
+/* Tailwind v4 must scan the React islands explicitly — the Vite plugin missed
+ * them in production builds, so island-only utilities (h-[100dvh],
+ * aspect-[3/2], portrait:*) were never emitted and the map rendered 0-height.
+ * Paths are relative to this file. */
+@source "../components";
+@source "../pages";
+@source "../layouts";
+
 /*
  * CNWM design system (Phase 1).
  *
@@ -101,6 +109,24 @@ body {
   opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 240px 240px;
+}
+
+/* ——— Structural island sizing: plain CSS that cannot vanish ———
+ * Layout-critical dimensions must never depend on utility scanning (the
+ * island-CSS bug class). These classes are applied alongside the utilities. */
+.map-shell {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+}
+.reveal-frame {
+  aspect-ratio: 3 / 2;
+  width: 100%;
+}
+@media (orientation: portrait) {
+  .reveal-frame {
+    aspect-ratio: 4 / 5;
+  }
 }
 
 /* Ink rule — the underline stroke used across section breaks */

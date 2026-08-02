@@ -118,7 +118,7 @@ export default function PressReveal({
 
   return (
     <div
-      className="press-reveal relative aspect-[3/2] w-full touch-none overflow-hidden rounded-sm select-none portrait:aspect-[4/5]"
+      className="press-reveal reveal-frame relative aspect-[3/2] w-full touch-none overflow-hidden rounded-sm select-none portrait:aspect-[4/5]"
       role="button"
       tabIndex={0}
       aria-pressed={locked}

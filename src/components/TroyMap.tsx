@@ -75,6 +75,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     });
     mapRef.current = map;
 
+    // A map initialized in a container that later gains height keeps a 300px
+    // canvas unless told to remeasure — resize on load and on any container
+    // dimension change.
+    map.on("load", () => map.resize());
+    const ro = new ResizeObserver(() => map.resize());
+    ro.observe(container.current);
+
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
     map.addControl(
       new mapboxgl.GeolocateControl({
@@ -143,6 +150,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     });
 
     return () => {
+      ro.disconnect();
       map.remove();
       mapRef.current = null;
     };
@@ -192,7 +200,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }
 
   return (
-    <div className="relative h-[100dvh] w-full">
+    <div className="map-shell relative h-[100dvh] w-full">
       <div ref={container} className="absolute inset-0" />
 
       {/* 1860 lens — Mark Priest's map of Troy as a crossfading overlay */}
