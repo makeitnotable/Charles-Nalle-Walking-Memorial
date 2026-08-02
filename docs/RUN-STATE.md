@@ -8,16 +8,19 @@
 
 ## LAST COMMIT
 
-`22ee66f` CI: surface npm ci's error log and fall back to npm install *(pre-run baseline)*
+`0418f87` Phase 0.1b: mapbox-gl.css cascade fix — map renders full-viewport
 
 ## DONE
 
 - [x] 2026-08-02 ~eve — Plan read in full from `~/.claude/plans/ultrathink-i-will-update-kind-dream.md`
-- [x] 2026-08-02 ~eve — Plan copied to `docs/PLAN.md`; RUN-STATE created
+- [x] 2026-08-02 ~eve — Plan copied to `docs/PLAN.md`; RUN-STATE created (`0c71732`)
+- [x] Phase 0.1 — Island CSS bug FIXED, two layers: (a) `@source` directives in global.css so Tailwind scans `.tsx` islands — verified via grep of dist CSS (`h-[100dvh]`, `aspect-ratio:3/2`, `orientation:portrait` all emit now); (b) **the deeper root cause**: `mapbox-gl.css` sets `.mapboxgl-map{position:relative}` and loads AFTER the utility bundle, overriding `.absolute` at equal specificity → container 0-height even with utilities present. Fixed with `.map-shell .map-canvas` (two-class specificity) structural CSS. Plus `map.resize()` on load + ResizeObserver, and `scripts/check-css.mjs` post-build guard (6 checks) wired into `npm run build`. (`c3f8381`, `0418f87`)
+- [x] Phase 0.1e — Visual acceptance PASSED: `docs/qa/phase0/map--{390,768,1440}.png` show streets/labels/5 markers/route line full-viewport. Press-reveal box correct (bakery--390.png: 4/5 portrait aspect, sketch + hint visible).
+- [x] Phase 0.2 — Playwright harness installed: `scripts/shots.mjs <outdir> [--base] [--routes]` captures every route × 390/768/1440 + scroll positions. `scripts/map-probe.mjs` = map diagnostic.
 
 ## IN PROGRESS
 
-> Phase 0.0: commit PLAN.md + RUN-STATE.md, push. Then Phase 0.1: fix the island CSS bug — add `@source` directives to `src/styles/global.css`, add structural plain-CSS classes (`.map-shell`, `.reveal-frame`), `map.resize()` + ResizeObserver, post-build CSS guard script, verify emitted CSS via grep, then visual acceptance via Playwright screenshots at 390/768/1440.
+> Phase 0.3: attempt Figma pull via ClaudeTalkToFigma bridge (timeboxed, one attempt — official Figma MCP needs OAuth, unavailable in this non-interactive session; plan's fallback = Design Language Reference + legacy repo). Then Phase 0.4: v2-invented-identity removal inventory → docs/BASELINE.md. Then QA smoke review subagent. Then Phase 0.5.
 
 ## BLOCKED / NOTES
 
