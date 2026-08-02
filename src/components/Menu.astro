@@ -185,7 +185,6 @@ const notchClass =
     const menus = Array.from(document.querySelectorAll<HTMLElement>(".cnwm-menu"));
     if (!menus.length) return;
     let last = window.scrollY;
-    let idle: ReturnType<typeof setTimeout>;
     const set = (hidden: boolean) => {
       for (const m of menus) {
         const open = m.querySelector(".cnwm-menu-panel")?.classList.contains("hidden") === false;
@@ -196,10 +195,12 @@ const notchClass =
       "scroll",
       () => {
         const y = window.scrollY;
-        set(y > last && y > 240);
+        // Reading forward hides it and KEEPS it hidden — no idle restore, or it
+        // reappears on top of the paragraph you stopped at. Any upward scroll,
+        // or returning near the top, brings it straight back.
+        if (y > last + 4 && y > 240) set(true);
+        else if (y < last - 4 || y <= 240) set(false);
         last = y;
-        clearTimeout(idle);
-        idle = setTimeout(() => set(false), 900);
       },
       { passive: true },
     );
