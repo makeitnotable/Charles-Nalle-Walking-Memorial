@@ -7,7 +7,6 @@
  * Martel ships no italic — never synthesise one. */
 @import "@fontsource/martel-sans/300.css";
 @import "@fontsource/martel-sans/400.css";
-@import "@fontsource/martel-sans/600.css";
 @import "@fontsource/martel-sans/800.css";
 @import "@fontsource/martel/300.css";
 @import "@fontsource/martel/400.css";
@@ -180,7 +179,7 @@
 
   /* Home CTA pill — the approved inverted element */
   --cta-bg: #ffc6b3;
-  --cta-text: #bd3900;
+  --cta-text: #a02e00; /* darkened from #bd3900: 3.73:1 → 4.85:1 on --cta-bg */
   --cta-border: #f7a98f;
 
   /* Scrims */
@@ -345,7 +344,7 @@ body {
   font-size: var(--fs-spine);
   line-height: 1;
   letter-spacing: 0;
-  color: var(--color-primary-11);
+  color: var(--ink-meta);
   font-variant-numeric: tabular-nums;
 }
 

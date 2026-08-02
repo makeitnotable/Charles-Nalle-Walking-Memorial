@@ -14,9 +14,18 @@ interface Props {
   noMenu?: boolean;
   /** Preload the page's LCP image so it starts with the HTML parse. */
   preloadImage?: string;
+  /** Art-directed LCP preloads (chapter heroes: portrait vs landscape poster). */
+  preloadImages?: { href: string; type?: string; media?: string }[];
 }
 
-const { title, description, menuPosition = "top-right", noMenu = false, preloadImage } = Astro.props;
+const {
+  title,
+  description,
+  menuPosition = "top-right",
+  noMenu = false,
+  preloadImage,
+  preloadImages = [],
+} = Astro.props;
 // File-format builds report pathnames like /base/bakery.html — canonicalize
 // to the extensionless URLs that GH Pages actually serves.
 const canonical = new URL(
@@ -37,6 +46,11 @@ const canonical = new URL(
     <meta name="theme-color" content="#1d1411" />
     <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    {
+      preloadImages.map((p) => (
+        <link rel="preload" as="image" href={p.href} type={p.type} media={p.media} fetchpriority="high" />
+      ))
+    }
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Charles Nalle Walking Memorial" />
     <meta property="og:title" content={title} />
@@ -76,13 +90,23 @@ const canonical = new URL(
       // is the instant paint, the film arrives when bandwidth allows.
       const lazyVids = document.querySelectorAll<HTMLVideoElement>(".lazy-video[data-src]");
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // A phone at a bronze plaque is on cellular. Ambient film is an
+      // enhancement; the poster IS the finished painting, so on Save-Data or a
+      // slow connection we simply never fetch the film.
+      const conn = (navigator as any).connection;
+      const thinPipe = Boolean(
+        conn && (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))),
+      );
       if (lazyVids.length) {
         const load = (v: HTMLVideoElement) => {
           // `data-reduce-static` marks a film whose poster IS the finished
-          // artwork — under reduced motion we simply never attach the source,
-          // and the still painting is what the visitor gets.
-          if (reducedMotion && v.hasAttribute("data-reduce-static")) return;
+          // artwork — under reduced motion, or on a thin pipe, we never attach
+          // the source and the still painting is what the visitor gets.
+          if ((reducedMotion || thinPipe) && v.hasAttribute("data-reduce-static")) return;
           if (!v.src && v.dataset.src) {
+            // The poster is attached HERE, not at init: setting it up front
+            // fetched every below-fold poster on first paint (153KB of
+            // archival still on the chapter path alone).
             if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster;
             v.src = v.dataset.src;
             v.play().catch(() => {});
@@ -104,10 +128,7 @@ const canonical = new URL(
           },
           { rootMargin: "200px" },
         );
-        lazyVids.forEach((v) => {
-          if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster;
-          vio.observe(v);
-        });
+        lazyVids.forEach((v) => vio.observe(v));
       }
     </script>
   </body>

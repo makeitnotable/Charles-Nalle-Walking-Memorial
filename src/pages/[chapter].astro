@@ -84,14 +84,25 @@ const num = (key: string) => pad2(sections.findIndex((s) => s.key === key) + 1);
 /** Longest authored line in a display string — drives the fit-clamp. */
 const longestLine = (t: string) => Math.max(...t.split("\n").map((l) => l.trim().length));
 
-const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "reveal-horizontal"}-poster.jpg`);
+/* The hero's first paint is its poster, so the poster IS the LCP. It is
+ * rendered as a real responsive <img> beneath the film (a <video poster>
+ * attribute takes a single URL and cannot be art-directed or served as AVIF).
+ * Filenames are new — GitHub Pages caches hard, so reusing them would serve
+ * the old 146KB JPEGs. See scripts/build-posters.mjs. */
+const hKey = c.scenes[0].reveal?.video ?? "reveal-horizontal";
+const vKey = c.scenes[0].reveal?.videoVertical ?? "reveal-vertical";
+const poster = (key: string, ext: string) => withBase(`media/${slug}/${key}-poster-800.${ext}`);
+const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 ---
 
 <Base
   title={`${c.name.canonical} — Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
   menuPosition="bottom-right"
-  preloadImage={heroPoster}
+  preloadImages={[
+    { href: poster(vKey, "avif"), type: "image/avif", media: "(max-width: 767px)" },
+    { href: poster(hKey, "avif"), type: "image/avif", media: "(min-width: 768px)" },
+  ]}
 >
   {/* ══════ HERO — the finished animated painting ══════ */}
   <header id="hero" class="shell flex min-h-dvh flex-col pt-20 pb-6 md:pt-24">
@@ -110,28 +121,44 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
     </div>
 
     <div id="hero-media" class="artifact-lg relative mt-8 min-h-0 flex-1 bg-neutral-2">
-      {/* Poster-first: the still painting is the LCP; the film attaches after
-          window load, and never at all under reduced motion. */}
+      {/* The still painting — the LCP, responsive and art-directed. */}
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          type="image/avif"
+          srcset={poster(vKey, "avif")}
+        />
+        <source media="(max-width: 767px)" type="image/webp" srcset={poster(vKey, "webp")} />
+        <source type="image/avif" srcset={poster(hKey, "avif")} />
+        <source type="image/webp" srcset={poster(hKey, "webp")} />
+        <img
+          src={withBase(`media/${slug}/${hKey}-poster.jpg`)}
+          alt={heroAlt}
+          fetchpriority="high"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
+
+      {/* The film arrives over it after window load — never under reduced
+          motion, where the painting simply stays still. */}
       <video
         class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
-        data-src={withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "reveal-horizontal"}.mp4`)}
+        data-src={withBase(`media/${slug}/${hKey}.mp4`)}
         data-reduce-static
-        poster={heroPoster}
         preload="none"
         loop
         muted
         playsinline
-        aria-label={`“${c.name.canonical}” — painting by Mark Priest`}></video>
+        aria-hidden="true"></video>
       <video
         class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
-        data-src={withBase(`media/${slug}/${c.scenes[0].reveal?.videoVertical ?? "reveal-vertical"}.mp4`)}
+        data-src={withBase(`media/${slug}/${vKey}.mp4`)}
         data-reduce-static
-        poster={withBase(`media/${slug}/${c.scenes[0].reveal?.videoVertical ?? "reveal-vertical"}-poster.jpg`)}
         preload="none"
         loop
         muted
         playsinline
-        aria-label={`“${c.name.canonical}” — painting by Mark Priest`}></video>
+        aria-hidden="true"></video>
     </div>
   </header>
 
@@ -256,7 +283,7 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
               <video
                 class="lazy-video h-auto w-full"
                 data-src={withBase(`media/${slug}/historical.mp4`)}
-                poster={withBase(`media/${slug}/historical-poster.jpg`)}
+                data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
                 preload="none"
                 loop
                 muted

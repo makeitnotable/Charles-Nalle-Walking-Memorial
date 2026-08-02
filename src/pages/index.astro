@@ -12,6 +12,7 @@ import { withBase } from "../lib/url";
 <Base
   title="Charles Nalle Walking Memorial — Troy, NY"
   description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city — led by Harriet Tubman — rose up to free Charles Nalle from the Fugitive Slave Act."
+  preloadImage={withBase("media/site/home-bg-800.avif")}
 >
   <div class="h-dvh p-4 md:p-12">
     <div class="relative flex h-full flex-col items-center justify-between">
@@ -24,7 +25,8 @@ import { withBase } from "../lib/url";
           class="lazy-video h-full w-full object-cover motion-reduce:hidden"
           style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
           data-src={withBase("media/site/splash.mp4")}
-          poster={withBase("media/site/home-bg-800.webp")}
+          data-poster={withBase("media/site/home-bg-800.avif")}
+          poster={withBase("media/site/home-bg-800.avif")}
           preload="none"
           autoplay
           muted
@@ -33,18 +35,18 @@ import { withBase } from "../lib/url";
         <img
           class="hidden h-full w-full object-cover motion-reduce:block"
           style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
-          src={withBase("media/site/home-bg-800.webp")}
+          src={withBase("media/site/home-bg-800.avif")}
           loading="lazy"
           alt=""
         />
         {/* The approved contour texture (homepage-overlay), re-budgeted to webp */}
         <img
           class="absolute inset-0 h-full w-full object-cover opacity-[0.07]"
-          src={withBase("media/site/homepage-overlay-800.webp")}
-          srcset={`${withBase("media/site/homepage-overlay-800.webp")} 800w, ${withBase("media/site/homepage-overlay-1440.webp")} 1440w`}
-          sizes="100vw"
+          src={withBase("media/site/homepage-overlay-900.avif")}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
         />
         <div class="absolute inset-0" style="background: var(--scrim-photo)"></div>
       </div>
