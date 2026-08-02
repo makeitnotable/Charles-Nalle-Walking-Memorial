@@ -103,6 +103,47 @@ said was working. Accessibility is 100 and layout shift is 0.001.
 
 ---
 
+## 4b · The stakeholder review, and what I did about it
+
+A third reviewer walked the **live** site role-playing you, armed with your
+verbatim v3 complaints and nothing else — no plan, no spec.
+Full text: `docs/v4/gate-stakeholder.md`.
+
+Their verdict on your eight: **W1 icons FIXED · W2 buttons FIXED · W3 route
+FIXED · W4 hierarchy FIXED ("biggest win, not close") · W5 sloppiness PARTLY ·
+W6 names PARTLY · W7 hero "FIXED, and better than asked" · W8 template PARTLY.**
+
+Their bottom line was **"close, but no"**, with three blockers. All three were
+real bugs, not taste, and all three are now fixed:
+
+1. **The map.** Pins overlapped and only the active stop showed a name. All five
+   names are back, deconflicted with a measured per-stop pixel offset
+   (`pinOffset` in each chapter's JSON) rather than by hiding labels.
+2. **The footer and the next-stop card.** Every page on a phone ended in
+   "Charles Nalle Walking Memorial**M**ade by Notable" — my `<br>` was hidden at
+   mobile, which removed the break *and* the space. Fixed. The footer's two
+   arrow behaviours became one. And the "Where to next" map framed no pin at all
+   on `/mansion` and clipped it on two others, because the 5s camera flight had
+   not landed; it now lands in 2.6s with the destination offset into the lower
+   third, so the pill always has room.
+3. **The chapter template's edges.** The cream band's full-bleed was resolving
+   against a grid column, so its left edge bisected the "(01) LISTEN" label
+   mid-wipe on four chapters — the narration object moved to page level and the
+   bleed is honest. The corner menu has one home position site-wide and is off
+   the paintings. The press-and-hold pill settled on one style. The "(CH. 02)"
+   over-title is gone: **one word for the unit of the walk — "Stop" — everywhere**
+   (it previously appeared as STOP / CH. / CHAPTER / Ch. in a single journey).
+
+They also flagged, fairly, that the narration player was so unboxed they never
+registered it as a player across 150 screenshots. It now leads with a solid
+control and the word **LISTEN**. `qa/p6-final/player.png`.
+
+**What I did not do**, and you should know it: they asked for a slim persistent
+progress bar across the whole walk, the way museos has one. That is a new
+component and a navigation decision, not a defect fix, so I left it for you.
+
+---
+
 ## 5 · What the independent reviews said
 
 Two caliber gates ran on screenshots alone, with no access to the plan — the

@@ -205,11 +205,11 @@ export default function AudioStory({
       } ${
         playing
           ? "border-primary-9 bg-primary-9 text-primary-2"
-          : "border-primary-7 text-primary-12 hover:border-primary-11"
+          : "border-primary-10 bg-primary-10 text-primary-2 hover:border-primary-9 hover:bg-primary-9"
       }`}
       style={{ transitionDuration: "var(--dur-fast)", transitionTimingFunction: "var(--ease)" }}
     >
-      <Glyph name={playing ? "pause" : "play"} className="icon icon-sm" />
+      <Glyph name={playing ? "pause" : "play"} className={mini ? "icon icon-sm" : "icon"} />
     </button>
   );
 
@@ -265,8 +265,11 @@ export default function AudioStory({
         <div className="flex items-center gap-5">
           {playButton()}
           <div className="min-w-0 flex-1">
-            <p className="t-meta">{label}</p>
-            <p className="t-meta-body mt-1 truncate">{subtitle}</p>
+            <p className="t-meta">{playing ? "Now playing" : "Listen"}</p>
+            <p className="t-meta-body mt-1 truncate">
+              {subtitle}
+              {label.includes("Pt") ? ` · ${label.split("|").pop()?.trim()}` : ""}
+            </p>
           </div>
           {timeReadout}
         </div>
