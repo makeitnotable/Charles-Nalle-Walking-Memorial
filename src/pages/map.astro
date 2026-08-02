@@ -1,7 +1,11 @@
 ---
+// The Walk — approved map experience (signature #4) + the typographic
+// all-stops index below it (blueprint gap 7: the index IS the keyboard and
+// screen-reader path through the walk, and the no-JS state).
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import TroyMap from "../components/TroyMap";
+import Picture from "../components/Picture.astro";
 import { withBase } from "../lib/url";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -15,7 +19,6 @@ const stops = chapters.map((entry) => ({
   cardTitle: entry.data.cardTitle,
   address: entry.data.map.address,
   coordinates: entry.data.map.coordinates,
-  accent: entry.data.palette.accent,
   plaque: entry.data.plaque,
 }));
 
@@ -25,47 +28,57 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 <Base
   title="The Walk — Charles Nalle Walking Memorial"
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
+  menuPosition="bottom-right"
 >
   <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
 
-  {/* Static route list — the no-JS state, and useful wayfinding for everyone */}
-  <section class="mx-auto max-w-2xl px-6 pt-16 pb-8" aria-label="The five stops">
-    <p class="label-caps">The Walk</p>
-    <h1 class="font-display mt-4 text-4xl sm:text-5xl">
-      Five stops through Troy
+  {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
+  <section class="mx-auto max-w-7xl px-4 pt-16 pb-8 md:px-10 lg:px-20" aria-label="The five stops">
+    <p class="type-label reveal">The Walk</p>
+    <h1 class="type-display type-display-caps reveal mt-4">
+      Five stops<br />through Troy
     </h1>
-    <p class="prose-narrative mt-5 opacity-90">
+    <p class="type-body reveal mt-6 max-w-xl">
       The rescue of Charles Nalle unfolded across a few blocks of downtown Troy
       in a single day — April 27, 1860. Four stops carry bronze plaques; the
       Ferry Landing is remembered here on the website.
     </p>
 
-    <ol class="mt-10 space-y-8">
+    <ol class="mt-12 space-y-6">
       {
         chapters.map((entry) => (
-          <li>
+          <li class="reveal">
             <a
               href={withBase(entry.id)}
-              class="group grid grid-cols-[4.5rem_1fr] items-center gap-5"
+              data-curtain-label={entry.data.map.label}
+              class="frame group grid grid-cols-[6rem_1fr] items-center gap-0 overflow-hidden bg-primary-3 transition-colors duration-300 hover:bg-primary-4 sm:grid-cols-[8rem_1fr]"
             >
-              <span
-                class="display-hero text-5xl"
-                style={`color: ${entry.data.palette.accent}`}
-              >
-                {entry.data.order}
-              </span>
-              <span class="min-w-0">
-                <span class="font-display block text-2xl group-hover:underline">
+              <Picture
+                slug={entry.id}
+                imageKey="square"
+                alt=""
+                sizes="8rem"
+                class="h-24 w-24 border-r border-primary-6 object-cover sm:h-32 sm:w-32"
+              />
+              <span class="min-w-0 p-4 sm:p-5">
+                <span class="flex items-center justify-between">
+                  <span class="type-label">Chapter</span>
+                  <span class="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5">
+                    <span
+                      class="mt-0.5 text-[.625rem] font-medium text-primary-12 sm:text-[0.78125rem]"
+                      style="font-family: var(--font-poppins)"
+                    >
+                      {entry.data.order}
+                    </span>
+                  </span>
+                </span>
+                <span class="type-card-title mt-1 block uppercase">
                   {entry.data.cardTitle}
                 </span>
-                <span class="mt-1 block text-sm opacity-70">
+                <span class="type-muted mt-1 block">
                   {entry.data.map.address}
+                  {!entry.data.plaque && " · no plaque — website only"}
                 </span>
-                {!entry.data.plaque && (
-                  <span class="label-caps mt-1 block">
-                    No plaque — website only
-                  </span>
-                )}
               </span>
             </a>
           </li>
@@ -73,29 +86,19 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
       }
     </ol>
   </section>
-</Base>
 
-<style is:global>
-  .troy-marker {
-    width: 34px;
-    height: 34px;
-    border-radius: 50% 50% 50% 4px;
-    border: 2px solid var(--marker-accent, #c2542b);
-    background: rgba(18, 14, 10, 0.88);
-    color: #f0e7d8;
-    font-family: var(--font-display);
-    font-size: 15px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transform: rotate(-45deg);
-    transition: transform 250ms var(--ease-settle);
-  }
-  .troy-marker span {
-    transform: rotate(45deg);
-  }
-  .troy-marker:hover,
-  .troy-marker:focus-visible {
-    transform: rotate(-45deg) scale(1.18);
-  }
-</style>
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+</Base>

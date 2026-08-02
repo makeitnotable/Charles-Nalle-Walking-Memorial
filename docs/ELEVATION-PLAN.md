@@ -29,6 +29,10 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | C7 | WhereToNext embedded map | marseille cinematic arrival | 5s easeTo arrival onto next stop's pin with per-chapter tilted camera, inside the approved 3:2 bordered card | 2 | ☑ |
 | C8 | Quote block (static) | legacy Ken Burns vocabulary | Subtle scale-scrub on quote while in view; reduced-motion static | 4 | ☐ |
 | C9 | Historical-context media | museos ambient always-moving paintings | historical.mp4 autoplay loops with posters where they exist (already wired); verify all five chapters | 4 | ☐ |
+| C10 | Narrative → historical seam (gap 1) | googleac story-scroll / zoom-crop essay + museos crop-collage | Full-bleed painting interlude band between narrative and historical context: chapter painting crop, slow Ken Burns scrub, credit chip "Mark Priest · Nalle Series"; the paintings narrate mid-chapter | 4 | ☐ |
+| C11 | Chapter exits (gap 4) | googleac related-ladder | Footer row above Share: "The People of this day · The Paintings · About" lateral links — chapters are never one-rung exits | 4 | ☐ |
+| C12 | QR mid-walk arrival (gap 9) | (site's most common real entry) | Landing on any chapter orients unaided: chapter badge N of 5 (hero), Section N/4 spine, audio ≤2 taps, WhereToNext names the next stop + directions. UX review walkthrough (b) verifies this explicitly | 2 | ☑ |
+| C13 | Chapter navigations (gap 3) | pasqua film over-titles | Curtain shows "April 27, 1860" as a sub-line under the destination name on chapter navigations — the date gets its moment on every transition | 4 | ☐ |
 
 ## Map (Phase 3 centerpiece)
 
@@ -43,6 +47,9 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | M7 | v2 1860-lens keeper | pasqua pull-back reveal | Mark Priest's 1860 map crossfades over the live map in approved chrome (frame + label) | 3 | ☐ |
 | M8 | v2 geolocate keeper | marseille honest furniture | Geolocate control + dismissible hint card ("Drag to explore · tap a stop") in house style | 3 | ☐ |
 | M9 | 5 stops partially off-screen at overview | marseille edge-chip wayfinding | Numbered edge chips when stops leave the viewport; tap pans to stop | 4 (if time) | ☐ |
+| M10 | Deep-link arrival (gap 8) | marseille dive→statement beat | Arrival name plate: "Stop N of 5 / TITLE" card fades in over the 5s flight, auto-fades — the flight lands on a spoken line | 3 | ☑ |
+| M11 | Map furniture (gap 6) | marseille honest furniture (full) | Scale bar (imperial — distance is content on foot) + geolocate bottom-left; "Overview" button = recenter | 3 | ☑ |
+| M12 | All-stops index (gap 7) | marseille typographic index | The static index below the map re-skinned as bordered card list (image + chapter + address) — the keyboard/SR path through the walk and the no-JS state | 3 | ☑ |
 
 ## People
 
@@ -76,6 +83,19 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | S4 | favicon/og/titles | award "craft in the seams" | CN wordmark favicon on primary-2; per-page titles in one voice; 404 in the language | 4 | ☐ |
 | S5 | All motion | Guardrails (INSPIRATION.md) | No gates, no scroll-jack, no hover-only, no interrupting overlays, reduced-motion parity 100% — QA enforces | 2–5 | ☐ |
 | S6 | Narration audio | pasqua gesture-gated sound | All audio user-initiated (play button = the gesture); no ambient sound shipped | — (at bar) | ☑ |
+| S7 | Mobile art direction (gap 2) | pasqua "390 is a reframe" | Reveal videos ship authored vertical variants (PressReveal picks per orientation — exists ☑); Phase 4 pass: curated object-position on moral/historical/card crops at 390 | 4 | ☐ |
+| S8 | Curtain resilience (guardrail F2) | anti-trap (rewild/pasqua brick this way) | Fail-open timers both halves: cover forces exit at 4s if navigation stalls; exit force-clears at 3s; CSS resting state is non-blocking | 2 | ☑ |
+| S9 | Every cinematic flight (guardrail F1) | anti-gate skippability | Map prologue + deep-link arrival: any touch cuts the flight; tour has a Stop button; embedded chapter maps are non-blocking cards the page scrolls past freely | 3 | ☑ |
+
+### Consciously accepted drops (blueprint review, with rationale)
+- **Ambient particle layer (gap 5):** the approved identity's "breath" is the paintings
+  themselves — ambient mp4 loops (C9/G2) and the living map. Particles would decorate, and the
+  house rule is motion-as-feedback, never decoration.
+- **Odometer rolling digits:** the approved design has no odometer vocabulary; the date's
+  moment comes through C13 + the map chip ("· April 27, 1860") instead.
+- **Cursor image-trail, per-page palette inversion, forked hero CTA, organize-by toggle:**
+  all erode the approved single-ramp, single-door identity; documented in
+  docs/qa/reviews/phase05-blueprint-review.md as defensible.
 
 ## QA discipline (cross-screen)
 

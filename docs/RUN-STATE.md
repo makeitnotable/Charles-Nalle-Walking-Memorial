@@ -28,9 +28,20 @@
 - [x] Phase 0.5 (3/5 agents back): museos (8 techniques: hold-to-reveal tour, numbered spine, odometer dates, narration rows), pasqua (8: pull-back reveal, CTA-is-the-loader, gesture-gated sound, screen-space type), googleac (8: question-led door, eyebrow taxonomy, zoom-crop essay, related-ladder). All in docs/qa/inspiration/*.md.
 - [x] Phase 1 CORE (done early while agents run): global.css rebuilt as approved system — 5×12 ramps, type roles (.type-display/-wordmark/-body/-label/-progress/-eyebrow/-muted/-card-title) on the ×1.25/×1.5 ladder, .first-word cap, .frame idiom, motion tokens, curtain/narration/reveal primitives, structural island CSS kept. `/styleguide` route renders all of it — screenshot-verified at 1440 (docs/qa/phase1/). v2 identity classes (paper/font-display/label-caps/prose-narrative/drop-cap) deleted from CSS; v2 pages reference them until Phase 2 re-skin (expected mid-flight state).
 
+- [x] Phase 0.5 COMPLETE: all 5 studies in (docs/qa/inspiration/). docs/INSPIRATION.md (synthesis + guardrails) + docs/ELEVATION-PLAN.md (traceable blueprint, status-tracked) written. Blueprint review subagent RUNNING.
+- [x] Phase 1 Visual Design review: **PASS** (60/60 hexes exact, ladder measured exact at all widths, zero Fraunces/paper remnants). Fixes applied: .first-word → 400 (legacy font-medium resolved to 400 — no Martel 500 exists), styleguide button text ladder, demo radii, BASELINE weight list amended, dead Narration.tsx/InlineMedia.astro deleted. Verdict: docs/qa/reviews/phase1-visual-design.md.
+- [x] Phase 2 core screens BUILT (all screenshot-verified vs legacy):
+  - Base.astro: v2 header/footer killed; curtain markup + init; Menu component (top-right default, bottom-right on chapters).
+  - src/lib/curtain.ts — MPA curtain (cover on A → navigate → exit on B via sessionStorage; reduced-motion instant; data-curtain-label for destination names; data-no-curtain opt-out).
+  - Menu.astro — corner-notched 72×72 hamburger + back.out(1.7) panel (Home/1–5/Walk/People/Paintings/About), Escape closes, focus managed.
+  - index.astro — approved Home (H1/H2/H3 ☑): frame + splash film + staggered rise + rule draw.
+  - [chapter].astro — approved skeleton (C1–C7 ☑): hero w/ PressReveal fill inside bordered frame + GSAP scrub parallax; quote pull; AudioStory island (two-state player + synced transcript + scrub + paragraph-seek + mini-player); HistoricalContext (points + portal.history prose); full-bleed Moral w/ scrim; WhereToNext w/ EmbedMap (per-chapter cameras, 5s arrival, approved marker) + Continue-the-walk/Get-Directions buttons; Share footer. Menu bottom-right (matches legacy chapters).
+  - PressReveal restyled (approved tokens, fill prop). people/paintings/about/404 re-skinned (P1/P2/G1/A1/A2 ☑).
+- [x] All committed + pushed through "Phase 2: People…404 re-skinned".
+
 ## IN PROGRESS
 
-> Waiting on last 2 inspiration agents (rewild, marseille) → write docs/INSPIRATION.md synthesis + docs/ELEVATION-PLAN.md (screen × discipline blueprint) → blueprint review subagent → Visual Design review of /styleguide (Phase 1 gate) → Phase 2 core screens.
+> Phase 3: rebuild /map to signature #4 exactly — rewrite TroyMap.tsx: chrome-free tilted overview (15.25/33/10, maxBounds fence), exact stem-dot pill markers (state values in LEGACY-PORT-NOTES), keen-slider overlap carousel (-20px mobile, two-tap, 150ms camera follow), BackButton, cinematic arrivals, route-draw, guided flythrough (skippable), 1860 lens re-skin, geolocate + hint card, single map instance. Stops data via map.astro from chapter JSONs (Brian's pins). Then re-skin map.astro shell. Then Phase 2+3 discipline reviews.
 
 ## BLOCKED / NOTES
 

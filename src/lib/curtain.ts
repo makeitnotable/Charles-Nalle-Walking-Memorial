@@ -58,6 +58,26 @@ export function playCover(go: () => void, label: string | null = null) {
     .to(text, { opacity: 1, duration: 0.3, ease: "power2.out" }, "-=0.3")
     // brief settle so the wordmark reads before the load begins
     .to({}, { duration: 0.15, onComplete: go });
+
+  // Fail-open (guardrail F2): if navigation never happens — blocked popup,
+  // JS error, hung load — the curtain must never hold the page hostage.
+  // Two benchmark sites brick exactly this way; we refuse to.
+  window.setTimeout(() => {
+    if (!document.hidden && sessionStorage.getItem(FLAG)) {
+      sessionStorage.removeItem(FLAG);
+      sessionStorage.removeItem(LABEL);
+      gsap.to(text, { opacity: 0, duration: 0.1 });
+      gsap.to(panel, {
+        y: "-100%",
+        duration: 0.4,
+        ease: "circ.out",
+        onComplete: () => {
+          panel.style.pointerEvents = "none";
+          gsap.set(panel, { y: "100%" });
+        },
+      });
+    }
+  }, 4000);
 }
 
 /** On page B: start covered, hold, exit upward. */
@@ -93,6 +113,15 @@ function playExit() {
       },
       "<",
     );
+
+  // Fail-open: never let a stalled exit hold page B hostage.
+  window.setTimeout(() => {
+    if (panel.style.pointerEvents === "auto") {
+      panel.style.pointerEvents = "none";
+      gsap.set(panel, { y: "100%" });
+      gsap.set(text, { opacity: 0 });
+    }
+  }, 3000);
 }
 
 function isInternalNavClick(a: HTMLAnchorElement, ev: MouseEvent): boolean {
