@@ -13,9 +13,11 @@ yarn-error.log*
 pnpm-debug.log*
 
 
-# environment variables
+# environment variables (.env.production is deliberately committed — it holds
+# only the publishable Mapbox pk. token that ships in the client bundle anyway;
+# rationale in docs/DEVIATIONS.md, hardening/migration in docs/WIL-PLAYBOOK.md)
 .env
-.env.production
+!.env.production
 
 # macOS-specific files
 .DS_Store

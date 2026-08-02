@@ -22,21 +22,19 @@ Everything is staged in the project folder under **`Week 0 Deliverables/`**.
    flag (**"ONCE HOUSE THE" → "ONCE HOUSED THE"**, Commissioner's plaque).
    This must reach him BEFORE casting.
 
-## Part B — Make the map work in production (5 min, needs your logins)
+## Part B — Map token: ✅ DONE (2026-08-02)
 
-The map island reads a `PUBLIC_MAPBOX_TOKEN` env var (your publishable
-`pk.` token — it's in `cnwm-v2/.env` locally, same value as the old repo's
-`.env`). CI builds need it too:
+Your publishable Mapbox token is committed in `.env.production`, so GitHub
+Actions and Vercel builds both carry it automatically — no dashboard steps.
+(It's a client-side `pk.` token that ships in the page bundle by design,
+exactly as on the legacy site.)
 
-1. **GitHub:** repo `makeitnotable/Charles-Nalle-Walking-Memorial` →
-   Settings → Secrets and variables → **Actions** → *New repository secret*
-   → Name: `PUBLIC_MAPBOX_TOKEN`, Value: (paste the token) → Save.
-2. **Vercel:** project `charles-nalle-walking-memorial` → Settings →
-   Environment Variables → add `PUBLIC_MAPBOX_TOKEN` (same value), enable
-   for **Preview** and **Production** → Save.
-3. Re-run the latest GitHub Action (Actions tab → newest run → *Re-run all
-   jobs*). When it finishes, `/map` on the live site shows the interactive
-   map. Until then the map page shows a graceful fallback with the stop list.
+**One optional hardening step (2 min, recommended before launch):** in
+account.mapbox.com → Tokens → this token → add URL restrictions:
+`https://charles-nalle-walking-memorial.vercel.app/*`,
+`https://makeitnotable.github.io/*`, and `https://hartcluett.org/*` — then
+nobody can reuse the token on other sites. Token migration to a museum
+account stays in Part F.
 
 ## Part C — Content only you can provide
 
