@@ -39,9 +39,14 @@
   - PressReveal restyled (approved tokens, fill prop). people/paintings/about/404 re-skinned (P1/P2/G1/A1/A2 ☑).
 - [x] All committed + pushed through "Phase 2: People…404 re-skinned".
 
+- [x] Phase 3 CORE BUILT + screenshot-verified: TroyMap.tsx rewritten to signature #4 (tilted chrome-free overview settles via skippable prologue; exact stem-dot pill markers anchored by stem direction — separates stops 2/5; keen-slider overlap carousel w/ two-tap + 150ms debounced camera follow; flyTo zoom-20 dive; Overview return 2s; route-draw; guided flythrough skippable; 1860 lens re-skinned; geolocate + scale bottom-left; hint card; deep-link ?stop= w/ 5s arrival + name plate (M10); all flights skippable (S9)). map.astro re-skinned (typographic index M12). Evidence: docs/qa/phase3/map-settled--1440.png (all 5 pills, 3D tilt), map-focus--390.png (dive + carousel).
+- [x] Phase 0.5 blueprint review: **YES (conditional)** — 9 gaps + 2 guardrail flags → ALL resolved: ELEVATION-PLAN amended (C10–C13, M10–M12, S7–S9 + conscious-drops section w/ rationale); curtain fail-open implemented both halves (F2); flight skippability (F1). Verdict: docs/qa/reviews/phase05-blueprint-review.md.
+- [x] Phase 4 batch 1 BUILT: C10 painting interlude (full-bleed Ken Burns scrub + credit chip), C11 lateral chapter exits, C8 quote reveal, C13 "April 27, 1860" curtain over-title on chapter navs (wired site-wide via data-curtain-date), G2 animated paintings in gallery dialog, S4 CN-wordmark favicon.
+- [!] NOTE: one rebuild landed mid-review (~02:35) — the 4 Phase 2+3 reviewers' preview picked up Phase 4 batch-1 additively. Their findings remain valid; noted for transparency.
+
 ## IN PROGRESS
 
-> Phase 3: rebuild /map to signature #4 exactly — rewrite TroyMap.tsx: chrome-free tilted overview (15.25/33/10, maxBounds fence), exact stem-dot pill markers (state values in LEGACY-PORT-NOTES), keen-slider overlap carousel (-20px mobile, two-tap, 150ms camera follow), BackButton, cinematic arrivals, route-draw, guided flythrough (skippable), 1860 lens re-skin, geolocate + hint card, single map instance. Stops data via map.astro from chapter JSONs (Brian's pins). Then re-skin map.astro shell. Then Phase 2+3 discipline reviews.
+> 4 discipline reviewers (Visual/Motion/UX/QA smoke, Phase 2+3) RUNNING against localhost:4321 — NO REBUILDS until all four report. Meanwhile: docs-only work (MOTION.md draft, memory checkpoint). After reviews: fix P0/P1s → remaining Phase 4 (C9 verify, S7 pass, M9 if time) → Phase 5 perf/a11y → deploy → Phase 6 live reviews + stakeholder test + REVIEW-GUIDE.md.
 
 ## BLOCKED / NOTES
 

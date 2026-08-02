@@ -178,8 +178,12 @@ log("AUDIO PLAY INVOKED:", anyPlaying);
 await shot(page, "a07-bakery-playing.png");
 
 // does a pause affordance appear? (button label should flip)
-const btnLabelNow = await playBtn.getAttribute("aria-label");
-log("player button label after tap:", btnLabelNow);
+const btnLabelNow = await page.evaluate(() =>
+  [...document.querySelectorAll("button")]
+    .map((b) => b.getAttribute("aria-label"))
+    .filter((l) => l && /narration|pause|play/i.test(l))
+);
+log("player button labels after tap:", JSON.stringify(btnLabelNow));
 
 // mini-player persistence: scroll away while playing
 await page.evaluate(() => scrollBy(0, 1800));
