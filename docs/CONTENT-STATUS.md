@@ -46,6 +46,46 @@ M5's word-for-word verification pass against Kathy's approved script closes this
 Every scene's `audio.timings` is `null` until the timestamped transcript (or
 auto-alignment permission) is delivered — that gates M2 synced highlighting only.
 
+## 2026-08-02 v5 audit — deduplication pass (NO facts altered)
+
+The v5 audit found the same shape in all five chapters: `portal.history` ran four
+paragraphs where **P3 restated P0+P1+P2 in different words**, and the chapter page
+renders `historicalContext` (the numbered facts) directly above it, so several
+facts appeared a third time in the same section. Measured overlap:
+`bakery hist(1)` ↔ `bakery portal.P0` = 0.33 Jaccard; `barbershop hist(2)` ↔
+`portal.P0` = 0.30.
+
+`portal.history` is now **two paragraphs per chapter, 4,064 → 1,531 characters
+(−62%)**. The rule applied, and it is auditable line by line against the git
+history of `src/content/chapters/*.json`:
+
+1. **Every distinct fact survives.** Nothing was removed that was not also stated
+   elsewhere in the same section.
+2. **Kathy's corrected wording wins** wherever two phrasings co-existed. The
+   ferry is the case that matters: P1 still said "helped onto a **boat**" while
+   P3 carried the approved "boarded a waiting **skiff**". Only the skiff wording
+   remains. (The scene *narrative* still contains the leap passage — that is
+   still Wil's deliverable and still blocked on the Ch4 re-record. Unchanged.)
+3. **Where a numbered fact already said it, the portal stops repeating it** —
+   e.g. bakery hist(1) states the arrest and its address, so the portal now opens
+   on the circumstance (the errand for Uri Gilbert) instead of restating it.
+4. No fact was added, and no sentence was invented from outside the source text.
+
+Also in this pass, all authored-label (not narrative) copy:
+
+- **Moral call-to-action headings**: all six across the site read "Make a
+  Difference". Now one per moral, in that moral's voice ("Know the law you are
+  under", "Say something first", "What freedom costs to keep", "Look at who is
+  not counted", "It comes back", "Your part of it"). The CTA **body text is
+  untouched**.
+- **New `sketchNote` field** per chapter (schema + JSON). Every chapter carried a
+  byte-identical paragraph about graphite; each now describes the drawing
+  actually on screen. This is copy about the artwork, written from the images —
+  it makes no historical claim.
+
+**Still for Kathy's read** alongside the chapters: the two rewritten portal
+paragraphs per chapter, and the five sketch notes.
+
 ## 2026-08-02 overnight build (Phases 1–4)
 
 - Narration timings: word-proportional estimates generated into every chapter

@@ -6,6 +6,7 @@
     "short": "Gilbert Home"
   },
   "chapterLabel": "Chapter 3",
+  "sketchNote": "The lightest drawing in the series, and the only one with air in it. A few walkers, a shuttered facade, two women at the corner — the ordinary street Charles Nalle crossed for two years as a coachman, before anyone was looking for him.",
   "plaque": true,
   "map": {
     "coordinates": [
@@ -27,10 +28,8 @@
   "portal": {
     "hook": "People will ignore your efforts to steal your opportunities.",
     "history": [
-      "The Uri Gilbert Mansion was built during the 19th century for Uri Gilbert, a successful businessman and railway car manufacturer in Troy, New York. Known for its Italianate design and opulence, the mansion became a symbol of Gilbert's wealth and prominence in the community. The mansion also holds historical importance as the residence where Charles Nalle, an escaped slave, worked, making it a site linked to Troy's abolitionist legacy.",
-      "Uri Gilbert was mayor of Troy and a manufacturer of coaches and railway cars.",
-      "The mansion, built in the mid-1800s, features grand Italianate architectural style, reflecting the wealth and status of its owner.",
-      "It was the place where Charles Nalle worked as a coachman after his escape from slavery, marking it as a significant location in the abolitionist movement."
+      "Uri Gilbert — mayor of Troy, and a manufacturer of coaches and railway cars — built the house in the mid-1800s. Its Italianate front was a statement of how well the business had done.",
+      "Charles Nalle worked here as his coachman after escaping slavery, which ties one of the grandest houses in Troy to the city's abolitionist history."
     ]
   },
   "media": {
@@ -109,7 +108,7 @@
       "title": "THE INVISIBLE\nMATTER AS MUCH\nAS THE VISIBLE",
       "message": "Despite Charles becoming \"invisible\" in Troy, his presence there reflects the importance of one's reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "Look at who is not counted",
         "content": "Help good people build good reputations by amplifying their voices and fighting for the representation of diverse perspectives in media, politics, and community leadership."
       }
     }

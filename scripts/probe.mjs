@@ -193,9 +193,15 @@ const MEASURE = () => {
         fit: getComputedStyle(el).objectFit,
       };
     });
+  // A poster <img> and its film <video> occupy the same box and are one
+  // artwork, not two — count distinct positions, not distinct elements.
   const assetCounts = {};
+  const seenAt = new Set();
   for (const im of images) {
     if (!im.asset) continue;
+    const at = `${im.asset}@${im.rect.x},${im.rect.y}`;
+    if (seenAt.has(at)) continue;
+    seenAt.add(at);
     assetCounts[im.asset] = (assetCounts[im.asset] || 0) + 1;
   }
   const repeats = Object.entries(assetCounts)

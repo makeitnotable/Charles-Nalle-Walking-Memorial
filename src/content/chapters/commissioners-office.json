@@ -6,6 +6,7 @@
     "short": "Commissioner's Office"
   },
   "chapterLabel": "Chapter 2",
+  "sketchNote": "Everything in the study runs on one diagonal: the stair, the men on it, and the hands entering from the right edge. Priest drew the grip before he drew the faces.",
   "plaque": true,
   "map": {
     "coordinates": [
@@ -29,10 +30,8 @@
   "portal": {
     "hook": null,
     "history": [
-      "The Law Office served as the holding place for Charles Nalle after his capture by slave hunters.",
-      "The office was located on the second floor of the Mutual Bank Building, where the commissioner prepared paperwork to send Charles back to Virginia.",
-      "It was at this location that Harriet Tubman and local abolitionists intervened, mobilizing the community to rescue Charles.",
-      "The Law Office was the place where Charles Nalle was taken after his arrest, situated in the Mutual Bank Building in Troy. Here, the paperwork was nearly completed to send Charles back into slavery, until his employer and other local abolitionists, including Harriet Tubman, organized a rescue effort. The growing crowd outside eventually intervened, turning the Law Office into the stage for a critical turning point in Charles's struggle for freedom."
+      "Charles was held on the second floor of the Mutual Bank Building, where the commissioner worked through the paperwork that would send him back to Virginia.",
+      "It was very nearly finished. His employer and other local abolitionists, Harriet Tubman among them, organised a rescue, and the crowd gathering in the street below took it from there."
     ]
   },
   "media": {
@@ -153,7 +152,7 @@
       "title": "WHEN NOT\nCHALLENGED\nINJUSTICE\nTHRIVES",
       "message": "In 1860, the bells of Second Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "Say something first",
         "content": "Challenge injustice by supporting grassroots organizations, engaging in local activism, community meetings, attending and fighting for justice."
       }
     },
@@ -161,7 +160,7 @@
       "title": "FREEDOM\nISN'T FREE",
       "message": "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "What freedom costs to keep",
         "content": "Stand up for your freedom and others by learning about past, present, and future laws, then share what you learn, and use your vote to support what's right."
       }
     }

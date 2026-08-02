@@ -6,6 +6,7 @@
     "short": "Barbershop"
   },
   "chapterLabel": "Chapter 5",
+  "sketchNote": "The crowd fills the sheet edge to edge and moves as one mass to the left. Priest drew the pavement in the same weight as the people, so the street itself seems to be leaning toward the shop.",
   "plaque": true,
   "map": {
     "coordinates": [
@@ -28,10 +29,8 @@
   "portal": {
     "hook": null,
     "history": [
-      "Peter Baltimore's Barbershop was a key location for abolitionist activities and part of the Underground Railroad.",
-      "Peter Baltimore, a local barber, played a significant role in organizing the effort to rescue Charles Nalle.",
-      "The barbershop served as a meeting place where plans were made to help Charles escape after his capture.",
-      "Peter Baltimore's Barbershop was an important hub in the community for anti-slavery activism, often used as a safe space for those involved in the Underground Railroad. When Charles Nalle was captured, Peter Baltimore joined forces with other abolitionists to orchestrate the rescue. The barbershop became a center of planning and collaboration, where community members united to fight for Charles's freedom."
+      "The shop was a room where Troy's abolitionists could meet and talk, and Peter Baltimore was at the centre of it.",
+      "When Charles was taken, Baltimore joined them to organise the rescue, and the barbershop became the place where the plan was made."
     ]
   },
   "media": {
@@ -111,7 +110,7 @@
       "title": "WE ARE\nRESPONSIBLE\nFOR JUSTICE",
       "message": "The collective effort of the Troy community to secure Charles's freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "Your part of it",
         "content": "Get involved in local activism, volunteer, or contribute resources to initiatives that fight against injustice and support those in need."
       }
     }

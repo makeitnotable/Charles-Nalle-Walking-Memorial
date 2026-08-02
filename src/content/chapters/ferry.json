@@ -6,6 +6,7 @@
     "short": "Ferry Landing"
   },
   "chapterLabel": "Chapter 4",
+  "sketchNote": "The study is mostly empty paper. Priest let the cobbles run out toward the river and put the whole crowd in one horizontal line, running — the drawing is about distance, not struggle.",
   "plaque": false,
   "map": {
     "coordinates": [
@@ -28,10 +29,8 @@
   "portal": {
     "hook": null,
     "history": [
-      "The Ferry Landing at the Hudson River was the site of Charles Nalle's final escape from his captors.",
-      "After being separated from his captors by the crowd, Charles was helped onto a boat at the ferry landing.",
-      "The rescue was completed when Charles crossed to West Troy (now Watervliet), although he was briefly captured again upon landing.",
-      "The Ferry Landing on the Hudson River marked a climactic moment in Charles Nalle's story, where the community's rescue efforts reached a turning point. After being pulled away from the authorities by the determined crowd, Charles was guided to the riverbank and boarded a waiting skiff. Aided by rescuers, Charles escaped to West Troy, though he was briefly recaptured before ultimately securing his freedom with the help of his allies."
+      "The crowd pulled Charles away from the authorities and brought him down to the riverbank, where he boarded a waiting skiff.",
+      "He crossed to West Troy — now Watervliet — and was briefly taken again on landing, before his allies secured his freedom for good."
     ]
   },
   "media": {
@@ -111,7 +110,7 @@
       "title": "AUTHORITARIANISM\nIS PERSISTENT",
       "message": "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "It comes back",
         "content": "Stand up against authoritarian laws & leaders by staying informed, voting, protesting, using your voice & the press to promote democratic values & hold leaders accountable."
       }
     }

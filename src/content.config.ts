@@ -64,6 +64,12 @@ const chapters = defineCollection({
      */
     pinOffset: z.tuple([z.number(), z.number()]).default([0, -46]),
     chapterLabel: z.string(),
+    /**
+     * What to say beside this chapter's pencil study. Every chapter used to
+     * carry the same byte-identical paragraph about graphite; each one now
+     * describes the drawing actually on the screen.
+     */
+    sketchNote: z.string(),
     plaque: z.boolean(),
     map: z.object({
       // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)

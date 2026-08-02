@@ -32,13 +32,21 @@ import { withBase } from "../lib/url";
           muted
           loop
           playsinline></video>
-        <img
-          class="hidden h-full w-full object-cover motion-reduce:block"
-          style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
-          src={withBase("media/site/home-bg-800.avif")}
-          loading="lazy"
-          alt=""
-        />
+        {/* The 800px file was being stretched into a 1344×806 frame at 1440. */}
+        <picture class="contents">
+          <source
+            type="image/avif"
+            srcset={`${withBase("media/site/home-bg-800.avif")} 800w, ${withBase("media/site/home-bg-1440.avif")} 1440w`}
+            sizes="100vw"
+          />
+          <img
+            class="hidden h-full w-full object-cover motion-reduce:block"
+            style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
+            src={withBase("media/site/home-bg-1440.jpg")}
+            loading="lazy"
+            alt=""
+          />
+        </picture>
         {/* The approved contour texture (homepage-overlay), re-budgeted to webp */}
         <img
           class="absolute inset-0 h-full w-full object-cover opacity-[0.07]"

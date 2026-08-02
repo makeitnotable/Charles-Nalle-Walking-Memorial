@@ -6,6 +6,7 @@
     "short": "Bakery"
   },
   "chapterLabel": "Chapter 1",
+  "sketchNote": "The study is almost solid ink. Priest worked the doorway of the bakery over and over until the shop sign reads through the crosshatching and the men in it are barely separable — a body being taken in a place where everyone could see it.",
   "plaque": true,
   "map": {
     "coordinates": [
@@ -28,10 +29,8 @@
   "portal": {
     "hook": null,
     "history": [
-      "Holeur's Fashionable Bakery was the site where Charles Nalle was captured by a U.S. Marshal while running an errand for his employer, Uri Gilbert.",
-      "The bakery was a popular establishment in Troy, New York, located in a bustling area, which made Charles's public arrest highly visible.",
-      "It became a pivotal location in Charles Nalle's story as his capture there set off the dramatic events leading to his rescue by the local abolitionist community.",
-      "Holeur's Fashionable Bakery is deeply tied to the story of Charles Nalle, as it was there that he was apprehended under the Fugitive Slave Act on April 27, 1860. The bakery's location in the center of Troy made the capture a public spectacle, drawing attention from local abolitionists who quickly rallied to Charles's aid. This moment sparked the subsequent events that culminated in a community-led effort, including Harriet Tubman, to rescue Nalle and ultimately secure his freedom."
+      "He was running an errand for his employer, Uri Gilbert, when the U.S. Marshal took him — April 27, 1860, under the Fugitive Slave Act.",
+      "The bakery sat in a busy part of Troy, so the arrest happened in front of everyone. Local abolitionists rallied to Charles within the hour, and what began at this door ended in a community-led rescue that included Harriet Tubman."
     ]
   },
   "media": {
@@ -99,7 +98,7 @@
       "title": "NOT ALL LAWS\nARE MORAL",
       "message": "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
       "callToAction": {
-        "title": "Make a Difference",
+        "title": "Know the law you are under",
         "content": "Educate yourself on unjust laws, vote against them, and support organizations like the ACLU in fighting against injustice and reforming the legal system."
       }
     }

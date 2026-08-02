@@ -75,10 +75,15 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
               data-curtain-date
               class="group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_1fr_auto] sm:gap-8"
             >
+              {/* The archival record of the place, not the painting: the map
+                  carousel already shows every stop's `square` painting crop, so
+                  this index was the second copy of all five. A photograph of the
+                  building is also the more useful thing when the index is being
+                  used for what it is — finding a door on a street. */}
               <span class="overflow-hidden rounded-[12px]">
                 <Picture
                   slug={entry.id}
-                  imageKey="square"
+                  imageKey="historical"
                   alt=""
                   sizes="7rem"
                   class="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 sm:h-28 sm:w-28"

@@ -64,6 +64,43 @@ const moral = c.morals[0];
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
+ * THE INTERLUDE — the full-bleed beat between the sketch and the history.
+ *
+ * It used to draw `horizontal`, which is the same painting the hero already
+ * shows and the press-reveal already resolves to: the chapter painting rendered
+ * three times on one page. `vertical` and `square` are no escape — a contact
+ * sheet of every asset shows they are crops of that same canvas.
+ *
+ * So the slot changes what it holds rather than repeating. Four chapters give it
+ * the archival record of the real place — a genuinely different image, and a
+ * hard tonal cut from oil paint to black-and-white photography right before the
+ * cream reading register. Chapter 2 is the one chapter with a second painting
+ * (`horizontal-pt2`, the mob outside the building, a different canvas), so it
+ * gets that instead and keeps its archival film below — the long chapter with
+ * two scenes earns the extra beat, which is also what stops all five chapters
+ * from marching to the same rhythm.
+ *
+ * The painting now appears exactly twice: the hero, and the resolution of the
+ * press-and-hold — which is the entire point of that interaction.
+ */
+const interlude =
+  slug === "commissioners-office"
+    ? {
+        kind: "painting" as const,
+        key: "horizontal-pt2",
+        alt: `“${c.name.canonical}” — the mob outside, painting by Mark Priest`,
+        credit: "Mark Priest · Nalle Series",
+      }
+    : {
+        kind: "archival" as const,
+        key: "historical",
+        alt: `Archival photograph — ${c.name.canonical}`,
+        credit: `${c.name.canonical} · archival record`,
+      };
+/** Chapter 2 keeps its archival film in the history section; the rest moved it. */
+const historyKeepsArchival = slug === "commissioners-office";
+
+/**
  * The editorial spine, built from the data so the numbering can never drift
  * from what actually renders (chapter 2 has two scenes and therefore two
  * listening sections).
@@ -222,6 +259,11 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         <div class="sec-head" />
         <div class="editorial mt-8">
           <ChapterSpine sections={sections} current="sketch" />
+          {/* The spine + content grid takes TWO children. This section was
+              passing three, so the press-and-hold — the signature interaction of
+              the whole site — wrapped onto a second row into the 3fr spine
+              column and rendered 276px wide on a 1440 screen. It belongs in the
+              content column at full width. */}
           <div>
             <h2 id="sketch-heading" class="t-title reveal">
               From the
@@ -229,39 +271,37 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               sketch
             </h2>
             <p class="t-prose reveal mt-8">
-              Every painting in this memorial began as a pencil study. Mark Priest
-              worked the crowd out in graphite first — the gestures, the weight of
-              a body pulling against a grip — before any colour was mixed.
+              {c.sketchNote}
             </p>
-          </div>
 
-          <div class="reveal artifact self-start">
-            <PressReveal
-              client:visible
-              slug={slug}
-              sketch={c.scenes[0].reveal.sketch}
-              video={c.scenes[0].reveal.video}
-              videoVertical={c.scenes[0].reveal.videoVertical}
-              painting={c.scenes[0].reveal.painting}
-              alt={`“${c.name.canonical}” — painting by Mark Priest`}
-            />
+            <div class="reveal artifact mt-12">
+              <PressReveal
+                client:visible
+                slug={slug}
+                sketch={c.scenes[0].reveal.sketch}
+                video={c.scenes[0].reveal.video}
+                videoVertical={c.scenes[0].reveal.videoVertical}
+                painting={c.scenes[0].reveal.painting}
+                alt={`“${c.name.canonical}” — painting by Mark Priest`}
+              />
+            </div>
           </div>
         </div>
       </section>
     )
   }
 
-  {/* ══════ The painting narrates — full-bleed interlude, zero chrome ══════ */}
+  {/* ══════ The interlude — full-bleed, zero chrome ══════ */}
   <section
-    class="painting-interlude sec relative overflow-hidden"
-    aria-label={`Painting — ${c.name.canonical}, by Mark Priest`}
+    class="painting-interlude relative overflow-hidden"
+    aria-label={interlude.alt}
   >
     <img
-      class="interlude-img h-[58vh] w-full object-cover md:h-[78vh]"
-      src={withBase(`media/${slug}/horizontal-1440.jpg`)}
-      srcset={`${withBase(`media/${slug}/horizontal-800.webp`)} 800w, ${withBase(`media/${slug}/horizontal-1440.webp`)} 1440w`}
+      class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
+      src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
+      srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
       sizes="100vw"
-      alt={`“${c.name.canonical}” — painting by Mark Priest`}
+      alt={interlude.alt}
       loading="lazy"
     />
     <div
@@ -269,7 +309,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 20%, transparent 80%, var(--color-primary-2))"
     >
     </div>
-    <p class="t-meta absolute right-[var(--gutter)] bottom-8">Mark Priest · Nalle Series</p>
+    <p class="t-meta absolute right-[var(--gutter)] bottom-8">{interlude.credit}</p>
   </section>
 
   {/* ══════ HISTORICAL CONTEXT ══════ */}
@@ -283,9 +323,12 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <div>
         <h2 id="history-heading" class="t-title reveal">Historical<br />context</h2>
 
-        <div class="reveal artifact mt-12">
-          {
-            hasHistoricalVideo ? (
+        {/* Only chapter 2 still carries the archival film here — for every other
+            chapter it IS the interlude directly above, and showing it twice was
+            the same defect in a different slot. */}
+        {
+          historyKeepsArchival && hasHistoricalVideo && (
+            <div class="reveal artifact mt-12">
               <video
                 class="lazy-video h-auto w-full"
                 data-src={withBase(`media/${slug}/historical.mp4`)}
@@ -297,19 +340,12 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
                 playsinline
                 aria-label={`Archival film — ${c.name.canonical}`}
               />
-            ) : (
-              <Picture
-                slug={slug}
-                imageKey="historical"
-                alt={`Historical photograph — ${c.name.canonical}`}
-                class="h-auto w-full"
-              />
-            )
-          }
-        </div>
+            </div>
+          )
+        }
 
         {/* Facts on a fixed numeral column — the orange chips are gone. */}
-        <dl class="reveal mt-16 space-y-8">
+        <dl class="reveal mt-12 space-y-8">
           {
             c.historicalContext.map((point, index) => (
               <div class="grid grid-cols-[3.5rem_1fr] items-baseline">
@@ -364,18 +400,13 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               </h2>
               <p class="t-prose reveal mt-12">{moral.message}</p>
 
-              <div class="reveal mt-16 flex flex-col gap-10 md:flex-row md:items-start md:gap-12">
-                <img
-                  class="artifact h-[220px] w-[220px] flex-none object-cover lg:h-[300px] lg:w-[300px]"
-                  style="object-position: center 22%"
-                  src={withBase(`media/${slug}/moral-800.webp`)}
-                  loading="lazy"
-                  alt={`“${c.name.canonical}” — painting by Mark Priest`}
-                />
-                <div>
-                  <p class="t-meta">{moral.callToAction.title}</p>
-                  <p class="t-prose mt-4">{moral.callToAction.content}</p>
-                </div>
+              {/* The 220px thumbnail that used to sit here showed the SAME
+                  image already filling this section behind the text — the same
+                  picture twice inside one viewport. The call to action takes
+                  the width it freed. */}
+              <div class="reveal rule-top mt-16 max-w-[46ch] pt-8">
+                <p class="t-meta">{moral.callToAction.title}</p>
+                <p class="t-prose mt-4">{moral.callToAction.content}</p>
               </div>
             </div>
           </div>
