@@ -24,7 +24,7 @@ const chapters = (await getCollection("chapters"))
     order: String(e.data.order).padStart(2, "0"),
     name: e.data.name.short,
   }));
-const posClass = position === "bottom-right" ? "bottom-3 right-3" : "top-3 right-3";
+const posClass = position === "bottom-right" ? "bottom-3 right-3" : "top-8 right-3";
 const notchClass =
   position === "bottom-right"
     ? "rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-4xl"
