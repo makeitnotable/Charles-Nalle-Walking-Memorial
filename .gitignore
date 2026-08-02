@@ -24,3 +24,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# v4 QA screenshots: evidence lives on disk; only curated before/after JPEGs are
+# committed (docs/v4/qa/before-after/). PNG matrices would add ~50MB per phase.
+docs/v4/qa/**/*.png
+!docs/v4/qa/before-after/**
