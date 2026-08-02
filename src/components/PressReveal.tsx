@@ -18,6 +18,8 @@ interface Props {
   videoVertical: string;
   painting: string;
   alt: string;
+  /** Fill the parent (the chapter hero frame) instead of owning an aspect box */
+  fill?: boolean;
 }
 
 const HOLD_MS = 1400;
@@ -35,6 +37,7 @@ export default function PressReveal({
   videoVertical,
   painting,
   alt,
+  fill = false,
 }: Props) {
   const [progress, setProgress] = useState(0);
   const [locked, setLocked] = useState(false);
@@ -118,7 +121,11 @@ export default function PressReveal({
 
   return (
     <div
-      className="press-reveal reveal-frame relative aspect-[3/2] w-full touch-none overflow-hidden rounded-sm select-none portrait:aspect-[4/5]"
+      className={
+        fill
+          ? "press-reveal relative h-full w-full touch-none overflow-hidden select-none"
+          : "press-reveal reveal-frame relative aspect-[3/2] w-full touch-none overflow-hidden rounded-sm select-none portrait:aspect-[4/5]"
+      }
       role="button"
       tabIndex={0}
       aria-pressed={locked}
@@ -172,7 +179,7 @@ export default function PressReveal({
           opacity: sketchOpacity,
           filter: `contrast(${1 + progress * 0.15})`,
           transform: `scale(${1 + progress * 0.015})`,
-          transition: locked ? "opacity 600ms var(--ease-settle)" : undefined,
+          transition: locked ? "opacity 600ms var(--ease-house)" : undefined,
         }}
         draggable={false}
       />
@@ -182,15 +189,14 @@ export default function PressReveal({
         className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center pb-5"
         style={{
           opacity: locked ? 0 : 1,
-          transition: "opacity 500ms var(--ease-drift)",
+          transition: "opacity 500ms var(--ease-house)",
         }}
       >
         <span
-          className="label-caps rounded-full px-4 py-2"
+          className="type-label rounded-full px-4 py-2"
           style={{
-            background: "color-mix(in oklab, var(--chapter-surface) 72%, transparent)",
-            opacity: 1,
-            letterSpacing: "0.18em",
+            background: "color-mix(in srgb, var(--color-primary-2) 75%, transparent)",
+            letterSpacing: "0.14em",
           }}
         >
           {reduced ? "Tap to reveal the painting" : "Press and hold to bring the painting to life"}
@@ -202,9 +208,9 @@ export default function PressReveal({
         style={{
           transformOrigin: "left",
           transform: `scaleX(${revealOpacity})`,
-          background: "var(--chapter-accent)",
+          background: "var(--color-primary-9)",
           opacity: locked ? 0 : 1,
-          transition: locked ? "opacity 700ms var(--ease-drift)" : undefined,
+          transition: locked ? "opacity 700ms var(--ease-house)" : undefined,
         }}
       />
     </div>

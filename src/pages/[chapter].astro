@@ -1,10 +1,14 @@
 ---
+// Chapter page — the approved skeleton (legacy LocationPage.jsx order):
+// Hero (scrub parallax, press-reveal INSIDE the bordered frame) →
+// AudioStory (two-state player + synced transcript) → HistoricalContext →
+// MoralMessage (full-bleed) → WhereToNext (embedded cinematic map) → Footer.
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
-import InlineMedia from "../components/InlineMedia.astro";
 import PressReveal from "../components/PressReveal";
-import Narration from "../components/Narration";
+import AudioStory from "../components/AudioStory";
+import EmbedMap from "../components/EmbedMap";
 import { withBase } from "../lib/url";
 
 export async function getStaticPaths() {
@@ -18,227 +22,324 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const c = entry.data;
 const slug = entry.id;
-const sectionCount = 4;
 
 const all = await getCollection("chapters");
 const nextEntry = all.find((e) => e.id === c.next.slug);
 
-// The long-form portal paragraph reads as the chapter lede; short facts
-// join the historical-context band.
-const history = [...c.portal.history];
-const lede = history.length > 3 ? history.pop() : null;
+// Per-chapter embedded map cameras (legacy MAP_CONFIG.locationPage)
+const cameras: Record<number, { pitch: number; bearing: number; zoom: number }> = {
+  1: { pitch: 45, bearing: 45, zoom: 17 },
+  2: { pitch: 48, bearing: 75, zoom: 17.8 },
+  3: { pitch: 45, bearing: 45, zoom: 15.5 },
+  4: { pitch: 45, bearing: 55, zoom: 17.3 },
+  5: { pitch: 48, bearing: 55, zoom: 17.5 },
+};
+const camera = cameras[c.order] ?? { pitch: 33, bearing: 10, zoom: 15.25 };
+
+const hasHistoricalVideo = c.media.videos.includes("historical");
+const moral = c.morals[0];
+const whereTitle = "Where to next?";
 ---
 
 <Base
   title={`${c.cardTitle} — Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.cardTitle}, Troy, NY, April 27, 1860.`}
-  palette={c.palette}
+  menuPosition="bottom-right"
 >
-  {/* ——— Hero: the press-and-hold painting ——— */}
-  <header class="relative">
-    <div class="mx-auto max-w-5xl px-4 pt-6 sm:px-6">
-      {
-        c.scenes[0].reveal && (
-          <PressReveal
-            client:load
-            slug={slug}
-            sketch={c.scenes[0].reveal.sketch}
-            video={c.scenes[0].reveal.video}
-            videoVertical={c.scenes[0].reveal.videoVertical}
-            painting={c.scenes[0].reveal.painting}
-            alt={`“${c.cardTitle}” — painting by Mark Priest`}
-          />
-        )
-      }
-    </div>
-    <div class="mx-auto max-w-2xl px-6 pt-12 pb-4 text-center">
-      <p class="label-caps reveal">
-        {c.chapterLabel} · Troy, New York · April 27, 1860
-      </p>
-      <h1
-        class="display-hero reveal mt-5 text-5xl whitespace-pre-line sm:text-6xl md:text-7xl"
-      >
-        {c.title}
-      </h1>
-      <p class="label-caps reveal mt-6" style="color: var(--chapter-accent)">
-        {c.map.address}
-      </p>
-      {
-        lede && (
-          <p class="reveal mx-auto mt-10 max-w-xl text-left text-lg leading-relaxed opacity-90">
-            {lede}
-          </p>
-        )
-      }
-    </div>
-    <div class="mx-auto mt-6 max-w-2xl px-6">
-      <div class="ink-rule"></div>
-    </div>
-  </header>
-
-  <article class="mx-auto max-w-2xl px-6 pb-20">
-    {/* ——— Section 1: the story, narrated ——— */}
-    <section aria-labelledby="story-heading" class="pt-12">
-      <p class="label-caps reveal">Section 1 / {sectionCount}</p>
-      <h2 id="story-heading" class="sr-only">The story</h2>
-
-      {
-        c.scenes.map((scene, i) => (
-          <div class="mt-8">
-            {c.scenes.length > 1 && (
-              <h3 class="font-display reveal text-3xl">{scene.label}</h3>
-            )}
-
-            {i > 0 && scene.reveal && (
-              <InlineMedia
-                slug={slug}
-                mediaKey={scene.reveal.video}
-                alt={`“${c.cardTitle}, ${scene.label}” — animated painting by Mark Priest`}
-              />
-            )}
-
-            <figure
-              class="reveal my-8 border-l-4 pl-5"
-              style="border-color: var(--chapter-accent)"
+  {/* ——— Hero (signature #3): press-reveal lives inside the bordered frame ——— */}
+  <div class="relative mx-auto mt-6 px-0 md:px-10 lg:mt-12 lg:px-12">
+    <header id="hero" class="relative flex h-screen flex-col overflow-hidden">
+      <div id="hero-header" class="relative z-20 flex-none space-y-6 px-8 py-6">
+        <div class="flex flex-row items-center justify-between">
+          <p class="type-label">Chapter</p>
+          <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 md:h-5 md:w-5 lg:h-6 lg:w-6">
+            <p
+              class="mt-0.5 text-[0.625rem] font-medium text-primary-12 md:text-[0.78125rem] lg:text-[0.9375rem]"
+              style="font-family: var(--font-poppins)"
             >
-              <blockquote class="font-display text-2xl italic" style="font-variation-settings: 'SOFT' 80, 'WONK' 1">
-                “{scene.quote.text}”
-              </blockquote>
-              <figcaption class="mt-3 text-sm opacity-70">
-                — {scene.quote.attribution}
-                {scene.quote.source && <span>, {scene.quote.source}</span>}
-              </figcaption>
-            </figure>
-
-            <Narration
-              client:visible
-              slug={slug}
-              audioSrc={withBase(scene.audio.file)}
-              label={scene.audio.label}
-              subtitle={scene.audio.subtitle}
-              duration={scene.audio.duration}
-              timings={scene.audio.timings}
-              paragraphs={scene.paragraphs}
-              cardTitle={c.cardTitle}
-            />
+              {c.order}
+            </p>
           </div>
-        ))
-      }
-    </section>
-  </article>
+        </div>
+        <div class="-ml-1 flex items-start justify-between">
+          <h1 class="type-display type-display-caps whitespace-pre-line">{c.title}</h1>
+          <div class="mr-1 flex flex-col items-end self-stretch" aria-hidden="true">
+            <div class="inline-flex h-full min-h-0 flex-col items-center text-primary-12" style="opacity:.87">
+              <svg width="2" class="block min-h-0 flex-1" viewBox="0 0 2 1" preserveAspectRatio="none" fill="none">
+                <path d="M0.4 0H1.6V1H0.4V0Z" fill="currentColor"></path>
+              </svg>
+              <svg width="13" height="9" class="block shrink-0" viewBox="0 87 13 9" fill="none">
+                <path
+                  d="M0.769365 87.191C0.570806 87.4017 0.549833 87.6395 0.706451 87.9045L5.51518 95.4491C5.75034 95.8164 6.07861 96 6.49998 96C6.92134 96 7.24961 95.8164 7.48478 95.4491L12.2935 87.9045C12.4501 87.6395 12.4291 87.4017 12.2306 87.191C12.032 86.9803 11.7909 86.9439 11.5073 87.0819L7.2273 89.4624L5.77265 89.4624L1.49269 87.0819C1.20903 86.9439 0.967926 86.9803 0.769365 87.191Z"
+                  fill="currentColor"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  {/* ——— Section 2: historical context — inverted band ——— */}
-  <section
-    aria-labelledby="history-heading"
-    class="py-16"
-    style="background: var(--chapter-ink); color: var(--chapter-surface)"
-  >
-    <div class="mx-auto max-w-2xl px-6">
-      <p class="label-caps reveal" style="opacity: 0.55">
-        Section 2 / {sectionCount}
-      </p>
-      <h2 id="history-heading" class="font-display reveal mt-2 text-4xl">
-        Historical Context
-      </h2>
-      {
-        c.media.images.includes("historical") && (
-          <div class="reveal mt-8">
+      <div
+        id="hero-media"
+        class="frame relative mt-0 max-h-screen w-full flex-1 overflow-hidden bg-neutral-1 md:mt-6 lg:mt-12"
+      >
+        {
+          c.scenes[0].reveal && (
+            <PressReveal
+              client:load
+              fill
+              slug={slug}
+              sketch={c.scenes[0].reveal.sketch}
+              video={c.scenes[0].reveal.video}
+              videoVertical={c.scenes[0].reveal.videoVertical}
+              painting={c.scenes[0].reveal.painting}
+              alt={`“${c.cardTitle}” — painting by Mark Priest`}
+            />
+          )
+        }
+      </div>
+      <div
+        class="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-1/3"
+        style="background: var(--scrim-hero-fade)"
+      >
+      </div>
+    </header>
+  </div>
+
+  {/* ——— Section 1: audio + narrative (per scene) ——— */}
+  {
+    c.scenes.map((scene, i) => (
+      <section class="mx-auto mt-16 max-w-7xl px-4 md:px-6" aria-label={scene.label}>
+        {c.scenes.length > 1 && (
+          <h2 class="type-display type-display-caps reveal mb-8 whitespace-pre-line">{scene.label}</h2>
+        )}
+        {scene.quote && (
+          <figure class="reveal mx-auto mb-10 max-w-2xl text-center">
+            <blockquote class="type-card-title" style="font-size:1.35em; line-height:1.35">
+              “{scene.quote.text}”
+            </blockquote>
+            <figcaption class="type-label mt-3">— {scene.quote.attribution}</figcaption>
+          </figure>
+        )}
+        <AudioStory
+          client:visible
+          slug={slug}
+          audioSrc={withBase(scene.audio.file)}
+          label={scene.audio.label}
+          subtitle={scene.audio.subtitle}
+          duration={scene.audio.duration}
+          timings={scene.audio.timings}
+          paragraphs={scene.paragraphs}
+          cover={scene.reveal?.painting ?? "horizontal"}
+          sectionLabel={i === 0 ? "Section 1/4" : undefined}
+        />
+      </section>
+    ))
+  }
+
+  {/* ——— Section 2: historical context ——— */}
+  <section class="mx-auto mt-8 mb-8 max-w-7xl md:mb-12" aria-labelledby="history-heading">
+    <div class="flex flex-col gap-y-8 px-4 pt-8 md:gap-y-12 md:py-4 lg:py-8">
+      <div class="flex flex-col gap-y-2">
+        <h2 id="history-heading" class="type-display type-display-caps reveal">
+          Historical <br /> Context
+        </h2>
+        <p class="type-progress reveal ml-1 py-4 text-neutral-12">Section 2/4</p>
+      </div>
+      <div class="reveal">
+        {
+          hasHistoricalVideo ? (
+            <video
+              src={withBase(`media/${slug}/historical.mp4`)}
+              poster={withBase(`media/${slug}/historical-poster.jpg`)}
+              autoplay
+              loop
+              muted
+              playsinline
+              class="mx-auto max-h-[363px] w-auto max-w-full rounded-2xl border-2 border-primary-6 object-cover"
+            />
+          ) : (
             <Picture
               slug={slug}
               imageKey="historical"
               alt={`Historical photograph — ${c.cardTitle}`}
-              class="w-full rounded-sm"
+              class="mx-auto max-h-[363px] w-auto max-w-full rounded-2xl border-2 border-primary-6 object-cover"
+            />
+          )
+        }
+      </div>
+      <div class="flex flex-col gap-y-4 md:flex-row md:gap-x-4 md:gap-y-0 lg:gap-x-12">
+        {
+          c.historicalContext.map((point, index) => (
+            <div class="reveal flex flex-1 flex-row items-start">
+              <div class="items-top flex flex-row space-x-2">
+                <div class="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary-10 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                  <p
+                    class="mt-0.5 text-center text-[0.625rem] font-medium text-primary-12 md:text-[0.78125rem] lg:text-[0.9375rem]"
+                    style="font-family: var(--font-poppins)"
+                  >
+                    {index + 1}
+                  </p>
+                </div>
+                <p class="type-body">{point}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      {
+        c.portal.history.length > 0 && (
+          <div class="flex flex-col gap-x-8 gap-y-8 md:grid md:grid-cols-2 lg:gap-y-12">
+            {c.portal.history.map((p) => (
+              <p class="type-body reveal">{p}</p>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {/* ——— Section 3: the moral (full-bleed) ——— */}
+  {
+    moral && (
+      <section class="relative" aria-labelledby="moral-heading">
+        <div class="absolute inset-0 h-full" aria-hidden="true">
+          <div class="h-full py-0.5">
+            <img
+              src={withBase(`media/${slug}/moral-1440.jpg`)}
+              alt=""
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="absolute inset-0" style="background: var(--scrim-moral)" />
+        </div>
+        <div class="relative z-10 mx-auto flex max-w-7xl flex-col gap-y-8 px-8 pt-8 pb-16 md:gap-y-12 md:py-8 lg:py-12">
+          <h2 id="moral-heading" class="type-display type-display-caps reveal mt-8 whitespace-pre-line md:mt-4 lg:mt-8">
+            {moral.title}
+          </h2>
+          <div class="reveal flex w-full justify-end">
+            <div
+              class="mr-5 h-[250px] w-[250px] rounded-3xl border border-primary-6 bg-cover bg-center md:h-[281px] md:w-[281px] lg:h-[375px] lg:w-[375px]"
+              style={`background-image: url('${withBase(`media/${slug}/moral-800.webp`)}')`}
+              role="img"
+              aria-label={`“${c.cardTitle}” — moral image, painting by Mark Priest`}
+            />
+          </div>
+          <p class="type-progress reveal text-neutral-12">Section 3/4</p>
+          <p class="type-body reveal max-w-2xl">{moral.message}</p>
+          <div class="reveal">
+            <h3 class="type-card-title uppercase">{moral.callToAction.title}</h3>
+            <p class="type-body mt-3 max-w-2xl">{moral.callToAction.content}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {/* ——— Section 4: where to next ——— */}
+  <section class="mx-auto max-w-7xl" aria-label="Continue the walk">
+    <div class="mt-8 flex flex-col gap-y-8 px-4 pt-4 md:mt-0 md:gap-y-12 md:py-4 lg:py-8">
+      <div class="flex flex-col gap-y-2">
+        <h2 class="type-display type-display-caps reveal">
+          {whereTitle.split(" ")[0]}
+          <br />
+          {whereTitle.split(" ").slice(1).join(" ")}
+        </h2>
+        <p class="type-progress reveal ml-2 py-4 text-neutral-12">Section 4/4</p>
+      </div>
+
+      {
+        nextEntry && (
+          <div class="reveal embed-map-shell frame overflow-hidden">
+            <EmbedMap
+              client:visible
+              coordinates={nextEntry.data.map.coordinates as [number, number]}
+              label={nextEntry.data.map.label}
+              order={nextEntry.data.order}
+              pitch={camera.pitch}
+              bearing={camera.bearing}
+              zoom={camera.zoom}
             />
           </div>
         )
       }
-      <ul class="mt-8 space-y-5">
-        {
-          [...history, ...c.historicalContext].map((point) => (
-            <li
-              class="reveal border-l-2 pl-5 leading-relaxed"
-              style="border-color: color-mix(in oklab, var(--chapter-surface) 30%, transparent)"
-            >
-              {point}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
 
-  <article class="mx-auto max-w-2xl px-6">
-    {/* ——— Section 3: the moral ——— */}
-    <section class="pt-16" aria-labelledby="moral-heading">
-      <p class="label-caps reveal">Section 3 / {sectionCount}</p>
-      <h2 id="moral-heading" class="sr-only">The moral</h2>
-      {
-        c.morals.map((moral) => (
-          <div class="mt-6">
-            <p
-              class="display-hero reveal text-4xl whitespace-pre-line sm:text-5xl"
-              style="color: var(--chapter-accent)"
-            >
-              {moral.title}
-            </p>
-            <p class="prose-narrative reveal mt-6">{moral.message}</p>
-            <h3 class="font-display reveal mt-8 text-2xl">
-              {moral.callToAction.title}
-            </h3>
-            <p class="prose-narrative reveal mt-3">{moral.callToAction.content}</p>
-          </div>
-        ))
-      }
-      <div class="ink-rule reveal mt-14"></div>
-    </section>
-
-    {/* ——— Section 4: where to next ——— */}
-    <nav class="mt-14 pb-20" aria-label="Continue the tour">
-      <p class="label-caps reveal">Section 4 / {sectionCount}</p>
-      <h2 class="font-display reveal mt-2 text-4xl">Where to next?</h2>
-      <div class="mt-8 grid gap-5 sm:grid-cols-[1.4fr_1fr]">
-        <a
-          href={withBase(c.next.slug)}
-          class="reveal group block overflow-hidden rounded-sm border transition-transform duration-300 hover:-translate-y-1"
-          style="border-color: var(--chapter-accent)"
-        >
+      <div class="reveal flex flex-col items-center gap-4">
+        <p class="type-label">{c.next.label}</p>
+        <div class="flex flex-row flex-wrap items-center justify-center gap-4">
+          <a
+            href={withBase(c.next.slug)}
+            data-curtain-label={nextEntry?.data.map.label}
+            class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-6 bg-primary-4 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:bg-primary-3 active:shadow-none md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
+            style="font-family: var(--font-poppins)"
+          >
+            Continue the walk
+          </a>
           {
             nextEntry && (
-              <Picture
-                slug={nextEntry.id}
-                imageKey="square"
-                alt=""
-                sizes="(min-width: 640px) 24rem, 100vw"
-                class="aspect-[16/9] w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
-              />
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
+                target="_blank"
+                rel="noopener"
+                class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-8 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:shadow-none md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
+                style="font-family: var(--font-poppins)"
+              >
+                Get Directions
+              </a>
             )
           }
-          <div class="p-5">
-            <p class="label-caps">Continue the walk</p>
-            <p class="font-display mt-2 text-2xl">{c.next.label} →</p>
-            {
-              nextEntry && (
-                <p class="mt-1 text-sm opacity-70">{nextEntry.data.map.address}</p>
-              )
-            }
-          </div>
-        </a>
-        <a
-          href={withBase("map")}
-          class="reveal grid place-items-center rounded-sm border border-white/25 p-5 text-center transition-transform duration-300 hover:-translate-y-1"
-        >
-          <span>
-            <span class="label-caps">Find your footing</span>
-            <span class="font-display mt-2 block text-2xl">Open the map</span>
-          </span>
-        </a>
+        </div>
       </div>
-    </nav>
-  </article>
+    </div>
+
+    {/* ——— Footer ——— */}
+    <footer class="mt-1 mb-8 px-4 md:mx-10 md:mb-16 lg:mx-30 lg:mt-16">
+      <div class="flex w-full items-center justify-between border-t border-primary-6 pt-8">
+        <p class="type-card-title">Share</p>
+        <button
+          type="button"
+          id="share-btn"
+          class="cursor-pointer rounded-full border border-primary-8 px-5 py-2.5 text-sm font-medium text-primary-11 transition-all duration-300 hover:text-primary-12"
+          style="font-family: var(--font-poppins)"
+        >
+          Share this chapter
+        </button>
+        <p class="type-muted">
+          Made by <a href="https://makeitnotable.com" class="underline transition-opacity hover:opacity-70" data-no-curtain>Notable</a>
+        </p>
+      </div>
+    </footer>
+  </section>
 
   <script>
-    // Scroll-reveal: IO flips .is-in once; CSS owns the motion (and
-    // reduced-motion users never see hidden states — see global.css).
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Hero scrub parallax (signature #3): media grows to full bleed and
+    // un-rounds; the header rises away. Verbatim legacy values.
+    if (!reduced) {
+      gsap.registerPlugin(ScrollTrigger);
+      const media = document.getElementById("hero-media");
+      const header = document.getElementById("hero-header");
+      if (media && header) {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: media,
+              start: "top top",
+              end: "+=100%",
+              scrub: 0.5,
+              invalidateOnRefresh: false,
+            },
+          })
+          .to(media, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
+          .to(header, { y: -200 }, 0);
+      }
+    }
+
+    // Scroll-reveal suite (house vocabulary; CSS owns the motion)
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -251,5 +352,20 @@ const lede = history.length > 3 ? history.pop() : null;
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // Share: native share sheet, clipboard fallback
+    document.getElementById("share-btn")?.addEventListener("click", async () => {
+      const data = { title: document.title, url: location.href };
+      try {
+        if (navigator.share) await navigator.share(data);
+        else {
+          await navigator.clipboard.writeText(location.href);
+          const b = document.getElementById("share-btn");
+          if (b) b.textContent = "Link copied";
+        }
+      } catch {
+        /* user dismissed */
+      }
+    });
   </script>
 </Base>
