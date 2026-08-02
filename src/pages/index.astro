@@ -1,67 +1,258 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
 import { withBase } from "../lib/url";
 
 const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+// Rolling-date columns: every digit rolls from 0 to its resting value.
+const dateDigits = ["1", "8", "6", "0"];
 ---
 
 <Base
   title="Charles Nalle Walking Memorial — Troy, NY, April 27, 1860"
   description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city — led by Harriet Tubman — rose up to free Charles Nalle from the Fugitive Slave Act."
 >
-  {/* M4 replaces this with the cinematic, skippable title sequence */}
-  <section class="mx-auto flex min-h-[70dvh] max-w-2xl flex-col justify-center px-6 pt-16">
-    <p class="text-sm uppercase tracking-[0.25em] opacity-70">
-      Troy, New York · April 27, 1860
-    </p>
-    <h1 class="font-display mt-5 text-5xl leading-tight sm:text-6xl">
-      The Rescue of<br />Charles Nalle
-    </h1>
-    <p class="mt-6 max-w-prose text-lg leading-relaxed opacity-90">
-      On one spring morning, a coachman was seized outside a bakery under the
-      Fugitive Slave Act — and the people of Troy, led by Harriet Tubman, rose
-      up to set him free. Walk the streets where it happened.
-    </p>
+  {/* ——— Title sequence ——— */}
+  <section class="relative -mt-[76px] flex min-h-[100dvh] items-end overflow-hidden">
+    <video
+      class="absolute inset-0 h-full w-full object-cover opacity-60 motion-reduce:hidden"
+      src={withBase("media/site/splash.mp4")}
+      poster={withBase("media/site/splash-poster.jpg")}
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"></video>
+    <img
+      class="absolute inset-0 hidden h-full w-full object-cover opacity-60 motion-reduce:block"
+      src={withBase("media/site/splash-poster.jpg")}
+      alt=""
+      aria-hidden="true"
+    />
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(180deg, color-mix(in oklab, var(--chapter-surface) 55%, transparent), var(--chapter-surface) 96%)"
+    >
+    </div>
+
+    <div class="relative z-10 mx-auto w-full max-w-3xl px-6 pb-20 text-center">
+      <p class="label-caps title-seq" style="--seq: 0">Troy, New York</p>
+      <p
+        class="font-display title-seq mt-3 text-2xl tracking-[0.12em]"
+        style="--seq: 1"
+        aria-label="April 27, 1860"
+      >
+        April 27, <span class="roll-date" aria-hidden="true">
+          {
+            dateDigits.map((d) => (
+              <span class="roll-digit" style={`--target: ${d}`}>
+                <span class="roll-col">
+                  {Array.from({ length: 10 }, (_, n) => (
+                    <span>{n}</span>
+                  ))}
+                </span>
+              </span>
+            ))
+          }
+        </span>
+      </p>
+      <h1
+        class="display-hero title-seq mt-8 text-6xl sm:text-7xl md:text-8xl"
+        style="--seq: 2"
+      >
+        The Rescue of<br />Charles Nalle
+      </h1>
+      <p
+        class="prose-narrative title-seq mx-auto mt-8 text-lg opacity-90"
+        style="--seq: 3"
+      >
+        One spring morning, a coachman was seized outside a bakery under the
+        Fugitive Slave Act — and the people of Troy, led by Harriet Tubman,
+        rose up to set him free.
+      </p>
+      <div
+        class="title-seq mt-10 flex flex-wrap justify-center gap-4"
+        style="--seq: 4"
+      >
+        <a
+          href={withBase("map")}
+          class="rounded-full px-7 py-3.5 font-display text-lg transition-transform hover:-translate-y-0.5"
+          style="background: var(--chapter-accent); color: var(--chapter-surface)"
+        >
+          Begin the walk
+        </a>
+        <a
+          href={withBase("bakery")}
+          class="rounded-full border border-white/30 px-7 py-3.5 font-display text-lg transition-transform hover:-translate-y-0.5"
+        >
+          Read the story
+        </a>
+      </div>
+    </div>
   </section>
 
-  <nav class="mx-auto max-w-2xl px-6 pt-12" aria-label="Ways into the story">
-    <div class="grid gap-4 sm:grid-cols-2">
-      <a href={withBase("map")} class="rounded border border-white/25 p-5">
-        <span class="font-display text-2xl">The Walk</span>
-        <span class="mt-1 block opacity-70">Follow the route through Troy</span>
-      </a>
-      <a href={withBase("bakery")} class="rounded border border-white/25 p-5">
-        <span class="font-display text-2xl">The Story</span>
-        <span class="mt-1 block opacity-70">Begin at Chapter 1 — the Bakery</span>
-      </a>
+  {/* ——— Four doors ——— */}
+  <section class="mx-auto max-w-5xl px-6 pt-20" aria-label="Ways into the story">
+    <p class="label-caps reveal">Choose your way in</p>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          {
+            href: "map",
+            title: "The Walk",
+            blurb: "Five stops through downtown Troy",
+            slug: "site",
+            imageKey: "troy-1860",
+          },
+          {
+            href: "bakery",
+            title: "The Story",
+            blurb: "Six scenes, one extraordinary day",
+            slug: "bakery",
+            imageKey: "square",
+          },
+          {
+            href: "people",
+            title: "The People",
+            blurb: "The rescuers and the hunters",
+            slug: "barbershop",
+            imageKey: "square",
+          },
+          {
+            href: "paintings",
+            title: "The Paintings",
+            blurb: "Mark Priest's Nalle Series",
+            slug: "ferry",
+            imageKey: "square",
+          },
+        ].map((door) => (
+          <a
+            href={withBase(door.href)}
+            class="reveal group overflow-hidden rounded-sm border border-white/15 transition-transform duration-300 hover:-translate-y-1"
+          >
+            <Picture
+              slug={door.slug}
+              imageKey={door.imageKey}
+              alt=""
+              sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 100vw"
+              class="aspect-[4/3] w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+            />
+            <span class="block p-4">
+              <span class="font-display block text-xl">{door.title}</span>
+              <span class="mt-0.5 block text-sm opacity-70">{door.blurb}</span>
+            </span>
+          </a>
+        ))
+      }
     </div>
-  </nav>
+  </section>
 
-  <section class="mx-auto max-w-2xl px-6 pt-12" aria-label="Chapters">
-    <h2 class="text-xs uppercase tracking-widest opacity-60">Chapters</h2>
-    <ol class="mt-4 space-y-3">
+  {/* ——— Chapter index ——— */}
+  <section class="mx-auto max-w-2xl px-6 pt-20 pb-8" aria-label="Chapters">
+    <p class="label-caps reveal">The chapters</p>
+    <ol class="mt-6 space-y-6">
       {
         chapters.map((entry) => (
-          <li>
-            <a href={withBase(entry.id)} class="group flex items-baseline gap-4">
-              <span class="font-display text-sm opacity-60">
-                {String(entry.data.order).padStart(2, "0")}
+          <li class="reveal">
+            <a href={withBase(entry.id)} class="group flex items-center gap-5">
+              <span
+                class="display-hero w-14 text-right text-4xl"
+                style={`color: ${entry.data.palette.accent}`}
+              >
+                {entry.data.order}
               </span>
-              <span class="font-display text-xl group-hover:underline">
-                {entry.data.cardTitle}
-              </span>
-              {!entry.data.plaque && (
-                <span class="text-xs uppercase tracking-widest opacity-50">
-                  website only
+              <span class="min-w-0 flex-1 border-b border-white/12 pb-4">
+                <span class="font-display block text-2xl group-hover:underline">
+                  {entry.data.cardTitle}
                 </span>
-              )}
+                <span class="mt-0.5 block text-sm opacity-60">
+                  {entry.data.map.address}
+                  {!entry.data.plaque && " · website only"}
+                </span>
+              </span>
             </a>
           </li>
         ))
       }
     </ol>
   </section>
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
 </Base>
+
+<style>
+  /* Title sequence: staggered rise, sequenced by --seq */
+  .title-seq {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .title-seq {
+      animation: title-rise 900ms var(--ease-settle) both;
+      animation-delay: calc(200ms + var(--seq) * 190ms);
+    }
+    @keyframes title-rise {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  /* Rolling 1860 */
+  .roll-date {
+    display: inline-flex;
+    gap: 0.02em;
+  }
+  .roll-digit {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: baseline;
+  }
+  .roll-col {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1;
+    transform: translateY(calc(var(--target) * -1em));
+  }
+  .roll-col > span {
+    display: block;
+    height: 1em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .roll-col {
+      animation: roll-settle 1600ms var(--ease-drift) both;
+      animation-delay: 500ms;
+    }
+    @keyframes roll-settle {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(calc(var(--target) * -1em));
+      }
+    }
+  }
+</style>

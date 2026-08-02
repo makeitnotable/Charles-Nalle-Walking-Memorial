@@ -46,6 +46,23 @@ const canonical = new URL(
       document.documentElement.classList.add("js");
     </script>
     <a href="#main" class="skip-link">Skip to content</a>
+    <header class="relative z-30">
+      <nav
+        class="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-6 py-5"
+        aria-label="Site"
+      >
+        <a href={withBase("")} class="font-display text-lg tracking-wide">
+          Charles Nalle <span class="opacity-60">Walking Memorial</span>
+        </a>
+        <div class="label-caps flex flex-wrap gap-x-5 gap-y-1" style="opacity: 1">
+          <a href={withBase("map")} class="hover:underline">The Walk</a>
+          <a href={withBase("bakery")} class="hover:underline">The Story</a>
+          <a href={withBase("people")} class="hover:underline">The People</a>
+          <a href={withBase("paintings")} class="hover:underline">The Paintings</a>
+          <a href={withBase("about")} class="hover:underline">About</a>
+        </div>
+      </nav>
+    </header>
     <main id="main">
       <slot />
     </main>
