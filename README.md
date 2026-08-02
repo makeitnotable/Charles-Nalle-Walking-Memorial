@@ -12,7 +12,7 @@ on GitHub Pages; the bronze plaques' QR codes point at permanent
 
 ```bash
 npm install
-npm run dev        # serves at localhost:4321/charles-nalle-memorial
+npm run dev        # serves at localhost:4321
 npm run build      # static output in dist/
 ```
 
@@ -29,4 +29,9 @@ npm run build      # static output in dist/
 
 ## Deploys
 
-Every push to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`.
+This code lives on the **`v2` branch** of
+`makeitnotable/Charles-Nalle-Walking-Memorial` (the legacy SPA keeps `main` and
+`match-figma-designs` untouched). Every push to `v2` deploys to GitHub Pages at
+`https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` via
+`.github/workflows/deploy.yml`; Vercel also builds a branch preview automatically.
+At M6 handoff the branch graduates to a museum-owned repo.

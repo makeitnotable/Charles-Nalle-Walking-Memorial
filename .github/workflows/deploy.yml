@@ -2,8 +2,12 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, v2]
   workflow_dispatch:
+
+env:
+  # GH Pages project path for this repo; local dev and Vercel previews use "/"
+  BASE: /Charles-Nalle-Walking-Memorial
 
 permissions:
   contents: read

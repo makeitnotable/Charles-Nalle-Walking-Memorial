@@ -15,8 +15,11 @@ Non-negotiables inherited from the constitution's design baseline:
 - Narrative text is Kathy Sheehan's domain — never rewrite story prose without a
   correction documented in `docs/CONTENT-STATUS.md`.
 - Perf budget (from M1): Lighthouse mobile ≥ 90 perf / ≥ 95 a11y, LCP < 2.5s throttled.
-- Site serves under the `/charles-nalle-memorial` base path — always build URLs with
-  `withBase()` from `src/lib/url.ts`, never hardcode root-relative paths.
+- The base path differs per environment (GH Pages serves under
+  `/Charles-Nalle-Walking-Memorial`; dev and Vercel previews under `/`) — always build
+  URLs with `withBase()` from `src/lib/url.ts`, never hardcode root-relative paths.
+- This code lives on the `v2` branch of `makeitnotable/Charles-Nalle-Walking-Memorial`
+  (the legacy SPA owns `main`/`match-figma-designs` — never push to those branches).
 
 ## Development
 

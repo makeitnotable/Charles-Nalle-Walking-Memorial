@@ -4,10 +4,11 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
-// GH Pages project site under the makeitnotable account until museum handoff.
-// Override with SITE/BASE env vars when the repo transfers (see docs/PLAN.md M6).
+// Deploys as the `v2` branch of makeitnotable/Charles-Nalle-Walking-Memorial
+// until museum handoff (see docs/PLAN.md M6). The GH Pages workflow sets BASE
+// to the repo path; local dev and Vercel branch previews serve from "/".
 const site = process.env.SITE ?? "https://makeitnotable.github.io";
-const base = process.env.BASE ?? "/charles-nalle-memorial";
+const base = process.env.BASE ?? "/";
 
 // https://astro.build/config
 export default defineConfig({
