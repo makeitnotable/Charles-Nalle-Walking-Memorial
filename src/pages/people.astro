@@ -40,24 +40,27 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
   title="The People — Charles Nalle Walking Memorial"
   description="The rescuers and the hunters of April 27, 1860: Harriet Tubman, Peter Baltimore, Martin Townsend, Uri Gilbert — and the men who tried to drag Charles Nalle back into slavery."
 >
+  {/* Two columns, because one left-aligned headline left the entire right half
+      of the fold empty and dropped a 220px hole between itself and what came
+      next. The eyebrow that used to sit above the H1 said "The people" directly
+      over a heading that says the same thing, under a nav link that says it a
+      third time. */}
   <header class="shell page-open">
-    <p class="t-meta">The people</p>
-    <h1 class="t-display lines mt-8" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
+    <div class="grid gap-10 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-16">
+      <h1 class="t-display lines" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
+      <div class="lg:pb-3">
+        <p class="t-prose">
+          Fourteen of them are named here. The <em>New York Times</em> counted
+          the crowd outside the commissioner's office at some one thousand
+          persons.
+        </p>
+        <p class="t-meta-body mt-6">
+          Every name stood on pavement you can still walk. Follow any of them
+          into the chapter where their part of the day is told.
+        </p>
+      </div>
+    </div>
   </header>
-
-  {/* Her words first. */}
-  <section class="shell sec">
-    <figure class="reveal-quote">
-      <blockquote class="t-quote is-hung">
-        “Drag us out! Drag him to the river! Drown him! But don't let them have him!”
-      </blockquote>
-      <figcaption class="t-meta mt-6">— Harriet Tubman, outside the commissioner's office</figcaption>
-    </figure>
-    <p class="t-prose reveal beat">
-      Every name below stood on real pavement you can still walk. Follow any of
-      them into the chapter where their part of the story is told.
-    </p>
-  </section>
 
   {
     groups.map((group, gi) => (

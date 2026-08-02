@@ -24,12 +24,25 @@ const chapters = (await getCollection("chapters"))
     order: String(e.data.order).padStart(2, "0"),
     name: e.data.name.short,
   }));
-const posClass = position === "bottom-right" ? "bottom-3 right-3" : "top-8 right-3";
+/* One inset for every floating element on the site. The burger used to sit at
+ * right:12px while page content sat on a 56px gutter — 124px adrift on a 1440
+ * screen, anchored to nothing. It is on the gutter now. */
+const posClass =
+  position === "bottom-right"
+    ? "bottom-[var(--ui-inset)] right-[var(--ui-inset)]"
+    : "top-[var(--ui-inset)] right-[var(--ui-inset)]";
 const notchClass =
   position === "bottom-right"
     ? "rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-4xl"
     : "rounded-tl-xl rounded-tr-xl rounded-br-xl rounded-bl-4xl";
 ---
+
+{/* The scrim is what turns this from a collision into a layer. Open over the
+    map, the panel sat on top of live markers and sliced them in half — two
+    interactive things competing for the same pixels. Behind a scrim it reads
+    as what it is: a dialog over a dimmed page. It also gives the panel a
+    click-away target it never had. */}
+<div class="cnwm-menu-scrim" hidden aria-hidden="true"></div>
 
 <div
   class={`cnwm-menu fixed ${posClass} z-[1000]`}
@@ -51,19 +64,22 @@ const notchClass =
 
   <!-- Panel -->
   <nav
-    class="cnwm-menu-panel hidden rounded-[12px] border border-primary-7 bg-primary-3"
+    class="cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border border-primary-7 bg-primary-3"
     aria-label="Site"
   >
     {position === "top-right" && (
       <button
         type="button"
-        class="cnwm-menu-close flex w-full cursor-pointer items-center justify-center rounded-t-[12px] border-b border-primary-7 bg-primary-3 py-6 transition-colors duration-300 hover:bg-primary-5"
+        class="cnwm-menu-close flex w-full cursor-pointer items-center justify-center rounded-t-[12px] border-b border-primary-7 bg-primary-3 py-4 transition-colors duration-300 hover:bg-primary-5"
         aria-label="Close menu"
       >
         <Icon name="close" class="text-primary-9" />
       </button>
     )}
-    <div class="flex w-[min(78vw,20rem)] flex-col p-8">
+    {/* 20rem gave the inner column 256px, and "COMMISSIONER'S" at the old
+        title step measured 266px — the menu's own longest label overflowed and
+        was clipped by the edge of the screen. */}
+    <div class="cnwm-menu-list flex w-[min(82vw,23rem)] flex-col p-8">
       <a
         href={withBase("")}
         class="t-meta transition-colors hover:text-neutral-12"
@@ -119,6 +135,7 @@ const notchClass =
     const panel = root.querySelector<HTMLElement>(".cnwm-menu-panel")!;
     const closeBtns = root.querySelectorAll<HTMLButtonElement>(".cnwm-menu-close");
     const bars = root.querySelectorAll<HTMLElement>(".cnwm-bar");
+    const scrim = document.querySelector<HTMLElement>(".cnwm-menu-scrim");
     const origin =
       root.dataset.position === "bottom-right" ? "bottom right" : "top right";
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -127,6 +144,7 @@ const notchClass =
       burger.setAttribute("aria-expanded", "true");
       burger.classList.add("hidden");
       panel.classList.remove("hidden");
+      if (scrim) scrim.hidden = false;
       if (!reduced) {
         gsap.fromTo(
           panel,
@@ -141,6 +159,7 @@ const notchClass =
       burger.setAttribute("aria-expanded", "false");
       const done = () => {
         panel.classList.add("hidden");
+        if (scrim) scrim.hidden = true;
         burger.classList.remove("hidden");
         if (!reduced) {
           gsap.fromTo(
@@ -170,6 +189,9 @@ const notchClass =
 
     burger.addEventListener("click", open);
     closeBtns.forEach((b) => b.addEventListener("click", close));
+    scrim?.addEventListener("click", () => {
+      if (!panel.classList.contains("hidden")) close();
+    });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !panel.classList.contains("hidden")) close();
     });

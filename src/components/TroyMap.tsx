@@ -91,6 +91,26 @@ function markerHtml(stop: Stop, active: boolean): string {
   const z = pillSizes();
   const [dx, dy] = stop.pinOffset ?? [0, -46];
 
+  /* On a 390px screen a named pill is up to 210px wide, so five of them a few
+   * blocks apart cannot all stay inside the viewport: the audit found three of
+   * five labels clipped by the screen edges before anything was even opened.
+   * Below 640px only the active stop is named; the rest are numbered chips,
+   * which cannot be clipped and cannot collide — and the typographic index
+   * directly below the map carries all five names in full. */
+  const narrow = typeof window !== "undefined" && window.innerWidth < 640;
+  if (narrow && !active) {
+    return `
+    <div style="position:relative;width:0;height:0;cursor:pointer">
+      <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
+        <line x1="0" y1="0" x2="${dx}" y2="${dy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
+      </svg>
+      <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
+      <div aria-label="${stop.label}" style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9999px;background:${s.bg};color:${s.text};border:1px solid ${s.border}">
+        <p style="font-size:12px;margin:0;line-height:1;font-weight:600;font-family:var(--font-poppins),sans-serif">${stop.order}</p>
+      </div>
+    </div>`;
+  }
+
   /* Five labelled pills inside a few blocks collide at the overview camera.
    * The first fix nudged the whole marker sideways, which moved the DOT off
    * the real coordinate and left what read as an orphaned orange stub. The dot
@@ -189,8 +209,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     if (!map) return OVERVIEW;
     const b = new mapboxgl.LngLatBounds();
     stops.forEach((s) => b.extend(s.coordinates));
+    /* The padding has to clear the LABELS, not the dots. A named pill runs up
+       to ~210px and hangs off its coordinate on a leader line, so 48px of side
+       padding let three of five labels fall off the screen at 390. */
+    const w = window.innerWidth;
+    const side = w < 640 ? 72 : w < 1024 ? 130 : 150;
     const cam = map.cameraForBounds(b, {
-      padding: { top: 120, bottom: 200, left: 48, right: 48 },
+      padding: { top: 132, bottom: 210, left: side, right: side },
       bearing: OVERVIEW.bearing,
     });
     return cam
@@ -592,7 +617,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       </div>
 
       {/* Place label */}
-      <div className="pointer-events-none absolute top-0 left-0 z-20 p-4 sm:p-6">
+      <div className="pointer-events-none absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 mr-[104px]">
         <p
           className="t-meta rounded-full px-4 py-2"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
@@ -603,7 +628,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
       {/* Arrival name plate (M10) — the flight lands on a spoken line */}
       {arrivalStop && (
-        <div className="pointer-events-none absolute top-16 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:top-20">
+        <div className="pointer-events-none absolute top-[calc(var(--ui-inset)+72px)] left-1/2 z-20 w-max max-w-[min(86vw,420px)] -translate-x-1/2">
           <div
             className="rounded-full px-6 py-3 text-center"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
@@ -638,7 +663,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         <button
           type="button"
           onClick={backToOverview}
-          className="btn-sm btn-ghost absolute top-14 left-4 z-20 sm:top-16 sm:left-6"
+          className="btn-sm btn-ghost absolute top-[calc(var(--ui-inset)+48px)] left-[var(--ui-inset)] z-20"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
           <svg className="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">

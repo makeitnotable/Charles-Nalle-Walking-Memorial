@@ -18,7 +18,7 @@ import { withBase } from "../lib/url";
     <div class="relative flex h-full flex-col items-center justify-between">
       <!-- The photo frame: film plays inside it, treated like the approved still -->
       <div
-        class="home-frame absolute inset-0 z-0 overflow-hidden rounded-[32px] border border-gray-7"
+        class="home-frame absolute inset-0 z-0 overflow-hidden rounded-[32px] border border-primary-7"
         aria-hidden="true"
       >
         <video
@@ -59,52 +59,53 @@ import { withBase } from "../lib/url";
         <div class="absolute inset-0" style="background: var(--scrim-photo)"></div>
       </div>
 
-      <!-- The three-stack -->
-      <div class="z-10 flex h-full flex-col items-center justify-between">
-        <div class="flex flex-col items-center justify-between gap-8 pt-16">
-          <p class="t-meta home-seq" style="--seq: 0">Troy, NY</p>
-          <h1 class="flex flex-col" aria-label="Charles Nalle">
-            <span class="t-wordmark home-seq" style="--seq: 1">Charles</span>
-            <span class="t-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.06em">Nalle</span>
-          </h1>
-          <div class="home-seq flex items-center gap-2" style="--seq: 3">
-            <p class="t-meta">1821</p>
-            <div class="rule-draw -mt-0.5 h-[1px] w-[28px] bg-primary-10"></div>
-            <p class="t-meta">1875</p>
-          </div>
+      {/* One composed stack, centred as a group.
+          `justify-between` used to fling three islands to the top, middle and
+          bottom of the frame — 154px of nothing between the date rule and the
+          button, 163px between the button and the copy. The eye had nothing to
+          hold. Everything below is one lockup with authored spacing. */}
+      <div class="z-10 flex h-full flex-col items-center justify-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
+        <p class="t-meta home-seq" style="--seq: 0">Troy, New York · April 27, 1860</p>
+
+        <h1 class="flex flex-col" aria-label="Charles Nalle">
+          <span class="t-wordmark home-seq" style="--seq: 1">Charles</span>
+          <span class="t-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.06em">Nalle</span>
+        </h1>
+
+        <div class="home-seq flex items-center gap-2" style="--seq: 3">
+          <p class="t-meta">1821</p>
+          <div class="rule-draw -mt-0.5 h-[1px] w-[28px] bg-primary-10"></div>
+          <p class="t-meta">1875</p>
         </div>
 
-        <div class="home-seq flex w-full justify-center px-4" style="--seq: 4">
-          <a
-            href={withBase("map")}
-            class="btn btn-cta"
-          >
-            Continue
-            <Icon name="arrow" />
-          </a>
-        </div>
+        {/* The story, not the format. This said "a digital physical experience
+            designed to share the history of Troy" — a description of the
+            deliverable, in the smallest type on the page, at the very bottom. */}
+        <p
+          class="t-meta-body home-seq max-w-[54ch] text-balance"
+          style="--seq: 4"
+        >
+          On one day in 1860 the people of this city — led by Harriet Tubman —
+          took Charles Nalle back from the men who had come to return him to
+          slavery. Five stops mark where it happened.
+        </p>
 
-        <div class="home-seq flex flex-col items-center justify-between p-4" style="--seq: 5">
-          {/* Mobile and tablet: hand breaks via measure */}
-          <p class="t-meta-body mx-4 mb-2 block max-w-[300px] text-center md:max-w-[380px] lg:hidden">
-            The Charles Nalle Walking Memorial is a digital physical experience
-            designed to share the history of Troy and the story of Charles Nalle
-          </p>
-          {/* Desktop: break after "designed" */}
-          <p class="t-meta-body mx-4 mb-2 hidden text-center lg:block">
-            The Charles Nalle Walking Memorial is a digital physical experience designed<br />
-            to share the history of Troy and the story of Charles Nalle
-          </p>
-        </div>
+        {/* "Continue" named neither a destination nor a size. */}
+        <a href={withBase("map")} class="btn btn-cta home-seq" style="--seq: 5">
+          Walk the five stops
+          <Icon name="arrow" />
+        </a>
       </div>
     </div>
   </div>
 </Base>
 
 <style>
-  /* Frame settles from black to the approved 50% presence */
+  /* The photograph settles to a presence you can actually read. At 0.5 — on top
+     of grayscale, brightness 0.6 and a scrim — the front door had no legible
+     subject at all: a visitor could not tell what they were looking at. */
   .home-frame {
-    opacity: 0.5;
+    opacity: 0.72;
   }
   /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
      and reduced-motion states are simply "everything visible". */
@@ -121,12 +122,12 @@ import { withBase } from "../lib/url";
         opacity: 0;
       }
       to {
-        opacity: 0.5;
+        opacity: 0.72;
       }
     }
     .home-seq {
-      animation: home-rise var(--dur-slow) var(--ease) both;
-      animation-delay: calc(200ms + var(--seq) * 200ms);
+      animation: home-rise var(--dur-fast) var(--ease) both;
+      animation-delay: calc(120ms + var(--seq) * 110ms);
     }
     @keyframes home-rise {
       from {
@@ -140,7 +141,7 @@ import { withBase } from "../lib/url";
     }
     .rule-draw {
       animation: rule-x var(--dur-slow) var(--ease) both;
-      animation-delay: calc(200ms + 3 * 200ms + 200ms);
+      animation-delay: calc(120ms + 3 * 110ms);
       transform-origin: left center;
     }
     @keyframes rule-x {

@@ -16,13 +16,18 @@ interface Props {
   /** 1-5, or 0 on the map where the whole walk is ahead of you. */
   current?: number;
   /**
-   * Links (default) or a read-only indicator. The map sets this false: a 24px
-   * interactive strip across the top would swallow pans that start at the
-   * canvas edge, and the stop list sits directly below anyway.
+   * Links, or a read-only indicator — and read-only is now the default.
+   *
+   * A 24px interactive strip pinned across the top edge swallowed whatever sat
+   * under it: on the map it ate pans starting at the canvas edge, and on a
+   * chapter page the sticky spine scrolled beneath it and lost its top link to
+   * a transparent bar. The rail is a progress READOUT; the corner menu, the
+   * chapter spine and the onward CTA are the navigation. At 3px and inert it
+   * cannot collide with anything.
    */
   interactive?: boolean;
 }
-const { current = 0, interactive = true } = Astro.props;
+const { current = 0, interactive = false } = Astro.props;
 
 const stops = (await getCollection("chapters"))
   .sort((a, b) => a.data.order - b.data.order)

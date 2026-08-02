@@ -218,7 +218,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   {/* ══════ THE STORY — one section per scene ══════ */}
   {
     c.scenes.map((scene, i) => (
-      <section class="shell sec" id={`scene-${i}`} aria-label={scene.label}>
+      <section class="shell beat" id={`scene-${i}`} aria-label={scene.label}>
         <div class="sec-head"></div>
         <div class="editorial mt-8">
           <ChapterSpine sections={sections} current={`scene-${i}`} />
@@ -313,7 +313,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   </section>
 
   {/* ══════ HISTORICAL CONTEXT ══════ */}
-  <section class="sec" id="history" aria-labelledby="history-heading">
+  <section class="void" id="history" aria-labelledby="history-heading">
    <div class="ground-cream py-24 md:py-32">
     <div class="shell">
     <div class="sec-head"></div>
@@ -374,7 +374,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   {/* ══════ THE MORAL — full-bleed, one artifact ══════ */}
   {
     moral && (
-      <section class="void relative" id="moral" aria-labelledby="moral-heading">
+      <section class="beat relative" id="moral" aria-labelledby="moral-heading">
         <div class="absolute inset-0" aria-hidden="true">
           <img
             src={withBase(`media/${slug}/moral-1440.jpg`)}
@@ -416,7 +416,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   }
 
   {/* ══════ ONWARD ══════ */}
-  <section class="shell sec" id="onward" aria-label="Continue the walk">
+  <section class="shell void" id="onward" aria-label="Continue the walk">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
       <ChapterSpine sections={sections} current="onward" />
@@ -473,7 +473,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     </div>
   </section>
 
-  <SiteFooter hide={undefined} share />
+  <SiteFooter hide={undefined} share audio />
 
   <script>
     import gsap from "gsap";
@@ -484,44 +484,30 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     if (!reduced) {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero: the framed painting grows toward full bleed and un-rounds as the
-      // lockup rises away. Scale is capped at 1.15 — v3 ran 1.4 and pushed the
-      // frame past the shell.
+      // The hero lockup withdraws and leaves the painting alone on the screen.
+      // That is the whole move, and it is the one the page is about.
+      //
+      // Two effects were cut here. The media used to scale to 1.15 while it was
+      // being scrubbed — it grew a box the viewport was already too small to
+      // show, and the measured 1.1 scale on the interlude was what made a
+      // full-bleed block report 1584px wide on a 1440 screen. Neither said
+      // anything: motion on this site is meant to narrate the past developing
+      // into the present, which is the press-and-hold's job, not decoration's.
       const media = document.getElementById("hero-media");
       const lockup = document.getElementById("hero-lockup");
       if (media && lockup) {
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: media,
-              start: "top top",
-              end: "+=100%",
-              scrub: 0.5,
-              invalidateOnRefresh: false,
-            },
-          })
-          .to(media, { scale: 1.15, borderRadius: 0 }, 0)
-          .to(lockup, { y: -160, opacity: 0.25 }, 0);
-      }
-
-      // The painting interlude breathes as you pass it — Ken Burns scrub.
-      const img = document.querySelector(".interlude-img");
-      if (img) {
-        gsap.fromTo(
-          img,
-          { scale: 1.1, yPercent: -3 },
-          {
-            scale: 1,
-            yPercent: 3,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".painting-interlude",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.6,
-            },
+        gsap.to(lockup, {
+          y: -100,
+          opacity: 0.2,
+          ease: "none",
+          scrollTrigger: {
+            trigger: media,
+            start: "top top",
+            end: "+=80%",
+            scrub: 0.5,
+            invalidateOnRefresh: false,
           },
-        );
+        });
       }
     }
 

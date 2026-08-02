@@ -4,7 +4,12 @@
  * Full-bleed hairline, then one row on the shell: credit left, lateral links
  * centre, share right. v3 shipped three different footers using three type
  * sizes each; there is now one.
- * The right padding reserves the floating corner menu's 72px + inset.
+ *
+ * It used to reserve 112px of RIGHT padding for the corner menu, which lives at
+ * the TOP of every page that has this footer — so the Share control hung 112px
+ * in from the edge while every other element on the page sat on the gutter.
+ * The only floating element that ever reaches the footer is the chapter
+ * mini-player, bottom-left, and only chapters get that clearance now.
  */
 import Icon from "./Icon.astro";
 import Button from "./Button.astro";
@@ -15,8 +20,14 @@ interface Props {
   hide?: "people" | "paintings" | "about" | "map";
   /** Chapter pages offer a share control; index pages do not need one. */
   share?: boolean;
+  /**
+   * Only chapter pages run narration, so only they need the bottom-left lane
+   * kept clear for the mini-player. /people, /paintings and /about were
+   * reserving 112px for a control that does not exist on them.
+   */
+  audio?: boolean;
 }
-const { hide, share = false } = Astro.props;
+const { hide, share = false, audio = false } = Astro.props;
 
 const links = [
   { key: "people", href: "people", label: "The people of this day", curtain: "The People" },
@@ -29,7 +40,7 @@ const links = [
 <footer class="sec">
   <div class="rule-bleed"></div>
   <div
-    class="shell flex flex-col gap-8 py-10 pb-28 md:flex-row md:items-center md:justify-between md:gap-10 md:pr-28 md:pb-10"
+    class:list={["shell flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between md:gap-10 md:pb-10", audio ? "pb-28" : "pb-10"]}
   >
     <p class="t-meta-body">
       <span class="block">Charles Nalle Walking Memorial</span>

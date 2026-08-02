@@ -528,7 +528,7 @@ body {
   /* The spine holds its place while the section passes it (museos). */
   .editorial > .rail {
     position: sticky;
-    top: 88px;
+    top: calc(var(--ui-inset) + 32px);
     align-self: start;
   }
 }
@@ -960,6 +960,54 @@ a.walk-seg:hover {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ── FLOATING UI — one inset, declared lanes ──────────────────────────────
+ * There were five separate opinions here: the rail at top 0, the burger at
+ * right 12, the mini-player at bottom 16, the map's overlays on their own
+ * insets, and Mapbox's chrome on nobody's. On a 1440 chapter page the burger
+ * floated 124px outside the content's right edge, belonging to no column.
+ *
+ *   top edge, full width, 3px .... walk rail (inert)
+ *   top-right .................... corner menu
+ *   bottom-left .................. mini-player (chapters) / geolocate + scale (map)
+ *   bottom-centre ................ map primary controls
+ *   bottom-right ................. Mapbox attribution
+ *
+ * No two owners share a lane, so no two can collide. */
+:root {
+  --ui-inset: var(--gutter);
+}
+
+/* The menu panel is a dialog, not a peer of whatever is behind it. Over the
+   map it used to sit on top of live markers and slice them in half. */
+.cnwm-menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: color-mix(in srgb, var(--color-neutral-2) 62%, transparent);
+  backdrop-filter: blur(2px);
+  animation: scrim-in var(--dur-fast) var(--ease) both;
+}
+.cnwm-menu-scrim[hidden] {
+  display: none;
+}
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cnwm-menu-scrim {
+    animation: none;
+  }
+}
+
+/* The panel can never be taller than the window — at 844×390 it measured 358px
+   in a 390px viewport and covered the entire map stage plus its controls. */
+.cnwm-menu-panel {
+  max-height: calc(100dvh - 2 * var(--ui-inset));
+  overscroll-behavior: contain;
 }
 
 /* The corner menu retreats while the reader is moving forward. */
