@@ -75,8 +75,13 @@ const canonical = new URL(
       // Ambient videos load only when needed: near-viewport (IO) — the poster
       // is the instant paint, the film arrives when bandwidth allows.
       const lazyVids = document.querySelectorAll<HTMLVideoElement>(".lazy-video[data-src]");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (lazyVids.length) {
         const load = (v: HTMLVideoElement) => {
+          // `data-reduce-static` marks a film whose poster IS the finished
+          // artwork — under reduced motion we simply never attach the source,
+          // and the still painting is what the visitor gets.
+          if (reducedMotion && v.hasAttribute("data-reduce-static")) return;
           if (!v.src && v.dataset.src) {
             if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster;
             v.src = v.dataset.src;

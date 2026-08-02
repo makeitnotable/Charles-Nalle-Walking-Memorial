@@ -1,5 +1,11 @@
 {
   "order": 3,
+  "name": {
+    "canonical": "Uri Gilbert Home",
+    "display": "URI GILBERT\nHOME",
+    "short": "Gilbert Home"
+  },
+  "pinPosition": "below",
   "chapterLabel": "Chapter 3",
   "title": "URI GILBERT\nMANSION",
   "cardTitle": "Uri Gilbert Mansion",

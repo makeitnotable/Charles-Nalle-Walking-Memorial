@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from "react";
+import { ICONS } from "./icons";
 
 /**
- * The two-state audio player (approved signature #2) with v2's synced
- * narration woven in. Card lifts primary-3 → primary-4 while playing, cover
- * scales 102%, the time pill morphs MM:SS → MM:SS | MM:SS, and a w-72 mini
- * player opacity-swaps in when the main play button scrolls out (legacy
- * AudioPlayerSection.jsx behavior, verbatim values).
+ * The narration object — v4.
  *
- * v3 weave: the narrative paragraphs below ARE the transcript — the paragraph
- * being read carries a soft primary-4 wash; clicking a paragraph seeks the
- * narration; a slim scrub bar rides under the player controls.
+ * v3 shipped this as a bordered card holding a THIRD copy of the chapter
+ * painting, with the transcript split into two ragged columns you cannot
+ * follow narration across. v4 unboxes it entirely: a hairline, a circle
+ * control, the title, the time, a scrub line. The transcript below is a
+ * single serif column on the cream reading register.
+ *
+ * All the machinery is unchanged and must stay that way: per-paragraph
+ * timings drive the sync highlight, tapping a paragraph seeks, and the
+ * mini-player latches once playback starts and swaps in when the main
+ * control scrolls away. The mini-player now lives bottom-LEFT — the corner
+ * menu owns the right on chapter pages.
  */
 
 interface Timing {
@@ -31,12 +36,6 @@ interface Props {
   timings: Timing[] | null;
   /** Scene paragraphs; "@media:<key>" entries become inline paintings */
   paragraphs: string[];
-  /** Cover image key (chapter painting), e.g. "horizontal" */
-  cover?: string;
-  /** "Section N/M" wayfinding label above the narrative */
-  sectionLabel?: string;
-  /** Two-column desktop paragraphs (ch4/5 pattern) vs single flow */
-  columns?: boolean;
 }
 
 function base(path: string): string {
@@ -59,24 +58,17 @@ function fmt(s: number): string {
   return `${m.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
 }
 
-function PlayIcon() {
+/** The house icon geometry, in React. See src/components/icons.ts. */
+function Glyph({ name, className = "icon" }: { name: keyof typeof ICONS; className?: string }) {
   return (
-    <svg width="20" height="22" viewBox="0 0 17 21" fill="none" aria-hidden="true">
-      <path
-        d="M1 3.65626C1 2.6851 1 2.19951 1.20249 1.93184C1.37889 1.69865 1.64852 1.55435 1.9404 1.53693C2.27544 1.51692 2.67946 1.78627 3.48752 2.32498L14.0031 9.33535C14.6708 9.78048 15.0046 10.003 15.1209 10.2836C15.2227 10.5288 15.2227 10.8044 15.1209 11.0497C15.0046 11.3302 14.6708 11.5528 14.0031 11.9979L3.48752 19.0083C2.67946 19.547 2.27544 19.8163 1.9404 19.7963C1.64852 19.7789 1.37889 19.6346 1.20249 19.4014C1 19.1337 1 18.6482 1 17.677V3.65626Z"
-        stroke="#F26835"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-function PauseIcon() {
-  return (
-    <svg width="14" height="18" viewBox="0 0 14 18" fill="none" aria-hidden="true">
-      <rect x="1" y="1" width="4" height="16" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="9" y="1" width="4" height="16" stroke="#F26835" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      className={name === "play" ? `${className} icon-filled` : className}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      {ICONS[name].map((d) => (
+        <path key={d} d={d} />
+      ))}
     </svg>
   );
 }
@@ -89,9 +81,6 @@ export default function AudioStory({
   duration = 0,
   timings,
   paragraphs,
-  cover = "horizontal",
-  sectionLabel,
-  columns = true,
 }: Props) {
   const items: Item[] = [];
   let t = 0;
@@ -106,7 +95,6 @@ export default function AudioStory({
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const mainBtnRef = useRef<HTMLButtonElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [total, setTotal] = useState(duration);
@@ -120,9 +108,7 @@ export default function AudioStory({
     const onTime = () => {
       setTime(a.currentTime);
       if (timings) {
-        const i = timings.findIndex(
-          (x) => a.currentTime >= x.start && a.currentTime < x.end,
-        );
+        const i = timings.findIndex((x) => a.currentTime >= x.start && a.currentTime < x.end);
         setActive(i);
       }
     };
@@ -141,7 +127,7 @@ export default function AudioStory({
     };
   }, [timings, duration]);
 
-  // Mini player swaps in exactly when the main play button scrolls out
+  // Mini player swaps in exactly when the main control scrolls out
   useEffect(() => {
     const onScroll = () => {
       const b = mainBtnRef.current;
@@ -190,28 +176,23 @@ export default function AudioStory({
     }
   };
 
-  const onScrub = (e: React.ChangeEvent<HTMLInputElement>) => {
-    seekTo(Number(e.target.value));
-  };
+  const pct = (time / Math.max(total, 1)) * 100;
 
-  const timePill = (mini = false) => (
-    <div className="relative inline-block overflow-hidden rounded-3xl bg-primary-10 px-3 py-0.5 transition-all duration-300 ease-in-out">
-      <div className="relative whitespace-nowrap">
-        <span
-          className={`inline-block text-[12px] font-medium text-primary-2 ${!playing ? "" : "absolute opacity-0"}`}
-          style={{ fontFamily: "var(--font-poppins)" }}
-        >
-          {fmt(total)}
-        </span>
-        <span
-          className={`inline-block text-[12px] font-medium text-primary-2 ${playing ? "" : "absolute opacity-0"}`}
-          style={{ fontFamily: "var(--font-poppins)" }}
-          aria-live={mini ? undefined : "off"}
-        >
-          {fmt(time)} | {fmt(total)}
-        </span>
-      </div>
-    </div>
+  /* Tabular figures + a reserved min-width: the v3 pill clipped its last
+     digit whenever the elapsed time gained a character. */
+  const timeReadout = (
+    <span
+      className="t-meta"
+      style={{
+        fontVariantNumeric: "tabular-nums",
+        minWidth: playing ? "11ch" : "5ch",
+        display: "inline-block",
+        textAlign: "right",
+        letterSpacing: "0.06em",
+      }}
+    >
+      {playing ? `${fmt(time)} / ${fmt(total)}` : fmt(total)}
+    </span>
   );
 
   const playButton = (mini = false) => (
@@ -219,21 +200,23 @@ export default function AudioStory({
       ref={mini ? undefined : mainBtnRef}
       onClick={toggle}
       aria-label={playing ? `Pause narration: ${subtitle}` : `Play narration: ${subtitle}`}
-      className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl border-2 border-primary-6 bg-primary-4 transition-colors duration-300 hover:border-primary-7 hover:bg-primary-5 active:bg-primary-3 lg:h-18 lg:w-18"
+      className={`flex shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors ${
+        mini ? "h-11 w-11" : "h-14 w-14"
+      } ${
+        playing
+          ? "border-primary-9 bg-primary-9 text-primary-2"
+          : "border-primary-7 text-primary-12 hover:border-primary-11"
+      }`}
+      style={{ transitionDuration: "var(--dur-fast)", transitionTimingFunction: "var(--ease)" }}
     >
-      {playing ? <PauseIcon /> : <PlayIcon />}
+      <Glyph name={playing ? "pause" : "play"} className="icon icon-sm" />
     </button>
   );
-
-  // Split paragraphs into two columns at md+ (approved ch1–3 pattern)
-  const midpoint = Math.ceil(items.length / 2);
-  const col1 = items.slice(0, midpoint);
-  const col2 = items.slice(midpoint);
 
   const renderItem = (item: Item, globalIndex: number) => {
     if (item.type === "media") {
       return (
-        <div key={`m-${globalIndex}`} className="frame-2 overflow-hidden">
+        <div key={`m-${globalIndex}`} className="artifact my-10">
           <video
             className="h-auto w-full"
             src={base(`media/${slug}/${item.mediaKey}.mp4`)}
@@ -255,7 +238,7 @@ export default function AudioStory({
         key={`p-${globalIndex}`}
         data-timing={item.timingIndex}
         onClick={() => seekParagraph(item.timingIndex)}
-        className={`type-body cursor-pointer rounded px-1 py-0.5 transition-colors duration-300 ${isActive ? "narration-active" : ""}`}
+        className={`t-prose cursor-pointer ${isActive ? "narration-active" : ""}`}
         title="Tap to hear this passage"
       >
         {isFirst ? (
@@ -274,115 +257,69 @@ export default function AudioStory({
     <div>
       <audio ref={audioRef} src={audioSrc} preload="metadata" />
 
-      {/* ——— The main player card ——— */}
+      {/* ——— The narration object: a hairline, a control, a time. No box. ——— */}
       <div
-        className={`mx-auto rounded-3xl border-2 border-primary-6 transition-colors duration-300 md:w-[29.296rem] lg:w-[32.5rem] ${playing ? "bg-primary-4" : "bg-primary-3"}`}
-        style={{
-          opacity: mainVisible ? 1 : 0,
-          transition: "opacity 300ms ease-in-out, background-color 300ms",
-        }}
+        className="rule-top pt-5 transition-opacity"
+        style={{ opacity: mainVisible ? 1 : 0, transitionDuration: "var(--dur-fast)" }}
       >
-        <div className="p-4">
-          <div
-            className={`h-[14.29rem] w-full rounded-xl border-2 border-primary-6 bg-cover bg-center transition-transform duration-300 md:h-[17.86rem] lg:h-[19.66rem] ${playing ? "scale-102" : "scale-100"}`}
-            style={{
-              backgroundImage: `url('${base(`media/${slug}/${cover}-800.webp`)}')`,
-            }}
-            role="img"
-            aria-label={`Painting — ${subtitle}`}
-          />
-        </div>
-        <div className={`p-4 pt-0 transition-all duration-300 ${playing ? "pb-6" : "pb-4"}`}>
-          <div className="flex flex-row items-start justify-between">
-            <div className="flex flex-row items-start space-x-2">
-              {playButton()}
-              <div className="mt-1 ml-2">
-                <p className="type-card-title uppercase">{label}</p>
-                <p
-                  className="mt-1 text-[12px] font-normal text-primary-11"
-                  style={{ fontFamily: "var(--font-poppins)" }}
-                >
-                  {subtitle}
-                </p>
-              </div>
-            </div>
-            <div className="mt-1.5 mr-1">{timePill()}</div>
+        <div className="flex items-center gap-5">
+          {playButton()}
+          <div className="min-w-0 flex-1">
+            <p className="t-meta">{label}</p>
+            <p className="t-meta-body mt-1 truncate">{subtitle}</p>
           </div>
-          {/* Scrub — slim, house colors */}
-          <input
-            type="range"
-            min={0}
-            max={Math.max(total, 1)}
-            step={1}
-            value={time}
-            onChange={onScrub}
-            aria-label="Narration position"
-            className="cnwm-scrub mt-4 w-full"
-            style={{
-              // played portion primary-9, rest primary-6
-              background: `linear-gradient(to right, var(--color-primary-9) ${(time / Math.max(total, 1)) * 100}%, var(--color-primary-6) ${(time / Math.max(total, 1)) * 100}%)`,
-            }}
-          />
+          {timeReadout}
         </div>
+        <input
+          type="range"
+          min={0}
+          max={Math.max(total, 1)}
+          step={1}
+          value={time}
+          onChange={(e) => seekTo(Number(e.target.value))}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
+            backgroundImage: `linear-gradient(to right, var(--color-primary-9) ${pct}%, var(--color-primary-6) ${pct}%)`,
+          }}
+        />
       </div>
 
-      {/* Visible affordance for tap-to-seek (never hover-only) */}
-      {timings && (
-        <p className="type-muted mt-4 text-center">
-          Tap any paragraph to hear it read aloud
-        </p>
-      )}
-
-      {/* ——— The narrative: the transcript is the text ——— */}
-      <div ref={listRef} className="mx-auto mt-8 max-w-7xl md:mt-12">
-        {sectionLabel && (
-          <p className="type-progress py-4 text-neutral-12">{sectionLabel}</p>
+      {/* ——— The transcript: one serif column on the cream register ——— */}
+      <div className="ground-cream mt-10 rounded-[12px] px-6 py-12 md:px-12 md:py-16">
+        {timings && (
+          <p className="t-meta mb-8">Tap any paragraph to hear it read aloud</p>
         )}
-        {columns ? (
-          <div className="flex flex-col gap-x-8 gap-y-8 md:grid md:grid-cols-2 lg:gap-y-12">
-            <div className="flex flex-col gap-y-8 lg:gap-y-12">
-              {col1.map((it, i) => renderItem(it, i))}
-            </div>
-            <div className="flex flex-col gap-y-8 lg:gap-y-12">
-              {col2.map((it, i) => renderItem(it, midpoint + i))}
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-y-8 lg:gap-y-12">
-            {items.map((it, i) => renderItem(it, i))}
-          </div>
-        )}
+        <div className="flex flex-col gap-y-8">{items.map((it, i) => renderItem(it, i))}</div>
       </div>
 
-      {/* ——— Mini player ——— */}
+      {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}
       {miniLatched && (
         <div
-          className="fixed right-0 bottom-0 left-0 z-[999] w-full"
+          className="fixed bottom-4 left-4 z-[999]"
           style={{
             opacity: mainVisible ? 0 : 1,
             pointerEvents: mainVisible ? "none" : "auto",
-            transition: "opacity 300ms ease-in-out",
+            transition: "opacity var(--dur-fast) var(--ease)",
           }}
         >
-          <div className="mx-auto w-full max-w-7xl p-3">
-            <div
-              className={`w-72 rounded-2xl border-2 border-primary-6 p-2 shadow-lg transition-colors duration-300 ${playing ? "bg-primary-4" : "bg-primary-3"}`}
-            >
-              <div className="flex flex-row items-center justify-between">
-                <div className="flex flex-row items-center space-x-2">
-                  {playButton(true)}
-                  <div className="min-w-0">
-                    <p className="truncate text-[16px] font-semibold text-primary-12 uppercase">{label}</p>
-                    <p
-                      className="max-w-[8.5rem] truncate text-[11px] font-normal text-primary-11"
-                      style={{ fontFamily: "var(--font-poppins)" }}
-                    >
-                      {subtitle}
-                    </p>
-                  </div>
-                </div>
-                {timePill(true)}
-              </div>
+          <div
+            className="flex items-center gap-3 rounded-full py-2 pr-5 pl-2"
+            style={{
+              background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)",
+              backdropFilter: "blur(8px)",
+              border: "1px solid var(--color-primary-7)",
+            }}
+          >
+            {playButton(true)}
+            <div className="min-w-0">
+              <p className="t-meta truncate">{label}</p>
+              <p
+                className="t-meta-body mt-0.5 truncate"
+                style={{ fontVariantNumeric: "tabular-nums", fontSize: "12px" }}
+              >
+                {fmt(time)} / {fmt(total)}
+              </p>
             </div>
           </div>
         </div>

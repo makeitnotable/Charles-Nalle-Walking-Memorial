@@ -1,5 +1,11 @@
 {
   "order": 5,
+  "name": {
+    "canonical": "Peter Baltimore's Barbershop",
+    "display": "PETER\nBALTIMORE'S\nBARBERSHOP",
+    "short": "Barbershop"
+  },
+  "pinPosition": "below",
   "chapterLabel": "Chapter 5",
   "title": "PETER\nBALTIMORE'S\nBARBERSHOP",
   "cardTitle": "Peter Baltimore's Barbershop",

@@ -122,8 +122,9 @@
 
 :root {
   /* ── TYPE SCALE — four roles. Mobile first; two breakpoints. ────────────
-     Ratios at desktop: display/title 1.63 · title/prose 3.05 · prose/meta 1.62.
-     Display is ~4.95× prose. That gap IS the hierarchy. */
+     Ratios at desktop: display/title 1.81 · title/prose 3.05 · prose/meta 1.62.
+     Display is ~5.5× prose — measured against pasqua (6.6×) and museos (5.3×).
+     That gap IS the hierarchy. */
   --fs-display: 46px;
   --lh-display: 0.95;
   --fs-title: 34px;
@@ -138,12 +139,13 @@
   --fs-spine: 26px;
 
   --track-display: -0.02em; /* optical tightening at size */
-  --track-meta: 0.14em; /* the fixed micro-grid */
+  --track-meta: 0.1em; /* the fixed micro-grid — GA&C measures 0.073em at 11px */
   --measure: 66ch; /* prose never wider */
 
   /* ── SPACING — three vertical tokens. Every gap BETWEEN sections
      quantizes to one of these. Component-internal uses --sp-*. ───────────── */
   --space-block: 24px; /* intra-component */
+  --space-beat: 72px; /* between beats INSIDE a section */
   --space-section: 128px; /* between numbered sections */
   --space-void: 260px; /* act changes only — max two per page */
 
@@ -185,9 +187,14 @@
      docs/v4/MOTION.md: the curtain set-piece keeps its circ timing, map
      cameras keep cinematic flyTo/easeTo durations, and the corner-menu bloom
      is the single overshoot. ─────────────────────────────────────────────── */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Measured, not guessed. Both museos and Google Arts & Culture drive their
+     signature motion with the SAME curve — expo-out, cubic-bezier(.19,1,.22,1)
+     (docs/v4/inspo-museos.md §6, docs/v4/inspo-googleac.md §7). museos runs two
+     tiers and nothing between them: a UI tier whose workhorse is exactly 300ms,
+     and a cinematic tier that is effectively just 1.6s. v4 uses those two. */
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
   --dur-fast: 300ms; /* hover, pills, highlight, state */
-  --dur-slow: 900ms; /* reveals, wipes, quote settle */
+  --dur-slow: 1600ms; /* reveals, wipes, quote settle — the cinematic tier */
 
   /* Documented exceptions (named so greps find them) */
   --ease-pop: cubic-bezier(0.34, 1, 0.36, 1.06); /* corner-menu bloom only */
@@ -204,6 +211,7 @@
     --fs-meta: 12px;
     --fs-meta-body: 14px;
     --fs-spine: 28px;
+    --space-beat: 96px;
     --space-section: 168px;
     --space-void: 320px;
     --gutter: 40px;
@@ -212,13 +220,14 @@
 
 @media (min-width: 1200px) {
   :root {
-    --fs-display: 104px;
+    --fs-display: 116px;
     --fs-title: 64px;
     --fs-quote: 38px;
     --fs-prose: 21px;
     --fs-meta: 13px;
     --fs-meta-body: 15px;
     --fs-spine: 30px;
+    --space-beat: 128px;
     --space-section: 200px;
     --space-void: 400px;
     --gutter: 56px;
@@ -255,7 +264,10 @@ body {
 .t-display {
   font-family: var(--font-sans);
   font-weight: 800;
-  font-size: var(--fs-display);
+  font-size: min(
+    var(--fs-display),
+    calc((100vw - 2 * var(--gutter)) / (var(--fit-chars, 8) * 0.64))
+  );
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
@@ -286,6 +298,9 @@ body {
    first glyph aligns to the text edge. */
 .t-quote.is-hung {
   text-indent: -0.42em;
+}
+.t-quote {
+  max-width: 17em; /* ~26 characters per line at any size — em, never ch */
 }
 
 /* Prose: the narrative voice. Serif floor is 18px — never smaller, never UI. */
@@ -371,6 +386,9 @@ body {
 }
 .void {
   margin-top: var(--space-void);
+}
+.beat {
+  margin-top: var(--space-beat);
 }
 .block-gap {
   margin-top: var(--space-block);
@@ -634,8 +652,11 @@ body {
   appearance: none;
   height: 24px;
   padding-block: 11px;
+  /* The track paints into the 2px content box; the 24px padding stays tappable.
+     Never set the `background` shorthand on this element — it resets the clip. */
   background-clip: content-box;
-  border-radius: 9999px;
+  background-color: transparent;
+  border-radius: 0;
   outline-offset: 2px;
   cursor: pointer;
 }
@@ -683,7 +704,7 @@ body {
   /* Staggered children: --i is set inline on each child. */
   .js .reveal.is-in > [style*="--i"] {
     animation: rise var(--dur-slow) var(--ease) both;
-    animation-delay: calc(var(--i) * 75ms);
+    animation-delay: calc(var(--i) * 200ms);
   }
   @keyframes rise {
     from {
@@ -709,16 +730,17 @@ body {
       transform var(--dur-slow) var(--ease);
   }
 
-  /* Per-line mask rise for display type. Each line is wrapped in a span
-     inside an overflow-hidden line box. */
+  /* Per-line mask rise for display type. Measured off museos: the line
+     travels exactly one line-height, opacity NEVER changes (the mask does the
+     work), and siblings stagger by 200ms. */
   .js .lines .line-inner {
     display: block;
-    transform: translateY(105%);
+    transform: translateY(100%);
   }
   .js .lines.is-in .line-inner {
     transform: none;
     transition: transform var(--dur-slow) var(--ease);
-    transition-delay: calc(var(--i, 0) * 90ms);
+    transition-delay: calc(var(--i, 0) * 200ms);
   }
 
   /* Media arrives with a clip-wipe and a breath of scale. */

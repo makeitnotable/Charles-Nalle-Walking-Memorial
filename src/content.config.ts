@@ -43,9 +43,25 @@ const chapters = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/chapters" }),
   schema: z.object({
     order: z.number(),
+    /**
+     * THE naming canon — one object, three forms, and the only source for any
+     * displayed place name. Rationale and the bronze-plaque evidence are in
+     * docs/v4/DECISIONS.md D1.
+     *   canonical — card titles, <title>, curtain labels, People chips
+     *   display   — the hero H1; "\n" marks the authored line breaks
+     *   short     — map pills, menu, aria-labels (the word cast in bronze)
+     * Next-links are generated: `Chapter {order} — {canonical}`.
+     */
+    name: z.object({
+      canonical: z.string(),
+      display: z.string(),
+      short: z.string(),
+    }),
+    /** Map pin label placement; stop 2 sits above so it cannot hide inside it. */
+    pinPosition: z.enum(["above", "below"]).default("below"),
     chapterLabel: z.string(),
-    title: z.string(), // display title; "\n" marks designed line breaks
-    cardTitle: z.string(),
+    title: z.string(), // legacy display title — superseded by name.display
+    cardTitle: z.string(), // legacy — superseded by name.canonical
     plaque: z.boolean(),
     map: z.object({
       label: z.string(),

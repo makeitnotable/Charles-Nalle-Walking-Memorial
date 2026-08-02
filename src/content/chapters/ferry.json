@@ -1,5 +1,11 @@
 {
   "order": 4,
+  "name": {
+    "canonical": "Washington Street Ferry Landing",
+    "display": "WASHINGTON\nSTREET FERRY\nLANDING",
+    "short": "Ferry Landing"
+  },
+  "pinPosition": "below",
   "chapterLabel": "Chapter 4",
   "title": "WASHINGTON\nSTREET FERRY\nLANDING",
   "cardTitle": "Washington Street Ferry Landing",

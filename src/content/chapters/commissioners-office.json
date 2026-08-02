@@ -1,5 +1,11 @@
 {
   "order": 2,
+  "name": {
+    "canonical": "Commissioner's Office",
+    "display": "COMMISSIONER'S\nOFFICE",
+    "short": "Commissioner's Office"
+  },
+  "pinPosition": "above",
   "chapterLabel": "Chapter 2",
   "title": "OFFICE OF THE\nCOMMISSIONER",
   "cardTitle": "Office of the Commissioner",

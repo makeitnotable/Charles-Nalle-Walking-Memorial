@@ -1,5 +1,11 @@
 {
   "order": 1,
+  "name": {
+    "canonical": "Holeur's Fashionable Bakery",
+    "display": "HOLEUR'S\nFASHIONABLE\nBAKERY",
+    "short": "Bakery"
+  },
+  "pinPosition": "below",
   "chapterLabel": "Chapter 1",
   "title": "HOLEUR'S\nFASHIONABLE\nBAKERY",
   "cardTitle": "Holeur's Fashionable Bakery",

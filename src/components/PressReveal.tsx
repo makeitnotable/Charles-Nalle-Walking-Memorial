@@ -5,6 +5,11 @@ import { useEffect, useRef, useState } from "react";
  * press and hold, and the finished painting develops beneath your fingertip,
  * then wakes into its animated version.
  *
+ * v4: this NO LONGER occupies the chapter hero — the hero is the finished
+ * animated painting. The interaction lives in its own "(02) From the sketch"
+ * section, where it reads as the artist's-process beat it always was. Every
+ * input path below is unchanged.
+ *
  * - Pointer + touch: hold to develop (releasing early lets it fade back)
  * - Keyboard: Enter/Space toggles the reveal (no hold required)
  * - prefers-reduced-motion: click/tap crossfades sketch <-> still painting
@@ -174,14 +179,14 @@ export default function PressReveal({
         srcSet={`${base(`media/${slug}/${sketch}-800.webp`)} 800w, ${base(`media/${slug}/${sketch}-1440.webp`)} 1440w`}
         sizes="100vw"
         alt=""
-        fetchPriority="high"
+        loading="lazy"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
         style={{
           opacity: sketchOpacity,
           filter: `contrast(${1 + progress * 0.15})`,
           transform: `scale(${1 + progress * 0.015})`,
-          transition: locked ? "opacity 600ms var(--ease-house)" : undefined,
+          transition: locked ? "opacity 600ms var(--ease)" : undefined,
         }}
         draggable={false}
       />
@@ -191,14 +196,13 @@ export default function PressReveal({
         className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center px-4 pb-20 sm:pb-8"
         style={{
           opacity: locked ? 0 : 1,
-          transition: "opacity 500ms var(--ease-house)",
+          transition: "opacity 500ms var(--ease)",
         }}
       >
         <span
-          className="type-label rounded-full px-4 py-2 text-center"
+          className="t-meta rounded-full px-4 py-2 text-center"
           style={{
-            background: "color-mix(in srgb, var(--color-primary-2) 75%, transparent)",
-            letterSpacing: "0.14em",
+            background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)",
             maxWidth: "min(86vw, 34rem)",
           }}
         >
@@ -206,14 +210,14 @@ export default function PressReveal({
         </span>
       </div>
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px]"
         aria-hidden="true"
         style={{
           transformOrigin: "left",
           transform: `scaleX(${revealOpacity})`,
           background: "var(--color-primary-9)",
           opacity: locked ? 0 : 1,
-          transition: locked ? "opacity 700ms var(--ease-house)" : undefined,
+          transition: locked ? "opacity 700ms var(--ease)" : undefined,
         }}
       />
     </div>

@@ -1,22 +1,41 @@
 ---
-// Chapter page — the approved skeleton (legacy LocationPage.jsx order):
-// Hero (scrub parallax, press-reveal INSIDE the bordered frame) →
-// AudioStory (two-state player + synced transcript) → HistoricalContext →
-// MoralMessage (full-bleed) → WhereToNext (embedded cinematic map) → Footer.
+/**
+ * THE CHAPTER TEMPLATE — the flagship.
+ *
+ * Structure (docs/PLAN.md §8):
+ *   Hero — the finished ANIMATED PAINTING, poster-first, in the signature frame
+ *   (01…) The story — scene quote alone in a void → narration object → cream transcript
+ *   (0N)  From the sketch — the press-and-hold, relocated here as the process beat
+ *          followed by the full-bleed painting interlude
+ *   (0N)  Historical context — label-left / prose-right, hanging numerals
+ *   (0N)  The moral — full-bleed, one artifact
+ *   (0N)  Onward — framed map, destination lockup, ONE button pair
+ *   Footer band
+ *
+ * What changed from v3 and why:
+ *  · The hero was the black-and-white SKETCH. It is now the animated painting;
+ *    the sketch interaction moved to its own section (W7).
+ *  · The hero ran 1344px against a 1280px shell — a visible registration error.
+ *    Everything now sits in `.shell` (W5).
+ *  · Four different section gaps became one token; "Section N/4" became a
+ *    numbered editorial spine carried in each section's left rail (W4).
+ *  · The historical <video> carried TWO class attributes, so the second silently
+ *    dropped `lazy-video` and that video never hydrated. Fixed below.
+ *  · Every displayed name now derives from `name.{canonical,display,short}` (W6).
+ */
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
 import PressReveal from "../components/PressReveal";
 import AudioStory from "../components/AudioStory";
 import EmbedMap from "../components/EmbedMap";
+import Icon from "../components/Icon.astro";
+import Button from "../components/Button.astro";
 import { withBase } from "../lib/url";
 
 export async function getStaticPaths() {
   const chapters = await getCollection("chapters");
-  return chapters.map((entry) => ({
-    params: { chapter: entry.id },
-    props: { entry },
-  }));
+  return chapters.map((entry) => ({ params: { chapter: entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
@@ -25,6 +44,7 @@ const slug = entry.id;
 
 const all = await getCollection("chapters");
 const nextEntry = all.find((e) => e.id === c.next.slug);
+const nextName = nextEntry?.data.name;
 
 // Per-chapter embedded map cameras (legacy MAP_CONFIG.locationPage)
 const cameras: Record<number, { pitch: number; bearing: number; zoom: number }> = {
@@ -38,320 +58,380 @@ const camera = cameras[c.order] ?? { pitch: 33, bearing: 10, zoom: 15.25 };
 
 const hasHistoricalVideo = c.media.videos.includes("historical");
 const moral = c.morals[0];
-const whereTitle = "Where to next?";
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * The editorial spine, built from the data so the numbering can never drift
+ * from what actually renders (chapter 2 has two scenes and therefore two
+ * listening sections).
+ */
+type Sec = { key: string; rail: string; sceneIndex?: number };
+const sections: Sec[] = [];
+c.scenes.forEach((_, i) => {
+  sections.push({
+    key: `scene-${i}`,
+    rail: c.scenes.length > 1 ? `Listen · Pt ${i + 1}` : "Listen",
+    sceneIndex: i,
+  });
+});
+sections.push({ key: "sketch", rail: "The sketch" });
+sections.push({ key: "history", rail: "History" });
+if (moral) sections.push({ key: "moral", rail: "The moral" });
+sections.push({ key: "onward", rail: "Onward" });
+const num = (key: string) => pad2(sections.findIndex((s) => s.key === key) + 1);
+
+/** Longest authored line in a display string — drives the fit-clamp. */
+const longestLine = (t: string) => Math.max(...t.split("\n").map((l) => l.trim().length));
+
+const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "reveal-horizontal"}-poster.jpg`);
 ---
 
 <Base
-  title={`${c.cardTitle} — Charles Nalle Walking Memorial`}
-  description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.cardTitle}, Troy, NY, April 27, 1860.`}
+  title={`${c.name.canonical} — Charles Nalle Walking Memorial`}
+  description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
   menuPosition="bottom-right"
-  preloadImage={c.scenes[0].reveal ? withBase(`media/${slug}/${c.scenes[0].reveal.sketch}-800.webp`) : undefined}
+  preloadImage={heroPoster}
 >
-  {/* ——— Hero (signature #3): press-reveal lives inside the bordered frame ——— */}
-  <div class="relative mx-auto mt-6 px-0 md:px-10 lg:mt-12 lg:px-12">
-    <header id="hero" class="relative flex h-screen flex-col overflow-hidden">
-      <div id="hero-header" class="relative z-20 flex-none space-y-6 px-8 py-6">
-        {/* Orientation for the QR sidewalk arrival: who we are, where you stand */}
-        <p class="type-muted">
-          Charles Nalle Walking Memorial · Troy, NY · Stop {c.order} of 5
-        </p>
-        <div class="flex flex-row items-center justify-between">
-          <p class="type-label">Chapter</p>
-          <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 md:h-5 md:w-5 lg:h-6 lg:w-6">
-            <p
-              class="mt-0.5 text-[0.625rem] font-medium text-primary-12 md:text-[0.78125rem] lg:text-[0.9375rem]"
-              style="font-family: var(--font-poppins)"
-            >
-              {c.order}
-            </p>
+  {/* ══════ HERO — the finished animated painting ══════ */}
+  <header id="hero" class="shell flex min-h-dvh flex-col pt-20 pb-6 md:pt-24">
+    <div id="hero-lockup" class="flex-none">
+      <p class="t-meta">
+        Stop {pad2(c.order)} of 5 · Troy, NY · April 27, 1860
+      </p>
+      <p class="t-spine mt-[max(4vh,32px)]">(CH. {pad2(c.order)})</p>
+      <h1
+        class="t-display lines mt-4 whitespace-pre-line"
+        style={`--fit-chars: ${longestLine(c.name.display)}`}
+      >
+        {c.name.display}
+      </h1>
+      <div class="rule-top mt-8"></div>
+    </div>
+
+    <div id="hero-media" class="artifact-lg relative mt-8 min-h-0 flex-1 bg-neutral-2">
+      {/* Poster-first: the still painting is the LCP; the film attaches after
+          window load, and never at all under reduced motion. */}
+      <video
+        class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+        data-src={withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "reveal-horizontal"}.mp4`)}
+        data-reduce-static
+        poster={heroPoster}
+        preload="none"
+        loop
+        muted
+        playsinline
+        aria-label={`“${c.name.canonical}” — painting by Mark Priest`}></video>
+      <video
+        class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+        data-src={withBase(`media/${slug}/${c.scenes[0].reveal?.videoVertical ?? "reveal-vertical"}.mp4`)}
+        data-reduce-static
+        poster={withBase(`media/${slug}/${c.scenes[0].reveal?.videoVertical ?? "reveal-vertical"}-poster.jpg`)}
+        preload="none"
+        loop
+        muted
+        playsinline
+        aria-label={`“${c.name.canonical}” — painting by Mark Priest`}></video>
+    </div>
+  </header>
+
+  {/* ══════ THE STORY — one section per scene ══════ */}
+  {
+    c.scenes.map((scene, i) => (
+      <section class="shell sec" id={`scene-${i}`} aria-label={scene.label}>
+        <div class="editorial">
+          <div class="rule-top pt-5">
+            <p class="t-spine">({num(`scene-${i}`)})</p>
+            <p class="t-meta mt-3">{sections.find((s) => s.key === `scene-${i}`)?.rail}</p>
           </div>
-        </div>
-        <div class="-ml-1 flex items-start justify-between gap-4">
-          <h1 class="type-display type-display-caps whitespace-pre-line">{c.title}</h1>
-          <div class="mr-1 flex flex-col items-end self-stretch" aria-hidden="true">
-            <div class="inline-flex h-full min-h-0 flex-col items-center text-primary-12" style="opacity:.87">
-              <svg width="2" class="block min-h-0 flex-1" viewBox="0 0 2 1" preserveAspectRatio="none" fill="none">
-                <path d="M0.4 0H1.6V1H0.4V0Z" fill="currentColor"></path>
-              </svg>
-              <svg width="13" height="9" class="block shrink-0" viewBox="0 87 13 9" fill="none">
-                <path
-                  d="M0.769365 87.191C0.570806 87.4017 0.549833 87.6395 0.706451 87.9045L5.51518 95.4491C5.75034 95.8164 6.07861 96 6.49998 96C6.92134 96 7.24961 95.8164 7.48478 95.4491L12.2935 87.9045C12.4501 87.6395 12.4291 87.4017 12.2306 87.191C12.032 86.9803 11.7909 86.9439 11.5073 87.0819L7.2273 89.4624L5.77265 89.4624L1.49269 87.0819C1.20903 86.9439 0.967926 86.9803 0.769365 87.191Z"
-                  fill="currentColor"></path>
-              </svg>
+
+          <div>
+            <h2 class="t-title reveal">{scene.label}</h2>
+
+            {scene.quote && (
+              <figure class="reveal-quote beat">
+                <blockquote class="t-quote is-hung">“{scene.quote.text}”</blockquote>
+                <figcaption class="t-meta mt-6">— {scene.quote.attribution}</figcaption>
+              </figure>
+            )}
+
+            <div class="beat">
+              <AudioStory
+                client:visible
+                slug={slug}
+                audioSrc={withBase(scene.audio.file)}
+                label={scene.audio.label}
+                subtitle={c.name.canonical}
+                duration={scene.audio.duration}
+                timings={scene.audio.timings}
+                paragraphs={scene.paragraphs}
+              />
             </div>
           </div>
         </div>
-      </div>
+      </section>
+    ))
+  }
 
-      <div
-        id="hero-media"
-        class="frame relative mt-0 max-h-screen w-full flex-1 overflow-hidden bg-neutral-1 md:mt-6 lg:mt-12"
-      >
-        {
-          c.scenes[0].reveal && (
+  {/* ══════ FROM THE SKETCH — the artist's-process beat ══════ */}
+  {
+    c.scenes[0].reveal && (
+      <section class="shell sec" id="sketch" aria-labelledby="sketch-heading">
+        <div class="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+          <div class="rule-top pt-5">
+            <p class="t-spine">({num("sketch")})</p>
+            <p class="t-meta mt-3">The sketch</p>
+            <h2 id="sketch-heading" class="t-title reveal mt-8">
+              From the
+              <br />
+              sketch
+            </h2>
+            <p class="t-prose reveal mt-8">
+              Every painting in this memorial began as a pencil study. Mark Priest
+              worked the crowd out in graphite first — the gestures, the weight of
+              a body pulling against a grip — before any colour was mixed.
+            </p>
+            <p class="t-prose reveal mt-6">
+              Press and hold the study to let the finished painting develop under
+              your hand.
+            </p>
+          </div>
+
+          <div class="reveal artifact self-start">
             <PressReveal
-              client:load
-              fill
+              client:visible
               slug={slug}
               sketch={c.scenes[0].reveal.sketch}
               video={c.scenes[0].reveal.video}
               videoVertical={c.scenes[0].reveal.videoVertical}
               painting={c.scenes[0].reveal.painting}
-              alt={`“${c.cardTitle}” — painting by Mark Priest`}
+              alt={`“${c.name.canonical}” — painting by Mark Priest`}
             />
-          )
-        }
-      </div>
-      <div
-        class="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-1/3"
-        style="background: var(--scrim-hero-fade)"
-      >
-      </div>
-    </header>
-  </div>
-
-  {/* ——— Section 1: audio + narrative (per scene) ——— */}
-  {
-    c.scenes.map((scene, i) => (
-      <section class="mx-auto mt-16 max-w-7xl px-4 md:px-6" aria-label={scene.label}>
-        {c.scenes.length > 1 && (
-          <h2 class="type-display type-display-caps reveal mb-8 whitespace-pre-line">{scene.label}</h2>
-        )}
-        {scene.quote && (
-          <figure class="reveal-quote mx-auto mb-10 max-w-2xl text-center">
-            <blockquote class="type-card-title" style="font-size:1.35em; line-height:1.35">
-              “{scene.quote.text}”
-            </blockquote>
-            <figcaption class="type-label mt-3">— {scene.quote.attribution}</figcaption>
-          </figure>
-        )}
-        <AudioStory
-          client:visible
-          slug={slug}
-          audioSrc={withBase(scene.audio.file)}
-          label={scene.audio.label}
-          subtitle={scene.audio.subtitle}
-          duration={scene.audio.duration}
-          timings={scene.audio.timings}
-          paragraphs={scene.paragraphs}
-          cover={scene.reveal?.painting ?? "horizontal"}
-          sectionLabel={i === 0 ? "Section 1/4" : undefined}
-        />
-      </section>
-    ))
-  }
-
-
-  {/* ——— The painting narrates (C10): full-bleed interlude ——— */}
-  <section
-    class="painting-interlude relative mt-16 overflow-hidden"
-    aria-label={`Painting — ${c.cardTitle}, by Mark Priest`}
-  >
-    <img
-      class="interlude-img h-[55vh] w-full object-cover md:h-[70vh]"
-      src={withBase(`media/${slug}/horizontal-1440.jpg`)}
-      srcset={`${withBase(`media/${slug}/horizontal-800.webp`)} 800w, ${withBase(`media/${slug}/horizontal-1440.webp`)} 1440w`}
-      sizes="100vw"
-      alt={`“${c.cardTitle}” — painting by Mark Priest`}
-      loading="lazy"
-    />
-    <div
-      class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 22%, transparent 78%, var(--color-primary-2))"
-    >
-    </div>
-    <p
-      class="type-label absolute right-4 bottom-4 rounded-full px-4 py-2"
-      style="background: color-mix(in srgb, var(--color-primary-2) 75%, transparent)"
-    >
-      Mark Priest · Nalle Series
-    </p>
-  </section>
-
-  {/* ——— Section 2: historical context ——— */}
-  <section class="mx-auto mt-8 mb-8 max-w-7xl md:mb-12" aria-labelledby="history-heading">
-    <div class="flex flex-col gap-y-8 px-4 pt-8 md:gap-y-12 md:py-4 lg:py-8">
-      <div class="flex flex-col gap-y-2">
-        <h2 id="history-heading" class="type-display type-display-caps reveal">
-          Historical <br /> Context
-        </h2>
-        <p class="type-progress reveal ml-1 py-4 text-neutral-12">Section 2/4</p>
-      </div>
-      <div class="reveal">
-        {
-          hasHistoricalVideo ? (
-            <video
-              class="lazy-video"
-              data-src={withBase(`media/${slug}/historical.mp4`)}
-              data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
-              preload="none"
-              autoplay
-              loop
-              muted
-              playsinline
-              class="mx-auto max-h-[363px] w-auto max-w-full rounded-2xl border-2 border-primary-6 object-cover"
-            />
-          ) : (
-            <Picture
-              slug={slug}
-              imageKey="historical"
-              alt={`Historical photograph — ${c.cardTitle}`}
-              class="mx-auto max-h-[363px] w-auto max-w-full rounded-2xl border-2 border-primary-6 object-cover"
-            />
-          )
-        }
-      </div>
-      <div class="flex flex-col gap-y-4 md:flex-row md:gap-x-4 md:gap-y-0 lg:gap-x-12">
-        {
-          c.historicalContext.map((point, index) => (
-            <div class="reveal flex flex-1 flex-row items-start">
-              <div class="items-top flex flex-row space-x-2">
-                <div class="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary-10 md:h-5 md:w-5 lg:h-6 lg:w-6">
-                  <p
-                    class="mt-0.5 text-center text-[0.625rem] font-medium text-primary-12 md:text-[0.78125rem] lg:text-[0.9375rem]"
-                    style="font-family: var(--font-poppins)"
-                  >
-                    {index + 1}
-                  </p>
-                </div>
-                <p class="type-body">{point}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-      {
-        c.portal.history.length > 0 && (
-          <div class="flex flex-col gap-x-8 gap-y-8 md:grid md:grid-cols-2 lg:gap-y-12">
-            {c.portal.history.map((p) => (
-              <p class="type-body reveal">{p}</p>
-            ))}
-          </div>
-        )
-      }
-    </div>
-  </section>
-
-  {/* ——— Section 3: the moral (full-bleed) ——— */}
-  {
-    moral && (
-      <section class="relative" aria-labelledby="moral-heading">
-        <div class="absolute inset-0 h-full" aria-hidden="true">
-          <div class="h-full py-0.5">
-            <img
-              src={withBase(`media/${slug}/moral-1440.jpg`)}
-              alt=""
-              class="h-full w-full object-cover"
-              style="object-position: center 25%"
-              loading="lazy"
-            />
-          </div>
-          <div class="absolute inset-0" style="background: var(--scrim-moral)" />
-        </div>
-        <div class="relative z-10 mx-auto flex max-w-7xl flex-col gap-y-8 px-8 pt-8 pb-16 md:gap-y-12 md:py-8 lg:py-12">
-          <h2 id="moral-heading" class="type-display type-display-caps reveal mt-8 whitespace-pre-line md:mt-4 lg:mt-8">
-            {moral.title}
-          </h2>
-          <div class="reveal flex w-full justify-end">
-            <img
-              class="mr-5 h-[250px] w-[250px] rounded-3xl border border-primary-6 object-cover md:h-[281px] md:w-[281px] lg:h-[375px] lg:w-[375px]"
-              style="object-position: center 22%"
-              src={withBase(`media/${slug}/moral-800.webp`)}
-              loading="lazy"
-              alt={`“${c.cardTitle}” — moral image, painting by Mark Priest`}
-            />
-          </div>
-          <p class="type-progress reveal text-neutral-12">Section 3/4</p>
-          <p class="type-body reveal max-w-2xl">{moral.message}</p>
-          <div class="reveal">
-            <h3 class="type-card-title uppercase">{moral.callToAction.title}</h3>
-            <p class="type-body mt-3 max-w-2xl">{moral.callToAction.content}</p>
           </div>
         </div>
       </section>
     )
   }
 
-  {/* ——— Section 4: where to next ——— */}
-  <section class="mx-auto max-w-7xl" aria-label="Continue the walk">
-    <div class="mt-8 flex flex-col gap-y-8 px-4 pt-4 md:mt-0 md:gap-y-12 md:py-4 lg:py-8">
-      <div class="flex flex-col gap-y-2">
-        <h2 class="type-display type-display-caps reveal">
-          {whereTitle.split(" ")[0]}
-          <br />
-          {whereTitle.split(" ").slice(1).join(" ")}
-        </h2>
-        <p class="type-progress reveal ml-2 py-4 text-neutral-12">Section 4/4</p>
+  {/* ══════ The painting narrates — full-bleed interlude, zero chrome ══════ */}
+  <section
+    class="painting-interlude sec relative overflow-hidden"
+    aria-label={`Painting — ${c.name.canonical}, by Mark Priest`}
+  >
+    <img
+      class="interlude-img h-[58vh] w-full object-cover md:h-[78vh]"
+      src={withBase(`media/${slug}/horizontal-1440.jpg`)}
+      srcset={`${withBase(`media/${slug}/horizontal-800.webp`)} 800w, ${withBase(`media/${slug}/horizontal-1440.webp`)} 1440w`}
+      sizes="100vw"
+      alt={`“${c.name.canonical}” — painting by Mark Priest`}
+      loading="lazy"
+    />
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 20%, transparent 80%, var(--color-primary-2))"
+    >
+    </div>
+    <p class="t-meta absolute right-[var(--gutter)] bottom-8">Mark Priest · Nalle Series</p>
+  </section>
+
+  {/* ══════ HISTORICAL CONTEXT ══════ */}
+  <section class="shell sec" id="history" aria-labelledby="history-heading">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">({num("history")})</p>
+        <p class="t-meta mt-3">History</p>
       </div>
 
-      {
-        nextEntry && (
-          <div class="reveal embed-map-shell frame overflow-hidden">
-            <EmbedMap
-              client:visible
-              coordinates={nextEntry.data.map.coordinates as [number, number]}
-              label={nextEntry.data.map.label}
-              order={nextEntry.data.order}
-              pitch={camera.pitch}
-              bearing={camera.bearing}
-              zoom={camera.zoom}
-            />
-          </div>
-        )
-      }
+      <div>
+        <h2 id="history-heading" class="t-title reveal">Historical<br />context</h2>
 
-      <div class="reveal flex flex-col items-center gap-4">
-        <p class="type-label">{c.next.label}</p>
-        <div class="flex flex-row flex-wrap items-center justify-center gap-4">
-          <a
-            href={withBase(c.next.slug)}
-            data-curtain-label={nextEntry?.data.map.label}
-            data-curtain-date
-            class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-6 bg-primary-4 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:bg-primary-3 active:shadow-none md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
-            style="font-family: var(--font-poppins)"
-          >
-            Continue the walk
-          </a>
+        <div class="reveal artifact mt-12">
           {
-            nextEntry && (
-              <a
-                href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
-                target="_blank"
-                rel="noopener"
-                class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-8 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:shadow-none md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
-                style="font-family: var(--font-poppins)"
-              >
-                Get Directions
-              </a>
+            hasHistoricalVideo ? (
+              <video
+                class="lazy-video h-auto w-full"
+                data-src={withBase(`media/${slug}/historical.mp4`)}
+                poster={withBase(`media/${slug}/historical-poster.jpg`)}
+                preload="none"
+                loop
+                muted
+                playsinline
+                aria-label={`Archival film — ${c.name.canonical}`}
+              />
+            ) : (
+              <Picture
+                slug={slug}
+                imageKey="historical"
+                alt={`Historical photograph — ${c.name.canonical}`}
+                class="h-auto w-full"
+              />
             )
           }
         </div>
+
+        {/* Facts on a fixed numeral column — the orange chips are gone. */}
+        <dl class="reveal mt-16 space-y-8">
+          {
+            c.historicalContext.map((point, index) => (
+              <div class="grid grid-cols-[3.5rem_1fr] items-baseline">
+                <dt class="t-meta">({index + 1})</dt>
+                <dd class="t-prose">{point}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        {
+          c.portal.history.length > 0 && (
+            <div class="reveal mt-16 space-y-6">
+              {c.portal.history.map((p) => (
+                <p class="t-prose">{p}</p>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
-
-    {/* ——— Footer ——— */}
-    <footer class="mt-1 mb-8 px-4 md:mx-10 md:mb-16 lg:mx-30 lg:mt-16">
-      <div class="mb-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <a href={withBase("people")} data-curtain-label="The People" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">The People of this day →</a>
-        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">The Paintings →</a>
-        <a href={withBase("about")} data-curtain-label="About" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">About the memorial →</a>
-      </div>
-      <div class="flex w-full items-center justify-between border-t border-primary-6 pt-8">
-        <p class="type-card-title">Share</p>
-        <button
-          type="button"
-          id="share-btn"
-          class="cursor-pointer rounded-full border border-primary-8 px-5 py-2.5 text-sm font-medium text-primary-11 transition-all duration-300 hover:text-primary-12"
-          style="font-family: var(--font-poppins)"
-        >
-          Share this chapter
-        </button>
-        <p class="type-muted">
-          Made by <a href="https://makeitnotable.com" class="underline transition-opacity hover:opacity-70" data-no-curtain>Notable</a>
-        </p>
-      </div>
-    </footer>
   </section>
+
+  {/* ══════ THE MORAL — full-bleed, one artifact ══════ */}
+  {
+    moral && (
+      <section class="void relative" id="moral" aria-labelledby="moral-heading">
+        <div class="absolute inset-0" aria-hidden="true">
+          <img
+            src={withBase(`media/${slug}/moral-1440.jpg`)}
+            alt=""
+            class="h-full w-full object-cover"
+            style="object-position: center 25%"
+            loading="lazy"
+          />
+          <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.72) 30%, rgba(29,20,17,.72) 70%, #1d1411)" />
+        </div>
+
+        <div class="shell relative z-10 py-32 md:py-40">
+          <div class="editorial">
+            <div class="rule-top pt-5">
+              <p class="t-spine">({num("moral")})</p>
+              <p class="t-meta mt-3">The moral</p>
+            </div>
+            <div>
+              <h2
+                id="moral-heading"
+                class="t-display lines reveal whitespace-pre-line"
+                style={`--fit-chars: ${longestLine(moral.title)}`}
+              >
+                {moral.title}
+              </h2>
+              <p class="t-prose reveal mt-12">{moral.message}</p>
+
+              <div class="reveal mt-16 flex flex-col gap-10 md:flex-row md:items-start md:gap-12">
+                <img
+                  class="artifact h-[220px] w-[220px] flex-none object-cover lg:h-[300px] lg:w-[300px]"
+                  style="object-position: center 22%"
+                  src={withBase(`media/${slug}/moral-800.webp`)}
+                  loading="lazy"
+                  alt={`“${c.name.canonical}” — painting by Mark Priest`}
+                />
+                <div>
+                  <p class="t-meta">{moral.callToAction.title}</p>
+                  <p class="t-prose mt-4">{moral.callToAction.content}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {/* ══════ ONWARD ══════ */}
+  <section class="shell sec" id="onward" aria-label="Continue the walk">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">({num("onward")})</p>
+        <p class="t-meta mt-3">Onward</p>
+      </div>
+
+      <div>
+        <h2 class="t-title reveal">Where<br />to next</h2>
+
+        {
+          nextEntry && (
+            <div class="reveal embed-map-shell artifact mt-12">
+              <EmbedMap
+                client:visible
+                coordinates={nextEntry.data.map.coordinates as [number, number]}
+                label={nextEntry.data.name.short}
+                order={nextEntry.data.order}
+                pitch={camera.pitch}
+                bearing={camera.bearing}
+                zoom={camera.zoom}
+              />
+            </div>
+          )
+        }
+
+        {/* GA&C banner discipline: four elements, nothing else. */}
+        <div class="reveal mt-12">
+          <p class="t-meta">Next — Stop {pad2(nextEntry?.data.order ?? 1)}</p>
+          <p class="t-title mt-4" style="--fs-title: 32px">{nextName?.canonical}</p>
+          <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
+          <div class="mt-10 flex flex-wrap items-center gap-4">
+            <Button
+              variant="solid"
+              icon="arrow"
+              href={withBase(c.next.slug)}
+              data-curtain-label={nextName?.short}
+              data-curtain-date
+            >
+              Continue the walk
+            </Button>
+            {
+              nextEntry && (
+                <Button
+                  variant="ghost"
+                  icon="pin"
+                  iconLeading
+                  external
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
+                >
+                  Get directions
+                </Button>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ══════ FOOTER BAND — identical site-wide ══════ */}
+  <footer class="sec">
+    <div class="rule-bleed"></div>
+    <div
+      class="shell flex flex-col gap-8 py-10 pb-28 md:flex-row md:items-center md:justify-between md:gap-10 md:pr-28 md:pb-10"
+    >
+      <p class="t-meta-body">
+        Charles Nalle Walking Memorial · Made by <a
+          href="https://makeitnotable.com"
+          class="underline transition-opacity hover:opacity-70"
+          data-no-curtain>Notable</a
+        >
+      </p>
+      <nav class="flex flex-wrap items-center gap-x-8 gap-y-2" aria-label="Elsewhere on the memorial">
+        <a href={withBase("people")} data-curtain-label="The People" class="link-meta t-meta"
+          >The people of this day <Icon name="arrow" size="sm" /></a
+        >
+        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="link-meta t-meta"
+          >The paintings <Icon name="arrow" size="sm" /></a
+        >
+        <a href={withBase("about")} data-curtain-label="About" class="link-meta t-meta"
+          >About the memorial <Icon name="arrow" size="sm" /></a
+        >
+      </nav>
+      <Button size="sm" variant="ghost" icon="share" iconLeading id="share-btn">Share</Button>
+    </div>
+  </footer>
 
   <script>
     import gsap from "gsap";
@@ -359,13 +439,15 @@ const whereTitle = "Where to next?";
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Hero scrub parallax (signature #3): media grows to full bleed and
-    // un-rounds; the header rises away. Verbatim legacy values.
     if (!reduced) {
       gsap.registerPlugin(ScrollTrigger);
+
+      // Hero: the framed painting grows toward full bleed and un-rounds as the
+      // lockup rises away. Scale is capped at 1.15 — v3 ran 1.4 and pushed the
+      // frame past the shell.
       const media = document.getElementById("hero-media");
-      const header = document.getElementById("hero-header");
-      if (media && header) {
+      const lockup = document.getElementById("hero-lockup");
+      if (media && lockup) {
         gsap
           .timeline({
             scrollTrigger: {
@@ -376,21 +458,19 @@ const whereTitle = "Where to next?";
               invalidateOnRefresh: false,
             },
           })
-          .to(media, { scale: 1.4, borderRadius: 0, marginTop: 0 }, 0)
-          .to(header, { y: -200 }, 0);
+          .to(media, { scale: 1.15, borderRadius: 0 }, 0)
+          .to(lockup, { y: -160, opacity: 0.25 }, 0);
       }
-    }
 
-    // The painting interlude breathes as you pass it (C10) — Ken Burns scrub
-    if (!reduced) {
+      // The painting interlude breathes as you pass it — Ken Burns scrub.
       const img = document.querySelector(".interlude-img");
       if (img) {
         gsap.fromTo(
           img,
-          { scale: 1.12, yPercent: -4 },
+          { scale: 1.1, yPercent: -3 },
           {
             scale: 1,
-            yPercent: 4,
+            yPercent: 3,
             ease: "none",
             scrollTrigger: {
               trigger: ".painting-interlude",
@@ -403,7 +483,7 @@ const whereTitle = "Where to next?";
       }
     }
 
-    // Scroll-reveal suite (house vocabulary; CSS owns the motion)
+    // Scroll-reveal suite (house vocabulary; CSS owns the motion).
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -415,9 +495,9 @@ const whereTitle = "Where to next?";
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
-    document.querySelectorAll(".reveal, .reveal-quote").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-quote, .lines").forEach((el) => io.observe(el));
 
-    // Share: native share sheet, clipboard fallback
+    // Share: native share sheet, clipboard fallback.
     document.getElementById("share-btn")?.addEventListener("click", async () => {
       const data = { title: document.title, url: location.href };
       try {
@@ -425,7 +505,7 @@ const whereTitle = "Where to next?";
         else {
           await navigator.clipboard.writeText(location.href);
           const b = document.getElementById("share-btn");
-          if (b) b.textContent = "Link copied";
+          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link copied";
         }
       } catch {
         /* user dismissed */
