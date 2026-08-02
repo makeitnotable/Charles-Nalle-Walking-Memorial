@@ -186,7 +186,7 @@ export default function PressReveal({
           opacity: sketchOpacity,
           filter: `contrast(${1 + progress * 0.15})`,
           transform: `scale(${1 + progress * 0.015})`,
-          transition: locked ? "opacity 600ms var(--ease)" : undefined,
+          transition: locked ? "opacity var(--dur-slow) var(--ease)" : undefined,
         }}
         draggable={false}
       />
@@ -196,7 +196,7 @@ export default function PressReveal({
         className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center px-4 pb-20 sm:pb-8"
         style={{
           opacity: locked ? 0 : 1,
-          transition: "opacity 500ms var(--ease)",
+          transition: "opacity var(--dur-fast) var(--ease)",
         }}
       >
         <span
@@ -217,7 +217,7 @@ export default function PressReveal({
           transform: `scaleX(${revealOpacity})`,
           background: "var(--color-primary-9)",
           opacity: locked ? 0 : 1,
-          transition: locked ? "opacity 700ms var(--ease)" : undefined,
+          transition: locked ? "opacity var(--dur-slow) var(--ease)" : undefined,
         }}
       />
     </div>

@@ -109,7 +109,7 @@ function markerHtml(stop: Stop, active: boolean): string {
     </div>`;
   const above = stop.pinPosition === "above";
   return `
-    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:scale(${s.scale});transition:transform 300ms ease-in-out">
+    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:scale(${s.scale});transition:transform var(--dur-fast) var(--ease)">
       ${above ? stemUp + pill : pill + stem}
     </div>`;
 }
