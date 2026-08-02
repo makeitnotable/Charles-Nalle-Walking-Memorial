@@ -98,7 +98,9 @@ function markerHtml(stop: Stop, active: boolean): string {
    * Below 640px every marker is a numbered chip, which cannot be clipped and
    * cannot collide. The names live where there is room for them: the arrival
    * plate when a stop is chosen, and the typographic index below the map. */
-  const narrow = typeof window !== "undefined" && window.innerWidth < 640;
+  const narrow =
+    typeof window !== "undefined" &&
+    (window.innerWidth < 640 || window.innerHeight < 560);
   if (narrow) {
     return `
     <div style="position:relative;width:0;height:0;cursor:pointer">
@@ -220,9 +222,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        to ~210px and hangs off its coordinate on a leader line, so 48px of side
        padding let three of five labels fall off the screen at 390. */
     const w = window.innerWidth;
-    const side = w < 640 ? 56 : w < 1024 ? 120 : 190;
+    const h = window.innerHeight;
+    const short = h < 560;
+    const side = w < 640 ? 56 : short ? 80 : w < 1024 ? 120 : 190;
     const cam = map.cameraForBounds(b, {
-      padding: { top: 132, bottom: 200, left: side, right: side },
+      padding: short
+        ? { top: 56, bottom: 84, left: side, right: side }
+        : { top: 132, bottom: 200, left: side, right: side },
       bearing: OVERVIEW.bearing,
     });
     return cam

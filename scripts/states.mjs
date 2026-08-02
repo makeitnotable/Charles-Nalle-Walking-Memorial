@@ -113,9 +113,21 @@ const COLLIDE = () => {
       };
     });
 
+  /* A modal over page content is not a collision — it is the point of a modal.
+     When the menu scrim is up, the panel is a layer above a dimmed page, so
+     pairs involving the panel are excluded. Everything else still counts, and
+     the invariant that the scrim MUST be present whenever the panel is open is
+     asserted separately below. */
+  const scrimUp = Boolean(
+    document.querySelector(".cnwm-menu-scrim:not([hidden])"),
+  );
+  const isPanelPart = (sel) => /cnwm-menu/.test(sel);
+
   const hits = [];
   for (let i = 0; i < items.length; i++)
     for (let j = i + 1; j < items.length; j++) {
+      if (scrimUp && (isPanelPart(items[i].sel) || isPanelPart(items[j].sel)))
+        continue;
       const a = items[i].rect;
       const b = items[j].rect;
       const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
@@ -137,7 +149,18 @@ const COLLIDE = () => {
           });
       }
     }
-  return { items, hits: hits.sort((x, y) => y.area - x.area) };
+  /* The invariant that replaces the excluded pairs: an open panel is ALWAYS
+     scrimmed. If this ever fails, the panel really is colliding again. */
+  const panelOpen = Boolean(
+    document.querySelector(".cnwm-menu-panel:not(.hidden)"),
+  );
+  const unscrimmedPanel = panelOpen && !scrimUp;
+
+  return {
+    items,
+    hits: hits.sort((x, y) => y.area - x.area),
+    unscrimmedPanel,
+  };
 };
 
 const browser = await chromium.launch();
@@ -147,10 +170,10 @@ const shot = async (page, name) => {
 };
 const record = async (page, name, note) => {
   await shot(page, name);
-  const { items, hits } = await page.evaluate(COLLIDE);
-  log.push({ state: name, note, floatCount: items.length, hits });
+  const { items, hits, unscrimmedPanel } = await page.evaluate(COLLIDE);
+  log.push({ state: name, note, floatCount: items.length, hits, unscrimmedPanel });
   console.log(
-    `  ${name} — ${items.length} floating, ${hits.length} collision${hits.length === 1 ? "" : "s"}${hits.length ? ": " + hits.slice(0, 3).map((h) => `${h.a}✕${h.b} ${h.overlap}`).join(" | ") : ""}`,
+    `  ${name} — ${items.length} floating, ${hits.length} collision${hits.length === 1 ? "" : "s"}${unscrimmedPanel ? " ⚠ UNSCRIMMED PANEL" : ""}${hits.length ? ": " + hits.slice(0, 3).map((h) => `${h.a}✕${h.b} ${h.overlap}`).join(" | ") : ""}`,
   );
 };
 
@@ -311,7 +334,7 @@ await browser.close();
 writeFileSync(join(outdir, "states.json"), JSON.stringify(log, null, 1));
 
 const L = [`# Interaction states — ${BASE}`, ""];
-const bad = log.filter((s) => s.hits && s.hits.length);
+const bad = log.filter((s) => (s.hits && s.hits.length) || s.unscrimmedPanel);
 L.push(`**${log.length} states captured · ${bad.length} with floating-UI collisions.**`, "");
 if (bad.length) {
   L.push(`| state | A | B | overlap | z |`, `|---|---|---|---|---|`);
