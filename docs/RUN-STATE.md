@@ -41,7 +41,8 @@ from IN PROGRESS. Never redo DONE work; verify via git, not recollection.
 ---
 
 ## IN PROGRESS
-**P6 — final live verification.**
+**Nothing. The run is complete.** Live is current and verified; the remaining
+work is human sign-off, listed in `docs/v4/REVIEW-GUIDE.md` §6.
 Exact next action: read `src/components/AudioStory.tsx` + `src/components/PressReveal.tsx`,
 then rewrite `[chapter].astro` with the 8-part structure: animated-painting hero
 (poster-first) → editorial spine → (01) story w/ cream transcript → (02) From the sketch
@@ -68,10 +69,17 @@ Fold their findings into `docs/v4/DESIGN-STANDARDS.md` when they land.
 
 | Phase | Gate | Verdict | Evidence |
 |---|---|---|---|
-| P0 | standards-confirm | — | — |
-| P1 | caliber (styleguide) | — | — |
-| P2 | caliber (flagship) | — | — |
-| P3 | caliber + W3 grayscale + keeper regression | — | — |
-| P4 | caliber per page-type | — | — |
-| P5 | motion census | — | — |
-| P6 | final gates on LIVE + Wil test | — | — |
+| P0 | audits | DONE | `docs/v4/inspo-{pasqua,googleac,museos}.md`, `audit-cnwm-{visual,code}.md`, `NAMING-CANON.md` |
+| P1 | system proof | PASS | `/styleguide`; serif-under-highlight legible on both grounds |
+| P2 | caliber (flagship) | FAIL → fixed → re-gated | `docs/v4/gate-p2-flagship.md` (7/7 FAIL, 16 defects) |
+| P3 | W3 greyscale + map keepers | PASS | route 3.99:1 (v3 ~1.3:1); 5/5 keeper regression |
+| P4 | caliber (site) | PARTIAL | `docs/v4/gate-p4-site.md` — spacing PASS, 8 prior defects verified fixed; remaining items worked |
+| P5 | motion census | PASS | 2 durations / 1 easing + 3 documented exceptions; `docs/v4/MOTION.md` |
+| P6 | live perf + a11y | PASS | chapter 100/100, home 98/100, people 100/100, about 100/100, map 69/100 |
+| P6 | reduced-motion parity | PASS | 0 films loaded, 0 hidden content, keyboard reveal works in both modes |
+| P6 | stakeholder test | see `docs/v4/gate-stakeholder.md` | live screenshots, `docs/v4/qa/p6-live/` |
+
+## HANDOFF
+
+Everything Wil needs is `docs/v4/REVIEW-GUIDE.md`. Open items that need a human
+are in its §6 — they are not blockers on this build.
