@@ -27,12 +27,12 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | C5 | Scene quote (v2 content) | googleac pull-quote-first spine | Quote as centered pull-quote above the player in ladder type | 2 | ☑ |
 | C6 | Full-bleed MoralMessage | (approved, kept) + house reveal suite | Scrim + moral painting bg; title/image/number/message rise on scroll (power2.out equivalents) | 2 | ☑ |
 | C7 | WhereToNext embedded map | marseille cinematic arrival | 5s easeTo arrival onto next stop's pin with per-chapter tilted camera, inside the approved 3:2 bordered card | 2 | ☑ |
-| C8 | Quote block (static) | legacy Ken Burns vocabulary | Subtle scale-scrub on quote while in view; reduced-motion static | 4 | ☐ |
-| C9 | Historical-context media | museos ambient always-moving paintings | historical.mp4 autoplay loops with posters where they exist (already wired); verify all five chapters | 4 | ☐ |
-| C10 | Narrative → historical seam (gap 1) | googleac story-scroll / zoom-crop essay + museos crop-collage | Full-bleed painting interlude band between narrative and historical context: chapter painting crop, slow Ken Burns scrub, credit chip "Mark Priest · Nalle Series"; the paintings narrate mid-chapter | 4 | ☐ |
-| C11 | Chapter exits (gap 4) | googleac related-ladder | Footer row above Share: "The People of this day · The Paintings · About" lateral links — chapters are never one-rung exits | 4 | ☐ |
+| C8 | Quote block (static) | legacy Ken Burns vocabulary | Subtle scale-scrub on quote while in view; reduced-motion static | 4 | ☑ |
+| C9 | Historical-context media | museos ambient always-moving paintings | historical.mp4 autoplay loops with posters where they exist (already wired); verify all five chapters | 4 | ☑ |
+| C10 | Narrative → historical seam (gap 1) | googleac story-scroll / zoom-crop essay + museos crop-collage | Full-bleed painting interlude band between narrative and historical context: chapter painting crop, slow Ken Burns scrub, credit chip "Mark Priest · Nalle Series"; the paintings narrate mid-chapter | 4 | ☑ |
+| C11 | Chapter exits (gap 4) | googleac related-ladder | Footer row above Share: "The People of this day · The Paintings · About" lateral links — chapters are never one-rung exits | 4 | ☑ |
 | C12 | QR mid-walk arrival (gap 9) | (site's most common real entry) | Landing on any chapter orients unaided: chapter badge N of 5 (hero), Section N/4 spine, audio ≤2 taps, WhereToNext names the next stop + directions. UX review walkthrough (b) verifies this explicitly | 2 | ☑ |
-| C13 | Chapter navigations (gap 3) | pasqua film over-titles | Curtain shows "April 27, 1860" as a sub-line under the destination name on chapter navigations — the date gets its moment on every transition | 4 | ☐ |
+| C13 | Chapter navigations (gap 3) | pasqua film over-titles | Curtain shows "April 27, 1860" as a sub-line under the destination name on chapter navigations — the date gets its moment on every transition | 4 | ☑ |
 
 ## Map (Phase 3 centerpiece)
 
@@ -63,7 +63,7 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | # | Baseline (a) | Technique (b) | CNWM expression (c) | Phase (d) | ✓ |
 |---|---|---|---|---|---|
 | G1 | v2 gallery + dialog | approved frame idiom | Re-skin: rounded-3xl primary-6 borders, ladder type, Martel captions with painting credits | 2 | ☐ |
-| G2 | Static gallery images | museos ambient painting motion | Animated mp4 loops (with posters) where they exist, in-place | 4 | ☐ |
+| G2 | Static gallery images | museos ambient painting motion | Animated mp4 loops (with posters) where they exist, in-place | 4 | ☑ |
 | G3 | Dialog per painting | googleac zoom-crop essay | Detail crops of the selected painting sequence inside the dialog (crop = camera move) | 4 (if time) | ☐ |
 
 ## About
@@ -80,10 +80,10 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | S1 | Every navigation | legacy curtain (approved) | Curtain on all internal nav, destination name as over-title | 2 | ☑ |
 | S2 | Curtain during slow loads | pasqua "the CTA is the loader" | The curtain hold IS the loading state — wordmark on neutral-2, no spinner anywhere, no gate | 2 | ☑ |
 | S3 | Corner-notched menu | (approved, kept) + multi-door IA | 72×72 notched hamburger; panel lists Home/1–5/Walk/People/Paintings/About; back.out pops | 2 | ☑ |
-| S4 | favicon/og/titles | award "craft in the seams" | CN wordmark favicon on primary-2; per-page titles in one voice; 404 in the language | 4 | ☐ |
+| S4 | favicon/og/titles | award "craft in the seams" | CN wordmark favicon on primary-2; per-page titles in one voice; 404 in the language | 4 | ☑ |
 | S5 | All motion | Guardrails (INSPIRATION.md) | No gates, no scroll-jack, no hover-only, no interrupting overlays, reduced-motion parity 100% — QA enforces | 2–5 | ☐ |
 | S6 | Narration audio | pasqua gesture-gated sound | All audio user-initiated (play button = the gesture); no ambient sound shipped | — (at bar) | ☑ |
-| S7 | Mobile art direction (gap 2) | pasqua "390 is a reframe" | Reveal videos ship authored vertical variants (PressReveal picks per orientation — exists ☑); Phase 4 pass: curated object-position on moral/historical/card crops at 390 | 4 | ☐ |
+| S7 | Mobile art direction (gap 2) | pasqua "390 is a reframe" | Reveal videos ship authored vertical variants (PressReveal picks per orientation — exists ☑); Phase 4 pass: curated object-position on moral/historical/card crops at 390 | 4 | ☑ |
 | S8 | Curtain resilience (guardrail F2) | anti-trap (rewild/pasqua brick this way) | Fail-open timers both halves: cover forces exit at 4s if navigation stalls; exit force-clears at 3s; CSS resting state is non-blocking | 2 | ☑ |
 | S9 | Every cinematic flight (guardrail F1) | anti-gate skippability | Map prologue + deep-link arrival: any touch cuts the flight; tour has a Stop button; embedded chapter maps are non-blocking cards the page scrolls past freely | 3 | ☑ |
 
