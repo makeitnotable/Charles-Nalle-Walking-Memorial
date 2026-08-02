@@ -9,6 +9,9 @@ env:
   # GH Pages project path for this repo; local dev and Vercel previews use "/"
   BASE: /Charles-Nalle-Walking-Memorial
   SITE: https://makeitnotable.github.io
+  # Publishable client-side token (pk.) — add as a repo Actions secret so CI
+  # builds carry it; the map degrades gracefully when absent. See playbook.
+  PUBLIC_MAPBOX_TOKEN: ${{ secrets.PUBLIC_MAPBOX_TOKEN }}
 
 permissions:
   contents: read

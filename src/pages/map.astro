@@ -1,47 +1,101 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import TroyMap from "../components/TroyMap";
 import { withBase } from "../lib/url";
 
 const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+const stops = chapters.map((entry) => ({
+  slug: entry.id,
+  order: entry.data.order,
+  label: entry.data.map.label,
+  cardTitle: entry.data.cardTitle,
+  address: entry.data.map.address,
+  coordinates: entry.data.map.coordinates,
+  accent: entry.data.palette.accent,
+  plaque: entry.data.plaque,
+}));
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Base
   title="The Walk — Charles Nalle Walking Memorial"
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
 >
-  {/* M3 replaces this with the Mapbox route-drawing experience (1860 overlay, flythrough) */}
-  <section class="mx-auto max-w-2xl px-6 pt-16">
-    <p class="text-sm uppercase tracking-[0.25em] opacity-70">The Walk</p>
-    <h1 class="font-display mt-4 text-4xl sm:text-5xl">Five stops through Troy</h1>
-    <p class="mt-5 max-w-prose leading-relaxed opacity-90">
+  <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
+
+  {/* Static route list — the no-JS state, and useful wayfinding for everyone */}
+  <section class="mx-auto max-w-2xl px-6 pt-16 pb-8" aria-label="The five stops">
+    <p class="label-caps">The Walk</p>
+    <h1 class="font-display mt-4 text-4xl sm:text-5xl">
+      Five stops through Troy
+    </h1>
+    <p class="prose-narrative mt-5 opacity-90">
       The rescue of Charles Nalle unfolded across a few blocks of downtown Troy
-      in a single day. Four stops carry bronze plaques; the Ferry Landing lives
-      here on the website. The interactive map — with the route drawing itself
-      across an 1860 map of Troy — arrives in milestone M3.
+      in a single day — April 27, 1860. Four stops carry bronze plaques; the
+      Ferry Landing is remembered here on the website.
     </p>
 
-    <ol class="mt-10 space-y-6">
+    <ol class="mt-10 space-y-8">
       {
         chapters.map((entry) => (
-          <li class="flex items-baseline gap-4">
-            <span class="font-display text-2xl opacity-60">{entry.data.order}</span>
-            <div>
-              <a href={withBase(entry.id)} class="font-display text-2xl hover:underline">
-                {entry.data.map.label}
-              </a>
-              <p class="opacity-70">{entry.data.map.address}</p>
-              {!entry.data.plaque && (
-                <p class="text-xs uppercase tracking-widest opacity-50">
-                  No plaque — website only
-                </p>
-              )}
-            </div>
+          <li>
+            <a
+              href={withBase(entry.id)}
+              class="group grid grid-cols-[4.5rem_1fr] items-center gap-5"
+            >
+              <span
+                class="display-hero text-5xl"
+                style={`color: ${entry.data.palette.accent}`}
+              >
+                {entry.data.order}
+              </span>
+              <span class="min-w-0">
+                <span class="font-display block text-2xl group-hover:underline">
+                  {entry.data.cardTitle}
+                </span>
+                <span class="mt-1 block text-sm opacity-70">
+                  {entry.data.map.address}
+                </span>
+                {!entry.data.plaque && (
+                  <span class="label-caps mt-1 block">
+                    No plaque — website only
+                  </span>
+                )}
+              </span>
+            </a>
           </li>
         ))
       }
     </ol>
   </section>
 </Base>
+
+<style is:global>
+  .troy-marker {
+    width: 34px;
+    height: 34px;
+    border-radius: 50% 50% 50% 4px;
+    border: 2px solid var(--marker-accent, #c2542b);
+    background: rgba(18, 14, 10, 0.88);
+    color: #f0e7d8;
+    font-family: var(--font-display);
+    font-size: 15px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transform: rotate(-45deg);
+    transition: transform 250ms var(--ease-settle);
+  }
+  .troy-marker span {
+    transform: rotate(45deg);
+  }
+  .troy-marker:hover,
+  .troy-marker:focus-visible {
+    transform: rotate(-45deg) scale(1.18);
+  }
+</style>
