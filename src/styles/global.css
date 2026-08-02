@@ -783,15 +783,24 @@ body {
 
 /* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
    and the geolocate button at 14px — two controls four pixels out of line with
-   each other and with everything else on the page. */
+   each other and with everything else on the page. The inset belongs to the
+   CORNER, not to each control: putting it on every control stacked 56px of
+   margin between them and walked the scale bar halfway up the left edge. */
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right {
+  padding: var(--ui-inset);
+}
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
-  margin: var(--ui-inset) !important;
+  margin: 0 0 8px !important;
 }
-.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl + .mapboxgl-ctrl {
-  margin-bottom: calc(var(--ui-inset) + 8px) !important;
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl:last-child,
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl:last-child {
+  margin-bottom: 0 !important;
 }
 /* Attribution stays — it is a licence condition — but it stops shouting. */
 .mapboxgl-ctrl-attrib {

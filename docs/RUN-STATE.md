@@ -51,13 +51,22 @@ Hero fold, before → after (media bottom vs viewport height):
 | before | fits | **−256** | **−87** | **−107** | **−100** |
 | after | fits | **fits** | **fits** | **fits** | **fits** |
 
+| F3 | Interlude draws the archival record (ch2: `horizontal-pt2`, its real second painting) — a contact sheet proved `vertical`/`square` are crops of the SAME canvas, so the plan's first idea would not have fixed it. Painting now appears exactly 2× (hero + press-reveal resolution). Moral thumbnail deleted. Map index → archival photo | probe repeats: `moral` 2× and `/map square` 2× both gone |
+| F3b | Found while measuring: the sketch section passed 3 children to a 2-column grid, so the **press-and-hold rendered 276px wide at 1440** | now full content column |
+| F6 | `portal.history` 4 paras → 2 in all five chapters, 4,064→1,531 chars. Every fact preserved; Kathy's "waiting skiff" wins over the older "helped onto a boat". Six identical "Make a Difference" CTA headings → six distinct. Per-chapter `sketchNote` replaces one byte-identical paragraph ×5 | logged line-by-line in `docs/CONTENT-STATUS.md` |
+| F4 | `--ui-inset` shared by all floating UI; **menu gets a scrim** (turns a collision into a layer) + max-height + wider column; marker labels → numbered chips below 640px; fitBounds pads for LABELS not dots; walk rail inert everywhere; footer padding follows the actual floating UI | `states-v5` sweep |
+| F5 | Chapter gaps composed (was `200,200,200,200,400,200,200`); home recomposed — one stack, legible photograph (0.5→0.72), copy leads with the date, CTA names destination + size; `/people` two-column open, borrowed Tubman quote returned to Ch2 | — |
+| F7 | Hero 1.15 scale + interlude Ken Burns cut (the latter is why a full-bleed block measured 1584px on a 1440 screen); home entrance 2.8s → ~1.0s; menu retreat threshold 4px→24px | — |
+| F8 | Mapbox chrome on `--ui-inset`, scale to the 12px floor; loading placeholder retired on hydrate; map CTA hierarchy; press-reveal hairline; footer link target | — |
+
 ## IN PROGRESS
-**F3 — duplicate imagery.** Next exact action: add an `interlude` asset per
-chapter in `[chapter].astro` (bakery→vertical, ch2→horizontal-pt2,
-mansion→square, ferry→narrative2, barbershop→narrative1) and delete the moral
-thumbnail at `[chapter].astro:362–368`, which renders the same image already
-serving as that section's full-bleed background. Then F4 (floating UI lanes),
-F5 (rhythm), F6 (content dedup), F7 (motion), F8 (sweep).
+**Stage 3 verification, then Stage 4.** Full clean sweep running against the
+rebuilt local preview → `docs/v5/qa/{states-v5,probe-v5,census-v5.md}`.
+Acceptance: 0 collisions in all 110 states · repeated-imagery table empty ·
+≤6 type sizes per page with the display at one size per breakpoint.
+Then: deploy, re-verify live, and run the Stage 4 adversarial juror gate
+(fresh subagent, no builder context, instructed to score LOW; needs two
+consecutive clean passes).
 
 ---
 

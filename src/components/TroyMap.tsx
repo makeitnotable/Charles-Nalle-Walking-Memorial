@@ -91,14 +91,15 @@ function markerHtml(stop: Stop, active: boolean): string {
   const z = pillSizes();
   const [dx, dy] = stop.pinOffset ?? [0, -46];
 
-  /* On a 390px screen a named pill is up to 210px wide, so five of them a few
-   * blocks apart cannot all stay inside the viewport: the audit found three of
-   * five labels clipped by the screen edges before anything was even opened.
-   * Below 640px only the active stop is named; the rest are numbered chips,
-   * which cannot be clipped and cannot collide — and the typographic index
-   * directly below the map carries all five names in full. */
+  /* On a 390px screen a named pill is up to 210px wide and hangs off its dot on
+   * a leader line, so five of them a few blocks apart cannot all stay inside the
+   * viewport — the audit found three of five clipped before anything was even
+   * opened, and naming only the ACTIVE one still ran stop 1 off the right edge.
+   * Below 640px every marker is a numbered chip, which cannot be clipped and
+   * cannot collide. The names live where there is room for them: the arrival
+   * plate when a stop is chosen, and the typographic index below the map. */
   const narrow = typeof window !== "undefined" && window.innerWidth < 640;
-  if (narrow && !active) {
+  if (narrow) {
     return `
     <div style="position:relative;width:0;height:0;cursor:pointer">
       <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
@@ -219,9 +220,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        to ~210px and hangs off its coordinate on a leader line, so 48px of side
        padding let three of five labels fall off the screen at 390. */
     const w = window.innerWidth;
-    const side = w < 640 ? 72 : w < 1024 ? 130 : 150;
+    const side = w < 640 ? 56 : w < 1024 ? 120 : 190;
     const cam = map.cameraForBounds(b, {
-      padding: { top: 132, bottom: 210, left: side, right: side },
+      padding: { top: 132, bottom: 200, left: side, right: side },
       bearing: OVERVIEW.bearing,
     });
     return cam
@@ -628,7 +629,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           className="t-meta rounded-full px-4 py-2"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
-          The Walk · Five stops · April 27, 1860
+          <span className="sm:hidden">Five stops · April 27, 1860</span>
+          <span className="hidden sm:inline">The Walk · Five stops · April 27, 1860</span>
         </p>
       </div>
 
