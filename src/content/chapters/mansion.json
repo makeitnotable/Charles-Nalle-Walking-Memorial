@@ -1,0 +1,81 @@
+{
+  "order": 3,
+  "chapterLabel": "Chapter 3",
+  "title": "URI GILBERT\nMANSION",
+  "cardTitle": "Uri Gilbert Mansion",
+  "plaque": true,
+  "map": {
+    "label": "Gilbert Mansion",
+    "coordinates": [-73.6932, 42.7295],
+    "address": "189 Second Street"
+  },
+  "palette": {
+    "surface": "#151a14",
+    "ink": "#eef0e4",
+    "accent": "#7d9153"
+  },
+  "emotions": ["Hopeful", "Peace", "Excitement"],
+  "portal": {
+    "hook": "People will ignore your efforts to steal your opportunities.",
+    "history": [
+      "The Uri Gilbert Mansion was built during the 19th century for Uri Gilbert, a successful businessman and railway car manufacturer in Troy, New York. Known for its Italianate design and opulence, the mansion became a symbol of Gilbert's wealth and prominence in the community. The mansion also holds historical importance as the residence where Charles Nalle, an escaped slave, worked, making it a site linked to Troy's abolitionist legacy.",
+      "Uri Gilbert was mayor of Troy and a manufacturer of coaches and railway cars.",
+      "The mansion, built in the mid-1800s, features grand Italianate architectural style, reflecting the wealth and status of its owner.",
+      "It was the place where Charles Nalle worked as a coachman after his escape from slavery, marking it as a significant location in the abolitionist movement."
+    ]
+  },
+  "media": {
+    "images": {
+      "horizontal": "uri-gilbert-mansion/horizontal.png",
+      "vertical": "uri-gilbert-mansion/vertical.png",
+      "square": "uri-gilbert-mansion/square.png",
+      "historical": "uri-gilbert-mansion/historical.png",
+      "historicalHorizontal": "uri-gilbert-mansion/historical.png",
+      "moral": "uri-gilbert-mansion/moral.png"
+    },
+    "video": {
+      "animatedHorizontal": "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion-1_animation_horizontal.mp4",
+      "animatedVertical": "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion_animation_vertical.mp4",
+      "animatedHistorical": "CNWM - Animated Images/3. Mansion/3. Uri Gilbert Mansion_animation_historical.mp4"
+    }
+  },
+  "scenes": [
+    {
+      "label": "How It Began",
+      "audio": {
+        "label": "Chapter 3",
+        "subtitle": "Uri Gilbert Mansion",
+        "file": "audio/ch3-mansion.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "Are you a Negro?",
+        "attribution": "Christianson",
+        "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95"
+      },
+      "paragraphs": [
+        "Each stride closed the distance between Charles and the ferryman waiting on the bank of the Hudson River, ready to help him cross to freedom. What was feet away must have felt like miles, and Charles's mind slipped between the present moment and every step he had previously run north from the fields in Culpeper County, Virginia. Though those fields held his footprints, Charles was determined they would not hold his future.",
+        "By the time he reached New York, the weight of those southern skies seemingly disappeared. In Troy, Charles found refuge; the bustling streets of the city hummed with industry and abolitionists' quiet acts of defiance against the slave catchers who prowled too far from home.",
+        "Shortly upon his arrival, Charles's steady but guarded gaze met the focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy's wealthiest men. **\"Are you a Negro?\" Charles was so taken aback by it, he didn't know how or on what level to respond. It was, after all, the central and defining characteristic of his life, even if it was not always obvious in his appearance. Finally, he pulled himself together and managed to reply, \"Well, sir, I suppose so.\" Gilbert nodded and smiled.** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95).",
+        "It was there, surrounded by the opulence of Uri Gilbert's grand brownstone mansion on 189 Second Street in Troy, NY, that Charles was offered work as a coachman. Day by day, Charles began to fall into the life of Troy, building an unassuming reputation known secretly by those who mattered. With time, his hands and the unspoken history written in their lines mastered the navigation of Gilbert's carriages across cobbled streets, and his presence became familiar enough to seem invisible. But even in the most peaceful of places, the shadows of the past can cast themselves.",
+        "Charles's freedom was a thin veil, with captivity patiently watching from the other side. Unbeknownst to him, the fields of Culpeper County, Virginia, were closer to Charles than he could imagine. Just a few blocks away, on a morning in April 1860, outside a bakery where he was sent to fetch bread, captivity stepped out from the shadows to reveal its face."
+      ]
+    }
+  ],
+  "historicalContext": [
+    "Initially Mr. Gilbert's son asked Mr. Henry, a Black grocery store owner and Charles's landlord, about Charles's whereabouts. Despite Mr. Henry not knowing, they worked together to rally Troy's citizens to find and free Charles.",
+    "The Uri Gilbert Mansion served as a backdrop for the 1992 filming of Martin Scorsese's \"The Age of Innocence,\" became the home of the Rensselaer County Arts Council, and was the Vanguard Show House of 2001.",
+    "With a population of 12,063, Culpeper was larger than half of Virginia's 148 counties in 1860. More than half of that population was African American, including 6,675 slaves."
+  ],
+  "morals": [
+    {
+      "title": "THE INVISIBLE\nMATTER AS MUCH\nAS THE VISIBLE",
+      "message": "Despite Charles becoming \"invisible\" in Troy, his presence there reflects the importance of one's reputation and the ways marginalized groups today often remain unseen or unheard in mainstream discourse, limiting their representation.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Help good people build good reputations by amplifying their voices and fighting for the representation of diverse perspectives in media, politics, and community leadership."
+      }
+    }
+  ],
+  "next": { "slug": "ferry", "label": "Chapter 4 — Washington Street Ferry Landing" }
+}

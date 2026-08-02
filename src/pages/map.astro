@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+
+const chapters = (await getCollection("chapters")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base
+  title="The Walk — Charles Nalle Walking Memorial"
+  description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
+>
+  {/* M3 replaces this with the Mapbox route-drawing experience (1860 overlay, flythrough) */}
+  <section class="mx-auto max-w-2xl px-6 pt-16">
+    <p class="text-sm uppercase tracking-[0.25em] opacity-70">The Walk</p>
+    <h1 class="font-display mt-4 text-4xl sm:text-5xl">Five stops through Troy</h1>
+    <p class="mt-5 max-w-prose leading-relaxed opacity-90">
+      The rescue of Charles Nalle unfolded across a few blocks of downtown Troy
+      in a single day. Four stops carry bronze plaques; the Ferry Landing lives
+      here on the website. The interactive map — with the route drawing itself
+      across an 1860 map of Troy — arrives in milestone M3.
+    </p>
+
+    <ol class="mt-10 space-y-6">
+      {
+        chapters.map((entry) => (
+          <li class="flex items-baseline gap-4">
+            <span class="font-display text-2xl opacity-60">{entry.data.order}</span>
+            <div>
+              <a href={withBase(entry.id)} class="font-display text-2xl hover:underline">
+                {entry.data.map.label}
+              </a>
+              <p class="opacity-70">{entry.data.map.address}</p>
+              {!entry.data.plaque && (
+                <p class="text-xs uppercase tracking-widest opacity-50">
+                  No plaque — website only
+                </p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>

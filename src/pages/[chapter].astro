@@ -1,0 +1,153 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+
+export async function getStaticPaths() {
+  const chapters = await getCollection("chapters");
+  return chapters.map((entry) => ({
+    params: { chapter: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const c = entry.data;
+const sectionCount = 4;
+
+/**
+ * M0 renders paragraph emphasis plainly; the M2 renderer gives **bold**
+ * passages and trailing (citations) their designed treatment.
+ */
+function plain(p: string): string {
+  return p.replaceAll("**", "");
+}
+---
+
+<Base
+  title={`${c.cardTitle} — Charles Nalle Walking Memorial`}
+  description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.cardTitle}, Troy, NY, April 27, 1860.`}
+  palette={c.palette}
+>
+  <article class="mx-auto max-w-2xl px-6 pb-16">
+    {/* ——— Portal / hero (press-and-hold painting reveal lands in M2) ——— */}
+    <header class="pt-16 pb-10">
+      <p class="text-sm uppercase tracking-[0.2em] opacity-70">
+        {c.chapterLabel} · {c.map.address}
+      </p>
+      <h1 class="font-display mt-4 text-4xl leading-tight whitespace-pre-line sm:text-5xl">
+        {c.title}
+      </h1>
+    </header>
+
+    {/* ——— Section 1: the story ——— */}
+    <section aria-labelledby="story-heading">
+      <p class="text-xs uppercase tracking-widest opacity-60">
+        Section 1/{sectionCount}
+      </p>
+      <h2 id="story-heading" class="sr-only">The story</h2>
+
+      {
+        c.scenes.map((scene) => (
+          <div class="mt-6">
+            {c.scenes.length > 1 && (
+              <h3 class="font-display text-2xl">{scene.label}</h3>
+            )}
+
+            <figure class="my-6 border-l-4 pl-4" style="border-color: var(--chapter-accent)">
+              <blockquote class="font-display text-xl italic">
+                “{scene.quote.text}”
+              </blockquote>
+              <figcaption class="mt-2 text-sm opacity-70">
+                — {scene.quote.attribution}
+                {scene.quote.source && <span>, {scene.quote.source}</span>}
+              </figcaption>
+            </figure>
+
+            <div class="my-6 rounded border border-white/15 p-4">
+              <p class="text-xs uppercase tracking-widest opacity-60">
+                Listen · {scene.audio.label}
+              </p>
+              <audio
+                controls
+                preload="none"
+                class="mt-2 w-full"
+                src={withBase(scene.audio.file)}
+              />
+              <p class="mt-2 text-xs opacity-60">
+                Synced narration with follow-along text arrives in M2.
+              </p>
+            </div>
+
+            {scene.paragraphs.map((p) =>
+              p.startsWith("@media:") ? (
+                <p class="my-6 text-center text-xs uppercase tracking-widest opacity-40">
+                  [ artwork: {p.replace("@media:", "")} — media pipeline lands in M1 ]
+                </p>
+              ) : (
+                <p class="mt-5 leading-relaxed">{plain(p)}</p>
+              ),
+            )}
+          </div>
+        ))
+      }
+    </section>
+
+    {/* ——— Section 2: historical context ——— */}
+    <section class="mt-16" aria-labelledby="history-heading">
+      <p class="text-xs uppercase tracking-widest opacity-60">
+        Section 2/{sectionCount}
+      </p>
+      <h2 id="history-heading" class="font-display mt-2 text-3xl">
+        Historical Context
+      </h2>
+      <ul class="mt-6 space-y-4">
+        {
+          c.historicalContext.map((point) => (
+            <li class="border-l-2 border-white/20 pl-4 leading-relaxed">{point}</li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {/* ——— Section 3: the moral ——— */}
+    <section class="mt-16" aria-labelledby="moral-heading">
+      <p class="text-xs uppercase tracking-widest opacity-60">
+        Section 3/{sectionCount}
+      </p>
+      <h2 id="moral-heading" class="sr-only">The moral</h2>
+      {
+        c.morals.map((moral) => (
+          <div class="mt-6">
+            <p class="font-display text-3xl whitespace-pre-line" style="color: var(--chapter-accent)">
+              {moral.title}
+            </p>
+            <p class="mt-4 leading-relaxed">{moral.message}</p>
+            <h3 class="font-display mt-6 text-xl">{moral.callToAction.title}</h3>
+            <p class="mt-2 leading-relaxed">{moral.callToAction.content}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    {/* ——— Section 4: where to next ——— */}
+    <nav class="mt-16" aria-label="Continue the tour">
+      <p class="text-xs uppercase tracking-widest opacity-60">
+        Section 4/{sectionCount}
+      </p>
+      <h2 class="font-display mt-2 text-3xl">Where to next?</h2>
+      <div class="mt-6 flex flex-wrap gap-4">
+        <a
+          href={withBase(c.next.slug)}
+          class="rounded border px-5 py-3 font-display"
+          style="border-color: var(--chapter-accent)"
+        >
+          {c.next.label} →
+        </a>
+        <a href={withBase("map")} class="rounded border border-white/25 px-5 py-3 font-display">
+          Open the map
+        </a>
+      </div>
+    </nav>
+  </article>
+</Base>

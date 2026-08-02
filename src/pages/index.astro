@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+
+const chapters = (await getCollection("chapters")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base
+  title="Charles Nalle Walking Memorial — Troy, NY, April 27, 1860"
+  description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city — led by Harriet Tubman — rose up to free Charles Nalle from the Fugitive Slave Act."
+>
+  {/* M4 replaces this with the cinematic, skippable title sequence */}
+  <section class="mx-auto flex min-h-[70dvh] max-w-2xl flex-col justify-center px-6 pt-16">
+    <p class="text-sm uppercase tracking-[0.25em] opacity-70">
+      Troy, New York · April 27, 1860
+    </p>
+    <h1 class="font-display mt-5 text-5xl leading-tight sm:text-6xl">
+      The Rescue of<br />Charles Nalle
+    </h1>
+    <p class="mt-6 max-w-prose text-lg leading-relaxed opacity-90">
+      On one spring morning, a coachman was seized outside a bakery under the
+      Fugitive Slave Act — and the people of Troy, led by Harriet Tubman, rose
+      up to set him free. Walk the streets where it happened.
+    </p>
+  </section>
+
+  <nav class="mx-auto max-w-2xl px-6 pt-12" aria-label="Ways into the story">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <a href={withBase("map")} class="rounded border border-white/25 p-5">
+        <span class="font-display text-2xl">The Walk</span>
+        <span class="mt-1 block opacity-70">Follow the route through Troy</span>
+      </a>
+      <a href={withBase("bakery")} class="rounded border border-white/25 p-5">
+        <span class="font-display text-2xl">The Story</span>
+        <span class="mt-1 block opacity-70">Begin at Chapter 1 — the Bakery</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="mx-auto max-w-2xl px-6 pt-12" aria-label="Chapters">
+    <h2 class="text-xs uppercase tracking-widest opacity-60">Chapters</h2>
+    <ol class="mt-4 space-y-3">
+      {
+        chapters.map((entry) => (
+          <li>
+            <a href={withBase(entry.id)} class="group flex items-baseline gap-4">
+              <span class="font-display text-sm opacity-60">
+                {String(entry.data.order).padStart(2, "0")}
+              </span>
+              <span class="font-display text-xl group-hover:underline">
+                {entry.data.cardTitle}
+              </span>
+              {!entry.data.plaque && (
+                <span class="text-xs uppercase tracking-widest opacity-50">
+                  website only
+                </span>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>

@@ -1,0 +1,84 @@
+{
+  "order": 4,
+  "chapterLabel": "Chapter 4",
+  "title": "WASHINGTON\nSTREET FERRY\nLANDING",
+  "cardTitle": "Washington Street Ferry Landing",
+  "plaque": false,
+  "map": {
+    "label": "Ferry Landing",
+    "coordinates": [-73.6988, 42.7193],
+    "address": "Riverfront at the end of Madison Street"
+  },
+  "palette": {
+    "surface": "#0e1a20",
+    "ink": "#e8f0ef",
+    "accent": "#4f8a8b"
+  },
+  "emotions": ["Excitement", "Anticipation", "Relief", "Liberation"],
+  "portal": {
+    "hook": null,
+    "history": [
+      "The Ferry Landing at the Hudson River was the site of Charles Nalle's final escape from his captors.",
+      "After being separated from his captors by the crowd, Charles was helped onto a boat at the ferry landing.",
+      "The rescue was completed when Charles crossed to West Troy (now Watervliet), although he was briefly captured again upon landing.",
+      "The Ferry Landing on the Hudson River marked a climactic moment in Charles Nalle's story, where the community's rescue efforts reached a turning point. After being pulled away from the authorities by the determined crowd, Charles was guided to the riverbank and boarded a waiting skiff. Aided by rescuers, Charles escaped to West Troy, though he was briefly recaptured before ultimately securing his freedom with the help of his allies."
+    ]
+  },
+  "media": {
+    "images": {
+      "horizontal": "washington-ferry/horizontal.png",
+      "vertical": "washington-ferry/vertical.png",
+      "square": "washington-ferry/square.png",
+      "historical": "washington-ferry/historical.png",
+      "historicalHorizontal": "washington-ferry/historical.png",
+      "moral": "washington-ferry/moral.png"
+    },
+    "video": {
+      "narrative1": "CNWM - Animated Images/4. Ferry/4.1 Washington Street Ferry Landing_animation_narrative_1.mp4",
+      "narrative2": "CNWM - Animated Images/4. Ferry/4.2 Washington Street Ferry Landing_animation_narrative_2.mp4",
+      "animatedHorizontal": "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing-1_animation_horizontal.mp4",
+      "animatedVertical": "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation_vertical.mp4",
+      "animatedHistorical": "CNWM - Animated Images/4. Ferry/4. Washington Street Ferry Landing_animation (1)_historical.mp4"
+    }
+  },
+  "scenes": [
+    {
+      "label": "River Escape",
+      "audio": {
+        "label": "Chapter 4",
+        "subtitle": "Washington Street Ferry Landing",
+        "file": "audio/ch4-ferry.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "The crowd was like a lynch mob in reverse.",
+        "attribution": "Christianson",
+        "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113"
+      },
+      "paragraphs": [
+        "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn't come easily or without a fight.",
+        "@media:narrative1",
+        "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
+        "@media:narrative2",
+        "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water's grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
+        "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot's distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community."
+      ]
+    }
+  ],
+  "historicalContext": [
+    "At the height of the Underground Railroad, the Hudson River had up to 500 ships moving upstream a day, many with black captains, making it an efficient escape route, transporting freedom-seekers from New York City to Canada in just one week—far faster than the more dangerous overland routes.",
+    "After Charles crossed the river into Watervliet and was taken into custody by Albany County sheriff's deputies and federal postmaster, Harriet Tubman and several hundred citizens crossed the river and surrounded the justice's office at Corporation Hall Building, where Charles was being held.",
+    "In 1790, throughout the Hudson Valley—the region along both sides of the Hudson River from Yonkers to Albany—the first federal census counted more than 21,000 enslaved New Yorkers, nearly as many as documented in the State of Georgia, which had 29,264. By 1860, when Charles Nalle escaped, Georgia had as many as 462,198 enslaved people."
+  ],
+  "morals": [
+    {
+      "title": "AUTHORITARIANISM\nIS PERSISTENT",
+      "message": "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Stand up against authoritarian laws & leaders by staying informed, voting, protesting, using your voice & the press to promote democratic values & hold leaders accountable."
+      }
+    }
+  ],
+  "next": { "slug": "barbershop", "label": "Chapter 5 — Peter Baltimore's Barbershop" }
+}

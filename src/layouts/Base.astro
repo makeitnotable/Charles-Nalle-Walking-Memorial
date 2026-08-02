@@ -1,0 +1,58 @@
+---
+import "../styles/global.css";
+import { withBase } from "../lib/url";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Inline palette override for chapter pages */
+  palette?: { surface: string; ink: string; accent: string };
+}
+
+const { title, description, palette } = Astro.props;
+const paletteStyle = palette
+  ? `--chapter-surface:${palette.surface};--chapter-ink:${palette.ink};--chapter-accent:${palette.accent};`
+  : undefined;
+// File-format builds report pathnames like /base/bakery.html — canonicalize
+// to the extensionless URLs that GH Pages actually serves.
+const canonical = new URL(
+  Astro.url.pathname.replace(/index\.html$/, "").replace(/\.html$/, ""),
+  Astro.site,
+);
+---
+
+<!doctype html>
+<html lang="en" style={paletteStyle}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
+    <meta name="theme-color" content={palette?.surface ?? "#121212"} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Charles Nalle Walking Memorial" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(withBase("og.png"), Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-dvh">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-2xl px-6 py-12 text-sm opacity-70">
+      <p>
+        Charles Nalle Walking Memorial · Troy, New York ·
+        <a href={withBase("about")} class="underline">About this project</a>
+      </p>
+      <p class="mt-2">
+        A collaboration of the Hart Cluett Museum, RPI, Brian Tolle Studio, and
+        Notable Branding &amp; Design.
+      </p>
+    </footer>
+  </body>
+</html>

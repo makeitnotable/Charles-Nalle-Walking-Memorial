@@ -1,0 +1,78 @@
+{
+  "order": 1,
+  "chapterLabel": "Chapter 1",
+  "title": "HOLEUR'S\nFASHIONABLE\nBAKERY",
+  "cardTitle": "Holeur's Fashionable Bakery",
+  "plaque": true,
+  "map": {
+    "label": "Bakery",
+    "coordinates": [-73.6916, 42.7261],
+    "address": "3rd & Division Streets (vacant lot today)"
+  },
+  "palette": {
+    "surface": "#1a120d",
+    "ink": "#f3e6d8",
+    "accent": "#c2542b"
+  },
+  "emotions": ["Unjust", "Agitation", "Suspense", "Fear"],
+  "portal": {
+    "hook": null,
+    "history": [
+      "Holeur's Fashionable Bakery was the site where Charles Nalle was captured by a U.S. Marshal while running an errand for his employer, Uri Gilbert.",
+      "The bakery was a popular establishment in Troy, New York, located in a bustling area, which made Charles's public arrest highly visible.",
+      "It became a pivotal location in Charles Nalle's story as his capture there set off the dramatic events leading to his rescue by the local abolitionist community.",
+      "Holeur's Fashionable Bakery is deeply tied to the story of Charles Nalle, as it was there that he was apprehended under the Fugitive Slave Act on April 27, 1860. The bakery's location in the center of Troy made the capture a public spectacle, drawing attention from local abolitionists who quickly rallied to Charles's aid. This moment sparked the subsequent events that culminated in a community-led effort, including Harriet Tubman, to rescue Nalle and ultimately secure his freedom."
+    ]
+  },
+  "media": {
+    "images": {
+      "horizontal": "holeurs-fashionable-bakery/horizontal.png",
+      "vertical": "holeurs-fashionable-bakery/vertical.png",
+      "square": "holeurs-fashionable-bakery/square.png",
+      "historical": "holeurs-fashionable-bakery/historical.png",
+      "historicalHorizontal": "holeurs-fashionable-bakery/historical-horizontal.png",
+      "moral": "holeurs-fashionable-bakery/moral1.png"
+    },
+    "video": {
+      "animatedHorizontal": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery-1_animation_horizontal.mp4",
+      "animatedVertical": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_vertical.mp4",
+      "animatedHistorical": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_historical.mp4"
+    }
+  },
+  "scenes": [
+    {
+      "label": "Captured with Bread in Hand",
+      "audio": {
+        "label": "Chapter 1",
+        "subtitle": "Holeur's Fashionable Bakery",
+        "file": "audio/ch1-bakery.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "Charles Nalle, I hereby arrest you in the name of the United States of America!",
+        "attribution": "United States Deputy Marshal Holmes"
+      },
+      "paragraphs": [
+        "As the sun rose on the morning of April 27, 1860, and light spilled across the cobblestone streets of Troy, New York, Charles Nalle, a humble coachman in his thirties, was walking to George Holeur's Fashionable Bakery to pick up bread for his employers, the Gilberts. Charles wasn't a man of grandeur or heroic postures—just a man who carried the scars of his past silently, a past he'd escaped years before in Virginia. He had built a life here in Troy, far from the lash of Blucher Hansbrough, the man who once owned him.",
+        "But freedom, as Charles would be reminded, is fragile.",
+        "The aroma of fresh-baked bread filled the air as Charles neared the bakery's entrance. Suddenly, seemingly out of nowhere, the hands of slave catcher Henry J. Wale, who hunted freedom like a sport, seized and shackled him. Standing smugly beside him, United States Deputy Marshal Holmes shouted, \"Charles Nalle, I hereby arrest you in the name of the United States of America!\" Back home in Virginia, Charles's half-brother, Blucher Hansbrough—who had hired the slave catchers under the Fugitive Slave Act of 1850—would have smiled with cruel satisfaction at the news of Charles's capture, relishing the thought of him being dragged back into slavery through streets he had walked as a free man."
+      ]
+    }
+  ],
+  "historicalContext": [
+    "George Holeur's Fashionable Bakery at 3rd and Division Streets is where Charles Nalle was arrested.",
+    "At the time of Charles Nalle's capture, Troy, New York, was the richest city in the United States and a hub for abolitionist activity, with the town and its citizens playing pivotal roles in the Underground Railroad.",
+    "The Fugitive Slave Act of 1850, which enabled Charles's capture, required all citizens—regardless of their beliefs—to assist in the recapture of slaves or face imprisonment up to six months and fines of $1,000 ($35,000 today)."
+  ],
+  "morals": [
+    {
+      "title": "NOT ALL LAWS\nARE MORAL",
+      "message": "Laws like the Fugitive Slave Act demonstrate how the legal system can be used to target people—a pattern that persists today through racial profiling and unequal treatment in the justice system.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Educate yourself on unjust laws, vote against them, and support organizations like the ACLU in fighting against injustice and reforming the legal system."
+      }
+    }
+  ],
+  "next": { "slug": "commissioners-office", "label": "Chapter 2 — Office of the Commissioner" }
+}

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/*
+ * M0 foundation tokens. The real design system (broadside display face,
+ * text serif, paper/ink textures, per-chapter palettes) lands in M1.
+ * Chapter pages override the three --chapter-* vars inline from content.
+ */
+:root {
+  --chapter-surface: #121212;
+  --chapter-ink: #f0ead9;
+  --chapter-accent: #c2542b;
+}
+
+@theme {
+  --font-display: "Iowan Old Style", "Palatino", "Georgia", serif;
+  --font-body: "Charter", "Iowan Old Style", "Georgia", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--chapter-surface);
+  color: var(--chapter-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Visible focus everywhere; never remove, only restyle */
+:focus-visible {
+  outline: 2px solid var(--chapter-accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 100;
+  background: var(--chapter-ink);
+  color: var(--chapter-surface);
+  padding: 0.5rem 1rem;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}

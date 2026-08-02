@@ -1,0 +1,115 @@
+{
+  "order": 2,
+  "chapterLabel": "Chapter 2",
+  "title": "OFFICE OF THE\nCOMMISSIONER",
+  "cardTitle": "Office of the Commissioner",
+  "plaque": true,
+  "map": {
+    "label": "Commissioner's Office",
+    "coordinates": [-73.692, 42.7289],
+    "address": "5 State Street — Mutual Bank Building"
+  },
+  "palette": {
+    "surface": "#14161d",
+    "ink": "#ece8df",
+    "accent": "#8e3b2f"
+  },
+  "emotions": ["Sadness", "Desperation", "Empowerment", "Unity", "Righteous anger"],
+  "portal": {
+    "hook": null,
+    "history": [
+      "The Law Office served as the holding place for Charles Nalle after his capture by slave hunters.",
+      "The office was located on the second floor of the Mutual Bank Building, where the commissioner prepared paperwork to send Charles back to Virginia.",
+      "It was at this location that Harriet Tubman and local abolitionists intervened, mobilizing the community to rescue Charles.",
+      "The Law Office was the place where Charles Nalle was taken after his arrest, situated in the Mutual Bank Building in Troy. Here, the paperwork was nearly completed to send Charles back into slavery, until his employer and other local abolitionists, including Harriet Tubman, organized a rescue effort. The growing crowd outside eventually intervened, turning the Law Office into the stage for a critical turning point in Charles's struggle for freedom."
+    ]
+  },
+  "media": {
+    "images": {
+      "horizontal": "office-commissioner-pt1/horizontal.png",
+      "vertical": "office-commissioner-pt1/vertical.png",
+      "square": "office-commissioner-pt1/square.png",
+      "historical": "office-commissioner-pt1/historical.png",
+      "historicalHorizontal": "office-commissioner-pt1/historical.png",
+      "moral": "office-commissioner-pt1/moral.png",
+      "horizontalPt2": "office-commissioner-pt2/horizontal.png",
+      "verticalPt2": "office-commissioner-pt2/vertical.png",
+      "squarePt2": "office-commissioner-pt2/square.png",
+      "historicalPt2": "office-commissioner-pt2/historical.png",
+      "moralPt2": "office-commissioner-pt2/moral-bg.png"
+    },
+    "video": {
+      "animatedHorizontal": "CNWM - Animated Images/2. Bank/2. Commissioner`s Office pt1_animation_horizontal.mp4",
+      "animatedVertical": "CNWM - Animated Images/2. Bank/2. The Commissioner`s Office pt1_animation_vertical.mp4",
+      "animatedHistorical": "CNWM - Animated Images/2. Bank/2. The Commissioners Office_animation_historical.mp4",
+      "animatedHorizontalPt2": "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2-1_animation_horizontal.mp4",
+      "animatedVerticalPt2": "CNWM - Animated Images/2. Bank/2.2 The Commissioner`s Office pt2_animation_vertical.mp4",
+      "animatedHistoricalPt2": "CNWM - Animated Images/2. Bank/6. Map of Troy New York_animation -The commissioner's Office pt2-1_animation_historical.mp4"
+    }
+  },
+  "scenes": [
+    {
+      "label": "Part 1 — Tubman Creates a Crowd",
+      "audio": {
+        "label": "Chapter 2 | Pt. 1",
+        "subtitle": "Office of the Commissioner",
+        "file": "audio/ch2-commissioners-office-pt1.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "If we can get him out into the crowd, we can raise the money in five minutes.",
+        "attribution": "Abolitionist Martin Townsend"
+      },
+      "paragraphs": [
+        "It's hard to imagine that the hands of Marshal Holmes and the slave catchers weren't white with strain as they forcibly marched Charles with a vice-tight grip to the Mutual Bank Building—a grand three-story brick and stone structure on State Street.",
+        "In the commissioner's office on the second floor, Charles's fate was being sealed. Cuffed and bruised, he faced Horatio Averill—the lawyer who had helped Charles write letters to his wife, Kitty, but secretly betrayed him by sharing his story with officials. Now, Charles could only listen helplessly as the scratching of pens on paper signed away his freedom.",
+        "Outside, the city of Troy was waking up.",
+        "The bells of Second Street Presbyterian Church rang out with urgency. As word of Charles's capture spread like wildfire, people poured into the streets. Neighbors gathered, their anger mounting. Through the sea of people, Harriet Tubman—who happened to be in Troy visiting her cousin—pushed forward, her voice thundering above the crowd: \"Drag us out! Drag him to the river! Drown him! But don't let them have him!\""
+      ]
+    },
+    {
+      "label": "Part 2 — The Mob",
+      "audio": {
+        "label": "Chapter 2 | Pt. 2",
+        "subtitle": "Office of the Commissioner",
+        "file": "audio/ch2-commissioners-office-pt2.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "Drag him to the river! Drown him! But don't let them have him!",
+        "attribution": "Harriet Tubman"
+      },
+      "paragraphs": [
+        "Outside the Mutual Bank Building, the crowd grew larger, emotions heightened, and the sounds of protest grew deafening. Inside, sweat and the desperation of uncontrollable moments beaded down the frustrated faces of Chief Civil Rights attorney Martin Townsend and fellow Abolitionist and underground railroad barber Peter Baltimore as they frantically negotiated for Charles's freedom. With thinning patience, Martin Townsend exclaimed, \"If we can get him out into the crowd, we can raise the money in five minutes.\"",
+        "Moments later the downstairs door of the Mutual Bank building flung open and the protestors, primed by the words of Harriet Tubman—\"Drag him to the river! Drown him! But don't let them have him!\"—erupted like a bull out of a bullpen. Charles was dragged out, the chains cuffing his hands shimmered in the sunlight. By the time he and his captors made it into the cobblestone street, **\"The crowd was like a lynch mob in reverse—instead of unleashing their fury to string him up, the ringleaders of this mass chaos vented all of their pent-up rage to turn the Negro loose and rescue him from doom\"** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113).",
+        "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they threw punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged—torn free by the sweeping mob—broke into a sprint and started running."
+      ]
+    }
+  ],
+  "historicalContext": [
+    "In 1847, Frederick Douglass, James McCune Smith—the first Black doctor in the United States—and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
+    "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
+    "Prior to betraying Charles, Horatio Averill was incarcerated in Tombs Prison for his involvement in an embezzlement scheme.",
+    "After being brought to Commissioner William A. Beach, Charles Nalle's case was sent to Judge George Gould, who issued a habeas corpus to determine if he could be legally detained.",
+    "According to a New York Times column published on Saturday, April 28, 1860, the mob that gathered outside the commissioner's office to rescue Charles Nalle was \"some one thousand persons\" in size."
+  ],
+  "morals": [
+    {
+      "title": "WHEN NOT\nCHALLENGED\nINJUSTICE\nTHRIVES",
+      "message": "In 1860, the bells of Second Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle—much like how social media and public protests create awareness and mobilize people against injustice today.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Challenge injustice by supporting grassroots organizations, engaging in local activism, community meetings, attending and fighting for justice."
+      }
+    },
+    {
+      "title": "FREEDOM\nISN'T FREE",
+      "message": "Charles Nalle's freedom was protected by the people's courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Stand up for your freedom and others by learning about past, present, and future laws, then share what you learn, and use your vote to support what's right."
+      }
+    }
+  ],
+  "next": { "slug": "mansion", "label": "Chapter 3 — Uri Gilbert Mansion" }
+}

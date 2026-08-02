@@ -1,0 +1,84 @@
+{
+  "order": 5,
+  "chapterLabel": "Chapter 5",
+  "title": "PETER\nBALTIMORE'S\nBARBERSHOP",
+  "cardTitle": "Peter Baltimore's Barbershop",
+  "plaque": true,
+  "map": {
+    "label": "Barbershop",
+    "coordinates": [-73.691, 42.728],
+    "address": "First Street (Athenaeum building)"
+  },
+  "palette": {
+    "surface": "#17120c",
+    "ink": "#f5ead9",
+    "accent": "#d29a3a"
+  },
+  "emotions": ["Community", "Togetherness", "Hope", "Motivated"],
+  "portal": {
+    "hook": null,
+    "history": [
+      "Peter Baltimore's Barbershop was a key location for abolitionist activities and part of the Underground Railroad.",
+      "Peter Baltimore, a local barber, played a significant role in organizing the effort to rescue Charles Nalle.",
+      "The barbershop served as a meeting place where plans were made to help Charles escape after his capture.",
+      "Peter Baltimore's Barbershop was an important hub in the community for anti-slavery activism, often used as a safe space for those involved in the Underground Railroad. When Charles Nalle was captured, Peter Baltimore joined forces with other abolitionists to orchestrate the rescue. The barbershop became a center of planning and collaboration, where community members united to fight for Charles's freedom."
+    ]
+  },
+  "media": {
+    "images": {
+      "horizontal": "peter-baltimores-barbershop/horizontal.png",
+      "vertical": "peter-baltimores-barbershop/vertical.png",
+      "square": "peter-baltimores-barbershop/square.png",
+      "historical": "peter-baltimores-barbershop/historical.png",
+      "historicalHorizontal": "peter-baltimores-barbershop/historical.png",
+      "moral": "peter-baltimores-barbershop/moral.png"
+    },
+    "video": {
+      "narrative1": "CNWM - Animated Images/5. Barbershop/5.1 Peter Baltimores Barbershop_animation_narrative_1.mp4",
+      "narrative2": "CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4",
+      "animatedHorizontal": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop-1_animation_horizontal.mp4",
+      "animatedVertical": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_vertical.mp4",
+      "animatedHistorical": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_historical.mp4"
+    }
+  },
+  "scenes": [
+    {
+      "label": "Freedom Is Bought",
+      "audio": {
+        "label": "Chapter 5",
+        "subtitle": "Peter Baltimore's Barbershop",
+        "file": "audio/ch5-barbershop.mp3",
+        "timings": null
+      },
+      "quote": {
+        "text": "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
+        "attribution": "Christianson",
+        "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 1"
+      },
+      "paragraphs": [
+        "Refusing to accept defeat, Martin Townsend—Chief Civil Rights Attorney—and Peter Baltimore—a pillar of Troy's Underground Railroad—immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
+        "@media:narrative1",
+        "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice's office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice's office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Commissioner's office grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
+        "@media:narrative2",
+        "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
+        "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom."
+      ]
+    }
+  ],
+  "historicalContext": [
+    "Peter Baltimore's younger son, Garnet Douglass Baltimore (1859–1946), was the first Black graduate of Rensselaer Polytechnic Institute (RPI) and the civil engineer and architect of Prospect Park.",
+    "Peter Baltimore's barbershop was a part of Troy's local underground railroad. Peter often helped freedom seekers wanting to stay in Troy find work at the Troy House.",
+    "After Charles Nalle's escape, radical Southern leaders known as \"Fire-Eaters\" used the event to create anger toward the North and cited it as a key reason for why the South should leave the Union, ultimately triggering the Civil War."
+  ],
+  "morals": [
+    {
+      "title": "WE ARE\nRESPONSIBLE\nFOR JUSTICE",
+      "message": "The collective effort of the Troy community to secure Charles's freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
+      "callToAction": {
+        "title": "Make a Difference",
+        "content": "Get involved in local activism, volunteer, or contribute resources to initiatives that fight against injustice and support those in need."
+      }
+    }
+  ],
+  "next": { "slug": "bakery", "label": "Chapter 1 — Where the story began" }
+}

@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+---
+
+<Base
+  title="Page not found — Charles Nalle Walking Memorial"
+  description="That page isn't part of the memorial. Return to the walk or the story."
+>
+  <section class="mx-auto flex min-h-[60dvh] max-w-2xl flex-col justify-center px-6 pt-16">
+    <p class="text-sm uppercase tracking-[0.25em] opacity-70">Off the route</p>
+    <h1 class="font-display mt-4 text-4xl sm:text-5xl">
+      This page isn't part of the memorial.
+    </h1>
+    <p class="mt-5 max-w-prose leading-relaxed opacity-90">
+      The address may have been mistyped, or the page may have moved.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href={withBase("")}
+        class="rounded border px-5 py-3 font-display"
+        style="border-color: var(--chapter-accent)"
+      >
+        Start at the beginning
+      </a>
+      <a href={withBase("map")} class="rounded border border-white/25 px-5 py-3 font-display">
+        Open the map
+      </a>
+    </div>
+  </section>
+</Base>
