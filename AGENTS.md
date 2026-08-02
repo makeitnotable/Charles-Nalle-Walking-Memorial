@@ -1,12 +1,20 @@
 # Charles Nalle Walking Memorial — v2
 
-Client memorial site for the Hart Cluett Museum (Troy, NY). **Read `docs/PLAN.md`
-before any work** — it is the locked execution plan (Phases 0–6, 3-day target;
-Vercel is the launch target, GH Pages the handoff escape hatch). Content
-corrections and their status live in `docs/CONTENT-STATUS.md`; stack deviations from
-the WBM constitution are recorded in `docs/DEVIATIONS.md` (static Astro + GH Pages —
-no auth, no billing, no database, no analytics accounts; zero ongoing cost is a hard
-client requirement).
+Client memorial site for the Hart Cluett Museum (Troy, NY).
+
+**Design work starts at `docs/v4/DESIGN-STANDARDS.md`** — the system contract,
+with the source of every number. The acceptance bar is `docs/v4/CALIBER-RUBRIC.md`
+(craft against three named reference sites, never fidelity to a spec — that was
+the v3 mistake). Judgement calls and how to revert them: `docs/v4/DECISIONS.md`.
+Motion census: `docs/v4/MOTION.md`. Naming is single-sourced from
+`name.{canonical,display,short}` in the chapter JSON — the bronze plaques govern
+(`docs/v4/NAMING-CANON.md`). `/styleguide` renders the whole system at real size.
+
+`docs/PLAN.md` is the v4 execution plan; `docs/RUN-STATE.md` tracks where the
+build got to. Content corrections live in `docs/CONTENT-STATUS.md`; stack
+deviations from the WBM constitution are in `docs/DEVIATIONS.md` (static Astro +
+GH Pages — no auth, no billing, no database, no analytics accounts; zero ongoing
+cost is a hard client requirement).
 
 Non-negotiables inherited from the constitution's design baseline:
 
