@@ -30,8 +30,10 @@ built on a faster, sturdier foundation, with the paintings brought to life.
 5. **Every road leads onward.** People, Paintings, About — everything is one tap from the
    corner menu, and every page ends with a door to the next.
 
-**Before/after pairs (same screens, old build → new build):** see the gallery in
-`docs/qa/` — [to be assembled in Phase 6: home, chapter, map, about at phone width].
+**Before/after pairs (same screens, old build → new build), phone width:**
+- `docs/qa/before-after/home-390.jpg` — the approved front door, now with Mark Priest's film living in the frame
+- `docs/qa/before-after/chapter-390.jpg` — the chapter, now opening on the sketch that develops under your finger
+- `docs/qa/before-after/map-390.jpg` — the walk, now with all five stops framed, the route drawn, the date, and the 1860 lens
 
 Nothing about the content changed without a documented correction — the words are Kathy's,
 the pins are Brian's, the paintings are Mark's.
@@ -61,7 +63,8 @@ the pins are Brian's, the paintings are Mark's.
   walk, 1860 lens, deep links, geolocate).
 - **Phase 4:** the award layer — painting interludes, quote reveals, date over-titles,
   animated paintings in the gallery, fail-open curtain, focal-point crops.
-- **Phase 5:** [perf numbers — to be filled]
+- **Phase 5:** /bakery (the QR path): perf 89 · a11y 100 · 598KB (was 79/93/4.79MB); home
+  perf 90; map TBT 3289→304ms, CLS 0.64→0.001. Full table + residuals: docs/qa/phase5/RESULTS.md.
 - **Phase 6:** [live verification + final reviews — to be filled]
 
 ## Review verdicts (files in docs/qa/reviews/)
@@ -70,11 +73,11 @@ the pins are Brian's, the paintings are Mark's.
 | Phase 0 QA smoke | PASS (P1 marker numerals fixed) |
 | Phase 0.5 blueprint | YES — 9 gaps all resolved in the amended blueprint |
 | Phase 1 Visual Design | PASS (conditional fixes applied) |
-| Phase 2+3 Visual Design | [pending] |
-| Phase 2+3 Motion Design | [pending] |
-| Phase 2+3 UX | [pending] |
-| Phase 2+3 QA smoke | [pending] |
-| Phase 5 QA full | [pending] |
+| Phase 2+3 Visual Design | FAIL → all P0/P1 fixed same-night (pill ladder, home atmosphere, embed verified) |
+| Phase 2+3 Motion Design | PASS conditional → both P1s fixed + probe-verified (flight skip, map CLS 0.0012) |
+| Phase 2+3 UX | PASS both walkthroughs → 4 P1 polish fixes applied |
+| Phase 2+3 QA smoke | PASS (0 P0/P1) → 3 P2s fixed |
+| Phase 5 QA full | Numbers recorded; 3 documented residuals, none blocking (docs/qa/phase5/RESULTS.md) |
 | Phase 6 live (all four) | [pending] |
 | Returning-stakeholder test | [pending] |
 
@@ -89,7 +92,15 @@ the pins are Brian's, the paintings are Mark's.
   handoff (Part E).
 
 ## Residuals (open items, none blocking)
-- [to be finalized in Phase 6 — target: none]
+1. **Pin labels** read "Commissioner's Office / Gilbert Mansion / Ferry Landing" (accurate, from
+   Kathy-corrected content) where the approved Figma showed "Bank / Mansion / Ferry". Deliberate:
+   accuracy over nostalgia; one-line change per label in `src/content/chapters/*.json` to revert.
+2. **/bakery Lighthouse 89** (bar 90) at simulated 4G; real-device LTE comfortably faster; page
+   is 598KB total. Next lever documented in phase5/RESULTS.md.
+3. **/map Lighthouse 66** — inherent WebGL-map cost; interaction health clean (TBT 304ms,
+   CLS 0.001, a11y 100). The QR path never pays it.
+4. **Wheel over the full-screen map zooms the map** (standard map-page tradeoff; index below is
+   reachable by keyboard/touch).
 
 ## Self-audit table
 - [Phase 6: every acceptance criterion in docs/PLAN.md → evidence link]

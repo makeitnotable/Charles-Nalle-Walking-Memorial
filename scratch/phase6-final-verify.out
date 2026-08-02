@@ -1,0 +1,52 @@
+
+===== /map pills @ 390 =====
+{"text":"1  Bakery","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"2  Commissioner's Office","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"3  Gilbert Mansion","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"4  Ferry Landing","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"5  Barbershop","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+
+===== /map pills @ 768 =====
+{"text":"1  Bakery","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"2  Commissioner's Office","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"3  Gilbert Mansion","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"4  Ferry Landing","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"5  Barbershop","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+
+===== /map pills @ 1440 =====
+{"text":"1  Bakery","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"2  Commissioner's Office","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"3  Gilbert Mansion","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"4  Ferry Landing","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+{"text":"5  Barbershop","labelTag":"P","labelSize":"11px","labelFont":"Poppins","labelWeight":"500","labelColor":"rgb(254, 217, 204)","pillPadding":"0px","pillBg":"rgb(228, 91, 39)","pillBorder":"rgb(255, 151, 112) 0px","pillRadius":"9999px","chipSize":16}
+
+===== home layers @ 390 =====
+hasOverlayAsset: true  hasBottomGradient: true
+LAYER {"bi":"linear-gradient(rgba(16, 10, 6, 0) 65%, rgb(16, 10, 6) 100%)","opacity":"1","filter":"none","cls":"absolute inset-0","size":"356x810"}
+IMG {"src":"home-bg-800.webp","opacity":"1","filter":"grayscale(1) brightness(0.6) contrast(1) sepia(0.1)","cls":"hidden h-full w-full object-cover motion-reduce:block"}
+IMG {"src":"homepage-overlay-800.webp","opacity":"1","filter":"none","cls":"absolute inset-0 h-full w-full object-cover"}
+
+===== home layers @ 1440 =====
+hasOverlayAsset: true  hasBottomGradient: true
+LAYER {"bi":"linear-gradient(rgba(16, 10, 6, 0) 65%, rgb(16, 10, 6) 100%)","opacity":"1","filter":"none","cls":"absolute inset-0","size":"1342x802"}
+IMG {"src":"home-bg-800.webp","opacity":"1","filter":"grayscale(1) brightness(0.6) contrast(1) sepia(0.1)","cls":"hidden h-full w-full object-cover motion-reduce:block"}
+IMG {"src":"homepage-overlay-1440.webp","opacity":"1","filter":"none","cls":"absolute inset-0 h-full w-full object-cover"}
+
+===== /people h1 @ 390 =====
+{
+  "text": "ONE DAY. / A WHOLE CITY'SONE DAY. / A WHOLE CITY'S CAST.NBSP;CAST.",
+  "lines": [
+    "One day.",
+    "A whole",
+    "city'sOne day.",
+    "A whole city's",
+    "cast.nbsp;cast."
+  ],
+  "lastCount": 1
+}
+
+===== /bakery embed @ 390 =====
+{"text":"2  Commissioner's Office","inMapView":true,"rel":{"x":80,"y":28,"mapW":356,"mapH":227}}
+
+===== /bakery embed @ 1440 =====
+{"text":"2  Commissioner's Office","inMapView":true,"rel":{"x":200,"y":71,"mapW":670,"mapH":341}}
