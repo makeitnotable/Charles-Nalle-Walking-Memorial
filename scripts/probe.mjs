@@ -109,6 +109,9 @@ const MEASURE = () => {
       const cs = getComputedStyle(el);
       if (cs.position !== "fixed" && cs.position !== "sticky") return false;
       if (!vis(el)) return false;
+      // Inert chrome cannot collide with anything — nothing can hit it and it
+      // hits nothing. The curtain panel and the 3px walk rail are both inert.
+      if (cs.pointerEvents === "none") return false;
       // Skip wrappers whose only job is to hold a fixed child
       return !el.querySelector(
         ":scope > [style*='position:fixed'], :scope > [class*='fixed']",

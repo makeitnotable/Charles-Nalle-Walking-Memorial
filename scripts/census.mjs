@@ -44,21 +44,28 @@ const CENSUS = () => {
       e.style.transform = "none";
     });
 
+  /* Walk UP to the nearest element carrying a role. A <span> inside a
+     `.t-prose` paragraph, an <li> in a prose list, an <em> mid-sentence — these
+     inherit their size correctly and are not unroled type. Counting them as
+     their own roles reported 11 sizes on a page that renders 6. */
+  const ROLES = [
+    "t-display",
+    "t-wordmark",
+    "t-title",
+    "t-title-sm",
+    "t-quote",
+    "t-prose",
+    "t-meta",
+    "t-meta-body",
+    "t-spine",
+    "t-spine-sm",
+    "first-word",
+    "btn",
+    "btn-sm",
+  ];
   const named = (el) => {
-    for (const c of [
-      "t-display",
-      "t-wordmark",
-      "t-title",
-      "t-title-sm",
-      "t-quote",
-      "t-prose",
-      "t-meta",
-      "t-meta-body",
-      "t-spine",
-      "btn",
-      "btn-sm",
-    ])
-      if (el.classList.contains(c)) return c;
+    for (let n = el; n && n !== document.body; n = n.parentElement)
+      for (const c of ROLES) if (n.classList.contains(c)) return c;
     return `(${el.tagName.toLowerCase()})`;
   };
 
