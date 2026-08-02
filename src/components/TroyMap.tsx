@@ -166,11 +166,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return () => window.removeEventListener("resize", onResize);
   }, [setMarkers]);
 
-  /** The approved overview on desktop; on narrow screens, the same tilt but
-   * framed to fit all five pills (QA: fixed 15.25 clipped stops at 390). */
+  /** The approved tilt, framed so all five pills fit at any viewport: fit
+   * bounds, capped at the approved zoom 15.25 (wide screens render the
+   * approved overview exactly; narrow ones pull back just enough). */
   const overviewCamera = useCallback(() => {
     const map = mapRef.current;
-    if (!map || window.innerWidth >= 640) return OVERVIEW;
+    if (!map) return OVERVIEW;
     const b = new mapboxgl.LngLatBounds();
     stops.forEach((s) => b.extend(s.coordinates));
     const cam = map.cameraForBounds(b, {
@@ -180,7 +181,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return cam
       ? {
           center: cam.center as [number, number],
-          zoom: cam.zoom as number,
+          zoom: Math.min(cam.zoom as number, OVERVIEW.zoom),
           pitch: OVERVIEW.pitch,
           bearing: OVERVIEW.bearing,
         }
@@ -352,14 +353,34 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           map.easeTo({ ...target, duration: 3500, essential: true });
         }
       }
-      // One skip rule for every arrival flight: touch = cut (guardrail F1).
-      // The same first touch also clears the hint — it must never eat a tap.
-      const skip = () => {
-        map.stop();
+      // One skip rule for every arrival flight (guardrail F1): the first
+      // touch CUTS to the destination — never strands the camera mid-air.
+      // (Mapbox GL emits mousedown/touchstart, not pointerdown.)
+      const flightTarget = arriving
+        ? {
+            center: stops[deepIdx].coordinates,
+            zoom: 20,
+            pitch: OVERVIEW.pitch,
+            bearing: OVERVIEW.bearing,
+          }
+        : overviewCamera();
+      let cutDone = false;
+      const cut = () => {
+        if (cutDone) return;
+        cutDone = true;
+        if (map.isEasing()) {
+          map.stop();
+          map.jumpTo(flightTarget);
+        }
         setHintOpen(false);
       };
-      map.once("pointerdown", skip);
-      map.once("wheel", skip);
+      map.once("mousedown", cut);
+      map.once("touchstart", cut);
+      map.once("wheel", cut);
+      // Once the flight lands naturally, disarm the cut
+      map.once("idle", () => {
+        cutDone = true;
+      });
 
       // First visit hint (M8)
       if (!sessionStorage.getItem("cnwm-map-hint") && !arriving) {
@@ -477,7 +498,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }
 
   return (
-    <div className="map-shell relative h-[100dvh] w-full">
+    <div className="relative h-full w-full bg-primary-2">
       <div ref={container} className="map-canvas absolute inset-0" />
 
       {/* 1860 lens (M7) — Mark Priest's map of Troy, in the approved frame */}
@@ -523,7 +544,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* Hint card (M8) — parked above the doors, never eats a map tap:
           the container passes pointers through; only the X is interactive */}
       {hintOpen && (
-        <div className="pointer-events-none absolute bottom-24 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-28">
+        <div className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32">
           <div className="frame pointer-events-auto flex items-center gap-3 bg-primary-3 py-2 pr-2 pl-4">
             <p className="type-label">Drag to explore · Tap a stop</p>
             <button

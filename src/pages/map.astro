@@ -30,7 +30,14 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
   menuPosition="bottom-right"
 >
-  <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
+  {/* The shell is server-rendered at full height so island hydration causes
+      zero layout shift; the island fills it. */}
+  <div class="map-shell">
+    <div class="absolute inset-0 grid place-items-center" aria-hidden="true">
+      <p class="type-label">The walk is loading…</p>
+    </div>
+    <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
+  </div>
 
   {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
   <section class="mx-auto max-w-7xl px-4 pt-16 pb-8 md:px-10 lg:px-20" aria-label="The five stops">

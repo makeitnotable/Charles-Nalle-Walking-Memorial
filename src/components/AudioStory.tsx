@@ -157,9 +157,12 @@ export default function AudioStory({
     const a = audioRef.current;
     if (!a) return;
     if (a.paused) {
-      a.play();
-      setPlaying(true);
-      setMiniLatched(true);
+      a.play()
+        .then(() => {
+          setPlaying(true);
+          setMiniLatched(true);
+        })
+        .catch(() => setPlaying(false));
     } else {
       a.pause();
       setPlaying(false);
@@ -178,9 +181,12 @@ export default function AudioStory({
     seekTo(timings[timingIndex].start + 0.01);
     const a = audioRef.current;
     if (a && a.paused) {
-      a.play();
-      setPlaying(true);
-      setMiniLatched(true);
+      a.play()
+        .then(() => {
+          setPlaying(true);
+          setMiniLatched(true);
+        })
+        .catch(() => setPlaying(false));
     }
   };
 
@@ -365,10 +371,10 @@ export default function AudioStory({
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
                   {playButton(true)}
-                  <div>
-                    <p className="text-[16px] font-semibold text-primary-12 uppercase">{label}</p>
+                  <div className="min-w-0">
+                    <p className="truncate text-[16px] font-semibold text-primary-12 uppercase">{label}</p>
                     <p
-                      className="text-[11px] font-normal text-primary-11"
+                      className="max-w-[8.5rem] truncate text-[11px] font-normal text-primary-11"
                       style={{ fontFamily: "var(--font-poppins)" }}
                     >
                       {subtitle}
