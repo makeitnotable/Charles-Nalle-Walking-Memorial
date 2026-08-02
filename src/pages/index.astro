@@ -1,257 +1,132 @@
 ---
-import { getCollection } from "astro:content";
+// Home — approved signature #6: full-viewport photo frame, three-stack
+// (Troy, NY → interlocked wordmark → 1821—1875 rule), Continue pill, mission
+// copy with hand-authored breaks. The v2 entry moment folds IN: the splash
+// film plays inside the photo frame, the stack rises in sequence, the date
+// rule draws itself. Reduced motion: static frame, everything visible.
 import Base from "../layouts/Base.astro";
-import Picture from "../components/Picture.astro";
 import { withBase } from "../lib/url";
-
-const chapters = (await getCollection("chapters")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-
-// Rolling-date columns: every digit rolls from 0 to its resting value.
-const dateDigits = ["1", "8", "6", "0"];
 ---
 
 <Base
-  title="Charles Nalle Walking Memorial — Troy, NY, April 27, 1860"
+  title="Charles Nalle Walking Memorial — Troy, NY"
   description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city — led by Harriet Tubman — rose up to free Charles Nalle from the Fugitive Slave Act."
 >
-  {/* ——— Title sequence ——— */}
-  <section class="relative -mt-[76px] flex min-h-[100dvh] items-end overflow-hidden">
-    <video
-      class="absolute inset-0 h-full w-full object-cover opacity-60 motion-reduce:hidden"
-      src={withBase("media/site/splash.mp4")}
-      poster={withBase("media/site/splash-poster.jpg")}
-      autoplay
-      muted
-      loop
-      playsinline
-      aria-hidden="true"></video>
-    <img
-      class="absolute inset-0 hidden h-full w-full object-cover opacity-60 motion-reduce:block"
-      src={withBase("media/site/splash-poster.jpg")}
-      alt=""
-      aria-hidden="true"
-    />
-    <div
-      class="absolute inset-0"
-      style="background: linear-gradient(180deg, color-mix(in oklab, var(--chapter-surface) 55%, transparent), var(--chapter-surface) 96%)"
-    >
-    </div>
-
-    <div class="relative z-10 mx-auto w-full max-w-3xl px-6 pb-20 text-center">
-      <p class="label-caps title-seq" style="--seq: 0">Troy, New York</p>
-      <p
-        class="font-display title-seq mt-3 text-2xl tracking-[0.12em]"
-        style="--seq: 1"
-        aria-label="April 27, 1860"
-      >
-        April 27, <span class="roll-date" aria-hidden="true">
-          {
-            dateDigits.map((d) => (
-              <span class="roll-digit" style={`--target: ${d}`}>
-                <span class="roll-col">
-                  {Array.from({ length: 10 }, (_, n) => (
-                    <span>{n}</span>
-                  ))}
-                </span>
-              </span>
-            ))
-          }
-        </span>
-      </p>
-      <h1
-        class="display-hero title-seq mt-8 text-6xl sm:text-7xl md:text-8xl"
-        style="--seq: 2"
-      >
-        The Rescue of<br />Charles Nalle
-      </h1>
-      <p
-        class="prose-narrative title-seq mx-auto mt-8 text-lg opacity-90"
-        style="--seq: 3"
-      >
-        One spring morning, a coachman was seized outside a bakery under the
-        Fugitive Slave Act — and the people of Troy, led by Harriet Tubman,
-        rose up to set him free.
-      </p>
+  <div class="h-dvh p-4 md:p-12">
+    <div class="relative flex h-full flex-col items-center justify-between">
+      <!-- The photo frame: film plays inside it, treated like the approved still -->
       <div
-        class="title-seq mt-10 flex flex-wrap justify-center gap-4"
-        style="--seq: 4"
+        class="home-frame absolute inset-0 z-0 overflow-hidden rounded-[32px] border border-gray-7"
+        aria-hidden="true"
       >
-        <a
-          href={withBase("map")}
-          class="rounded-full px-7 py-3.5 font-display text-lg transition-transform hover:-translate-y-0.5"
-          style="background: var(--chapter-accent); color: var(--chapter-surface)"
-        >
-          Begin the walk
-        </a>
-        <a
-          href={withBase("bakery")}
-          class="rounded-full border border-white/30 px-7 py-3.5 font-display text-lg transition-transform hover:-translate-y-0.5"
-        >
-          Read the story
-        </a>
+        <video
+          class="h-full w-full object-cover motion-reduce:hidden"
+          style="filter: grayscale(100%) brightness(0.7) contrast(1) sepia(0.1)"
+          src={withBase("media/site/splash.mp4")}
+          poster={withBase("media/site/home-bg-1440.jpg")}
+          autoplay
+          muted
+          loop
+          playsinline></video>
+        <img
+          class="hidden h-full w-full object-cover motion-reduce:block"
+          style="filter: grayscale(100%) brightness(0.7) contrast(1) sepia(0.1)"
+          src={withBase("media/site/home-bg-1440.jpg")}
+          alt=""
+        />
+        <div class="absolute inset-0" style="background: var(--scrim-photo)"></div>
+      </div>
+
+      <!-- The three-stack -->
+      <div class="z-10 flex h-full flex-col items-center justify-between">
+        <div class="flex flex-col items-center justify-between gap-8 pt-16">
+          <p class="type-eyebrow home-seq" style="--seq: 0">Troy, NY</p>
+          <h1 class="flex flex-col" aria-label="Charles Nalle">
+            <span class="type-wordmark home-seq" style="--seq: 1">Charles</span>
+            <span class="type-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.75rem">Nalle</span>
+          </h1>
+          <div class="home-seq flex items-center gap-2" style="--seq: 3">
+            <p class="type-eyebrow">1821</p>
+            <div class="rule-draw -mt-0.5 h-[1px] w-[28px] bg-primary-10"></div>
+            <p class="type-eyebrow">1875</p>
+          </div>
+        </div>
+
+        <div class="home-seq flex w-full justify-center px-4" style="--seq: 4">
+          <a
+            href={withBase("map")}
+            class="flex w-[148px] cursor-pointer items-center justify-center rounded-full px-6 py-4 text-center text-[1.125rem] leading-[1.5rem] font-medium transition-all duration-300 hover:brightness-105 md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
+            style="background: var(--cta-bg); color: var(--cta-text); border: 1px solid var(--cta-border); font-family: var(--font-poppins)"
+          >
+            Continue
+          </a>
+        </div>
+
+        <div class="home-seq flex flex-col items-center justify-between p-4" style="--seq: 5">
+          {/* Mobile and tablet: hand breaks via measure */}
+          <p class="type-muted mx-4 mb-2 block max-w-[283px] text-center md:max-w-[353px] lg:hidden">
+            The Charles Nalle Walking Memorial is a digital physical experience
+            designed to share the history of Troy and the story of Charles Nalle
+          </p>
+          {/* Desktop: break after "designed" */}
+          <p class="type-muted mx-4 mb-2 hidden text-center lg:block">
+            The Charles Nalle Walking Memorial is a digital physical experience designed<br />
+            to share the history of Troy and the story of Charles Nalle
+          </p>
+        </div>
       </div>
     </div>
-  </section>
-
-  {/* ——— Four doors ——— */}
-  <section class="mx-auto max-w-5xl px-6 pt-20" aria-label="Ways into the story">
-    <p class="label-caps reveal">Choose your way in</p>
-    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        [
-          {
-            href: "map",
-            title: "The Walk",
-            blurb: "Five stops through downtown Troy",
-            slug: "site",
-            imageKey: "troy-1860",
-          },
-          {
-            href: "bakery",
-            title: "The Story",
-            blurb: "Six scenes, one extraordinary day",
-            slug: "bakery",
-            imageKey: "square",
-          },
-          {
-            href: "people",
-            title: "The People",
-            blurb: "The rescuers and the hunters",
-            slug: "barbershop",
-            imageKey: "square",
-          },
-          {
-            href: "paintings",
-            title: "The Paintings",
-            blurb: "Mark Priest's Nalle Series",
-            slug: "ferry",
-            imageKey: "square",
-          },
-        ].map((door) => (
-          <a
-            href={withBase(door.href)}
-            class="reveal group overflow-hidden rounded-sm border border-white/15 transition-transform duration-300 hover:-translate-y-1"
-          >
-            <Picture
-              slug={door.slug}
-              imageKey={door.imageKey}
-              alt=""
-              sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 100vw"
-              class="aspect-[4/3] w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-            />
-            <span class="block p-4">
-              <span class="font-display block text-xl">{door.title}</span>
-              <span class="mt-0.5 block text-sm opacity-70">{door.blurb}</span>
-            </span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  {/* ——— Chapter index ——— */}
-  <section class="mx-auto max-w-2xl px-6 pt-20 pb-8" aria-label="Chapters">
-    <p class="label-caps reveal">The chapters</p>
-    <ol class="mt-6 space-y-6">
-      {
-        chapters.map((entry) => (
-          <li class="reveal">
-            <a href={withBase(entry.id)} class="group flex items-center gap-5">
-              <span
-                class="display-hero w-14 text-right text-4xl"
-                style={`color: ${entry.data.palette.accent}`}
-              >
-                {entry.data.order}
-              </span>
-              <span class="min-w-0 flex-1 border-b border-white/12 pb-4">
-                <span class="font-display block text-2xl group-hover:underline">
-                  {entry.data.cardTitle}
-                </span>
-                <span class="mt-0.5 block text-sm opacity-60">
-                  {entry.data.map.address}
-                  {!entry.data.plaque && " · website only"}
-                </span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <script>
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add("is-in");
-            io.unobserve(e.target);
-          }
-        }
-      },
-      { threshold: 0.12 },
-    );
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-  </script>
+  </div>
 </Base>
 
 <style>
-  /* Title sequence: staggered rise, sequenced by --seq */
-  .title-seq {
+  /* Frame settles from black to the approved 50% presence */
+  .home-frame {
+    opacity: 0.5;
+  }
+  /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
+     and reduced-motion states are simply "everything visible". */
+  .home-seq {
     opacity: 1;
     transform: none;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .title-seq {
-      animation: title-rise 900ms var(--ease-settle) both;
-      animation-delay: calc(200ms + var(--seq) * 190ms);
+    .home-frame {
+      animation: frame-in 1400ms var(--ease-house) both;
     }
-    @keyframes title-rise {
+    @keyframes frame-in {
       from {
         opacity: 0;
-        transform: translateY(26px);
+      }
+      to {
+        opacity: 0.5;
+      }
+    }
+    .home-seq {
+      animation: home-rise 900ms var(--ease-house) both;
+      animation-delay: calc(300ms + var(--seq) * 160ms);
+    }
+    @keyframes home-rise {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
       }
       to {
         opacity: 1;
         transform: none;
       }
     }
-  }
-
-  /* Rolling 1860 */
-  .roll-date {
-    display: inline-flex;
-    gap: 0.02em;
-  }
-  .roll-digit {
-    display: inline-block;
-    height: 1em;
-    overflow: hidden;
-    vertical-align: baseline;
-  }
-  .roll-col {
-    display: inline-flex;
-    flex-direction: column;
-    line-height: 1;
-    transform: translateY(calc(var(--target) * -1em));
-  }
-  .roll-col > span {
-    display: block;
-    height: 1em;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .roll-col {
-      animation: roll-settle 1600ms var(--ease-drift) both;
-      animation-delay: 500ms;
+    .rule-draw {
+      animation: rule-x 700ms var(--ease-house) both;
+      animation-delay: calc(300ms + 3 * 160ms + 250ms);
+      transform-origin: left center;
     }
-    @keyframes roll-settle {
+    @keyframes rule-x {
       from {
-        transform: translateY(0);
+        transform: scaleX(0);
       }
       to {
-        transform: translateY(calc(var(--target) * -1em));
+        transform: scaleX(1);
       }
     }
   }

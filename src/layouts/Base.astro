@@ -1,18 +1,20 @@
 ---
 import "../styles/global.css";
 import { withBase } from "../lib/url";
+import Menu from "../components/Menu.astro";
 
 interface Props {
   title: string;
   description: string;
-  /** Inline palette override for chapter pages */
+  /** Chapter palette — retained as data only; the approved single ramp styles everything. */
   palette?: { surface: string; ink: string; accent: string };
+  /** Menu corner: chapters/home use top-right; the map uses bottom-right. */
+  menuPosition?: "top-right" | "bottom-right";
+  /** Hide the floating menu (styleguide/internal pages). */
+  noMenu?: boolean;
 }
 
-const { title, description, palette } = Astro.props;
-const paletteStyle = palette
-  ? `--chapter-surface:${palette.surface};--chapter-ink:${palette.ink};--chapter-accent:${palette.accent};`
-  : undefined;
+const { title, description, menuPosition = "top-right", noMenu = false } = Astro.props;
 // File-format builds report pathnames like /base/bakery.html — canonicalize
 // to the extensionless URLs that GH Pages actually serves.
 const canonical = new URL(
@@ -22,7 +24,7 @@ const canonical = new URL(
 ---
 
 <!doctype html>
-<html lang="en" style={paletteStyle}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,7 +32,7 @@ const canonical = new URL(
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
-    <meta name="theme-color" content={palette?.surface ?? "#121212"} />
+    <meta name="theme-color" content="#1d1411" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Charles Nalle Walking Memorial" />
     <meta property="og:title" content={title} />
@@ -39,42 +41,32 @@ const canonical = new URL(
     <meta property="og:image" content={new URL(withBase("og.png"), Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body class="paper min-h-dvh">
+  <body class="min-h-dvh">
     <script is:inline>
       // Progressive enhancement flag: scroll-reveal initial states apply
       // only when JS runs (no-JS users see everything, statically).
       document.documentElement.classList.add("js");
     </script>
-    <a href="#main" class="skip-link">Skip to content</a>
-    <header class="relative z-30">
-      <nav
-        class="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-6 py-5"
-        aria-label="Site"
-      >
-        <a href={withBase("")} class="font-display text-lg tracking-wide">
-          Charles Nalle <span class="opacity-60">Walking Memorial</span>
-        </a>
-        <div class="label-caps flex flex-wrap gap-x-5 gap-y-1" style="opacity: 1">
-          <a href={withBase("map")} class="hover:underline">The Walk</a>
-          <a href={withBase("bakery")} class="hover:underline">The Story</a>
-          <a href={withBase("people")} class="hover:underline">The People</a>
-          <a href={withBase("paintings")} class="hover:underline">The Paintings</a>
-          <a href={withBase("about")} class="hover:underline">About</a>
-        </div>
-      </nav>
-    </header>
+    <a href="#main" class="skip-link" data-no-curtain>Skip to content</a>
+
     <main id="main">
       <slot />
     </main>
-    <footer class="mx-auto max-w-2xl px-6 py-12 text-sm opacity-70">
-      <p>
-        Charles Nalle Walking Memorial · Troy, New York ·
-        <a href={withBase("about")} class="underline">About this project</a>
-      </p>
-      <p class="mt-2">
-        A collaboration of the Hart Cluett Museum, RPI, Brian Tolle Studio, and
-        Notable Branding &amp; Design.
-      </p>
-    </footer>
+
+    {!noMenu && <Menu position={menuPosition} />}
+
+    <!-- Curtain transition (signature #1) -->
+    <div id="curtain-panel" class="curtain-panel" aria-hidden="true"></div>
+    <div id="curtain-text" class="curtain-text" aria-hidden="true">
+      <div id="curtain-text-content" class="flex flex-col">
+        <p class="type-wordmark">Charles</p>
+        <p class="type-wordmark self-end" style="margin-top:-0.75rem">Nalle</p>
+      </div>
+    </div>
+
+    <script>
+      import { initCurtain } from "../lib/curtain";
+      initCurtain();
+    </script>
   </body>
 </html>
