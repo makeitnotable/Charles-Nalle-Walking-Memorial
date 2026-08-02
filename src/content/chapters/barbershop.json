@@ -7,11 +7,8 @@
   },
   "pinPosition": "below",
   "chapterLabel": "Chapter 5",
-  "title": "PETER\nBALTIMORE'S\nBARBERSHOP",
-  "cardTitle": "Peter Baltimore's Barbershop",
   "plaque": true,
   "map": {
-    "label": "Barbershop",
     "coordinates": [
       -73.692893,
       42.730818
@@ -121,7 +118,6 @@
     }
   ],
   "next": {
-    "slug": "bakery",
-    "label": "Chapter 1 — Where the story began"
+    "slug": "bakery"
   }
 }

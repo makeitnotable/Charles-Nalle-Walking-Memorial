@@ -7,11 +7,8 @@
   },
   "pinPosition": "below",
   "chapterLabel": "Chapter 3",
-  "title": "URI GILBERT\nMANSION",
-  "cardTitle": "Uri Gilbert Mansion",
   "plaque": true,
   "map": {
-    "label": "Gilbert Mansion",
     "coordinates": [
       -73.6933753,
       42.7243182
@@ -119,7 +116,6 @@
     }
   ],
   "next": {
-    "slug": "ferry",
-    "label": "Chapter 4 — Washington Street Ferry Landing"
+    "slug": "ferry"
   }
 }

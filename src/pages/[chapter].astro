@@ -31,6 +31,7 @@ import AudioStory from "../components/AudioStory";
 import EmbedMap from "../components/EmbedMap";
 import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 
 export async function getStaticPaths() {
@@ -405,33 +406,7 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
     </div>
   </section>
 
-  {/* ══════ FOOTER BAND — identical site-wide ══════ */}
-  <footer class="sec">
-    <div class="rule-bleed"></div>
-    <div
-      class="shell flex flex-col gap-8 py-10 pb-28 md:flex-row md:items-center md:justify-between md:gap-10 md:pr-28 md:pb-10"
-    >
-      <p class="t-meta-body">
-        Charles Nalle Walking Memorial · Made by <a
-          href="https://makeitnotable.com"
-          class="underline transition-opacity hover:opacity-70"
-          data-no-curtain>Notable</a
-        >
-      </p>
-      <nav class="flex flex-wrap items-center gap-x-8 gap-y-2" aria-label="Elsewhere on the memorial">
-        <a href={withBase("people")} data-curtain-label="The People" class="link-meta t-meta"
-          >The people of this day <Icon name="arrow" size="sm" /></a
-        >
-        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="link-meta t-meta"
-          >The paintings <Icon name="arrow" size="sm" /></a
-        >
-        <a href={withBase("about")} data-curtain-label="About" class="link-meta t-meta"
-          >About the memorial <Icon name="arrow" size="sm" /></a
-        >
-      </nav>
-      <Button size="sm" variant="ghost" icon="share" iconLeading id="share-btn">Share</Button>
-    </div>
-  </footer>
+  <SiteFooter hide={undefined} share />
 
   <script>
     import gsap from "gsap";

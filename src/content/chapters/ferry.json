@@ -7,11 +7,8 @@
   },
   "pinPosition": "below",
   "chapterLabel": "Chapter 4",
-  "title": "WASHINGTON\nSTREET FERRY\nLANDING",
-  "cardTitle": "Washington Street Ferry Landing",
   "plaque": false,
   "map": {
-    "label": "Ferry Landing",
     "coordinates": [
       -73.698778,
       42.719271
@@ -121,7 +118,6 @@
     }
   ],
   "next": {
-    "slug": "barbershop",
-    "label": "Chapter 5 — Peter Baltimore's Barbershop"
+    "slug": "barbershop"
   }
 }

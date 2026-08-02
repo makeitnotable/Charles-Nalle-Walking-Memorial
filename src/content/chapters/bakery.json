@@ -7,11 +7,8 @@
   },
   "pinPosition": "below",
   "chapterLabel": "Chapter 1",
-  "title": "HOLEUR'S\nFASHIONABLE\nBAKERY",
-  "cardTitle": "Holeur's Fashionable Bakery",
   "plaque": true,
   "map": {
-    "label": "Bakery",
     "coordinates": [
       -73.691526,
       42.726108
@@ -109,7 +106,6 @@
     }
   ],
   "next": {
-    "slug": "commissioners-office",
-    "label": "Chapter 2 — Office of the Commissioner"
+    "slug": "commissioners-office"
   }
 }

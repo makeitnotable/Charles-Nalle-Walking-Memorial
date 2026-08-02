@@ -1,0 +1,55 @@
+---
+/**
+ * THE footer band — identical on every page.
+ * Full-bleed hairline, then one row on the shell: credit left, lateral links
+ * centre, share right. v3 shipped three different footers using three type
+ * sizes each; there is now one.
+ * The right padding reserves the floating corner menu's 72px + inset.
+ */
+import Icon from "./Icon.astro";
+import Button from "./Button.astro";
+import { withBase } from "../lib/url";
+
+interface Props {
+  /** Omit the page you are already on. */
+  hide?: "people" | "paintings" | "about" | "map";
+  /** Chapter pages offer a share control; index pages do not need one. */
+  share?: boolean;
+}
+const { hide, share = false } = Astro.props;
+
+const links = [
+  { key: "people", href: "people", label: "The people of this day", curtain: "The People" },
+  { key: "paintings", href: "paintings", label: "The paintings", curtain: "The Paintings" },
+  { key: "about", href: "about", label: "About the memorial", curtain: "About" },
+  { key: "map", href: "map", label: "The walk", curtain: "The Walk" },
+].filter((l) => l.key !== hide);
+---
+
+<footer class="sec">
+  <div class="rule-bleed"></div>
+  <div
+    class="shell flex flex-col gap-8 py-10 pb-28 md:flex-row md:items-center md:justify-between md:gap-10 md:pr-28 md:pb-10"
+  >
+    <p class="t-meta-body">
+      Charles Nalle Walking Memorial · Made by <a
+        href="https://makeitnotable.com"
+        class="underline transition-opacity hover:opacity-70"
+        data-no-curtain>Notable</a
+      >
+    </p>
+
+    <nav class="flex flex-wrap items-center gap-x-8 gap-y-2" aria-label="Elsewhere on the memorial">
+      {
+        links.map((l) => (
+          <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta">
+            {l.label}
+            <Icon name="arrow" size="sm" />
+          </a>
+        ))
+      }
+    </nav>
+
+    {share && <Button size="sm" variant="ghost" icon="share" iconLeading id="share-btn">Share</Button>}
+  </div>
+</footer>

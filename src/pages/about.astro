@@ -1,7 +1,14 @@
 ---
-// About — restyled to the approved language (elevation A1/A2): ladder type,
-// bordered section media, and a no-dead-ends close into the walk.
+/**
+ * About — the reading page, and the second home of the cream register.
+ * v3 held a ~670px measure at every width from 768 up, so 42% of a desktop
+ * screen sat empty while the heading wrapped worse than it did on a tablet.
+ * v4 puts the long text on the label-left editorial grid and moves the
+ * project narrative onto the cream ground, where serif prose belongs.
+ */
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { about } from "../data/about";
 import { withBase } from "../lib/url";
 
@@ -16,94 +23,120 @@ const people = [
   title="About — Charles Nalle Walking Memorial"
   description="About the Charles Nalle Walking Memorial: the people behind the project, the paintings of Mark Priest, and the scholarship of Scott Christianson."
 >
-  <article class="mx-auto max-w-7xl px-4 pb-16 md:px-10 lg:px-20">
-    <header class="pt-16 pb-10">
-      <p class="type-label reveal">{about.project.kicker}</p>
-      <h1 class="type-display type-display-caps reveal mt-4">
-        {about.project.header}
-      </h1>
-    </header>
+  <header class="shell pt-28 pb-4">
+    <p class="t-meta">{about.project.kicker}</p>
+    <h1 class="t-display lines mt-8" style={`--fit-chars: ${Math.max(...about.project.header.split("\n").map((l) => l.trim().length))}`}>
+      {about.project.header}
+    </h1>
+  </header>
 
-    <section aria-label="Project overview" class="max-w-2xl">
-      {about.project.paragraphs.map((p) => <p class="type-body reveal mt-5">{p}</p>)}
-    </section>
-
-    <section class="mt-16 max-w-2xl" aria-labelledby="how-heading">
-      <h2 id="how-heading" class="type-display type-display-caps reveal">
-        {about.howItWorks.header}
-      </h2>
-      <ol class="mt-8 space-y-6">
-        {
-          about.howItWorks.steps.map((step, i) => (
-            <li class="reveal flex flex-row items-start gap-3">
-              <div class="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary-10 lg:h-6 lg:w-6">
-                <p
-                  class="mt-0.5 text-[0.7rem] font-medium text-primary-12 lg:text-[0.9rem]"
-                  style="font-family: var(--font-poppins)"
-                >
-                  {i + 1}
-                </p>
-              </div>
-              <div class="type-body">
-                {step.title}
-                {"bullets" in step && step.bullets && (
-                  <ul class="mt-2 list-disc space-y-1 pl-5 opacity-90">
-                    {step.bullets.map((b) => (
-                      <li>{b}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-    </section>
-
-    {
-      people.map((person) => (
-        <section class="mt-16" aria-label={person.header}>
-          <p class="type-label reveal">{person.kicker}</p>
-          <h2 class="type-display type-display-caps reveal mt-2">{person.header}</h2>
-          <img
-            src={withBase(`media/site/${person.image}-800.webp`)}
-            srcset={`${withBase(`media/site/${person.image}-800.webp`)} 800w, ${withBase(`media/site/${person.image}-1440.webp`)} 1440w`}
-            sizes="(min-width: 768px) 42rem, 100vw"
-            alt={person.header}
-            loading="lazy"
-            class="frame reveal mt-6 max-h-[363px] w-auto max-w-full object-cover"
-          />
-          <div class="max-w-2xl">
-            {person.paragraphs.map((p) => (
-              <p class="type-body reveal mt-5">{p}</p>
-            ))}
+  {/* The project narrative, on the reading ground. */}
+  <section class="beat" aria-label="Project overview">
+    <div class="ground-cream py-20 md:py-28">
+      <div class="shell">
+        <div class="editorial">
+          <div class="rule-top pt-5">
+            <p class="t-spine">(01)</p>
+            <p class="t-meta mt-3">The project</p>
           </div>
-        </section>
-      ))
-    }
+          <div class="space-y-6">
+            {about.project.paragraphs.map((p) => <p class="t-prose reveal">{p}</p>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <figure class="reveal mt-16 max-w-2xl">
-      <blockquote class="type-card-title" style="font-size: 1.35em; line-height: 1.4">
-        “{about.closingQuote.text}”
-      </blockquote>
-      <figcaption class="type-label mt-3">
+  <section class="shell sec" aria-labelledby="how-heading">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">(02)</p>
+        <p class="t-meta mt-3">How it works</p>
+      </div>
+      <div>
+        <h2 id="how-heading" class="t-title reveal">{about.howItWorks.header}</h2>
+        <ol class="reveal mt-14 space-y-10">
+          {
+            about.howItWorks.steps.map((step, i) => (
+              <li class="grid grid-cols-[3.5rem_1fr] items-baseline">
+                <span class="t-meta">({i + 1})</span>
+                <div class="t-prose">
+                  {step.title}
+                  {"bullets" in step && step.bullets && (
+                    <ul class="mt-3 list-disc space-y-1 pl-6 opacity-90">
+                      {step.bullets.map((b) => (
+                        <li>{b}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {
+    people.map((person, i) => (
+      <section class="shell sec" aria-label={person.header}>
+        <div class="editorial">
+          <div class="rule-top pt-5">
+            <p class="t-spine">({String(i + 3).padStart(2, "0")})</p>
+            <p class="t-meta mt-3">{person.kicker}</p>
+          </div>
+          <div>
+            <h2 class="t-title reveal">{person.header}</h2>
+            <img
+              src={withBase(`media/site/${person.image}-800.webp`)}
+              srcset={`${withBase(`media/site/${person.image}-800.webp`)} 800w, ${withBase(`media/site/${person.image}-1440.webp`)} 1440w`}
+              sizes="(min-width: 1024px) 52rem, 100vw"
+              alt={person.header}
+              loading="lazy"
+              class="artifact reveal mt-12 w-full object-cover"
+            />
+            <div class="mt-12 space-y-6">
+              {person.paragraphs.map((p) => (
+                <p class="t-prose reveal">{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="shell sec">
+    <figure class="reveal-quote">
+      <blockquote class="t-quote is-hung">“{about.closingQuote.text}”</blockquote>
+      <figcaption class="t-meta mt-6">
         — {about.closingQuote.attribution}, {about.closingQuote.source}
       </figcaption>
     </figure>
+  </section>
 
-    {/* No dead ends */}
-    <a
-      href={withBase("map")}
-      data-curtain-label="The Walk"
-      class="reveal frame mt-16 flex items-center justify-between bg-primary-3 p-6 transition-colors duration-300 hover:bg-primary-4 md:p-8"
-    >
-      <span>
-        <span class="type-label block">The streets are waiting</span>
-        <span class="type-card-title mt-2 block uppercase">Walk the route</span>
-      </span>
-      <span class="type-display" aria-hidden="true">→</span>
-    </a>
-  </article>
+  {/* No dead ends. */}
+  <section class="shell sec">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">({String(people.length + 3).padStart(2, "0")})</p>
+        <p class="t-meta mt-3">Onward</p>
+      </div>
+      <div>
+        <p class="t-meta">The streets are waiting</p>
+        <h2 class="t-title reveal mt-4">Walk the route</h2>
+        <div class="mt-10">
+          <a href={withBase("map")} data-curtain-label="The Walk" class="btn btn-solid">
+            Open the walk
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter hide="about" />
 
   <script>
     const io = new IntersectionObserver(
@@ -117,6 +150,6 @@ const people = [
       },
       { threshold: 0.1 },
     );
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-quote, .lines").forEach((el) => io.observe(el));
   </script>
 </Base>

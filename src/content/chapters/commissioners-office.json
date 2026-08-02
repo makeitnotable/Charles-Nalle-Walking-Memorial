@@ -7,11 +7,8 @@
   },
   "pinPosition": "above",
   "chapterLabel": "Chapter 2",
-  "title": "OFFICE OF THE\nCOMMISSIONER",
-  "cardTitle": "Office of the Commissioner",
   "plaque": true,
   "map": {
-    "label": "Commissioner's Office",
     "coordinates": [
       -73.6926623,
       42.7304335
@@ -171,7 +168,6 @@
     }
   ],
   "next": {
-    "slug": "mansion",
-    "label": "Chapter 3 — Uri Gilbert Mansion"
+    "slug": "mansion"
   }
 }

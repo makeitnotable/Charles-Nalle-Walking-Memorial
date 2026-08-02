@@ -60,11 +60,8 @@ const chapters = defineCollection({
     /** Map pin label placement; stop 2 sits above so it cannot hide inside it. */
     pinPosition: z.enum(["above", "below"]).default("below"),
     chapterLabel: z.string(),
-    title: z.string(), // legacy display title — superseded by name.display
-    cardTitle: z.string(), // legacy — superseded by name.canonical
     plaque: z.boolean(),
     map: z.object({
-      label: z.string(),
       // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)
       coordinates: z.tuple([z.number(), z.number()]),
       address: z.string(),
@@ -94,7 +91,8 @@ const chapters = defineCollection({
         callToAction: z.object({ title: z.string(), content: z.string() }),
       }),
     ),
-    next: z.object({ slug: z.string(), label: z.string() }),
+    /** Only the slug: the link text is generated as `Chapter {order} — {canonical}`. */
+    next: z.object({ slug: z.string() }),
   }),
 });
 

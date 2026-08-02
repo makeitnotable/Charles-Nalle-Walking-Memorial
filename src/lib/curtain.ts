@@ -33,14 +33,14 @@ function els() {
 function setLabel(content: HTMLElement, label: string | null, withDate = false) {
   if (label) {
     content.innerHTML =
-      `<p class="type-wordmark text-center">${label}</p>` +
+      `<p class="t-wordmark text-center">${label}</p>` +
       (withDate
-        ? `<p class="type-label text-center" style="margin-top:1rem">${DATE_LINE}</p>`
+        ? `<p class="t-meta text-center" style="margin-top:1rem">${DATE_LINE}</p>`
         : "");
   } else {
     content.innerHTML = `
-      <p class="type-wordmark">Charles</p>
-      <p class="type-wordmark self-end" style="margin-top:-0.75rem">Nalle</p>`;
+      <p class="t-wordmark">Charles</p>
+      <p class="t-wordmark self-end" style="margin-top:-0.06em">Nalle</p>`;
   }
 }
 

@@ -560,8 +560,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return (
       <div className="grid min-h-[50dvh] place-items-center px-6 text-center">
         <div>
-          <p className="type-label">The interactive map is warming up</p>
-          <p className="type-body mx-auto mt-3 max-w-md">
+          <p className="t-meta">The interactive map is warming up</p>
+          <p className="t-prose mx-auto mt-3 max-w-md">
             This build is missing its map key. Every stop on the walk is listed
             below with addresses and links to each chapter.
           </p>
@@ -586,9 +586,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             srcSet={`${baseUrl}/media/site/troy-1860-800.webp 800w, ${baseUrl}/media/site/troy-1860-1440.webp 1440w`}
             sizes="100vw"
             alt="Map of Troy, New York in 1860 — painting by Mark Priest"
-            className="frame max-h-[75dvh] w-auto"
+            className="artifact max-h-[75dvh] w-auto"
           />
-          <figcaption className="type-label mt-4 text-center">
+          <figcaption className="t-meta mt-4 text-center">
             Troy, New York · 1860 — painted by Mark Priest
           </figcaption>
         </figure>
@@ -748,7 +748,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       </div>
                       <div className="flex h-full w-2/3 flex-col justify-between p-3">
                         <div className="m-1 flex flex-row items-center justify-between">
-                          <p className="type-label leading-none">Chapter</p>
+                          <p className="t-meta leading-none">Chapter</p>
                           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5 lg:h-6 lg:w-6">
                             <p
                               className="mt-0.5 text-[.625rem] leading-none font-medium text-primary-12 sm:text-[0.78125rem] lg:text-[.9375rem]"

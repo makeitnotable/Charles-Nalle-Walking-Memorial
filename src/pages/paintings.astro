@@ -1,9 +1,16 @@
 ---
-// The Paintings — Mark Priest's Nalle Series in the approved language
-// (elevation G1: frame idiom, ladder type, Martel captions + credits).
+/**
+ * The Paintings — Mark Priest's Nalle Series.
+ * v4: the image IS the card (Google Arts & Culture). No frame, no button
+ * chrome — a flush image over a fixed eyebrow / title / credit micro-grid with
+ * the same offsets on every tile, and hover scales the image inside its own
+ * clip, never the card.
+ */
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -33,8 +40,8 @@ const works = chapters.flatMap((entry) =>
       slug: entry.id,
       key,
       title: KEY_TITLES[key]
-        ? `${entry.data.cardTitle} — ${KEY_TITLES[key]}`
-        : entry.data.cardTitle,
+        ? `${entry.data.name.canonical} — ${KEY_TITLES[key]}`
+        : entry.data.name.canonical,
       chapterLabel: entry.data.chapterLabel,
       order: entry.data.order,
       full: withBase(`media/${entry.id}/${key}-1440.jpg`),
@@ -42,7 +49,7 @@ const works = chapters.flatMap((entry) =>
         ? withBase(`media/${entry.id}/${KEY_VIDEOS[key]}.mp4`)
         : null,
       href: withBase(entry.id),
-      mapLabel: entry.data.map.label,
+      mapLabel: entry.data.name.short,
     })),
 );
 ---
@@ -51,25 +58,26 @@ const works = chapters.flatMap((entry) =>
   title="The Paintings — Charles Nalle Walking Memorial"
   description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
 >
-  <section class="mx-auto max-w-7xl px-4 pt-10 pb-24 md:px-10 lg:px-20">
-    <p class="type-label reveal">The Paintings</p>
-    <h1 class="type-display type-display-caps reveal mt-4">
-      The Nalle<br />Series
-    </h1>
-    <p class="type-body reveal mt-8 max-w-xl">
-      Painter <strong>Mark Priest</strong> spent years reconstructing the
-      rescue of Charles Nalle — walking Troy's streets, reading the accounts,
-      and painting the day scene by scene. Select any work to view it closely,
-      or follow it into its chapter.
+  <header class="shell pt-28 pb-4">
+    <p class="t-meta">The paintings · {works.length} works</p>
+    <h1 class="t-display lines mt-8" style="--fit-chars: 9">THE NALLE<br />SERIES</h1>
+  </header>
+
+  <section class="shell beat pb-8">
+    <p class="t-prose reveal">
+      Painter <strong>Mark Priest</strong> spent years reconstructing the rescue
+      of Charles Nalle — walking Troy's streets, reading the accounts, and
+      painting the day scene by scene. Select any work to view it closely, or
+      follow it into its chapter.
     </p>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+    <div class="sec grid gap-x-8 gap-y-16 sm:grid-cols-2">
       {
         works.map((work) => (
           <figure class="reveal">
             <button
               type="button"
-              class="painting-open frame group block w-full cursor-pointer overflow-hidden text-left"
+              class="painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] text-left"
               data-full={work.full}
               data-video={work.video}
               data-title={`${work.title} — Mark Priest`}
@@ -80,22 +88,22 @@ const works = chapters.flatMap((entry) =>
                 imageKey={work.key}
                 alt={`“${work.title}” — painting by Mark Priest`}
                 sizes="(min-width: 640px) 34rem, 100vw"
-                class="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                class="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
               />
             </button>
-            <figcaption class="mt-3 flex items-baseline justify-between gap-4">
-              <span>
-                <span class="type-card-title block">{work.title}</span>
-                <span class="type-muted">Mark Priest · Nalle Series</span>
-              </span>
+            {/* The fixed micro-grid: 16 → eyebrow → 12 → title → 12 → credit. */}
+            <figcaption class="mt-4">
               <a
                 href={work.href}
                 data-curtain-label={work.mapLabel}
                 data-curtain-date
-                class="type-label shrink-0 transition-colors duration-300 hover:text-primary-9"
+                class="link-meta t-meta"
               >
-                {work.chapterLabel} →
+                {work.chapterLabel}
+                <Icon name="arrow" size="sm" />
               </a>
+              <span class="t-title mt-3 block" style="--fs-title: 22px">{work.title}</span>
+              <span class="t-meta-body mt-3 block">Mark Priest · Nalle Series</span>
             </figcaption>
           </figure>
         ))
@@ -106,7 +114,7 @@ const works = chapters.flatMap((entry) =>
   {/* Close-look dialog */}
   <dialog
     id="painting-dialog"
-    class="frame-2 m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/85"
+    class="artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88"
   >
     <img id="painting-dialog-img" src="" alt="" class="max-h-[85dvh] w-auto" />
     <video
@@ -118,17 +126,15 @@ const works = chapters.flatMap((entry) =>
       playsinline
     ></video>
     <div class="flex items-center justify-between gap-4 p-4">
-      <p id="painting-dialog-title" class="type-muted"></p>
-      <button
-        type="button"
-        id="painting-dialog-close"
-        class="cursor-pointer rounded-full border border-primary-8 px-4 py-1.5 text-sm font-medium text-primary-11 transition-colors duration-300 hover:text-primary-12"
-        style="font-family: var(--font-poppins)"
-      >
+      <p id="painting-dialog-title" class="t-meta-body"></p>
+      <button type="button" id="painting-dialog-close" class="btn-sm btn-ghost">
+        <Icon name="close" size="sm" />
         Close
       </button>
     </div>
   </dialog>
+
+  <SiteFooter hide="paintings" />
 
   <script>
     const dialog = document.getElementById("painting-dialog") as HTMLDialogElement;

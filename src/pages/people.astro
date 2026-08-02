@@ -1,27 +1,32 @@
 ---
-// The People — the cast of April 27, 1860, in the approved language.
-// Elevation P1/P2 (googleac subject-spine): the page leads with Tubman's
-// words; role eyebrow labels; "appears in" chips tie people to chapters.
+/**
+ * The People — the cast of April 27, 1860.
+ * v4: unboxed. v3 put 21 bordered cards in one viewport and nothing won the
+ * glance. Each person is now an eyebrow/name/note stack on a hairline — the
+ * Google Arts & Culture micro-grid with the image slot empty (portraits are
+ * still an undelivered asset; see docs/v4/REVIEW-GUIDE.md).
+ */
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { rescuers, hunters, type Person } from "../data/people";
 
 const chapters = await getCollection("chapters");
-const labelFor = (slug: string) =>
-  chapters.find((c) => c.id === slug)?.data.map.label ?? slug;
-const orderFor = (slug: string) =>
-  chapters.find((c) => c.id === slug)?.data.order ?? 0;
+const shortFor = (slug: string) =>
+  chapters.find((c) => c.id === slug)?.data.name.short ?? slug;
+const orderFor = (slug: string) => chapters.find((c) => c.id === slug)?.data.order ?? 0;
 
 const groups: { heading: string; blurb: string; people: Person[] }[] = [
   {
-    heading: "The Rescuers",
+    heading: "The rescuers",
     blurb:
       "Black and white, famous and unrecorded — the people of Troy who decided, in a single afternoon, that the law was wrong.",
     people: rescuers,
   },
   {
-    heading: "The Hunters",
+    heading: "The hunters",
     blurb:
       "The men who put a free man in chains — lawfully, under the Fugitive Slave Act of 1850.",
     people: hunters,
@@ -33,72 +38,91 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
   title="The People — Charles Nalle Walking Memorial"
   description="The rescuers and the hunters of April 27, 1860: Harriet Tubman, Peter Baltimore, Martin Townsend, Uri Gilbert — and the men who tried to drag Charles Nalle back into slavery."
 >
-  <section class="mx-auto max-w-7xl px-4 pt-10 pb-24 md:px-10 lg:px-20">
-    <p class="type-label reveal">The People</p>
-    <h1 class="type-display type-display-caps reveal mt-4">
-      One day.<br />A whole city's&nbsp;cast.
+  <header class="shell pt-28 pb-4">
+    <p class="t-meta">The people</p>
+    <h1 class="t-display lines mt-8" style="--fit-chars: 14">
+      ONE DAY.<br />A WHOLE CITY'S CAST.
     </h1>
+  </header>
 
-    {/* The page leads with her words (quote-first spine) */}
-    <figure class="reveal mt-10 max-w-2xl">
-      <blockquote class="type-card-title" style="font-size: 1.35em; line-height: 1.4">
-        “Drag us out! Drag him to the river! Drown him! But don't let them have
-        him!”
+  {/* Her words first. */}
+  <section class="shell beat">
+    <figure class="reveal-quote">
+      <blockquote class="t-quote is-hung">
+        “Drag us out! Drag him to the river! Drown him! But don't let them have him!”
       </blockquote>
-      <figcaption class="type-label mt-3">
-        — Harriet Tubman, outside the commissioner's office
-      </figcaption>
+      <figcaption class="t-meta mt-6">— Harriet Tubman, outside the commissioner's office</figcaption>
     </figure>
-
-    <p class="type-body reveal mt-8 max-w-xl">
+    <p class="t-prose reveal beat">
       Every name below stood on real pavement you can still walk. Follow any of
       them into the chapter where their part of the story is told.
     </p>
-
-    {
-      groups.map((group) => (
-        <section class="mt-16" aria-label={group.heading}>
-          <h2 class="type-display type-display-caps reveal">{group.heading}</h2>
-          <p class="type-body reveal mt-4 max-w-xl">{group.blurb}</p>
-          <div class="mt-8 grid gap-5 sm:grid-cols-2">
-            {group.people.map((person) => (
-              <article class="reveal frame flex flex-col bg-primary-3 p-5">
-                <p class="type-label">{person.role}</p>
-                <h3 class="type-card-title mt-2 uppercase">{person.name}</h3>
-                <p class="type-body mt-3 flex-1">{person.note}</p>
-                <p class="mt-5 flex flex-wrap gap-2">
-                  {person.chapters.map((slug) => (
-                    <a
-                      href={withBase(slug)}
-                      data-curtain-label={labelFor(slug)}
-                      data-curtain-date
-                      class="rounded-full border border-primary-8 px-3 py-1.5 text-xs font-medium text-primary-11 transition-colors duration-300 hover:border-primary-7 hover:text-primary-12"
-                      style="font-family: var(--font-poppins)"
-                    >
-                      Ch. {orderFor(slug)} · {labelFor(slug)} →
-                    </a>
-                  ))}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))
-    }
-
-    {/* No dead ends */}
-    <a
-      href={withBase("map")}
-      data-curtain-label="The Walk"
-      class="reveal frame mt-16 flex items-center justify-between bg-primary-3 p-6 transition-colors duration-300 hover:bg-primary-4 md:p-8"
-    >
-      <span>
-        <span class="type-label block">Their streets are still here</span>
-        <span class="type-card-title mt-2 block uppercase">Walk the route</span>
-      </span>
-      <span class="type-display" aria-hidden="true">→</span>
-    </a>
   </section>
+
+  {
+    groups.map((group, gi) => (
+      <section class="shell sec" aria-label={group.heading}>
+        <div class="editorial">
+          <div class="rule-top pt-5">
+            <p class="t-spine">({String(gi + 1).padStart(2, "0")})</p>
+            <p class="t-meta mt-3">{group.heading}</p>
+          </div>
+
+          <div>
+            <h2 class="t-title reveal">{group.heading}</h2>
+            <p class="t-prose reveal mt-8">{group.blurb}</p>
+
+            <div class="mt-16 grid gap-x-12 gap-y-0 md:grid-cols-2">
+              {group.people.map((person) => (
+                <article class="reveal rule-top py-8">
+                  <p class="t-meta">{person.role}</p>
+                  <h3 class="t-title mt-3" style="--fs-title: 26px">
+                    {person.name}
+                  </h3>
+                  <p class="t-prose mt-4">{person.note}</p>
+                  <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                    {person.chapters.map((slug) => (
+                      <a
+                        href={withBase(slug)}
+                        data-curtain-label={shortFor(slug)}
+                        data-curtain-date
+                        class="link-meta t-meta"
+                      >
+                        Ch. {orderFor(slug)} · {shortFor(slug)}
+                        <Icon name="arrow" size="sm" />
+                      </a>
+                    ))}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  {/* No dead ends. */}
+  <section class="shell sec">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">(03)</p>
+        <p class="t-meta mt-3">Onward</p>
+      </div>
+      <div>
+        <p class="t-meta">Their streets are still here</p>
+        <h2 class="t-title reveal mt-4">Walk the route</h2>
+        <div class="mt-10">
+          <a href={withBase("map")} data-curtain-label="The Walk" class="btn btn-solid">
+            Open the walk
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter hide="people" />
 
   <script>
     const io = new IntersectionObserver(
@@ -112,6 +136,6 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
       },
       { threshold: 0.1 },
     );
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-quote, .lines").forEach((el) => io.observe(el));
   </script>
 </Base>

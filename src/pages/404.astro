@@ -1,6 +1,10 @@
 ---
-// 404 in the approved language — craft in the seams (elevation S4).
+// 404 — on-system. v3's two buttons here were the chapter pair minus every
+// responsive class, so they rendered 58px tall against the chapters' 86px.
+// There is no ladder now, so the two can no longer disagree.
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 ---
 
@@ -8,32 +12,26 @@ import { withBase } from "../lib/url";
   title="Page not found — Charles Nalle Walking Memorial"
   description="That page isn't part of the memorial. Return to the walk or the story."
 >
-  <section class="mx-auto flex min-h-[70dvh] max-w-7xl flex-col justify-center px-4 pt-16 md:px-10 lg:px-20">
-    <p class="type-label">Off the route</p>
-    <h1 class="type-display type-display-caps mt-4">
-      This page isn't<br />part of the memorial
+  <section class="shell flex min-h-[78dvh] flex-col justify-center pt-28">
+    <p class="t-meta">Off the route</p>
+    <h1 class="t-display mt-8" style="--fit-chars: 21">
+      THIS PAGE ISN'T<br />PART OF THE MEMORIAL
     </h1>
-    <p class="type-body mt-6 max-w-xl">
+    <p class="t-prose beat">
       The address may have been mistyped, or the page may have moved. The walk
       is still where it's always been.
     </p>
-    <div class="mt-10 flex flex-wrap gap-4">
-      <a
-        href={withBase("")}
-        class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-6 bg-primary-4 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:bg-primary-3 active:shadow-none"
-        style="font-family: var(--font-poppins)"
-        data-curtain-label="Home"
-      >
+    <div class="mt-12 flex flex-wrap items-center gap-4">
+      <a href={withBase("")} class="btn btn-solid" data-curtain-label="Home">
         Start at the beginning
+        <Icon name="arrow" />
       </a>
-      <a
-        href={withBase("map")}
-        class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-8 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:shadow-none"
-        style="font-family: var(--font-poppins)"
-        data-curtain-label="The Walk"
-      >
+      <a href={withBase("map")} class="btn btn-ghost" data-curtain-label="The Walk">
+        <Icon name="pin" />
         Open the map
       </a>
     </div>
   </section>
+
+  <SiteFooter />
 </Base>
