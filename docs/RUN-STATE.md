@@ -4,7 +4,7 @@
 
 ## CURRENT PHASE
 
-**Phase 0 — Foundation repair & truth acquisition**
+**COMPLETE — all phases 0 → 6 DONE (2026-08-03, ~4:50am)**
 
 ## LAST COMMIT
 
@@ -51,8 +51,14 @@
   - **Motion: PASS conditional → both P1s fixed + probe-verified.** F1: flights cut-to-destination on mousedown/touchstart (pointerdown never fires); F2: map shell server-reserved → CLS 0.6362→**0.0012**. F4 mini truncate, F6 play() guarded. Curtain fail-open PROVEN against a hung nav. docs/qa/reviews/phase23-motion-design.md
 - [x] astro check 0 errors; build + 6 CSS guards green (guard now checks scale-85 as the .tsx sentinel).
 
-## IN PROGRESS
+- [x] Phase 5 DONE: bakery 89/100/598KB (was 79/93/4.79MB), home 90, map TBT 304ms; content diff vs pre-run = empty; docs/qa/phase5/RESULTS.md.
+- [x] Phase 6 DONE: live verified end-to-end; 4 discipline finals + stakeholder test on LIVE. Motion GREEN outright; Visual/UX/QA RED→GREEN — every blocker fixed + live-probed same night (people h1, carousel remount desync, ferry viewport blowout, hint tap-eating). Stakeholder test: RECOGNIZE YES · WOWED YES. REVIEW-GUIDE.md complete (walkthrough, before/afters, verdicts, residuals, self-audit). Final commit f0db253+.
 
+## RUN COMPLETE
+
+The morning read starts at docs/REVIEW-GUIDE.md.
+
+### Superseded in-progress note (kept for history)
 > Phase 5: run scripts/perf.mjs (Lighthouse mobile ≥90/≥95, LCP<2.5s on /bakery) against local preview → fix what's under bar (known: ~4.7MB /bakery from autoplay historical.mp4 — lazy-load below-fold video candidates) → a11y contrast check (#FF9770 labels) → content spot-check vs CONTENT-STATUS.md → push → verify LIVE deploy → Phase 6 final gates (4 live reviews + returning-stakeholder test + REVIEW-GUIDE.md final).
 
 ## BLOCKED / NOTES
@@ -72,6 +78,6 @@
 | 2 | pending | pending | pending | pending (smoke) |
 | 3 | pending | pending | pending | pending (smoke) |
 | 4 | — | pending | pending | pending (smoke) |
-| 5 | — | — | — | pending (full) |
-| 6 (live) | pending | pending | pending | pending |
-| 6 stakeholder test | pending | | | |
+| 5 | — | — | — | DONE (RESULTS.md) |
+| 6 (live) | RED→GREEN | GREEN | RED→GREEN | RED→GREEN |
+| 6 stakeholder test | **RECOGNIZE YES · WOWED YES** | | | |

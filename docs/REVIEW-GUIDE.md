@@ -65,7 +65,9 @@ the pins are Brian's, the paintings are Mark's.
   animated paintings in the gallery, fail-open curtain, focal-point crops.
 - **Phase 5:** /bakery (the QR path): perf 89 · a11y 100 · 598KB (was 79/93/4.79MB); home
   perf 90; map TBT 3289→304ms, CLS 0.64→0.001. Full table + residuals: docs/qa/phase5/RESULTS.md.
-- **Phase 6:** [live verification + final reviews — to be filled]
+- **Phase 6:** live deploy verified end-to-end; four discipline finals + stakeholder test run
+  against the LIVE URL; every blocking finding fixed and re-probed live the same night
+  (final state: commit f0db253).
 
 ## Review verdicts (files in docs/qa/reviews/)
 | Review | Verdict |
@@ -78,8 +80,11 @@ the pins are Brian's, the paintings are Mark's.
 | Phase 2+3 UX | PASS both walkthroughs → 4 P1 polish fixes applied |
 | Phase 2+3 QA smoke | PASS (0 P0/P1) → 3 P2s fixed |
 | Phase 5 QA full | Numbers recorded; 3 documented residuals, none blocking (docs/qa/phase5/RESULTS.md) |
-| Phase 6 live (all four) | [pending] |
-| Returning-stakeholder test | [pending] |
+| Phase 6 Visual Design (live) | RED → GREEN: pill ladder/home/embed verified; the one new P0 (corrupted /people h1 from a bad edit) fixed + live-probed |
+| Phase 6 Motion Design (live) | **GREEN** — flight-skip + CLS fixes proven on live (pixel-diff evidence), reduced-motion 20/20, zero console errors |
+| Phase 6 UX (live) | RED → GREEN: ferry viewport blowout + hint tap-eating fixed + live-probed; both journeys complete unaided |
+| Phase 6 QA (live) | RED → GREEN: /people + carousel desync fixed + live-probed 4/4; matrix/console/deep-links/blueprint spot-audit 8/8 all clean |
+| Returning-stakeholder test | **RECOGNIZE: YES · WOWED: YES** — 14 screens narrated; favorite moments: press-and-hold, map dive + cards, tap-to-read-aloud |
 
 ## Pre-existing stakeholder items (unchanged — playbook Parts A/C/D)
 - **Kathy:** word-for-word content sign-off (Part D). Pending content: ferry "skiff" rewrite,
