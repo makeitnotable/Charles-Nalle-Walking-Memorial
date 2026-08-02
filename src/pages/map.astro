@@ -31,7 +31,6 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 <Base
   title="The Walk — Charles Nalle Walking Memorial"
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
-  menuPosition="bottom-right"
 >
   {/* The shell is server-rendered at full height so island hydration causes
       zero layout shift; the island fills it. */}
@@ -82,7 +81,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
               </span>
               <span class="min-w-0">
                 <span class="t-meta block">Stop {String(entry.data.order).padStart(2, "0")}</span>
-                <span class="t-title mt-3 block" style="--fs-title: 26px">
+                <span class="t-title-sm mt-3 block">
                   {entry.data.name.canonical}
                 </span>
                 <span class="t-meta-body mt-3 block">

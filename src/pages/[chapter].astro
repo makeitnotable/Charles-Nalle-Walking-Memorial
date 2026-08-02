@@ -120,7 +120,15 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <div class="rule-top mt-8"></div>
     </div>
 
-    <div id="hero-media" class="artifact-lg relative mt-8 min-h-0 flex-1 bg-neutral-2">
+    <p class="t-meta mt-6 flex items-center gap-3 text-primary-11">
+      <Icon name="headphones" size="sm" /> Scroll to listen
+      <Icon name="arrow" rotate={90} size="sm" class="hero-cue" />
+    </p>
+
+    <div
+      id="hero-media"
+      class="artifact-lg relative mt-8 min-h-[42dvh] flex-1 bg-neutral-2 md:min-h-[46dvh]"
+    >
       {/* The still painting — the LCP, responsive and art-directed. */}
       <picture>
         <source
@@ -411,7 +419,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         {/* GA&C banner discipline: four elements, nothing else. */}
         <div class="reveal mt-12">
           <p class="t-meta">Next — Stop {pad2(nextEntry?.data.order ?? 1)}</p>
-          <p class="t-title mt-4" style="--fs-title: 32px">{nextName?.canonical}</p>
+          <p class="t-title-sm mt-4">{nextName?.canonical}</p>
           <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
           <div class="mt-10 flex flex-wrap items-center gap-4">
             <Button
@@ -427,8 +435,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               nextEntry && (
                 <Button
                   variant="ghost"
-                  icon="pin"
-                  iconLeading
+                  icon="arrow"
                   external
                   href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
                 >

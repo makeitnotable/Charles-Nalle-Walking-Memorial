@@ -286,11 +286,11 @@ export default function AudioStory({
       </div>
 
       {/* ——— The transcript: one serif column on the cream register ——— */}
-      <div className="ground-cream mt-10 rounded-[12px] px-6 py-12 md:px-12 md:py-16">
-        {timings && (
-          <p className="t-meta mb-8">Tap any paragraph to hear it read aloud</p>
-        )}
-        <div className="flex flex-col gap-y-8">{items.map((it, i) => renderItem(it, i))}</div>
+      <div className="ground-cream bleed mt-12 py-16 md:py-24">
+        <div className="mx-auto w-full max-w-[var(--shell)] px-[var(--gutter)]">
+          {timings && <p className="t-meta mb-8">Tap any paragraph to hear it read aloud</p>}
+          <div className="flex flex-col gap-y-8">{items.map((it, i) => renderItem(it, i))}</div>
+        </div>
       </div>
 
       {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}

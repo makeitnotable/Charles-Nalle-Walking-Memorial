@@ -77,11 +77,10 @@ interface Props {
 /** The pill ladder (approved): label 12→15→18, padding 8→10→12 at md/lg —
  * legacy markers carried real responsive classes; inline styles must ladder
  * by viewport and re-render on resize. */
+/* The meta unit does not scale with the viewport — the pill adopts it. */
 function pillSizes() {
   const w = typeof window === "undefined" ? 390 : window.innerWidth;
-  if (w >= 1024) return { font: 18, lh: 27, pad: 12 };
-  if (w >= 768) return { font: 15, lh: 22.5, pad: 10 };
-  return { font: 12, lh: 18, pad: 8 };
+  return { font: w >= 1200 ? 13 : 12, lh: 18, pad: 9 };
 }
 
 /** Approved marker: Poppins pill + 20px numbered chip + 2×30px stem + 8px
@@ -90,26 +89,43 @@ function pillSizes() {
 function markerHtml(stop: Stop, active: boolean): string {
   const s = active ? MARKER.active : MARKER.inactive;
   const z = pillSizes();
+  const above = stop.pinPosition === "above";
+
+  /* Five labelled pills inside a few blocks cannot avoid each other at the
+   * overview camera — v3 collided stops 1 and 2, and a static above/below
+   * split only moved the collision to another pair. Only the ACTIVE stop
+   * carries its name; the rest are numbered points. The names live in the
+   * carousel and in the typographic index below the map, and the label
+   * follows you as you walk the tour. Collision is now structurally
+   * impossible rather than tuned. */
+  if (!active) {
+    return `
+      <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform var(--dur-fast) var(--ease)">
+        <div style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:9999px;background:${s.bg};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500">
+          <p style="font-size:12px;line-height:1;margin:0;color:${s.text}">${stop.order}</p>
+        </div>
+      </div>`;
+  }
+
   const stem = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="width:2px;height:30px;background:${s.line}"></div>
+      <div style="width:2px;height:26px;background:${s.line}"></div>
       <div style="width:8px;height:8px;border-radius:9999px;background:${s.line}"></div>
     </div>`;
   const stemUp = `
     <div style="display:flex;flex-direction:column;align-items:center">
       <div style="width:8px;height:8px;border-radius:9999px;background:${s.line}"></div>
-      <div style="width:2px;height:30px;background:${s.line}"></div>
+      <div style="width:2px;height:26px;background:${s.line}"></div>
     </div>`;
   const pill = `
-    <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500">
-      <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:20px;height:20px">
-        <p style="color:#FED9CC;font-size:11px;margin:0">${stop.order}</p>
+    <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap">
+      <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
+        <p style="color:#FED9CC;font-size:11px;margin:0;line-height:1">${stop.order}</p>
       </div>
-      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;white-space:nowrap;letter-spacing:0.06em">${stop.label}</p>
+      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${stop.label}</p>
     </div>`;
-  const above = stop.pinPosition === "above";
   return `
-    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:scale(${s.scale});transition:transform var(--dur-fast) var(--ease)">
+    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform var(--dur-fast) var(--ease)">
       ${above ? stemUp + pill : pill + stem}
     </div>`;
 }
@@ -240,7 +256,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     tourAbort.current = true;
     setTouring(false);
     setFocused(false);
-    setMarkers(null);
+    setMarkers(stops[0]?.label ?? null);
     const target = overviewCamera();
     if (reduced) map.jumpTo(target);
     else map.easeTo({ ...target, duration: 2000, essential: true });
@@ -290,7 +306,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         el.style.background = "none";
         el.style.border = "0";
         el.style.padding = "0";
-        el.innerHTML = markerHtml(stop, false);
+        el.innerHTML = markerHtml(stop, stop.order === 1);
         el.setAttribute(
           "aria-label",
           `Stop ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
@@ -612,7 +628,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
           >
             <p className="t-meta">Stop {arrivalStop.order} of {stops.length}</p>
-            <p className="t-title mt-2" style={{ ["--fs-title" as string]: "22px" }}>
+            <p className="t-title-sm mt-2">
               {arrivalStop.canonical ?? arrivalStop.cardTitle}
             </p>
           </div>

@@ -5,7 +5,7 @@
     "display": "HOLEUR'S\nFASHIONABLE\nBAKERY",
     "short": "Bakery"
   },
-  "pinPosition": "below",
+  "pinPosition": "above",
   "chapterLabel": "Chapter 1",
   "plaque": true,
   "map": {

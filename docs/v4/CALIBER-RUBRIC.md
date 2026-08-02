@@ -13,7 +13,7 @@ never the builder's reasoning.
 | b | **Hierarchy scan** | A 3-second glance at each viewport names exactly ONE winner. |
 | c | **Squint test** | Blurred ~8px, the composition still reads as deliberate structure — not undifferentiated bands. |
 | d | **Spacing** | Every gap between sections measures to one of four tokens (block 24 / beat 72–128 / section 128–200 / void 260–400). No gap reads as an accident; no dead space reads as unfinished. |
-| e | **Type census** | ≤4 distinguishable sizes per viewport, excluding the display heading. No two sizes close enough to look like a mistake. No comprehension text below 14px. |
+| e | **Type census** | ≤4 sizes CO-VISIBLE in a single viewport, every rendered size maps to a named role in `docs/v4/DESIGN-STANDARDS.md` §1, and no two roles sit within 15% of each other. No comprehension text below 14px. *(Amended after measurement: the reference sites render 11–12 distinct sizes each — pasqua 12, museos 11, Google A&C 12. An absolute cap was the wrong test; role-locking and violent adjacent jumps are the real ones.)* |
 | f | **Box census** | ≤1 framed *container* per viewport. Controls (buttons, pills, the corner menu) are not containers. |
 | g | **Craft defects** | Zero of: clipped or overflowing text, inconsistent left edges, floating UI over live content, mismatched button pairs, multiple icon or arrow idioms, double borders, orphans and widows. |
 | h | **The stakeholder test** (live only) | A reviewer armed with the client's verbatim v3 complaints walks the live site; W1–W8 are each verifiably dead, with before/after evidence. |

@@ -5,7 +5,7 @@
     "display": "COMMISSIONER'S\nOFFICE",
     "short": "Commissioner's Office"
   },
-  "pinPosition": "above",
+  "pinPosition": "below",
   "chapterLabel": "Chapter 2",
   "plaque": true,
   "map": {
