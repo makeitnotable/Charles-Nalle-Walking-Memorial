@@ -370,6 +370,26 @@ body {
   }
 }
 
+/* Quote reveal (C8): a slower settle with a breath of scale — the words
+   arrive like a spoken line. Reduced motion: visible, static. */
+.reveal-quote {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal-quote {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+  .js .reveal-quote.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 1s var(--ease-house),
+      transform 1s var(--ease-house);
+  }
+}
+
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
 .curtain-panel {
   position: fixed;

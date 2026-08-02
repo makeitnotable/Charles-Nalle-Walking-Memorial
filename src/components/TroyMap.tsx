@@ -398,9 +398,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   };
 
   const navigateToStop = (stop: Stop) => {
-    playCover(() => {
-      location.href = `${baseUrl}/${stop.slug}`;
-    }, stop.label);
+    playCover(
+      () => {
+        location.href = `${baseUrl}/${stop.slug}`;
+      },
+      stop.label,
+      true,
+    );
   };
 
   if (!hasToken) {

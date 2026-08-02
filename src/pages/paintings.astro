@@ -17,6 +17,14 @@ const KEY_TITLES: Record<string, string> = {
   narrative1: "Narrative I",
   narrative2: "Narrative II",
 };
+/** Animated variant per painting key (elevation G2: the dialog plays the
+ * painting alive where Mark Priest's animation exists). */
+const KEY_VIDEOS: Record<string, string> = {
+  horizontal: "reveal-horizontal",
+  "horizontal-pt2": "reveal-horizontal-pt2",
+  narrative1: "narrative1",
+  narrative2: "narrative2",
+};
 
 const works = chapters.flatMap((entry) =>
   Object.keys(KEY_TITLES)
@@ -30,6 +38,9 @@ const works = chapters.flatMap((entry) =>
       chapterLabel: entry.data.chapterLabel,
       order: entry.data.order,
       full: withBase(`media/${entry.id}/${key}-1440.jpg`),
+      video: entry.data.media.videos.includes(KEY_VIDEOS[key])
+        ? withBase(`media/${entry.id}/${KEY_VIDEOS[key]}.mp4`)
+        : null,
       href: withBase(entry.id),
       mapLabel: entry.data.map.label,
     })),
@@ -60,6 +71,7 @@ const works = chapters.flatMap((entry) =>
               type="button"
               class="painting-open frame group block w-full cursor-pointer overflow-hidden text-left"
               data-full={work.full}
+              data-video={work.video}
               data-title={`${work.title} — Mark Priest`}
               aria-label={`View “${work.title}” closely`}
             >
@@ -79,6 +91,7 @@ const works = chapters.flatMap((entry) =>
               <a
                 href={work.href}
                 data-curtain-label={work.mapLabel}
+                data-curtain-date
                 class="type-label shrink-0 transition-colors duration-300 hover:text-primary-9"
               >
                 {work.chapterLabel} →
@@ -96,6 +109,14 @@ const works = chapters.flatMap((entry) =>
     class="frame-2 m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/85"
   >
     <img id="painting-dialog-img" src="" alt="" class="max-h-[85dvh] w-auto" />
+    <video
+      id="painting-dialog-video"
+      class="hidden max-h-[85dvh] w-auto"
+      autoplay
+      loop
+      muted
+      playsinline
+    ></video>
     <div class="flex items-center justify-between gap-4 p-4">
       <p id="painting-dialog-title" class="type-muted"></p>
       <button
@@ -113,13 +134,33 @@ const works = chapters.flatMap((entry) =>
     const dialog = document.getElementById("painting-dialog") as HTMLDialogElement;
     const img = document.getElementById("painting-dialog-img") as HTMLImageElement;
     const title = document.getElementById("painting-dialog-title")!;
+    const video = document.getElementById("painting-dialog-video") as HTMLVideoElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.querySelectorAll<HTMLButtonElement>(".painting-open").forEach((btn) => {
       btn.addEventListener("click", () => {
+        const useVideo = Boolean(btn.dataset.video) && !reducedMotion;
         img.src = btn.dataset.full!;
         img.alt = btn.dataset.title!;
+        img.classList.toggle("hidden", useVideo);
+        video.classList.toggle("hidden", !useVideo);
+        if (useVideo) {
+          video.src = btn.dataset.video!;
+          video.poster = btn.dataset.full!;
+          video.play().catch(() => {
+            video.classList.add("hidden");
+            img.classList.remove("hidden");
+          });
+        } else {
+          video.pause();
+          video.removeAttribute("src");
+        }
         title.textContent = btn.dataset.title!;
         dialog.showModal();
       });
+    });
+    dialog.addEventListener("close", () => {
+      video.pause();
+      video.removeAttribute("src");
     });
     document
       .getElementById("painting-dialog-close")!

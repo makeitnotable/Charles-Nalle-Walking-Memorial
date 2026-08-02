@@ -15,6 +15,9 @@ import gsap from "gsap";
 
 const FLAG = "cnwm-curtain";
 const LABEL = "cnwm-curtain-label";
+const DATE = "cnwm-curtain-date";
+/** The film over-title (elevation C13): chapter navigations carry the day. */
+const DATE_LINE = "April 27, 1860";
 
 function reducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -27,9 +30,13 @@ function els() {
   return panel && text && content ? { panel, text, content } : null;
 }
 
-function setLabel(content: HTMLElement, label: string | null) {
+function setLabel(content: HTMLElement, label: string | null, withDate = false) {
   if (label) {
-    content.innerHTML = `<p class="type-wordmark text-center">${label}</p>`;
+    content.innerHTML =
+      `<p class="type-wordmark text-center">${label}</p>` +
+      (withDate
+        ? `<p class="type-label text-center" style="margin-top:1rem">${DATE_LINE}</p>`
+        : "");
   } else {
     content.innerHTML = `
       <p class="type-wordmark">Charles</p>
@@ -38,17 +45,22 @@ function setLabel(content: HTMLElement, label: string | null) {
 }
 
 /** Cover the page, then run `go` once hidden. */
-export function playCover(go: () => void, label: string | null = null) {
+export function playCover(
+  go: () => void,
+  label: string | null = null,
+  withDate = false,
+) {
   const e = els();
   if (!e || reducedMotion()) {
     go();
     return;
   }
   const { panel, text, content } = e;
-  setLabel(content, label);
+  setLabel(content, label, withDate);
   panel.style.pointerEvents = "auto";
   sessionStorage.setItem(FLAG, "1");
   sessionStorage.setItem(LABEL, label ?? "");
+  sessionStorage.setItem(DATE, withDate ? "1" : "");
 
   gsap.set(panel, { y: "100%" });
   gsap.set(text, { opacity: 0 });
@@ -86,12 +98,14 @@ function playExit() {
   if (!e) return;
   const { panel, text, content } = e;
   const label = sessionStorage.getItem(LABEL) || null;
+  const withDate = Boolean(sessionStorage.getItem(DATE));
   sessionStorage.removeItem(FLAG);
   sessionStorage.removeItem(LABEL);
+  sessionStorage.removeItem(DATE);
 
   if (reducedMotion()) return;
 
-  setLabel(content, label);
+  setLabel(content, label, withDate);
   panel.style.pointerEvents = "auto";
   gsap.set(panel, { y: "0%" });
   gsap.set(text, { opacity: 1 });
@@ -162,8 +176,13 @@ export function initCurtain() {
     if (a.dataset.noCurtain !== undefined) return;
     ev.preventDefault();
     const label = a.dataset.curtainLabel ?? null;
-    playCover(() => {
-      location.href = a.href;
-    }, label);
+    const withDate = a.dataset.curtainDate !== undefined;
+    playCover(
+      () => {
+        location.href = a.href;
+      },
+      label,
+      withDate,
+    );
   });
 }

@@ -113,7 +113,7 @@ const whereTitle = "Where to next?";
           <h2 class="type-display type-display-caps reveal mb-8 whitespace-pre-line">{scene.label}</h2>
         )}
         {scene.quote && (
-          <figure class="reveal mx-auto mb-10 max-w-2xl text-center">
+          <figure class="reveal-quote mx-auto mb-10 max-w-2xl text-center">
             <blockquote class="type-card-title" style="font-size:1.35em; line-height:1.35">
               “{scene.quote.text}”
             </blockquote>
@@ -135,6 +135,33 @@ const whereTitle = "Where to next?";
       </section>
     ))
   }
+
+
+  {/* ——— The painting narrates (C10): full-bleed interlude ——— */}
+  <section
+    class="painting-interlude relative mt-16 overflow-hidden"
+    aria-label={`Painting — ${c.cardTitle}, by Mark Priest`}
+  >
+    <img
+      class="interlude-img h-[55vh] w-full object-cover md:h-[70vh]"
+      src={withBase(`media/${slug}/horizontal-1440.jpg`)}
+      srcset={`${withBase(`media/${slug}/horizontal-800.webp`)} 800w, ${withBase(`media/${slug}/horizontal-1440.webp`)} 1440w`}
+      sizes="100vw"
+      alt={`“${c.cardTitle}” — painting by Mark Priest`}
+      loading="lazy"
+    />
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 22%, transparent 78%, var(--color-primary-2))"
+    >
+    </div>
+    <p
+      class="type-label absolute right-4 bottom-4 rounded-full px-4 py-2"
+      style="background: color-mix(in srgb, var(--color-primary-2) 75%, transparent)"
+    >
+      Mark Priest · Nalle Series
+    </p>
+  </section>
 
   {/* ——— Section 2: historical context ——— */}
   <section class="mx-auto mt-8 mb-8 max-w-7xl md:mb-12" aria-labelledby="history-heading">
@@ -270,6 +297,7 @@ const whereTitle = "Where to next?";
           <a
             href={withBase(c.next.slug)}
             data-curtain-label={nextEntry?.data.map.label}
+            data-curtain-date
             class="flex min-w-[147px] cursor-pointer items-center justify-center rounded-full border border-primary-6 bg-primary-4 px-6 py-4 text-[1.125rem] leading-[1.5rem] font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:bg-primary-3 active:shadow-none md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
             style="font-family: var(--font-poppins)"
           >
@@ -294,6 +322,11 @@ const whereTitle = "Where to next?";
 
     {/* ——— Footer ——— */}
     <footer class="mt-1 mb-8 px-4 md:mx-10 md:mb-16 lg:mx-30 lg:mt-16">
+      <div class="mb-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+        <a href={withBase("people")} data-curtain-label="The People" class="type-label transition-colors duration-300 hover:text-primary-9">The People of this day →</a>
+        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="type-label transition-colors duration-300 hover:text-primary-9">The Paintings →</a>
+        <a href={withBase("about")} data-curtain-label="About" class="type-label transition-colors duration-300 hover:text-primary-9">About the memorial →</a>
+      </div>
       <div class="flex w-full items-center justify-between border-t border-primary-6 pt-8">
         <p class="type-card-title">Share</p>
         <button
@@ -339,6 +372,28 @@ const whereTitle = "Where to next?";
       }
     }
 
+    // The painting interlude breathes as you pass it (C10) — Ken Burns scrub
+    if (!reduced) {
+      const img = document.querySelector(".interlude-img");
+      if (img) {
+        gsap.fromTo(
+          img,
+          { scale: 1.12, yPercent: -4 },
+          {
+            scale: 1,
+            yPercent: 4,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".painting-interlude",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.6,
+            },
+          },
+        );
+      }
+    }
+
     // Scroll-reveal suite (house vocabulary; CSS owns the motion)
     const io = new IntersectionObserver(
       (entries) => {
@@ -351,7 +406,7 @@ const whereTitle = "Where to next?";
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-quote").forEach((el) => io.observe(el));
 
     // Share: native share sheet, clipboard fallback
     document.getElementById("share-btn")?.addEventListener("click", async () => {

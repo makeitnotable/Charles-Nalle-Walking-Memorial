@@ -51,6 +51,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
             <a
               href={withBase(entry.id)}
               data-curtain-label={entry.data.map.label}
+              data-curtain-date
               class="frame group grid grid-cols-[6rem_1fr] items-center gap-0 overflow-hidden bg-primary-3 transition-colors duration-300 hover:bg-primary-4 sm:grid-cols-[8rem_1fr]"
             >
               <Picture
