@@ -29,3 +29,6 @@ pnpm-debug.log*
 # committed (docs/v4/qa/before-after/). PNG matrices would add ~50MB per phase.
 docs/v4/qa/**/*.png
 !docs/v4/qa/before-after/**
+
+# v5 audit screenshots (evidence, regenerable — the findings are the artefact)
+docs/v5/qa/
