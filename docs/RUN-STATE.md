@@ -59,14 +59,20 @@ Hero fold, before → after (media bottom vs viewport height):
 | F7 | Hero 1.15 scale + interlude Ken Burns cut (the latter is why a full-bleed block measured 1584px on a 1440 screen); home entrance 2.8s → ~1.0s; menu retreat threshold 4px→24px | — |
 | F8 | Mapbox chrome on `--ui-inset`, scale to the 12px floor; loading placeholder retired on hydrate; map CTA hierarchy; press-reveal hairline; footer link target | — |
 
+| F5b | History section: the 400px void in front of the cream block deleted — the ground flip IS the act change, and 528px of announcement read as a blank screen. Chapter rhythm now **128, 200, 0, 0, 128, 400, 200** (was `200,200,200,200,400,200,200`) | measured on `/mansion` @1440 |
+| F4b | Below 640px **no** marker is named — naming only the active one still ran BAKERY off the right edge. Mapbox corner inset moved from each control to the CORNER (it had stacked 56px between them and walked the scale bar halfway up the left edge) | `eyes/B-map-1440.png`; bottom-left lane all at x=56 |
+
 ## IN PROGRESS
-**Stage 3 verification, then Stage 4.** Full clean sweep running against the
-rebuilt local preview → `docs/v5/qa/{states-v5,probe-v5,census-v5.md}`.
+**Stage 3 verification → Stage 4 gate.** Clean sweep running against the rebuilt
+local preview → `docs/v5/qa/{states-v5, probe-v5, census-v5.md, shots-v5}`.
 Acceptance: 0 collisions in all 110 states · repeated-imagery table empty ·
-≤6 type sizes per page with the display at one size per breakpoint.
-Then: deploy, re-verify live, and run the Stage 4 adversarial juror gate
-(fresh subagent, no builder context, instructed to score LOW; needs two
-consecutive clean passes).
+≤6 type sizes per page, display at one size per breakpoint.
+
+Live deploy: `ab4d573` pushed; waiting on CI (live bundle must be
+`Base.DyzLfYUN.css`). Then Stage 4 — a fresh adversarial juror subagent with no
+builder context, live URL only, instructed to look for reasons to score LOW.
+Finish condition: every page ≥8 on every axis at every breakpoint, zero P0/P1,
+**two consecutive juror passes that surface nothing new.**
 
 ---
 
