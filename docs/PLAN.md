@@ -1,275 +1,431 @@
-# CNWM v3 — Approved DNA, Elite Execution (Overnight Autonomous Plan)
+# CNWM v4 — The Craft Run (Award-Caliber Rebuild)
 
-*Written 2026-08-02 (evening). Supersedes prior plans in this file. The executing session must be able to run all night with full autonomy and produce an output requiring zero big edits at Wil's morning review. Everything needed is in this file + the referenced docs; do not depend on prior conversation context.*
-
-## Context — why v3 exists
-
-v2 (the overnight Astro rebuild, live at `makeitnotable.github.io/Charles-Nalle-Walking-Memorial/`, branch `v2` of `makeitnotable/Charles-Nalle-Walking-Memorial`) got the **architecture right and the design wrong**:
-
-1. **It replaced an approved design with an invented one.** The stakeholder-approved baseline is the Figma file "Website — Charles Nalle WM" (nodes `1950-16104`, `1950-16312`, `1950-16313` — mobile/tablet/desktop), which the legacy repo's `match-figma-designs` branch implements faithfully over 104 commits. v2 invented a new identity (Fraunces/Newsreader, paper grain, per-chapter palettes) instead of elevating the approved one.
-2. **A real rendering bug shipped:** Tailwind v4's Vite plugin never scanned the React island `.tsx` files, so island-only utility classes were never generated. **Confirmed on the live site: the map wrapper's computed height is `0`** — the canvas mounts, the style loads, the token is valid under every referer, zero console errors, but everything is clipped inside a zero-height container. The user sees only page background. Same class of bug breaks the press-and-hold hero (no `aspect-[3/2]` box) and island-only classes throughout. `Base.*.css` contains zero `aspect-ratio` rules.
-3. **The approved map UX was downgraded** to generic markers + a dialog card, losing the designed experience (tilted chrome-free overview, stem-and-dot pill markers, bottom overlap-carousel, cinematic camera).
-4. **Signature components were lost:** the curtain page transition, the two-state audio player, the corner-notched menu, the hero scroll parallax, the CHARLES/NALLE wordmark, first-word drop caps.
-
-**v2's keepers (do NOT lose these):** static architecture with real deep links + CI, the 95MB optimized media pipeline (`public/media/`, scripts/), Kathy's content corrections in `src/content/chapters/*.json`, narration timings + synced-highlight concept, press-and-hold reveal concept, People/Paintings pages, Brian's exact plaque coordinates, reduced-motion/a11y baseline, the committed Mapbox token setup, `docs/WIL-PLAYBOOK.md`.
-
-**v3 = the approved design DNA × v2's architecture × an award layer** benchmarked against: museos.arteyeducacion.org (motion/content layout), rewildyourself.com (scroll), marseille.laphase5.com (map), pasqua.it (immersion), artsandculture.google.com (storytelling/IA).
-
-**THE NORTH STAR (every decision and every review answers to this):** when Wil wakes up, the live site is something he can show Kathy, Brian, and Amanda that morning. It must feel **instantly familiar** to them — unmistakably the design they approved — and simultaneously land as *"wow, this is so incredible, what a massive improvement."* Familiar + wow. If a choice increases wow but erodes familiarity (or vice versa), find the expression that delivers both; that tension is the craft.
-
-## Locked decisions (Wil, 2026-08-02)
-
-1. **Base:** v2 Astro repo, re-skinned. Work on branch `v2` at `<project>/cnwm-v2`.
-2. **Figma:** Wil authorizes the Figma MCP before kickoff → extract screens/variables from the three nodes. **If auth is missing at runtime, do not block:** the Approved Design Language Reference below + the legacy repo are the baseline; proceed.
-3. **License:** *"Figma is the core but layouts, type, and color can be evolved to make the design better so long as the improvements respect the core idea. Motion, scroll choreography, transitions, polish and everything else are up to you. No decision lists, no flagging — run with it. The output must feel as incredible as the inspiration sites."* — Full creative autonomy within the approved identity. Wil compares final output vs legacy + Figma himself.
-4. **v2 features:** keep press-reveal, synced narration, People, Paintings, entry moment — restyled into the approved language.
-
-## Compaction-proof operating protocol (MANDATORY — read first)
-
-This run lasts many hours unattended; **auto-compaction WILL summarize or drop conversation context, possibly several times.** The session must therefore treat conversation memory as disposable cache and **disk as the only truth**:
-
-1. **First action of the run:** copy this plan into the repo as `docs/PLAN.md`, then create `docs/RUN-STATE.md` — the live run ledger. Structure: `CURRENT PHASE` · `LAST COMMIT (sha + message)` · `DONE` (checklist with timestamps) · `IN PROGRESS (exact next action, specific enough that a stranger could resume)` · `BLOCKED/NOTES` · `REVIEW VERDICTS` (per discipline, per phase).
-2. **Update `RUN-STATE.md` after every completed sub-step** — not per phase, per *step* (a fix landed, a review returned, a script ran). The `IN PROGRESS` line is always written BEFORE starting the step it names.
-3. **Commit + push relentlessly** — every completed sub-step commits (small, descriptive messages); push at minimum every 3 commits and at every phase boundary. Git history is the recovery ledger; a crash or compaction can never lose more than minutes of work.
-4. **All findings live in files, immediately** — review verdicts, screenshots, metrics, decisions go straight into `docs/` (`INSPIRATION.md`, `ELEVATION-PLAN.md`, `qa/…`, `MOTION.md`) the moment they exist. Never hold a finding only in conversation.
-5. **Re-orientation ritual — run it at session start AND any time context feels thin, summarized, or post-compaction:** read `docs/PLAN.md` → `docs/RUN-STATE.md` → `git log --oneline -8` → resume from the `IN PROGRESS` line. Never reconstruct state from conversation memory; never redo work marked DONE (verify via git, not recollection).
-6. **Memory checkpoint at every phase boundary:** append the phase's completion + next phase to the auto-memory file (`cnwm-project-state.md`) — memory survives compaction and new sessions.
-7. If the session is interrupted entirely, a fresh session bootstraps from: memory → `docs/PLAN.md` → `docs/RUN-STATE.md` → git log. Nothing else is required.
-
-## Key paths
-
-- **v3 workspace:** `<project>/cnwm-v2` (project = `/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle`)
-- **Approved-design source code:** `<project>/Charles Nalle Walking Memorial Website/Charles-Nalle-Walking-Memorial` on branch `match-figma-designs` — READ-ONLY reference; port from it liberally (its Tailwind idiom transplants almost 1:1 into Astro components)
-- **Figma (approved baseline):**
-  - https://www.figma.com/design/Ih7nb0M1vhfezuOV5laF6r/Website---Charles-Nalle-WM?node-id=1950-16104&m=dev
-  - https://www.figma.com/design/Ih7nb0M1vhfezuOV5laF6r/Website---Charles-Nalle-WM?node-id=1950-16312&m=dev
-  - https://www.figma.com/design/Ih7nb0M1vhfezuOV5laF6r/Website---Charles-Nalle-WM?node-id=1950-16313&m=dev
-- **Inspiration benchmark (the standard v3 must meet — studied hands-on in Phase 0.5):**
-  1. https://museos.arteyeducacion.org — motion, animation, content layout
-  2. https://rewildyourself.com — motion, scroll effects
-  3. https://marseille.laphase5.com/en — map + interactivity
-  4. https://pasqua.it — immersiveness
-  5. https://artsandculture.google.com — storytelling + information organization
-- **Content truth:** `cnwm-v2/src/content/chapters/*.json` (Kathy's corrections applied; ledger `docs/CONTENT-STATUS.md`); her marked-up source: `<project>/Context/Website Edits.pdf` (pencil marks)
-- Live: GH Pages URL above · legacy reference build: `charles-nalle-walking-memorial.vercel.app`
+*Written 2026-08-03. This document is **fully self-contained** and written for a fresh
+session with NO prior conversation context. Everything needed is in this file + the repo
+docs it names. Wil pastes the KICKOFF PROMPT (bottom of this file) to start; the session
+then runs fully autonomously: audits → design system → polish the entire site → map fixes →
+deploy. Wil's words: deliver "an award winning site-wide design that I will love." No
+mid-run check-ins — queue anything genuinely needing him in the review guide.*
 
 ---
 
-# APPROVED DESIGN LANGUAGE REFERENCE
-*(Extracted from the legacy implementation 2026-08-02 — the rendered truth of the approved Figma. Executor: verify/enrich against Figma MCP when available; re-read the named legacy files for exact markup.)*
+## 1 · Context — what exists and what Wil said
 
-## Color — one warm ramp, dark-only (from legacy `src/index.css` @theme)
-Radix-style 12-step scales (Wil endorses Radix method):
-- **Primary (brand, brown→burnt orange):** 1 `#0e0807` · 2 `#1d1411` (page bg) · 3 `#341a11` (surfaces) · 4 `#4a1b0a` (active surface) · 5 `#592411` (hover) · 6 `#69311d` (**the universal border — on everything**) · 7 `#80412b` · 8 `#a55438` · 9 → canonicalize as `#f26835` (icon/active accent; legacy token said #f28835 but #F26835 shipped 13×) · 10 `#e45b27` (badges/fills) · 11 `#ff9770` (labels/secondary text) · 12 `#fed9cc` (body text)
-- **Neutral (warm cream):** 2 `#100a06` (deep overlay/curtain) … 11 `#e6decf` · 12 `#f6f3ee` (headings)
-- **Gray:** 7 `#4b4741` (home frame border) · 11 `#b7b3ab` (muted copy)
-- Special: Home CTA pill `bg #FFC6B3 / text #BD3900 / border #F7A98F` — the only inverted element.
-- Scrims: `linear-gradient(#1D1411, rgba(16,10,6,.95), #1D1411)`; hero fade `to top, from var(--primary-2)`.
+**The project:** Charles Nalle Walking Memorial — a 5-stop walking-tour story site for the
+Hart Cluett Museum (Troy, NY): the 1860 rescue of Charles Nalle, led by Harriet Tubman.
+Mark Priest's paintings + sketches + animated painting videos, Kathy Sheehan's narration
+audio, bronze QR plaques on the actual sidewalks. Astro 7 + Tailwind 4 + React islands +
+GSAP + Mapbox GL, fully static, deployed by CI to GitHub Pages on every push.
 
-## Type
-- **Martel Sans** (semibold display, 300-weight body) + **Poppins** (labels, buttons, marker pills). Self-host via fontsource. Note: legacy's `font-poppins` class silently never applied (unregistered token) — the *approved rendering* is Martel-dominant; register Poppins properly and use it only where it visibly shipped (buttons, marker pills, progress labels) or where Figma says so.
-- **The ×1.25/×1.5 ladder (core signature):** every size — type, cards, badges — multiplies ×1.25 at `md`(768) and ×1.5 at `lg`(1024). Hero h1: `42/34px → 52.5/42.5 → 63/51`, tracking `-1.5 → -1.875 → -2.25px` (leading tighter than size). Section h3 same scale, often uppercase, intentional hard `<br/>` breaks. Body narrative: `18px / weight 300 / leading 1.6 / #FED9CC`. Labels: `12 → 15 → 18px` uppercase `#FF9770`. Wordmark: `54 → 67.5 → 81px`, tracking `-2.5px`, two interlocked lines (second `self-end -mt-3`).
-- **First-WORD drop cap:** first word of chapter's first paragraph at `32px font-medium` with negative vertical margins (not a letter cap). Once per chapter.
-- v3 typography bar (Wil's): clean rags (`text-wrap: balance/pretty`), no widows, consistent rhythm at every breakpoint.
+- **Repo:** `/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2`
+- **Live:** https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/
+- **Branch hazard:** local `main` tracks `origin/v2`. Plain `git push` is safe (goes to v2).
+  **NEVER push `main:main`** — `origin/main` belongs to the legacy SPA. CI deploys `v2`.
 
-## Spacing
-Figma 1 unit = 8px = 2 Tailwind units → even-numbered utilities only. Shell: `max-w-7xl mx-auto`. Section padding ladder: `pt-8 px-4 → md:py-4 md:px-10 → lg:py-8 lg:px-20`. Media: `rounded-3xl` + `border #69311D` universally.
+**History:** v3 (an overnight run, ~50 commits, finished 2026-08-03 5am) rebuilt the site to
+match the stakeholder-approved design spec with measured fidelity — every hex exact, every
+type value exact — revived the previously-invisible map, and hardened performance
+(chapter path 4.79MB → 598KB). Its full history: `docs/RUN-STATE.md`, reviews under
+`docs/qa/reviews/`. **Do not re-read all of that; this file carries what matters.**
 
-## Signature components (port these; legacy file pointers)
-1. **Curtain transition** (`TransitionOverlay.jsx`, `stores/useTransitionStore.jsx`): `#100A06` panel slides up (0.6s circ.inOut), CHARLES/NALLE wordmark (or destination name) fades in, 1.0s hold while navigation fires, exits upward (0.6s circ.out). Every navigation. In Astro: small client router intercept or View Transitions + GSAP overlay; reduced-motion = instant.
-2. **Two-state audio player** (`AudioPlayerSection.jsx`): card `rounded-3xl border-2 #69311D`; background lifts primary-3→4 while playing; cover `scale-102`; time pill morphs `MM:SS → MM:SS | MM:SS` via stacked crossfade; `w-72` fixed mini-player opacity-swaps in exactly when the main button scrolls out. **v3: weave the synced paragraph-highlighting INTO this player design.**
-3. **Hero** (`HeroSection.jsx`): `h-screen`; media `rounded-3xl` bordered, vertical asset on mobile/horizontal on desktop, animated mp4 with poster; scroll-scrub (0.5) parallax: media scales to 1.4, un-rounds to full bleed, title rises -200. **v3: press-and-hold sketch→painting reveal lives INSIDE this hero treatment.**
-4. **Map** (`map/MapBox.jsx`, `LocationCardsSlider.jsx`, `LocationCard.jsx`, `constants.js`, `utils.js`): style `mapbox://styles/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft`; overview `zoom 15.25 / pitch 33 / bearing 10`, maxBounds fenced to downtown Troy, chrome-free until selection. Markers = Poppins pill + 20px numbered chip (#E45B27) + 2px×30px stem + 8px dot, above/below per location; active `#F26835/#FED9CC scale-.9` vs inactive `#4A1B0A/#FF9770 scale-.8`. Cards: `fixed bottom-0 pb-6` keen-slider carousel, widths `343→428.75→514.5`, **-20px spacing mobile** (overlap), active `scale-100` vs `scale-85 origin-bottom`, two-tap (focus, then navigate via curtain); camera follows carousel debounced 150ms; selection flyTo `zoom 20, speed .6, curve 1.4`; 5s cinematic arrival ease; per-chapter embedded "Where to next" cameras in constants. **v3 keeps Brian's exact pins from v2 JSONs and adds route-draw/flythrough/1860-lens as elevation within this chrome.**
-5. **Menu** (`MenuOverlay.jsx`): 72×72 corner-notched hamburger (3 corners `rounded-xl`, screen-edge corner `rounded-4xl`), three #E45B27 bars (third shorter), opens in place `back.out(1.7)` to a bordered panel: Home / 1–5 chapters / About in `#FF9770`.
-6. **Home** (`Home.jsx`): full-viewport photo frame (`rounded-[32px]`, `#4B4741` border, grayscale+dim filter, gradient fade), three-stack: "Troy, NY" → interlocked wordmark → "1821 — 1875" with 28×1px rule → `#FFC6B3` Continue pill → muted mission copy with hand-authored breakpoint-specific line breaks. **v3: entry-moment energy (splash film in the frame, wordmark rise, rule draw) folded into THIS layout.**
-7. **Supporting details:** `ArrowWithDynamicShaft` (stem stretches to match title height), ProgressIndicator "Section N/4", chapter number badges (#E45B27 circles), ambient always-moving paintings (mp4 autoplay/loop/muted + poster).
+**Wil's verdict on v3 (verbatim):** *"Overall, it is a start… but I'm not in love with the
+final output, it feels a little bit like a step backwards. It doesn't feel polished or
+professional… Overall the site looks sloppy and like it was thrown together."* The good,
+per Wil: the map is alive and working; performance is better.
 
-## Motion vocabulary (from legacy — the house style)
-`duration-300` CSS default; GSAP reveals `power2.out 0.6–1.0s, stagger 0.2, start "top 80%"`; pops `back.out(1.7)`; curtain `circ.inOut/out`; Ken Burns `scale 1→1.2 scrub`; keen-slider linear 400ms; map cameras as above. No keyframe confetti — motion is feedback and cinema, never decoration. Everything has a reduced-motion variant.
+**The root cause (understand this — it is the whole reason v4 exists):** v3's review gates
+measured *fidelity to spec*, and the spec's own source (a mid-fidelity legacy build) was
+never design-grade. Reviewers passed 27px buttons, ragged three-column layouts, and crude
+ad-hoc SVG arrows because they matched the porting notes. **Fidelity ≠ craft. v4's only
+acceptance bar is craft**, measured against three inspiration sites.
 
----
+**The v4 bar (Wil):** *pasqua.it (immersivity, storytelling) × artsandculture.google.com
+(visual design, organization, layout, presentation) × museos.arteyeducacion.org (motion and
+visual design) "had a baby"* — clean, pretty, in the existing Figma identity (warm
+brown/orange ramps, Martel Sans, Poppins). Figma defines required content + page flow;
+**full creative freedom on execution quality is explicitly granted.** Must look incredible
+at 390 / 768 / 1440.
 
-# THE FOUR DISCIPLINES — CREATION & REVIEW
+## 2 · Wil's eight named defects (each must demonstrably die)
 
-*The build is organized as four disciplines, each with an explicit creation track and an independent review track. The phases below are the execution order; this matrix is the quality contract. A phase is not done until its discipline reviews pass. Every review is run by a fresh subagent with no builder context, using Playwright-rendered screenshots or live interaction — never markup greps.*
+| # | Defect (his words, compressed) | Dies in | Proof required |
+|---|---|---|---|
+| W1 | Icons — "the arrows for example look terrible" | P1 | icon sheet + before/after |
+| W2 | "The buttons are unbalanced" | P1 | button-pair screenshot at 3 widths |
+| W3 | Map route "so low contrast that it is invisible — an accessibility issue" | P3 | grayscale screenshot shows the route plainly |
+| W4 | "Spacing and layout… lacking a visual hierarchy" | P1+P2 | squint-test pass on every page |
+| W5 | "The site looks sloppy and thrown together" | all | caliber gate green |
+| W6 | Names/titles "do not reflect the requested changes / updates and are inconsistent" | P0+P4 | canon table + ledger cross-check |
+| W7 | "The sketches have replaced the chapter pages hero image — this should not have been done" | P2 | hero = animated painting, screenshot |
+| W8 | Chapter template must be THE most beautiful/engaging/immersive artifact | P2 | flagship caliber gate green |
 
-## 1 · Visual Design — Colors · Type · Rag · Layout · UI Elements · Spacing
+## 3 · Locked decisions (Wil answered these directly — do not re-litigate)
 
-**Creation** (Phases 1–3):
-- **Colors:** the approved 12-step ramps (Reference above) rebuilt as Radix-method scales; every usage tokenized; the two legacy inconsistencies resolved; scrims/gradients from the Reference. Evolution allowed where it strengthens the identity (e.g., refining a step for AA contrast).
-- **Type:** Martel Sans + Poppins self-hosted; the ×1.25/×1.5 ladder as tokens; display tracking/leading per Reference; a documented role scale (hero/section/body/label/quote/badge) in `/styleguide`.
-- **Rag:** `text-wrap: balance` on display, `pretty` on body; the approved intentional hard breaks preserved; no widows/orphans on headings; quote punctuation hung; checked at all three breakpoints per screen.
-- **Layout:** approved skeletons per screen (Home three-stack frame, chapter section order, ch4/5 two-column desktop, map chrome) with license to evolve where better; `max-w-7xl` shell; full-bleed moments (moral, map) deliberate.
-- **UI Elements:** the signature component set (player, cards, markers, menu, buttons, badges, arrows, progress labels) rebuilt to spec values; every interactive element has default/hover/active/focus/disabled states designed.
-- **Spacing:** 8px Figma-unit scale, even-numbered utilities, the section-padding ladder; vertical rhythm consistent across chapters.
+1. **Chapter hero = the finished ANIMATED PAINTING** (mp4 loop, poster-first for LCP).
+   The press-and-hold sketch→painting interaction **relocates to its own designed "From the
+   sketch" section** in the chapter body (the artist's-process beat). Keyboard/tap/
+   reduced-motion paths must survive the move.
+2. **Names/titles:** verify every displayed name/title/label against the requested-changes
+   ledger (`docs/CONTENT-STATUS.md` + `<project>/Context/Website Edits.pdf`, one directory
+   above the repo) and **canonicalize one naming system** (schema in §7.8).
+3. **Type voices:** **add Martel (serif)** — same foundry/family as Martel Sans, designed to
+   pair — as the narrative-prose and quote voice. Martel Sans keeps display. Poppins keeps
+   labels/buttons. (`@fontsource/martel`, weights 300+400 only, latin subset. Martel has no
+   italic — never fake one.)
+4. **Run mode:** fully autonomous through deploy. Wil reviews the final live result.
 
-**Review — Visual Design Review (subagent, rubric):** screenshot grids (v3 | legacy | Figma export) per screen per breakpoint. Checks: token fidelity (pixel-sample 6 hexes/screen), type roles match the ladder (measure rendered px), rag quality (no widows, breaks intentional, quotes hung), layout parity with approved skeletons, state coverage on 5 sampled elements, spacing rhythm (measure section gaps against the scale). **Pass bar:** zero token/ladder violations; rag clean on every reviewed screen; any deliberate evolution reads as the same design family.
-**Runs after:** Phase 1 (styleguide), Phase 2 (screens), Phase 3 (map), final at Phase 6.
+## 4 · Operating protocol (compaction-proof — MANDATORY from minute one)
 
-## 2 · Motion Design — Transitions · Animations · Scroll Effects
+This run lasts many hours unattended; context WILL be compacted. Disk is truth:
 
-**Creation** (Phases 2–4):
-- **Transitions:** the curtain navigation transition (signature #1) on every route change; element-level continuity where cheap (persistent audio mini-player across scroll); menu open/close pops (`back.out(1.7)`); map camera moves (5s arrival, flyTo curve 1.4, 2s return).
-- **Animations:** press-and-hold reveal choreography (develop → wake); two-state player (surface lift, cover scale, time-pill morph, mini-player swap); marker state changes; ambient painting motion (mp4 loops with posters); micro-interactions on every interactive element (300ms house default).
-- **Scroll Effects:** hero scrub parallax (scale→1.4, un-round, title rise); moral-section reveal suite (power2.out, stagger 0.2); Ken Burns quote backgrounds; section reveals site-wide in the house vocabulary; route-draw on the map.
-- All motion uses the motion tokens; every effect has a `prefers-reduced-motion` variant; inventory maintained in `docs/MOTION.md` (effect · trigger · duration/easing · reduced variant).
+1. **First actions:** `git mv docs/PLAN.md docs/PLAN-v3.md` (preserve history), copy THIS
+   file to `docs/PLAN.md`; archive `docs/RUN-STATE.md` → `docs/RUN-STATE-v3.md`; create a
+   fresh `docs/RUN-STATE.md` (structure: CURRENT PHASE · LAST COMMIT · DONE w/ timestamps ·
+   IN PROGRESS — exact next action a stranger could resume · BLOCKED/NOTES · GATE VERDICTS).
+   Commit + push.
+2. Update RUN-STATE after **every sub-step**; the IN PROGRESS line is written BEFORE
+   starting the step it names. Commit small + push at least every 3 commits.
+3. All findings go to files under `docs/v4/` the moment they exist — never held in
+   conversation. Screenshots to `docs/v4/qa/<phase>/`.
+4. **Re-orientation ritual** (session start + anytime context feels thin):
+   `docs/PLAN.md` → `docs/RUN-STATE.md` → `git log --oneline -10` → resume from IN PROGRESS.
+   Never redo work marked DONE; verify via git, not recollection.
+5. Memory checkpoint at every phase boundary (auto-memory file `cnwm-project-state.md`).
+6. **Look at everything you build.** The harnesses are the eyes: `node scripts/shots.mjs
+   <outdir> [--base URL] [--routes /a,/b] [--scrolls N]` (all routes × 390/768/1440),
+   `node scripts/perf.mjs` (Lighthouse), `node scripts/map-probe.mjs` (map diagnostics).
+   Never ship an element you haven't seen rendered in a screenshot. Playwright is the only
+   trusted eye — never markup greps, never assumption.
+7. Build guard: `npm run build` runs `scripts/check-css.mjs` (island-CSS guards) — keep
+   green. `npx astro check` must stay at 0 errors.
 
-**Review — Motion Design Review (subagent, rubric):** live interaction pass (Playwright video capture or stepped screenshots at scroll positions) + `docs/MOTION.md` audit. Checks: every navigation shows the curtain (sampled 6 routes); scroll effects fire at correct triggers without jank; durations/easings match tokens; nothing moves without purpose (motion-as-thesis test: name what each effect communicates); reduced-motion run shows full content with zero broken states; no scroll-jacking; zero CLS from animation. **Pass bar:** inventory complete and accurate; reduced parity 100%; no effect flagged "decorative with no purpose."
-**Runs after:** Phase 2 (core), Phase 3 (map), Phase 4 (full layer), final at Phase 6.
+## 5 · The craft diagnosis (why v3 reads sloppy — internalize before designing)
 
-## 3 · User Experience — Organization · Intuitiveness · Ease of use · Immersiveness · Audio · 3D
+What all three inspiration sites share, that v3 lacks (verified hands-on, on file in
+`docs/qa/inspiration/{museos,pasqua,googleac}.md` with screenshots):
 
-**Creation** (Phases 2–4):
-- **Organization:** the multi-door IA (Walk/Story/People/Paintings/About) mapped onto the approved nav (menu overlay + home); chapter sections in the approved order with ProgressIndicator wayfinding; every page answers where-am-I / what-next.
-- **Intuitiveness:** two-tap map cards with visible affordances; press-and-hold with a visible labeled hint plus tap fallback; audio play affordance prominent (the lit-up player); no gesture-only critical paths — broad age range (a 15-year-old and a 75-year-old both succeed unaided).
-- **Ease of use:** QR sidewalk path is sacred (deep link → chapter loads fast → audio one tap → next stop obvious); back always available; menu reachable everywhere; tap targets ≥24px; keyboard end-to-end.
-- **Immersiveness:** the curtain + ambient paintings + scrub hero + map cinema produce presence without confusion; immersion never gates content (skip/scroll-past always possible).
-- **Audio:** narration with synced paragraph highlighting inside the two-state player; mini-player persistence; scrubbing + paragraph-tap seek; transcripts are the visible text; all audio user-initiated; (ambient cues only if opt-in).
-- **3D:** the tilted map camera (pitch 33 / bearing 10) and cinematic camera moves are the 3D layer — depth through parallax and camera, not gimmick; maintained through the elevation work.
+1. **Few sizes, violent jumps.** 3–4 type sizes per site with 2.7–5× jumps (museos: 15px
+   labels / 54px names / 110px display). v3 runs a smooth ×1.25 ladder where adjacent
+   levels are near-indistinguishable — *nothing wins*. This is precisely "lacks hierarchy."
+2. **Two type voices.** Serif prose against sans chrome. v3 is two sans faces = one voice.
+3. **Composed whitespace.** 330–440px deliberate voids; half-empty viewports as pacing
+   (museos leaves the entire left half of the screen empty except one spine numeral). v3
+   caps gaps at 64px on a dense, even grid — flat and airless.
+4. **Unboxed chrome.** GA&C: zero card borders — the image IS the card; text hangs below on
+   a fixed eyebrow(11px caps)/title(15–16px)/meta(12px gray) micro-grid with identical
+   y-offsets (26/12/12) on every card of every page. pasqua boxes exactly ONE element per
+   screen. museos chrome is bare text on hairlines that run full-bleed while content
+   insets. **v3 boxes everything** — 1–2px #69311d borders + rounded-3xl on every surface.
+5. **1px-stroke geometric icons ≤24px** (museos play = 46px circle, 1px stroke, 9px glyph).
+   v3 has three unrelated arrow idioms at stroke widths 1.2/2/2.5 — one visibly distorted
+   by non-uniform SVG stretch (the map-card arrow, `preserveAspectRatio="none"`).
+6. **Editorial numbered spines** — "(0)…(8)" large, quiet, in their own column (museos);
+   "(CH. I)" over-title lockups reused at exactly two scales (pasqua).
+7. **Ground shifts mark act changes** — museos flips dark→cream for reading passages. v3 is
+   one brown on every pixel of every page; no register change anywhere.
+8. **Motion on ~2 durations + 1 easing.** v3's motion inventory has 12 durations and 4
+   easings — motion reads thrown-together exactly the way inconsistent spacing does.
+9. **Counts and scope stated honestly** (GA&C "2 stories", banner = exactly 4 elements) —
+   quiet section headers; the artwork carries hierarchy, headings only label.
 
-**Review — UX Review (subagent, rubric):** two scripted walkthroughs against the live build: (a) *first-time home visitor* — reach a chapter, play audio, reach the map, reach stop 2; (b) *QR sidewalk arrival* — deep-link into `/commissioners-office`, orient, play, continue the walk. Grades each step: comprehension, findability, effort, recovery from wrong taps. Plus: age-range heuristics (effective text ≥16px, affordance visibility, no hidden gestures), audio UX (discover/play/seek/persist), immersion-vs-clarity balance. **Pass bar:** both walkthroughs complete unaided with zero dead-ends; no critical step relies on an invisible affordance; audio reachable in ≤2 taps from any chapter.
-**Runs after:** Phase 2, Phase 3, Phase 4, final at Phase 6.
+**v3 concrete breakage** (from code inventory — all fixed in their phase):
+- 8 divergent button patterns / 24 instances; some 27px text at lg; 404's buttons lack the
+  responsive ladder entirely; map chrome is a 4th sub-variant at a different size.
+- Route line `#F26835, w3.5, dasharray [0.1,2], opacity .85` = sparse dark-orange dots on a
+  dark map — invisible (W3).
+- Chapter hero block 1344px wide vs the 1280px `max-w-7xl` shell everywhere else — a
+  visible registration error.
+- Four different section gaps inside the chapter template alone; page top paddings disagree
+  across pages (`pt-16` vs `pt-10` vs `mt-6`).
+- Naming: FIVE surfaces (`title` / `cardTitle` / `map.label` / `next.label` / a hardcoded
+  list in `Menu.astro:16-22`) with conflicts — map pill says "Commissioner's Office" while
+  its own card says "Office of the Commissioner"; `next.label` for bakery is free-text
+  ("Where the story began"); `TroyMap.tsx:39` hardcodes a label string in `PIN_ABOVE`.
+- Bugs: `[chapter].astro` historical `<video>` has TWO class attributes (second wins →
+  `lazy-video` dropped → that video never lazy-hydrates); stop-1 map pill can hide entirely
+  inside stop-2's pill at overview; mini-player time pill clips its last digit; mini-player
+  and menu burger collide in the same corner; sub-16px text carries comprehension content in
+  ~6 places (home mission 12px, hints 12px, addresses 12px).
 
-## 4 · Quality Assurance — Bugs · Loading Speed · Overall Performance
+## 6 · Keepers — do not regress (v3 got these right)
 
-**Creation** (continuous; hardening in Phase 5):
-- **Bugs:** interaction checklist per screen (links, player, reveal, menu, curtain, map gestures, dialog); console/network clean on every route; cross-viewport matrix 390/768/1440 + landscape phone; the island-CSS class of bug permanently guarded (Phase 0 fix + a build-time check that samples key island utilities in output CSS).
-- **Loading Speed:** LCP <2.5s on throttled 4G for chapter pages (the QR path); fonts subset + preloaded; media lazy with posters; route JS budgeted (map bundle only on map routes).
-- **Overall Performance:** Lighthouse mobile ≥90 perf / ≥95 a11y on home, one chapter, map; zero CLS; interaction latency <100ms; memory sane on the map (single instance verified).
-
-**Review — QA Review (subagent, rubric):** runs the Playwright matrix + interaction checklist + Lighthouse from the **live deploy**; files findings as numbered defects with severity. **Pass bar:** zero P0/P1 defects; metrics at or above targets recorded in `docs/qa/`; residuals (P2+) listed with rationale.
-**Runs after:** every phase (smoke), full pass at Phase 5, re-verified live at Phase 6.
-
----
-
-# EXECUTION PHASES
-
-*Each phase ends with: build green → deploy/preview → Playwright-rendered screenshots → the discipline reviews scheduled for that phase (matrix above) → fix → next. Commit + push per phase (CI deploys; the install step self-heals). Fix-loop: each review runs at most twice; anything still open lands in `docs/REVIEW-GUIDE.md` residuals (target: none).*
-
-## Phase 0 — Foundation repair & truth acquisition (~1.5h)
-
-**Work:**
-0. **Bootstrap the compaction-proof protocol:** copy this plan to `docs/PLAN.md`; create `docs/RUN-STATE.md`; commit. (Protocol section above — mandatory from the first minute.)
-1. **Fix the island CSS bug (the map is currently INVISIBLE — wrapper height 0, confirmed live):**
-   a. Add Tailwind v4 `@source` directives in `src/styles/global.css` (e.g. `@source "../components";`) so `.tsx` islands are scanned; rebuild and **verify the emitted CSS contains** `h-\[100dvh\]`, `aspect-\[3\/2\]`, `portrait:` variants — grep the dist CSS, don't assume.
-   b. Belt-and-braces: give structural island dimensions plain CSS classes that cannot vanish (`.map-shell { height: 100dvh }`, `.reveal-frame { aspect-ratio: 3/2 }` + portrait override) — layout-critical sizing must not depend on utility scanning.
-   c. After the container has real height, ensure the map sizes correctly: `map.resize()` on load + a `ResizeObserver` on the container (a map initialized in a 0-height box keeps a 300px canvas otherwise).
-   d. Add a permanent build guard: a post-build script step that fails if key island utilities/classes are missing from the output CSS.
-   e. **Acceptance is visual, not mechanical:** live screenshot shows streets/labels/markers plainly visible, full-viewport, at 390/768/1440 — not a dark empty canvas. This item is the phase gate; nothing else proceeds until the map is visibly a map.
-2. **Install the QA eye:** add Playwright (devDep; constitution-sanctioned) + a `scripts/shots.mjs` capturing every route at 390×844, 768×1024, 1440×900 (+ key scroll positions) to `docs/qa/<phase>/`. This harness is the acceptance instrument for every later phase.
-3. **Figma pull (MCP verified WORKING 2026-08-02: authenticated as Wil B., file accessible, single top-level page "✅ Approved" = `16:438`):** `get_screenshot` works on the big nodes (node `1950:16104` is a 12520×7682 board — request per-frame screenshots at `maxDimension` 1024–2048 and download via the returned curl URL). **Known issue:** `get_metadata`/large XML responses on the giant nodes fail with an SSE parse error — do NOT retry the full node; instead drill into smaller CHILD frames (get_metadata on `16:438` subtrees, or get_design_context on individual screen frames). Save everything to `docs/figma-baseline/`. Diff against the Reference above; correct the Reference where Figma disagrees.
-4. Delete v2-invented identity remnants inventory (list what Phase 1 will remove: Fraunces/Newsreader imports, paper grain, per-chapter palette JSON fields → superseded by the single approved ramp; keep palette fields as data but stop styling from them).
-
-**Deliverables:** working full-viewport map + correct press-reveal box (screenshot-proven), Playwright harness, `docs/BASELINE.md` (final tokens).
-**Acceptance:** screenshots show map filling viewport at all 3 sizes; zero missing-utility regressions; harness runs in one command.
-**Reviews:** QA smoke (screenshot set audited against this phase's claims).
-**Risks:** Figma MCP unauthorized (fallback defined); `@source` path specifics (verify emitted CSS, not assumption).
-
-## Phase 0.5 — Inspiration study & elevation blueprint (~1.5h)
-
-*The bridge phase the whole run hangs on: study the benchmark hands-on, then write the plan for how the approved Figma/legacy design gets elevated TO that benchmark. Build phases execute this blueprint; final reviews verify against it.*
-
-**Work:**
-1. **Hands-on inspiration review** — visit all five sites with the Playwright harness (screenshots at multiple scroll positions, viewport 390 + 1440, interaction probing, DOM/tech inspection). For each, study its *named dimension* and extract 5–8 concrete, named techniques (e.g., "press-to-reveal artwork," "statement→breath→CTA scroll rhythm," "chrome-free map overview with cinematic arrival," "gesture-gated sound-on entry," "one artwork, many doors"). Also record 2–3 things each site does *poorly* — traps to avoid (unskippable preloaders, sound-hostage content, style-over-substance map shallowness, soulless-platform genericism). Output: `docs/INSPIRATION.md`.
-2. **Gap analysis** — for each CNWM screen (Home, Chapter, Map, People, Paintings, About) and each of the four disciplines: where does the Figma/legacy baseline stand versus the benchmark? What does it already have that the inspiration sites would envy (Mark Priest's paintings + sketches + animations, real narration, a true story with Harriet Tubman, a physical walking route)?
-3. **The elevation blueprint** — `docs/ELEVATION-PLAN.md`: a screen-by-screen × discipline-by-discipline list of specific elevations, each entry naming (a) the baseline element it elevates, (b) the inspiration technique it adapts, (c) the CNWM-native expression of it (never a copy — the technique translated into the approved identity), (d) which phase executes it. This document is the build order for Phases 2–4 and the checklist for the final reviews.
-
-**Starting corpus (prior study, 2026-08-01 — treat as hypotheses to verify hands-on):**
-- *Museos:* three narrator voices per artwork · press-and-hold artwork reveal · numbered editorial sections · rolling-digit dates · inverted palettes per page · CDN-optimized media. Poorly: unskippable slow preloader; hover-only interactions on touch.
-- *Rewild:* statement→breath→one-CTA scroll rhythm · organic motion-as-message · WebGL restraint. Poorly: entry gate + heavy payload; utility buried under mood.
-- *Marseille:* question-led onboarding → skippable intro film → free map exploration · hand-made map-as-artifact · district vignettes with ambient sound. Poorly: desktop-first; shallow per-location content.
-- *Pasqua:* film-title framing ("presents…") · gesture-gated sound-on entry · minimal UI chrome over full-bleed media. Poorly: everything hostage to a loading gate; sound-first accessibility failure.
-- *Google A&C:* one-subject-many-doors ("How will you discover…") · question-led entry · gigapixel zoom · topical hooks ("Today in history"). Poorly: no soul — organization without identity.
-- *The award DNA (all five):* one signature interaction · narrative before navigation (always skippable) · typography carries identity · motion has a thesis · sound opt-in · craft in the seams (loaders, titles, favicons, transitions) · ruthless media pipeline.
-
-**Deliverables:** `docs/INSPIRATION.md`, `docs/ELEVATION-PLAN.md`.
-**Acceptance:** every elevation entry is traceable (baseline element + inspiration technique + CNWM expression + executing phase); every screen × discipline cell has at least one entry or an explicit "baseline already at bar" note.
-**Review (independent):** a fresh subagent reads ONLY the inspiration screenshots + the blueprint and answers: *"If executed fully, does this plausibly reach the standard of these five sites?"* — with named gaps. Builder revises until the answer is yes with zero named gaps.
-**Risk:** site access/render flakiness in headless — fall back to the starting corpus + whatever renders; do not burn more than the timebox.
-
-## Phase 1 — Design system reconstruction (~2h)
-
-**Work:** rebuild `global.css` as the approved system — the 12-step ramps as CSS custom properties + Tailwind theme; Martel Sans + Poppins self-hosted (subset weights: Martel 300/600/800, Poppins 400/500); the ×1.25/×1.5 ladder as fluid type tokens; spacing scale; motion tokens (durations/easings above); border/radius idiom (`rounded-3xl` + primary-6 border as a component class). Resolve the two legacy inconsistencies deliberately (canonical `#F26835`; Poppins registered and used only where shipped/Figma-specified). Build `/styleguide` route rendering every token, type ladder at all breakpoints, and each signature component primitive.
-**Deliverables:** new `global.css` tokens, `/styleguide`, fonts wired.
-**Acceptance:** styleguide screenshots match Reference values (spot-check hexes via pixel sampling in the QA script); no Fraunces/Newsreader/paper remnants anywhere; body text ≥16px effective at mobile.
-**Reviews:** Visual Design (styleguide vs Reference tables + legacy screenshots — capture legacy from `charles-nalle-walking-memorial.vercel.app` with the same harness for side-by-sides).
-
-## Phase 2 — Core screens to approved DNA (~3h)
-
-**Work:** port legacy markup/structure into Astro components (its Tailwind classes transplant nearly 1:1):
-- **Home** per signature #6 with the entry moment folded in (splash film inside the photo frame, staggered wordmark rise, rule draw, CTA). Kill v2's separate title-sequence layout.
-- **Chapter template** per signatures #2/#3/#7: hero with scrub parallax + press-reveal integrated (sketch develops into the animated painting within the bordered hero frame; touch/keyboard/reduced-motion paths kept from v2); ProgressIndicator sections; narrative 18/300/1.6 with first-word caps; ch2's two scenes and ch4/5's two-column desktop pattern; audio = the two-state player with synced paragraph highlighting woven in (highlight style: subtle primary-4 wash, not v2's accent block); HistoricalContext; full-bleed MoralMessage with its reveal suite; WhereToNext with the embedded 3:2 map card + per-chapter cameras; Footer.
-- **Curtain transition** on all navigation (signature #1) — implement once as a small client module.
-- **Menu** (signature #5). **About** restyled. **People/Paintings** restyled to the language (bordered cards, ladder type, ramp colors — they should look like they always belonged).
-**Deliverables:** all routes re-skinned; curtain live; menu live.
-**Acceptance:** side-by-side screenshot grids (v3 | legacy | Figma export) read as one design, elevated; every Phase-2-tagged `ELEVATION-PLAN.md` entry executed; every v2 feature present in new skin; hard line breaks and rags clean at all 3 breakpoints; no dead ends.
-**Reviews:** Visual Design + Motion Design + UX + QA smoke (per matrix).
-
-## Phase 3 — The map, approved then elevated (~2h)
-
-**Work:** rebuild `/map` to signature #4 exactly (tilted chrome-free overview, stem-dot markers with exact state values, overlap carousel with two-tap + camera-follow, back button, cinematic arrivals, maxBounds) using Brian's exact pins; restore the embedded chapter-page map. Then elevate within the chrome: self-drawing route between stops, optional guided flythrough ("Take the walk" — skippable, reduced-motion honored), the 1860 painting lens re-skinned to the language, geolocate for sidewalk visitors. Single map instance; do not port legacy's dead `PersistentMap.jsx`/`LocationButtons.jsx`.
-**Deliverables:** the approved map experience + elevation layers, embedded maps back on chapters.
-**Acceptance:** full-viewport at all sizes (screenshot-proven **on the live deploy**), marker/card specs match Reference values, carousel overlap behavior on mobile width, tour skippable, Phase-3-tagged `ELEVATION-PLAN.md` entries executed, no console errors.
-**Reviews:** Visual Design (marker/card spec table) + Motion Design (cameras, route-draw) + UX (QR-arrival walkthrough) + QA smoke.
-
-## Phase 4 — The award layer (~2.5h)
-
-**Work:** execute every remaining `ELEVATION-PLAN.md` entry — motion with a thesis, scroll choreography (reveal suites site-wide in the house vocabulary), ambient painting motion everywhere it earns its place, micro-interactions (hovers, focus, active states per inventory), the 1860 lens moment, entry choreography, transitional continuity (curtain + element persistence), sound-design touches only if opt-in and cheap. License is granted: evolve layouts/type/color where it makes the design *better* while unmistakably the same identity. Guardrails (the traps named in `docs/INSPIRATION.md`): no scroll-jacking; content never hostage to motion or loading; reduced-motion parity for every single effect; broad-age-range clarity beats cleverness on every trade.
-**Deliverables:** motion inventory doc (`docs/MOTION.md`: every effect, trigger, duration/easing, reduced variant).
-**Acceptance:** zero CLS from animations; every effect listed with its reduced variant; the seven-point award DNA self-audit (signature interaction · narrative framing · typography identity · motion thesis · sound opt-in · craft seams · media pipeline) passes with evidence.
-**Reviews:** Motion Design (full) + UX (full, incl. narrated first-visit judged against `docs/INSPIRATION.md`'s findings — does it *feel* like that caliber?) + QA smoke.
-
-## Phase 5 — Performance & hardening (~1.5h)
-
-**Work:** font subsetting check, preload critical assets, media re-budget (Martel/Poppins add weight — compensate), Lighthouse mobile ≥90 perf / ≥95 a11y, LCP <2.5s throttled 4G on chapter pages (QR entry path is sacred); full a11y sweep (contrast on #FF9770-over-#1D1411 label combinations — verify AA at rendered sizes, adjust step if needed; focus states; transcripts; keyboard end-to-end). **Content verification:** page-by-page against `Context/Website Edits.pdf` pencil marks + `docs/CONTENT-STATUS.md` (pending items remain: ferry skiff rewrite, Ch2a/Ch4 audio, Athenaeum image — Wil's inputs, not blockers).
-**Acceptance:** metric numbers recorded in `docs/qa/phase5/`; zero known defects or an explicit residual list.
-**Reviews:** QA (full pass — bugs, loading speed, overall performance).
-
-## Phase 6 — Release candidate & review guide (~1h)
-
-**Work:** final deploy; verify the LIVE URL end-to-end with rendered screenshots; write `docs/REVIEW-GUIDE.md` in two parts: **(a) a stakeholder-presentable summary Wil can show that morning** — the live link, a short "what's new" walkthrough in plain client language, and before/after screenshot pairs (legacy vs v3) per screen that make the improvement self-evident; **(b) Wil's internals** — the three-way comparison links (v3 live · legacy Vercel · Figma nodes), per-screen notes, the pre-existing stakeholder items (Kathy's word-for-word sign-off, Brian's pins/credits/plaque typo, Amanda's redirects, Wil's content drops — playbook Parts A/C/D unchanged), and the self-audit table: every acceptance criterion in this plan → evidence link. Update memory + `docs/CONTENT-STATUS.md` + playbook delta.
-**Acceptance:** the zero-big-edits bar — nothing in the guide says "known broken"; every criterion has evidence.
-**Reviews (final gate):** all four disciplines re-run against the **live deploy** — Visual Design, Motion Design, UX, QA — plus an item-by-item verification of `docs/ELEVATION-PLAN.md` (every entry executed or explicitly resolved), plus **the returning-stakeholder test**: a fresh subagent, given only the legacy screenshots, the Figma exports, and the live v3, role-plays a stakeholder who approved the original design and answers two questions — *"Do I recognize this immediately as our website?"* and *"Am I wowed by the improvement?"* Both must be an unqualified yes, with the reaction narrated screen by screen. Reports saved to `docs/qa/reviews/`; ship only on four greens + complete blueprint + a passed stakeholder test.
+Working map (deep links `?stop=`, guided tour, 1860 lens, geolocate, carousel two-tap +
+camera-follow — **style the carousel, do not restructure its DOM**: keen-slider was
+stabilized by keeping it permanently mounted; structural changes reopen a nasty remount
+desync) · curtain page transition (timing/fail-open logic intact; text restyles) · corner
+menu concept (the 72×72 notched burger is approved identity) · AudioStory sync machinery
+(timings, paragraph-tap seek, mini-player latch behavior) · all content data
+(`src/content/chapters/*.json` — Kathy's narrative is verbatim-sacred; Brian's pin
+coordinates exact) · media pipeline (`public/media/<slug>/`: `sketch`, `horizontal`
+(painting still), `reveal-horizontal|vertical` (animated painting mp4 + `-poster.jpg`),
+`historical`(+mp4), `moral`, `square`, site assets) · perf discipline (lazy-video system in
+`Base.astro` — films load via IO + after window `load`; LCP preload prop; `overflow-x:
+clip` on root guards fixed-UI blowouts) · reduced-motion parity 100% + a11y (keyboard
+end-to-end, AA contrast — the time-pill uses dark-on-orange for AA; keep) · harnesses ·
+GH Pages CI · zero-ongoing-cost constraint.
 
 ---
 
-## Independent review protocol (how the four discipline reviews run)
+# 7 · THE v4 DESIGN DIRECTION
+*(Starting spec. P0's fresh audits confirm/amend with measured evidence, then
+`docs/v4/DESIGN-STANDARDS.md` becomes the single acceptance bar. Numbers below are the
+default — change them only with audit evidence, and record why.)*
 
-Each review spawns a **fresh subagent with no builder context**, given only: its discipline rubric (matrix above), the Playwright screenshots / live URL, and the Reference + Figma baselines + legacy screenshots. Findings return as a numbered, severity-ranked list; the builder fixes and re-runs the review once; anything still open after the second pass goes to `docs/REVIEW-GUIDE.md` residuals (target: none). The Phase 6 gate is **all four disciplines green on the live deploy** — Visual Design, Motion Design, UX, and QA — each review's final report saved under `docs/qa/reviews/`.
+### 7.1 Type — three voices, four sizes, violent jumps
 
-## Dependencies · Risks · Constraints
+| Role | Face/weight | 390 | 768 | 1440 | Leading · notes |
+|---|---|---|---|---|---|
+| Display | Martel Sans 800, caps per Figma | 44px | 72px | 96–104px | 0.95, tracking −0.02em; authored line breaks; ~5× prose at 1440 — THE jump |
+| Subhead / Quote (share one size slot) | Martel Sans 600 / **Martel serif 300** | 28 | 34 | 42 | 1.15 (subhead) / 1.35 (quote, hung punctuation) |
+| Prose | **Martel serif 400** | 19 | 20 | 21 | 1.75; measure ≤66ch; serif floor 18px — never smaller, never for UI |
+| Meta (ONE unit) | Poppins 500, caps, +0.14em | 12 | 13 | 13 | **does not scale with viewport** — the fixed micro-grid; labels only, never comprehension text |
 
-- **Wil pre-kickoff (5 min):** authorize the Figma MCP connector (claude.ai connector settings). If skipped, the night proceeds on the Reference + legacy code (explicit fallback).
-- New devDeps: Playwright (QA), keen-slider (approved carousel), fontsource Martel Sans/Poppins. All free/OFL/MIT; zero runtime cost to the museum.
-- CI deploys on every push (self-healing install). GH Pages latency ~3 min — use local `astro preview` + Playwright for inner-loop QA; live URL for phase gates.
-- The browser pane throttles when hidden — **Playwright is the only trusted eye**, never the pane, never markup greps.
-- Mapbox: token committed and verified valid for all origins; style stays `/draft` until launch (playbook Part E publishes it). No secret handling needed this run (avoids permission-classifier friction).
-- Zero-ongoing-cost constraint unchanged. Bronze QR URLs remain `hartcluett.org/nalle/*` — untouched by this work.
-- Timebox ≈15h. If compressed: Phases 0, 0.5, 1–3 are non-negotiable; Phase 4 executes the blueprint's highest-impact entries first and degrades gracefully; Phase 5 minimum = perf numbers + content check.
+Plus: meta-body (Poppins 400, 14px, gray-11) for addresses/captions; button text (Poppins
+500, 15px md / 13px sm); spine numerals (Martel Sans 300, ~28–32px, "(01)"). The v3 roles
+`.type-eyebrow/.type-muted/.type-progress/.type-card-title` and the ×1.25/×1.5 ladder die.
+Eyebrow lockup everywhere: meta → 16px → title → 12px → meta-body (GA&C's fixed offsets).
 
-## Stakeholder input (pre-existing only — per Wil, no new flags)
+### 7.2 Spacing — three tokens, composed voids
 
-Kathy: word-for-word content sign-off (Part D). Brian: pin placement, painting credits, plaque typo. Amanda: `/nalle/*` redirects (Part A — still the gate to Matt's payment). Wil: audio re-records, ferry rewrite, Athenaeum image (Part C). None block the overnight run.
+`--space-block: 24px` (intra-component) · `--space-section: 160/200/240px` (390/768/1440)
+between numbered sections · `--space-void: 320/360/440px` — **max two voids per page**, at
+act changes (hero→story, moral→onward). Every vertical gap quantizes to these three.
+Asymmetry rule: content hugs the TOP of a void (pasqua's half-empty viewport), never
+centers. Hairline section rules run full-bleed while content insets (museos). **One shell:
+`max-w-[1280px]`** — the hero registration error dies.
 
-## Verification (end-to-end, at the finish)
+### 7.3 Un-boxing — a border marks an ARTIFACT, never a text container, never chrome
 
-1. `npm run build` + `astro check` clean; CI green; live URL serves v3.
-2. Playwright matrix: every route × 3 viewports from the **live** URL — no layout breakage, map full-viewport, reveal correct.
-3. Three-way visual: v3 screenshots beside legacy screenshots beside Figma exports — same DNA, visibly elevated.
-4. Interaction pass on a real phone viewport: QR deep-link path (chapter → audio → next → map) flawless.
-5. Lighthouse mobile ≥90/≥95; LCP <2.5s throttled on `/bakery`.
-6. `docs/REVIEW-GUIDE.md` complete with evidence links — the morning read starts and ends there.
-7. `docs/RUN-STATE.md` shows every phase DONE with review verdicts; final state pushed.
+- **Keeps the frame** (1px primary-6): hero media, From-the-sketch media, historical
+  media, the embedded map, the moral inset painting, map stop-cards + pills (functional),
+  menu panel, the home photo frame. Radius calms: 24px on hero/home frames only, 12px
+  elsewhere.
+- **Loses the box:** audio player (becomes an unboxed story object on hairlines), transcript,
+  quotes, ALL text blocks, People cards, Paintings grid, About media, footer, hint chips,
+  dialog chrome → GA&C treatment: flush image + eyebrow/title/meta stack, hairline dividers.
+- **Pasqua census rule: ≤1 framed element per viewport** (enforced by the caliber rubric).
+
+### 7.4 Ground shift — one cream register (museos act change)
+
+`--ground-light: #f6f3ee` (neutral-12) with ink `#1d1411`. Applied to exactly two places:
+the transcript reading passage inside the story section, and About's long text. Narration
+highlight gets a cream-ground variant (soft `#f4ddd0` wash + hairline left rule). Everything
+else stays the dark cinematic register (hero, moral, map). Prototype BOTH registers in the
+styleguide before committing (serif + sync-highlight legibility check at 19px).
+
+### 7.5 Buttons — two sizes, two variants, no viewport ladder
+
+`btn` (15px Poppins 500, 48px height, px-28px, pill) · `btn-sm` (13px, 38px, px-20px).
+Variants: **solid** (bg primary-10 `#e45b27`, text primary-2 `#1d1411` — dark-on-orange for
+AA ~4.9:1; hover bg primary-9) · **ghost** (1px border primary-7, text primary-11, hover
+text primary-12). Pairs are always same size, solid+ghost ("Continue the walk" / "Get
+Directions") — equal optical weight, fill = primacy only. Home's approved inverted cream
+pill stays (adopts btn metrics). All 24 existing instances collapse to
+`src/components/Button.astro` + shared classes for islands. 27px button text dies.
+
+### 7.6 Icons — one file, one weight
+
+New `src/components/icons.ts` (path data shared by an `Icon.astro` + TSX use): 24px
+viewBox, **1.5px stroke**, round caps/joins, `currentColor`, never non-uniformly scaled.
+Glyphs (~8): arrow (one idiom — rotate for right/down/external), chevron, close, play,
+pause, share, pin, plus. The three ad-hoc arrow idioms and the stretched card arrow die (W1).
+
+### 7.7 Motion — two durations, one easing, one overshoot
+
+`--dur-fast: 300ms` (hover, pills, highlight) · `--dur-slow: 900ms` (reveals, wipes, quote
+settle) · easing `cubic-bezier(0.22, 1, 0.36, 1)` everywhere. Reveal vocabulary: opacity +
+24px rise, 60–90ms stagger; display type may use per-line mask rises; media may clip-wipe +
+scale 1.04→1. **Documented exceptions:** curtain keeps its circ timing (set-piece); map
+cameras keep cinematic durations (flyTo/easeTo language); the ONE `back.out` overshoot is
+the corner-menu bloom. All 12 stray durations remap. Reduced-motion parity stays 100%.
+
+### 7.8 Naming canon (W6)
+
+Schema change in `src/content.config.ts` + all 5 chapter JSONs — one object per chapter:
+`name: { canonical, display, short }` (display = line-broken form; short = pill/menu form).
+Derivations: hero H1 ← `display` · cards/`<title>`/curtain labels/People chips ←
+`canonical` · map pills + menu ← `short` · next-links ← generated `"Chapter {order} —
+{canonical}"` (free-text variants die). `Menu.astro`'s hardcoded list regenerates from
+`getCollection`. `PIN_ABOVE` becomes a `pinPosition` field in JSON (stop 2 above; others
+below). Proposed canon (P0 verifies against the ledger): Holeur's Fashionable Bakery/Bakery ·
+Office of the Commissioner/Commissioner's Office · Uri Gilbert Mansion/Gilbert Mansion ·
+Washington Street Ferry Landing/Ferry Landing · Peter Baltimore's Barbershop/Barbershop.
+**P0 ledger step:** cross-check every displayed string against `docs/CONTENT-STATUS.md` +
+`Context/Website Edits.pdf`; correct labels; log every change. Narrative prose is Kathy's
+domain — anything that would change meaning gets flagged in the ledger, never edited.
+
+### 7.9 Map route (W3) + map chrome
+
+Route: two layers replacing the current single layer — casing `#100A06`, width
+zoom-interpolated 5.5→9 (z14→z17), opacity .85, under main line `#FF9770` (primary-11),
+width 2.5→4, opacity 1, solid, round caps. Self-draw animation kept (progressive GeoJSON
+feed). Acceptance: **the route reads plainly in a grayscale screenshot** (≥3:1 vs ground,
+pixel-verified). Same treatment in `EmbedMap.tsx`. Chrome: doors/Overview/hint → `btn-sm`
+ghost + Icon set; place chip → meta unit; pills keep approved state colors but adopt the
+fixed meta type (no viewport ladder) and get a collision pass at overview (stop 1 must
+never hide inside stop 2 — nudge anchors by order; verify screenshot).
 
 ---
 
-## KICKOFF PROMPT (Wil: paste this verbatim to start the overnight session)
+# 8 · Chapter template — the flagship (W7, W8; Figma flow preserved, presentation elevated)
 
-> Execute the CNWM v3 plan end to end, fully autonomously, through the night.
+Flagship build target: **`/commissioners-office`** (hardest case — two scenes); perf gates
+still measure `/bakery` (the QR reference path). Structure:
+
+1. **Hero — the animated painting.** Full-height, registered to the 1280 shell, inside the
+   signature 24px frame. Media = `reveal-horizontal.mp4` loop (portrait:
+   `reveal-vertical.mp4`), **poster-first**: LCP is the painting poster (P2 extends
+   `scripts/build-media.mjs` to emit webp/responsive posters for the reveal videos — only
+   `.jpg` posters exist today; **new filenames**, GH Pages caches aggressively); video src
+   attaches after window `load` (existing lazy-video path); reduced-motion/no-JS = still
+   painting. Lockup: meta row ("STOP 02 OF 5 · TROY, NY · APRIL 27, 1860") → "(CH. 02)"
+   over-title unit (pasqua; reused at exactly two scales site-wide) → display title from
+   `name.display` → refined rule. Scroll-scrub kept, scale capped ~1.15.
+2. **Editorial spine.** At lg: a left rail with "(01) LISTEN · (02) THE SKETCH · (03)
+   HISTORY · (04) THE MORAL · (05) ONWARD" in meta type, current section emphasized,
+   doubling as anchor nav; ≤768 collapses to inline "(0N)" eyebrows. Replaces all
+   "Section N/4" labels.
+3. **(01) The story.** Scene quote first — serif quote, unboxed, alone in a composed void.
+   Then the audio object: unboxed play control (Icon set) + title + time on a top hairline;
+   the approved two-state color behavior persists subtly (ground lifts while playing).
+   Transcript below on the **cream ground register**: Martel serif 19–21/1.75, serif
+   drop-word, re-tuned sync highlight, "tap any paragraph to hear it read" affordance kept.
+   Ch2 renders both scenes here in sequence. **Mini-player relocates bottom-LEFT** (menu
+   owns the right corner — collision dies) with `tabular-nums` + min-width (clip bug dies).
+4. **(02) From the sketch.** The relocated press-and-hold: label-left (meta eyebrow + two
+   serif sentences on Mark Priest's process), framed sketch right — press-and-hold develops
+   it into the painting (progress hairline; tap/keyboard/reduced paths intact = crossfade
+   toggle). The full-bleed painting interlude (Ken Burns band) stays as the pasqua moment,
+   now placed AFTER this section, edge-to-edge, zero chrome, credit chip.
+5. **(03) Historical context.** Label-left/prose-right (museos): 4-col label rail + 8-col
+   content at lg. Facts as hanging "(1)(2)(3)" meta numerals on a fixed numeral column —
+   the orange chips die. Archival media keeps its frame; **fix the double-class bug so its
+   video lazy-loads.** Long prose = serif reading passage (cream register if the styleguide
+   prototype wins; otherwise dark serif).
+6. **(04) The moral.** Full-bleed dark pasqua moment: moral painting edge-to-edge, scrim,
+   display statement with line-mask reveal, serif message ≤66ch, the inset square painting
+   keeps its frame as the viewport's one artifact. Entered via a void.
+7. **(05) Onward.** Framed cinematic embed map + destination lockup (meta "NEXT — STOP 03"
+   + canonical name + address in meta-body) + ONE equal-weight `btn` pair (Continue the
+   walk / Get Directions). GA&C banner discipline: four elements, nothing else.
+8. **Footer band** (identical site-wide): full-bleed hairline top rule; one row on the
+   shell — wordmark/credit left, lateral links center (real ≥24px targets), share `btn-sm`
+   right. The three-sizes hodgepodge dies.
+
+# 9 · Other pages
+
+- **Home:** the approved stack IS the pasqua title card — keep it verbatim (frame, film,
+  CHARLES/NALLE wordmark, dates, cream pill, mission line). Fixes only: contour overlay
+  removed or ≤8% opacity (currently reads as scratches across the CTA), mission copy ≥14px,
+  wordmark optical-spacing pass, entrance re-timed to the new motion tokens.
+- **People:** GA&C unboxed grid (image/eyebrow/title/meta stacks, hairline dividers);
+  Tubman quote-first kept; canonical chapter chips.
+- **Paintings:** image-is-the-card grid; eyebrow/title/credit stacks; dialog re-chromed
+  (btn-sm, Icon close, animated-painting playback kept).
+- **About:** serif editorial layout; portraits at proper scale; closing walk-banner kept,
+  unboxed.
+- **404, styleguide:** on-system. **Menu/curtain:** same concepts, re-set in the new
+  type/spacing (curtain wordmark + "APRIL 27, 1860" over-title restyled).
+
+# 10 · Phases and gates
+
+*Every phase: build green (`npm run build` + `astro check`) → screenshots → gate → fix loop
+→ commit/push → RUN-STATE. Gate reviews are **fresh subagents given only screenshots + the
+rubric — never the spec, never builder context.***
+
+| Phase | Work | Gate |
+|---|---|---|
+| **P0 Audits (~3h)** | (a) 3 parallel agents deep-dive the inspiration sites hands-on (Playwright: 390+1440, many scroll depths, computed-style measurements — type px/leading, gaps, box census, durations) → `docs/v4/AUDIT-INSPO.md` with numbers; (b) CNWM page-by-page failure census, every route × 3 viewports, each of W1–W8 mapped to every occurrence → `docs/v4/AUDIT-CNWM.md`; (c) naming/content ledger cross-check → `docs/v4/NAMING-CANON.md`; (d) synthesize → **`docs/v4/DESIGN-STANDARDS.md`** (amend §7 with evidence) + **`docs/v4/CALIBER-RUBRIC.md`** (§11) | Independent agent confirms: "followed exactly, these standards produce inspiration-level output" — with named gaps; revise until none |
+| **P1 System (~2.5h)** | `global.css` v4 (voices w/ `@fontsource/martel`, 4-size scale, 3 spacing tokens, unbox rules, motion tokens, cream register), `icons.ts` + `Icon.astro`, `Button.astro`, meta unit; **styleguide v2** proves everything (type specimen, both grounds w/ sync-highlight demo, button pairs, icon sheet, spacing/void demo) | Caliber gate on styleguide screenshots (esp. W1/W2 kills) |
+| **P2 Flagship (~4h)** | Rebuild `[chapter].astro` + restyle `AudioStory.tsx` + `PressReveal.tsx` per §8 on `/commissioners-office`; poster pipeline (`scripts/build-media.mjs` ext.); bug fixes (double-class, mini-player left + tabular-nums); 3 viewports, full motion | **THE make-or-break caliber gate**: flagship beside museos/pasqua/GA&C shots. Iterate HERE until green — never carry a weak template into rollout |
+| **P3 Map + Home (~2h)** | §7.9 route/chrome/pins/collision; `pinPosition` data-driven; Home fixes (§9); regression: tour, `?stop=`, lens, geolocate, two-tap all still work | Caliber + W3 grayscale proof + keeper regression checklist |
+| **P4 Rollout (~2.5h)** | 4 remaining chapters (template-driven; per-chapter media/content QA), People/Paintings/About/404, menu/curtain restyle, naming sweep site-wide (schema + all surfaces) | Caliber per page-type on full matrix |
+| **P5 Motion (~1.5h)** | Duration/easing consolidation sweep, choreography polish, `docs/v4/MOTION.md` census (exactly 2 durations + documented exceptions) | Motion review: census verified, reduced parity 100%, zero scroll-jack/CLS |
+| **P6 Ship (~2h)** | `perf.mjs` (no regression: home ≥90, chapter ≥89 + a11y 100, chapter path ≤650KB, LCP poster verified), QA matrix + console clean, deploy, live verification, regenerate `og.png` to the new lockup | **Final gates on LIVE** (§11) + `docs/v4/REVIEW-GUIDE.md` for Wil (what changed, before/after pairs for W1–W8, residuals, standing items) |
+
+Timebox ≈17h. If compressed: P0–P2 are non-negotiable; P3 next; P4 prioritizes chapters;
+P5 folds into P4; P6 minimum = perf + caliber gate + live verify.
+
+# 11 · The CALIBER rubric (replaces spec-fidelity review — the only visual bar)
+
+Run by fresh subagents given ONLY screenshots + this rubric:
+- **(a) Side-by-side:** the page beside a same-purpose inspiration screenshot — "which
+  studio shipped this?" must read as parity.
+- **(b) Hierarchy scan:** a 3-second glance names exactly ONE winner per viewport.
+- **(c) Squint test:** blurred ~8px, the composition still reads (structure survives).
+- **(d) Spacing measurement:** every section gap measures to one of the 3 tokens.
+- **(e) Type census:** ≤4 rendered sizes per viewport (excluding display/meta pairing).
+- **(f) Box census:** ≤1 framed element per viewport.
+- **(g) The Wil test (final, live only):** an agent role-playing Wil — armed with his
+  verbatim v3 complaints (§1–2) — walks the live site; every W1–W8 verifiably dead with
+  before/after evidence; answers "would Wil love this?" honestly.
+**Any FAIL loops the phase. Two failed loops = REDESIGN that section, don't tweak it.**
+
+# 12 · Risks / blind spots (from planning review — heed these)
+
+- **Serif × sync highlight:** test Martel 19px under the wash on BOTH grounds in the
+  styleguide BEFORE P2 lands it.
+- **Animated hero vs LCP:** poster-first is mandatory; new poster filenames (GH Pages
+  cache); video only after `load`; re-measure the 598KB path in P6.
+- **Un-boxing vs identity:** the frame survives on artifacts — that's the identity thread.
+  Record the border-reduction rationale in `docs/DEVIATIONS.md`.
+- **Martel legibility:** high-contrast face — never below 18px, never on meta, check the
+  300-weight quote on dark at 390.
+- **keen-slider fragility:** restyle classes only; never restructure the carousel DOM or
+  its mount pattern.
+- **Home/curtain/menu are approved identity** — token alignment and polish only; no
+  structural redesign there.
+- **Content boundary:** labels/names only; narrative meaning changes → ledger, never edit.
+- **Deploy:** plain `git push` only (lands on v2). GH Pages latency ~3min; verify live with
+  fresh screenshots, not assumptions.
+
+# 13 · Critical files
+
+`src/styles/global.css` (system v4) · `src/pages/styleguide.astro` (proof) ·
+`src/pages/[chapter].astro` + `src/components/AudioStory.tsx` +
+`src/components/PressReveal.tsx` (flagship) · `src/components/TroyMap.tsx` +
+`src/components/EmbedMap.tsx` (map) · `src/pages/{index,map,people,paintings,about,404}.astro`
+· `src/components/Menu.astro` · `src/layouts/Base.astro` · `src/lib/curtain.ts` ·
+`src/content.config.ts` + `src/content/chapters/*.json` (naming schema; labels only) ·
+NEW: `src/components/icons.ts`, `src/components/Icon.astro`, `src/components/Button.astro`
+· `scripts/build-media.mjs` (poster ext.) · docs under `docs/v4/`.
+
+# 14 · Standing items (NOT this run's scope — keep queued in the review guide)
+
+Kathy's word-for-word sign-off · Brian's pin confirmation/painting credits + the plaque typo
+("ONCE HOUSE THE"→"HOUSED", must reach Brian before casting) · Amanda's
+`hartcluett.org/nalle/*` redirects (bronze QR URLs never point at github.io) · Wil's content
+drops (ferry skiff rewrite, Ch2a/Ch4 audio re-records, Athenaeum image) · 1860-map
+"painted by Mark Priest" attribution confirmation (one caption line in TroyMap.tsx once
+confirmed) · Mapbox style publish + account migration at handoff.
+
+---
+
+## KICKOFF PROMPT (Wil: paste this verbatim into the new session)
+
+> Execute the CNWM v4 plan end to end, fully autonomously.
 >
 > Ground rules, in priority order:
-> 1. **Compaction protocol first.** Read `~/.claude/plans/ultrathink-i-will-update-kind-dream.md` in full. Your very first actions: copy it to `cnwm-v2/docs/PLAN.md`, create `docs/RUN-STATE.md`, commit both. From then on: disk is truth, conversation is cache. Update RUN-STATE after every sub-step, commit constantly, push often. If your context is ever compacted or feels thin, STOP and re-orient: `docs/PLAN.md` → `docs/RUN-STATE.md` → `git log --oneline -8` → resume from the IN PROGRESS line. Never redo work marked DONE; never trust recollection over git.
-> 2. Work through the phases in order (0 → 0.5 → 1 → 2 → 3 → 4 → 5 → 6). Phase 0's map fix gates everything. Run every discipline review (Visual Design, Motion Design, UX, QA) where the plan schedules it, as fresh independent subagents, and record verdicts in files.
-> 3. The bar is the five inspiration sites. The identity is the approved Figma/legacy design. The license is already granted in the plan — evolve boldly within the identity, no flags, no check-ins.
-> 4. The North Star: in the morning I show this to the clients and stakeholders. It must feel instantly familiar to them — their approved design — AND make them say "wow, this is so incredible, what a massive improvement." Familiar + wow, on every screen.
-> 5. Do not stop for my input. Queue anything that genuinely needs me in `docs/REVIEW-GUIDE.md`. Finish with all four discipline reviews green on the live deploy, the returning-stakeholder test passed, and the stakeholder-presentable review guide complete. I will review in the morning expecting zero big edits.
+> 1. **Protocol first.** Read `~/.claude/plans/ultrathink-overall-it-is-fizzy-puddle.md` in
+>    full. First actions: in the repo (`<project>/cnwm-v2`), preserve the v3 history
+>    (`git mv docs/PLAN.md docs/PLAN-v3.md`; archive RUN-STATE the same way), copy the plan
+>    to `docs/PLAN.md`, create a fresh `docs/RUN-STATE.md`, commit, push. From then on disk
+>    is truth: update RUN-STATE every sub-step, commit constantly, push often. If context
+>    ever feels thin: `docs/PLAN.md` → `docs/RUN-STATE.md` → `git log --oneline -10` →
+>    resume from IN PROGRESS. Never redo DONE work; never trust recollection over git.
+> 2. Work the phases in order (P0 audits → P1 system → P2 flagship → P3 map+home → P4
+>    rollout → P5 motion → P6 ship). The flagship caliber gate (P2) is make-or-break —
+>    iterate there until it's genuinely at the inspiration bar; never carry a weak template
+>    into rollout. Two failed gate loops = redesign the section, don't tweak.
+> 3. The bar is craft, not spec-fidelity — that's the mistake v3 made. Every visual gate is
+>    a fresh subagent judging screenshots against `docs/v4/CALIBER-RUBRIC.md` and the
+>    inspiration sites. Look at every screenshot you produce with fresh eyes before you
+>    commit. When uncertain between two treatments, choose restraint: fewer boxes, fewer
+>    sizes, more whitespace.
+> 4. My eight named defects (plan §2) must each demonstrably die, with before/after proof
+>    in the review guide. The hero is the finished animated painting. The chapter template
+>    is the flagship — the most beautiful, engaging, immersive thing on the site.
+> 5. Do not stop for my input. Queue anything genuinely needing me in
+>    `docs/v4/REVIEW-GUIDE.md`. Finish with: all gates green on the live deploy, the Wil
+>    test passed honestly, perf not regressed, and the review guide complete. I expect an
+>    award-winning site-wide design that I will love.
