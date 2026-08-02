@@ -25,9 +25,12 @@
 - [x] Legacy screenshots captured: docs/qa/legacy/ (9 routes × 3 viewports + scrolls) from charles-nalle-walking-memorial.vercel.app.
 - [x] Phase 0.5 (1/6 agents back): Google A&C study → docs/qa/inspiration/googleac.md (8 techniques). QA smoke agent done.
 
+- [x] Phase 0.5 (3/5 agents back): museos (8 techniques: hold-to-reveal tour, numbered spine, odometer dates, narration rows), pasqua (8: pull-back reveal, CTA-is-the-loader, gesture-gated sound, screen-space type), googleac (8: question-led door, eyebrow taxonomy, zoom-crop essay, related-ladder). All in docs/qa/inspiration/*.md.
+- [x] Phase 1 CORE (done early while agents run): global.css rebuilt as approved system — 5×12 ramps, type roles (.type-display/-wordmark/-body/-label/-progress/-eyebrow/-muted/-card-title) on the ×1.25/×1.5 ladder, .first-word cap, .frame idiom, motion tokens, curtain/narration/reveal primitives, structural island CSS kept. `/styleguide` route renders all of it — screenshot-verified at 1440 (docs/qa/phase1/). v2 identity classes (paper/font-display/label-caps/prose-narrative/drop-cap) deleted from CSS; v2 pages reference them until Phase 2 re-skin (expected mid-flight state).
+
 ## IN PROGRESS
 
-> Phase 0.5: waiting on 4 inspiration agents (museos, rewild, marseille, pasqua) → then write docs/INSPIRATION.md (synthesis) + docs/ELEVATION-PLAN.md (screen × discipline blueprint) → independent blueprint review subagent → then Phase 1 (rebuild global.css to approved tokens + /styleguide route).
+> Waiting on last 2 inspiration agents (rewild, marseille) → write docs/INSPIRATION.md synthesis + docs/ELEVATION-PLAN.md (screen × discipline blueprint) → blueprint review subagent → Visual Design review of /styleguide (Phase 1 gate) → Phase 2 core screens.
 
 ## BLOCKED / NOTES
 
