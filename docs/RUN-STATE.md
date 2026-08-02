@@ -8,7 +8,7 @@
 
 ## LAST COMMIT
 
-`0418f87` Phase 0.1b: mapbox-gl.css cascade fix — map renders full-viewport
+`06d3d5b RUN COMPLETE: all phases 0-6 done, four disciplines green on live, stakeholder test passed. Morning read: docs/REVIEW-GUIDE.md` (final)
 
 ## DONE
 
