@@ -129,6 +129,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The layout viewport must never grow sideways: scaled/panned media (Ken
+ * Burns, hero scrub) can otherwise expand mobile Chromium's ICB and push
+ * fixed UI (menu, mini-player) off-screen — the /ferry blowout. */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--color-primary-2);

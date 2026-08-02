@@ -396,9 +396,24 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         cutDone = true;
       });
 
-      // First visit hint (M8)
+      // First visit hint (M8): inert card, dismissed by the first real map
+      // gesture (persistent handlers — the flight-skip `once` handlers must
+      // not be its only exit) or after 7s.
       if (!sessionStorage.getItem("cnwm-map-hint") && !arriving) {
         setHintOpen(true);
+        const bye = () => {
+          setHintOpen(false);
+          sessionStorage.setItem("cnwm-map-hint", "1");
+          map.off("mousedown", bye);
+          map.off("touchstart", bye);
+          map.off("dragstart", bye);
+          map.off("wheel", bye);
+        };
+        map.on("mousedown", bye);
+        map.on("touchstart", bye);
+        map.on("dragstart", bye);
+        map.on("wheel", bye);
+        setTimeout(bye, 7000);
       }
     });
 
@@ -419,6 +434,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     [flyToStop],
   );
 
+  // The slider mounts fresh each time focus begins; keen's `initial` option
+  // proved unreliable with perView:auto (it landed on the wrong card — QA
+  // final, defect 2), so creation force-jumps to the chosen stop.
+  const activeIdxRef = useRef(0);
+  activeIdxRef.current = activeIdx;
   const [sliderRef, sliderInstance] = useKeenSlider({
     slides: { perView: "auto", spacing: -20, origin: "center" },
     breakpoints: {
@@ -429,6 +449,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     rubberband: false,
     renderMode: "performance",
     defaultAnimation: { duration: 400, easing: (t: number) => t },
+    created: (s) => {
+      const target = activeIdxRef.current;
+      if (s.track.details.rel !== target) {
+        s.moveToIdx(target, true, { duration: 0 });
+      }
+    },
     slideChanged: (s) => setActiveIdx(s.track.details.rel),
     animationEnded: (s) => {
       const idx = s.track.details.rel;
@@ -437,12 +463,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     },
   });
 
-  // Keep slider in sync when focus/tour set the index programmatically
+  // Keep slider in sync when focus/tour set the index programmatically.
+  // The settle retry covers keen measuring slides a frame after creation.
   useEffect(() => {
     const inst = sliderInstance.current;
-    if (inst && focused && inst.track.details.rel !== activeIdx) {
+    if (!inst || !focused) return;
+    if (inst.track.details.rel !== activeIdx) {
       inst.moveToIdx(activeIdx);
     }
+    const t = setTimeout(() => {
+      const i = sliderInstance.current;
+      if (i && i.track.details.rel !== activeIdxRef.current) {
+        i.moveToIdx(activeIdxRef.current, true, { duration: 0 });
+      }
+    }, 80);
+    return () => clearTimeout(t);
   }, [activeIdx, focused, sliderInstance]);
 
   // ——— Guided flythrough (M6) ———
@@ -480,11 +515,6 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     tourAbort.current = true;
     mapRef.current?.stop();
     setTouring(false);
-  };
-
-  const dismissHint = () => {
-    setHintOpen(false);
-    sessionStorage.setItem("cnwm-map-hint", "1");
   };
 
   const navigateToStop = (stop: Stop) => {
@@ -555,22 +585,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </div>
       )}
 
-      {/* Hint card (M8) — parked above the doors, never eats a map tap:
-          the container passes pointers through; only the X is interactive */}
+      {/* Hint card (M8) — fully inert: it can never intercept a tap anywhere.
+          It leaves on the first map gesture (the gesture it teaches) or on a
+          timer, whichever comes first. */}
       {hintOpen && (
-        <div className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32">
-          <div className="frame pointer-events-auto flex items-center gap-3 bg-primary-3 py-2 pr-2 pl-4">
+        <div
+          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32"
+          aria-hidden="true"
+        >
+          <div className="frame bg-primary-3 px-4 py-2">
             <p className="type-label">Drag to explore · Tap a stop</p>
-            <button
-              type="button"
-              onClick={dismissHint}
-              aria-label="Dismiss hint"
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 hover:bg-primary-5"
-            >
-              <svg width="12" height="12" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                <path d="M21 1L1 21M1 1L21 21" stroke="#F26835" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </button>
           </div>
         </div>
       )}
@@ -630,14 +654,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </div>
       )}
 
-      {/* ——— The overlap carousel (approved) ——— */}
-      {focused && (
+      {/* ——— The overlap carousel (approved) ———
+          Always mounted: keen-slider re-initialization on remount landed on
+          the wrong card (QA final defect 2); a live, measured instance obeys
+          moveToIdx reliably. Visibility is opacity/pointer-events only. */}
+      {
         <div
           className="fixed right-0 bottom-0 left-0 z-10 pb-24 transition-opacity duration-300 sm:pb-6"
           style={{
-            opacity: shellVisible ? 1 : 0,
-            pointerEvents: shellVisible ? "auto" : "none",
+            opacity: focused && shellVisible ? 1 : 0,
+            pointerEvents: focused && shellVisible ? "auto" : "none",
           }}
+          aria-hidden={!focused}
         >
           <div
             ref={sliderRef}
@@ -663,7 +691,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                         else sliderInstance.current?.moveToIdx(index);
                       }}
                       role="button"
-                      tabIndex={isActive ? 0 : -1}
+                      tabIndex={focused && isActive ? 0 : -1}
                       aria-label={
                         isActive
                           ? `Enter Chapter ${stop.order}: ${stop.cardTitle}`
@@ -722,7 +750,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             })}
           </div>
         </div>
-      )}
+      }
     </div>
   );
 }
