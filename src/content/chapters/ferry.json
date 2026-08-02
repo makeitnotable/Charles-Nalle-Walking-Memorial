@@ -5,7 +5,6 @@
     "display": "WASHINGTON\nSTREET FERRY\nLANDING",
     "short": "Ferry Landing"
   },
-  "pinPosition": "below",
   "chapterLabel": "Chapter 4",
   "plaque": false,
   "map": {
@@ -122,6 +121,6 @@
   },
   "pinOffset": [
     0,
-    0
+    -50
   ]
 }

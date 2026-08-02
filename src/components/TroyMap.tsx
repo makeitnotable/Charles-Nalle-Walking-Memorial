@@ -58,8 +58,6 @@ const MARKER = {
 export interface Stop {
   /** Canonical name — cards, aria-labels, curtain. */
   canonical?: string;
-  /** Pill stem direction; stops 2 and 5 sit ~50m apart. */
-  pinPosition?: "above" | "below";
   /** Pixel nudge at the overview camera so all five pills can keep names. */
   pinOffset?: [number, number];
   slug: string;
@@ -91,33 +89,25 @@ function pillSizes() {
 function markerHtml(stop: Stop, active: boolean): string {
   const s = active ? MARKER.active : MARKER.inactive;
   const z = pillSizes();
-  const above = stop.pinPosition === "above";
+  const [dx, dy] = stop.pinOffset ?? [0, -46];
 
-  /* Every stop keeps its name — a numbered dot with no name is not wayfinding.
-   * Five pills inside a few blocks do collide at the overview camera, so each
-   * stop carries a measured pixel nudge (`pinOffset` in its JSON) alongside the
-   * above/below stem, and the pairs that sit closest are pushed apart along the
-   * axis they actually collide on. */
-  const stem = `
-    <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="width:2px;height:26px;background:${s.line}"></div>
-      <div style="width:8px;height:8px;border-radius:9999px;background:${s.line}"></div>
-    </div>`;
-  const stemUp = `
-    <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="width:8px;height:8px;border-radius:9999px;background:${s.line}"></div>
-      <div style="width:2px;height:26px;background:${s.line}"></div>
-    </div>`;
-  const pill = `
-    <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap">
-      <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
-        <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
-      </div>
-      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${stop.label}</p>
-    </div>`;
+  /* Five labelled pills inside a few blocks collide at the overview camera.
+   * The first fix nudged the whole marker sideways, which moved the DOT off
+   * the real coordinate and left what read as an orphaned orange stub. The dot
+   * now stays exactly on Brian's pin and the pill is offset on a leader line —
+   * how a cartographer would do it. `pinOffset` is per-stop in the JSON. */
   return `
-    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform var(--dur-fast) var(--ease)">
-      ${above ? stemUp + pill : pill + stem}
+    <div style="position:relative;width:0;height:0;cursor:pointer">
+      <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
+        <line x1="0" y1="0" x2="${dx}" y2="${dy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
+      </svg>
+      <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
+      <div style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px;flex:none">
+          <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
+        </div>
+        <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${stop.label}</p>
+      </div>
     </div>`;
 }
 
@@ -311,8 +301,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         // also separates stops 2 and 5, which sit ~50m apart.
         const marker = new mapboxgl.Marker({
           element: el,
-          anchor: stop.pinPosition === "above" ? "top" : "bottom",
-          offset: stop.pinOffset ?? [0, 0],
+          anchor: "center",
         })
           .setLngLat(stop.coordinates)
           .addTo(map);

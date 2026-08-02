@@ -23,7 +23,7 @@ const people = [
   title="About — Charles Nalle Walking Memorial"
   description="About the Charles Nalle Walking Memorial: the people behind the project, the paintings of Mark Priest, and the scholarship of Scott Christianson."
 >
-  <header class="shell pt-28 pb-4">
+  <header class="shell page-open">
     <p class="t-meta">{about.project.kicker}</p>
     <h1 class="t-display lines mt-8" style={`--fit-chars: ${Math.max(...about.project.header.split("\n").map((l) => l.trim().length))}`}>
       {about.project.header}
@@ -31,7 +31,7 @@ const people = [
   </header>
 
   {/* The project narrative, on the reading ground. */}
-  <section class="beat" aria-label="Project overview">
+  <section class="sec" aria-label="Project overview">
     <div class="ground-cream py-20 md:py-28">
       <div class="shell">
         <div class="sec-head"></div>
@@ -110,13 +110,20 @@ const people = [
     ))
   }
 
-  <section class="shell sec">
-    <figure class="reveal-quote">
-      <blockquote class="t-quote is-hung">“{about.closingQuote.text}”</blockquote>
-      <figcaption class="t-meta mt-6">
-        — {about.closingQuote.attribution}, {about.closingQuote.source}
-      </figcaption>
-    </figure>
+  <section class="void">
+    <div class="shell">
+      <figure class="reveal-quote mx-auto max-w-[54rem] text-center">
+        <blockquote
+          class="t-quote is-hung"
+          style="--fs-quote: clamp(26px, 3.6vw, 52px); max-width: none; text-indent: 0"
+        >
+          “{about.closingQuote.text}”
+        </blockquote>
+        <figcaption class="t-meta mt-10">
+          — {about.closingQuote.attribution}, {about.closingQuote.source}
+        </figcaption>
+      </figure>
+    </div>
   </section>
 
   {/* No dead ends. */}

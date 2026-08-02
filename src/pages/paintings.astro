@@ -58,12 +58,12 @@ const works = chapters.flatMap((entry) =>
   title="The Paintings — Charles Nalle Walking Memorial"
   description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
 >
-  <header class="shell pt-28 pb-4">
+  <header class="shell page-open">
     <p class="t-meta">The paintings · {works.length} works</p>
     <h1 class="t-display lines mt-8" style="--fit-chars: 9">THE NALLE<br />SERIES</h1>
   </header>
 
-  <section class="shell beat pb-8">
+  <section class="shell sec pb-8">
     <p class="t-prose reveal">
       Painter <strong>Mark Priest</strong> spent years reconstructing the rescue
       of Charles Nalle — walking Troy's streets, reading the accounts, and
@@ -71,7 +71,7 @@ const works = chapters.flatMap((entry) =>
       follow it into its chapter.
     </p>
 
-    <div class="sec grid gap-x-8 gap-y-16 sm:grid-cols-2">
+    <div class="beat grid gap-x-8 gap-y-16 sm:grid-cols-2">
       {
         works.map((work) => (
           <figure class="reveal">

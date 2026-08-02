@@ -5,7 +5,6 @@
     "display": "URI GILBERT\nHOME",
     "short": "Gilbert Home"
   },
-  "pinPosition": "below",
   "chapterLabel": "Chapter 3",
   "plaque": true,
   "map": {
@@ -119,7 +118,7 @@
     "slug": "ferry"
   },
   "pinOffset": [
-    -78,
-    0
+    -76,
+    44
   ]
 }

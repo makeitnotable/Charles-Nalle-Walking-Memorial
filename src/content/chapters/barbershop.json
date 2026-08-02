@@ -5,7 +5,6 @@
     "display": "PETER\nBALTIMORE'S\nBARBERSHOP",
     "short": "Barbershop"
   },
-  "pinPosition": "below",
   "chapterLabel": "Chapter 5",
   "plaque": true,
   "map": {
@@ -121,7 +120,7 @@
     "slug": "bakery"
   },
   "pinOffset": [
-    -40,
-    -6
+    -118,
+    -84
   ]
 }

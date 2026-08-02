@@ -32,6 +32,8 @@ import EmbedMap from "../components/EmbedMap";
 import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import ChapterSpine from "../components/ChapterSpine.astro";
+import WalkProgress from "../components/WalkProgress.astro";
 import { withBase } from "../lib/url";
 
 export async function getStaticPaths() {
@@ -103,9 +105,11 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     { href: poster(hKey, "avif"), type: "image/avif", media: "(min-width: 768px)" },
   ]}
 >
+  <WalkProgress current={c.order} />
+
   {/* ══════ HERO — the finished animated painting ══════ */}
   <header id="hero" class="shell flex min-h-dvh flex-col pt-20 pb-6 md:pt-24">
-    <div id="hero-lockup" class="flex-none">
+    <div id="hero-lockup" class="flex-none md:min-h-[46dvh] md:flex md:flex-col md:justify-end">
       <p class="t-meta">
         Stop {pad2(c.order)} of 5 · Troy, NY · April 27, 1860
       </p>
@@ -174,10 +178,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <section class="shell sec" id={`scene-${i}`} aria-label={scene.label}>
         <div class="sec-head"></div>
         <div class="editorial mt-8">
-          <div class="rail">
-            <p class="t-spine">({num(`scene-${i}`)})</p>
-            <p class="t-meta mt-3">{sections.find((s) => s.key === `scene-${i}`)?.rail}</p>
-          </div>
+          <ChapterSpine sections={sections} current={`scene-${i}`} />
 
           <div>
             <h2 class="t-title reveal">{scene.label}</h2>
@@ -213,11 +214,10 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     c.scenes[0].reveal && (
       <section class="shell sec" id="sketch" aria-labelledby="sketch-heading">
         <div class="sec-head" />
-        <div class="mt-8 grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+        <div class="editorial mt-8">
+          <ChapterSpine sections={sections} current="sketch" />
           <div>
-            <p class="t-spine">({num("sketch")})</p>
-            <p class="t-meta mt-3">The sketch</p>
-            <h2 id="sketch-heading" class="t-title reveal mt-8">
+            <h2 id="sketch-heading" class="t-title reveal">
               From the
               <br />
               sketch
@@ -226,10 +226,6 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               Every painting in this memorial began as a pencil study. Mark Priest
               worked the crowd out in graphite first — the gestures, the weight of
               a body pulling against a grip — before any colour was mixed.
-            </p>
-            <p class="t-prose reveal mt-6">
-              Press and hold the study to let the finished painting develop under
-              your hand.
             </p>
           </div>
 
@@ -276,10 +272,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     <div class="shell">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
-      <div class="rail">
-        <p class="t-spine">({num("history")})</p>
-        <p class="t-meta mt-3">History</p>
-      </div>
+      <ChapterSpine sections={sections} current="history" />
 
       <div>
         <h2 id="history-heading" class="t-title reveal">Historical<br />context</h2>
@@ -353,10 +346,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         <div class="shell relative z-10 py-32 md:py-40">
           <div class="sec-head"></div>
         <div class="editorial mt-8">
-            <div class="rail">
-              <p class="t-spine">({num("moral")})</p>
-              <p class="t-meta mt-3">The moral</p>
-            </div>
+            <ChapterSpine sections={sections} current="moral" />
             <div>
               <h2
                 id="moral-heading"
@@ -391,10 +381,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   <section class="shell sec" id="onward" aria-label="Continue the walk">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
-      <div class="rail">
-        <p class="t-spine">({num("onward")})</p>
-        <p class="t-meta mt-3">Onward</p>
-      </div>
+      <ChapterSpine sections={sections} current="onward" />
 
       <div>
         <h2 class="t-title reveal">Where<br />to next</h2>

@@ -1,0 +1,60 @@
+---
+/**
+ * The chapter spine — the museos move.
+ *
+ * v4's first pass put a numeral and a one-word label in the left rail, which
+ * (a) repeated whatever the section heading already said, and (b) left the
+ * left third of a 1440 screen measuring 0.15% ink. The rail now carries the
+ * chapter's whole table of contents, with the current section lit.
+ *
+ * No JavaScript: each section renders its own copy with its own entry marked,
+ * and each copy sticks inside its own section. Scrolling swaps them for free —
+ * a scroll-spy would have to be right about six thresholds instead.
+ */
+interface Sec {
+  key: string;
+  rail: string;
+}
+interface Props {
+  sections: Sec[];
+  current: string;
+}
+const { sections, current } = Astro.props;
+const pad2 = (n: number) => String(n).padStart(2, "0");
+---
+
+<nav class="rail" aria-label="Sections in this chapter">
+  {/* Below lg the spine collapses to the one label you are actually in. */}
+  <p class="t-spine lg:hidden">({pad2(sections.findIndex((s) => s.key === current) + 1)})</p>
+  <p class="t-meta mt-3 lg:hidden">{sections.find((s) => s.key === current)?.rail}</p>
+
+  <ol class="hidden lg:block">
+    {
+      sections.map((s, i) => {
+        const active = s.key === current;
+        return (
+          <li class="leading-none">
+            <a
+              href={`#${s.key}`}
+              class="group flex items-baseline gap-3 py-2.5"
+              aria-current={active ? "true" : undefined}
+            >
+              <span
+                class="t-spine transition-colors"
+                style={`font-size: 15px; transition-duration: var(--dur-fast); ${active ? "" : "opacity:.42"}`}
+              >
+                ({pad2(i + 1)})
+              </span>
+              <span
+                class="t-meta transition-colors group-hover:opacity-100"
+                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.42"}`}
+              >
+                {s.rail}
+              </span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
