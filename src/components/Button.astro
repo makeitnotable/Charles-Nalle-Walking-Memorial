@@ -1,0 +1,68 @@
+---
+/**
+ * THE button. Two sizes, two variants, no viewport ladder.
+ *
+ * v3 shipped 8 divergent button patterns across 24 instances, some rendering
+ * 27px text at lg and one pair whose two halves were different widths — the
+ * "unbalanced buttons" defect. A pair is now always the same size, solid +
+ * ghost, and fill signals primacy only.
+ *
+ * Metrics live in .btn / .btn-sm (src/styles/global.css); React islands use the
+ * same classes directly.
+ */
+import Icon from "./Icon.astro";
+import type { IconName } from "./icons";
+
+interface Props {
+  href?: string;
+  variant?: "solid" | "ghost" | "cta";
+  size?: "md" | "sm";
+  icon?: IconName;
+  iconRotate?: number;
+  /** Icon before the label instead of after. */
+  iconLeading?: boolean;
+  type?: "button" | "submit";
+  id?: string;
+  class?: string;
+  external?: boolean;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = "ghost",
+  size = "md",
+  icon,
+  iconRotate = 0,
+  iconLeading = false,
+  type = "button",
+  id,
+  class: cls = "",
+  external = false,
+  ...rest
+} = Astro.props;
+
+const classes = [
+  size === "sm" ? "btn-sm" : "btn",
+  variant === "solid" ? "btn-solid" : variant === "cta" ? "btn-cta" : "btn-ghost",
+  cls,
+];
+const iconSize = size === "sm" ? "sm" : "md";
+const extAttrs = external ? { target: "_blank", rel: "noopener" } : {};
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...extAttrs} {...rest}>
+      {icon && iconLeading && <Icon name={icon} rotate={iconRotate} size={iconSize} />}
+      <slot />
+      {icon && !iconLeading && <Icon name={icon} rotate={iconRotate} size={iconSize} />}
+    </a>
+  ) : (
+    <button type={type} id={id} class:list={classes} {...rest}>
+      {icon && iconLeading && <Icon name={icon} rotate={iconRotate} size={iconSize} />}
+      <slot />
+      {icon && !iconLeading && <Icon name={icon} rotate={iconRotate} size={iconSize} />}
+    </button>
+  )
+}

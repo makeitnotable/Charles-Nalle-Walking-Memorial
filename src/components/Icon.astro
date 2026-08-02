@@ -1,0 +1,36 @@
+---
+/**
+ * The only way to put an icon on the page. Geometry is fixed by `.icon`
+ * (24 viewBox, 1.5 stroke, round caps, currentColor) — see src/components/icons.ts.
+ * Direction comes from `rotate`, never from a second arrow drawing.
+ */
+import { ICONS, type IconName } from "./icons";
+
+interface Props {
+  name: IconName;
+  /** Degrees. The arrow points right at 0; -90 up, 90 down, 180 left. */
+  rotate?: number;
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  /** Set only when the icon is the sole content of a control. */
+  title?: string;
+}
+
+const { name, rotate = 0, size = "md", class: cls = "", title } = Astro.props;
+const sizeClass = size === "sm" ? "icon-sm" : size === "lg" ? "icon-lg" : "";
+const paths = ICONS[name];
+/* `play` is the one solid glyph — an outlined triangle reads as a hole. */
+const filledClass = name === "play" ? "icon-filled" : "";
+---
+
+<svg
+  class:list={["icon", sizeClass, filledClass, cls]}
+  viewBox="0 0 24 24"
+  style={rotate ? `transform: rotate(${rotate}deg)` : undefined}
+  role={title ? "img" : undefined}
+  aria-hidden={title ? undefined : "true"}
+  aria-label={title}
+>
+  {title && <title>{title}</title>}
+  {paths.map((d) => <path d={d}></path>)}
+</svg>

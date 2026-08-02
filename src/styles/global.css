@@ -1,9 +1,16 @@
 @import "tailwindcss";
-/* Approved identity fonts (self-hosted): Martel Sans display/body, Poppins labels/buttons */
+
+/* THREE VOICES (self-hosted).
+ * Martel Sans  — display + titles + spine numerals (the approved identity face)
+ * Martel       — serif: narrative prose and quotes (same foundry, drawn to pair)
+ * Poppins      — meta labels and buttons only. Never prose.
+ * Martel ships no italic — never synthesise one. */
 @import "@fontsource/martel-sans/300.css";
 @import "@fontsource/martel-sans/400.css";
 @import "@fontsource/martel-sans/600.css";
 @import "@fontsource/martel-sans/800.css";
+@import "@fontsource/martel/300.css";
+@import "@fontsource/martel/400.css";
 @import "@fontsource/poppins/400.css";
 @import "@fontsource/poppins/500.css";
 
@@ -16,19 +23,29 @@
 @source "../layouts";
 
 /*
- * CNWM v3 design system — the APPROVED identity (Figma "Website — Charles
- * Nalle WM" via the legacy match-figma-designs implementation; docs/BASELINE.md
- * is the token contract, docs/LEGACY-PORT-NOTES.md the spec source).
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CNWM v4 — "The Craft Run" design system.
+ * Contract: docs/v4/DESIGN-STANDARDS.md · acceptance bar: docs/v4/CALIBER-RUBRIC.md
  *
- * One warm ramp, dark-only. Martel Sans carries the voice; Poppins only where
- * it visibly shipped (buttons, marker pills, progress labels). Every size
- * multiplies ×1.25 at md(768) and ×1.5 at lg(1024) — the ladder is the
- * signature; keep it intact when adding roles.
+ * The v3 system failed because it was a smooth ×1.25/×1.5 ladder in one voice
+ * with a border on every surface: nothing ever won, so the page read as
+ * "thrown together". v4 replaces it with:
+ *
+ *   FEW SIZES, VIOLENT JUMPS — 4 type roles; display ≈ 5× prose at desktop.
+ *   TWO VOICES — serif prose against sans chrome.
+ *   COMPOSED VOIDS — 3 vertical spacing tokens; ≤2 voids per page, at act changes.
+ *   UNBOXED CHROME — a border marks an ARTIFACT (media), never a text container.
+ *   ONE GROUND SHIFT — a cream reading register marks the act change.
+ *   TWO DURATIONS, ONE EASING.
+ *
+ * The colour ramps below are the APPROVED Figma identity and are unchanged.
+ * ═══════════════════════════════════════════════════════════════════════════
  */
 
 @theme {
   /* Fonts */
   --font-sans: "Martel Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-serif: "Martel", Georgia, "Times New Roman", serif;
   --font-poppins: "Poppins", "Avenir Next", "Segoe UI", sans-serif;
 
   /* Primary (brand: brown → burnt orange). 9 canonicalized to #f26835 —
@@ -38,12 +55,12 @@
   --color-primary-3: #341a11; /* surfaces */
   --color-primary-4: #4a1b0a; /* active surface */
   --color-primary-5: #592411; /* hover */
-  --color-primary-6: #69311d; /* THE universal border */
-  --color-primary-7: #80412b;
+  --color-primary-6: #69311d; /* hairline */
+  --color-primary-7: #80412b; /* THE artifact frame */
   --color-primary-8: #a55438;
   --color-primary-9: #f26835; /* icon/active accent */
-  --color-primary-10: #e45b27; /* badges/fills */
-  --color-primary-11: #ff9770; /* labels/secondary text */
+  --color-primary-10: #e45b27; /* solid button fill */
+  --color-primary-11: #ff9770; /* meta labels / secondary text */
   --color-primary-12: #fed9cc; /* body text */
 
   /* Secondary (red) */
@@ -90,7 +107,7 @@
 
   /* Neutral (warm cream) */
   --color-neutral-1: #070912;
-  --color-neutral-2: #100a06; /* deep overlay / curtain */
+  --color-neutral-2: #100a06; /* deep overlay / curtain / route casing */
   --color-neutral-3: #302414;
   --color-neutral-4: #503d22;
   --color-neutral-5: #705731;
@@ -100,29 +117,112 @@
   --color-neutral-9: #c9b490;
   --color-neutral-10: #d7c9b0;
   --color-neutral-11: #e6decf;
-  --color-neutral-12: #f6f3ee; /* headings */
+  --color-neutral-12: #f6f3ee; /* headings + THE cream reading ground */
 }
 
 :root {
-  /* Home CTA pill — the only inverted element */
+  /* ── TYPE SCALE — four roles. Mobile first; two breakpoints. ────────────
+     Ratios at desktop: display/title 1.63 · title/prose 3.05 · prose/meta 1.62.
+     Display is ~4.95× prose. That gap IS the hierarchy. */
+  --fs-display: 46px;
+  --lh-display: 0.95;
+  --fs-title: 34px;
+  --lh-title: 1;
+  --fs-quote: 26px;
+  --lh-quote: 1.35;
+  --fs-prose: 19px;
+  --lh-prose: 1.75;
+  --fs-meta: 12px;
+  --fs-meta-body: 14px;
+  --fs-btn: 15px;
+  --fs-spine: 26px;
+
+  --track-display: -0.02em; /* optical tightening at size */
+  --track-meta: 0.14em; /* the fixed micro-grid */
+  --measure: 66ch; /* prose never wider */
+
+  /* ── SPACING — three vertical tokens. Every gap BETWEEN sections
+     quantizes to one of these. Component-internal uses --sp-*. ───────────── */
+  --space-block: 24px; /* intra-component */
+  --space-section: 128px; /* between numbered sections */
+  --space-void: 260px; /* act changes only — max two per page */
+
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 40px;
+  --sp-5: 64px;
+
+  /* ── SHELL — one width, site-wide. The v3 hero broke registration by
+     running 1344px against a 1280px shell; there is now no way to. ───────── */
+  --shell: 1280px;
+  --gutter: 20px;
+
+  /* ── SHAPE — a border marks an ARTIFACT. Radius calms. ─────────────────── */
+  --r-lg: 24px; /* hero + home frames only */
+  --r: 12px; /* every other framed artifact */
+  --hairline: color-mix(in srgb, var(--color-primary-7) 55%, transparent);
+
+  /* ── GROUNDS — dark cinematic (default) and one cream reading register ─── */
+  --ground: var(--color-primary-2);
+  --ink: var(--color-primary-12);
+  --ink-quiet: var(--color-gray-11);
+  --ink-meta: var(--color-primary-11);
+  --ground-light: #f6f3ee;
+  --ink-light: #1d1411;
+
+  /* Home CTA pill — the approved inverted element */
   --cta-bg: #ffc6b3;
   --cta-text: #bd3900;
   --cta-border: #f7a98f;
 
   /* Scrims */
-  --scrim-moral: linear-gradient(#1d1411, rgba(16, 10, 6, 0.95), #1d1411);
+  --scrim-moral: linear-gradient(#1d1411, rgba(16, 10, 6, 0.9), #1d1411);
   --scrim-hero-fade: linear-gradient(to top, var(--color-primary-2), transparent);
   --scrim-photo: linear-gradient(180deg, rgba(16, 10, 6, 0) 65%, #100a06 100%);
 
-  /* Motion tokens — the house vocabulary. Motion is feedback and cinema,
-     never decoration. */
-  --ease-house: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* power2.out */
-  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1); /* back.out(1.7) */
-  --ease-circ-in-out: cubic-bezier(0.85, 0, 0.15, 1); /* circ.inOut */
-  --ease-circ-out: cubic-bezier(0, 0.55, 0.45, 1); /* circ.out */
-  --dur-ui: 300ms; /* CSS default for all micro-interactions */
-  --dur-reveal: 800ms; /* GSAP reveal midpoint (0.6–1.0s band) */
-  --dur-curtain: 600ms;
+  /* ── MOTION — two durations, one easing. Exceptions are documented in
+     docs/v4/MOTION.md: the curtain set-piece keeps its circ timing, map
+     cameras keep cinematic flyTo/easeTo durations, and the corner-menu bloom
+     is the single overshoot. ─────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 300ms; /* hover, pills, highlight, state */
+  --dur-slow: 900ms; /* reveals, wipes, quote settle */
+
+  /* Documented exceptions (named so greps find them) */
+  --ease-pop: cubic-bezier(0.34, 1, 0.36, 1.06); /* corner-menu bloom only */
+  --ease-circ-in-out: cubic-bezier(0.85, 0, 0.15, 1); /* curtain set-piece only */
+  --dur-curtain: 600ms; /* curtain set-piece only */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-display: 76px;
+    --fs-title: 46px;
+    --fs-quote: 32px;
+    --fs-prose: 20px;
+    --fs-meta: 12px;
+    --fs-meta-body: 14px;
+    --fs-spine: 28px;
+    --space-section: 168px;
+    --space-void: 320px;
+    --gutter: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --fs-display: 104px;
+    --fs-title: 64px;
+    --fs-quote: 38px;
+    --fs-prose: 21px;
+    --fs-meta: 13px;
+    --fs-meta-body: 15px;
+    --fs-spine: 30px;
+    --space-section: 200px;
+    --space-void: 400px;
+    --gutter: 56px;
+  }
 }
 
 html {
@@ -139,156 +239,356 @@ body {
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-primary-2);
-  color: var(--color-primary-12);
+  background: var(--ground);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* ————————————————————————————————————————————————————————————————
- * TYPE ROLES — the ×1.25/×1.5 ladder as named roles.
- * Values are the approved rendering, verbatim from the legacy build.
- * ———————————————————————————————————————————————————————————————— */
+/* ════════════════════════════════════════════════════════════════════════
+ * TYPE ROLES — four sizes. At most three are ever co-visible.
+ * ════════════════════════════════════════════════════════════════════════ */
 
-/* Hero h1 / section h3: 42/34 → 52.5/42.5 → 63/51, tracking −1.5/−1.875/−2.25 */
-.type-display {
+/* Display: hero H1 and the full-bleed moral statement. Once or twice a page,
+   alone in its viewport. Authored line breaks arrive as "\n" + pre-line, so
+   text-wrap must NOT rebalance them. */
+.t-display {
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 2.625rem;
-  line-height: 2.125rem;
-  letter-spacing: -0.09375rem;
-  color: var(--color-neutral-12);
-  text-wrap: balance;
-}
-/* Approved hard breaks arrive via <br/> or \n in content — balance must not
-   fight them; white-space handled per component. */
-.type-display-caps {
-  text-transform: uppercase;
-}
-
-/* Wordmark: 54 → 67.5 → 81, tracking −2.5px, two interlocked lines */
-.type-wordmark {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 54px;
-  letter-spacing: -2.5px;
-  line-height: 1;
+  font-weight: 800;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
   text-transform: uppercase;
   color: var(--color-neutral-12);
 }
 
-/* Body narrative: 18/300/1.6 primary-12 */
-.type-body {
+/* Title: section headings. The workhorse. */
+.t-title {
   font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: var(--fs-title);
+  line-height: var(--lh-title);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* Quote: the serif voice at scale, hung punctuation, alone in a void. */
+.t-quote {
+  font-family: var(--font-serif);
   font-weight: 300;
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--color-primary-12);
+  font-size: var(--fs-quote);
+  line-height: var(--lh-quote);
+  color: var(--color-neutral-12);
   text-wrap: pretty;
 }
-
-/* Label: 12 → 15 → 18 uppercase, Poppins, primary-11 */
-.type-label {
-  font-family: var(--font-poppins);
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 0.9375rem;
-  text-transform: uppercase;
-  color: var(--color-primary-11);
+/* Hanging punctuation: the opening quote mark sits in the margin so the
+   first glyph aligns to the text edge. */
+.t-quote.is-hung {
+  text-indent: -0.42em;
 }
 
-/* Progress label ("Section N/4"): Poppins 500, same ladder as label */
-.type-progress {
+/* Prose: the narrative voice. Serif floor is 18px — never smaller, never UI. */
+.t-prose {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-prose);
+  line-height: var(--lh-prose);
+  color: var(--ink);
+  text-wrap: pretty;
+  max-width: var(--measure);
+}
+
+/* Meta: ONE unit, effectively fixed across viewports. The micro-grid that
+   every eyebrow, spine item, credit and pill shares. Labels only — never
+   comprehension text. */
+.t-meta {
   font-family: var(--font-poppins);
   font-weight: 500;
-  font-size: 0.75rem;
-  line-height: 1.125rem;
+  font-size: var(--fs-meta);
+  line-height: 1.35;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--ink-meta);
 }
 
-/* Home date/eyebrow: 14 → 17.5 → 21 primary-11 */
-.type-eyebrow {
-  font-family: var(--font-sans);
+/* Meta-body: addresses, captions, credits — sentence case, still micro. */
+.t-meta-body {
+  font-family: var(--font-poppins);
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--fs-meta-body);
+  line-height: 1.5;
+  color: var(--ink-quiet);
+}
+
+/* Spine numerals — "(01)". Quiet, large, in their own column. */
+.t-spine {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--fs-spine);
+  line-height: 1;
+  letter-spacing: 0;
   color: var(--color-primary-11);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Muted copy (home mission, captions): 12 → 15 → 18 gray-11 */
-.type-muted {
+/* Wordmark — the approved interlocked two-line lockup (home + curtain).
+   Optical spacing pass: -0.03em, which closes the CH/AR gaps at size. */
+.t-wordmark {
   font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(54px, 11vw, 128px);
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* First-WORD drop (not a drop cap): opens a chapter's prose once. */
+.first-word {
+  font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 12px;
-  color: var(--color-gray-11);
-  text-wrap: pretty;
+  font-size: 1.6em;
+  line-height: 1;
+  letter-spacing: -0.01em;
 }
 
-/* Card/player titles: 18 → 22.5 → 27 Martel 600 */
-.type-card-title {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 1.125rem;
-  line-height: 1.3;
-  color: var(--color-primary-12);
+/* ════════════════════════════════════════════════════════════════════════
+ * STRUCTURE — one shell, three vertical tokens, composed asymmetry.
+ * ════════════════════════════════════════════════════════════════════════ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-@media (min-width: 768px) {
-  .type-display { font-size: 3.28125rem; line-height: 2.65625rem; letter-spacing: -0.11719rem; }
-  .type-wordmark { font-size: 67.5px; }
-  .type-label { font-size: 0.9375rem; line-height: 1.171875rem; }
-  .type-progress { font-size: 0.9375rem; line-height: 1.875rem; }
-  .type-eyebrow { font-size: 17.5px; }
-  .type-muted { font-size: 15px; }
-  .type-card-title { font-size: 1.40625rem; }
+/* Section rhythm. `.sec` is the only gap allowed between numbered sections;
+   `.void` is the act change and appears at most twice per page. */
+.sec {
+  margin-top: var(--space-section);
+}
+.void {
+  margin-top: var(--space-void);
+}
+.block-gap {
+  margin-top: var(--space-block);
+}
+
+/* Content hugs the TOP of a void — never centres in it (pasqua's half-empty
+   viewport). Applied to void-entered sections. */
+.hug-top {
+  align-self: start;
+}
+
+/* Full-bleed escape from the shell, for hairlines and cinematic media. */
+.bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Hairline rules run full-bleed while content insets (museos). */
+.rule-bleed {
+  border-top: 1px solid var(--hairline);
+}
+
+.rule-top {
+  border-top: 1px solid var(--hairline);
+}
+
+/* The label-left / content-right editorial grid (museos). Collapses to a
+   stack below lg. */
+.editorial {
+  display: grid;
+  gap: var(--sp-4);
 }
 @media (min-width: 1024px) {
-  .type-display { font-size: 3.9375rem; line-height: 3.1875rem; letter-spacing: -0.14063rem; }
-  .type-wordmark { font-size: 81px; }
-  .type-label { font-size: 1.125rem; line-height: 1.40625rem; }
-  .type-progress { font-size: 1.125rem; line-height: 1.6875rem; }
-  .type-eyebrow { font-size: 21px; }
-  .type-muted { font-size: 18px; }
-  .type-card-title { font-size: 1.6875rem; }
+  .editorial {
+    grid-template-columns: 3fr 9fr;
+    gap: var(--sp-5);
+  }
 }
 
-/* First-WORD drop cap (not a letter cap): 32px medium, negative margins,
-   once per chapter — apply .first-word to a <span> wrapping word one. */
-/* Weight 400: legacy declared font-medium (500) but loaded no 500 — CSS
-   font-matching resolved it to 400, so 400 IS the approved rendering. */
-.first-word {
+/* ════════════════════════════════════════════════════════════════════════
+ * GROUNDS — the dark cinematic default, and ONE cream reading register
+ * that marks the act change (museos). Applied to exactly two places:
+ * the chapter transcript, and About's long text.
+ * ════════════════════════════════════════════════════════════════════════ */
+.ground-cream {
+  --ground: var(--ground-light);
+  --ink: var(--ink-light);
+  --ink-quiet: #6b5b52;
+  --ink-meta: #9c4520;
+  --hairline: rgba(29, 20, 17, 0.18);
+  background: var(--ground-light);
+  color: var(--ink-light);
+}
+.ground-cream .t-display,
+.ground-cream .t-title,
+.ground-cream .t-quote {
+  color: var(--ink-light);
+}
+.ground-cream .t-prose {
+  color: #2a1d18;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * ARTIFACTS — a border marks a MADE THING (a painting, a sketch, a map).
+ * It never wraps a text block, a player, a card, or chrome.
+ * Census rule: ≤1 framed element per viewport.
+ * ════════════════════════════════════════════════════════════════════════ */
+.artifact {
+  border: 1px solid var(--color-primary-7);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.artifact-lg {
+  border: 1px solid var(--color-primary-7);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * BUTTONS — two sizes, two variants, NO viewport ladder.
+ * A pair is always the same size: solid + ghost, equal optical weight.
+ * ════════════════════════════════════════════════════════════════════════ */
+.btn,
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-family: var(--font-poppins);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+.btn {
+  font-size: var(--fs-btn);
+  min-height: 48px;
+  padding-inline: 28px;
+}
+.btn-sm {
+  font-size: 13px;
+  min-height: 38px;
+  padding-inline: 20px;
+}
+
+/* Solid — dark ink on the orange fill. 5.0:1 against #1d1411 text. */
+.btn-solid {
+  background: var(--color-primary-10);
+  color: var(--color-primary-2);
+  border: 1px solid var(--color-primary-10);
+}
+.btn-solid:hover {
+  background: var(--color-primary-9);
+  border-color: var(--color-primary-9);
+}
+
+/* Ghost — the equal-weight partner. Fill signals primacy, nothing else. */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary-12);
+  border: 1px solid var(--color-primary-7);
+}
+.btn-ghost:hover {
+  border-color: var(--color-primary-11);
+  color: var(--color-neutral-12);
+}
+
+/* Cream-register variants (About / transcript) */
+.ground-cream .btn-ghost {
+  color: #2a1d18;
+  border-color: rgba(29, 20, 17, 0.28);
+}
+.ground-cream .btn-ghost:hover {
+  border-color: rgba(29, 20, 17, 0.55);
+  color: #1d1411;
+}
+
+/* Inverted home pill — the one approved exception, on btn metrics. */
+.btn-cta {
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  border: 1px solid var(--cta-border);
+}
+.btn-cta:hover {
+  filter: brightness(1.04);
+}
+
+/* Text link with an inline icon — the unboxed lateral-nav idiom. */
+.link-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  min-height: 24px;
+  color: var(--ink-meta);
+  transition: color var(--dur-fast) var(--ease);
+}
+.link-meta:hover {
+  color: var(--color-neutral-12);
+}
+.link-meta .icon {
+  transition: transform var(--dur-fast) var(--ease);
+}
+.link-meta:hover .icon {
+  transform: translateX(3px);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * ICONS — one geometry: 24 viewBox, 1.5px stroke, round caps, currentColor.
+ * Never non-uniformly scaled. See src/components/icons.ts.
+ * ════════════════════════════════════════════════════════════════════════ */
+.icon {
   display: inline-block;
-  font-size: 32px;
-  font-weight: 400;
-  margin-top: -0.5rem;
-  margin-bottom: -0.5rem;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.icon-sm {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.6;
+}
+.icon-lg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.35;
+}
+/* A solid glyph (play). The class is required because `.icon { fill: none }`
+   beats a `fill` presentation attribute in the cascade. */
+.icon-filled {
+  fill: currentColor;
+  stroke: none;
 }
 
-/* ————————————————————————————————————————————————————————————————
- * SHAPE / SURFACE IDIOM
- * ———————————————————————————————————————————————————————————————— */
-
-/* The universal media/card frame: rounded-3xl + primary-6 border */
-.frame {
-  border-radius: 1.5rem; /* rounded-3xl */
-  border: 1px solid var(--color-primary-6);
-}
-.frame-2 {
-  border-radius: 1.5rem;
-  border: 2px solid var(--color-primary-6);
-}
-
-/* ————————————————————————————————————————————————————————————————
+/* ════════════════════════════════════════════════════════════════════════
  * STRUCTURAL ISLAND SIZING — plain CSS that cannot vanish.
  * Layout-critical dimensions must never depend on utility scanning
- * (the island-CSS bug class). Applied alongside the utilities.
- * ———————————————————————————————————————————————————————————————— */
+ * (the island-CSS bug class). Guarded by scripts/check-css.mjs.
+ * ════════════════════════════════════════════════════════════════════════ */
 .map-shell {
   position: relative;
   height: 100dvh;
   width: 100%;
 }
-/* The mapbox container itself. mapbox-gl.css sets `.mapboxgl-map { position:
- * relative }` and loads AFTER the utility bundle, silently overriding
- * `.absolute` at equal specificity — the div collapsed to 0 height even with
- * all utilities emitted. Two-class specificity wins regardless of order. */
+/* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
+ * the utility bundle, silently overriding `.absolute` at equal specificity —
+ * the div collapsed to 0 height even with all utilities emitted. Two-class
+ * specificity wins regardless of order. */
 .map-shell .map-canvas {
   position: absolute;
   inset: 0;
@@ -304,22 +604,20 @@ body {
     aspect-ratio: 4 / 5;
   }
 }
-/* Embedded chapter map ("Where to next") — approved card sizes */
+/* Embedded chapter map ("Onward") — now shell-width, cinematic band. */
 .embed-map-shell {
   position: relative;
   width: 100%;
-  max-width: 42rem;
-  height: 229px;
-  margin-inline: auto;
+  height: 300px;
 }
 @media (min-width: 768px) {
   .embed-map-shell {
-    height: 257px;
+    height: 380px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .embed-map-shell {
-    height: 343px;
+    height: 460px;
   }
 }
 .embed-map-shell .map-canvas {
@@ -335,7 +633,7 @@ body {
   -webkit-appearance: none;
   appearance: none;
   height: 24px;
-  padding-block: 10px;
+  padding-block: 11px;
   background-clip: content-box;
   border-radius: 9999px;
   outline-offset: 2px;
@@ -344,62 +642,104 @@ body {
 .cnwm-scrub::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
-  margin-top: -9px;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
   border-radius: 9999px;
   background: var(--color-primary-9);
-  border: 2px solid var(--color-primary-12);
+  border: none;
 }
 .cnwm-scrub::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 14px;
+  height: 14px;
   border-radius: 9999px;
   background: var(--color-primary-9);
-  border: 2px solid var(--color-primary-12);
+  border: none;
 }
 
-/* ————————————————————————————————————————————————————————————————
- * MOTION PRIMITIVES
- * ———————————————————————————————————————————————————————————————— */
+/* ════════════════════════════════════════════════════════════════════════
+ * MOTION — opacity + a 24px rise on one easing. Two durations only.
+ * ════════════════════════════════════════════════════════════════════════ */
 
-/* Scroll-reveal: GSAP adds motion; CSS is the no-JS state (content visible) */
-.reveal {
+/* Scroll-reveal: GSAP/IO adds the class; CSS owns the motion. The no-JS and
+   reduced-motion state is simply "everything visible". */
+.reveal,
+.reveal-quote {
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .reveal {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   .js .reveal.is-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity var(--dur-reveal) var(--ease-house),
-      transform var(--dur-reveal) var(--ease-house);
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
   }
-}
+  /* Staggered children: --i is set inline on each child. */
+  .js .reveal.is-in > [style*="--i"] {
+    animation: rise var(--dur-slow) var(--ease) both;
+    animation-delay: calc(var(--i) * 75ms);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
-/* Quote reveal (C8): a slower settle with a breath of scale — the words
-   arrive like a spoken line. Reduced motion: visible, static. */
-.reveal-quote {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: no-preference) {
+  /* The quote settles rather than rises — same duration, no scale. */
   .js .reveal-quote {
     opacity: 0;
-    transform: scale(0.96) translateY(20px);
+    transform: translateY(16px);
   }
   .js .reveal-quote.is-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity 1s var(--ease-house),
-      transform 1s var(--ease-house);
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
   }
+
+  /* Per-line mask rise for display type. Each line is wrapped in a span
+     inside an overflow-hidden line box. */
+  .js .lines .line-inner {
+    display: block;
+    transform: translateY(105%);
+  }
+  .js .lines.is-in .line-inner {
+    transform: none;
+    transition: transform var(--dur-slow) var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  /* Media arrives with a clip-wipe and a breath of scale. */
+  .js .wipe {
+    clip-path: inset(0 0 100% 0);
+  }
+  .js .wipe > * {
+    transform: scale(1.04);
+  }
+  .js .wipe.is-in {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path var(--dur-slow) var(--ease);
+  }
+  .js .wipe.is-in > * {
+    transform: none;
+    transition: transform var(--dur-slow) var(--ease);
+  }
+}
+.lines .line-box {
+  overflow: hidden;
+  display: block;
 }
 
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
@@ -422,20 +762,32 @@ body {
   pointer-events: none;
 }
 
-/* Narration sync highlight — the subtle primary-4 wash (not an accent block) */
+/* Narration sync highlight — a wash, not a block. `box-decoration-break: clone`
+   makes every wrapped line carry its own even padding, so a multi-line span
+   reads as a highlighter stroke rather than a ragged rectangle. */
 .narration-active {
-  background: color-mix(in srgb, var(--color-primary-4) 65%, transparent);
-  border-radius: 4px;
-  transition: background var(--dur-ui) var(--ease-house);
+  background: color-mix(in srgb, var(--color-primary-4) 62%, transparent);
+  padding: 0.08em 0.26em;
+  margin-inline: -0.26em;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background var(--dur-fast) var(--ease);
+}
+.ground-cream .narration-active {
+  background: #f6ddd0;
 }
 
-/* ————————————————————————————————————————————————————————————————
+/* ════════════════════════════════════════════════════════════════════════
  * A11Y
- * ———————————————————————————————————————————————————————————————— */
+ * ════════════════════════════════════════════════════════════════════════ */
 
 :focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: 3px;
+}
+.ground-cream :focus-visible {
+  outline-color: #9c4520;
 }
 
 .skip-link {

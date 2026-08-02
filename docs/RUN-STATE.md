@@ -9,7 +9,7 @@ from IN PROGRESS. Never redo DONE work; verify via git, not recollection.
 ---
 
 ## CURRENT PHASE
-**P0 — Audits**
+**P2 — Flagship chapter template**
 
 ## LAST COMMIT
 (see `git log -1`)
@@ -21,16 +21,26 @@ from IN PROGRESS. Never redo DONE work; verify via git, not recollection.
 | When | What |
 |---|---|
 | 2026-08-03 | Protocol setup: `docs/PLAN.md`→`PLAN-v3.md`, `RUN-STATE.md`→`RUN-STATE-v3.md`, v4 plan installed as `docs/PLAN.md`, fresh RUN-STATE created, `docs/v4/` scaffolded |
+| 2026-08-03 | P0 before-shot matrix captured (`docs/v4/qa/p0-before`, 138 shots, gitignored) |
+| 2026-08-03 | P0(c) naming ledger DONE → `docs/v4/NAMING-CANON.md`. Bronze plaques (cast June 2026) are the naming source of truth; canon locked in `docs/v4/DECISIONS.md` D1 |
+| 2026-08-03 | P1 system built: `global.css` v4 (3 voices w/ Martel serif, 4 type roles, 3 spacing tokens, unbox rules, 2 durations/1 easing, cream register), `icons.ts` + `Icon.astro` (one arrow), `Button.astro` (2 sizes × 2 variants) |
+| 2026-08-03 | P1 styleguide v2 shipped + shot. Serif-under-sync-highlight legibility verified on BOTH grounds (plan §12 risk cleared). Fixed: hollow play glyph, boxy highlight edge, missing spacer |
 
 ---
 
 ## IN PROGRESS
-**P0(a/b/c) — launch the three audit tracks.**
-Exact next action: commit + push the protocol setup, then spawn parallel audit agents:
-(a) inspiration deep-dive → `docs/v4/AUDIT-INSPO.md`;
-(b) CNWM failure census (every route × 390/768/1440, W1–W8 mapped to occurrences) →
-`docs/v4/AUDIT-CNWM.md`; (c) naming/content ledger → `docs/v4/NAMING-CANON.md`.
-Then synthesize `docs/v4/DESIGN-STANDARDS.md` + `docs/v4/CALIBER-RUBRIC.md`.
+**P2 — rebuild `src/pages/[chapter].astro` per PLAN §8 on `/commissioners-office`.**
+Exact next action: read `src/components/AudioStory.tsx` + `src/components/PressReveal.tsx`,
+then rewrite `[chapter].astro` with the 8-part structure: animated-painting hero
+(poster-first) → editorial spine → (01) story w/ cream transcript → (02) From the sketch
+(relocated press-and-hold) → full-bleed painting interlude → (03) historical context
+(label-left grid) → (04) moral → (05) onward. Then bug fixes: double `class` on the
+historical video, mini-player to bottom-LEFT with tabular-nums.
+
+Still running in background at last checkpoint: P0(a) three inspiration measurement agents
+(→ `docs/v4/inspo-{pasqua,googleac,museos}.md`), P0(b) visual census
+(→ `docs/v4/audit-cnwm-visual.md`) and code inventory (→ `docs/v4/audit-cnwm-code.md`).
+Fold their findings into `docs/v4/DESIGN-STANDARDS.md` when they land.
 
 ---
 
