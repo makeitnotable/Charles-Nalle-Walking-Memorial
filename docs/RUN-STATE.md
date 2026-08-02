@@ -44,9 +44,16 @@
 - [x] Phase 4 batch 1 BUILT: C10 painting interlude (full-bleed Ken Burns scrub + credit chip), C11 lateral chapter exits, C8 quote reveal, C13 "April 27, 1860" curtain over-title on chapter navs (wired site-wide via data-curtain-date), G2 animated paintings in gallery dialog, S4 CN-wordmark favicon.
 - [!] NOTE: one rebuild landed mid-review (~02:35) — the 4 Phase 2+3 reviewers' preview picked up Phase 4 batch-1 additively. Their findings remain valid; noted for transparency.
 
+- [x] Phase 2+3 DISCIPLINE REVIEWS — ALL FOUR IN, every P0/P1 FIXED same-session:
+  - **QA smoke: PASS** (0 P0/P1). P2 fixes applied: hero title/arrow gap, mobile overview fits pills, hint repositioned. docs/qa/reviews/phase23-qa-smoke.md
+  - **UX: PASS both walkthroughs** (0 P0). P1 fixes: hint passthrough+auto-dismiss, press-hold hint raised at 390, chapter orientation line ("CNWM · Troy, NY · Stop N of 5"), 24px scrub hit area, visible tap-to-seek line. docs/qa/reviews/phase23-ux.md
+  - **Visual Design: FAIL → fixed.** P0 (marker pills now ladder 12/15/18 + resize re-render, both maps); home approved overlay texture restored (webp 177/341KB) + film dimmed .6; people widow. P1-2 pin labels kept accurate (deliberate deviation → residuals); P1-3 embed verified correct when settled (evidence embed-bakery-settled.png — reviewer caught the 5s flight mid-air). docs/qa/reviews/phase23-visual-design.md
+  - **Motion: PASS conditional → both P1s fixed + probe-verified.** F1: flights cut-to-destination on mousedown/touchstart (pointerdown never fires); F2: map shell server-reserved → CLS 0.6362→**0.0012**. F4 mini truncate, F6 play() guarded. Curtain fail-open PROVEN against a hung nav. docs/qa/reviews/phase23-motion-design.md
+- [x] astro check 0 errors; build + 6 CSS guards green (guard now checks scale-85 as the .tsx sentinel).
+
 ## IN PROGRESS
 
-> 4 discipline reviewers (Visual/Motion/UX/QA smoke, Phase 2+3) RUNNING against localhost:4321 — NO REBUILDS until all four report. Meanwhile: docs-only work (MOTION.md draft, memory checkpoint). After reviews: fix P0/P1s → remaining Phase 4 (C9 verify, S7 pass, M9 if time) → Phase 5 perf/a11y → deploy → Phase 6 live reviews + stakeholder test + REVIEW-GUIDE.md.
+> Phase 5: run scripts/perf.mjs (Lighthouse mobile ≥90/≥95, LCP<2.5s on /bakery) against local preview → fix what's under bar (known: ~4.7MB /bakery from autoplay historical.mp4 — lazy-load below-fold video candidates) → a11y contrast check (#FF9770 labels) → content spot-check vs CONTENT-STATUS.md → push → verify LIVE deploy → Phase 6 final gates (4 live reviews + returning-stakeholder test + REVIEW-GUIDE.md final).
 
 ## BLOCKED / NOTES
 
