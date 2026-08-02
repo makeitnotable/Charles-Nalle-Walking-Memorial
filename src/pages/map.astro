@@ -6,6 +6,7 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import TroyMap from "../components/TroyMap";
 import Picture from "../components/Picture.astro";
+import Icon from "../components/Icon.astro";
 import { withBase } from "../lib/url";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -15,8 +16,10 @@ const chapters = (await getCollection("chapters")).sort(
 const stops = chapters.map((entry) => ({
   slug: entry.id,
   order: entry.data.order,
-  label: entry.data.map.label,
-  cardTitle: entry.data.cardTitle,
+  label: entry.data.name.short,
+  canonical: entry.data.name.canonical,
+  cardTitle: entry.data.name.canonical,
+  pinPosition: entry.data.pinPosition,
   address: entry.data.map.address,
   coordinates: entry.data.map.coordinates,
   plaque: entry.data.plaque,
@@ -34,60 +37,59 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
       zero layout shift; the island fills it. */}
   <div class="map-shell">
     <div class="absolute inset-0 grid place-items-center" aria-hidden="true">
-      <p class="type-label">The walk is loading…</p>
+      <p class="t-meta">The walk is loading…</p>
     </div>
     <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
   </div>
 
   {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
-  <section class="mx-auto max-w-7xl px-4 pt-16 pb-8 md:px-10 lg:px-20" aria-label="The five stops">
-    <p class="type-label reveal">The Walk</p>
-    <h1 class="type-display type-display-caps reveal mt-4">
-      Five stops<br />through Troy
-    </h1>
-    <p class="type-body reveal mt-6 max-w-xl">
-      The rescue of Charles Nalle unfolded across a few blocks of downtown Troy
-      in a single day — April 27, 1860. Four stops carry bronze plaques; the
-      Ferry Landing is remembered here on the website.
-    </p>
+  <section class="shell sec pb-24" aria-label="The five stops">
+    <div class="editorial">
+      <div class="rule-top pt-5">
+        <p class="t-spine">(01)</p>
+        <p class="t-meta mt-3">The walk</p>
+      </div>
+      <div>
+        <h1 class="t-display reveal" style="--fit-chars: 10">Five stops<br />through Troy</h1>
+        <p class="t-prose reveal mt-10">
+          The rescue of Charles Nalle unfolded across a few blocks of downtown
+          Troy in a single day — April 27, 1860. Four stops carry bronze
+          plaques; the Ferry Landing is remembered here on the website.
+        </p>
+      </div>
+    </div>
 
-    <ol class="mt-12 space-y-6">
+    {/* The typographic index — the image IS the card; nothing is boxed. */}
+    <ol class="beat">
       {
         chapters.map((entry) => (
-          <li class="reveal">
+          <li class="reveal rule-top">
             <a
               href={withBase(entry.id)}
-              data-curtain-label={entry.data.map.label}
+              data-curtain-label={entry.data.name.short}
               data-curtain-date
-              class="frame group grid grid-cols-[6rem_1fr] items-center gap-0 overflow-hidden bg-primary-3 transition-colors duration-300 hover:bg-primary-4 sm:grid-cols-[8rem_1fr]"
+              class="group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_1fr_auto] sm:gap-8"
             >
-              <Picture
-                slug={entry.id}
-                imageKey="square"
-                alt=""
-                sizes="8rem"
-                class="h-24 w-24 border-r border-primary-6 object-cover sm:h-32 sm:w-32"
-              />
-              <span class="min-w-0 p-4 sm:p-5">
-                <span class="flex items-center justify-between">
-                  <span class="type-label">Chapter</span>
-                  <span class="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5">
-                    <span
-                      class="mt-0.5 text-[.625rem] font-medium text-primary-12 sm:text-[0.78125rem]"
-                      style="font-family: var(--font-poppins)"
-                    >
-                      {entry.data.order}
-                    </span>
-                  </span>
+              <span class="overflow-hidden rounded-[12px]">
+                <Picture
+                  slug={entry.id}
+                  imageKey="square"
+                  alt=""
+                  sizes="7rem"
+                  class="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 sm:h-28 sm:w-28"
+                />
+              </span>
+              <span class="min-w-0">
+                <span class="t-meta block">Stop {String(entry.data.order).padStart(2, "0")}</span>
+                <span class="t-title mt-3 block" style="--fs-title: 26px">
+                  {entry.data.name.canonical}
                 </span>
-                <span class="type-card-title mt-1 block uppercase">
-                  {entry.data.cardTitle}
-                </span>
-                <span class="type-muted mt-1 block">
+                <span class="t-meta-body mt-3 block">
                   {entry.data.map.address}
                   {!entry.data.plaque && " · no plaque — website only"}
                 </span>
               </span>
+              <Icon name="arrow" class="text-primary-11 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </li>
         ))

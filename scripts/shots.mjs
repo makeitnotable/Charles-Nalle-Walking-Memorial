@@ -56,7 +56,7 @@ for (const vp of VIEWPORTS) {
     const url = BASE + route;
     try {
       await page.goto(url, { waitUntil: "networkidle", timeout: 45000 });
-      await page.waitForTimeout(2500); // maps/fonts/motion settle
+      await page.waitForTimeout(4000); // maps/fonts/motion settle (the route self-draws)
       await page.screenshot({ path: join(outdir, `${slug}--${vp.name}.png`) });
 
       // Scroll-position shots on long pages

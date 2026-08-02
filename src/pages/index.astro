@@ -5,6 +5,7 @@
 // film plays inside the photo frame, the stack rises in sequence, the date
 // rule draws itself. Reduced motion: static frame, everything visible.
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
 import { withBase } from "../lib/url";
 ---
 
@@ -38,7 +39,7 @@ import { withBase } from "../lib/url";
         />
         {/* The approved contour texture (homepage-overlay), re-budgeted to webp */}
         <img
-          class="absolute inset-0 h-full w-full object-cover"
+          class="absolute inset-0 h-full w-full object-cover opacity-[0.07]"
           src={withBase("media/site/homepage-overlay-800.webp")}
           srcset={`${withBase("media/site/homepage-overlay-800.webp")} 800w, ${withBase("media/site/homepage-overlay-1440.webp")} 1440w`}
           sizes="100vw"
@@ -51,36 +52,36 @@ import { withBase } from "../lib/url";
       <!-- The three-stack -->
       <div class="z-10 flex h-full flex-col items-center justify-between">
         <div class="flex flex-col items-center justify-between gap-8 pt-16">
-          <p class="type-eyebrow home-seq" style="--seq: 0">Troy, NY</p>
+          <p class="t-meta home-seq" style="--seq: 0">Troy, NY</p>
           <h1 class="flex flex-col" aria-label="Charles Nalle">
-            <span class="type-wordmark home-seq" style="--seq: 1">Charles</span>
-            <span class="type-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.75rem">Nalle</span>
+            <span class="t-wordmark home-seq" style="--seq: 1">Charles</span>
+            <span class="t-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.06em">Nalle</span>
           </h1>
           <div class="home-seq flex items-center gap-2" style="--seq: 3">
-            <p class="type-eyebrow">1821</p>
+            <p class="t-meta">1821</p>
             <div class="rule-draw -mt-0.5 h-[1px] w-[28px] bg-primary-10"></div>
-            <p class="type-eyebrow">1875</p>
+            <p class="t-meta">1875</p>
           </div>
         </div>
 
         <div class="home-seq flex w-full justify-center px-4" style="--seq: 4">
           <a
             href={withBase("map")}
-            class="flex w-[148px] cursor-pointer items-center justify-center rounded-full px-6 py-4 text-center text-[1.125rem] leading-[1.5rem] font-medium transition-all duration-300 hover:brightness-105 md:px-[1.875rem] md:py-[1.25rem] md:text-[1.40625rem] md:leading-[1.875rem] lg:px-[2.25rem] lg:py-[1.5rem] lg:text-[1.6875rem] lg:leading-[2.25rem]"
-            style="background: var(--cta-bg); color: var(--cta-text); border: 1px solid var(--cta-border); font-family: var(--font-poppins)"
+            class="btn btn-cta"
           >
             Continue
+            <Icon name="arrow" />
           </a>
         </div>
 
         <div class="home-seq flex flex-col items-center justify-between p-4" style="--seq: 5">
           {/* Mobile and tablet: hand breaks via measure */}
-          <p class="type-muted mx-4 mb-2 block max-w-[283px] text-center md:max-w-[353px] lg:hidden">
+          <p class="t-meta-body mx-4 mb-2 block max-w-[300px] text-center md:max-w-[380px] lg:hidden">
             The Charles Nalle Walking Memorial is a digital physical experience
             designed to share the history of Troy and the story of Charles Nalle
           </p>
           {/* Desktop: break after "designed" */}
-          <p class="type-muted mx-4 mb-2 hidden text-center lg:block">
+          <p class="t-meta-body mx-4 mb-2 hidden text-center lg:block">
             The Charles Nalle Walking Memorial is a digital physical experience designed<br />
             to share the history of Troy and the story of Charles Nalle
           </p>
@@ -103,7 +104,7 @@ import { withBase } from "../lib/url";
   }
   @media (prefers-reduced-motion: no-preference) {
     .home-frame {
-      animation: frame-in 1400ms var(--ease-house) both;
+      animation: frame-in var(--dur-slow) var(--ease) both;
     }
     @keyframes frame-in {
       from {
@@ -114,8 +115,8 @@ import { withBase } from "../lib/url";
       }
     }
     .home-seq {
-      animation: home-rise 900ms var(--ease-house) both;
-      animation-delay: calc(300ms + var(--seq) * 160ms);
+      animation: home-rise var(--dur-slow) var(--ease) both;
+      animation-delay: calc(200ms + var(--seq) * 200ms);
     }
     @keyframes home-rise {
       from {
@@ -128,8 +129,8 @@ import { withBase } from "../lib/url";
       }
     }
     .rule-draw {
-      animation: rule-x 700ms var(--ease-house) both;
-      animation-delay: calc(300ms + 3 * 160ms + 250ms);
+      animation: rule-x var(--dur-slow) var(--ease) both;
+      animation-delay: calc(200ms + 3 * 200ms + 200ms);
       transform-origin: left center;
     }
     @keyframes rule-x {

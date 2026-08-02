@@ -34,9 +34,9 @@ const MAX_BOUNDS: [[number, number], [number, number]] = [
   [-73.65, 42.75],
 ];
 
-/** Marker stem direction per stop label (stops 2 & 5 sit ~50m apart — the
- * above/below split keeps their pills from colliding). */
-const PIN_ABOVE = new Set(["Commissioner's Office"]);
+/* Stem direction is now DATA (`pinPosition` in the chapter JSON), not a
+ * hardcoded label match. The old `PIN_ABOVE = new Set(["Commissioner's
+ * Office"])` broke silently the moment a name changed — and names changed. */
 
 const MARKER = {
   active: {
@@ -56,6 +56,10 @@ const MARKER = {
 };
 
 export interface Stop {
+  /** Canonical name — cards, aria-labels, curtain. */
+  canonical?: string;
+  /** Pill stem direction; stops 2 and 5 sit ~50m apart. */
+  pinPosition?: "above" | "below";
   slug: string;
   order: number;
   label: string;
@@ -101,9 +105,9 @@ function markerHtml(stop: Stop, active: boolean): string {
       <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:20px;height:20px">
         <p style="color:#FED9CC;font-size:11px;margin:0">${stop.order}</p>
       </div>
-      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;white-space:nowrap">${stop.label}</p>
+      <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;white-space:nowrap;letter-spacing:0.06em">${stop.label}</p>
     </div>`;
-  const above = PIN_ABOVE.has(stop.label);
+  const above = stop.pinPosition === "above";
   return `
     <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:scale(${s.scale});transition:transform 300ms ease-in-out">
       ${above ? stemUp + pill : pill + stem}
@@ -300,7 +304,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         // also separates stops 2 and 5, which sit ~50m apart.
         const marker = new mapboxgl.Marker({
           element: el,
-          anchor: PIN_ABOVE.has(stop.label) ? "top" : "bottom",
+          anchor: stop.pinPosition === "above" ? "top" : "bottom",
         })
           .setLngLat(stop.coordinates)
           .addTo(map);
@@ -317,17 +321,42 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           geometry: { type: "LineString", coordinates: reduced ? route : [route[0]] },
         },
       });
+      const zoomWidth = (a: number, b: number) => [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12,
+        a,
+        17,
+        b,
+      ];
+      // Casing first: it is what makes the line legible in greyscale.
+      map.addLayer({
+        id: "route-casing",
+        type: "line",
+        source: "route",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": "#0B0705",
+          "line-width": zoomWidth(11, 17) as unknown as number,
+          "line-opacity": 0.85,
+        },
+      });
       map.addLayer({
         id: "route-line",
         type: "line",
         source: "route",
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#F26835", "line-width": 3.5, "line-dasharray": [0.1, 2], "line-opacity": 0.85 },
+        paint: {
+          "line-color": "#FF9770",
+          "line-width": zoomWidth(5.5, 9) as unknown as number,
+          "line-opacity": 1,
+        },
       });
       if (!reduced) {
         let i = 1;
         const draw = () => {
-          i += 3;
+          i += 5;
           (map.getSource("route") as mapboxgl.GeoJSONSource).setData({
             type: "Feature",
             properties: {},
@@ -335,7 +364,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           });
           if (i < route.length) requestAnimationFrame(draw);
         };
-        setTimeout(() => requestAnimationFrame(draw), 1200);
+        setTimeout(() => requestAnimationFrame(draw), 500);
       }
 
       if (arriving) {
@@ -568,8 +597,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* Place label */}
       <div className="pointer-events-none absolute top-0 left-0 z-20 p-4 sm:p-6">
         <p
-          className="type-label rounded-full px-4 py-2"
-          style={{ background: "color-mix(in srgb, var(--color-primary-2) 75%, transparent)" }}
+          className="t-meta rounded-full px-4 py-2"
+          style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
           The Walk · Five stops · April 27, 1860
         </p>
@@ -578,9 +607,14 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* Arrival name plate (M10) — the flight lands on a spoken line */}
       {arrivalStop && (
         <div className="pointer-events-none absolute top-16 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:top-20">
-          <div className="frame bg-primary-3 px-5 py-3 text-center">
-            <p className="type-label">Stop {arrivalStop.order} of {stops.length}</p>
-            <p className="type-card-title mt-1 uppercase">{arrivalStop.cardTitle}</p>
+          <div
+            className="rounded-full px-6 py-3 text-center"
+            style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
+          >
+            <p className="t-meta">Stop {arrivalStop.order} of {stops.length}</p>
+            <p className="t-title mt-2" style={{ ["--fs-title" as string]: "22px" }}>
+              {arrivalStop.canonical ?? arrivalStop.cardTitle}
+            </p>
           </div>
         </div>
       )}
@@ -593,8 +627,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32"
           aria-hidden="true"
         >
-          <div className="frame bg-primary-3 px-4 py-2">
-            <p className="type-label">Drag to explore · Tap a stop</p>
+          <div
+            className="rounded-full px-4 py-2"
+            style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+          >
+            <p className="t-meta">Drag to explore · Tap a stop</p>
           </div>
         </div>
       )}
@@ -604,11 +641,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         <button
           type="button"
           onClick={backToOverview}
-          className="absolute top-14 left-4 z-20 flex cursor-pointer items-center gap-2 rounded-full border border-primary-6 bg-primary-3 px-4 py-2.5 text-sm font-medium text-primary-11 transition-colors duration-300 hover:bg-primary-5 hover:text-primary-12 sm:top-16 sm:left-6"
-          style={{ fontFamily: "var(--font-poppins)" }}
+          className="btn-sm btn-ghost absolute top-14 left-4 z-20 sm:top-16 sm:left-6"
+          style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 18L9 12L15 6" stroke="#F26835" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <svg className="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9.5 5.5l6.5 6.5-6.5 6.5" style={{ transform: "rotate(180deg)", transformOrigin: "center" }} />
           </svg>
           Overview
         </button>
@@ -620,8 +657,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           <button
             type="button"
             onClick={touring ? stopTour : tour}
-            className="cursor-pointer rounded-full border border-primary-6 bg-primary-4 px-5 py-2.5 text-sm font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12"
-            style={{ fontFamily: "var(--font-poppins)" }}
+            className="btn-sm btn-solid"
           >
             Take the walk
           </button>
@@ -629,11 +665,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             type="button"
             onClick={() => setLens((v) => !v)}
             aria-pressed={lens}
-            className="cursor-pointer rounded-full border border-primary-8 px-5 py-2.5 text-sm font-medium text-primary-11 transition-all duration-300 hover:text-primary-12"
-            style={{
-              fontFamily: "var(--font-poppins)",
-              background: "color-mix(in srgb, var(--color-primary-2) 60%, transparent)",
-            }}
+            className="btn-sm btn-ghost"
+            style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
           >
             {lens ? "Back to today" : "See Troy in 1860"}
           </button>
@@ -646,8 +679,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           <button
             type="button"
             onClick={stopTour}
-            className="cursor-pointer rounded-full border border-primary-6 bg-primary-4 px-5 py-2.5 text-sm font-medium text-primary-11 transition-colors duration-300 hover:bg-primary-5 hover:text-primary-12"
-            style={{ fontFamily: "var(--font-poppins)" }}
+            className="btn-sm btn-solid"
           >
             Stop the walk
           </button>
