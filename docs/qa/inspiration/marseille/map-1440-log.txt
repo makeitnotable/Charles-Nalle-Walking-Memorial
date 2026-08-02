@@ -1,0 +1,156 @@
+clicked Next
+
+clicked Skip intro
+
+SHOT map-1440-01-map-initial.png | https://marseille.laphase5.com/en
+
+MAP DOM TREE:
+      DIV.Scene [0,0 1440x900] "200 m/Center the map/All places//Click a"
+        HEADER.HeaderMap [70,0 1440x70] ""
+          DIV.InfoButton.HeaderButton.Button [1300,0 70x70] ""
+          DIV.Button.HeaderButton.SoundButton [1370,0 70x70] ""
+          DIV.CloseButton.HeaderButton.Button.Button-inactive [1440,0 70x70] ""
+        DIV.Logo [678,20 84x32] ""
+        DIV.Scene-intro [0,0 1440x900] ""
+            DIV.footer-compass-zoom.footer-map-item [576,845 129x43] "200 m"
+              DIV.footer-compass [591,855 23x23] ""
+              DIV.FooterZoom.footer-zoom [626,855 64x23] "200 m"
+            DIV.footer-button.footer-button_center.footer-map-item.Button [635,845 170x43] "Center the map"
+            DIV.footer-button.footer-button_list.footer-map-item.Button [725,845 128x43] "All places"
+        DIV.WebGL [0,0 1440x900] ""
+        DIV.MapInfo.info-enter-active.info-enter-to [0,785 1440x143] "Click and drag the map/to discover all p"
+        DIV.Pins [0,0 1440x0] "4/10/3/7"
+          DIV.Pin-direction [1395,855 24x24] "4"
+          DIV.Pin-direction [1395,123 24x24] "10"
+          DIV.Pin-direction [20,603 24x24] "3"
+          DIV.Pin-direction [620,20 24x24] "7"
+  DIV.Labels [0,0 800x600] ""
+  DIV.Labels [0,0 1440x900] "Saint-Charles/Castellane/Endoume/Perier/"
+      DIV.SaintCharles [1092,82 68x44] "Saint-Charles"
+      DIV.Castellane [1515,1047 119x21] "Castellane"
+      DIV.Endoume [-472,1271 120x25] "Endoume"
+      DIV.Perier [1794,2278 113x52] "Perier"
+      DIV.SaintGiniez [3430,4518 371x130] "Saint-Giniez"
+      DIV.SainteAnne [-20298,-32176 3832x3402] "Sainte-Anne"
+      DIV.Bonneveine [-2876,-11814 666x420] "Bonneveine"
+      DIV.PointeRouge [233,-4118 181x33] "Pointe-Rouge"
+      DIV.Baumettes [-1942,-3545 146x22] "Baumettes"
+      DIV.Mazargues [-4956,-6746 403x122] "Mazargues"
+      DIV.SainteMarguerite [10983,9461 1353x473] "Sainte-Marguerite"
+      DIV.LaTimone [3215,836 121x17] "La Timone"
+      DIV.SaintBarnab [2420,26 92x6] "Saint-Barnabé"
+      DIV.SaintMenet [8653,801 185x17] "Saint-Menet"
+      DIV.LaValentine [5258,185 107x8] "La Valentine"
+      DIV.BonSecours [1081,-242 58x4] "Bon-Secours"
+      DIV.LeCanet [856,-323 36x3] "Le Canet"
+      DIV.ARENC [542,-208 33x4] "ARENC"
+      DIV.SainteMarthe [1176,-507 48x2] "Sainte-Marthe"
+      DIV.ChateauGombert [1941,-644 56x1] "Chateau-Gombert"
+      DIV.LaViste [520,-675 22x1] "La Viste"
+      DIV.SainteAntoine [609,-748 35x1] "Sainte-Antoine"
+      DIV.LEstaque [-103,-643 27x1] "L'Estaque"
+      DIV.SaintJulien [2842,-209 68x4] "Saint-Julien"
+      DIV.LesOlives [2696,-403 49x3] "Les Olives"
+      DIV.Sormiou [-979,-2933 82x12] "Sormiou"
+      DIV.old_port [611,454 227x48] "Old Port of Marseille"
+      DIV.AnsedebrlaMalmousque [-765,1190 184x45] "Anse de/la Malmousque"
+      DIV.PlagesduPrado [-3443,-37526 2736x4430] "Plages du Prado"
+      DIV.Callelongue [1255,-2419 64x6] "Callelongue"
+      DIV.Sormiou [-1048,-2360 50x5] "Sormiou"
+      DIV.Morgiou [-1796,-2377 52x5] "Morgiou"
+      DIV.Sugiton [-2069,-2400 53x5] "Sugiton"
+      DIV.Marseilleveyre [583,-2348 71x5] "Marseilleveyre"
+      DIV.LesGoudes [1615,-2612 79x8] "Les Goudes"
+      DIV.RadedEndoume [-727,2536 295x54] "Rade d'Endoume"
+      DIV.Pointerouge [675,-6233 274x95] "Pointe rouge"
+      DIV.AnsedelEstaque [-315,-600 49x1] "Anse de l'Estaque"
+      DIV.PortdeMarseille [89,-515 51x2] "Port de Marseille"
+      DIV.Massifdescalanques [215,-2852 175x11] "Massif des calanques"
+      DIV.IleMaire [1738,-2262 46x5] "Ile Maire"
+      DIV.IlesduFrioul [-5358,2352 273x49] "Iles du Frioul"
+      DIV.IleJarre [854,-2164 33x4] "Ile Jarre"
+      DIV.Luminy [-2997,-2993 93x14] "Luminy"
+      DIV.LeCabot [-28587,-21870 3110x1622] "Le Cabot"
+      DIV.SaintLoup [5956,1770 211x36] "Saint-Loup"
+
+PINS: [
+ {
+  "cls": "MapInfo",
+  "x": 720,
+  "y": 830,
+  "w": 1440,
+  "h": 143,
+  "text": "Click and drag the map\nto discover all p"
+ },
+ {
+  "cls": "Pins",
+  "x": 720,
+  "y": 0,
+  "w": 1440,
+  "h": 0,
+  "text": "4\n10\n3\n7"
+ },
+ {
+  "cls": "Pin-direction",
+  "x": 1407,
+  "y": 867,
+  "w": 24,
+  "h": 24,
+  "text": "4"
+ },
+ {
+  "cls": "Pin-direction",
+  "x": 1407,
+  "y": 135,
+  "w": 24,
+  "h": 24,
+  "text": "10"
+ },
+ {
+  "cls": "Pin-direction",
+  "x": 32,
+  "y": 615,
+  "w": 24,
+  "h": 24,
+  "text": "3"
+ },
+ {
+  "cls": "Pin-direction",
+  "x": 632,
+  "y": 32,
+  "w": 24,
+  "h": 24,
+  "text": "7"
+ }
+]
+
+SHOT map-1440-02-pin-hover.png | https://marseille.laphase5.com/en
+
+clicked pin @ 1407,135
+
+SHOT map-1440-03-pin-click-during.png | https://marseille.laphase5.com/en
+
+SHOT map-1440-04-pin-click-settled.png | https://marseille.laphase5.com/en
+
+after pin click bodyText: 200 m | Center the map | All places | Click and drag the map | to discover all places | 11 | 8 | 1 | 7 | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port of Marseille | Anse de | la Malmousque | Plages du Prado | Callelongue | Sormiou | Morgiou | Sugiton | Marseilleveyre | Les Goudes | Rade d'Endoume | Pointe rouge | Anse de l'Estaque | Port de Marseille | Massif des calanques | Ile M
+
+CARD DOM:
+
+
+clicked card CTA "Center the map"
+
+SHOT map-1440-05-place-detail.png | https://marseille.laphase5.com/en
+
+detail bodyText: 200 m | Center the map | All places | Click and drag the map | to discover all places | 4 | 10 | 3 | 6 | 3 | 7 | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port of Marseille | Anse de | la Malmousque | Plages du Prado | Callelongue | Sormiou | Morgiou | Sugiton | Marseilleveyre | Les Goudes | Rade d'Endoume | Pointe rouge | Anse de l'Estaque | Port de Marseille | Massif des calanques | Ile Maire | Iles du Frioul | Ile Jarre | Luminy | Le Cabot | Saint-Loup
+
+SHOT map-1440-06-all-places.png | https://marseille.laphase5.com/en
+
+all-places bodyText: HOTEL DIEU | ZOUMAI | CITY HALL | PBLV | MARITIMA | VALLON DES AUFFES | 1000 SIGNS | MONKEY BAY | COMMANDERIE | FORT ST JEAN | BOTANIC GARDEN | THE BOWL | VILLA VALMER | CRISTAL HOUSE | FATHER BLAIZE | HORSESHOE | JO NAVETTES | TEAVORA | BELVEDERE | C. FRASSI | CLOITRE GARDENS | OPERA | DOCKS VILLAGE | CRCM | BOULE BLEUE | THE ESCALETTE | LES GOUDES | OBSERVATORY | THE ALCAZAR | 13TH ART MUSIC | CNM | CORBIERES | FORESTA PARK | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port of Marseille | Anse de | la Malmousque | Plages du Prado | Callelongue | Sormiou | Morgiou | Sugiton | Marseilleveyre | Les Goudes | Rade d'Endoume | Pointe rouge | Anse de l'Estaque | Port de Marseille | Massif des calanques | Ile Maire | Iles du Frioul | Ile
+
+clicked list item "HOTEL DIEU"
+
+SHOT map-1440-07-list-item-selected.png | https://marseille.laphase5.com/en/hotel-dieu/360
+
+SHOT map-1440-08-after-drag.png | https://marseille.laphase5.com/en/hotel-dieu/360
+
+center failed

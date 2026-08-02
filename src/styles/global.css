@@ -1,6 +1,10 @@
 @import "tailwindcss";
-@import "@fontsource-variable/fraunces";
-@import "@fontsource-variable/newsreader";
+/* Approved identity fonts (self-hosted): Martel Sans display/body, Poppins labels/buttons */
+@import "@fontsource/martel-sans/300.css";
+@import "@fontsource/martel-sans/600.css";
+@import "@fontsource/martel-sans/800.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
 
 /* Tailwind v4 must scan the React islands explicitly — the Vite plugin missed
  * them in production builds, so island-only utilities (h-[100dvh],

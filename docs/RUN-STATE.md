@@ -18,9 +18,16 @@
 - [x] Phase 0.1e — Visual acceptance PASSED: `docs/qa/phase0/map--{390,768,1440}.png` show streets/labels/5 markers/route line full-viewport. Press-reveal box correct (bakery--390.png: 4/5 portrait aspect, sketch + hint visible).
 - [x] Phase 0.2 — Playwright harness installed: `scripts/shots.mjs <outdir> [--base] [--routes]` captures every route × 390/768/1440 + scroll positions. `scripts/map-probe.mjs` = map diagnostic.
 
+- [x] Phase 0.3 — Figma unavailable (official MCP needs OAuth, non-interactive session; ClaudeTalkToFigma bridge not connected — one attempt made). Fallback ACTIVE per plan: Reference + legacy repo.
+- [x] Phase 0.4 — `docs/BASELINE.md` (final tokens + Phase 1 removal inventory). `docs/LEGACY-PORT-NOTES.md` (verbatim legacy spec: full 5-ramp tokens, all signature components, section order, motion vocab — the porting bible for Phases 1–3).
+- [x] Phase 0 QA smoke review (fresh subagent): all 3 claims PASS. P1 (map numerals rotated 90°) FIXED — inline counter-rotation on marker span, screenshot-verified upright. P2s noted: markers 2/5 overlap at overview zoom (Phase 3 rebuilds markers entirely); v2 sticky Listen chip overlap (v2 UI dies in Phase 2 re-skin). Verdict: docs/qa/reviews/phase0-qa-smoke.md.
+- [x] Prep — fonts swapped: @fontsource martel-sans 300/600/800 + poppins 400/500 installed & imported; fraunces/newsreader uninstalled. keen-slider installed. Build green + CSS guards pass.
+- [x] Legacy screenshots captured: docs/qa/legacy/ (9 routes × 3 viewports + scrolls) from charles-nalle-walking-memorial.vercel.app.
+- [x] Phase 0.5 (1/6 agents back): Google A&C study → docs/qa/inspiration/googleac.md (8 techniques). QA smoke agent done.
+
 ## IN PROGRESS
 
-> Phase 0.3: attempt Figma pull via ClaudeTalkToFigma bridge (timeboxed, one attempt — official Figma MCP needs OAuth, unavailable in this non-interactive session; plan's fallback = Design Language Reference + legacy repo). Then Phase 0.4: v2-invented-identity removal inventory → docs/BASELINE.md. Then QA smoke review subagent. Then Phase 0.5.
+> Phase 0.5: waiting on 4 inspiration agents (museos, rewild, marseille, pasqua) → then write docs/INSPIRATION.md (synthesis) + docs/ELEVATION-PLAN.md (screen × discipline blueprint) → independent blueprint review subagent → then Phase 1 (rebuild global.css to approved tokens + /styleguide route).
 
 ## BLOCKED / NOTES
 

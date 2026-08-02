@@ -132,7 +132,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         const el = document.createElement("button");
         el.className = "troy-marker";
         el.type = "button";
-        el.innerHTML = `<span>${stop.order}</span>`;
+        el.innerHTML = `<span style="display:block;transform:rotate(45deg)">${stop.order}</span>`;
         el.setAttribute(
           "aria-label",
           `Stop ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
