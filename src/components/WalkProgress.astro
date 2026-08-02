@@ -15,29 +15,45 @@ import { withBase } from "../lib/url";
 interface Props {
   /** 1-5, or 0 on the map where the whole walk is ahead of you. */
   current?: number;
+  /**
+   * Links (default) or a read-only indicator. The map sets this false: a 24px
+   * interactive strip across the top would swallow pans that start at the
+   * canvas edge, and the stop list sits directly below anyway.
+   */
+  interactive?: boolean;
 }
-const { current = 0 } = Astro.props;
+const { current = 0, interactive = true } = Astro.props;
 
 const stops = (await getCollection("chapters"))
   .sort((a, b) => a.data.order - b.data.order)
   .map((e) => ({ slug: e.id, order: e.data.order, name: e.data.name.short }));
 ---
 
-<nav class="walk-rail" aria-label="Progress along the walk">
+<nav
+  class:list={["walk-rail", interactive ? "walk-rail-nav" : "walk-rail-static"]}
+  aria-label="Progress along the walk"
+>
   {
-    stops.map((s) => (
-      <a
-        href={withBase(s.slug)}
-        data-curtain-label={s.name}
-        data-curtain-date
-        class="walk-seg"
-        data-state={s.order < current ? "past" : s.order === current ? "now" : "ahead"}
-        aria-current={s.order === current ? "step" : undefined}
-      >
-        <span class="sr-only">
-          Stop {s.order} of {stops.length} — {s.name}
-        </span>
-      </a>
-    ))
+    stops.map((s) =>
+      interactive ? (
+        <a
+          href={withBase(s.slug)}
+          data-curtain-label={s.name}
+          data-curtain-date
+          class="walk-seg"
+          data-state={s.order < current ? "past" : s.order === current ? "now" : "ahead"}
+          aria-current={s.order === current ? "step" : undefined}
+        >
+          <span class="sr-only">
+            Stop {s.order} of {stops.length} — {s.name}
+          </span>
+        </a>
+      ) : (
+        <span
+          class="walk-seg"
+          data-state={s.order < current ? "past" : s.order === current ? "now" : "ahead"}
+        />
+      ),
+    )
   }
 </nav>

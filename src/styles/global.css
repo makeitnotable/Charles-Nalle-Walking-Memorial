@@ -705,7 +705,7 @@ body {
   border-top: 1px solid var(--color-primary-7) !important;
 }
 .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
-  filter: invert(83%) sepia(24%) saturate(1200%) hue-rotate(315deg) brightness(103%);
+  filter: invert(1);
 }
 .mapboxgl-ctrl-scale {
   background: color-mix(in srgb, var(--color-primary-2) 84%, transparent) !important;
@@ -862,30 +862,32 @@ body {
   z-index: 900;
   display: flex;
   gap: 2px;
+}
+/* The stripe reads 3px; the element is 24px so the tap target is real. Where
+   the rail sits over a draggable map it renders as spans instead of links, so
+   it never steals a pan gesture. */
+.walk-rail-nav {
+  height: 24px;
+}
+.walk-rail-static {
   height: 3px;
-  pointer-events: auto;
+  pointer-events: none;
 }
 .walk-seg {
   flex: 1;
-  background: var(--hairline);
-  transition: background var(--dur-fast) var(--ease);
+  height: 100%;
+  color: var(--hairline);
+  background-image: linear-gradient(to bottom, currentcolor 3px, transparent 3px);
+  transition: color var(--dur-fast) var(--ease);
 }
 .walk-seg[data-state="past"] {
-  background: var(--color-primary-8);
+  color: var(--color-primary-8);
 }
 .walk-seg[data-state="now"] {
-  background: var(--color-primary-10);
+  color: var(--color-primary-10);
 }
-.walk-seg:hover {
-  background: var(--color-primary-9);
-}
-/* A real 24px target sits under the 3px stripe. */
-.walk-seg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 22px;
-  width: inherit;
+a.walk-seg:hover {
+  color: var(--color-primary-9);
 }
 .sr-only {
   position: absolute;

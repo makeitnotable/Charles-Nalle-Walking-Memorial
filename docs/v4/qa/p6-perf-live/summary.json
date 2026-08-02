@@ -4,29 +4,29 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.72,
+    "lcp_s": 1.74,
     "cls": 0,
     "tbt_ms": 0,
     "transfer_kb": 509
   },
   {
     "route": "/bakery",
-    "performance": 100,
-    "accessibility": 100,
+    "performance": 99,
+    "accessibility": 97,
     "bestPractices": 100,
-    "lcp_s": 1.45,
+    "lcp_s": 1.89,
     "cls": 0.003,
     "tbt_ms": 0,
-    "transfer_kb": 1091
+    "transfer_kb": 1044
   },
   {
     "route": "/map",
-    "performance": 71,
-    "accessibility": 100,
+    "performance": 52,
+    "accessibility": 96,
     "bestPractices": 100,
-    "lcp_s": 4.49,
-    "cls": 0.001,
-    "tbt_ms": 410,
+    "lcp_s": 4.48,
+    "cls": 0.002,
+    "tbt_ms": 1934,
     "transfer_kb": 2627
   },
   {
@@ -35,16 +35,16 @@
     "accessibility": 100,
     "bestPractices": 100,
     "lcp_s": 1.68,
-    "cls": 0.004,
+    "cls": 0.003,
     "tbt_ms": 0,
-    "transfer_kb": 144
+    "transfer_kb": 145
   },
   {
     "route": "/paintings",
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.17,
+    "lcp_s": 1.16,
     "cls": 0.01,
     "tbt_ms": 0,
     "transfer_kb": 549
@@ -54,9 +54,9 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.38,
-    "cls": 0.014,
+    "lcp_s": 1.37,
+    "cls": 0.003,
     "tbt_ms": 0,
-    "transfer_kb": 163
+    "transfer_kb": 164
   }
 ]
