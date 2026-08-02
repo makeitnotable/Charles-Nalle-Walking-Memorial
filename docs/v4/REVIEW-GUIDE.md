@@ -66,11 +66,16 @@ Measured on the **live deploy**, Lighthouse mobile on throttled 4G
 
 | Route | Performance | Accessibility | LCP | CLS |
 |---|---|---|---|---|
-| Chapter (`/bakery`) | **100** | **100** | 1.6s | 0.003 |
-| People | **100** | **100** | 1.7s | 0.004 |
-| About | **100** | **100** | 1.3s | 0.001 |
-| Home | **98** | **100** | 2.3s | 0.000 |
-| Map | 69 | **100** | 4.5s | 0.001 |
+| Home | **100** | **100** | 1.74s | 0.000 |
+| Bakery | 99 | **100** | 1.91s | 0.003 |
+| Commissioner's Office | 99 | **100** | 2.14s | 0.001 |
+| Uri Gilbert Home | 99 | **100** | 2.14s | 0.002 |
+| Ferry Landing | 99 | **100** | 2.14s | 0.002 |
+| Barbershop | 99 | **100** | 1.90s | 0.003 |
+| People | **100** | **100** | 1.53s | 0.003 |
+| Paintings | **100** | **100** | 1.46s | 0.020 |
+| About | **100** | **100** | 1.68s | 0.003 |
+| Map | 70 | **100** | 4.49s | 0.002 |
 
 v3 shipped home at 90 and the chapter path at 89.
 
@@ -87,7 +92,7 @@ v3 shipped home at 90 and the chapter path at 89.
 | Motion durations / live easing curves | 12 / 5 | **2 / 1** |
 | Naming conflicts | 25 | 0 |
 
-**The one budget I missed, honestly:** the chapter path is ~1 MB against a
+**The one budget I missed, honestly:** the chapter path is ~1.1 MB against a
 650 KB target. That target was set when the hero was a still sketch; you asked
 for the finished animated painting, which is a 570 KB film. I did not compress
 Mark Priest's artwork further to hit a number. Mitigations: the poster (an AVIF,
@@ -100,6 +105,36 @@ LCP both improved anyway.
 a single pixel of Troy appears. That was true in v3 and is not something a
 design pass can fix without dropping the live map, which is the one thing you
 said was working. Accessibility is 100 and layout shift is 0.001.
+
+---
+
+## 4a · The last round — everything else the gates found
+
+After the three blockers, I worked the rest of the outstanding list rather than
+stopping there:
+
+- **The chapter spine.** The left rail now carries the chapter's whole table of
+  contents, current section lit, sticky as you read. It replaces a numeral and a
+  one-word label that repeated the heading beside it, and it fills the left third
+  of a desktop screen — which a gate measured at 0.15% ink — with real navigation.
+- **A walk rail.** A 3px five-segment bar pinned to the top of every chapter and
+  the map, showing how far along the five stops you are. This was the one thing
+  museos had that this site did not.
+- **Map markers rebuilt on leader lines.** The dot sits on Brian's exact
+  coordinate and the pill offsets along a connecting line. The earlier fix moved
+  the whole marker, which put the dot *off* the real location and left what a
+  reviewer correctly called an orphaned orange stub.
+- **Mapbox's own chrome** — scale bar, geolocate, attribution — brought onto the
+  system. It was the only unstyled third-party UI on the site.
+- **One opening rhythm** across every non-chapter page; a floor under the hero
+  lockup so the fold lands identically whether a chapter's name runs two lines or
+  three; the duplicated "press and hold" instruction removed; About's closing
+  quote given desktop proportions instead of the mobile setting scaled up.
+- **Inline story films were eager.** `/ferry` fetched **5.5 MB** — two narrative
+  films and two full-size JPEG posters — before a word was read. They now load on
+  approach behind responsive AVIF posters, and never at all under reduced motion
+  or on a metered connection. Ferry went **5534 KB → 1106 KB, Lighthouse 88 → 99**.
+  Barbershop **3791 KB → 1473 KB, 92 → 99**.
 
 ---
 

@@ -78,7 +78,8 @@ Fold their findings into `docs/v4/DESIGN-STANDARDS.md` when they land.
 | P6 | live perf + a11y | PASS | chapter 100/100, home 98/100, people 100/100, about 100/100, map 69/100 |
 | P6 | reduced-motion parity | PASS | 0 films loaded, 0 hidden content, keyboard reveal works in both modes |
 | P6 | stakeholder test | "close, but no" → 3 blockers fixed | `docs/v4/gate-stakeholder.md`; W1/W3/W4/W7 FIXED outright, W2 FIXED, W5/W6/W8 PARTLY → worked |
-| P6 | final live | PASS | 11/11 routes 200; perf 100 on home/chapter/people/paintings/about, 71 map; a11y 100 everywhere |
+| P6 | final live | PASS | 11/11 routes 200; perf 99–100 on all nine content routes, 70 map; **a11y 100 on every route** |
+| P7 | full gate-list sweep | DONE | chapter spine, walk rail, leader-line markers, Mapbox chrome, opening rhythm, eager-film fix (ferry 5534→1106KB, 88→99) |
 
 ## HANDOFF
 

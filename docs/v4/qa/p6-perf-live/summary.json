@@ -4,7 +4,7 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.73,
+    "lcp_s": 1.74,
     "cls": 0,
     "tbt_ms": 0,
     "transfer_kb": 509
@@ -14,10 +14,10 @@
     "performance": 99,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.9,
+    "lcp_s": 1.91,
     "cls": 0.003,
     "tbt_ms": 0,
-    "transfer_kb": 1044
+    "transfer_kb": 1123
   },
   {
     "route": "/commissioners-office",
@@ -27,47 +27,47 @@
     "lcp_s": 2.14,
     "cls": 0.001,
     "tbt_ms": 0,
-    "transfer_kb": 1162
+    "transfer_kb": 1050
   },
   {
     "route": "/mansion",
     "performance": 99,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 2.13,
+    "lcp_s": 2.14,
     "cls": 0.002,
     "tbt_ms": 0,
     "transfer_kb": 1273
   },
   {
     "route": "/ferry",
-    "performance": 88,
+    "performance": 99,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 3.93,
+    "lcp_s": 2.14,
     "cls": 0.002,
     "tbt_ms": 0,
-    "transfer_kb": 5534
+    "transfer_kb": 1106
   },
   {
     "route": "/barbershop",
-    "performance": 92,
+    "performance": 99,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 3.4,
+    "lcp_s": 1.9,
     "cls": 0.003,
     "tbt_ms": 0,
-    "transfer_kb": 3791
+    "transfer_kb": 1473
   },
   {
     "route": "/map",
-    "performance": 69,
+    "performance": 70,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 4.48,
+    "lcp_s": 4.49,
     "cls": 0.002,
-    "tbt_ms": 473,
-    "transfer_kb": 2628
+    "tbt_ms": 437,
+    "transfer_kb": 2627
   },
   {
     "route": "/people",
@@ -84,8 +84,8 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.45,
-    "cls": 0.014,
+    "lcp_s": 1.46,
+    "cls": 0.02,
     "tbt_ms": 0,
     "transfer_kb": 549
   },
@@ -94,7 +94,7 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.69,
+    "lcp_s": 1.68,
     "cls": 0.003,
     "tbt_ms": 0,
     "transfer_kb": 164
