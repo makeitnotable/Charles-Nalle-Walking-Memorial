@@ -42,7 +42,7 @@ const MARKER = {
   active: {
     scale: 0.9,
     bg: "#F26835",
-    text: "#FED9CC",
+    text: "#1D1411", /* dark on orange — 5.0:1; the light ink measured 2.35:1 */
     border: "#F26835",
     line: "#F26835",
   },
@@ -120,7 +120,7 @@ function markerHtml(stop: Stop, active: boolean): string {
   const pill = `
     <div style="display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap">
       <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
-        <p style="color:#FED9CC;font-size:11px;margin:0;line-height:1">${stop.order}</p>
+        <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
       </div>
       <p style="font-size:${z.font}px;line-height:${z.lh}px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${stop.label}</p>
     </div>`;
