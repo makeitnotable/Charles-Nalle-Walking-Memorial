@@ -151,6 +151,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<{ marker: mapboxgl.Marker; stop: Stop }[]>([]);
 
+  useEffect(() => {
+    // The server-rendered placeholder is a first-paint device; left in the DOM
+    // it kept overlapping live markers after hydration.
+    document.getElementById("map-placeholder")?.remove();
+  }, []);
+
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lens, setLens] = useState(false);
@@ -679,7 +685,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           <button
             type="button"
             onClick={touring ? stopTour : tour}
-            className="btn-sm btn-solid"
+            className="btn btn-solid"
           >
             Take the walk
           </button>
@@ -687,7 +693,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             type="button"
             onClick={() => setLens((v) => !v)}
             aria-pressed={lens}
-            className="btn-sm btn-ghost"
+            className="link-meta t-meta rounded-full px-4 py-3"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
           >
             {lens ? "Back to today" : "See Troy in 1860"}

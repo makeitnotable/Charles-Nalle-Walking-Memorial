@@ -775,10 +775,23 @@ body {
   border-radius: 4px !important;
   color: var(--color-primary-11) !important;
   font-family: var(--font-poppins) !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 500 !important;
   letter-spacing: 0.08em !important;
   padding: 3px 8px !important;
+}
+
+/* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
+   and the geolocate button at 14px — two controls four pixels out of line with
+   each other and with everything else on the page. */
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl,
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+  margin: var(--ui-inset) !important;
+}
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl + .mapboxgl-ctrl {
+  margin-bottom: calc(var(--ui-inset) + 8px) !important;
 }
 /* Attribution stays — it is a licence condition — but it stops shouting. */
 .mapboxgl-ctrl-attrib {
@@ -789,7 +802,9 @@ body {
 .mapboxgl-ctrl-attrib a {
   color: var(--color-gray-11) !important;
   font-family: var(--font-poppins) !important;
-  font-size: 10px !important;
+  /* The one documented exception to the 12px floor: a third-party licence
+     notice that must be present and must not compete. 10px was illegible. */
+  font-size: 11px !important;
 }
 .mapboxgl-ctrl-logo {
   opacity: 0.55;

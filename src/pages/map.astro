@@ -40,7 +40,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
   {/* The shell is server-rendered at full height so island hydration causes
       zero layout shift; the island fills it. */}
   <div class="map-shell">
-    <div class="absolute inset-0 grid place-items-center" aria-hidden="true">
+    <div id="map-placeholder" class="absolute inset-0 grid place-items-center" aria-hidden="true">
       <p class="t-meta">The walk is loading…</p>
     </div>
     <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />

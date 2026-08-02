@@ -220,8 +220,8 @@ const notchClass =
         // Reading forward hides it and KEEPS it hidden — no idle restore, or it
         // reappears on top of the paragraph you stopped at. Any upward scroll,
         // or returning near the top, brings it straight back.
-        if (y > last + 4 && y > 240) set(true);
-        else if (y < last - 4 || y <= 240) set(false);
+        if (y > last + 24 && y > 240) set(true);
+        else if (y < last - 24 || y <= 240) set(false);
         last = y;
       },
       { passive: true },
