@@ -1,0 +1,162 @@
+networkidle reached
+
+SHOT walk-1440-01-post-loader.png | url=https://marseille.laphase5.com/en
+
+DOM[post-loader]: [
+ {
+  "cls": "Button-container",
+  "text": "Next / Next",
+  "x": 0,
+  "y": 665,
+  "w": 1440,
+  "h": 68
+ },
+ {
+  "cls": "Preload-Button",
+  "text": "Next / Next",
+  "x": 664,
+  "y": 675,
+  "w": 97,
+  "h": 52
+ },
+ {
+  "cls": "Scene-intro",
+  "text": "",
+  "x": 0,
+  "y": 0,
+  "w": 1440,
+  "h": 900
+ }
+]
+
+clicked .Preload-Button
+
+SHOT walk-1440-02-after-next.png | url=https://marseille.laphase5.com/en
+
+DOM[after-next]: [
+ {
+  "cls": "Button HeaderButton SoundButton",
+  "text": "",
+  "x": 1370,
+  "y": 0,
+  "w": 70,
+  "h": 70
+ },
+ {
+  "cls": "CloseButton HeaderButton Button Button-inactive",
+  "text": "",
+  "x": 1440,
+  "y": 0,
+  "w": 70,
+  "h": 70
+ },
+ {
+  "cls": "Scene-intro",
+  "text": "FULL OF / SURPRISE / Skip intro",
+  "x": 0,
+  "y": 0,
+  "w": 1440,
+  "h": 900
+ },
+ {
+  "cls": "intro-skip",
+  "text": "Skip intro",
+  "x": 0,
+  "y": 845,
+  "w": 1440,
+  "h": 43
+ },
+ {
+  "cls": "Button",
+  "text": "Skip intro",
+  "x": 673,
+  "y": 845,
+  "w": 94,
+  "h": 43
+ }
+]
+
+cands: [{"text":"","cls":"Button HeaderButton SoundButton","cx":1405,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button Button-inactive","cx":1475,"cy":35},{"text":"Skip intro","cls":"intro-skip","cx":720,"cy":866.5},{"text":"Skip intro","cls":"Button","cx":719.9921875,"cy":866.5}]
+
+advance 0: clicked "Skip intro" @ 720,867
+
+SHOT walk-1440-03-advance-0-Skip_intro.png | url=https://marseille.laphase5.com/en
+
+bodyText: 200 m | Center the map | All places | Click and drag the map | to discover all places | 3 | 10 | 2 | 3 | 7 | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port o
+
+map-ish DOM detected
+
+cands: [{"text":"","cls":"InfoButton HeaderButton Button","cx":1335,"cy":35},{"text":"","cls":"Button HeaderButton SoundButton","cx":1405,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button Button-inactive","cx":1475,"cy":35},{"text":"Center the map","cls":"footer-button footer-button_center footer-map-item Button","cx":720,"cy":866.5},{"text":"All places","cls":"footer-button footer-button_list footer-map-item Button","cx":789.1015625,"cy":866.5}]
+
+advance 1: clicked "InfoButton HeaderButton Button" @ 1335,35
+
+SHOT walk-1440-04-advance-1-InfoButton_Heade.png | url=https://marseille.laphase5.com/en/pages/about
+
+bodyText: 2020 - 21 | MARSEILLE | Often criticized, Marseille rarely makes the headlines for the right reasons. Little known or misknown, Marseille is complex and is tamed when you take the time. The second largest city in France has 240 km2 to express its variety and personality. | La Phase 5, a digital studio in Marseille, pays tribute to its city through this digital experience which allows, in these trouble
+
+cands: [{"text":"","cls":"Button HeaderButton SoundButton","cx":1335,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button","cx":1405,"cy":35}]
+
+advance 2: clicked "Button HeaderButton SoundButton" @ 1335,35
+
+SHOT walk-1440-05-advance-2-Button_HeaderBut.png | url=https://marseille.laphase5.com/en/pages/about
+
+bodyText: 2020 - 21 | MARSEILLE | Often criticized, Marseille rarely makes the headlines for the right reasons. Little known or misknown, Marseille is complex and is tamed when you take the time. The second largest city in France has 240 km2 to express its variety and personality. | La Phase 5, a digital studio in Marseille, pays tribute to its city through this digital experience which allows, in these trouble
+
+cands: [{"text":"","cls":"Button HeaderButton SoundButton SoundButton-mute","cx":1335,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button","cx":1405,"cy":35}]
+
+advance 3: clicked "Button HeaderButton SoundButton SoundButton-mute" @ 1335,35
+
+SHOT walk-1440-06-advance-3-Button_HeaderBut.png | url=https://marseille.laphase5.com/en/pages/about
+
+bodyText: 2020 - 21 | MARSEILLE | Often criticized, Marseille rarely makes the headlines for the right reasons. Little known or misknown, Marseille is complex and is tamed when you take the time. The second largest city in France has 240 km2 to express its variety and personality. | La Phase 5, a digital studio in Marseille, pays tribute to its city through this digital experience which allows, in these trouble
+
+cands: [{"text":"","cls":"Button HeaderButton SoundButton","cx":1335,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button","cx":1405,"cy":35}]
+
+advance 4: clicked "Button HeaderButton SoundButton" @ 1335,35
+
+SHOT walk-1440-07-advance-4-Button_HeaderBut.png | url=https://marseille.laphase5.com/en/pages/about
+
+bodyText: 2020 - 21 | MARSEILLE | Often criticized, Marseille rarely makes the headlines for the right reasons. Little known or misknown, Marseille is complex and is tamed when you take the time. The second largest city in France has 240 km2 to express its variety and personality. | La Phase 5, a digital studio in Marseille, pays tribute to its city through this digital experience which allows, in these trouble
+
+cands: [{"text":"","cls":"Button HeaderButton SoundButton SoundButton-mute","cx":1335,"cy":35},{"text":"","cls":"CloseButton HeaderButton Button","cx":1405,"cy":35}]
+
+advance 5: clicked "Button HeaderButton SoundButton SoundButton-mute" @ 1335,35
+
+SHOT walk-1440-08-advance-5-Button_HeaderBut.png | url=https://marseille.laphase5.com/en/pages/about
+
+bodyText: 2020 - 21 | MARSEILLE | Often criticized, Marseille rarely makes the headlines for the right reasons. Little known or misknown, Marseille is complex and is tamed when you take the time. The second largest city in France has 240 km2 to express its variety and personality. | La Phase 5, a digital studio in Marseille, pays tribute to its city through this digital experience which allows, in these trouble
+
+DOM[end-of-advance]: [
+ {
+  "cls": "Button HeaderButton SoundButton",
+  "text": "",
+  "x": 1300,
+  "y": 0,
+  "w": 70,
+  "h": 70
+ },
+ {
+  "cls": "CloseButton HeaderButton Button",
+  "text": "",
+  "x": 1370,
+  "y": 0,
+  "w": 70,
+  "h": 70
+ },
+ {
+  "cls": "Scene-intro",
+  "text": "",
+  "x": 0,
+  "y": 0,
+  "w": 1440,
+  "h": 900
+ },
+ {
+  "cls": "Page-button",
+  "text": "Discover La Phase 5 / Discover La Phase 5",
+  "x": 498,
+  "y": 1240,
+  "w": 234,
+  "h": 52
+ }
+]

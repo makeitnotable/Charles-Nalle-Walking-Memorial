@@ -1,0 +1,184 @@
+shot: probe-home-trail--1440
+shot: probe-home-afterwheel--1440
+shot: probe-home-cardhover--1440
+DETAIL: {
+  "docHeight": 18292,
+  "audios": [
+    {
+      "src": ""
+    },
+    {
+      "src": ""
+    },
+    {
+      "src": ""
+    }
+  ],
+  "audioBtns": [
+    {
+      "text": "",
+      "cls": "toggle-menu flex md:hidden"
+    },
+    {
+      "text": "",
+      "cls": "toggle-menu hidden md:flex"
+    },
+    {
+      "text": "Reproducir audio: Adultos/as       Adultos/as   3:59 min\n   Patricia L",
+      "cls": "flex justify-between items-center gap-x-4 w-full py-8 lg:py-10 px-4 lg:px-8"
+    },
+    {
+      "text": "Reproducir audio: Adultos/as         \n0:00\n | 3:59   Patricia Lannes, ",
+      "cls": "w-full flex items-center py-8 lg:py-10 px-4 lg:px-8 gap-x-4 cursor-pointer"
+    },
+    {
+      "text": "Reproducir audio: Adultos/as       Adultos/as   5:48 min\n   Mónica Mic",
+      "cls": "flex justify-between items-center gap-x-4 w-full py-8 lg:py-10 px-4 lg:px-8"
+    },
+    {
+      "text": "Reproducir audio: Adultos/as         \n0:00\n | 5:48   Mónica Michelena,",
+      "cls": "w-full flex items-center py-8 lg:py-10 px-4 lg:px-8 gap-x-4 cursor-pointer"
+    },
+    {
+      "text": "Reproducir audio: Niños/as       Niños/as   1:15 min\n   Mariana Valdés",
+      "cls": "flex justify-between items-center gap-x-4 w-full py-8 lg:py-10 px-4 lg:px-8"
+    },
+    {
+      "text": "Reproducir audio: Niños/as         \n0:00\n | 1:15   Mariana Valdés, Voz",
+      "cls": "w-full flex items-center py-8 lg:py-10 px-4 lg:px-8 gap-x-4 cursor-pointer"
+    },
+    {
+      "text": "",
+      "cls": "h-10 w-10 rounded-full bg-[--background] flex justify-center items-center scale-0 origin-c"
+    },
+    {
+      "text": "Reproducir video: 1",
+      "cls": "relative"
+    },
+    {
+      "text": "Reproducir video: 2",
+      "cls": "relative"
+    },
+    {
+      "text": "Cerrar",
+      "cls": "w-12 h-12 rounded-full bg-white text-black flex items-center justify-center"
+    },
+    {
+      "text": "Compartir",
+      "cls": "border-0 p-0 font-serif text-4xl text-current bg-transparent as-link active:scale-95 trans"
+    },
+    {
+      "text": "",
+      "cls": "group hover:bg-[--background] rounded-full w-[31px] h-[31px] transition-colors border-[1px"
+    },
+    {
+      "text": "Detener reproducción del audio",
+      "cls": "group hover:bg-[--background] rounded-full w-[31px] h-[31px] transition-colors border-[1px"
+    },
+    {
+      "text": "Adultos/as \n0:00",
+      "cls": "rounded-full border py-1 px-3 text-[10px] md:text-sm uppercase font-medium flex gap-2 hove"
+    },
+    {
+      "text": "Adultos/as \n0:00",
+      "cls": "rounded-full border py-1 px-3 text-[10px] md:text-sm uppercase font-medium flex gap-2 hove"
+    },
+    {
+      "text": "Niños/as \n0:00",
+      "cls": "rounded-full border py-1 px-3 text-[10px] md:text-sm uppercase font-medium flex gap-2 hove"
+    },
+    {
+      "text": "",
+      "cls": "hover:scale-90 transition-transform duration-500"
+    },
+    {
+      "text": "",
+      "cls": "scale-75 hover:scale-90 transition-transform duration-500"
+    }
+  ],
+  "sections": [
+    {
+      "cls": "fixed top-0 left-0 h-dvh w-full z-[9999]",
+      "h": 900,
+      "firstText": ""
+    },
+    {
+      "cls": "",
+      "h": 1683,
+      "firstText": "(Juan Manuel Blanes)   Resurgimiento de la Patria"
+    },
+    {
+      "cls": "px-4 mb-36 md:mb-60",
+      "h": 275,
+      "firstText": "0123456789    0123456789    0123456789    0123456789      (Fecha de la obra)"
+    },
+    {
+      "cls": "px-4 mb-28 md:mb-96",
+      "h": 288,
+      "firstText": "(0)Introducción    El título \"Resurgimiento de la Patria\" habla de un nuevo comienzo. La o"
+    },
+    {
+      "cls": "pb-20 md:pb-32",
+      "h": 580,
+      "firstText": "Reproducir audio: Adultos/as       Adultos/as   3:59 min\n   Patricia Lannes, Voz Educadora"
+    },
+    {
+      "cls": "h-screen flex items-center justify-center flex-col gap-y-8 px-4",
+      "h": 900,
+      "firstText": "En la siguiente sección mantené el cursor apretado para revelar la obra completa. En la si"
+    },
+    {
+      "cls": "bg-[--foreground] text-[--background] relative h-screen w-full overflow-hidden user-select-none",
+      "h": 900,
+      "firstText": "[1]Mujer blanca      En primer plano, casi en el centro de la pintura, observamos a una mu"
+    },
+    {
+      "cls": "px-4 py-32 md:py-40",
+      "h": 1381,
+      "firstText": "Contexto Histórico       (5)     En el siglo XIX el arte se convirtió en una herramienta c"
+    },
+    {
+      "cls": "px-4 mb-36 md:mb-80",
+      "h": 485,
+      "firstText": "(6)Videos relacionados      Reproducir video: 1           Reproducir video: 2"
+    },
+    {
+      "cls": "px-4 mb-28 md:mb-72",
+      "h": 1280,
+      "firstText": "Juan Manuel Blanes            (7)Autor     (Montevideo, 1830 - Pisa, 1901) Conocido como \""
+    },
+    {
+      "cls": "px-4 mb-[124px] md:mb-24",
+      "h": 956,
+      "firstText": "Nuestra iniciativa       (8)     Esta web busca abrir el museo a nuevas voces y miradas. P"
+    },
+    {
+      "cls": "px-4 mt-6 md:mt-8 mb-40 md:mb-72",
+      "h": 470,
+      "firstText": "Referencias\n[1]\nCOITIÑO, José. (2014).La representación del indígena en la obra de Juan Ma"
+    },
+    {
+      "cls": "pb-36 px-4 text-center overflow-hidden",
+      "h": 999,
+      "firstText": "Compartir"
+    }
+  ],
+  "sticky": [],
+  "bg": "rgba(0, 0, 0, 0)",
+  "color": "rgb(255, 255, 255)",
+  "title": "Resurgimiento de la Patria / Museos para el Siglo XXI"
+}
+shot: probe-detail-scroll0--1440
+shot: probe-detail-scroll1--1440
+shot: probe-detail-scroll2--1440
+shot: probe-detail-scroll3--1440
+shot: probe-detail-scroll4--1440
+shot: probe-detail-scroll5--1440
+shot: probe-detail-scroll6--1440
+shot: probe-detail-presshold--1440
+mobile detail height: 14834
+shot: probe-detail-scroll0--390
+shot: probe-detail-scroll1--390
+shot: probe-detail-scroll2--390
+shot: probe-detail-scroll3--390
+shot: probe-detail-scroll4--390
