@@ -2,9 +2,10 @@
 // land on / -> understand -> reach a chapter -> play audio -> reach the map -> focus stop 2
 import { chromium } from "playwright";
 import { mkdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 const BASE = "http://localhost:4321";
-const OUT = new URL("../docs/qa/phase23-ux/", import.meta.url).pathname;
+const OUT = fileURLToPath(new URL("../docs/qa/phase23-ux/", import.meta.url));
 mkdirSync(OUT, { recursive: true });
 
 const log = (...a) => console.log("[A]", ...a);

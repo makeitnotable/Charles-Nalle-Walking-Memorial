@@ -295,7 +295,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             duration: 5000,
             curve: 1.4,
             essential: true,
-          } as mapboxgl.EaseToOptions);
+          } as Parameters<mapboxgl.Map["easeTo"]>[0]);
       } else if (!reduced) {
         // Overview prologue (H4/M3): the intro film IS the live map settling
         // into the tilted overview. Any touch skips it.

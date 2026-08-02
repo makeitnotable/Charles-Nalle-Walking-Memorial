@@ -79,7 +79,7 @@ export default function EmbedMap({ coordinates, label, order, pitch, bearing, zo
           curve: 1.4,
           duration: 5000,
           essential: true,
-        } as mapboxgl.EaseToOptions);
+        } as Parameters<mapboxgl.Map["easeTo"]>[0]);
       });
     }
 
