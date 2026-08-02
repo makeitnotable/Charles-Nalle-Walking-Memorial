@@ -6,15 +6,22 @@
   "plaque": true,
   "map": {
     "label": "Gilbert Mansion",
-    "coordinates": [-73.6932, 42.7295],
+    "coordinates": [
+      -73.6933753,
+      42.7243182
+    ],
     "address": "189 Second Street"
   },
   "palette": {
-    "surface": "#151a14",
-    "ink": "#eef0e4",
-    "accent": "#7d9153"
+    "surface": "#1a1410",
+    "ink": "#f3ead8",
+    "accent": "#c9973a"
   },
-  "emotions": ["Hopeful", "Peace", "Excitement"],
+  "emotions": [
+    "Hopeful",
+    "Peace",
+    "Excitement"
+  ],
   "portal": {
     "hook": "People will ignore your efforts to steal your opportunities.",
     "history": [
@@ -25,19 +32,19 @@
     ]
   },
   "media": {
-    "images": {
-      "horizontal": "uri-gilbert-mansion/horizontal.png",
-      "vertical": "uri-gilbert-mansion/vertical.png",
-      "square": "uri-gilbert-mansion/square.png",
-      "historical": "uri-gilbert-mansion/historical.png",
-      "historicalHorizontal": "uri-gilbert-mansion/historical.png",
-      "moral": "uri-gilbert-mansion/moral.png"
-    },
-    "video": {
-      "animatedHorizontal": "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion-1_animation_horizontal.mp4",
-      "animatedVertical": "CNWM - Animated Images/3. Mansion/3. Uri Gilberts Mansion_animation_vertical.mp4",
-      "animatedHistorical": "CNWM - Animated Images/3. Mansion/3. Uri Gilbert Mansion_animation_historical.mp4"
-    }
+    "images": [
+      "historical",
+      "horizontal",
+      "moral",
+      "sketch",
+      "square",
+      "vertical"
+    ],
+    "videos": [
+      "historical",
+      "reveal-horizontal",
+      "reveal-vertical"
+    ]
   },
   "scenes": [
     {
@@ -46,7 +53,29 @@
         "label": "Chapter 3",
         "subtitle": "Uri Gilbert Mansion",
         "file": "audio/ch3-mansion.mp3",
-        "timings": null
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 29.3
+          },
+          {
+            "start": 29.3,
+            "end": 46.9
+          },
+          {
+            "start": 46.9,
+            "end": 87.5
+          },
+          {
+            "start": 87.5,
+            "end": 125
+          },
+          {
+            "start": 125,
+            "end": 149.2
+          }
+        ],
+        "duration": 149
       },
       "quote": {
         "text": "Are you a Negro?",
@@ -59,7 +88,13 @@
         "Shortly upon his arrival, Charles's steady but guarded gaze met the focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy's wealthiest men. **\"Are you a Negro?\" Charles was so taken aback by it, he didn't know how or on what level to respond. It was, after all, the central and defining characteristic of his life, even if it was not always obvious in his appearance. Finally, he pulled himself together and managed to reply, \"Well, sir, I suppose so.\" Gilbert nodded and smiled.** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95).",
         "It was there, surrounded by the opulence of Uri Gilbert's grand brownstone mansion on 189 Second Street in Troy, NY, that Charles was offered work as a coachman. Day by day, Charles began to fall into the life of Troy, building an unassuming reputation known secretly by those who mattered. With time, his hands and the unspoken history written in their lines mastered the navigation of Gilbert's carriages across cobbled streets, and his presence became familiar enough to seem invisible. But even in the most peaceful of places, the shadows of the past can cast themselves.",
         "Charles's freedom was a thin veil, with captivity patiently watching from the other side. Unbeknownst to him, the fields of Culpeper County, Virginia, were closer to Charles than he could imagine. Just a few blocks away, on a morning in April 1860, outside a bakery where he was sent to fetch bread, captivity stepped out from the shadows to reveal its face."
-      ]
+      ],
+      "reveal": {
+        "sketch": "sketch",
+        "video": "reveal-horizontal",
+        "videoVertical": "reveal-vertical",
+        "painting": "horizontal"
+      }
     }
   ],
   "historicalContext": [
@@ -77,5 +112,8 @@
       }
     }
   ],
-  "next": { "slug": "ferry", "label": "Chapter 4 — Washington Street Ferry Landing" }
+  "next": {
+    "slug": "ferry",
+    "label": "Chapter 4 — Washington Street Ferry Landing"
+  }
 }

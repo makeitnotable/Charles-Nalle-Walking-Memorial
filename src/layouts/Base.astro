@@ -39,7 +39,12 @@ const canonical = new URL(
     <meta property="og:image" content={new URL(withBase("og.png"), Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body class="min-h-dvh">
+  <body class="paper min-h-dvh">
+    <script is:inline>
+      // Progressive enhancement flag: scroll-reveal initial states apply
+      // only when JS runs (no-JS users see everything, statically).
+      document.documentElement.classList.add("js");
+    </script>
     <a href="#main" class="skip-link">Skip to content</a>
     <main id="main">
       <slot />

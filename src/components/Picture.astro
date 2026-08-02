@@ -1,0 +1,35 @@
+---
+import { picture } from "../lib/media";
+
+interface Props {
+  slug: string;
+  imageKey: string;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  slug,
+  imageKey,
+  alt,
+  sizes = "(min-width: 768px) 42rem, 100vw",
+  class: className,
+  loading = "lazy",
+} = Astro.props;
+const p = picture(slug, imageKey);
+---
+
+<picture>
+  <source type="image/avif" srcset={p.avif} sizes={sizes} />
+  <source type="image/webp" srcset={p.webp} sizes={sizes} />
+  <img
+    src={p.fallback}
+    alt={alt}
+    sizes={sizes}
+    loading={loading}
+    decoding="async"
+    class={className}
+  />
+</picture>

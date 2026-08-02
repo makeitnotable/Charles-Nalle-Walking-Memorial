@@ -6,15 +6,23 @@
   "plaque": true,
   "map": {
     "label": "Bakery",
-    "coordinates": [-73.6916, 42.7261],
+    "coordinates": [
+      -73.691526,
+      42.726108
+    ],
     "address": "3rd & Division Streets (vacant lot today)"
   },
   "palette": {
-    "surface": "#1a120d",
-    "ink": "#f3e6d8",
+    "surface": "#191009",
+    "ink": "#f2e7d5",
     "accent": "#c2542b"
   },
-  "emotions": ["Unjust", "Agitation", "Suspense", "Fear"],
+  "emotions": [
+    "Unjust",
+    "Agitation",
+    "Suspense",
+    "Fear"
+  ],
   "portal": {
     "hook": null,
     "history": [
@@ -25,19 +33,19 @@
     ]
   },
   "media": {
-    "images": {
-      "horizontal": "holeurs-fashionable-bakery/horizontal.png",
-      "vertical": "holeurs-fashionable-bakery/vertical.png",
-      "square": "holeurs-fashionable-bakery/square.png",
-      "historical": "holeurs-fashionable-bakery/historical.png",
-      "historicalHorizontal": "holeurs-fashionable-bakery/historical-horizontal.png",
-      "moral": "holeurs-fashionable-bakery/moral1.png"
-    },
-    "video": {
-      "animatedHorizontal": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery-1_animation_horizontal.mp4",
-      "animatedVertical": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_vertical.mp4",
-      "animatedHistorical": "CNWM - Animated Images/1. Bakery/1. Holeurs Fashionable Bakery_animation_historical.mp4"
-    }
+    "images": [
+      "historical",
+      "horizontal",
+      "moral",
+      "sketch",
+      "square",
+      "vertical"
+    ],
+    "videos": [
+      "historical",
+      "reveal-horizontal",
+      "reveal-vertical"
+    ]
   },
   "scenes": [
     {
@@ -46,7 +54,21 @@
         "label": "Chapter 1",
         "subtitle": "Holeur's Fashionable Bakery",
         "file": "audio/ch1-bakery.mp3",
-        "timings": null
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 37.6
+          },
+          {
+            "start": 37.6,
+            "end": 41.1
+          },
+          {
+            "start": 41.1,
+            "end": 84.5
+          }
+        ],
+        "duration": 85
       },
       "quote": {
         "text": "Charles Nalle, I hereby arrest you in the name of the United States of America!",
@@ -56,7 +78,13 @@
         "As the sun rose on the morning of April 27, 1860, and light spilled across the cobblestone streets of Troy, New York, Charles Nalle, a humble coachman in his thirties, was walking to George Holeur's Fashionable Bakery to pick up bread for his employers, the Gilberts. Charles wasn't a man of grandeur or heroic postures—just a man who carried the scars of his past silently, a past he'd escaped years before in Virginia. He had built a life here in Troy, far from the lash of Blucher Hansbrough, the man who once owned him.",
         "But freedom, as Charles would be reminded, is fragile.",
         "The aroma of fresh-baked bread filled the air as Charles neared the bakery's entrance. Suddenly, seemingly out of nowhere, the hands of slave catcher Henry J. Wale, who hunted freedom like a sport, seized and shackled him. Standing smugly beside him, United States Deputy Marshal Holmes shouted, \"Charles Nalle, I hereby arrest you in the name of the United States of America!\" Back home in Virginia, Charles's half-brother, Blucher Hansbrough—who had hired the slave catchers under the Fugitive Slave Act of 1850—would have smiled with cruel satisfaction at the news of Charles's capture, relishing the thought of him being dragged back into slavery through streets he had walked as a free man."
-      ]
+      ],
+      "reveal": {
+        "sketch": "sketch",
+        "video": "reveal-horizontal",
+        "videoVertical": "reveal-vertical",
+        "painting": "horizontal"
+      }
     }
   ],
   "historicalContext": [
@@ -74,5 +102,8 @@
       }
     }
   ],
-  "next": { "slug": "commissioners-office", "label": "Chapter 2 — Office of the Commissioner" }
+  "next": {
+    "slug": "commissioners-office",
+    "label": "Chapter 2 — Office of the Commissioner"
+  }
 }

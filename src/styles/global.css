@@ -1,48 +1,143 @@
 @import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/newsreader";
 
 /*
- * M0 foundation tokens. The real design system (broadside display face,
- * text serif, paper/ink textures, per-chapter palettes) lands in M1.
- * Chapter pages override the three --chapter-* vars inline from content.
+ * CNWM design system (Phase 1).
+ *
+ * Type: Fraunces (display — soft/wonk axes give it the hand-set 1860s
+ * broadside character) + Newsreader (text — designed for on-screen long-form
+ * reading, real italics). Both variable, self-hosted, OFL-licensed; if Wil
+ * licenses a commercial display face later, only --font-display changes.
+ *
+ * Color: each chapter carries its own surface/ink/accent palette (from the
+ * design sprint's "emotions to feel"), set inline on <html> by Base.astro.
+ * The map + index run the "map" palette; chapter pages invert per chapter.
  */
+
 :root {
-  --chapter-surface: #121212;
-  --chapter-ink: #f0ead9;
+  --chapter-surface: #14100c;
+  --chapter-ink: #f0e7d8;
   --chapter-accent: #c2542b;
+
+  /* Motion tokens — motion is feedback, not decoration */
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drift: cubic-bezier(0.45, 0, 0.15, 1);
+  --dur-fast: 220ms;
+  --dur-slow: 700ms;
+  --dur-reveal: 1200ms;
 }
 
 @theme {
-  --font-display: "Iowan Old Style", "Palatino", "Georgia", serif;
-  --font-body: "Charter", "Iowan Old Style", "Georgia", serif;
+  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+  --font-body: "Newsreader Variable", Charter, Georgia, serif;
+  --color-parchment: #f0e7d8;
+  --color-inkwell: #14100c;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 body {
   font-family: var(--font-body);
+  font-size: 1.0625rem;
   background: var(--chapter-surface);
   color: var(--chapter-ink);
   -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
 }
 
+/* ——— Display type: broadside voice ——— */
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+  letter-spacing: 0.005em;
+}
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.label-caps {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* Long-form reading measure */
+.prose-narrative {
+  max-width: 38rem;
+  line-height: 1.72;
+}
+.prose-narrative p + p {
+  margin-top: 1.35em;
+}
+
+/* Drop cap on the opening paragraph of each scene */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-variation-settings: "SOFT" 80, "WONK" 1;
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.82;
+  padding-right: 0.09em;
+  color: var(--chapter-accent);
+}
+
+/* ——— Paper grain: two layered SVG turbulence tints, GPU-cheap ——— */
+.paper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* Ink rule — the underline stroke used across section breaks */
+.ink-rule {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--chapter-accent),
+    color-mix(in oklab, var(--chapter-accent) 45%, transparent) 70%,
+    transparent
+  );
+}
+
+/* ——— Scroll-reveal primitives (GSAP adds motion; CSS is the no-JS state) ——— */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-slow) var(--ease-settle),
+      transform var(--dur-slow) var(--ease-settle);
+  }
+}
+
+/* Narration sync highlight */
+.narration-active {
+  background: color-mix(in oklab, var(--chapter-accent) 18%, transparent);
+  border-radius: 2px;
+  transition: background var(--dur-fast) var(--ease-drift);
 }
 
 /* Visible focus everywhere; never remove, only restyle */
@@ -63,4 +158,17 @@ body {
 .skip-link:focus {
   left: 0.5rem;
   top: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

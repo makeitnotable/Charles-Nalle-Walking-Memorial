@@ -6,15 +6,23 @@
   "plaque": true,
   "map": {
     "label": "Barbershop",
-    "coordinates": [-73.691, 42.728],
+    "coordinates": [
+      -73.692893,
+      42.730818
+    ],
     "address": "First Street (Athenaeum building)"
   },
   "palette": {
-    "surface": "#17120c",
-    "ink": "#f5ead9",
-    "accent": "#d29a3a"
+    "surface": "#141710",
+    "ink": "#f0ead9",
+    "accent": "#7d9161"
   },
-  "emotions": ["Community", "Togetherness", "Hope", "Motivated"],
+  "emotions": [
+    "Community",
+    "Togetherness",
+    "Hope",
+    "Motivated"
+  ],
   "portal": {
     "hook": null,
     "history": [
@@ -25,21 +33,23 @@
     ]
   },
   "media": {
-    "images": {
-      "horizontal": "peter-baltimores-barbershop/horizontal.png",
-      "vertical": "peter-baltimores-barbershop/vertical.png",
-      "square": "peter-baltimores-barbershop/square.png",
-      "historical": "peter-baltimores-barbershop/historical.png",
-      "historicalHorizontal": "peter-baltimores-barbershop/historical.png",
-      "moral": "peter-baltimores-barbershop/moral.png"
-    },
-    "video": {
-      "narrative1": "CNWM - Animated Images/5. Barbershop/5.1 Peter Baltimores Barbershop_animation_narrative_1.mp4",
-      "narrative2": "CNWM - Animated Images/5. Barbershop/5.2 Peter Baltimores Barbershop_animation_narrative_2.mp4",
-      "animatedHorizontal": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop-1_animation_horizontal.mp4",
-      "animatedVertical": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_vertical.mp4",
-      "animatedHistorical": "CNWM - Animated Images/5. Barbershop/5. Peter Baltimores Barbershop_animation_historical.mp4"
-    }
+    "images": [
+      "historical",
+      "horizontal",
+      "moral",
+      "narrative1",
+      "narrative2",
+      "sketch",
+      "square",
+      "vertical"
+    ],
+    "videos": [
+      "historical",
+      "narrative1",
+      "narrative2",
+      "reveal-horizontal",
+      "reveal-vertical"
+    ]
   },
   "scenes": [
     {
@@ -48,7 +58,25 @@
         "label": "Chapter 5",
         "subtitle": "Peter Baltimore's Barbershop",
         "file": "audio/ch5-barbershop.mp3",
-        "timings": null
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 25.3
+          },
+          {
+            "start": 25.3,
+            "end": 63.7
+          },
+          {
+            "start": 63.7,
+            "end": 104.7
+          },
+          {
+            "start": 104.7,
+            "end": 120.6
+          }
+        ],
+        "duration": 121
       },
       "quote": {
         "text": "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
@@ -62,7 +90,13 @@
         "@media:narrative2",
         "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
         "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom."
-      ]
+      ],
+      "reveal": {
+        "sketch": "sketch",
+        "video": "reveal-horizontal",
+        "videoVertical": "reveal-vertical",
+        "painting": "horizontal"
+      }
     }
   ],
   "historicalContext": [
@@ -80,5 +114,8 @@
       }
     }
   ],
-  "next": { "slug": "bakery", "label": "Chapter 1 — Where the story began" }
+  "next": {
+    "slug": "bakery",
+    "label": "Chapter 1 — Where the story began"
+  }
 }

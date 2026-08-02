@@ -1,0 +1,54 @@
+---
+/**
+ * A painting/animation figure inside the narrative flow. Plays the animated
+ * version muted when it scrolls into view (reduced-motion users get the
+ * poster frame — motion is additive, never required).
+ */
+import { video } from "../lib/media";
+
+interface Props {
+  slug: string;
+  mediaKey: string;
+  alt: string;
+  caption?: string;
+}
+
+const { slug, mediaKey, alt, caption } = Astro.props;
+const v = video(slug, mediaKey);
+---
+
+<figure class="my-10 reveal">
+  <video
+    class="inline-media w-full rounded-sm border border-white/10"
+    src={v.src}
+    poster={v.poster}
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-label={alt}
+  ></video>
+  {
+    caption && (
+      <figcaption class="label-caps mt-3 text-center">{caption}</figcaption>
+    )
+  }
+</figure>
+
+<script>
+  // Play in-view, pause off-view; never autoplay for reduced-motion users.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduced) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    document.querySelectorAll<HTMLVideoElement>("video.inline-media").forEach((v) => io.observe(v));
+  }
+</script>

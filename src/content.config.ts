@@ -14,8 +14,13 @@ const scene = z.object({
     label: z.string(),
     subtitle: z.string(),
     file: z.string(),
-    /** Timestamped transcript JSON for synced highlighting; delivered before M2 */
-    timings: z.string().nullable(),
+    /**
+     * Per-paragraph narration spans for follow-along highlighting.
+     * Word-proportional estimates from scripts/audio-timings.mjs; replace
+     * with exact stamps (same shape) when re-recorded audio lands.
+     */
+    timings: z.array(z.object({ start: z.number(), end: z.number() })).nullable(),
+    duration: z.number().optional(),
   }),
   quote: z.object({
     text: z.string(),
@@ -23,6 +28,15 @@ const scene = z.object({
     source: z.string().optional(),
   }),
   paragraphs: z.array(z.string()),
+  /** Press-and-hold hero: media keys into public/media/<slug>/ */
+  reveal: z
+    .object({
+      sketch: z.string(),
+      video: z.string(),
+      videoVertical: z.string(),
+      painting: z.string(),
+    })
+    .nullable(),
 });
 
 const chapters = defineCollection({
@@ -35,12 +49,12 @@ const chapters = defineCollection({
     plaque: z.boolean(),
     map: z.object({
       label: z.string(),
-      // Legacy coords — replace with Brian's 5/13/26 plaque pins in M3
+      // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)
       coordinates: z.tuple([z.number(), z.number()]),
       address: z.string(),
     }),
     palette: z.object({
-      // Placeholder per-chapter palettes; design pass lands in M1
+      // Per-chapter palettes derived from the design sprint's emotions
       surface: z.string(),
       ink: z.string(),
       accent: z.string(),
@@ -50,9 +64,10 @@ const chapters = defineCollection({
       hook: z.string().nullable(),
       history: z.array(z.string()),
     }),
+    /** Available optimized asset keys under public/media/<slug>/ */
     media: z.object({
-      images: z.record(z.string(), z.string()),
-      video: z.record(z.string(), z.string()),
+      images: z.array(z.string()),
+      videos: z.array(z.string()),
     }),
     scenes: z.array(scene),
     historicalContext: z.array(z.string()),

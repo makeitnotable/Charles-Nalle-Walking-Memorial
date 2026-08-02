@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import InlineMedia from "../components/InlineMedia.astro";
+import PressReveal from "../components/PressReveal";
+import Narration from "../components/Narration";
 import { withBase } from "../lib/url";
 
 export async function getStaticPaths() {
@@ -13,15 +17,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const c = entry.data;
+const slug = entry.id;
 const sectionCount = 4;
 
-/**
- * M0 renders paragraph emphasis plainly; the M2 renderer gives **bold**
- * passages and trailing (citations) their designed treatment.
- */
-function plain(p: string): string {
-  return p.replaceAll("**", "");
-}
+const all = await getCollection("chapters");
+const nextEntry = all.find((e) => e.id === c.next.slug);
+
+// The long-form portal paragraph reads as the chapter lede; short facts
+// join the historical-context band.
+const history = [...c.portal.history];
+const lede = history.length > 3 ? history.pop() : null;
 ---
 
 <Base
@@ -29,125 +34,222 @@ function plain(p: string): string {
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.cardTitle}, Troy, NY, April 27, 1860.`}
   palette={c.palette}
 >
-  <article class="mx-auto max-w-2xl px-6 pb-16">
-    {/* ——— Portal / hero (press-and-hold painting reveal lands in M2) ——— */}
-    <header class="pt-16 pb-10">
-      <p class="text-sm uppercase tracking-[0.2em] opacity-70">
-        {c.chapterLabel} · {c.map.address}
+  {/* ——— Hero: the press-and-hold painting ——— */}
+  <header class="relative">
+    <div class="mx-auto max-w-5xl px-4 pt-6 sm:px-6">
+      {
+        c.scenes[0].reveal && (
+          <PressReveal
+            client:load
+            slug={slug}
+            sketch={c.scenes[0].reveal.sketch}
+            video={c.scenes[0].reveal.video}
+            videoVertical={c.scenes[0].reveal.videoVertical}
+            painting={c.scenes[0].reveal.painting}
+            alt={`“${c.cardTitle}” — painting by Mark Priest`}
+          />
+        )
+      }
+    </div>
+    <div class="mx-auto max-w-2xl px-6 pt-12 pb-4 text-center">
+      <p class="label-caps reveal">
+        {c.chapterLabel} · Troy, New York · April 27, 1860
       </p>
-      <h1 class="font-display mt-4 text-4xl leading-tight whitespace-pre-line sm:text-5xl">
+      <h1
+        class="display-hero reveal mt-5 text-5xl whitespace-pre-line sm:text-6xl md:text-7xl"
+      >
         {c.title}
       </h1>
-    </header>
-
-    {/* ——— Section 1: the story ——— */}
-    <section aria-labelledby="story-heading">
-      <p class="text-xs uppercase tracking-widest opacity-60">
-        Section 1/{sectionCount}
+      <p class="label-caps reveal mt-6" style="color: var(--chapter-accent)">
+        {c.map.address}
       </p>
+      {
+        lede && (
+          <p class="reveal mx-auto mt-10 max-w-xl text-left text-lg leading-relaxed opacity-90">
+            {lede}
+          </p>
+        )
+      }
+    </div>
+    <div class="mx-auto mt-6 max-w-2xl px-6">
+      <div class="ink-rule"></div>
+    </div>
+  </header>
+
+  <article class="mx-auto max-w-2xl px-6 pb-20">
+    {/* ——— Section 1: the story, narrated ——— */}
+    <section aria-labelledby="story-heading" class="pt-12">
+      <p class="label-caps reveal">Section 1 / {sectionCount}</p>
       <h2 id="story-heading" class="sr-only">The story</h2>
 
       {
-        c.scenes.map((scene) => (
-          <div class="mt-6">
+        c.scenes.map((scene, i) => (
+          <div class="mt-8">
             {c.scenes.length > 1 && (
-              <h3 class="font-display text-2xl">{scene.label}</h3>
+              <h3 class="font-display reveal text-3xl">{scene.label}</h3>
             )}
 
-            <figure class="my-6 border-l-4 pl-4" style="border-color: var(--chapter-accent)">
-              <blockquote class="font-display text-xl italic">
+            {i > 0 && scene.reveal && (
+              <InlineMedia
+                slug={slug}
+                mediaKey={scene.reveal.video}
+                alt={`“${c.cardTitle}, ${scene.label}” — animated painting by Mark Priest`}
+              />
+            )}
+
+            <figure
+              class="reveal my-8 border-l-4 pl-5"
+              style="border-color: var(--chapter-accent)"
+            >
+              <blockquote class="font-display text-2xl italic" style="font-variation-settings: 'SOFT' 80, 'WONK' 1">
                 “{scene.quote.text}”
               </blockquote>
-              <figcaption class="mt-2 text-sm opacity-70">
+              <figcaption class="mt-3 text-sm opacity-70">
                 — {scene.quote.attribution}
                 {scene.quote.source && <span>, {scene.quote.source}</span>}
               </figcaption>
             </figure>
 
-            <div class="my-6 rounded border border-white/15 p-4">
-              <p class="text-xs uppercase tracking-widest opacity-60">
-                Listen · {scene.audio.label}
-              </p>
-              <audio
-                controls
-                preload="none"
-                class="mt-2 w-full"
-                src={withBase(scene.audio.file)}
-              />
-              <p class="mt-2 text-xs opacity-60">
-                Synced narration with follow-along text arrives in M2.
-              </p>
-            </div>
-
-            {scene.paragraphs.map((p) =>
-              p.startsWith("@media:") ? (
-                <p class="my-6 text-center text-xs uppercase tracking-widest opacity-40">
-                  [ artwork: {p.replace("@media:", "")} — media pipeline lands in M1 ]
-                </p>
-              ) : (
-                <p class="mt-5 leading-relaxed">{plain(p)}</p>
-              ),
-            )}
+            <Narration
+              client:visible
+              slug={slug}
+              audioSrc={withBase(scene.audio.file)}
+              label={scene.audio.label}
+              subtitle={scene.audio.subtitle}
+              duration={scene.audio.duration}
+              timings={scene.audio.timings}
+              paragraphs={scene.paragraphs}
+              cardTitle={c.cardTitle}
+            />
           </div>
         ))
       }
     </section>
+  </article>
 
-    {/* ——— Section 2: historical context ——— */}
-    <section class="mt-16" aria-labelledby="history-heading">
-      <p class="text-xs uppercase tracking-widest opacity-60">
-        Section 2/{sectionCount}
+  {/* ——— Section 2: historical context — inverted band ——— */}
+  <section
+    aria-labelledby="history-heading"
+    class="py-16"
+    style="background: var(--chapter-ink); color: var(--chapter-surface)"
+  >
+    <div class="mx-auto max-w-2xl px-6">
+      <p class="label-caps reveal" style="opacity: 0.55">
+        Section 2 / {sectionCount}
       </p>
-      <h2 id="history-heading" class="font-display mt-2 text-3xl">
+      <h2 id="history-heading" class="font-display reveal mt-2 text-4xl">
         Historical Context
       </h2>
-      <ul class="mt-6 space-y-4">
+      {
+        c.media.images.includes("historical") && (
+          <div class="reveal mt-8">
+            <Picture
+              slug={slug}
+              imageKey="historical"
+              alt={`Historical photograph — ${c.cardTitle}`}
+              class="w-full rounded-sm"
+            />
+          </div>
+        )
+      }
+      <ul class="mt-8 space-y-5">
         {
-          c.historicalContext.map((point) => (
-            <li class="border-l-2 border-white/20 pl-4 leading-relaxed">{point}</li>
+          [...history, ...c.historicalContext].map((point) => (
+            <li
+              class="reveal border-l-2 pl-5 leading-relaxed"
+              style="border-color: color-mix(in oklab, var(--chapter-surface) 30%, transparent)"
+            >
+              {point}
+            </li>
           ))
         }
       </ul>
-    </section>
+    </div>
+  </section>
 
+  <article class="mx-auto max-w-2xl px-6">
     {/* ——— Section 3: the moral ——— */}
-    <section class="mt-16" aria-labelledby="moral-heading">
-      <p class="text-xs uppercase tracking-widest opacity-60">
-        Section 3/{sectionCount}
-      </p>
+    <section class="pt-16" aria-labelledby="moral-heading">
+      <p class="label-caps reveal">Section 3 / {sectionCount}</p>
       <h2 id="moral-heading" class="sr-only">The moral</h2>
       {
         c.morals.map((moral) => (
           <div class="mt-6">
-            <p class="font-display text-3xl whitespace-pre-line" style="color: var(--chapter-accent)">
+            <p
+              class="display-hero reveal text-4xl whitespace-pre-line sm:text-5xl"
+              style="color: var(--chapter-accent)"
+            >
               {moral.title}
             </p>
-            <p class="mt-4 leading-relaxed">{moral.message}</p>
-            <h3 class="font-display mt-6 text-xl">{moral.callToAction.title}</h3>
-            <p class="mt-2 leading-relaxed">{moral.callToAction.content}</p>
+            <p class="prose-narrative reveal mt-6">{moral.message}</p>
+            <h3 class="font-display reveal mt-8 text-2xl">
+              {moral.callToAction.title}
+            </h3>
+            <p class="prose-narrative reveal mt-3">{moral.callToAction.content}</p>
           </div>
         ))
       }
+      <div class="ink-rule reveal mt-14"></div>
     </section>
 
     {/* ——— Section 4: where to next ——— */}
-    <nav class="mt-16" aria-label="Continue the tour">
-      <p class="text-xs uppercase tracking-widest opacity-60">
-        Section 4/{sectionCount}
-      </p>
-      <h2 class="font-display mt-2 text-3xl">Where to next?</h2>
-      <div class="mt-6 flex flex-wrap gap-4">
+    <nav class="mt-14 pb-20" aria-label="Continue the tour">
+      <p class="label-caps reveal">Section 4 / {sectionCount}</p>
+      <h2 class="font-display reveal mt-2 text-4xl">Where to next?</h2>
+      <div class="mt-8 grid gap-5 sm:grid-cols-[1.4fr_1fr]">
         <a
           href={withBase(c.next.slug)}
-          class="rounded border px-5 py-3 font-display"
+          class="reveal group block overflow-hidden rounded-sm border transition-transform duration-300 hover:-translate-y-1"
           style="border-color: var(--chapter-accent)"
         >
-          {c.next.label} →
+          {
+            nextEntry && (
+              <Picture
+                slug={nextEntry.id}
+                imageKey="square"
+                alt=""
+                sizes="(min-width: 640px) 24rem, 100vw"
+                class="aspect-[16/9] w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
+              />
+            )
+          }
+          <div class="p-5">
+            <p class="label-caps">Continue the walk</p>
+            <p class="font-display mt-2 text-2xl">{c.next.label} →</p>
+            {
+              nextEntry && (
+                <p class="mt-1 text-sm opacity-70">{nextEntry.data.map.address}</p>
+              )
+            }
+          </div>
         </a>
-        <a href={withBase("map")} class="rounded border border-white/25 px-5 py-3 font-display">
-          Open the map
+        <a
+          href={withBase("map")}
+          class="reveal grid place-items-center rounded-sm border border-white/25 p-5 text-center transition-transform duration-300 hover:-translate-y-1"
+        >
+          <span>
+            <span class="label-caps">Find your footing</span>
+            <span class="font-display mt-2 block text-2xl">Open the map</span>
+          </span>
         </a>
       </div>
     </nav>
   </article>
+
+  <script>
+    // Scroll-reveal: IO flips .is-in once; CSS owns the motion (and
+    // reduced-motion users never see hidden states — see global.css).
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
 </Base>
