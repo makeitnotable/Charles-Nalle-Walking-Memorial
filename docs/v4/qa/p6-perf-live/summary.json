@@ -1,20 +1,20 @@
 [
   {
     "route": "/",
-    "performance": 98,
+    "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 2.34,
+    "lcp_s": 1.73,
     "cls": 0,
     "tbt_ms": 0,
     "transfer_kb": 509
   },
   {
     "route": "/bakery",
-    "performance": 98,
-    "accessibility": 97,
+    "performance": 99,
+    "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 2.06,
+    "lcp_s": 1.9,
     "cls": 0.003,
     "tbt_ms": 0,
     "transfer_kb": 1044
@@ -22,30 +22,60 @@
   {
     "route": "/commissioners-office",
     "performance": 99,
-    "accessibility": 97,
+    "accessibility": 100,
     "bestPractices": 100,
     "lcp_s": 2.14,
     "cls": 0.001,
     "tbt_ms": 0,
-    "transfer_kb": 1049
+    "transfer_kb": 1162
+  },
+  {
+    "route": "/mansion",
+    "performance": 99,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.13,
+    "cls": 0.002,
+    "tbt_ms": 0,
+    "transfer_kb": 1273
+  },
+  {
+    "route": "/ferry",
+    "performance": 88,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 3.93,
+    "cls": 0.002,
+    "tbt_ms": 0,
+    "transfer_kb": 5534
+  },
+  {
+    "route": "/barbershop",
+    "performance": 92,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 3.4,
+    "cls": 0.003,
+    "tbt_ms": 0,
+    "transfer_kb": 3791
   },
   {
     "route": "/map",
-    "performance": 70,
+    "performance": 69,
     "accessibility": 100,
     "bestPractices": 100,
     "lcp_s": 4.48,
-    "cls": 0.003,
-    "tbt_ms": 453,
-    "transfer_kb": 2627
+    "cls": 0.002,
+    "tbt_ms": 473,
+    "transfer_kb": 2628
   },
   {
     "route": "/people",
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.3,
-    "cls": 0.002,
+    "lcp_s": 1.53,
+    "cls": 0.003,
     "tbt_ms": 0,
     "transfer_kb": 145
   },
@@ -54,8 +84,8 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.41,
-    "cls": 0.02,
+    "lcp_s": 1.45,
+    "cls": 0.014,
     "tbt_ms": 0,
     "transfer_kb": 549
   },
@@ -64,8 +94,8 @@
     "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
-    "lcp_s": 1.45,
-    "cls": 0.001,
+    "lcp_s": 1.69,
+    "cls": 0.003,
     "tbt_ms": 0,
     "transfer_kb": 164
   }

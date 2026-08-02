@@ -176,6 +176,58 @@ export default function AudioStory({
     }
   };
 
+  /* Inline story films load like every other film on the site: after first
+     paint, only when near the viewport, and never at all under reduced motion
+     or on a metered connection. The poster above each one is the finished
+     frame, so nothing is missing if the film never arrives.
+     The observer is created on first registration rather than in an effect —
+     ref callbacks and effects fire in a fixed order, and depending on it here
+     was the difference between working and silently not. */
+  const filmIO = useRef<IntersectionObserver | null>(null);
+  const filmsOff = useRef<boolean | null>(null);
+
+  const getFilmIO = () => {
+    if (filmIO.current) return filmIO.current;
+    if (filmsOff.current === null) {
+      const conn = (navigator as { connection?: { saveData?: boolean; effectiveType?: string } })
+        .connection;
+      filmsOff.current =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        Boolean(conn && (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))));
+    }
+    if (filmsOff.current) return null;
+    filmIO.current = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const v = e.target as HTMLVideoElement;
+          filmIO.current?.unobserve(v);
+          if (v.src || !v.dataset.src) continue;
+          const poster = v.previousElementSibling as HTMLElement | null;
+          v.src = v.dataset.src;
+          v.play()
+            .then(() => {
+              v.style.opacity = "1";
+              if (poster) poster.style.opacity = "0";
+            })
+            .catch(() => {
+              /* The poster IS the finished frame — leave it. */
+            });
+        }
+      },
+      { rootMargin: "300px" },
+    );
+    return filmIO.current;
+  };
+
+  const registerFilm = (el: HTMLVideoElement | null, src: string) => {
+    if (!el || el.dataset.src) return;
+    el.dataset.src = src;
+    getFilmIO()?.observe(el);
+  };
+
+  useEffect(() => () => filmIO.current?.disconnect(), []);
+
   const pct = (time / Math.max(total, 1)) * 100;
 
   /* Tabular figures + a reserved min-width: the v3 pill clipped its last
@@ -216,16 +268,28 @@ export default function AudioStory({
   const renderItem = (item: Item, globalIndex: number) => {
     if (item.type === "media") {
       return (
-        <div key={`m-${globalIndex}`} className="artifact my-10">
+        <div key={`m-${globalIndex}`} className="artifact relative my-10">
+          <picture>
+            <source type="image/avif" srcSet={base(`media/${slug}/${item.mediaKey}-poster-800.avif`)} />
+            <source type="image/webp" srcSet={base(`media/${slug}/${item.mediaKey}-poster-800.webp`)} />
+            <img
+              className="story-film-poster h-auto w-full transition-opacity"
+              style={{ transitionDuration: "var(--dur-slow)" }}
+              src={base(`media/${slug}/${item.mediaKey}-poster.jpg`)}
+              alt={`Animated painting — ${subtitle}`}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <video
-            className="h-auto w-full"
-            src={base(`media/${slug}/${item.mediaKey}.mp4`)}
-            poster={base(`media/${slug}/${item.mediaKey}-poster.jpg`)}
-            autoPlay
+            ref={(el) => registerFilm(el, base(`media/${slug}/${item.mediaKey}.mp4`))}
+            className="story-film absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity"
+            style={{ transitionDuration: "var(--dur-slow)" }}
+            preload="none"
             loop
             muted
             playsInline
-            aria-label={`Animated painting — ${subtitle}`}
+            aria-hidden="true"
           />
         </div>
       );
