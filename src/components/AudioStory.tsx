@@ -198,13 +198,13 @@ export default function AudioStory({
     <div className="relative inline-block overflow-hidden rounded-3xl bg-primary-10 px-3 py-0.5 transition-all duration-300 ease-in-out">
       <div className="relative whitespace-nowrap">
         <span
-          className={`inline-block text-[12px] font-medium text-primary-12 ${!playing ? "" : "absolute opacity-0"}`}
+          className={`inline-block text-[12px] font-medium text-primary-2 ${!playing ? "" : "absolute opacity-0"}`}
           style={{ fontFamily: "var(--font-poppins)" }}
         >
           {fmt(total)}
         </span>
         <span
-          className={`inline-block text-[12px] font-medium text-primary-12 ${playing ? "" : "absolute opacity-0"}`}
+          className={`inline-block text-[12px] font-medium text-primary-2 ${playing ? "" : "absolute opacity-0"}`}
           style={{ fontFamily: "var(--font-poppins)" }}
           aria-live={mini ? undefined : "off"}
         >

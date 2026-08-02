@@ -143,6 +143,7 @@ export default function PressReveal({
     >
       {/* Finished painting (also the video poster / reduced-motion target) */}
       <img
+        loading="lazy"
         src={base(`media/${slug}/${painting}-1440.jpg`)}
         srcSet={`${base(`media/${slug}/${painting}-800.webp`)} 800w, ${base(`media/${slug}/${painting}-1440.webp`)} 1440w`}
         sizes="100vw"
@@ -167,12 +168,13 @@ export default function PressReveal({
         />
       )}
 
-      {/* The sketch, dissolving as you hold */}
+      {/* The sketch, dissolving as you hold — the page's LCP, fetched first */}
       <img
         src={base(`media/${slug}/${sketch}-1440.jpg`)}
         srcSet={`${base(`media/${slug}/${sketch}-800.webp`)} 800w, ${base(`media/${slug}/${sketch}-1440.webp`)} 1440w`}
         sizes="100vw"
         alt=""
+        fetchPriority="high"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
         style={{

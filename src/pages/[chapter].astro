@@ -45,6 +45,7 @@ const whereTitle = "Where to next?";
   title={`${c.cardTitle} — Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.cardTitle}, Troy, NY, April 27, 1860.`}
   menuPosition="bottom-right"
+  preloadImage={c.scenes[0].reveal ? withBase(`media/${slug}/${c.scenes[0].reveal.sketch}-800.webp`) : undefined}
 >
   {/* ——— Hero (signature #3): press-reveal lives inside the bordered frame ——— */}
   <div class="relative mx-auto mt-6 px-0 md:px-10 lg:mt-12 lg:px-12">
@@ -180,8 +181,10 @@ const whereTitle = "Where to next?";
         {
           hasHistoricalVideo ? (
             <video
-              src={withBase(`media/${slug}/historical.mp4`)}
-              poster={withBase(`media/${slug}/historical-poster.jpg`)}
+              class="lazy-video"
+              data-src={withBase(`media/${slug}/historical.mp4`)}
+              data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
+              preload="none"
               autoplay
               loop
               muted
@@ -250,11 +253,12 @@ const whereTitle = "Where to next?";
             {moral.title}
           </h2>
           <div class="reveal flex w-full justify-end">
-            <div
-              class="mr-5 h-[250px] w-[250px] rounded-3xl border border-primary-6 bg-cover md:h-[281px] md:w-[281px] lg:h-[375px] lg:w-[375px]"
-              style={`background-image: url('${withBase(`media/${slug}/moral-800.webp`)}'); background-position: center 22%`}
-              role="img"
-              aria-label={`“${c.cardTitle}” — moral image, painting by Mark Priest`}
+            <img
+              class="mr-5 h-[250px] w-[250px] rounded-3xl border border-primary-6 object-cover md:h-[281px] md:w-[281px] lg:h-[375px] lg:w-[375px]"
+              style="object-position: center 22%"
+              src={withBase(`media/${slug}/moral-800.webp`)}
+              loading="lazy"
+              alt={`“${c.cardTitle}” — moral image, painting by Mark Priest`}
             />
           </div>
           <p class="type-progress reveal text-neutral-12">Section 3/4</p>
@@ -328,9 +332,9 @@ const whereTitle = "Where to next?";
     {/* ——— Footer ——— */}
     <footer class="mt-1 mb-8 px-4 md:mx-10 md:mb-16 lg:mx-30 lg:mt-16">
       <div class="mb-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <a href={withBase("people")} data-curtain-label="The People" class="type-label transition-colors duration-300 hover:text-primary-9">The People of this day →</a>
-        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="type-label transition-colors duration-300 hover:text-primary-9">The Paintings →</a>
-        <a href={withBase("about")} data-curtain-label="About" class="type-label transition-colors duration-300 hover:text-primary-9">About the memorial →</a>
+        <a href={withBase("people")} data-curtain-label="The People" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">The People of this day →</a>
+        <a href={withBase("paintings")} data-curtain-label="The Paintings" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">The Paintings →</a>
+        <a href={withBase("about")} data-curtain-label="About" class="type-label inline-block py-2 transition-colors duration-300 hover:text-primary-9">About the memorial →</a>
       </div>
       <div class="flex w-full items-center justify-between border-t border-primary-6 pt-8">
         <p class="type-card-title">Share</p>
