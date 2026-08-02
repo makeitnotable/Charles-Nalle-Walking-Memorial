@@ -201,7 +201,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
   return (
     <div className="map-shell relative h-[100dvh] w-full">
-      <div ref={container} className="absolute inset-0" />
+      <div ref={container} className="map-canvas absolute inset-0" />
 
       {/* 1860 lens — Mark Priest's map of Troy as a crossfading overlay */}
       <div

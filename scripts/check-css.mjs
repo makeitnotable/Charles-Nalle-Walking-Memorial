@@ -38,6 +38,7 @@ const REQUIRED = [
   ["portrait: variant", /orientation:\s*portrait/],
   // Plain-CSS structural fallbacks (belt and braces)
   [".map-shell structural class", /\.map-shell\s*\{/],
+  [".map-canvas structural class (beats mapbox-gl.css cascade)", /\.map-shell\s+\.map-canvas/],
   [".reveal-frame structural class", /\.reveal-frame\s*\{/],
 ];
 
