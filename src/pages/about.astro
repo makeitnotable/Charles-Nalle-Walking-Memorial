@@ -1,38 +1,59 @@
 ---
+// About — restyled to the approved language (elevation A1/A2): ladder type,
+// bordered section media, and a no-dead-ends close into the walk.
 import Base from "../layouts/Base.astro";
 import { about } from "../data/about";
+import { withBase } from "../lib/url";
 
-const people = [about.charles, about.mark, about.scott];
+const people = [
+  { ...about.charles, image: "about-charles" },
+  { ...about.mark, image: "about-mark" },
+  { ...about.scott, image: "about-scott" },
+];
 ---
 
 <Base
   title="About — Charles Nalle Walking Memorial"
   description="About the Charles Nalle Walking Memorial: the people behind the project, the paintings of Mark Priest, and the scholarship of Scott Christianson."
 >
-  <article class="mx-auto max-w-2xl px-6 pb-16">
+  <article class="mx-auto max-w-7xl px-4 pb-16 md:px-10 lg:px-20">
     <header class="pt-16 pb-10">
-      <p class="text-sm uppercase tracking-[0.25em] opacity-70">{about.project.kicker}</p>
-      <h1 class="font-display mt-4 text-4xl sm:text-5xl">{about.project.header}</h1>
+      <p class="type-label reveal">{about.project.kicker}</p>
+      <h1 class="type-display type-display-caps reveal mt-4">
+        {about.project.header}
+      </h1>
     </header>
 
-    <section aria-label="Project overview">
-      {about.project.paragraphs.map((p) => <p class="mt-5 leading-relaxed">{p}</p>)}
+    <section aria-label="Project overview" class="max-w-2xl">
+      {about.project.paragraphs.map((p) => <p class="type-body reveal mt-5">{p}</p>)}
     </section>
 
-    <section class="mt-16" aria-labelledby="how-heading">
-      <h2 id="how-heading" class="font-display text-3xl">{about.howItWorks.header}</h2>
-      <ol class="mt-6 list-decimal space-y-4 pl-5">
+    <section class="mt-16 max-w-2xl" aria-labelledby="how-heading">
+      <h2 id="how-heading" class="type-display type-display-caps reveal">
+        {about.howItWorks.header}
+      </h2>
+      <ol class="mt-8 space-y-6">
         {
-          about.howItWorks.steps.map((step) => (
-            <li class="leading-relaxed">
-              {step.title}
-              {"bullets" in step && step.bullets && (
-                <ul class="mt-2 list-disc space-y-1 pl-5 opacity-90">
-                  {step.bullets.map((b) => (
-                    <li>{b}</li>
-                  ))}
-                </ul>
-              )}
+          about.howItWorks.steps.map((step, i) => (
+            <li class="reveal flex flex-row items-start gap-3">
+              <div class="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary-10 lg:h-6 lg:w-6">
+                <p
+                  class="mt-0.5 text-[0.7rem] font-medium text-primary-12 lg:text-[0.9rem]"
+                  style="font-family: var(--font-poppins)"
+                >
+                  {i + 1}
+                </p>
+              </div>
+              <div class="type-body">
+                {step.title}
+                {"bullets" in step && step.bullets && (
+                  <ul class="mt-2 list-disc space-y-1 pl-5 opacity-90">
+                    {step.bullets.map((b) => (
+                      <li>{b}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </li>
           ))
         }
@@ -42,22 +63,60 @@ const people = [about.charles, about.mark, about.scott];
     {
       people.map((person) => (
         <section class="mt-16" aria-label={person.header}>
-          <p class="text-xs uppercase tracking-widest opacity-60">{person.kicker}</p>
-          <h2 class="font-display mt-2 text-3xl">{person.header}</h2>
-          {person.paragraphs.map((p) => (
-            <p class="mt-5 leading-relaxed">{p}</p>
-          ))}
+          <p class="type-label reveal">{person.kicker}</p>
+          <h2 class="type-display type-display-caps reveal mt-2">{person.header}</h2>
+          <img
+            src={withBase(`media/site/${person.image}-800.webp`)}
+            srcset={`${withBase(`media/site/${person.image}-800.webp`)} 800w, ${withBase(`media/site/${person.image}-1440.webp`)} 1440w`}
+            sizes="(min-width: 768px) 42rem, 100vw"
+            alt={person.header}
+            loading="lazy"
+            class="frame reveal mt-6 max-h-[363px] w-auto max-w-full object-cover"
+          />
+          <div class="max-w-2xl">
+            {person.paragraphs.map((p) => (
+              <p class="type-body reveal mt-5">{p}</p>
+            ))}
+          </div>
         </section>
       ))
     }
 
-    <figure class="mt-16 border-l-4 pl-4" style="border-color: var(--chapter-accent)">
-      <blockquote class="font-display text-xl italic leading-relaxed">
+    <figure class="reveal mt-16 max-w-2xl">
+      <blockquote class="type-card-title" style="font-size: 1.35em; line-height: 1.4">
         “{about.closingQuote.text}”
       </blockquote>
-      <figcaption class="mt-3 text-sm opacity-70">
+      <figcaption class="type-label mt-3">
         — {about.closingQuote.attribution}, {about.closingQuote.source}
       </figcaption>
     </figure>
+
+    {/* No dead ends */}
+    <a
+      href={withBase("map")}
+      data-curtain-label="The Walk"
+      class="reveal frame mt-16 flex items-center justify-between bg-primary-3 p-6 transition-colors duration-300 hover:bg-primary-4 md:p-8"
+    >
+      <span>
+        <span class="type-label block">The streets are waiting</span>
+        <span class="type-card-title mt-2 block uppercase">Walk the route</span>
+      </span>
+      <span class="type-display" aria-hidden="true">→</span>
+    </a>
   </article>
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
 </Base>

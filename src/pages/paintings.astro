@@ -1,4 +1,6 @@
 ---
+// The Paintings — Mark Priest's Nalle Series in the approved language
+// (elevation G1: frame idiom, ladder type, Martel captions + credits).
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
@@ -26,9 +28,10 @@ const works = chapters.flatMap((entry) =>
         ? `${entry.data.cardTitle} — ${KEY_TITLES[key]}`
         : entry.data.cardTitle,
       chapterLabel: entry.data.chapterLabel,
-      accent: entry.data.palette.accent,
+      order: entry.data.order,
       full: withBase(`media/${entry.id}/${key}-1440.jpg`),
       href: withBase(entry.id),
+      mapLabel: entry.data.map.label,
     })),
 );
 ---
@@ -37,10 +40,12 @@ const works = chapters.flatMap((entry) =>
   title="The Paintings — Charles Nalle Walking Memorial"
   description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
 >
-  <section class="mx-auto max-w-5xl px-6 pt-10 pb-24">
-    <p class="label-caps">The Paintings</p>
-    <h1 class="display-hero mt-4 text-5xl sm:text-6xl">The Nalle Series</h1>
-    <p class="prose-narrative mt-6 opacity-90">
+  <section class="mx-auto max-w-7xl px-4 pt-10 pb-24 md:px-10 lg:px-20">
+    <p class="type-label reveal">The Paintings</p>
+    <h1 class="type-display type-display-caps reveal mt-4">
+      The Nalle<br />Series
+    </h1>
+    <p class="type-body reveal mt-8 max-w-xl">
       Painter <strong>Mark Priest</strong> spent years reconstructing the
       rescue of Charles Nalle — walking Troy's streets, reading the accounts,
       and painting the day scene by scene. Select any work to view it closely,
@@ -53,7 +58,7 @@ const works = chapters.flatMap((entry) =>
           <figure class="reveal">
             <button
               type="button"
-              class="painting-open group block w-full overflow-hidden rounded-sm border border-white/12 text-left"
+              class="painting-open frame group block w-full cursor-pointer overflow-hidden text-left"
               data-full={work.full}
               data-title={`${work.title} — Mark Priest`}
               aria-label={`View “${work.title}” closely`}
@@ -68,17 +73,13 @@ const works = chapters.flatMap((entry) =>
             </button>
             <figcaption class="mt-3 flex items-baseline justify-between gap-4">
               <span>
-                <span class="font-display block text-lg leading-snug">
-                  {work.title}
-                </span>
-                <span class="text-sm opacity-60">
-                  Mark Priest · Nalle Series
-                </span>
+                <span class="type-card-title block">{work.title}</span>
+                <span class="type-muted">Mark Priest · Nalle Series</span>
               </span>
               <a
                 href={work.href}
-                class="label-caps shrink-0 hover:underline"
-                style={`color: ${work.accent}`}
+                data-curtain-label={work.mapLabel}
+                class="type-label shrink-0 transition-colors duration-300 hover:text-primary-9"
               >
                 {work.chapterLabel} →
               </a>
@@ -92,15 +93,16 @@ const works = chapters.flatMap((entry) =>
   {/* Close-look dialog */}
   <dialog
     id="painting-dialog"
-    class="m-auto max-h-[94dvh] max-w-[94vw] rounded-sm border border-white/20 bg-[#0d0a08] p-0 backdrop:bg-black/85"
+    class="frame-2 m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/85"
   >
     <img id="painting-dialog-img" src="" alt="" class="max-h-[85dvh] w-auto" />
-    <div class="flex items-center justify-between gap-4 p-3">
-      <p id="painting-dialog-title" class="text-sm text-[#f0e7d8] opacity-85"></p>
+    <div class="flex items-center justify-between gap-4 p-4">
+      <p id="painting-dialog-title" class="type-muted"></p>
       <button
         type="button"
         id="painting-dialog-close"
-        class="rounded border border-white/25 px-3 py-1.5 text-sm text-[#f0e7d8]"
+        class="cursor-pointer rounded-full border border-primary-8 px-4 py-1.5 text-sm font-medium text-primary-11 transition-colors duration-300 hover:text-primary-12"
+        style="font-family: var(--font-poppins)"
       >
         Close
       </button>

@@ -1,4 +1,7 @@
 ---
+// The People — the cast of April 27, 1860, in the approved language.
+// Elevation P1/P2 (googleac subject-spine): the page leads with Tubman's
+// words; role eyebrow labels; "appears in" chips tie people to chapters.
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import { withBase } from "../lib/url";
@@ -7,6 +10,8 @@ import { rescuers, hunters, type Person } from "../data/people";
 const chapters = await getCollection("chapters");
 const labelFor = (slug: string) =>
   chapters.find((c) => c.id === slug)?.data.map.label ?? slug;
+const orderFor = (slug: string) =>
+  chapters.find((c) => c.id === slug)?.data.order ?? 0;
 
 const groups: { heading: string; blurb: string; people: Person[] }[] = [
   {
@@ -28,12 +33,24 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
   title="The People — Charles Nalle Walking Memorial"
   description="The rescuers and the hunters of April 27, 1860: Harriet Tubman, Peter Baltimore, Martin Townsend, Uri Gilbert — and the men who tried to drag Charles Nalle back into slavery."
 >
-  <section class="mx-auto max-w-3xl px-6 pt-10 pb-24">
-    <p class="label-caps">The People</p>
-    <h1 class="display-hero mt-4 text-5xl sm:text-6xl">
+  <section class="mx-auto max-w-7xl px-4 pt-10 pb-24 md:px-10 lg:px-20">
+    <p class="type-label reveal">The People</p>
+    <h1 class="type-display type-display-caps reveal mt-4">
       One day.<br />A whole city's cast.
     </h1>
-    <p class="prose-narrative mt-6 opacity-90">
+
+    {/* The page leads with her words (quote-first spine) */}
+    <figure class="reveal mt-10 max-w-2xl">
+      <blockquote class="type-card-title" style="font-size: 1.35em; line-height: 1.4">
+        “Drag us out! Drag him to the river! Drown him! But don't let them have
+        him!”
+      </blockquote>
+      <figcaption class="type-label mt-3">
+        — Harriet Tubman, outside the commissioner's office
+      </figcaption>
+    </figure>
+
+    <p class="type-body reveal mt-8 max-w-xl">
       Every name below stood on real pavement you can still walk. Follow any of
       them into the chapter where their part of the story is told.
     </p>
@@ -41,25 +58,23 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
     {
       groups.map((group) => (
         <section class="mt-16" aria-label={group.heading}>
-          <h2 class="font-display text-3xl" style="color: var(--chapter-accent)">
-            {group.heading}
-          </h2>
-          <p class="mt-2 max-w-xl opacity-75">{group.blurb}</p>
+          <h2 class="type-display type-display-caps reveal">{group.heading}</h2>
+          <p class="type-body reveal mt-4 max-w-xl">{group.blurb}</p>
           <div class="mt-8 grid gap-5 sm:grid-cols-2">
             {group.people.map((person) => (
-              <article class="reveal rounded-sm border border-white/12 p-5">
-                <h3 class="font-display text-2xl">{person.name}</h3>
-                <p class="label-caps mt-1" style="color: var(--chapter-accent)">
-                  {person.role}
-                </p>
-                <p class="mt-3 leading-relaxed opacity-90">{person.note}</p>
-                <p class="mt-4 flex flex-wrap gap-2">
+              <article class="reveal frame flex flex-col bg-primary-3 p-5">
+                <p class="type-label">{person.role}</p>
+                <h3 class="type-card-title mt-2 uppercase">{person.name}</h3>
+                <p class="type-body mt-3 flex-1">{person.note}</p>
+                <p class="mt-5 flex flex-wrap gap-2">
                   {person.chapters.map((slug) => (
                     <a
                       href={withBase(slug)}
-                      class="rounded-full border border-white/20 px-3 py-1 text-xs tracking-wide hover:border-white/50"
+                      data-curtain-label={labelFor(slug)}
+                      class="rounded-full border border-primary-8 px-3 py-1.5 text-xs font-medium text-primary-11 transition-colors duration-300 hover:border-primary-7 hover:text-primary-12"
+                      style="font-family: var(--font-poppins)"
                     >
-                      {labelFor(slug)} →
+                      Ch. {orderFor(slug)} · {labelFor(slug)} →
                     </a>
                   ))}
                 </p>
@@ -69,6 +84,19 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
         </section>
       ))
     }
+
+    {/* No dead ends */}
+    <a
+      href={withBase("map")}
+      data-curtain-label="The Walk"
+      class="reveal frame mt-16 flex items-center justify-between bg-primary-3 p-6 transition-colors duration-300 hover:bg-primary-4 md:p-8"
+    >
+      <span>
+        <span class="type-label block">Their streets are still here</span>
+        <span class="type-card-title mt-2 block uppercase">Walk the route</span>
+      </span>
+      <span class="type-display" aria-hidden="true">→</span>
+    </a>
   </section>
 
   <script>
