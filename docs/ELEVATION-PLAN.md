@@ -14,7 +14,7 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 | H1 | Approved photo-frame three-stack | pasqua chrome-dissolved full-bleed media | Splash film plays *inside* the approved frame, same grayscale/sepia treatment as the approved still | 2 | ☑ |
 | H2 | Static page load | rewild entrance choreography | Staggered rise: Troy NY → CHARLES → NALLE → dates → CTA → mission; 1821—1875 rule draws itself; CSS-only, reduced-motion = static | 2 | ☑ |
 | H3 | "Troy, NY / 1821—1875" plates | pasqua film-title framing | The approved stack IS a film title card — kept verbatim; no added copy | — (at bar) | ☑ |
-| H4 | Continue → /map | marseille skippable prologue | Continue lands on the map's cinematic overview arrival (Map M3) — the "intro film" is the live map | 3 | ☐ |
+| H4 | Continue → /map | marseille skippable prologue | Continue lands on the map's cinematic overview arrival (Map M3) — the "intro film" is the live map | 3 | ☑ |
 
 ## Chapter
 
@@ -38,14 +38,14 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 
 | # | Baseline (a) | Technique (b) | CNWM expression (c) | Phase (d) | ✓ |
 |---|---|---|---|---|---|
-| M1 | Approved chrome-free tilted overview (15.25/33/10, fenced) | marseille two-color world / map-as-artifact | Rebuild exactly; Wil's custom style is the artifact; no default chrome until selection | 3 | ☐ |
-| M2 | Approved stem-dot pill markers (exact state values) | marseille "every pin labeled" (anti-trap) | Rebuild verbatim (Poppins pill + numbered chip + stem + dot, above/below per stop, active/inactive scales) | 3 | ☐ |
-| M3 | Approved 5s cinematic arrival + flyTo zoom 20 | marseille dive-through-the-pin | Selection flyTo (speed .6 curve 1.4) IS the dive; arrival ease from overview on deep-link/Continue | 3 | ☐ |
-| M4 | Approved overlap carousel (−20px mobile, two-tap, camera-follow) | (approved, kept) | keen-slider rebuild with exact widths/scales; debounced 150ms camera follow; tap inactive = focus, tap active = navigate via curtain | 3 | ☐ |
-| M5 | v2 route-draw keeper | rewild scroll-written world state → time-written | Route draws itself stop-to-stop on arrival (dotted line, primary-9); reduced-motion = instant | 3 | ☐ |
-| M6 | v2 guided-tour keeper | marseille skippable prologue | "Take the walk" flythrough over the 5 stops — skippable at any tap, reduced-motion honored | 3 | ☐ |
-| M7 | v2 1860-lens keeper | pasqua pull-back reveal | Mark Priest's 1860 map crossfades over the live map in approved chrome (frame + label) | 3 | ☐ |
-| M8 | v2 geolocate keeper | marseille honest furniture | Geolocate control + dismissible hint card ("Drag to explore · tap a stop") in house style | 3 | ☐ |
+| M1 | Approved chrome-free tilted overview (15.25/33/10, fenced) | marseille two-color world / map-as-artifact | Rebuild exactly; Wil's custom style is the artifact; no default chrome until selection | 3 | ☑ |
+| M2 | Approved stem-dot pill markers (exact state values) | marseille "every pin labeled" (anti-trap) | Rebuild verbatim (Poppins pill + numbered chip + stem + dot, above/below per stop, active/inactive scales) | 3 | ☑ |
+| M3 | Approved 5s cinematic arrival + flyTo zoom 20 | marseille dive-through-the-pin | Selection flyTo (speed .6 curve 1.4) IS the dive; arrival ease from overview on deep-link/Continue | 3 | ☑ |
+| M4 | Approved overlap carousel (−20px mobile, two-tap, camera-follow) | (approved, kept) | keen-slider rebuild with exact widths/scales; debounced 150ms camera follow; tap inactive = focus, tap active = navigate via curtain | 3 | ☑ |
+| M5 | v2 route-draw keeper | rewild scroll-written world state → time-written | Route draws itself stop-to-stop on arrival (dotted line, primary-9); reduced-motion = instant | 3 | ☑ |
+| M6 | v2 guided-tour keeper | marseille skippable prologue | "Take the walk" flythrough over the 5 stops — skippable at any tap, reduced-motion honored | 3 | ☑ |
+| M7 | v2 1860-lens keeper | pasqua pull-back reveal | Mark Priest's 1860 map crossfades over the live map in approved chrome (frame + label) | 3 | ☑ |
+| M8 | v2 geolocate keeper | marseille honest furniture | Geolocate control + dismissible hint card ("Drag to explore · tap a stop") in house style | 3 | ☑ |
 | M9 | 5 stops partially off-screen at overview | marseille edge-chip wayfinding | Numbered edge chips when stops leave the viewport; tap pans to stop | 4 (if time) | ☐ |
 | M10 | Deep-link arrival (gap 8) | marseille dive→statement beat | Arrival name plate: "Stop N of 5 / TITLE" card fades in over the 5s flight, auto-fades — the flight lands on a spoken line | 3 | ☑ |
 | M11 | Map furniture (gap 6) | marseille honest furniture (full) | Scale bar (imperial — distance is content on foot) + geolocate bottom-left; "Overview" button = recenter | 3 | ☑ |
@@ -55,14 +55,14 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 
 | # | Baseline (a) | Technique (b) | CNWM expression (c) | Phase (d) | ✓ |
 |---|---|---|---|---|---|
-| P1 | v2 People page (corrected cast) | googleac subject-page spine, quote FIRST | Re-skin: bordered cards, ladder type, role eyebrow labels (RESCUER / FUGITIVE / HUNTER...), person quote leads where one exists (Tubman: "…liberty or death") | 2 | ☐ |
-| P2 | Cast list | googleac eyebrow taxonomy | Content-type labels tie People ↔ chapters ("Appears in Chapter 2/4") | 2 | ☐ |
+| P1 | v2 People page (corrected cast) | googleac subject-page spine, quote FIRST | Re-skin: bordered cards, ladder type, role eyebrow labels (RESCUER / FUGITIVE / HUNTER...), person quote leads where one exists (Tubman: "…liberty or death") | 2 | ☑ |
+| P2 | Cast list | googleac eyebrow taxonomy | Content-type labels tie People ↔ chapters ("Appears in Chapter 2/4") | 2 | ☑ |
 
 ## Paintings
 
 | # | Baseline (a) | Technique (b) | CNWM expression (c) | Phase (d) | ✓ |
 |---|---|---|---|---|---|
-| G1 | v2 gallery + dialog | approved frame idiom | Re-skin: rounded-3xl primary-6 borders, ladder type, Martel captions with painting credits | 2 | ☐ |
+| G1 | v2 gallery + dialog | approved frame idiom | Re-skin: rounded-3xl primary-6 borders, ladder type, Martel captions with painting credits | 2 | ☑ |
 | G2 | Static gallery images | museos ambient painting motion | Animated mp4 loops (with posters) where they exist, in-place | 4 | ☑ |
 | G3 | Dialog per painting | googleac zoom-crop essay | Detail crops of the selected painting sequence inside the dialog (crop = camera move) | 4 (if time) | ☐ |
 
@@ -70,8 +70,8 @@ route-draw, curtain, cinematic arrival — every effect is that one idea.
 
 | # | Baseline (a) | Technique (b) | CNWM expression (c) | Phase (d) | ✓ |
 |---|---|---|---|---|---|
-| A1 | v2 About | approved language | Re-skin: section order kept, ladder type, bordered media, credits | 2 | ☐ |
-| A2 | Page end | googleac related-ladder (no dead ends) | Close with "Walk the route" banner → /map | 2 | ☐ |
+| A1 | v2 About | approved language | Re-skin: section order kept, ladder type, bordered media, credits | 2 | ☑ |
+| A2 | Page end | googleac related-ladder (no dead ends) | Close with "Walk the route" banner → /map | 2 | ☑ |
 
 ## Site-wide seams
 
