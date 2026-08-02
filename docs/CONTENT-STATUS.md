@@ -45,3 +45,14 @@ M5's word-for-word verification pass against Kathy's approved script closes this
 
 Every scene's `audio.timings` is `null` until the timestamped transcript (or
 auto-alignment permission) is delivered — that gates M2 synced highlighting only.
+
+## 2026-08-02 overnight build (Phases 1–4)
+
+- Narration timings: word-proportional estimates generated into every chapter
+  JSON (`scripts/audio-timings.mjs`). **Re-run after audio re-records land.**
+- Media: all art re-encoded to AVIF/WebP/H.264 in `public/media/` (committed).
+  Sketch versions of every painting now power the press-and-hold reveal.
+- The People page: cast notes summarized from the corrected character sheet
+  and site-history docs — **needs Kathy's read** alongside the chapters.
+- Still pending (unchanged): ferry "skiff, no leap" narrative rewrite; Ch2a +
+  Ch4 audio re-records; Athenaeum image for Barbershop portal.
