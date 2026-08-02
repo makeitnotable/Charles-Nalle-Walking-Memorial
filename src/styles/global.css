@@ -243,10 +243,12 @@ body {
 
 /* First-WORD drop cap (not a letter cap): 32px medium, negative margins,
    once per chapter — apply .first-word to a <span> wrapping word one. */
+/* Weight 400: legacy declared font-medium (500) but loaded no 500 — CSS
+   font-matching resolved it to 400, so 400 IS the approved rendering. */
 .first-word {
   display: inline-block;
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 400;
   margin-top: -0.5rem;
   margin-bottom: -0.5rem;
 }
