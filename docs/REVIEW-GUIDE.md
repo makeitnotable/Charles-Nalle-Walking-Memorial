@@ -102,5 +102,29 @@ the pins are Brian's, the paintings are Mark's.
 4. **Wheel over the full-screen map zooms the map** (standard map-page tradeoff; index below is
    reachable by keyboard/touch).
 
-## Self-audit table
-- [Phase 6: every acceptance criterion in docs/PLAN.md → evidence link]
+## Self-audit table (plan acceptance criterion → evidence)
+
+| Criterion (docs/PLAN.md) | Evidence |
+|---|---|
+| P0: map visibly a map at 390/768/1440, screenshot-proven | docs/qa/phase0/map--*.png; live: docs/qa/phase6-live/map--390.png |
+| P0: emitted CSS contains island utilities (grep, not assume) | scripts/check-css.mjs in `npm run build` (6 guards, green every build) |
+| P0: build guard permanent | package.json build script + scripts/check-css.mjs |
+| P0: harness runs in one command | `node scripts/shots.mjs <outdir>` (used in every phase) |
+| P0.5: every elevation entry traceable (a/b/c/d) | docs/ELEVATION-PLAN.md (status-tracked, all ☑ or explicit) |
+| P0.5: independent blueprint review "yes" | docs/qa/reviews/phase05-blueprint-review.md (YES; 9 gaps → all resolved) |
+| P1: styleguide matches Reference (pixel-sampled) | docs/qa/reviews/phase1-visual-design.md (60/60 hexes, ladder measured) |
+| P1: no Fraunces/Newsreader/paper remnants | same review, computed font sweep clean |
+| P2: side-by-sides read as one design, elevated | docs/qa/before-after/*.jpg; phase23 + phase6 visual reviews |
+| P2: every v2 feature present in new skin | press-reveal (chapter hero), synced narration (AudioStory), People/Paintings/About, entry moment (home film) |
+| P2: no dead ends | UX review walkthroughs + related-ladder exits (C11/A2/P-banner) |
+| P3: marker/card specs match Reference values | docs/qa/reviews/phase23-visual-design.md (pixel-sampled) + pill-ladder fix verified in phase6 final |
+| P3: carousel overlap −20px mobile, two-tap | TroyMap keen-slider config + UX review |
+| P3: tour skippable, no console errors | Motion review (Stop the walk verified) + QA review (0 JS errors, 20 loads) |
+| P4: zero CLS from animations | Motion review: CLS ≈ 0 all pages; map hydration 0.0012 |
+| P4: every effect + reduced variant inventoried | docs/MOTION.md (31 rows) + Motion review parity run (19/19) |
+| P4: award-DNA seven-point self-audit | signature (press-reveal) · narrative framing (curtain/date) · type identity (ladder) · motion thesis (MOTION.md) · sound opt-in (S6) · craft seams (favicon/404/curtain-as-loader) · media pipeline (598KB QR page) |
+| P5: metric numbers recorded | docs/qa/phase5/RESULTS.md + summary.json |
+| P5: content vs Kathy's corrections | `git diff 22ee66f..HEAD -- src/content src/data` = empty |
+| P6: live URL end-to-end verified | all routes 200 + docs/qa/phase6-live/ captures |
+| P6: four discipline greens on live + stakeholder test | docs/qa/reviews/phase6-*-FINAL.md + phase6-stakeholder-test.md |
+| Compaction protocol held all night | docs/RUN-STATE.md (every step timestamped) + ~35 commits on origin/v2 |
