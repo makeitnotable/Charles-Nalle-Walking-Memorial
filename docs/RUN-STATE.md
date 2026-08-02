@@ -32,12 +32,32 @@ floating-UI collisions, sloppy alignment). Outputs land in `docs/v5/`.
 
 ---
 
+## STAGE 3 — EXECUTION LOG (fix → re-shoot → check off)
+
+| Fix | What | Pixel proof |
+|---|---|---|
+| F1.1–1.3 | Display step capped 116→88 (1200+) and 76→64 (768+); fit constant 0.64→0.72 (measured: 26 display strings render 0.546–0.763em/char, mean 0.618); both desktop steps now gated on `min-height:600px` | hero measurement table below |
+| F1.4 | `--fit-chars` computed from the string via new `src/lib/text.ts` on `/map`, `/people`, `/paintings` — `/people` had declared 14 for a 20-char line (43% oversized, cause of its zigzag rag) | `astro check` 0 errors |
+| F1.5 | `--fs-spine-sm` (13px) + `.t-spine-sm`; `ChapterSpine`'s inline `font-size:15px` deleted | — |
+| F1.7 | `/404` H1 display → `t-title` (a sentence is not a name) | — |
+| F1.8 | Wordmark gains a `19dvh` cap — it was pushing the home CTA half off a landscape phone | — |
+| **F2** | **Chapter hero rebuilt as `grid-rows-[auto_1fr]`** — was two competing 46dvh minimums + ~190px chrome inside a 100dvh box (~112dvh of content) | **20/20 portrait+desktop views now FIT; painting occupies 46–65% of the fold (was cut off)** |
+| F2b | Landscape phone hero **reframed to two columns** (pasqua's lesson, named in INSPIRATION.md and never taken) — stacked it could not fit 390px of height at any type size | `eyes/ferry-hero-land-AFTER.png` — fits with 24px spare |
+
+Hero fold, before → after (media bottom vs viewport height):
+
+| route | 390 | 844×390 | 768 | 1024 | 1440 |
+|---|---|---|---|---|---|
+| before | fits | **−256** | **−87** | **−107** | **−100** |
+| after | fits | **fits** | **fits** | **fits** | **fits** |
+
 ## IN PROGRESS
-**Stage 1.1 — capture the evidence matrix.** `scripts/probe.mjs` running against
-local preview across 11 routes × 5 viewports (390, 844×390 landscape, 768, 1024,
-1440) → `docs/v5/qa/probe-local/`. Next after it lands: run `scripts/states.mjs`
-for the interaction states, then `scripts/shots.mjs` for the scroll-depth matrix,
-then the same three against the LIVE deploy.
+**F3 — duplicate imagery.** Next exact action: add an `interlude` asset per
+chapter in `[chapter].astro` (bakery→vertical, ch2→horizontal-pt2,
+mansion→square, ferry→narrative2, barbershop→narrative1) and delete the moral
+thumbnail at `[chapter].astro:362–368`, which renders the same image already
+serving as that section's full-bleed background. Then F4 (floating UI lanes),
+F5 (rhythm), F6 (content dedup), F7 (motion), F8 (sweep).
 
 ---
 

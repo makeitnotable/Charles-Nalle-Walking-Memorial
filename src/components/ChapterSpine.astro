@@ -40,8 +40,8 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
               aria-current={active ? "true" : undefined}
             >
               <span
-                class="t-spine transition-colors"
-                style={`font-size: 15px; transition-duration: var(--dur-fast); ${active ? "" : "opacity:.42"}`}
+                class="t-spine-sm transition-colors"
+                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.42"}`}
               >
                 ({pad2(i + 1)})
               </span>

@@ -12,6 +12,8 @@ import Picture from "../components/Picture.astro";
 import Icon from "../components/Icon.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
+import { fitChars } from "../lib/text";
+const PAINTINGS_HEADING = "THE NALLE<br />SERIES";
 
 const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -60,7 +62,7 @@ const works = chapters.flatMap((entry) =>
 >
   <header class="shell page-open">
     <p class="t-meta">The paintings · {works.length} works</p>
-    <h1 class="t-display lines mt-8" style="--fit-chars: 9">THE NALLE<br />SERIES</h1>
+    <h1 class="t-display lines mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
   </header>
 
   <section class="shell sec pb-8">

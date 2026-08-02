@@ -142,6 +142,7 @@
   --fs-meta-body: 14px;
   --fs-btn: 15px;
   --fs-spine: 26px;
+  --fs-spine-sm: 13px; /* the chapter spine's list form — see .t-spine-sm */
 
   --track-display: -0.02em; /* optical tightening at size */
   --track-meta: 0.1em; /* the fixed micro-grid — GA&C measures 0.073em at 11px */
@@ -207,9 +208,13 @@
   --dur-curtain: 600ms; /* curtain set-piece only */
 }
 
-@media (min-width: 768px) {
+/* Both desktop steps are gated on HEIGHT as well as width. A phone held
+   sideways is 844px wide and 390px tall: on width alone it was handed the
+   desktop ladder, and a 76px display in a 390px-tall viewport pushed the hero
+   painting 256px below the fold. Type has to answer to the shorter axis too. */
+@media (min-width: 768px) and (min-height: 600px) {
   :root {
-    --fs-display: 76px;
+    --fs-display: 64px;
     --fs-title: 46px;
     --fs-title-sm: 28px;
     --fs-quote: 32px;
@@ -224,10 +229,13 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (min-height: 600px) {
   :root {
-    --fs-display: 116px;
-    --fs-title: 64px;
+    /* 88px, not 116px. At 116 a three-line chapter name measured 331px — 37%
+       of a 900px viewport — and shoved the painting past the fold. 88 holds the
+       hero lockup under 22% at every breakpoint and still runs 4.2× prose. */
+    --fs-display: 88px;
+    --fs-title: 56px;
     --fs-title-sm: 30px;
     --fs-quote: 38px;
     --fs-prose: 21px;
@@ -268,10 +276,25 @@ body {
 /* Display: hero H1 and the full-bleed moral statement. Once or twice a page,
    alone in its viewport. Authored line breaks arrive as "\n" + pre-line, so
    text-wrap must NOT rebalance them. */
+/* The step IS the size; the fit term is only a guard against overflow.
+ *
+ * The 0.64 this used to carry was a guess, and it made the role size itself
+ * from string length — one role rendered at six different sizes across the
+ * site, and because longer names clamp harder, the ferry (the climax) got the
+ * SMALLEST moral headline. Measuring all 26 display strings at 100px in Martel
+ * Sans ExtraBold with −0.02em tracking gives 0.546–0.763em of advance per
+ * character (mean 0.618) — a 40% spread, so a character count can never be the
+ * size. 0.72 sits above every string longer than five characters, which makes
+ * the guard bite only when a line genuinely cannot fit. Paired with the 88px
+ * cap, every display on the site now renders at one size on desktop.
+ *
+ * No floor: clamp() returns its minimum when minimum > maximum, so a floor
+ * would reintroduce the overflow it was meant to prevent on the longest string
+ * at 390 ("AUTHORITARIANISM", which cannot be large on a phone). */
 .t-display {
   font-family: var(--font-sans);
   font-weight: 800;
-  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.64)));
+  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.72)));
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
@@ -353,6 +376,19 @@ body {
   color: var(--ink-quiet);
 }
 
+/* The spine's list form. The chapter spine was setting `font-size:15px` inline,
+   which both overrode the token it claimed to use and landed on the 15px step
+   already carrying t-meta-body, btn and two kinds of unstyled span. It is its
+   own step now. */
+.t-spine-sm {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--fs-spine-sm);
+  line-height: 1;
+  color: var(--ink-meta);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Spine numerals — "(01)". Quiet, large, in their own column. */
 .t-spine {
   font-family: var(--font-sans);
@@ -369,7 +405,11 @@ body {
 .t-wordmark {
   font-family: var(--font-sans);
   font-weight: 800;
-  font-size: clamp(54px, 11vw, 128px);
+  /* Answers to the shorter axis as well. On a phone held sideways 11vw is 93px,
+     and two lines of it at 0.88 leading took 42% of a 390px-tall viewport —
+     which is what pushed the home CTA half off the bottom edge. The 19dvh term
+     never binds on a desktop or a portrait phone. */
+  font-size: min(clamp(54px, 11vw, 128px), 19dvh);
   letter-spacing: -0.03em;
   line-height: 0.88;
   text-transform: uppercase;
@@ -396,6 +436,27 @@ body {
   padding-inline: var(--gutter);
   container-type: inline-size;
   --fit-basis: 100cqw;
+}
+
+/* ── The landscape-phone hero is a REFRAME, not a squeeze ────────────────────
+   pasqua's lesson, which docs/INSPIRATION.md named and this build had not
+   taken: 390 is a recomposition. Stacked, a chapter name + rule + cue + painting
+   cannot fit 390px of height at any type size — it overflowed by 41–85px even
+   after the type was fixed. Side by side it fits with room, and reads as a
+   deliberate composition rather than a broken one. */
+@media (min-width: 640px) and (max-height: 599px) {
+  #hero {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: var(--sp-4);
+    align-items: center;
+    padding-top: 40px;
+  }
+  #hero-media {
+    margin-top: 0;
+    min-height: 0;
+    height: 100%;
+  }
 }
 
 /* Section rhythm. `.sec` is the only gap allowed between numbered sections;

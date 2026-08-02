@@ -9,6 +9,8 @@ import Picture from "../components/Picture.astro";
 import Icon from "../components/Icon.astro";
 import WalkProgress from "../components/WalkProgress.astro";
 import { withBase } from "../lib/url";
+import { fitChars } from "../lib/text";
+const MAP_HEADING = "Five stops<br />through Troy";
 
 const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -53,7 +55,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
         <p class="t-meta mt-3">The walk</p>
       </div>
       <div>
-        <h1 class="t-display reveal" style="--fit-chars: 10">Five stops<br />through Troy</h1>
+        <h1 class="t-display reveal" style={fitChars(MAP_HEADING)} set:html={MAP_HEADING} />
         <p class="t-prose reveal mt-10">
           The rescue of Charles Nalle unfolded across a few blocks of downtown
           Troy in a single day — April 27, 1860. Four stops carry bronze

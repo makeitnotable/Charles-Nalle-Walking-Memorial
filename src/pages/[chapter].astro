@@ -107,29 +107,35 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 >
   <WalkProgress current={c.order} />
 
-  {/* ══════ HERO — the finished animated painting ══════ */}
-  <header id="hero" class="shell flex min-h-dvh flex-col pt-20 pb-6 md:pt-24">
-    <div id="hero-lockup" class="flex-none md:min-h-[46dvh] md:flex md:flex-col md:justify-end">
+  {/* ══════ HERO — the finished animated painting ══════
+      Two rows, not a stack of competing minimums. The lockup takes exactly what
+      it needs; the media takes everything left. What was here before reserved
+      46dvh for the lockup AND 46dvh for the media inside a min-h-dvh box, then
+      added ~190px of padding, rule and cue on top — ~112dvh of content in a
+      100dvh container. The painting was cut off by the fold on every viewport
+      except a portrait phone: by 87px at 768, 107 at 1024, 100 at 1440 and 256
+      on a landscape phone. */}
+  <header id="hero" class="shell grid min-h-dvh grid-rows-[auto_1fr] pt-16 pb-6">
+    <div id="hero-lockup">
       <p class="t-meta">
         Stop {pad2(c.order)} of 5 · Troy, NY · April 27, 1860
       </p>
       <h1
-        class="t-display lines mt-[max(4vh,32px)] whitespace-pre-line"
+        class="t-display lines mt-[max(3vh,24px)] whitespace-pre-line"
         style={`--fit-chars: ${longestLine(c.name.display)}`}
       >
         {c.name.display}
       </h1>
       <div class="rule-top mt-8"></div>
+      <p class="t-meta mt-6 flex items-center gap-3 text-primary-11">
+        <Icon name="headphones" size="sm" /> Scroll to listen
+        <Icon name="arrow" rotate={90} size="sm" class="hero-cue" />
+      </p>
     </div>
-
-    <p class="t-meta mt-6 flex items-center gap-3 text-primary-11">
-      <Icon name="headphones" size="sm" /> Scroll to listen
-      <Icon name="arrow" rotate={90} size="sm" class="hero-cue" />
-    </p>
 
     <div
       id="hero-media"
-      class="artifact-lg relative mt-8 min-h-[42dvh] flex-1 bg-neutral-2 md:min-h-[46dvh]"
+      class="artifact-lg relative mt-8 min-h-[34dvh] bg-neutral-2"
     >
       {/* The still painting — the LCP, responsive and art-directed. */}
       <picture>

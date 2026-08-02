@@ -12,6 +12,8 @@ import Icon from "../components/Icon.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { rescuers, hunters, type Person } from "../data/people";
+import { fitChars } from "../lib/text";
+const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE CITY'S CAST.";
 
 const chapters = await getCollection("chapters");
 const shortFor = (slug: string) =>
@@ -40,9 +42,7 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
 >
   <header class="shell page-open">
     <p class="t-meta">The people</p>
-    <h1 class="t-display lines mt-8" style="--fit-chars: 14">
-      ONE DAY.<br />A WHOLE CITY'S CAST.
-    </h1>
+    <h1 class="t-display lines mt-8" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
   </header>
 
   {/* Her words first. */}
