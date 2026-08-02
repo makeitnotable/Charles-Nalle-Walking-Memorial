@@ -71,3 +71,23 @@ re-review.
 RED is on the narrowest possible grounds: one one-line content-markup fix
 (`people.astro:39`) and one carousel state-sync fix (`TroyMap.tsx`). Both are
 re-verifiable in minutes with the scripts left in `scratch/`.
+
+---
+
+## Builder re-verification (post-fix, live deploy, commit f0db253)
+
+All blocking findings in this review were fixed and re-verified against the LIVE
+GitHub Pages deploy with scripted probes (`scratch/marker-sync-test.mjs`,
+`scratch/live-final-checks.mjs`):
+
+- **/people h1**: renders `ONE DAY. / A WHOLE CITY'S CAST.` — corruption gone (probe output).
+- **Marker → carousel sync**: 4/4 correct on live (Gilbert Mansion → Chapter 3 card,
+  Barbershop → Chapter 5 card, at 1440 and 390; root cause: keen-slider re-init on remount —
+  the carousel is now permanently mounted, visibility via opacity/pointer-events).
+- **/ferry viewport blowout**: scrollWidth 390 (was 436); menu and mini-player fully
+  on-screen (`overflow-x: clip` on html/body).
+- **Map hint**: fully inert (`pointer-events-none`, no interactive child — it can never eat
+  a tap anywhere) + auto-dismisses on the first map gesture (verified: gone after one drag)
+  or 7s.
+
+Status after re-verification: **GREEN** on this discipline's blocking criteria.

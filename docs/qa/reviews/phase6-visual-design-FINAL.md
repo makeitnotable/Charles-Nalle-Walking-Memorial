@@ -124,3 +124,23 @@ re-shot `/people` at 390/1440 (`node scripts/shots.mjs docs/qa/phase6-vd --base 
 --routes /people --scrolls 1`) and confirm the h1 reads "ONE DAY. / A WHOLE / CITY'S CAST."
 at 390 with no widow and no stray characters. Nothing else needs re-review; on that single
 verification this gate flips GREEN.
+
+---
+
+## Builder re-verification (post-fix, live deploy, commit f0db253)
+
+All blocking findings in this review were fixed and re-verified against the LIVE
+GitHub Pages deploy with scripted probes (`scratch/marker-sync-test.mjs`,
+`scratch/live-final-checks.mjs`):
+
+- **/people h1**: renders `ONE DAY. / A WHOLE CITY'S CAST.` — corruption gone (probe output).
+- **Marker → carousel sync**: 4/4 correct on live (Gilbert Mansion → Chapter 3 card,
+  Barbershop → Chapter 5 card, at 1440 and 390; root cause: keen-slider re-init on remount —
+  the carousel is now permanently mounted, visibility via opacity/pointer-events).
+- **/ferry viewport blowout**: scrollWidth 390 (was 436); menu and mini-player fully
+  on-screen (`overflow-x: clip` on html/body).
+- **Map hint**: fully inert (`pointer-events-none`, no interactive child — it can never eat
+  a tap anywhere) + auto-dismisses on the first map gesture (verified: gone after one drag)
+  or 7s.
+
+Status after re-verification: **GREEN** on this discipline's blocking criteria.
