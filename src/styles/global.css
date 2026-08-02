@@ -1,6 +1,7 @@
 @import "tailwindcss";
 /* Approved identity fonts (self-hosted): Martel Sans display/body, Poppins labels/buttons */
 @import "@fontsource/martel-sans/300.css";
+@import "@fontsource/martel-sans/400.css";
 @import "@fontsource/martel-sans/600.css";
 @import "@fontsource/martel-sans/800.css";
 @import "@fontsource/poppins/400.css";
@@ -15,36 +16,113 @@
 @source "../layouts";
 
 /*
- * CNWM design system (Phase 1).
+ * CNWM v3 design system — the APPROVED identity (Figma "Website — Charles
+ * Nalle WM" via the legacy match-figma-designs implementation; docs/BASELINE.md
+ * is the token contract, docs/LEGACY-PORT-NOTES.md the spec source).
  *
- * Type: Fraunces (display — soft/wonk axes give it the hand-set 1860s
- * broadside character) + Newsreader (text — designed for on-screen long-form
- * reading, real italics). Both variable, self-hosted, OFL-licensed; if Wil
- * licenses a commercial display face later, only --font-display changes.
- *
- * Color: each chapter carries its own surface/ink/accent palette (from the
- * design sprint's "emotions to feel"), set inline on <html> by Base.astro.
- * The map + index run the "map" palette; chapter pages invert per chapter.
+ * One warm ramp, dark-only. Martel Sans carries the voice; Poppins only where
+ * it visibly shipped (buttons, marker pills, progress labels). Every size
+ * multiplies ×1.25 at md(768) and ×1.5 at lg(1024) — the ladder is the
+ * signature; keep it intact when adding roles.
  */
 
-:root {
-  --chapter-surface: #14100c;
-  --chapter-ink: #f0e7d8;
-  --chapter-accent: #c2542b;
+@theme {
+  /* Fonts */
+  --font-sans: "Martel Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-poppins: "Poppins", "Avenir Next", "Segoe UI", sans-serif;
 
-  /* Motion tokens — motion is feedback, not decoration */
-  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-drift: cubic-bezier(0.45, 0, 0.15, 1);
-  --dur-fast: 220ms;
-  --dur-slow: 700ms;
-  --dur-reveal: 1200ms;
+  /* Primary (brand: brown → burnt orange). 9 canonicalized to #f26835 —
+     legacy token said #f28835 but #F26835 shipped 13×. */
+  --color-primary-1: #0e0807;
+  --color-primary-2: #1d1411; /* page background */
+  --color-primary-3: #341a11; /* surfaces */
+  --color-primary-4: #4a1b0a; /* active surface */
+  --color-primary-5: #592411; /* hover */
+  --color-primary-6: #69311d; /* THE universal border */
+  --color-primary-7: #80412b;
+  --color-primary-8: #a55438;
+  --color-primary-9: #f26835; /* icon/active accent */
+  --color-primary-10: #e45b27; /* badges/fills */
+  --color-primary-11: #ff9770; /* labels/secondary text */
+  --color-primary-12: #fed9cc; /* body text */
+
+  /* Secondary (red) */
+  --color-secondary-1: #0f0707;
+  --color-secondary-2: #1f1110;
+  --color-secondary-3: #3d0e0e;
+  --color-secondary-4: #55050b;
+  --color-secondary-5: #660b11;
+  --color-secondary-6: #791b1d;
+  --color-secondary-7: #932c2b;
+  --color-secondary-8: #be3a3a;
+  --color-secondary-9: #bf3b3b;
+  --color-secondary-10: #af2b2e;
+  --color-secondary-11: #ff8f8b;
+  --color-secondary-12: #ffd0cb;
+
+  /* Tertiary (blue) */
+  --color-tertiary-1: #010036;
+  --color-tertiary-2: #010550;
+  --color-tertiary-3: #040f74;
+  --color-tertiary-4: #0921b3;
+  --color-tertiary-5: #133092;
+  --color-tertiary-6: #1e3fa2;
+  --color-tertiary-7: #2c50b4;
+  --color-tertiary-8: #3c63c9;
+  --color-tertiary-9: #537de5;
+  --color-tertiary-10: #477dd7;
+  --color-tertiary-11: #8ab2ff;
+  --color-tertiary-12: #cce1ff;
+
+  /* Gray (warm) */
+  --color-gray-1: #080907;
+  --color-gray-2: #191715;
+  --color-gray-3: #24211d;
+  --color-gray-4: #2c2924;
+  --color-gray-5: #34302a;
+  --color-gray-6: #3d3a34;
+  --color-gray-7: #4b4741; /* home frame border */
+  --color-gray-8: #648059;
+  --color-gray-9: #706d66;
+  --color-gray-10: #7e7a73;
+  --color-gray-11: #b7b3ab; /* muted copy */
+  --color-gray-12: #f0edeb;
+
+  /* Neutral (warm cream) */
+  --color-neutral-1: #070912;
+  --color-neutral-2: #100a06; /* deep overlay / curtain */
+  --color-neutral-3: #302414;
+  --color-neutral-4: #503d22;
+  --color-neutral-5: #705731;
+  --color-neutral-6: #8f7040;
+  --color-neutral-7: #ad8950;
+  --color-neutral-8: #bb9e70;
+  --color-neutral-9: #c9b490;
+  --color-neutral-10: #d7c9b0;
+  --color-neutral-11: #e6decf;
+  --color-neutral-12: #f6f3ee; /* headings */
 }
 
-@theme {
-  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
-  --font-body: "Newsreader Variable", Charter, Georgia, serif;
-  --color-parchment: #f0e7d8;
-  --color-inkwell: #14100c;
+:root {
+  /* Home CTA pill — the only inverted element */
+  --cta-bg: #ffc6b3;
+  --cta-text: #bd3900;
+  --cta-border: #f7a98f;
+
+  /* Scrims */
+  --scrim-moral: linear-gradient(#1d1411, rgba(16, 10, 6, 0.95), #1d1411);
+  --scrim-hero-fade: linear-gradient(to top, var(--color-primary-2), transparent);
+  --scrim-photo: linear-gradient(180deg, rgba(16, 10, 6, 0) 65%, #100a06 100%);
+
+  /* Motion tokens — the house vocabulary. Motion is feedback and cinema,
+     never decoration. */
+  --ease-house: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* power2.out */
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1); /* back.out(1.7) */
+  --ease-circ-in-out: cubic-bezier(0.85, 0, 0.15, 1); /* circ.inOut */
+  --ease-circ-out: cubic-bezier(0, 0.55, 0.45, 1); /* circ.out */
+  --dur-ui: 300ms; /* CSS default for all micro-interactions */
+  --dur-reveal: 800ms; /* GSAP reveal midpoint (0.6–1.0s band) */
+  --dur-curtain: 600ms;
 }
 
 html {
@@ -52,72 +130,146 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  font-size: 1.0625rem;
-  background: var(--chapter-surface);
-  color: var(--chapter-ink);
+  font-family: var(--font-sans);
+  background: var(--color-primary-2);
+  color: var(--color-primary-12);
   -webkit-font-smoothing: antialiased;
-  font-optical-sizing: auto;
 }
 
-/* ——— Display type: broadside voice ——— */
-.font-display {
-  font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 1;
-  letter-spacing: 0.005em;
-}
-.display-hero {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-variation-settings: "SOFT" 60, "WONK" 1;
-  line-height: 0.98;
+/* ————————————————————————————————————————————————————————————————
+ * TYPE ROLES — the ×1.25/×1.5 ladder as named roles.
+ * Values are the approved rendering, verbatim from the legacy build.
+ * ———————————————————————————————————————————————————————————————— */
+
+/* Hero h1 / section h3: 42/34 → 52.5/42.5 → 63/51, tracking −1.5/−1.875/−2.25 */
+.type-display {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 2.625rem;
+  line-height: 2.125rem;
+  letter-spacing: -0.09375rem;
+  color: var(--color-neutral-12);
   text-wrap: balance;
 }
-.label-caps {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+/* Approved hard breaks arrive via <br/> or \n in content — balance must not
+   fight them; white-space handled per component. */
+.type-display-caps {
   text-transform: uppercase;
-  opacity: 0.65;
 }
 
-/* Long-form reading measure */
-.prose-narrative {
-  max-width: 38rem;
-  line-height: 1.72;
-}
-.prose-narrative p + p {
-  margin-top: 1.35em;
-}
-
-/* Drop cap on the opening paragraph of each scene */
-.drop-cap::first-letter {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-variation-settings: "SOFT" 80, "WONK" 1;
-  float: left;
-  font-size: 3.6em;
-  line-height: 0.82;
-  padding-right: 0.09em;
-  color: var(--chapter-accent);
+/* Wordmark: 54 → 67.5 → 81, tracking −2.5px, two interlocked lines */
+.type-wordmark {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 54px;
+  letter-spacing: -2.5px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
 }
 
-/* ——— Paper grain: two layered SVG turbulence tints, GPU-cheap ——— */
-.paper::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 240px 240px;
+/* Body narrative: 18/300/1.6 primary-12 */
+.type-body {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-primary-12);
+  text-wrap: pretty;
 }
 
-/* ——— Structural island sizing: plain CSS that cannot vanish ———
- * Layout-critical dimensions must never depend on utility scanning (the
- * island-CSS bug class). These classes are applied alongside the utilities. */
+/* Label: 12 → 15 → 18 uppercase, Poppins, primary-11 */
+.type-label {
+  font-family: var(--font-poppins);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  text-transform: uppercase;
+  color: var(--color-primary-11);
+}
+
+/* Progress label ("Section N/4"): Poppins 500, same ladder as label */
+.type-progress {
+  font-family: var(--font-poppins);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+
+/* Home date/eyebrow: 14 → 17.5 → 21 primary-11 */
+.type-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-primary-11);
+}
+
+/* Muted copy (home mission, captions): 12 → 15 → 18 gray-11 */
+.type-muted {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-gray-11);
+  text-wrap: pretty;
+}
+
+/* Card/player titles: 18 → 22.5 → 27 Martel 600 */
+.type-card-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  color: var(--color-primary-12);
+}
+
+@media (min-width: 768px) {
+  .type-display { font-size: 3.28125rem; line-height: 2.65625rem; letter-spacing: -0.11719rem; }
+  .type-wordmark { font-size: 67.5px; }
+  .type-label { font-size: 0.9375rem; line-height: 1.171875rem; }
+  .type-progress { font-size: 0.9375rem; line-height: 1.875rem; }
+  .type-eyebrow { font-size: 17.5px; }
+  .type-muted { font-size: 15px; }
+  .type-card-title { font-size: 1.40625rem; }
+}
+@media (min-width: 1024px) {
+  .type-display { font-size: 3.9375rem; line-height: 3.1875rem; letter-spacing: -0.14063rem; }
+  .type-wordmark { font-size: 81px; }
+  .type-label { font-size: 1.125rem; line-height: 1.40625rem; }
+  .type-progress { font-size: 1.125rem; line-height: 1.6875rem; }
+  .type-eyebrow { font-size: 21px; }
+  .type-muted { font-size: 18px; }
+  .type-card-title { font-size: 1.6875rem; }
+}
+
+/* First-WORD drop cap (not a letter cap): 32px medium, negative margins,
+   once per chapter — apply .first-word to a <span> wrapping word one. */
+.first-word {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+/* ————————————————————————————————————————————————————————————————
+ * SHAPE / SURFACE IDIOM
+ * ———————————————————————————————————————————————————————————————— */
+
+/* The universal media/card frame: rounded-3xl + primary-6 border */
+.frame {
+  border-radius: 1.5rem; /* rounded-3xl */
+  border: 1px solid var(--color-primary-6);
+}
+.frame-2 {
+  border-radius: 1.5rem;
+  border: 2px solid var(--color-primary-6);
+}
+
+/* ————————————————————————————————————————————————————————————————
+ * STRUCTURAL ISLAND SIZING — plain CSS that cannot vanish.
+ * Layout-critical dimensions must never depend on utility scanning
+ * (the island-CSS bug class). Applied alongside the utilities.
+ * ———————————————————————————————————————————————————————————————— */
 .map-shell {
   position: relative;
   height: 100dvh;
@@ -143,18 +295,11 @@ body {
   }
 }
 
-/* Ink rule — the underline stroke used across section breaks */
-.ink-rule {
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--chapter-accent),
-    color-mix(in oklab, var(--chapter-accent) 45%, transparent) 70%,
-    transparent
-  );
-}
+/* ————————————————————————————————————————————————————————————————
+ * MOTION PRIMITIVES
+ * ———————————————————————————————————————————————————————————————— */
 
-/* ——— Scroll-reveal primitives (GSAP adds motion; CSS is the no-JS state) ——— */
+/* Scroll-reveal: GSAP adds motion; CSS is the no-JS state (content visible) */
 .reveal {
   opacity: 1;
   transform: none;
@@ -162,27 +307,50 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .js .reveal {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(30px);
   }
   .js .reveal.is-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity var(--dur-slow) var(--ease-settle),
-      transform var(--dur-slow) var(--ease-settle);
+      opacity var(--dur-reveal) var(--ease-house),
+      transform var(--dur-reveal) var(--ease-house);
   }
 }
 
-/* Narration sync highlight */
-.narration-active {
-  background: color-mix(in oklab, var(--chapter-accent) 18%, transparent);
-  border-radius: 2px;
-  transition: background var(--dur-fast) var(--ease-drift);
+/* Curtain transition panel (GSAP drives y; these are the resting styles) */
+.curtain-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-neutral-2);
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.curtain-text {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Visible focus everywhere; never remove, only restyle */
+/* Narration sync highlight — the subtle primary-4 wash (not an accent block) */
+.narration-active {
+  background: color-mix(in srgb, var(--color-primary-4) 65%, transparent);
+  border-radius: 4px;
+  transition: background var(--dur-ui) var(--ease-house);
+}
+
+/* ————————————————————————————————————————————————————————————————
+ * A11Y
+ * ———————————————————————————————————————————————————————————————— */
+
 :focus-visible {
-  outline: 2px solid var(--chapter-accent);
+  outline: 2px solid var(--color-primary-9);
   outline-offset: 3px;
 }
 
@@ -190,14 +358,15 @@ body {
   position: absolute;
   left: -999px;
   top: 0;
-  z-index: 100;
-  background: var(--chapter-ink);
-  color: var(--chapter-surface);
+  z-index: 10001;
+  background: var(--color-neutral-12);
+  color: var(--color-primary-2);
   padding: 0.5rem 1rem;
+  border-radius: 0 0 0.5rem 0;
 }
 .skip-link:focus {
-  left: 0.5rem;
-  top: 0.5rem;
+  left: 0;
+  top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

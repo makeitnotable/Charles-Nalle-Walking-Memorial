@@ -1,0 +1,223 @@
+---
+// The design-system contract, rendered. Reviewed by the Visual Design
+// discipline against docs/BASELINE.md; pixel-sampled by QA scripts.
+// Not linked from site nav — internal instrument only.
+import Base from "../layouts/Base.astro";
+
+const ramps: Record<string, string[]> = {
+  primary: ["#0e0807", "#1d1411", "#341a11", "#4a1b0a", "#592411", "#69311d", "#80412b", "#a55438", "#f26835", "#e45b27", "#ff9770", "#fed9cc"],
+  secondary: ["#0f0707", "#1f1110", "#3d0e0e", "#55050b", "#660b11", "#791b1d", "#932c2b", "#be3a3a", "#bf3b3b", "#af2b2e", "#ff8f8b", "#ffd0cb"],
+  tertiary: ["#010036", "#010550", "#040f74", "#0921b3", "#133092", "#1e3fa2", "#2c50b4", "#3c63c9", "#537de5", "#477dd7", "#8ab2ff", "#cce1ff"],
+  gray: ["#080907", "#191715", "#24211d", "#2c2924", "#34302a", "#3d3a34", "#4b4741", "#648059", "#706d66", "#7e7a73", "#b7b3ab", "#f0edeb"],
+  neutral: ["#070912", "#100a06", "#302414", "#503d22", "#705731", "#8f7040", "#ad8950", "#bb9e70", "#c9b490", "#d7c9b0", "#e6decf", "#f6f3ee"],
+};
+---
+
+<Base
+  title="Styleguide — CNWM v3"
+  description="Design system contract for the Charles Nalle Walking Memorial."
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 md:px-10 lg:px-20">
+    <p class="type-label">Internal · Design system</p>
+    <h1 class="type-display type-display-caps mt-4">The approved<br />system</h1>
+
+    <!-- ——— Color ramps ——— -->
+    <section class="mt-16">
+      <p class="type-progress text-neutral-12">Color — five 12-step ramps</p>
+      {Object.entries(ramps).map(([name, steps]) => (
+        <div class="mt-6">
+          <p class="type-label mb-2">{name}</p>
+          <div class="flex flex-wrap gap-1">
+            {steps.map((hex, i) => (
+              <div class="w-16">
+                <div
+                  class="h-12 rounded-md border border-primary-6"
+                  style={`background:${hex}`}
+                  data-token={`${name}-${i + 1}`}
+                ></div>
+                <p class="type-muted mt-1 text-center" style="font-size:10px">{i + 1} · {hex}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div class="mt-6">
+        <p class="type-label mb-2">special — home CTA (the only inverted element)</p>
+        <span
+          class="inline-block rounded-full px-6 py-3 font-medium"
+          style="background:var(--cta-bg);color:var(--cta-text);border:1px solid var(--cta-border);font-family:var(--font-poppins)"
+        >Continue</span>
+      </div>
+    </section>
+
+    <!-- ——— Type ladder ——— -->
+    <section class="mt-20">
+      <p class="type-progress text-neutral-12">Type — the ×1.25 / ×1.5 ladder</p>
+      <div class="mt-6 flex flex-col gap-8">
+        <div>
+          <p class="type-label mb-2">wordmark · 54 → 67.5 → 81 · tracking −2.5px</p>
+          <div class="flex w-fit flex-col">
+            <p class="type-wordmark">Charles</p>
+            <p class="type-wordmark self-end" style="margin-top:-0.75rem">Nalle</p>
+          </div>
+        </div>
+        <div>
+          <p class="type-label mb-2">display · 42/34 → 52.5/42.5 → 63/51 · tracking −1.5 → −2.25px</p>
+          <h2 class="type-display type-display-caps">Historical<br />Context</h2>
+        </div>
+        <div>
+          <p class="type-label mb-2">body narrative · 18 / 300 / 1.6 + first-word cap</p>
+          <p class="type-body max-w-xl">
+            <span class="first-word">As</span> the sun rose on the morning of April 27, 1860, and
+            light spilled across the streets of Troy, Charles Nalle walked to
+            Holeur's Fashionable Bakery on the corner of 3rd and Division.
+          </p>
+        </div>
+        <div>
+          <p class="type-label mb-2">label · 12 → 15 → 18 uppercase poppins</p>
+          <p class="type-label">Chapter</p>
+        </div>
+        <div>
+          <p class="type-label mb-2">progress · poppins 500</p>
+          <p class="type-progress text-neutral-12">Section 2/4</p>
+        </div>
+        <div>
+          <p class="type-label mb-2">eyebrow · 14 → 17.5 → 21</p>
+          <p class="type-eyebrow">Troy, NY</p>
+        </div>
+        <div>
+          <p class="type-label mb-2">muted · 12 → 15 → 18 gray-11</p>
+          <p class="type-muted max-w-md">
+            The Charles Nalle Walking Memorial is a digital physical experience
+            designed to share the history of Troy and the story of Charles Nalle
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ——— UI elements ——— -->
+    <section class="mt-20">
+      <p class="type-progress text-neutral-12">UI elements — signature primitives</p>
+      <div class="mt-6 flex flex-col gap-10">
+        <div>
+          <p class="type-label mb-3">buttons · filled / outline / home CTA</p>
+          <div class="flex flex-wrap items-center gap-4">
+            <button
+              class="min-w-[147px] cursor-pointer rounded-full border border-primary-6 bg-primary-4 px-6 py-4 font-medium text-primary-11 transition-all duration-300 hover:bg-primary-5 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:border-primary-6 active:bg-primary-3 active:shadow-none"
+              style="font-family:var(--font-poppins)"
+            >Play Chapter</button>
+            <button
+              class="min-w-[147px] cursor-pointer rounded-full border border-primary-8 px-6 py-4 font-medium text-primary-11 transition-all duration-300 hover:text-primary-12 hover:shadow-[inset_0_0_0_1px_#80412B] active:shadow-none"
+              style="font-family:var(--font-poppins)"
+            >Get Directions</button>
+            <button
+              class="w-[148px] cursor-pointer rounded-full px-6 py-4 font-medium transition-all duration-300"
+              style="background:var(--cta-bg);color:var(--cta-text);border:1px solid var(--cta-border);font-family:var(--font-poppins)"
+            >Continue</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">chapter badge + label row</p>
+          <div class="flex w-64 items-center justify-between">
+            <p class="type-label">Chapter</p>
+            <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 md:h-5 md:w-5 lg:h-6 lg:w-6">
+              <p class="mt-0.5 text-[0.625rem] font-medium text-primary-12 md:text-[0.78125rem] lg:text-[0.9375rem]" style="font-family:var(--font-poppins)">1</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">media frame · rounded-3xl + primary-6 border (universal)</p>
+          <div class="frame h-40 w-64 bg-primary-3"></div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">audio player card (two-state: idle primary-3 → playing primary-4)</p>
+          <div class="flex flex-wrap gap-6">
+            <div class="frame-2 w-72 bg-primary-3 p-4">
+              <div class="frame-2 h-40 w-full bg-primary-2"></div>
+              <div class="mt-4 flex items-start justify-between">
+                <div class="flex gap-3">
+                  <button class="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl border-2 border-primary-6 bg-primary-4 transition-colors hover:bg-primary-5" aria-label="Play">
+                    <svg width="16" height="18" viewBox="0 0 17 21" fill="none"><path d="M1 3.7C1 2.7 1 2.2 1.2 1.9C1.4 1.7 1.6 1.6 1.9 1.5C2.3 1.5 2.7 1.8 3.5 2.3L14 9.3C14.7 9.8 15 10 15.1 10.3C15.2 10.5 15.2 10.8 15.1 11C15 11.3 14.7 11.6 14 12L3.5 19C2.7 19.5 2.3 19.8 1.9 19.8C1.6 19.8 1.4 19.6 1.2 19.4C1 19.1 1 18.6 1 17.7V3.7Z" stroke="#F26835" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <div>
+                    <p class="type-card-title uppercase">Chapter 1</p>
+                    <p class="text-[12px] text-primary-11" style="font-family:var(--font-poppins)">Holeur's Fashionable Bakery</p>
+                  </div>
+                </div>
+                <div class="rounded-3xl bg-primary-10 px-3 py-0.5">
+                  <span class="text-[12px] font-medium text-primary-12" style="font-family:var(--font-poppins)">01:25</span>
+                </div>
+              </div>
+            </div>
+            <div class="frame-2 w-72 self-start bg-primary-4 p-4">
+              <div class="frame-2 h-40 w-full scale-102 bg-primary-2 transition-transform duration-300"></div>
+              <div class="mt-4 flex items-start justify-between">
+                <div class="flex gap-3">
+                  <button class="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl border-2 border-primary-6 bg-primary-4" aria-label="Pause">
+                    <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x="1" y="1" width="4" height="16" stroke="#F26835" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="1" width="4" height="16" stroke="#F26835" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <div>
+                    <p class="type-card-title uppercase">Chapter 1</p>
+                    <p class="text-[12px] text-primary-11" style="font-family:var(--font-poppins)">Playing</p>
+                  </div>
+                </div>
+                <div class="rounded-3xl bg-primary-10 px-3 py-0.5">
+                  <span class="text-[12px] font-medium text-primary-12" style="font-family:var(--font-poppins)">00:41 | 01:25</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">map marker pill (active / inactive)</p>
+          <div class="flex items-end gap-10 rounded-xl bg-gray-3 p-6">
+            <div class="flex scale-90 flex-col items-center">
+              <div class="flex cursor-pointer items-center justify-center rounded-[30px] p-[8px] font-medium" style="background:#F26835;color:#FED9CC;border:1px solid #F26835;font-family:var(--font-poppins)">
+                <div class="mr-1.5 flex h-5 w-5 items-center justify-center rounded-full" style="background:#E45B27"><p class="text-[11px]" style="color:#FED9CC">1</p></div>
+                <p class="text-[12px] leading-[18px]">Bakery</p>
+              </div>
+              <div class="w-0.5" style="background:#F26835;height:30px"></div>
+              <div class="rounded-full" style="background:#F26835;width:8px;height:8px"></div>
+            </div>
+            <div class="flex scale-80 flex-col items-center">
+              <div class="flex cursor-pointer items-center justify-center rounded-[30px] p-[8px] font-medium" style="background:#4A1B0A;color:#FF9770;border:1px solid #80412B;font-family:var(--font-poppins)">
+                <div class="mr-1.5 flex h-5 w-5 items-center justify-center rounded-full" style="background:#E45B27"><p class="text-[11px]" style="color:#FED9CC">3</p></div>
+                <p class="text-[12px] leading-[18px]">Mansion</p>
+              </div>
+              <div class="w-0.5" style="background:#80412B;height:30px"></div>
+              <div class="rounded-full" style="background:#80412B;width:8px;height:8px"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">hamburger (corner-notched 72×72)</p>
+          <div class="flex h-[72px] w-[72px] items-center justify-center rounded-tl-xl rounded-tr-xl rounded-bl-4xl rounded-br-xl border-2 border-primary-6 bg-primary-3">
+            <div class="flex w-full flex-col items-center gap-2">
+              <div class="h-0.5 w-8 rounded-full bg-primary-10"></div>
+              <div class="h-0.5 w-8 rounded-full bg-primary-10"></div>
+              <div class="ml-4.5 h-0.5 w-6 self-start rounded-full bg-primary-10"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">narration highlight (primary-4 wash)</p>
+          <p class="type-body max-w-xl"><span class="narration-active">Charles Nalle walked to Holeur's Fashionable Bakery</span> on the corner of 3rd and Division.</p>
+        </div>
+
+        <div>
+          <p class="type-label mb-3">scrims</p>
+          <div class="flex gap-4">
+            <div class="h-32 w-48 rounded-md" style="background:var(--scrim-moral)"></div>
+            <div class="h-32 w-48 rounded-md bg-neutral-6" style="position:relative"><div style="position:absolute;inset:0;background:var(--scrim-hero-fade)"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
