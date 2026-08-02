@@ -1,0 +1,8 @@
+{
+  "framework": "astro",
+  "redirects": [
+    { "source": "/commissioner1", "destination": "/commissioners-office", "permanent": true },
+    { "source": "/commissioner2", "destination": "/commissioners-office", "permanent": true },
+    { "source": "/barber", "destination": "/barbershop", "permanent": true }
+  ]
+}

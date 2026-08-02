@@ -1,86 +1,73 @@
-# Charles Nalle Walking Memorial — V2 Rebuild & Launch Plan
+# CNWM V2 — Phase-Based Execution Plan (3-day target)
 
-## Context
+*Updated 2026-08-02 after the kickoff session. Supersedes the week-based version. Timeline is **3 days maximum**, organized as phases with hard exit criteria — not calendar weeks. Full project background, stakeholders, and contract facts: memory file `cnwm-project-state.md` and repo `docs/PLAN.md` / `docs/CONTENT-STATUS.md`.*
 
-The Charles Nalle Walking Memorial (Troy, NY) pairs 4 bronze QR plaques (fabricator: Matt Crane / Silver Crane LLC, artist: Brian Tolle) with a story website built by Notable/WBM for the Hart Cluett Museum (historian/content authority: Kathy Sheehan; admin: Amanda Irwin — hard requirement: **zero ongoing hosting cost**). The v1 site (React/Vite SPA) was functionally complete but subpar: generic typography, thin motion, 8.5MB chapter pages, un-applied content corrections, and deploy problems. Plaque production and Matt's payment were blocked on final website URLs for QR generation.
+## Status snapshot
 
-**Decision (2026-08-01): the award-caliber v2 rebuild IS the launch site.** No further polish on the old SPA. The rebuild targets Awwwards-submission quality, modeled on five studied inspiration sites (Museos para el Siglo XXI, Rewild Yourself, Marseille by La Phase 5, Pasqua Wines, Google Arts & Culture).
+**DONE — Phase 0 (foundation), commit `3e932d6` on `main` of local repo `<project>/cnwm-v2`:**
+Astro 7 + Tailwind 4 + React 19 islands + GSAP, TS strict (0 errors), 9 routes building at the frozen slugs, content fully ported from legacy `locationData.jsx` → `src/content/chapters/*.json` with Kathy's documentable corrections applied (ledger: `docs/CONTENT-STATUS.md`), narration MP3s in `public/audio/`, GH Pages workflow, real title/favicon/OG, skip links, reduced-motion baseline.
 
-Wil is the **only person** on the project. Wil personally delivers corrected narrative text + re-recorded audio; Claude executes the build.
+**DONE — Week 0 prep, staged in `<project>/Week 0 Deliverables/`:** 4 QR codes (SVG + print PNG, EC level H, machine-decode verified) encoding `hartcluett.org/nalle/*`; Amanda's Squarespace URL-Mapping lines; Brian email draft (plaque "ONCE HOUSE"→"HOUSED" typo flag + plan + call after 8/4); Matt email draft. **Sending is Wil's job — Amanda's mappings are the only gate to Matt's payment.**
 
-### Locked decisions
-1. **Sequencing:** Rebuild is the launch (no interim ship of the old site).
-2. **Stack:** Fresh **Astro** build — prerendered static pages + interactive islands. Outputs plain files → GitHub Pages hosts it free with real deep-link URLs (no SPA 404 hacks needed).
-3. **QR URLs:** Bronze QR codes point at **hartcluett.org redirect URLs** (museum-owned, permanent). ⇒ *QR codes generated and delivered to Matt in Week 0 — plaque production runs in parallel with the build.* Redirects point at the current Vercel site until v2 ships, then flip.
-4. **Scope:** Full award spec — entry sequence, route-drawing map, press-to-reveal chapters, synced narration, multi-door navigation, textures/typography, perf + a11y.
+**PENDING from Wil (tracked in `docs/CONTENT-STATUS.md`):** ferry "skiff, no leap" narrative rewrite · Ch2a + Ch4 audio re-records · Athenaeum image · display-typeface license pick (free-license fallback will be proposed in Phase 1).
 
-## Key paths & facts (source of truth)
+## Deploy strategy (corrected — this replaces the "create new GitHub repo" step)
 
-- **Project folder:** `/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle`
-- **Legacy repo (content + asset source, becomes archive):** `<project>/Charles Nalle Walking Memorial Website/Charles-Nalle-Walking-Memorial` — working branch `match-figma-designs` (104 ahead of `main`; GH Pages workflow deploys stale `main`). Live: `https://charles-nalle-walking-memorial.vercel.app`
-- **All legacy narrative/site content:** `src/data/locationData.jsx` (ported → `src/content/chapters/*.json` here). About content: `src/data/aboutData.js` (ported → `src/data/about.ts`)
-- **Assets:** legacy `public/` (275MB, unoptimized): per-chapter folders with `square/horizontal/vertical/historical/moral` PNGs (up to 6.2MB each); `public/CNWM - Animated Images/` — animated MP4s of every painting (incl. `_historical`, `_vertical`, `_horizontal`, and chapters 4–5 `narrative_1/2` variants) + `Splash Page Image.mp4`; `public/Audio Files/` — 6 narration MP3s (Ch1 1:24, Ch2a 1:10, Ch2b 1:48, Ch3 2:29, Ch4 2:15, Ch5 2:01)
-- **Additional design assets:** `<project>/Design/Images/` (OG paintings, sketch versions of every painting, historical photos); `<project>/Design/Website/Chapter Images/Stills/6. Map of Troy New York.png` (1860 map — use as map overlay); `<project>/Design/Website/Map - *.png`
-- **Mapbox:** style `mapbox://styles/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft` on Wil's `wbmdesign` account, token in old repo `.env`. Must be **published** (drop `/draft`) and migrated to a museum-owned free account at handoff.
-- **Plaque coordinates (Brian, 5/13/26):** Commissioner's Office 5 State St `maps.app.goo.gl/qxYA5PTfSzdrGxA66` · Barbershop 10-6 1st St `maps.app.goo.gl/LcHgr9gTwPj6yby59` · Bakery (vacant lot) `maps.app.goo.gl/fHXxMNQ3HHmJwjXP7` · Gilbert home 189 2nd St `maps.app.goo.gl/GWqdtL7dLqCRcHfi8` · Ferry (website-only, NO plaque) `maps.app.goo.gl/pjrzDfUg6NCsWCj48`. Map label "Bank" → **"Commissioner's Office"**.
-- **Kathy's corrections (7/1/26, must be reflected in Wil's new text/audio):** church bells = **Second Street Presbyterian** (not Liberty St — appeared in old locationData lines ~143/167 and Ch2a audio); Mutual Bank portal history: landlord → **employer**; Barbershop portal gets **Athenaeum building image**; Scene 2: quote addressed to "Peter (Baltimore)" + word "them"; Scene 5: Nalle boarded a waiting **skiff** — no leap into the river (affects Ch4 audio). See `docs/CONTENT-STATUS.md` for what is already applied vs. pending.
-- **Plaque proof typo (flag to Brian BEFORE casting):** Commissioner's plaque reads "ONCE HOUSE THE" → "ONCE HOUSED THE" (`Context/2026_0610_10x12plaquesNEWLAYOUT.pdf`).
-- **Contract facts:** RCHS contract $12k, ownership transfers on payment; open item — subcontractor Giuseppe Mele's final $1,250. Memory file: `~/.claude/projects/-Users-thebayniac-…-Charles-Nalle/memory/cnwm-project-state.md`.
+git IS installed. Do not create a new repo. Use the existing infrastructure:
 
-## Design bar (from the five-site study)
+- **GitHub:** `https://github.com/makeitnotable/Charles-Nalle-Walking-Memorial` (old site lives on `main` / `match-figma-designs` — leave untouched).
+  Push v2 as an independent branch:
+  `cd "<project>/cnwm-v2" && git remote add origin https://github.com/makeitnotable/Charles-Nalle-Walking-Memorial.git && git push -u origin main:v2`
+- **Vercel:** project `notableprojects/charles-nalle-walking-memorial` is connected to that repo → every push to `v2` gets an automatic **preview URL** (the per-phase review link, free). Add `vercel.json` to cnwm-v2 with `{"framework": "astro"}` so branch deployments override the project's old Vite preset.
+- **Astro config:** default `base: '/'` + `site` = the Vercel production URL (Vercel is the launch target). The GH Pages workflow passes env overrides (`base`, `site`) for the github.io build — GH Pages stays as the zero-cost handoff/escape path, not the launch path.
+- **Launch flip (Phase 6):** set Vercel Production Branch → `v2` (or merge). Production URL `charles-nalle-walking-memorial.vercel.app` is what Amanda's `/nalle/*` mappings already target — **include legacy-slug redirects in `vercel.json`** (`/commissioner1 → /commissioners-office`, `/barber → /barbershop`, `/commissioner2 → /commissioners-office#part-2`) so Amanda's Week-0 mappings keep working forever and she never touches Squarespace again. Bronze QR unaffected by any of this.
 
-1. **One signature interaction** → CNWM's: *press-and-hold the sketch to bring Mark Priest's painting to life* (uses existing animated MP4s), plus the *route that draws itself* across the map.
-2. **Narrative before navigation** — cinematic, skippable entry ("Troy, New York · April 27, 1860"); sound opt-in (Pasqua's gesture-gated audio, at Museos' weight).
-3. **Typography = identity** — 1860s broadside-inspired display face + readable text serif; kill Martel-Sans-everywhere.
-4. **Motion with a thesis** — archival/painterly reveals; per-chapter palette + pacing driven by the design sprint's "emotions to feel."
-5. **Sound as a layer** — synced narration w/ paragraph highlighting; optional ambient cues (bells, river); always opt-in; transcripts included.
-6. **Craft seams** — real `<title>`/favicon/OG, poetic-but-skippable loader, numbered sections, inverted palettes (Museos), custom cursor on map.
-7. **Media pipeline** — AVIF/WebP + srcset, compressed video, LCP < 2.5s on 4G (audience is on a sidewalk on cellular).
+## The 3 days
 
-## Week 0 — Unblock stakeholders (Wil, ~1 day)
+Each phase ends with: build green, `astro check` clean, pushed → Vercel preview verified on a real phone. Ship order is fixed; if anything slips, Phase 2 (chapters) is the value core and Phase 6 items cannot be cut.
 
-1. **Freeze URL slugs** and send Amanda exact Squarespace redirect instructions: `hartcluett.org/nalle` → home, `/nalle/bakery`, `/nalle/commissioners-office`, `/nalle/mansion`, `/nalle/barbershop` (+ `/nalle/ferry` for web). Initially target the current Vercel URLs; flip to v2 at launch.
-2. **Generate 4 QR codes** from those hartcluett.org URLs, test-scan on phone, deliver to Matt + Brian ⇒ plaque production and Matt's payment unblock NOW.
-3. **Flag the plaque typo** ("ONCE HOUSE") to Brian before casting.
-4. **Schedule the Brian call** (Wil available after Tue 8/4): plaques proceed now, upgraded site ships in ~4–6 weeks at the same URLs.
-5. Confirm narrator availability for re-records; settle Mele's $1,250 status.
+### Day 1 — the experience core
 
-*Status 2026-08-01: QR codes generated + machine-verified; Amanda instructions and Brian/Matt email drafts written — see `<project>/Week 0 Deliverables/`. Sending is Wil's action. Redirects NOT yet live (verified `/nalle` 404s).*
+**Phase 1: Media pipeline + design system (morning).**
+- Batch-convert chapter PNGs → AVIF/WebP responsive sets (Astro `<Image>`/sharp); re-encode animated MP4s (H.265+VP9, posters, lazy, `playsinline`); audio untouched pending re-records.
+- Tokens: type scale (broadside-inspired display + text serif — propose 2–3 candidates to Wil, free-license fallback wired in immediately), per-chapter palettes from the design-sprint "emotions to feel," paper/ink textures, motion durations/easings, `prefers-reduced-motion` variant for every animation.
+- Perf budget in CI: Lighthouse mobile ≥ 90 perf, LCP < 2.5s throttled 4G.
 
-## Content Wil delivers (before/while M2 runs)
+**Phase 2: Chapter experience (afternoon — prove on Bakery, then stamp across all five).**
+- Hero: sketch version → **press-and-hold reveal** → animated painting (pointer + touch + keyboard; reduced-motion = crossfade).
+- Synced narration: paragraph-level highlight from timestamped JSON (auto-align text↔audio; re-align Ch2a/Ch4 when Wil's re-records land); persistent mini-player; transcript toggle.
+- Numbered sections: portal → narrative scenes → historical context → moral → where-to-next (route strip); scroll choreography per chapter palette; inverted palettes between map and chapters.
 
-- [ ] Corrected narrative text for all chapters (Kathy's list applied; ideally Kathy signs off the full script once)
-- [ ] Re-recorded audio: Ch2 Pt1 (bells), Ch4 (skiff), likely Ch2 Pt2 (quote/"them") — same narrator or full re-record decision
-- [ ] Timestamped transcript OR permission for Claude to auto-align text↔audio for synced highlighting
-- [ ] Athenaeum building image (from Brian/Kathy) for Barbershop
-- [ ] Display typeface choice/license (Claude proposes 2–3 candidates in M1; free-license fallback identified)
-- [ ] (Optional, post-launch) children's narration, Spanish track — architecture supports multiple tracks per chapter (Museos pattern)
+### Day 2 — the world and the doors
 
-## Build milestones (execute in order; each ends with a deployed preview + UX review pass)
+**Phase 3: Map experience (morning).**
+- Publish Mapbox style (drop `/draft`); aged-paper texture pass; **1860 Troy map** opacity-toggle overlay (`Design/Website/Chapter Images/Stills/6. Map of Troy New York.png`); exact plaque coordinates from Brian's links; "Commissioner's Office" label.
+- Route **draws itself 1→5** with skippable camera flythrough; ambient cues opt-in.
+- Two modes: *On the sidewalk* (QR deep link → chapter, "next stop" wayfinding) and *From anywhere* (guided flythrough). Single map instance created once — do NOT port the old `PersistentMap.jsx` multi-instance pattern.
 
-**M0 — Foundation (wk 1).** ✅ This repo. Astro + Tailwind + GSAP; React islands only where needed (map, audio player, reveal interaction). `locationData.jsx` ported → content collections (one entry per chapter; portal/scenes/quotes/historical/moral/next + per-chapter palette + audio refs). Routes: `/`, `/map`, `/bakery`, `/commissioners-office` (pt1+pt2 merged as one chapter with two scenes), `/mansion`, `/ferry`, `/barbershop`, `/about`, 404. GH Pages CI. Real `<title>`, favicon, OG image.
+**Phase 4: Entry + multi-door IA (afternoon).**
+- Title sequence: "Troy, New York · April 27, 1860," rolling dates, painting waking behind type; < 3s to interactive, skippable, sound opt-in (gesture unlocks audio).
+- Doors: **The Walk** (map) · **The Story** (chapters 1–6) · **The People** (Nalle, Tubman, Baltimore, Townsend, Gilbert cards → scenes) · **The Paintings** (gallery + deep zoom). About page ported.
 
-**M1 — Media pipeline + design system (wk 1–2).** Batch-convert all chapter PNGs → AVIF/WebP with responsive widths (Astro `<Image>`); re-encode MP4s (H.265/VP9, posters, lazy). Type scale, tokens, paper/ink textures, per-chapter palettes, `prefers-reduced-motion` variants of every animation. Perf budget enforced in CI (Lighthouse ≤ perf 90 mobile, LCP < 2.5s throttled).
+### Day 3 — hardening and launch
 
-**M2 — Chapter experience (wk 2–3).** Hero: sketch version → **press-and-hold reveal** → animated painting MP4 (touch + mouse + keyboard accessible; reduced-motion = crossfade). Synced narration: play → paragraph-level highlight (timestamped JSON per chapter); persistent mini-player; transcript toggle. Numbered sections (portal → narrative scenes → historical context → moral → where-to-next w/ route strip). Scroll choreography per design-sprint emotions.
+**Phase 5: Hardening (morning).**
+- Cross-device pass: small iPhone, mid-tier Android, iPad, desktop; portrait + landscape.
+- A11y: contrast, focus, semantics, transcripts, reduced-motion end-to-end. Perf audit on throttled 4G against the budget.
+- Content verification word-for-word against Kathy's approved text; integrate any delivered re-records/rewrites (`docs/CONTENT-STATUS.md` → all green or explicitly deferred with Wil's sign-off).
 
-**M3 — Map experience (wk 3–4).** Publish Mapbox style (drop `/draft`); age-paper texture pass; **1860 Troy map** as opacity-toggle overlay; exact plaque coordinates + corrected labels; route **draws 1→5** with camera flythrough intro (skippable); ambient cues opt-in. Two modes: *On the sidewalk* (QR deep link → chapter, "next stop" wayfinding) and *From anywhere* (guided flythrough). The old `PersistentMap.jsx` bug pattern must NOT be ported — one map instance, created once.
+**Phase 6: Launch + handoff prep (afternoon).**
+- Flip Vercel production to `v2` with legacy-slug redirects live; re-scan all 4 printed QR proofs end-to-end (bronze gate).
+- Stakeholder review link to Brian/Kathy/Amanda; Kathy's final sign-off is the content gate.
+- Handoff prep: 1-page doc (accounts, URLs, content editing, contacts); Mapbox publish + migration plan to museum account; GH Pages escape hatch documented. Repo/Mapbox ownership transfer executes after client sign-off (it's the contractual close-out, not a launch blocker).
+- Awwwards submission package: screens, feature capture video, write-up (submission fee = Wil's call).
 
-**M4 — Entry + multi-door IA (wk 4).** Title sequence ("Troy, NY · April 27, 1860", rolling dates, painting waking behind type; < 3s to interactive, skippable, sound opt-in). Nav doors: **The Walk** (map), **The Story** (chapters), **The People** (Tubman, Baltimore, Townsend, Gilbert, Nalle character cards → scenes), **The Paintings** (gallery + deep zoom). About page designed.
+## Verification (launch gate)
 
-**M5 — Hardening (wk 5).** Cross-device matrix (small iPhone, Android mid-tier, iPad, desktop; portrait+landscape). A11y audit: contrast, focus states, semantics, transcripts, reduced-motion. Perf audit on throttled 4G. Content verification pass against Kathy's approved script (word-for-word).
-
-**M6 — Launch + handoff + award (wk 5–6).** Deploy to GH Pages; Amanda flips the `/nalle/*` redirects to the new site (bronze QR unaffected). Transfer: repo → Hart Cluett GitHub org; Mapbox style+token → museum free account; 1-page handoff doc (accounts, URLs, how to edit content, contacts). Kathy/Brian/Amanda review link → sign-off. Awwwards submission package (screens, feature video, write-up; submission fee = Wil's call).
-
-## Verification
-
-- **Week 0:** all 4 QR codes scan to working pages on a phone over cellular; Matt confirms receipt; Amanda confirms redirects live.
-- **Per milestone:** deployed preview + UX review; perf budget green in CI.
-- **Launch gate:** every deep link loads < 3s on throttled 4G; press-reveal + synced narration work on touch devices; map pins verified against Brian's coordinates on-site or via Street View; Kathy signs off final text/audio; Lighthouse mobile ≥ 90 perf / ≥ 95 a11y; redirects flipped and re-scanned from the printed QR proofs before casting is finalized.
+Every deep link < 3s on throttled 4G · press-reveal + synced narration verified on real touch devices · map pins match Brian's coordinates · Lighthouse mobile ≥ 90 perf / ≥ 95 a11y · `hartcluett.org/nalle/*` → correct v2 pages via the printed QR codes · Kathy sign-off recorded.
 
 ## Risks
 
-- **Narrator unavailable** → decide splice vs. full re-record in Week 0 (blocks M2 audio sync, not the rest).
-- **Amanda redirect latency** → provide copy-paste instructions; QR delivery to Matt cannot happen until redirects exist (only Week-0-critical item).
-- **Solo bandwidth** → milestones are independently shippable; M2 (chapters) is the value core if the timeline compresses.
-- **Low-end phone perf with heavy motion** → capability detection + reduced-motion fallbacks in scope from M1, not bolted on.
+- **Amanda redirect latency** — only Week-0-critical item; everything else proceeds regardless.
+- **Audio re-records late** — chapters ship with current audio + corrected text; re-align highlights when files land (drop-in, no rework).
+- **Low-end phone perf** — budgets + reduced-motion + capability detection are Phase 1 scope, not retrofits.

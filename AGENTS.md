@@ -1,7 +1,8 @@
 # Charles Nalle Walking Memorial — v2
 
 Client memorial site for the Hart Cluett Museum (Troy, NY). **Read `docs/PLAN.md`
-before any work** — it is the locked execution plan (milestones M0–M6). Content
+before any work** — it is the locked execution plan (Phases 0–6, 3-day target;
+Vercel is the launch target, GH Pages the handoff escape hatch). Content
 corrections and their status live in `docs/CONTENT-STATUS.md`; stack deviations from
 the WBM constitution are recorded in `docs/DEVIATIONS.md` (static Astro + GH Pages —
 no auth, no billing, no database, no analytics accounts; zero ongoing cost is a hard

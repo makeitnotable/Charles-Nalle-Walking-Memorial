@@ -8,6 +8,7 @@ on:
 env:
   # GH Pages project path for this repo; local dev and Vercel previews use "/"
   BASE: /Charles-Nalle-Walking-Memorial
+  SITE: https://makeitnotable.github.io
 
 permissions:
   contents: read
