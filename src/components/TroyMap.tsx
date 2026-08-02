@@ -166,6 +166,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return () => window.removeEventListener("resize", onResize);
   }, [setMarkers]);
 
+  // The fixed carousel belongs to the map: when the map shell scrolls away
+  // (reading the index below), the cards step aside.
+  const [shellVisible, setShellVisible] = useState(true);
+  useEffect(() => {
+    const el = container.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => setShellVisible(e.intersectionRatio > 0.25),
+      { threshold: [0, 0.25, 0.5] },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   /** The approved tilt, framed so all five pills fit at any viewport: fit
    * bounds, capped at the approved zoom 15.25 (wide screens render the
    * approved overview exactly; narrow ones pull back just enough). */
@@ -618,7 +632,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
       {/* ——— The overlap carousel (approved) ——— */}
       {focused && (
-        <div className="fixed right-0 bottom-0 left-0 z-10 pb-24 sm:pb-6">
+        <div
+          className="fixed right-0 bottom-0 left-0 z-10 pb-24 transition-opacity duration-300 sm:pb-6"
+          style={{
+            opacity: shellVisible ? 1 : 0,
+            pointerEvents: shellVisible ? "auto" : "none",
+          }}
+        >
           <div
             ref={sliderRef}
             className="keen-slider location-cards-slider"

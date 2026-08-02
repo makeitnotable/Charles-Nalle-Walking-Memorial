@@ -86,6 +86,10 @@ the pins are Brian's, the paintings are Mark's.
   Ch2a/Ch4 audio re-records (Wil's drops).
 - **Brian:** pin placement confirmation, painting credits, the plaque typo ("ONCE HOUSE THE" →
   "HOUSED") — must reach Brian BEFORE casting.
+- **Attribution check (new, from the stakeholder test):** the 1860 map lens caption says
+  "painted by Mark Priest" (carried over from v2). The reviewer role-playing Kathy flagged it
+  could read as a period engraving — confirm authorship with Mark/Kathy; the caption is one
+  line in `src/components/TroyMap.tsx` if it needs changing.
 - **Amanda:** `hartcluett.org/nalle/*` URL mappings (Part A — still the gate to Matt's
   payment). Bronze QR URLs point at hartcluett.org, never at github.io.
 - **Wil:** Athenaeum image for the barbershop; Mapbox style publish + account migration at
