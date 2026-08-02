@@ -1,0 +1,300 @@
+
+===== /commissioners-office @ 390 =====
+route: "/commissioners-office"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":28,"y":88,"w":316,"h":68}}
+h1lines: {"lines":["OFFICE OF THE","COMMISSIONER"],"lastCount":1}
+displays: [{"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":28,"y":88,"w":316,"h":68},"lines":["OFFICE OF THE","COMMISSIONER"]},{"text":"PART 1 — TUBMAN CREATES A CROWD","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":962,"w":358,"h":136},"lines":["Part 1 —","Tubman","Creates","a Crowd"]},{"text":"PART 2 — THE MOB","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":2779,"w":358,"h":68},"lines":["Part 2 —","The Mob"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":5316,"w":358,"h":68},"lines":["Historical","Context"]},{"text":"WHEN NOT\\nCHALLENGED\\nINJUSTICE\\nTHRIVES","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":32,"y":7560,"w":326,"h":136},"lines":["WHEN NOT","CHALLENGED","INJUSTICE","THRIVES"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":8556,"w":358,"h":68},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":32,"y":49,"w":53,"h":15}}
+body: {"text":"CHAPTER","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":32,"y":49,"w":53,"h":15}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"12px","lh":"18px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":16,"y":1652,"w":358,"h":50}}
+cardTitle: {"text":"“If we can get him out into the crowd, w","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":23,"y":1121,"w":344,"h":84}}
+firstWord: {"text":"It's","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":20,"y":1696,"w":49,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":0,"y":180,"w":390,"h":688}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":16,"y":1254,"w":358,"h":366}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Part 1 — Tubman Creates a Crowd","ASTRO-ISLAND:AudioStory","SECTION:Part 2 — The Mob","ASTRO-ISLAND:AudioStory","SECTION:Painting — Office of the Commissioner,","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Part 1 — Tubman Creates ","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"16px"},{"sec":"Part 2 — The Mob","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"16px"},{"sec":"Painting — Office of the","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"32px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"32px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"18px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"16px","px":"24px"},{"t":"Get Directions","font":"Poppins","size":"18px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"16px","px":"24px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#878787","pageBg_low":"#201715","heroBorder":"#69311d"}
+
+===== /commissioners-office @ 768 =====
+route: "/commissioners-office"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":68,"y":92,"w":396,"h":85}}
+h1lines: {"lines":["OFFICE OF THE","COMMISSIONER"],"lastCount":1}
+displays: [{"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":68,"y":92,"w":396,"h":85},"lines":["OFFICE OF THE","COMMISSIONER"]},{"text":"PART 1 — TUBMAN CREATES A CROWD","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":24,"y":1142,"w":720,"h":85},"lines":["Part 1 — Tubman","Creates a Crowd"]},{"text":"PART 2 — THE MOB","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":24,"y":2521,"w":720,"h":43},"lines":["Part 2 — The Mob"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":5051,"w":736,"h":85},"lines":["Historical","Context"]},{"text":"WHEN NOT\\nCHALLENGED\\nINJUSTICE\\nTHRIVES","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":32,"y":7383,"w":704,"h":170},"lines":["WHEN NOT","CHALLENGED","INJUSTICE","THRIVES"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":8289,"w":736,"h":85},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":72,"y":49,"w":66,"h":19}}
+body: {"text":"CHAPTER","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":72,"y":49,"w":66,"h":19}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"15px","lh":"30px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":24,"y":1829,"w":720,"h":62}}
+cardTitle: {"text":"“If we can get him out into the crowd, w","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":61,"y":1250,"w":645,"h":56}}
+firstWord: {"text":"It's","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":28,"y":1885,"w":49,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":225,"w":688,"h":823}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":150,"y":1358,"w":469,"h":423}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Part 1 — Tubman Creates a Crowd","ASTRO-ISLAND:AudioStory","SECTION:Part 2 — The Mob","ASTRO-ISLAND:AudioStory","SECTION:Painting — Office of the Commissioner,","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Part 1 — Tubman Creates ","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Part 2 — The Mob","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Painting — Office of the","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"48px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"32px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"22.5px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"20px","px":"30px"},{"t":"Get Directions","font":"Poppins","size":"22.5px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"20px","px":"30px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#211815","heroBorder":"#69311d"}
+
+===== /commissioners-office @ 1440 =====
+route: "/commissioners-office"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":76,"y":120,"w":475,"h":102}}
+h1lines: {"lines":["OFFICE OF THE","COMMISSIONER"],"lastCount":1}
+displays: [{"text":"OFFICE OF THE\\nCOMMISSIONER","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":76,"y":120,"w":475,"h":102},"lines":["OFFICE OF THE","COMMISSIONER"]},{"text":"PART 1 — TUBMAN CREATES A CROWD","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":104,"y":1042,"w":1232,"h":51},"lines":["Part 1 — Tubman Creates a Crowd"]},{"text":"PART 2 — THE MOB","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":104,"y":2247,"w":1232,"h":51},"lines":["Part 2 — The Mob"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":96,"y":4347,"w":1248,"h":102},"lines":["Historical","Context"]},{"text":"WHEN NOT\\nCHALLENGED\\nINJUSTICE\\nTHRIVES","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":112,"y":6037,"w":1216,"h":204},"lines":["WHEN NOT","CHALLENGED","INJUSTICE","THRIVES"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":96,"y":7106,"w":1248,"h":102},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":80,"y":73,"w":79,"h":23}}
+body: {"text":"CHAPTER","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":80,"y":73,"w":79,"h":23}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"18px","lh":"27px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":104,"y":1743,"w":1232,"h":59}}
+cardTitle: {"text":"“If we can get him out into the crowd, w","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":397,"y":1116,"w":645,"h":56}}
+firstWord: {"text":"It's","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":108,"y":1796,"w":49,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":48,"y":294,"w":1344,"h":654}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":460,"y":1228,"w":520,"h":468}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Part 1 — Tubman Creates a Crowd","ASTRO-ISLAND:AudioStory","SECTION:Part 2 — The Mob","ASTRO-ISLAND:AudioStory","SECTION:Painting — Office of the Commissioner,","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Part 1 — Tubman Creates ","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Part 2 — The Mob","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Painting — Office of the","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"48px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"48px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"27px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"24px","px":"36px"},{"t":"Get Directions","font":"Poppins","size":"27px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"24px","px":"36px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1c1310","heroBorder":"#69311d"}
+
+===== /map @ 390 =====
+route: "/map"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":939,"w":358,"h":68}}
+h1lines: {"lines":["Five stops","through Troy"],"lastCount":2}
+displays: [{"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":939,"w":358,"h":68},"lines":["Five stops","through Troy"]}]
+label: {"text":"TROY, NEW YORK · 1860 — PAINTED BY MARK ","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":542,"w":358,"h":15}}
+body: {"text":"1","font":"Poppins","size":"11px","lh":"20px","weight":"500","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":307,"y":189,"w":3,"h":16}}
+progress: null
+cardTitle: {"text":"HOLEUR'S FASHIONABLE BAKERY","font":"Martel Sans","size":"18px","lh":"23.4px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":129,"y":1260,"w":228,"h":47}}
+firstWord: null
+badge: {"bg":"rgb(228, 91, 39)","box":16}
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":16,"y":287,"w":358,"h":239}}
+order: ["ASTRO-ISLAND:TroyMap","SECTION:The five stops"]
+spacing: [{"sec":"The five stops","mt":"0px","mb":"0px","pt":"64px","pb":"32px","px":"16px"}]
+buttons: [{"t":"","font":"\"Martel Sans\"","size":"16px","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","border":"rgb(254, 217, 204)","py":"0px","px":"0px"},{"t":"Take the walk","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"10px","px":"20px"},{"t":"See Troy in 1860","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"color(srgb 0.113725 0.0784314 0.0666667 / 0.6)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+markers: [{"text":"1  Bakery","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"2  Commissioner's Office","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"3  Gilbert Mansion","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"4  Ferry Landing","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"5  Barbershop","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"}]
+slider: false
+sliderCards: 0
+pixelSamples: {"pageBg_topLeft":"#222222","pageBg_low":"#353535","heroBorder":"#222222"}
+
+===== /map @ 768 =====
+route: "/map"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":1123,"w":688,"h":85}}
+h1lines: {"lines":["Five stops","through Troy"],"lastCount":2}
+displays: [{"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":1123,"w":688,"h":85},"lines":["Five stops","through Troy"]}]
+label: {"text":"TROY, NEW YORK · 1860 — PAINTED BY MARK ","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":740,"w":688,"h":19}}
+body: {"text":"1","font":"Poppins","size":"11px","lh":"20px","weight":"500","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":498,"y":276,"w":3,"h":16}}
+progress: null
+cardTitle: {"text":"HOLEUR'S FASHIONABLE BAKERY","font":"Martel Sans","size":"22.5px","lh":"29.25px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":189,"y":1444,"w":518,"h":29}}
+firstWord: null
+badge: {"bg":"rgb(228, 91, 39)","box":16}
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":265,"w":688,"h":459}}
+order: ["ASTRO-ISLAND:TroyMap","SECTION:The five stops"]
+spacing: [{"sec":"The five stops","mt":"0px","mb":"0px","pt":"64px","pb":"32px","px":"40px"}]
+buttons: [{"t":"","font":"\"Martel Sans\"","size":"16px","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","border":"rgb(254, 217, 204)","py":"0px","px":"0px"},{"t":"Take the walk","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"10px","px":"20px"},{"t":"See Troy in 1860","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"color(srgb 0.113725 0.0784314 0.0666667 / 0.6)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+markers: [{"text":"1  Bakery","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"2  Commissioner's Office","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"3  Gilbert Mansion","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"4  Ferry Landing","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"5  Barbershop","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"}]
+slider: false
+sliderCards: 0
+pixelSamples: {"pageBg_topLeft":"#353535","pageBg_low":"#353535","heroBorder":"#343434"}
+
+===== /map @ 1440 =====
+route: "/map"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":1003,"w":1120,"h":102}}
+h1lines: {"lines":["Five stops","through Troy"],"lastCount":2}
+displays: [{"text":"FIVE STOPS\\nTHROUGH TROY","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":1003,"w":1120,"h":102},"lines":["Five stops","through Troy"]}]
+label: {"text":"TROY, NEW YORK · 1860 — PAINTED BY MARK ","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":214,"y":784,"w":1012,"h":23}}
+body: {"text":"1","font":"Poppins","size":"11px","lh":"20px","weight":"500","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":832,"y":216,"w":3,"h":16}}
+progress: null
+cardTitle: {"text":"HOLEUR'S FASHIONABLE BAKERY","font":"Martel Sans","size":"27px","lh":"35.1px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":309,"y":1339,"w":950,"h":35}}
+firstWord: null
+badge: {"bg":"rgb(228, 91, 39)","box":16}
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":214,"y":93,"w":1012,"h":675}}
+order: ["ASTRO-ISLAND:TroyMap","SECTION:The five stops"]
+spacing: [{"sec":"The five stops","mt":"0px","mb":"0px","pt":"64px","pb":"32px","px":"80px"}]
+buttons: [{"t":"","font":"\"Martel Sans\"","size":"16px","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","border":"rgb(254, 217, 204)","py":"0px","px":"0px"},{"t":"Take the walk","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"10px","px":"20px"},{"t":"See Troy in 1860","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"color(srgb 0.113725 0.0784314 0.0666667 / 0.6)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+markers: [{"text":"1  Bakery","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"2  Commissioner's Office","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"3  Gilbert Mansion","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"4  Ferry Landing","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"},{"text":"5  Barbershop","bg":"rgba(0, 0, 0, 0)","color":"rgb(254, 217, 204)","border":"rgb(254, 217, 204)","font":"\"Helvetica Neue\"","size":"12px","radius":"0px"}]
+slider: false
+sliderCards: 0
+pixelSamples: {"pageBg_topLeft":"#353535","pageBg_low":"#353535","heroBorder":"#333333"}
+
+===== /people @ 390 =====
+route: "/people"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":71,"w":358,"h":102}}
+h1lines: {"lines":["One day.","A whole city's","cast."],"lastCount":1}
+displays: [{"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":71,"w":358,"h":102},"lines":["One day.","A whole city's","cast."]},{"text":"THE RESCUERS","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":542,"w":358,"h":34},"lines":["The Rescuers"]},{"text":"THE HUNTERS","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":3784,"w":358,"h":34},"lines":["The Hunters"]},{"text":"→","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":309,"y":5493,"w":41,"h":34},"lines":["→"]}]
+label: {"text":"THE PEOPLE","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":40,"w":358,"h":15}}
+body: {"text":"THE PEOPLE","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":40,"w":358,"h":15}}
+progress: null
+cardTitle: {"text":"“Drag us out! Drag him to the river! Dro","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":16,"y":213,"w":358,"h":91}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":16,"y":710,"w":358,"h":475}}
+order: ["SECTION:mx-auto","SECTION:The Rescuers","SECTION:The Hunters"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"16px"},{"sec":"The Rescuers","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"The Hunters","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: [{"t":"Ch. 1 · Bakery →","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 2 · Commissioner's","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 3 · Gilbert Mansio","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 4 · Ferry Landing ","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#341a11","heroBorder":"#69311d"}
+
+===== /people @ 768 =====
+route: "/people"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":75,"w":688,"h":85}}
+h1lines: {"lines":["One day.","A whole city's cast."],"lastCount":4}
+displays: [{"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":75,"w":688,"h":85},"lines":["One day.","A whole city's cast."]},{"text":"THE RESCUERS","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":445,"w":688,"h":43},"lines":["The Rescuers"]},{"text":"THE HUNTERS","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":2563,"w":688,"h":43},"lines":["The Hunters"]},{"text":"→","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":644,"y":3834,"w":51,"h":43},"lines":["→"]}]
+label: {"text":"THE PEOPLE","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":40,"w":688,"h":19}}
+body: {"text":"THE PEOPLE","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":40,"w":688,"h":19}}
+progress: null
+cardTitle: {"text":"“Drag us out! Drag him to the river! Dro","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":40,"y":200,"w":672,"h":60}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":593,"w":334,"h":485}}
+order: ["SECTION:mx-auto","SECTION:The Rescuers","SECTION:The Hunters"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"40px"},{"sec":"The Rescuers","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"The Hunters","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: [{"t":"Ch. 1 · Bakery →","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 2 · Commissioner's","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 3 · Gilbert Mansio","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 4 · Ferry Landing ","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411","heroBorder":"#69311d"}
+
+===== /people @ 1440 =====
+route: "/people"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":79,"w":1120,"h":102}}
+h1lines: {"lines":["One day.","A whole city's cast."],"lastCount":4}
+displays: [{"text":"ONE DAY.\\nA WHOLE CITY'S CAST.","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":79,"w":1120,"h":102},"lines":["One day.","A whole city's cast."]},{"text":"THE RESCUERS","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":469,"w":1120,"h":51},"lines":["The Rescuers"]},{"text":"THE HUNTERS","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":2175,"w":1120,"h":51},"lines":["The Hunters"]},{"text":"→","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":1186,"y":3215,"w":61,"h":51},"lines":["→"]}]
+label: {"text":"THE PEOPLE","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":40,"w":1120,"h":23}}
+body: {"text":"THE PEOPLE","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":40,"w":1120,"h":23}}
+progress: null
+cardTitle: {"text":"“Drag us out! Drag him to the river! Dro","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":160,"y":221,"w":672,"h":60}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":160,"y":626,"w":550,"h":323}}
+order: ["SECTION:mx-auto","SECTION:The Rescuers","SECTION:The Hunters"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"80px"},{"sec":"The Rescuers","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"The Hunters","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: [{"t":"Ch. 1 · Bakery →","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 2 · Commissioner's","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 3 · Gilbert Mansio","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"},{"t":"Ch. 4 · Ferry Landing ","font":"Poppins","size":"12px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"12px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411","heroBorder":"#69311d"}
+
+===== /paintings @ 390 =====
+route: "/paintings"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":71,"w":358,"h":68}}
+h1lines: {"lines":["The Nalle","Series"],"lastCount":1}
+displays: [{"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":71,"w":358,"h":68},"lines":["The Nalle","Series"]}]
+label: {"text":"THE PAINTINGS","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":40,"w":358,"h":15}}
+body: {"text":"THE PAINTINGS","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":40,"w":358,"h":15}}
+progress: null
+cardTitle: {"text":"Holeur's Fashionable Bakery","font":"Martel Sans","size":"18px","lh":"23.4px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":16,"y":643,"w":249,"h":23}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":16,"y":392,"w":358,"h":239}}
+order: ["SECTION:mx-auto"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"16px"}]
+buttons: [{"t":"Close","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"16px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#a09a91","heroBorder":"#69311d"}
+
+===== /paintings @ 768 =====
+route: "/paintings"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":75,"w":688,"h":85}}
+h1lines: {"lines":["The Nalle","Series"],"lastCount":1}
+displays: [{"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":75,"w":688,"h":85},"lines":["The Nalle","Series"]}]
+label: {"text":"THE PAINTINGS","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":40,"w":688,"h":19}}
+body: {"text":"THE PAINTINGS","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":40,"w":688,"h":19}}
+progress: null
+cardTitle: {"text":"Holeur's Fashionable Bakery","font":"Martel Sans","size":"22.5px","lh":"29.25px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":40,"y":589,"w":223,"h":59}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":355,"w":332,"h":222}}
+order: ["SECTION:mx-auto"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"40px"}]
+buttons: [{"t":"Close","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"16px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411","heroBorder":"#69311d"}
+
+===== /paintings @ 1440 =====
+route: "/paintings"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":79,"w":1120,"h":102}}
+h1lines: {"lines":["The Nalle","Series"],"lastCount":1}
+displays: [{"text":"THE NALLE\\nSERIES","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":79,"w":1120,"h":102},"lines":["The Nalle","Series"]}]
+label: {"text":"THE PAINTINGS","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":40,"w":1120,"h":23}}
+body: {"text":"THE PAINTINGS","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":40,"w":1120,"h":23}}
+progress: null
+cardTitle: {"text":"Holeur's Fashionable Bakery","font":"Martel Sans","size":"27px","lh":"35.1px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":160,"y":754,"w":374,"h":35}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":160,"y":376,"w":548,"h":366}}
+order: ["SECTION:mx-auto"]
+spacing: [{"sec":"mx-auto","mt":"0px","mb":"0px","pt":"40px","pb":"96px","px":"80px"}]
+buttons: [{"t":"Close","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"6px","px":"16px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411","heroBorder":"#69311d"}
+
+===== /about @ 390 =====
+route: "/about"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":95,"w":358,"h":68}}
+h1lines: {"lines":["About the","Project"],"lastCount":1}
+displays: [{"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":95,"w":358,"h":68},"lines":["About the","Project"]},{"text":"HOW THE TOUR WORKS","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":1048,"w":358,"h":68},"lines":["How the","Tour Works"]},{"text":"CHARLES NALLE","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":1808,"w":358,"h":34},"lines":["Charles Nalle"]},{"text":"MARK PRIEST","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":3203,"w":358,"h":34},"lines":["Mark Priest"]},{"text":"SCOTT CHRISTIANSON","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":3953,"w":358,"h":68},"lines":["Scott","Christianson"]},{"text":"→","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":309,"y":5100,"w":41,"h":34},"lines":["→"]}]
+label: {"text":"OVERVIEW","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":64,"w":358,"h":15}}
+body: {"text":"OVERVIEW","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":16,"y":64,"w":358,"h":15}}
+progress: null
+cardTitle: {"text":"“In Troy, many residents continued to re","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":16,"y":4570,"w":358,"h":393}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":16,"y":1866,"w":124,"h":124}}
+order: ["SECTION:Project overview","SECTION:how-heading","SECTION:Charles Nalle","SECTION:Mark Priest","SECTION:Scott Christianson"]
+spacing: [{"sec":"Project overview","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mt-16","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Charles Nalle","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Mark Priest","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Scott Christianson","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: []
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}
+
+===== /about @ 768 =====
+route: "/about"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":99,"w":688,"h":43}}
+h1lines: {"lines":["About the Project"],"lastCount":3}
+displays: [{"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":99,"w":688,"h":43},"lines":["About the Project"]},{"text":"HOW THE TOUR WORKS","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":680,"w":672,"h":43},"lines":["How the Tour Works"]},{"text":"CHARLES NALLE","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":1332,"w":688,"h":43},"lines":["Charles Nalle"]},{"text":"MARK PRIEST","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":2367,"w":688,"h":43},"lines":["Mark Priest"]},{"text":"SCOTT CHRISTIANSON","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":40,"y":2988,"w":688,"h":43},"lines":["Scott Christianson"]},{"text":"→","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":644,"y":3889,"w":51,"h":43},"lines":["→"]}]
+label: {"text":"OVERVIEW","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":64,"w":688,"h":19}}
+body: {"text":"OVERVIEW","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":40,"y":64,"w":688,"h":19}}
+progress: null
+cardTitle: {"text":"“In Troy, many residents continued to re","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":40,"y":3524,"w":672,"h":212}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":1399,"w":212,"h":213}}
+order: ["SECTION:Project overview","SECTION:how-heading","SECTION:Charles Nalle","SECTION:Mark Priest","SECTION:Scott Christianson"]
+spacing: [{"sec":"Project overview","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mt-16","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Charles Nalle","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Mark Priest","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Scott Christianson","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: []
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}
+
+===== /about @ 1440 =====
+route: "/about"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":103,"w":1120,"h":51}}
+h1lines: {"lines":["About the Project"],"lastCount":3}
+displays: [{"text":"ABOUT THE PROJECT","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":103,"w":1120,"h":51},"lines":["About the Project"]},{"text":"HOW THE TOUR WORKS","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":692,"w":672,"h":102},"lines":["How the","Tour Works"]},{"text":"CHARLES NALLE","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":1408,"w":1120,"h":51},"lines":["Charles Nalle"]},{"text":"MARK PRIEST","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":2455,"w":1120,"h":51},"lines":["Mark Priest"]},{"text":"SCOTT CHRISTIANSON","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":160,"y":3088,"w":1120,"h":51},"lines":["Scott Christianson"]},{"text":"→","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"balance","box":{"x":1186,"y":4005,"w":61,"h":51},"lines":["→"]}]
+label: {"text":"OVERVIEW","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":64,"w":1120,"h":23}}
+body: {"text":"OVERVIEW","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":160,"y":64,"w":1120,"h":23}}
+progress: null
+cardTitle: {"text":"“In Troy, many residents continued to re","font":"Martel Sans","size":"21.6px","lh":"30.24px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":160,"y":3632,"w":672,"h":212}}
+firstWord: null
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":160,"y":1483,"w":212,"h":213}}
+order: ["SECTION:Project overview","SECTION:how-heading","SECTION:Charles Nalle","SECTION:Mark Priest","SECTION:Scott Christianson"]
+spacing: [{"sec":"Project overview","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mt-16","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Charles Nalle","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Mark Priest","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Scott Christianson","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+buttons: []
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}

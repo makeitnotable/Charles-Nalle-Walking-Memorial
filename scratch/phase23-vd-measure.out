@@ -1,0 +1,131 @@
+
+===== / @ 390 =====
+route: "/"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"CHARLES\\nNALLE","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":80,"y":133,"w":230,"h":96}}
+h1lines: {"lines":["Charles","Nalle"],"lastCount":1}
+displays: []
+label: null
+body: {"text":"Troy, NY","font":"Martel Sans","size":"14px","lh":"21px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":166,"y":80,"w":58,"h":21}}
+progress: null
+cardTitle: null
+firstWord: null
+badge: null
+order: []
+spacing: []
+buttons: [{"t":"Continue","font":"Poppins","size":"18px","color":"rgb(189, 57, 0)","bg":"rgb(255, 198, 179)","border":"rgb(247, 169, 143)","py":"16px","px":"24px"}]
+wordmark: {"text":"Troy, NY\\n\\nCHARLES\\nNALLE\\n\\n1821\\n\\n1875\\n\\nCon","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":0,"y":0,"w":390,"h":844}}
+homeCta: {"bg":"rgb(255, 198, 179)","color":"rgb(189, 57, 0)","border":"rgb(247, 169, 143)","size":"18px","font":"Poppins","w":148}
+mission: {"size":"12px","color":"rgb(183, 179, 171)","maxW":"283px","html":"The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy and the story of Charles Nalle"}
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}
+
+===== / @ 768 =====
+route: "/"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"CHARLES\\nNALLE","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":238,"y":170,"w":292,"h":123}}
+h1lines: {"lines":["Charles","Nalle"],"lastCount":1}
+displays: []
+label: null
+body: {"text":"Troy, NY","font":"Martel Sans","size":"17.5px","lh":"26.25px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":348,"y":112,"w":72,"h":26}}
+progress: null
+cardTitle: null
+firstWord: null
+badge: null
+order: []
+spacing: []
+buttons: [{"t":"Continue","font":"Poppins","size":"22.5px","color":"rgb(189, 57, 0)","bg":"rgb(255, 198, 179)","border":"rgb(247, 169, 143)","py":"20px","px":"30px"}]
+wordmark: {"text":"Troy, NY\\n\\nCHARLES\\nNALLE\\n\\n1821\\n\\n1875\\n\\nCon","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":0,"y":0,"w":768,"h":1024}}
+homeCta: {"bg":"rgb(255, 198, 179)","color":"rgb(189, 57, 0)","border":"rgb(247, 169, 143)","size":"22.5px","font":"Poppins","w":148}
+mission: {"size":"15px","color":"rgb(183, 179, 171)","maxW":"353px","html":"The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy and the story of Charles Nalle"}
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}
+
+===== / @ 1440 =====
+route: "/"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"CHARLES\\nNALLE","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":543,"y":176,"w":354,"h":150}}
+h1lines: {"lines":["Charles","Nalle"],"lastCount":1}
+displays: []
+label: null
+body: {"text":"Troy, NY","font":"Martel Sans","size":"21px","lh":"31.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":677,"y":112,"w":87,"h":32}}
+progress: null
+cardTitle: null
+firstWord: null
+badge: null
+order: []
+spacing: []
+buttons: [{"t":"Continue","font":"Poppins","size":"27px","color":"rgb(189, 57, 0)","bg":"rgb(255, 198, 179)","border":"rgb(247, 169, 143)","py":"24px","px":"36px"}]
+wordmark: {"text":"Troy, NY\\n\\nCHARLES\\nNALLE\\n\\n1821\\n\\n1875\\n\\nCon","font":"Martel Sans","size":"16px","lh":"24px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":0,"y":0,"w":1440,"h":900}}
+homeCta: {"bg":"rgb(255, 198, 179)","color":"rgb(189, 57, 0)","border":"rgb(247, 169, 143)","size":"27px","font":"Poppins","w":148}
+mission: {"size":"18px","color":"rgb(183, 179, 171)","maxW":"353px","html":"The Charles Nalle Walking Memorial is a digital physical experience designed to share the history of Troy and the story of Charles Nalle"}
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#1d1411"}
+
+===== /bakery @ 390 =====
+route: "/bakery"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":28,"y":88,"w":275,"h":102}}
+h1lines: {"lines":["HOLEUR'S","FASHIONABLE","BAKERY"],"lastCount":1}
+displays: [{"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":28,"y":88,"w":275,"h":102},"lines":["HOLEUR'S","FASHIONABLE","BAKERY"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":3218,"w":358,"h":68},"lines":["Historical","Context"]},{"text":"NOT ALL LAWS\\nARE MORAL","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":32,"y":5027,"w":326,"h":68},"lines":["NOT ALL LAWS","ARE MORAL"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"42px","lh":"34px","weight":"600","track":"-1.5px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":5956,"w":358,"h":68},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":32,"y":49,"w":53,"h":15}}
+body: {"text":"CHAPTER","font":"Poppins","size":"12px","lh":"15px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":32,"y":49,"w":53,"h":15}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"12px","lh":"18px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":16,"y":1484,"w":358,"h":50}}
+cardTitle: {"text":"“Charles Nalle, I hereby arrest you in t","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":23,"y":953,"w":344,"h":84}}
+firstWord: {"text":"As","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":20,"y":1528,"w":36,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":0,"y":214,"w":390,"h":654}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":16,"y":1086,"w":358,"h":366}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Captured with Bread in Hand","ASTRO-ISLAND:AudioStory","SECTION:Painting — Holeur's Fashionable Bakery","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Captured with Bread in H","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"16px"},{"sec":"Painting — Holeur's Fash","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"32px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"32px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"18px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"16px","px":"24px"},{"t":"Get Directions","font":"Poppins","size":"18px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"16px","px":"24px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#252525","pageBg_low":"#221916","heroBorder":"#69311d"}
+
+===== /bakery @ 768 =====
+route: "/bakery"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":68,"y":92,"w":344,"h":128}}
+h1lines: {"lines":["HOLEUR'S","FASHIONABLE","BAKERY"],"lastCount":1}
+displays: [{"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":68,"y":92,"w":344,"h":128},"lines":["HOLEUR'S","FASHIONABLE","BAKERY"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":3184,"w":736,"h":85},"lines":["Historical","Context"]},{"text":"NOT ALL LAWS\\nARE MORAL","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":32,"y":4796,"w":704,"h":85},"lines":["NOT ALL LAWS","ARE MORAL"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"52.5px","lh":"42.5px","weight":"600","track":"-1.87504px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":16,"y":5617,"w":736,"h":85},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":72,"y":49,"w":66,"h":19}}
+body: {"text":"CHAPTER","font":"Poppins","size":"15px","lh":"18.7501px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":72,"y":49,"w":66,"h":19}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"15px","lh":"30px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":24,"y":1712,"w":720,"h":62}}
+cardTitle: {"text":"“Charles Nalle, I hereby arrest you in t","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":61,"y":1133,"w":645,"h":56}}
+firstWord: {"text":"As","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":28,"y":1768,"w":36,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":40,"y":268,"w":688,"h":781}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":150,"y":1241,"w":469,"h":423}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Captured with Bread in Hand","ASTRO-ISLAND:AudioStory","SECTION:Painting — Holeur's Fashionable Bakery","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Captured with Bread in H","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Painting — Holeur's Fash","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"48px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"32px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"22.5px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"20px","px":"30px"},{"t":"Get Directions","font":"Poppins","size":"22.5px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"20px","px":"30px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#211816","heroBorder":"#69311d"}
+
+===== /bakery @ 1440 =====
+route: "/bakery"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"
+h1: {"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":76,"y":120,"w":413,"h":153}}
+h1lines: {"lines":["HOLEUR'S","FASHIONABLE","BAKERY"],"lastCount":1}
+displays: [{"text":"HOLEUR'S\\nFASHIONABLE\\nBAKERY","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":76,"y":120,"w":413,"h":153},"lines":["HOLEUR'S","FASHIONABLE","BAKERY"]},{"text":"HISTORICAL\\nCONTEXT","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":96,"y":2830,"w":1248,"h":102},"lines":["Historical","Context"]},{"text":"NOT ALL LAWS\\nARE MORAL","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":112,"y":4174,"w":1216,"h":102},"lines":["NOT ALL LAWS","ARE MORAL"]},{"text":"WHERE\\nTO NEXT?","font":"Martel Sans","size":"63px","lh":"51px","weight":"600","track":"-2.25008px","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"balance","box":{"x":96,"y":5141,"w":1248,"h":102},"lines":["Where","to next?"]}]
+label: {"text":"CHAPTER","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":80,"y":73,"w":79,"h":23}}
+body: {"text":"CHAPTER","font":"Poppins","size":"18px","lh":"22.5px","weight":"400","track":"normal","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","transform":"uppercase","wrap":"wrap","box":{"x":80,"y":73,"w":79,"h":23}}
+progress: {"text":"Section 1/4","font":"Poppins","size":"18px","lh":"27px","weight":"500","track":"normal","color":"rgb(246, 243, 238)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":104,"y":1660,"w":1232,"h":59}}
+cardTitle: {"text":"“Charles Nalle, I hereby arrest you in t","font":"Martel Sans","size":"21.6px","lh":"29.16px","weight":"600","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"wrap","box":{"x":397,"y":1033,"w":645,"h":56}}
+firstWord: {"text":"As","font":"Martel Sans","size":"32px","lh":"51.2px","weight":"400","track":"normal","color":"rgb(254, 217, 204)","bg":"rgba(0, 0, 0, 0)","transform":"none","wrap":"pretty","box":{"x":108,"y":1713,"w":36,"h":51}}
+badge: null
+heroFrame: {"border":"rgb(105, 49, 29) / 1px","radius":"24px","box":{"x":48,"y":345,"w":1344,"h":603}}
+playerCard: {"bg":"rgb(52, 26, 17)","border":"rgb(105, 49, 29) / 2px","radius":"24px","box":{"x":460,"y":1145,"w":520,"h":468}}
+order: ["HEADER:hero","ASTRO-ISLAND:PressReveal","SECTION:Captured with Bread in Hand","ASTRO-ISLAND:AudioStory","SECTION:Painting — Holeur's Fashionable Bakery","SECTION:history-heading","SECTION:moral-heading","SECTION:Continue the walk","ASTRO-ISLAND:EmbedMap"]
+spacing: [{"sec":"Captured with Bread in H","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"24px"},{"sec":"Painting — Holeur's Fash","mt":"64px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"mx-auto","mt":"32px","mb":"48px","pt":"0px","pb":"0px","px":"0px"},{"sec":"relative","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"},{"sec":"Continue the walk","mt":"0px","mb":"0px","pt":"0px","pb":"0px","px":"0px"}]
+narrGap: {"rowGap":"48px","colGap":"32px"}
+buttons: [{"t":"Continue the walk","font":"Poppins","size":"27px","color":"rgb(255, 151, 112)","bg":"rgb(74, 27, 10)","border":"rgb(105, 49, 29)","py":"24px","px":"36px"},{"t":"Get Directions","font":"Poppins","size":"27px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"24px","px":"36px"},{"t":"Share this chapter","font":"Poppins","size":"14px","color":"rgb(255, 151, 112)","bg":"rgba(0, 0, 0, 0)","border":"rgb(165, 84, 56)","py":"10px","px":"20px"}]
+pixelSamples: {"pageBg_topLeft":"#1d1411","pageBg_low":"#251d1a","heroBorder":"#69311d"}
+
+===== /commissioners-office @ 390 =====
+route: "/commissioners-office"
+bodyBg: "rgb(29, 20, 17)"
+htmlBg: "rgba(0, 0, 0, 0)"

@@ -29,7 +29,13 @@ const state = () =>
   });
 
 const t0 = Date.now();
-await page.click('a[href="/map"]');
+// dispatch inside the page — Playwright's own click would wait for the
+// (deliberately stalled) navigation to commit and hang
+await page.evaluate(() => {
+  document
+    .querySelector('a[href="/map"]')
+    .dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, button: 0 }));
+});
 await page.waitForTimeout(1000);
 const covered = await state();
 console.log("covered@" + (Date.now() - t0) + "ms:", JSON.stringify(covered));

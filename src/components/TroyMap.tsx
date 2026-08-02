@@ -142,6 +142,27 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     }
   }, []);
 
+  /** The approved overview on desktop; on narrow screens, the same tilt but
+   * framed to fit all five pills (QA: fixed 15.25 clipped stops at 390). */
+  const overviewCamera = useCallback(() => {
+    const map = mapRef.current;
+    if (!map || window.innerWidth >= 640) return OVERVIEW;
+    const b = new mapboxgl.LngLatBounds();
+    stops.forEach((s) => b.extend(s.coordinates));
+    const cam = map.cameraForBounds(b, {
+      padding: { top: 120, bottom: 200, left: 48, right: 48 },
+      bearing: OVERVIEW.bearing,
+    });
+    return cam
+      ? {
+          center: cam.center as [number, number],
+          zoom: cam.zoom as number,
+          pitch: OVERVIEW.pitch,
+          bearing: OVERVIEW.bearing,
+        }
+      : OVERVIEW;
+  }, [stops]);
+
   const flyToStop = useCallback(
     (idx: number) => {
       const map = mapRef.current;
@@ -177,12 +198,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     setTouring(false);
     setFocused(false);
     setMarkers(null);
-    if (reduced) map.jumpTo(OVERVIEW);
-    else map.easeTo({ ...OVERVIEW, duration: 2000, essential: true });
+    const target = overviewCamera();
+    if (reduced) map.jumpTo(target);
+    else map.easeTo({ ...target, duration: 2000, essential: true });
     const url = new URL(location.href);
     url.searchParams.delete("stop");
     history.replaceState(null, "", url);
-  }, [reduced, setMarkers]);
+  }, [reduced, setMarkers, overviewCamera]);
 
   // ——— Map lifecycle (single instance) ———
   useEffect(() => {
@@ -296,10 +318,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             curve: 1.4,
             essential: true,
           } as Parameters<mapboxgl.Map["easeTo"]>[0]);
-      } else if (!reduced) {
-        // Overview prologue (H4/M3): the intro film IS the live map settling
-        // into the tilted overview. Any touch skips it.
-        map.easeTo({ ...OVERVIEW, duration: 3500, essential: true });
+      } else {
+        const target = overviewCamera();
+        if (reduced) {
+          map.jumpTo(target);
+        } else {
+          // Overview prologue (H4/M3): the intro film IS the live map settling
+          // into the tilted overview. Any touch skips it.
+          map.easeTo({ ...target, duration: 3500, essential: true });
+        }
       }
       // One skip rule for every arrival flight: touch = cut (guardrail F1)
       const skip = () => map.stop();
@@ -465,9 +492,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </div>
       )}
 
-      {/* Hint card (M8) */}
+      {/* Hint card (M8) — parked above the doors so it never covers a pill */}
       {hintOpen && (
-        <div className="absolute top-16 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:top-20">
+        <div className="absolute bottom-24 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-28">
           <div className="frame flex items-center gap-3 bg-primary-3 py-2 pr-2 pl-4">
             <p className="type-label">Drag to explore · Tap a stop</p>
             <button
