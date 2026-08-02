@@ -9,7 +9,7 @@ from IN PROGRESS. Never redo DONE work; verify via git, not recollection.
 ---
 
 ## CURRENT PHASE
-**P2 — Flagship chapter template**
+**P6 — Ship. All phases built; final live verification in progress.**
 
 ## LAST COMMIT
 (see `git log -1`)
@@ -28,8 +28,20 @@ from IN PROGRESS. Never redo DONE work; verify via git, not recollection.
 
 ---
 
+## DONE (cont.)
+
+| When | What |
+|---|---|
+| 2026-08-03 | P2 flagship rebuilt; gate loop 1 + 2 applied (container-relative display clamp, full-width section rule, sticky spine, artwork unframed, history + transcript on the cream reading register, menu retreat) |
+| 2026-08-03 | P3 map: two-layer route measured at 3.99:1 in greyscale (v3 ~1.3:1); only the active stop carries a label (collision structurally impossible); chrome on the system; keeper regression 5/5 PASS |
+| 2026-08-03 | P4 rollout: People/Paintings/About/404/map-index unboxed; shared SiteFooter; Menu regenerated from content; legacy name fields deleted from schema + JSON |
+| 2026-08-03 | P5 motion: 2 durations / 1 easing + 3 documented exceptions; `docs/v4/MOTION.md` |
+| 2026-08-03 | P6 perf: home 63→97, chapter 84→95, a11y 100 on all three; og.png regenerated; before/after pairs composed; REVIEW-GUIDE written |
+
+---
+
 ## IN PROGRESS
-**P2 — rebuild `src/pages/[chapter].astro` per PLAN §8 on `/commissioners-office`.**
+**P6 — final live verification.**
 Exact next action: read `src/components/AudioStory.tsx` + `src/components/PressReveal.tsx`,
 then rewrite `[chapter].astro` with the 8-part structure: animated-painting hero
 (poster-first) → editorial spine → (01) story w/ cream transcript → (02) From the sketch
