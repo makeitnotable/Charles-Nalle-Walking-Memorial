@@ -320,6 +320,13 @@ export default function AudioStory({
         </div>
       </div>
 
+      {/* Visible affordance for tap-to-seek (never hover-only) */}
+      {timings && (
+        <p className="type-muted mt-4 text-center">
+          Tap any paragraph to hear it read aloud
+        </p>
+      )}
+
       {/* ——— The narrative: the transcript is the text ——— */}
       <div ref={listRef} className="mx-auto mt-8 max-w-7xl md:mt-12">
         {sectionLabel && (

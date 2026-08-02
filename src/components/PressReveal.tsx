@@ -186,17 +186,18 @@ export default function PressReveal({
 
       {/* Hint + progress */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center pb-5"
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center px-4 pb-20 sm:pb-8"
         style={{
           opacity: locked ? 0 : 1,
           transition: "opacity 500ms var(--ease-house)",
         }}
       >
         <span
-          className="type-label rounded-full px-4 py-2"
+          className="type-label rounded-full px-4 py-2 text-center"
           style={{
             background: "color-mix(in srgb, var(--color-primary-2) 75%, transparent)",
             letterSpacing: "0.14em",
+            maxWidth: "min(86vw, 34rem)",
           }}
         >
           {reduced ? "Tap to reveal the painting" : "Press and hold to bring the painting to life"}

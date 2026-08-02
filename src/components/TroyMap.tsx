@@ -328,8 +328,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           map.easeTo({ ...target, duration: 3500, essential: true });
         }
       }
-      // One skip rule for every arrival flight: touch = cut (guardrail F1)
-      const skip = () => map.stop();
+      // One skip rule for every arrival flight: touch = cut (guardrail F1).
+      // The same first touch also clears the hint — it must never eat a tap.
+      const skip = () => {
+        map.stop();
+        setHintOpen(false);
+      };
       map.once("pointerdown", skip);
       map.once("wheel", skip);
 
@@ -492,10 +496,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </div>
       )}
 
-      {/* Hint card (M8) — parked above the doors so it never covers a pill */}
+      {/* Hint card (M8) — parked above the doors, never eats a map tap:
+          the container passes pointers through; only the X is interactive */}
       {hintOpen && (
-        <div className="absolute bottom-24 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-28">
-          <div className="frame flex items-center gap-3 bg-primary-3 py-2 pr-2 pl-4">
+        <div className="pointer-events-none absolute bottom-24 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-28">
+          <div className="frame pointer-events-auto flex items-center gap-3 bg-primary-3 py-2 pr-2 pl-4">
             <p className="type-label">Drag to explore · Tap a stop</p>
             <button
               type="button"
