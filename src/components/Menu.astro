@@ -176,4 +176,32 @@ const notchClass =
   }
 
   document.querySelectorAll<HTMLElement>(".cnwm-menu").forEach(setup);
+
+  /* The burger floats over the page, so on a phone it landed on live body copy
+     — the v3 census caught it clipping words mid-sentence on ten screens. It
+     now retreats while the reader scrolls forward and returns on any upward
+     scroll, at rest, or whenever the panel is open. */
+  (() => {
+    const menus = Array.from(document.querySelectorAll<HTMLElement>(".cnwm-menu"));
+    if (!menus.length) return;
+    let last = window.scrollY;
+    let idle: ReturnType<typeof setTimeout>;
+    const set = (hidden: boolean) => {
+      for (const m of menus) {
+        const open = m.querySelector(".cnwm-menu-panel")?.classList.contains("hidden") === false;
+        m.dataset.hidden = String(hidden && !open);
+      }
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = window.scrollY;
+        set(y > last && y > 240);
+        last = y;
+        clearTimeout(idle);
+        idle = setTimeout(() => set(false), 900);
+      },
+      { passive: true },
+    );
+  })();
 </script>

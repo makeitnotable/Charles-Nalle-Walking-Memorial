@@ -62,8 +62,9 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
   {
     groups.map((group, gi) => (
       <section class="shell sec" aria-label={group.heading}>
-        <div class="editorial">
-          <div class="rule-top pt-5">
+        <div class="sec-head"></div>
+        <div class="editorial mt-8">
+          <div class="rail">
             <p class="t-spine">({String(gi + 1).padStart(2, "0")})</p>
             <p class="t-meta mt-3">{group.heading}</p>
           </div>
@@ -104,8 +105,9 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
 
   {/* No dead ends. */}
   <section class="shell sec">
-    <div class="editorial">
-      <div class="rule-top pt-5">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
         <p class="t-spine">(03)</p>
         <p class="t-meta mt-3">Onward</p>
       </div>

@@ -139,8 +139,9 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
   {
     c.scenes.map((scene, i) => (
       <section class="shell sec" id={`scene-${i}`} aria-label={scene.label}>
-        <div class="editorial">
-          <div class="rule-top pt-5">
+        <div class="sec-head"></div>
+        <div class="editorial mt-8">
+          <div class="rail">
             <p class="t-spine">({num(`scene-${i}`)})</p>
             <p class="t-meta mt-3">{sections.find((s) => s.key === `scene-${i}`)?.rail}</p>
           </div>
@@ -177,8 +178,9 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
   {
     c.scenes[0].reveal && (
       <section class="shell sec" id="sketch" aria-labelledby="sketch-heading">
-        <div class="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
-          <div class="rule-top pt-5">
+        <div class="sec-head" />
+        <div class="mt-8 grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+          <div>
             <p class="t-spine">({num("sketch")})</p>
             <p class="t-meta mt-3">The sketch</p>
             <h2 id="sketch-heading" class="t-title reveal mt-8">
@@ -235,9 +237,12 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
   </section>
 
   {/* ══════ HISTORICAL CONTEXT ══════ */}
-  <section class="shell sec" id="history" aria-labelledby="history-heading">
-    <div class="editorial">
-      <div class="rule-top pt-5">
+  <section class="sec" id="history" aria-labelledby="history-heading">
+   <div class="ground-cream py-24 md:py-32">
+    <div class="shell">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
         <p class="t-spine">({num("history")})</p>
         <p class="t-meta mt-3">History</p>
       </div>
@@ -292,6 +297,8 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
         }
       </div>
     </div>
+    </div>
+   </div>
   </section>
 
   {/* ══════ THE MORAL — full-bleed, one artifact ══════ */}
@@ -310,8 +317,9 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
         </div>
 
         <div class="shell relative z-10 py-32 md:py-40">
-          <div class="editorial">
-            <div class="rule-top pt-5">
+          <div class="sec-head"></div>
+        <div class="editorial mt-8">
+            <div class="rail">
               <p class="t-spine">({num("moral")})</p>
               <p class="t-meta mt-3">The moral</p>
             </div>
@@ -347,8 +355,9 @@ const heroPoster = withBase(`media/${slug}/${c.scenes[0].reveal?.video ?? "revea
 
   {/* ══════ ONWARD ══════ */}
   <section class="shell sec" id="onward" aria-label="Continue the walk">
-    <div class="editorial">
-      <div class="rule-top pt-5">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
         <p class="t-spine">({num("onward")})</p>
         <p class="t-meta mt-3">Onward</p>
       </div>

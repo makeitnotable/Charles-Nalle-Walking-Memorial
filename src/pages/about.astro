@@ -34,8 +34,9 @@ const people = [
   <section class="beat" aria-label="Project overview">
     <div class="ground-cream py-20 md:py-28">
       <div class="shell">
-        <div class="editorial">
-          <div class="rule-top pt-5">
+        <div class="sec-head"></div>
+        <div class="editorial mt-8">
+          <div class="rail">
             <p class="t-spine">(01)</p>
             <p class="t-meta mt-3">The project</p>
           </div>
@@ -48,8 +49,9 @@ const people = [
   </section>
 
   <section class="shell sec" aria-labelledby="how-heading">
-    <div class="editorial">
-      <div class="rule-top pt-5">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
         <p class="t-spine">(02)</p>
         <p class="t-meta mt-3">How it works</p>
       </div>
@@ -81,8 +83,9 @@ const people = [
   {
     people.map((person, i) => (
       <section class="shell sec" aria-label={person.header}>
-        <div class="editorial">
-          <div class="rule-top pt-5">
+        <div class="sec-head"></div>
+        <div class="editorial mt-8">
+          <div class="rail">
             <p class="t-spine">({String(i + 3).padStart(2, "0")})</p>
             <p class="t-meta mt-3">{person.kicker}</p>
           </div>
@@ -118,8 +121,9 @@ const people = [
 
   {/* No dead ends. */}
   <section class="shell sec">
-    <div class="editorial">
-      <div class="rule-top pt-5">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
         <p class="t-spine">({String(people.length + 3).padStart(2, "0")})</p>
         <p class="t-meta mt-3">Onward</p>
       </div>

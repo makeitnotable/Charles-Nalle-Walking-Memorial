@@ -121,6 +121,11 @@
 }
 
 :root {
+  /* Width the display fit-clamp measures against. Defaults to the viewport;
+     any element that establishes an inline-size container overrides it with
+     100cqw so headings inside a grid column cannot overflow it. */
+  --fit-basis: calc(100vw - 2 * var(--gutter));
+
   /* ── TYPE SCALE — four roles. Mobile first; two breakpoints. ────────────
      Ratios at desktop: display/title 1.81 · title/prose 3.05 · prose/meta 1.62.
      Display is ~5.5× prose — measured against pasqua (6.6×) and museos (5.3×).
@@ -264,10 +269,7 @@ body {
 .t-display {
   font-family: var(--font-sans);
   font-weight: 800;
-  font-size: min(
-    var(--fs-display),
-    calc((100vw - 2 * var(--gutter)) / (var(--fit-chars, 8) * 0.64))
-  );
+  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.64)));
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
@@ -377,6 +379,8 @@ body {
   max-width: var(--shell);
   margin-inline: auto;
   padding-inline: var(--gutter);
+  container-type: inline-size;
+  --fit-basis: 100cqw;
 }
 
 /* Section rhythm. `.sec` is the only gap allowed between numbered sections;
@@ -415,6 +419,12 @@ body {
   border-top: 1px solid var(--hairline);
 }
 
+/* A numbered section: one full-width hairline, then the label/content grid. */
+.sec-head {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--sp-3);
+}
+
 /* The label-left / content-right editorial grid (museos). Collapses to a
    stack below lg. */
 .editorial {
@@ -425,6 +435,18 @@ body {
   .editorial {
     grid-template-columns: 3fr 9fr;
     gap: var(--sp-5);
+  }
+  /* The content column is a container, so display type inside it clamps to
+     the column and not to the window. */
+  .editorial > * + * {
+    container-type: inline-size;
+    --fit-basis: 100cqw;
+  }
+  /* The spine holds its place while the section passes it (museos). */
+  .editorial > .rail {
+    position: sticky;
+    top: 88px;
+    align-self: start;
   }
 }
 
@@ -457,7 +479,6 @@ body {
  * Census rule: ≤1 framed element per viewport.
  * ════════════════════════════════════════════════════════════════════════ */
 .artifact {
-  border: 1px solid var(--color-primary-7);
   border-radius: var(--r);
   overflow: hidden;
 }
@@ -765,6 +786,18 @@ body {
 }
 
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
+/* The corner menu retreats while the reader is moving forward. */
+.cnwm-menu {
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.cnwm-menu[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.94);
+}
+
 .curtain-panel {
   position: fixed;
   inset: 0;
