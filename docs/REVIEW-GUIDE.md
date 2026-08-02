@@ -105,6 +105,12 @@ the pins are Brian's, the paintings are Mark's.
    CLS 0.001, a11y 100). The QR path never pays it.
 4. **Wheel over the full-screen map zooms the map** (standard map-page tradeoff; index below is
    reachable by keyboard/touch).
+5. **Stops 1/2 pill overlap at the settled overview** (Commissioner's Office's long pill can sit
+   over Bakery's in the State St cluster at some widths). Carousel, index, and screen-reader
+   paths all reach stop 1; tapping either pill works. Cheapest fix if wanted: shorten the pill
+   label to "Commissioner" (pill only, content unchanged).
+6. **Mapbox draft-style load varies 1.2–6.5s on cold caches** before the prologue starts —
+   benign (static content is already painted), worth knowing for live demos.
 
 ## Self-audit table (plan acceptance criterion → evidence)
 
