@@ -260,6 +260,30 @@ if ((await marker2.count()) === 0) {
 } else {
   const m2box = await marker2.boundingBox();
   log("marker2 bbox:", JSON.stringify(m2box));
+  // Document the hint-overlay interception first (finding): try a quick tap
+  let intercepted = false;
+  try {
+    await marker2.tap({ timeout: 3000 });
+  } catch (e) {
+    intercepted = true;
+    log("FINDING: tap on marker 2 intercepted by hint overlay:", e.message.split("\n").find((l) => l.includes("intercepts")) || e.message.slice(0, 120));
+  }
+  log("marker2 first tap intercepted by hint:", intercepted);
+  if (intercepted) {
+    await shot(page, "a11a-map-hint-blocks-marker2.png");
+    // does the hint dismiss on map interaction (drag)? try a small drag first
+    await page.touchscreen.tap(195, 500); // tap empty map area
+    await page.waitForTimeout(1200);
+    const hintStill = await page
+      .locator('button[aria-label="Dismiss hint"]')
+      .count();
+    log("hint still present after tapping empty map:", hintStill > 0);
+    if (hintStill > 0) {
+      await page.tap('button[aria-label="Dismiss hint"]');
+      await page.waitForTimeout(800);
+      log("dismissed hint via its 32px close button");
+    }
+  }
   await marker2.tap();
   await page.waitForTimeout(1800);
   await shot(page, "a11-map-stop2-focused.png");
