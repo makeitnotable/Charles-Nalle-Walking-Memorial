@@ -418,6 +418,26 @@ body {
   color: var(--color-neutral-12);
 }
 
+/* The People profile plate (item 28) — a monogram set like an engraved
+   bookplate, in the portrait proportion the future photograph will take.
+   It carries the artifact frame because it stands where an artifact will. */
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 80px;
+  flex: none;
+  background: var(--color-primary-3);
+  border: 1px solid var(--color-primary-7);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--color-primary-11);
+  user-select: none;
+}
+
 /* The Crossing — the curtain's date line. The day is the protagonist:
    broadside register (letterspaced caps, lining figures), display cut. */
 .t-crossing {

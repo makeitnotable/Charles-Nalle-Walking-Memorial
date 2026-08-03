@@ -79,11 +79,29 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
             <div class="mt-16 grid gap-x-12 gap-y-0 md:grid-cols-2">
               {group.people.map((person) => (
                 <article class="reveal rule-top py-8">
-                  <p class="t-meta">{person.role}</p>
-                  <h3 class="t-title-sm mt-3">
-                    {person.name}
-                  </h3>
-                  <p class="t-prose mt-4">{person.note}</p>
+                  {/* Item 28: the profile plate — a typographic monogram in
+                      the display cut, sized and framed as the portrait slot
+                      it will become when photographs arrive (REVIEW-GUIDE). */}
+                  <div class="grid grid-cols-[auto_1fr] items-start gap-6">
+                    <div class="monogram" aria-hidden="true">
+                      {(() => {
+                        const ws = person.name
+                          .split(/\s+/)
+                          .map((w) => w.replace(/^[“"]/, ""))
+                          .filter((w) => /^[A-Z]/.test(w));
+                        return ws.length > 1
+                          ? ws[0][0] + ws[ws.length - 1][0]
+                          : (ws[0]?.[0] ?? "·");
+                      })()}
+                    </div>
+                    <div>
+                      <p class="t-meta">{person.role}</p>
+                      <h3 class="t-title-sm mt-3">
+                        {person.name}
+                      </h3>
+                    </div>
+                  </div>
+                  <p class="t-prose mt-5">{person.note}</p>
                   <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
                     {person.chapters.map((slug) => (
                       <a
