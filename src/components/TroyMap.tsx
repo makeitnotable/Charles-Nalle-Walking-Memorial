@@ -649,11 +649,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             src={`${baseUrl}/media/site/troy-1860-1440.jpg`}
             srcSet={`${baseUrl}/media/site/troy-1860-800.webp 800w, ${baseUrl}/media/site/troy-1860-1440.webp 1440w`}
             sizes="100vw"
-            alt="Map of Troy, New York in 1860 — painting by Mark Priest"
+            alt="Map of Troy, New York in 1860"
             className="artifact max-h-[75dvh] w-auto"
           />
           <figcaption className="t-meta mt-4 text-center">
-            Troy, New York · 1860 — painted by Mark Priest
+            Troy, New York · 1860
           </figcaption>
         </figure>
       </div>

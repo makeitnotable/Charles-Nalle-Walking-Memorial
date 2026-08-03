@@ -96,3 +96,10 @@ paragraphs per chapter, and the five sketch notes.
   and site-history docs — **needs Kathy's read** alongside the chapters.
 - Still pending (unchanged): ferry "skiff, no leap" narrative rewrite; Ch2a +
   Ch4 audio re-records; Athenaeum image for Barbershop portal.
+
+## v6 · Item 19 — 1860 map attribution removed (2026-08-02)
+The `/map` 1860 lens captioned the historical map "painted by Mark Priest".
+Wil's punch list item 19: the 1860 map is NOT a Priest work — only the
+paintings and sketches are his. Caption now "Troy, New York · 1860"; alt text
+likewise. If provenance for the map plate arrives (Hart Cluett?), it can be
+credited accurately then.

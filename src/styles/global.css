@@ -594,7 +594,8 @@ body {
   transition:
     background-color var(--dur-fast) var(--ease),
     border-color var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease);
+    color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
 }
 .btn {
   font-size: var(--fs-btn);
@@ -605,6 +606,21 @@ body {
   font-size: 13px;
   min-height: 38px;
   padding-inline: 20px;
+}
+/* Pressed — item 15. One pixel of travel; the expo-out front-loads it. */
+.btn:active,
+.btn-sm:active {
+  transform: translateY(1px);
+}
+.btn-solid:active {
+  background: #cf4f1f;
+  border-color: #cf4f1f;
+}
+.btn-ghost:active {
+  border-color: var(--color-primary-9);
+}
+.btn-cta:active {
+  filter: brightness(0.96);
 }
 
 /* Solid — dark ink on the orange fill. 5.0:1 against #1d1411 text. */
@@ -666,6 +682,9 @@ body {
 }
 .link-meta:hover .icon {
   transform: translateX(3px);
+}
+.link-meta:active .icon {
+  transform: translateX(5px);
 }
 
 /* ════════════════════════════════════════════════════════════════════════
