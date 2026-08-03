@@ -8,16 +8,18 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 1 — Type & icon system**
 
 ## CURRENT ITEM
-P1 iconography: redraw `src/components/icons.ts` to the serif's construction.
+Phase 1 complete pending commit of the spine-contrast fix.
 
 ## NEXT ACTION
-Read `src/components/icons.ts` + `Icon.astro`; redraw the 11 glyphs to match
-Caslon's stroke logic (modulated weight feel at 1.25–1.5px strokes, bracketed
-terminals where sensible); integrate the Figma arrow
-(`docs/v5/elements/figma-arrow/` — fixed head + stretchable shaft, never
-scale the head); replace the location glyph with a typographic marker. Then
-buttons item 15 → footer item 24 → naming item 27 + attribution item 19 →
-Phase-1 gate (strip + census + contrast re-run).
+Commit the spine-opacity fix + P1 gate evidence, then open **Phase 2 —
+Splash + chapter template**: splash items 3–6 (`index.astro`: noMenu,
+immersive frame, CTA, exact Figma copy w/ perfect rag), then hero wow
+(items 2/16), section motion (17), sketch→theme (18, retire PressReveal),
+items 20/21/22/25, Ch2 twin template (26), the Crossing restyle, loading
+states, F2 fold guard re-run + E7 filmstrip.
+P2 carry-ins from the E4 juror (7.5/10, passes): add a mid-register subhead
+voice; break the kicker→display→prose meter once per page; commit or cut the
+"As" first-word device; watch Didone fragility at card size (People, P5).
 
 ## DONE (v6)
 
