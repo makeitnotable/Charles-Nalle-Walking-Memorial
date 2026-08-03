@@ -754,6 +754,9 @@ body {
   position: relative;
   width: 100%;
   height: 300px;
+  /* Ground-colored loading shell — tiles arrive onto the house ground, not
+     onto a white flash. */
+  background: var(--color-primary-3);
 }
 @media (min-width: 768px) {
   .embed-map-shell {

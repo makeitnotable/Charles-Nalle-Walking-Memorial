@@ -86,10 +86,13 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
 const interlude =
   slug === "commissioners-office"
     ? {
-        kind: "painting" as const,
-        key: "horizontal-pt2",
-        alt: `“${c.name.canonical}” — the mob outside, painting by Mark Priest`,
-        credit: "Mark Priest · Nalle Series",
+        /* Pt 2's painting now opens Pt 2 as its own hero (item 26), so the
+           interlude draws the chapter's SECOND archival record instead —
+           every image slot still holds a distinct asset. */
+        kind: "archival" as const,
+        key: "historical-pt2",
+        alt: `Archival photograph — ${c.name.canonical}`,
+        credit: `${c.name.canonical} · archival record`,
       }
     : {
         kind: "archival" as const,
@@ -227,9 +230,71 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     </div>
   </header>
 
-  {/* ══════ THE STORY — one section per scene ══════ */}
+  {/* ══════ THE STORY — one section per scene. A scene after the first that
+      carries its own painting opens with its own full-bleed hero (item 26:
+      the twin template — Ch2's Pt 2 is a chapter within the chapter). ══════ */}
   {
     c.scenes.map((scene, i) => (
+      <>
+      {i > 0 && scene.reveal && (
+        <section
+          class="relative h-[82dvh] overflow-hidden bg-neutral-2"
+          aria-label={`${scene.label} — painting`}
+        >
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              type="image/avif"
+              srcset={withBase(`media/${slug}/${scene.reveal.videoVertical}-poster-800.avif`)}
+            />
+            <source
+              media="(max-width: 767px)"
+              type="image/webp"
+              srcset={withBase(`media/${slug}/${scene.reveal.videoVertical}-poster-800.webp`)}
+            />
+            <source type="image/avif" srcset={withBase(`media/${slug}/${scene.reveal.video}-poster-800.avif`)} />
+            <source type="image/webp" srcset={withBase(`media/${slug}/${scene.reveal.video}-poster-800.webp`)} />
+            <img
+              src={withBase(`media/${slug}/${scene.reveal.video}-poster.jpg`)}
+              alt={`“${c.name.canonical}” — ${scene.label}, painting by Mark Priest`}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+          <video
+            class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+            data-src={withBase(`media/${slug}/${scene.reveal.video}.mp4`)}
+            data-reduce-static
+            preload="none"
+            loop
+            muted
+            playsinline
+            aria-hidden="true"
+          />
+          <video
+            class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+            data-src={withBase(`media/${slug}/${scene.reveal.videoVertical}.mp4`)}
+            data-reduce-static
+            preload="none"
+            loop
+            muted
+            playsinline
+            aria-hidden="true"
+          />
+          <div
+            class="pointer-events-none absolute inset-0"
+            style="background: linear-gradient(to top, rgba(29,20,17,.92) 0%, rgba(29,20,17,.5) 20%, transparent 40%), linear-gradient(to bottom, rgba(29,20,17,.6), transparent 16%)"
+            aria-hidden="true"
+          />
+          <div class="absolute inset-x-0 bottom-0">
+            <div class="shell pb-[max(5dvh,32px)]">
+              <p class="t-meta">Stop {pad2(c.order)} · continued</p>
+              <p class="t-title mt-4">{scene.label.split("—")[0].trim()}</p>
+            </div>
+          </div>
+        </section>
+      )}
       <section class="shell beat" id={`scene-${i}`} aria-label={scene.label}>
         <div class="sec-head"></div>
         <div class="editorial mt-8">
@@ -261,6 +326,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           />
         </div>
       </section>
+      </>
     ))
   }
 
@@ -433,6 +499,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
                 pitch={camera.pitch}
                 bearing={camera.bearing}
                 zoom={camera.zoom}
+                href={withBase(c.next.slug)}
               />
             </div>
           )

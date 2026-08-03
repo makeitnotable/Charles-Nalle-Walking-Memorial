@@ -24,28 +24,40 @@ interface Props {
   pitch: number;
   bearing: number;
   zoom: number;
+  /** Item 20: the pin is a link to the next chapter; the map itself stays inert. */
+  href?: string;
 }
 
-/** Approved active-state marker: Poppins pill + numbered chip + stem + dot.
- * Sizes follow the ladder (12→15→18 label, 8→10→12 padding). */
-function markerEl(label: string, order: number): HTMLDivElement {
+/** Approved active-state marker: chrome pill + numbered chip + stem + dot.
+ * Item 20: the root is an <a> when href is given — the site-wide curtain
+ * delegate picks the click up like any internal link. */
+function markerEl(label: string, order: number, href?: string): HTMLElement {
   const font = typeof window !== "undefined" && window.innerWidth >= 1200 ? 13 : 12;
-  const div = document.createElement("div");
-  div.innerHTML = `
+  const root = document.createElement(href ? "a" : "div");
+  if (href && root instanceof HTMLAnchorElement) {
+    root.href = href;
+    root.setAttribute("data-curtain-label", label);
+    root.setAttribute("data-curtain-date", "");
+    root.setAttribute("aria-label", `Continue to ${label}`);
+    root.style.cursor = "pointer";
+    root.style.display = "block";
+    root.style.textDecoration = "none";
+  }
+  root.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="display:flex;align-items:center;justify-content:center;padding:9px;border-radius:30px;background:#F26835;color:#1D1411;border:1px solid #F26835;font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap">
+      <div style="display:flex;align-items:center;justify-content:center;padding:9px;border-radius:30px;background:#F26835;color:#1D1411;border:1px solid #F26835;font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
         <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
-          <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${order}</p>
+          <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:700">${order}</p>
         </div>
         <p style="font-size:${font}px;line-height:18px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${label}</p>
       </div>
       <div style="width:2px;height:26px;background:#F26835"></div>
       <div style="width:8px;height:8px;border-radius:9999px;background:#F26835"></div>
     </div>`;
-  return div;
+  return root;
 }
 
-export default function EmbedMap({ coordinates, label, order, pitch, bearing, zoom }: Props) {
+export default function EmbedMap({ coordinates, label, order, pitch, bearing, zoom, href }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
@@ -69,7 +81,7 @@ export default function EmbedMap({ coordinates, label, order, pitch, bearing, zo
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(container.current);
 
-    new mapboxgl.Marker({ element: markerEl(label, order), anchor: "bottom" })
+    new mapboxgl.Marker({ element: markerEl(label, order, href), anchor: "bottom" })
       .setLngLat(coordinates)
       .addTo(map);
 
