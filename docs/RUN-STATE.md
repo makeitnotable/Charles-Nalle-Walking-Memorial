@@ -14,7 +14,8 @@ floating-UI collisions, sloppy alignment). Outputs land in `docs/v5/`.
 ---
 
 ## CURRENT PHASE
-**Stage 1 — Audit. Evidence only, no fixes.**
+**Stage 4 — juror gate. Pass 1 returned 6.8/10 and did NOT pass.**
+Stages 1–3 complete. See STAGE 4 below for the exact next actions.
 
 ## LAST COMMIT
 (see `git log -1`)
@@ -62,17 +63,67 @@ Hero fold, before → after (media bottom vs viewport height):
 | F5b | History section: the 400px void in front of the cream block deleted — the ground flip IS the act change, and 528px of announcement read as a blank screen. Chapter rhythm now **128, 200, 0, 0, 128, 400, 200** (was `200,200,200,200,400,200,200`) | measured on `/mansion` @1440 |
 | F4b | Below 640px **no** marker is named — naming only the active one still ran BAKERY off the right edge. Mapbox corner inset moved from each control to the CORNER (it had stacked 56px between them and walked the scale bar halfway up the left edge) | `eyes/B-map-1440.png`; bottom-left lane all at x=56 |
 
-## IN PROGRESS
-**Stage 3 verification → Stage 4 gate.** Clean sweep running against the rebuilt
-local preview → `docs/v5/qa/{states-v5, probe-v5, census-v5.md, shots-v5}`.
-Acceptance: 0 collisions in all 110 states · repeated-imagery table empty ·
-≤6 type sizes per page, display at one size per breakpoint.
+## STAGE 4 — THE JUROR GATE
 
-Live deploy: `ab4d573` pushed; waiting on CI (live bundle must be
-`Base.DyzLfYUN.css`). Then Stage 4 — a fresh adversarial juror subagent with no
-builder context, live URL only, instructed to look for reasons to score LOW.
-Finish condition: every page ≥8 on every axis at every breakpoint, zero P0/P1,
-**two consecutive juror passes that surface nothing new.**
+**Pass 1 complete: `docs/v5/juror-pass1.md`.** Fresh adversarial subagent, no
+builder context, live URL only, 409 of its own screenshots, told to look for
+reasons to score LOW.
+
+**Verdict: 6.8 / 10 — "not award-winning, would not shortlist."**
+(Design 6.86 · Usability 6.68 · Creativity 6.18 · Content 8.36.)
+Findings: **8 P0 · 26 P1 · 19 P2.** For reference, my own Stage-1 audit scored
+the pre-fix site 6.1, so the work moved it ~0.7 — real, and not enough.
+
+Three of its eight P0s were things my Stage-1 audit never looked at, and one of
+them I looked straight at and got wrong (I called the route "honest
+cartography"; it was a factual error).
+
+### Juror P0s — status
+
+| # | Finding | Status |
+|---|---|---|
+| P0-1 | About portraits are 250×251 files rendered at 828px (3.3× upscale); `-800`/`-1440` are the same bytes | **FIXED** — render at native size, beside the prose |
+| P0-2 | About closing quote 52px × 13 centred lines, taller than the viewport, attribution below the fold | **FIXED** — 30px cap, left-anchored, one object |
+| P0-3 | **The walking route was straight chords** — crossed the Hudson twice, cut through blocks, followed no street | **FIXED** — real Mapbox Directions walking geometry, `src/data/route.json`, regenerate with `scripts/build-route.mjs`. 2.5 mi / ~45 min, now stated on the map page |
+| P0-7 | `/map` had no footer — the destination of every CTA on the site was a dead end | **FIXED** |
+| P0-8 | Hero paintings cropped through the faces (2.84:1 band, 3:2 canvas, 47% discarded at a 50% focal point) | **FIXED** — per-chapter `heroFocus` read off each canvas |
+| P0-4 | Painting dialog caption + Close clipped below the viewport at 844×390 | **OPEN** |
+| P0-5 | Map stop labels suppressed at 390 and 844 — five anonymous numbered dots | **OPEN** — my own fix for the clipped-label defect traded clipping for anonymity. Needs a third answer (collision-aware label placement, or names in the arrival plate with a clear tap affordance) |
+| P0-6 | The 1860 overlay is an ungeoreferenced rectangle over a live modern map, modern street names showing round all four edges | **OPEN** — needs either real corner coordinates or re-presenting it as a "then" view rather than an overlay. A design decision, not a bug fix |
+
+**26 P1s and 19 P2s are itemised in `docs/v5/juror-pass1.md` and are untouched.**
+The heaviest cluster is `/map` (P1-2 … P1-7, P1-11, P1-25, P1-26) and the
+press-reveal detail (P1-15 … P1-17, P1-20).
+
+## IN PROGRESS
+**Stage 4 is NOT passed. Do not report this run as complete.**
+
+Exact next actions, in order:
+1. Close juror P0-4, P0-5, P0-6.
+2. Work the 26 P1s from `docs/v5/juror-pass1.md`, `/map` cluster first.
+3. Re-deploy, then run **juror pass 2** — a fresh subagent, no builder context,
+   same prompt shape as pass 1 (it is recorded in the git history of this file's
+   commit range). The finish condition is unchanged: **every page ≥8 on every
+   axis at every breakpoint, zero P0/P1, and two consecutive passes that
+   surface nothing new.**
+
+### What IS closed, by measurement, not opinion
+
+| Wil's confirmed defect | Proof |
+|---|---|
+| 1 · header/display type too big | Display renders **one size per breakpoint** (88px at 1440, 64 at 768/1024) instead of six sizes site-wide; hero fits the fold at all five viewports, having overflowed by 87–256px at four of them |
+| 2 · same painting three times per chapter | `probe.md` repeated-imagery table: **empty**, every route, every viewport |
+| 3 · menu buttons overlap other buttons | `states-final/states.md`: **110 states captured · 0 collisions** |
+| 4 · sloppy alignment | One `--ui-inset` for all floating UI (the burger was 124px outside the content edge); Mapbox chrome on one lane; footer padding follows the actual floating UI |
+
+Also closed: chapter rhythm `128,200,0,0,128,400,200` (was `200,200,200,200,400,200,200`
+on all five chapters); `portal.history` 4,064→1,531 chars with every fact
+preserved and Kathy's corrected "skiff" wording winning; six identical
+"Make a Difference" CTA headings → six distinct; console clean; CLS ≤0.012;
+no horizontal overflow.
+
+## IN PROGRESS
+
 
 ---
 
