@@ -189,6 +189,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           alt={heroAlt}
           fetchpriority="high"
           class="absolute inset-0 h-full w-full object-cover"
+          style={`object-position: center ${c.heroFocus}%`}
         />
       </picture>
 
@@ -196,6 +197,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           motion, where the painting simply stays still. */}
       <video
         class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+        style={`object-position: center ${c.heroFocus}%`}
         data-src={withBase(`media/${slug}/${hKey}.mp4`)}
         data-reduce-static
         preload="none"

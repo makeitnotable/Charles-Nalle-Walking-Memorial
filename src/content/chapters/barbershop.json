@@ -7,6 +7,7 @@
   },
   "chapterLabel": "Chapter 5",
   "sketchNote": "The crowd fills the sheet edge to edge and moves as one mass to the left. Priest drew the pavement in the same weight as the people, so the street itself seems to be leaning toward the shop.",
+  "heroFocus": 62,
   "plaque": true,
   "map": {
     "coordinates": [
@@ -85,12 +86,12 @@
         "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 1"
       },
       "paragraphs": [
-        "Refusing to accept defeat, Martin Townsend—Chief Civil Rights Attorney—and Peter Baltimore—a pillar of Troy's Underground Railroad—immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
+        "Refusing to accept defeat, Martin Townsend\u2014Chief Civil Rights Attorney\u2014and Peter Baltimore\u2014a pillar of Troy's Underground Railroad\u2014immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (almost $40,000 today) demanded by Hansbrough for Charles's freedom or fight for it once more.",
         "@media:narrative1",
         "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice's office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice's office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Commissioner's office grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
         "@media:narrative2",
-        "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts—the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
-        "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom."
+        "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house, Charles found refuge in Schenectady. There, as his bruised and battered body healed, a group of abolitionists brought him news that reinvigorated his spirit through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts\u2014the $1,000 ransom had been raised. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
+        "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero\u2014a testament to courage, community, and the unrelenting fight for freedom."
       ],
       "reveal": {
         "sketch": "sketch",
@@ -101,7 +102,7 @@
     }
   ],
   "historicalContext": [
-    "Peter Baltimore's younger son, Garnet Douglass Baltimore (1859–1946), was the first Black graduate of Rensselaer Polytechnic Institute (RPI) and the civil engineer and architect of Prospect Park.",
+    "Peter Baltimore's younger son, Garnet Douglass Baltimore (1859\u20131946), was the first Black graduate of Rensselaer Polytechnic Institute (RPI) and the civil engineer and architect of Prospect Park.",
     "Peter Baltimore's barbershop was a part of Troy's local underground railroad. Peter often helped freedom seekers wanting to stay in Troy find work at the Troy House.",
     "After Charles Nalle's escape, radical Southern leaders known as \"Fire-Eaters\" used the event to create anger toward the North and cited it as a key reason for why the South should leave the Union, ultimately triggering the Civil War."
   ],

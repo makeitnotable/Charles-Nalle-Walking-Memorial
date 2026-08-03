@@ -70,6 +70,13 @@ const chapters = defineCollection({
      * describes the drawing actually on the screen.
      */
     sketchNote: z.string(),
+    /**
+     * Vertical focal point of the hero painting, as a percentage. The hero band
+     * is 2.84:1 and the paintings are 3:2, so `object-cover` discards 47% of the
+     * height — at the default 50% that cut ran through the faces of the
+     * principal figures. Read off each canvas, not guessed.
+     */
+    heroFocus: z.number().min(0).max(100).default(50),
     plaque: z.boolean(),
     map: z.object({
       // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)
