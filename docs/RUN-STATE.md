@@ -5,24 +5,32 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 3 — Map overhaul** (P2 complete; probe-p2 regression sweep running
-in background — read `docs/v5/elements/probe-p2.md` when it lands)
+**Phase 4 — THE MUSEUM** (P3 complete)
 
 ## CURRENT ITEM
-P3 opening: items 7/8/9/10/13 on `TroyMap.tsx` + `map.astro`.
+P4 opening: Three.js guided-rail gallery on `/paintings`.
 
 ## NEXT ACTION
-In `TroyMap.tsx`: remove ScaleControl (item 7); route color → accessible
-ramp value, verify via `strip.mjs --keep-imagery` grayscale on /map (item 8,
-W3); remove WalkProgress rail on /map (item 9 — check `map.astro`
-<WalkProgress /> render); chip: accurate copy, hidden when chapter cards
-visible, "Overview" → "Back to map" (items 10/13); card arrows → Figma arrow
-(item 11 — Icon component already carries it; check TroyMap's inline card
-arrow markup); carousel smoothness (item 14: camera-follow on settle,
-easeTo curve, memoized markers, 60fps CDP trace); menu bottom-right on /map
-(pass the dead prop). Then v5 P0-5 (phone stop labels) + stop-chip contrast
-(2.75:1 → fix) + P0-6 (1860 overlay: bounded alignment attempt else framed
-artifact + REVIEW-GUIDE).
+Read `src/pages/paintings.astro` + its data source; `npm i three` (+ log in
+DEVIATIONS.md); build `src/components/Museum.tsx` island: one warm hall from
+site tokens, camera rail (scroll/swipe scrubs a spline past every canvas),
+drag = clamped look, tap/click → frontal + plaque, Esc/back returns; sketch
+hung beside its painting; plaque captions (Mark Priest · title · series);
+"Bring it to life" swaps canvas texture to the existing reveal .mp4 (one
+live at a time); DPR ≤1.5, progressive texture load by rail proximity,
+pause offscreen/tab-hidden, dispose on leave; full keyboard path; 2-D grid
+stays beneath for SR/no-WebGL/reduced-motion/save-data/context-loss.
+Fix the fallback grid's dialog clip at 844×390 (v5 P0-4) regardless.
+Ship rule: museum ships only if it clears the juror bar (element 2
+Exceeded); own commits, revert-ready.
+
+## P3 CLOSED — evidence
+- Items 7/8/9/10/11/13/14 landed; grayscale route proof
+  (`p3-map/map--*--imagery.png`); fps proxy 240 frames / 3 >26ms; juror
+  P1-2/4/5/6/7 fixed, P1-25/26 resolved by earlier lane work + scale
+  removal, P1-3 accepted (licence mark, opacity already calmed); P0-5 dead
+  (active chip named); P0-6 = D4 (framed plate, queued for Wil).
+- Contrast sweep: **0 failures site-wide** (`contrast-p3.md`).
 
 ## P2 CLOSED — evidence
 - E7: five chapters, zero film bytes on thin pipe; full hero at 1s frame
