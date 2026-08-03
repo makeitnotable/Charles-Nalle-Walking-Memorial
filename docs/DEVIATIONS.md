@@ -41,3 +41,12 @@ caps. PLAN.md assumed oldstyle figures for date lockups; Libre Caslon ships
 none, so dates are set in the **broadside register** (letterspaced caps,
 lining figures — period-honest for 1860 print, and how the bronze plaques
 set dates). Evidence: docs/v5/elements/audition/, docs/RUN-STATE.md D1/D2.
+
+## v6 · `three` joins the bundle (Phase 4, the Museum)
+Wil's locked decision #2: the 3-D museum on /paintings is the site's one
+concentrated boldness. `three` (~150KB gz) loads via dynamic import inside
+the Museum island — only on /paintings, only after the capability gate
+passes (WebGL, motion-ok, no save-data). Every other route ships zero extra
+bytes; incapable visitors get the 2-D grid and never fetch it. Zero hosting
+cost. Perf exception documented like /map (target ≥80 desktop / ≥70 mobile,
+a11y 100).

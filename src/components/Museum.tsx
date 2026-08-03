@@ -1,0 +1,579 @@
+import { useEffect, useRef, useState } from "react";
+import type { Color, Mesh, MeshBasicMaterial } from "three";
+
+/**
+ * THE MUSEUM — the site's one concentrated boldness (v6 locked decision #2).
+ *
+ * A single warm gallery corridor built from the site's own tokens. The page's
+ * native scroll walks the camera down a rail past every canvas (a tall
+ * wrapper + sticky viewport — NO scroll-jacking); drag adds a clamped look;
+ * tapping a painting eases the camera frontal and raises its plaque, where
+ * "Bring it to life" swaps the canvas for Mark Priest's animated variant
+ * (one alive at a time). Esc or Back returns to the rail.
+ *
+ * Craft bars (PLAN.md P4):
+ *  · No loading gate — canvases fade up from the ground color as textures
+ *    arrive, nearest first.
+ *  · DPR ≤ 1.5 · rAF paused when offscreen or tab-hidden · full dispose on
+ *    unmount · `three` dynamically imported only after the capability gate.
+ *  · Fallbacks — no WebGL, prefers-reduced-motion, Save-Data/2g/3g: the
+ *    island renders nothing and the 2-D grid below is the page, unchanged.
+ *  · Keyboard path: the work list under the stage is real buttons — Enter
+ *    approaches; the plaque's controls are real buttons; Esc returns. The
+ *    canvas itself stays aria-hidden; the DOM grid remains the SR surface.
+ */
+
+export interface Work {
+  slug: string;
+  key: string;
+  title: string;
+  order: number;
+  /** Texture sources (1440 for desktop, 800 for phones) */
+  tex1440: string;
+  tex800: string;
+  /** Animated variant, if Mark Priest made one */
+  video: string | null;
+  /** The study hung beside this canvas (main chapter paintings only) */
+  sketch: string | null;
+  /** Aspect ratio w/h of the canvas */
+  aspect: number;
+}
+
+interface Props {
+  works: Work[];
+}
+
+const SPACING = 7; // metres of corridor per canvas
+const CORRIDOR_HALF = 3.4; // wall distance from the rail
+const EYE = 1.55;
+
+export default function Museum({ works }: Props) {
+  const [capable, setCapable] = useState<boolean | null>(null);
+  const [approached, setApproached] = useState<number | null>(null);
+  const [alive, setAlive] = useState<number | null>(null);
+  const [ready, setReady] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const api = useRef<{
+    approach: (i: number | null) => void;
+    turnOn: (i: number) => void;
+    turnOff: () => void;
+    dispose: () => void;
+  } | null>(null);
+
+  // ——— Capability gate (runs once, before three is even fetched) ———
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const conn = (navigator as any).connection;
+    const thin = Boolean(
+      conn &&
+        (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))),
+    );
+    let gl: WebGLRenderingContext | null = null;
+    try {
+      gl = document.createElement("canvas").getContext("webgl");
+    } catch {
+      gl = null;
+    }
+    setCapable(Boolean(gl) && !reduced && !thin);
+  }, []);
+
+  // ——— Scene ———
+  useEffect(() => {
+    if (!capable || !stageRef.current || !wrapRef.current) return;
+    let disposed = false;
+    let raf = 0;
+    let running = true;
+
+    const stage = stageRef.current;
+    const wrap = wrapRef.current;
+
+    (async () => {
+      const THREE = await import("three");
+      if (disposed) return;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setSize(stage.clientWidth, stage.clientHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      stage.appendChild(renderer.domElement);
+      renderer.domElement.setAttribute("aria-hidden", "true");
+      renderer.domElement.style.display = "block";
+
+      const scene = new THREE.Scene();
+      const GROUND = new THREE.Color("#1d1411");
+      const WALL = new THREE.Color("#2a1a12");
+      const FLOOR = new THREE.Color("#170f0b");
+      scene.background = GROUND;
+      scene.fog = new THREE.Fog(GROUND, 10, 34);
+
+      /* A portrait phone sees a sliver of corridor at 58° — widen the eye so
+         the canvases still command the frame. */
+      const fovFor = () => (stage.clientWidth < stage.clientHeight ? 72 : 58);
+      const camera = new THREE.PerspectiveCamera(
+        fovFor(),
+        stage.clientWidth / stage.clientHeight,
+        0.1,
+        60,
+      );
+
+      const hallLen = works.length * SPACING + 14;
+
+      // ——— The hall: floor, two walls, ceiling — flat warm materials, fog
+      // does the depth. Cheap enough for any phone. ———
+      const mat = (c: Color) => new THREE.MeshBasicMaterial({ color: c });
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(CORRIDOR_HALF * 2 + 2, hallLen + 20),
+        mat(FLOOR),
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.set(0, 0, -hallLen / 2 + 6);
+      scene.add(floor);
+      const ceil = floor.clone();
+      ceil.rotation.x = Math.PI / 2;
+      ceil.position.y = 4.2;
+      scene.add(ceil);
+      for (const side of [-1, 1]) {
+        const wall = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, 4.2), mat(WALL));
+        wall.rotation.y = (Math.PI / 2) * side;
+        wall.position.set(CORRIDOR_HALF * -side, 2.1, -hallLen / 2 + 6);
+        scene.add(wall);
+      }
+      // The far end wall closes the room
+      const end = new THREE.Mesh(new THREE.PlaneGeometry(CORRIDOR_HALF * 2 + 2, 4.4), mat(WALL));
+      end.position.set(0, 2.1, -(works.length * SPACING) - 8);
+      scene.add(end);
+
+      // Skirting hairlines — the one linework the hall allows itself.
+      const skirtMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#69311d") });
+      for (const side of [-1, 1]) {
+        const skirt = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, 0.06), skirtMat);
+        skirt.rotation.y = (Math.PI / 2) * side;
+        skirt.position.set((CORRIDOR_HALF - 0.005) * -side, 0.09, -hallLen / 2 + 6);
+        scene.add(skirt);
+      }
+
+      // Radial "spotlight pool" sprite, shared by every canvas.
+      const poolCanvas = document.createElement("canvas");
+      poolCanvas.width = poolCanvas.height = 256;
+      const pctx = poolCanvas.getContext("2d")!;
+      const grad = pctx.createRadialGradient(128, 128, 8, 128, 128, 128);
+      grad.addColorStop(0, "rgba(255, 220, 180, 0.5)");
+      grad.addColorStop(0.55, "rgba(255, 200, 150, 0.13)");
+      grad.addColorStop(1, "rgba(255, 200, 150, 0)");
+      pctx.fillStyle = grad;
+      pctx.fillRect(0, 0, 256, 256);
+      const poolTex = new THREE.CanvasTexture(poolCanvas);
+      const poolMat = new THREE.MeshBasicMaterial({
+        map: poolTex,
+        transparent: true,
+        depthWrite: false,
+      });
+
+      // ——— The works ———
+      const loader = new THREE.TextureLoader();
+      const isPhone = window.innerWidth < 1024;
+      const paintingMeshes: Mesh[] = [];
+      const paintingMats: MeshBasicMaterial[] = [];
+      const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
+      const loadedFlags: boolean[] = works.map(() => false);
+
+      const frameMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#80412b") });
+      const frameBackMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#100a06") });
+
+      type Placement = {
+        pos: { x: number; y: number; z: number };
+        side: number;
+        w: number;
+        h: number;
+      };
+      const placements: Placement[] = [];
+
+      works.forEach((work, i) => {
+        const side = i % 2 === 0 ? 1 : -1; // 1 = right wall
+        const z = -(i + 1) * SPACING;
+        const h = 2.0;
+        const w = h * work.aspect;
+        const x = (CORRIDOR_HALF - 0.09) * side;
+        placements.push({ pos: { x, y: 1.7, z }, side, w, h });
+
+        // Frame: a slab slightly proud of the wall, canvas on its face.
+        const frame = new THREE.Mesh(new THREE.BoxGeometry(0.12, h + 0.22, w + 0.22), frameMat);
+        frame.rotation.y = 0;
+        frame.position.set((CORRIDOR_HALF + 0.02) * side, 1.7, z);
+        frame.rotation.z = 0;
+        // orient the box's long axes along the wall
+        frame.rotation.y = side === 1 ? 0 : Math.PI;
+        scene.add(frame);
+        const inner = new THREE.Mesh(new THREE.BoxGeometry(0.13, h + 0.08, w + 0.08), frameBackMat);
+        inner.position.copy(frame.position);
+        inner.rotation.copy(frame.rotation);
+        inner.position.x -= 0.012 * side;
+        scene.add(inner);
+
+        // Canvas — ground-colored until its texture arrives.
+        const cmat = new THREE.MeshBasicMaterial({ color: WALL.clone() });
+        const canvasMesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), cmat);
+        canvasMesh.position.set(x - 0.005 * side, 1.7, z);
+        canvasMesh.rotation.y = (-Math.PI / 2) * side;
+        canvasMesh.userData.workIndex = i;
+        scene.add(canvasMesh);
+        paintingMeshes.push(canvasMesh);
+        paintingMats.push(cmat);
+
+        // Spotlight pool above/behind the canvas
+        const pool = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.2, h * 2.2), poolMat);
+        pool.position.set((CORRIDOR_HALF - 0.03) * side, 1.85, z);
+        pool.rotation.y = (-Math.PI / 2) * side;
+        scene.add(pool);
+
+        // The study beside its painting
+        if (work.sketch) {
+          const sh = 0.85;
+          const sw = sh * 1.45;
+          const sz = z + (w / 2 + sw / 2 + 0.7);
+          const sframe = new THREE.Mesh(
+            new THREE.BoxGeometry(0.08, sh + 0.14, sw + 0.14),
+            frameMat,
+          );
+          sframe.position.set((CORRIDOR_HALF + 0.03) * side, 1.55, sz);
+          sframe.rotation.y = side === 1 ? 0 : Math.PI;
+          scene.add(sframe);
+          const smat = new THREE.MeshBasicMaterial({ color: WALL.clone() });
+          const smesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), smat);
+          smesh.position.set((CORRIDOR_HALF - 0.045) * side, 1.55, sz);
+          smesh.rotation.y = (-Math.PI / 2) * side;
+          scene.add(smesh);
+          loader.load(work.sketch, (t) => {
+            if (disposed) return;
+            t.colorSpace = THREE.SRGBColorSpace;
+            smat.map = t;
+            smat.color.set("#ffffff");
+            smat.needsUpdate = true;
+          });
+        }
+      });
+
+      const loadWork = (i: number) => {
+        if (loadedFlags[i]) return;
+        loadedFlags[i] = true;
+        loader.load(isPhone ? works[i].tex800 : works[i].tex1440, (t) => {
+          if (disposed) return;
+          t.colorSpace = THREE.SRGBColorSpace;
+          paintingMats[i].map = t;
+          paintingMats[i].color.set("#ffffff");
+          paintingMats[i].needsUpdate = true;
+        });
+      };
+      loadWork(0);
+      loadWork(1);
+
+      // ——— Rail + look state ———
+      let railT = 0; // 0..1 scroll progress
+      let camZ = 2.5;
+      let lookYaw = 0;
+      let lookPitch = 0;
+      let dragYaw = 0;
+      let dragPitch = 0;
+      // Approach state
+      let mode: "rail" | "approach" = "rail";
+      let target = { x: 0, y: EYE, z: camZ, yaw: 0, pitch: 0 };
+      const cur = { x: 0, y: EYE, z: camZ, yaw: 0, pitch: 0 };
+
+      const railZ = () => 2.5 - railT * (works.length * SPACING + 2.5);
+
+      const onScroll = () => {
+        const r = wrap.getBoundingClientRect();
+        const total = r.height - window.innerHeight;
+        railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      // Drag = clamped look
+      let dragging = false;
+      let px = 0;
+      let py = 0;
+      const down = (e: PointerEvent) => {
+        dragging = true;
+        px = e.clientX;
+        py = e.clientY;
+      };
+      const move = (e: PointerEvent) => {
+        if (!dragging) return;
+        dragYaw = Math.max(-0.6, Math.min(0.6, dragYaw + (e.clientX - px) * 0.003));
+        dragPitch = Math.max(-0.3, Math.min(0.3, dragPitch + (e.clientY - py) * 0.002));
+        px = e.clientX;
+        py = e.clientY;
+      };
+      const up = () => {
+        dragging = false;
+      };
+      renderer.domElement.addEventListener("pointerdown", down);
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+
+      // Tap → approach
+      const ray = new THREE.Raycaster();
+      const clickAt = (e: MouseEvent) => {
+        if (mode === "approach") return;
+        const rect = renderer.domElement.getBoundingClientRect();
+        const ndc = new THREE.Vector2(
+          ((e.clientX - rect.left) / rect.width) * 2 - 1,
+          -((e.clientY - rect.top) / rect.height) * 2 + 1,
+        );
+        ray.setFromCamera(ndc, camera);
+        const hit = ray.intersectObjects(paintingMeshes)[0];
+        if (hit) approach(hit.object.userData.workIndex as number);
+      };
+      let downAt = 0;
+      renderer.domElement.addEventListener("pointerdown", () => (downAt = Date.now()));
+      renderer.domElement.addEventListener("click", (e) => {
+        // a drag is not a tap
+        if (Date.now() - downAt < 250) clickAt(e);
+      });
+
+      const approach = (i: number | null) => {
+        if (i === null) {
+          mode = "rail";
+          setApproached(null);
+          turnOff();
+          return;
+        }
+        loadWork(i);
+        const p = placements[i];
+        mode = "approach";
+        /* Stand back proportionally to the canvas width; yaw −π/2·side turns
+           the camera INTO the wall the work hangs on (three's yaw is
+           counter-clockwise: +π/2 faces −x). */
+        target = {
+          x: p.pos.x - p.side * (1.15 + p.w * 0.55),
+          y: p.pos.y,
+          z: p.pos.z,
+          yaw: (-Math.PI / 2) * p.side,
+          pitch: 0,
+        };
+        dragYaw = 0;
+        dragPitch = 0;
+        setApproached(i);
+      };
+
+      const turnOn = (i: number) => {
+        turnOff();
+        const w = works[i];
+        if (!w.video) return;
+        const v = document.createElement("video");
+        v.src = w.video;
+        v.loop = true;
+        v.muted = true;
+        v.playsInline = true;
+        v.crossOrigin = "anonymous";
+        v.play().catch(() => {});
+        const vt = new THREE.VideoTexture(v);
+        vt.colorSpace = THREE.SRGBColorSpace;
+        paintingMats[i].map = vt;
+        paintingMats[i].needsUpdate = true;
+        videoEls[i] = v;
+        setAlive(i);
+      };
+      const turnOff = () => {
+        videoEls.forEach((v, i) => {
+          if (v) {
+            v.pause();
+            v.removeAttribute("src");
+            videoEls[i] = null;
+            // restore the still
+            loadedFlags[i] = false;
+            loadWork(i);
+          }
+        });
+        setAlive(null);
+      };
+
+      // ——— Frame loop ———
+      let lastT = performance.now();
+      const tick = () => {
+        raf = requestAnimationFrame(tick);
+        if (!running) return;
+        const now = performance.now();
+        const dt = Math.min((now - lastT) / 1000, 0.05);
+        lastT = now;
+        const k = 1 - Math.pow(0.0018, dt); // critically-damped-ish lerp
+
+        if (mode === "rail") {
+          target = { x: 0, y: EYE, z: railZ(), yaw: 0, pitch: 0 };
+          // near-canvas load look-ahead
+          const idx = Math.min(
+            works.length - 1,
+            Math.max(0, Math.round(-target.z / SPACING) ),
+          );
+          loadWork(idx);
+          if (idx + 1 < works.length) loadWork(idx + 1);
+        }
+        cur.x += (target.x - cur.x) * k;
+        cur.y += (target.y - cur.y) * k;
+        cur.z += (target.z - cur.z) * k;
+        lookYaw += (target.yaw + dragYaw - lookYaw) * k;
+        lookPitch += (target.pitch + dragPitch - lookPitch) * k;
+
+        camera.position.set(cur.x, cur.y, cur.z);
+        camera.rotation.set(lookPitch, lookYaw + Math.PI * 0, 0, "YXZ");
+        // face down the corridor: base forward is -z, yaw rotates
+        camera.rotation.y = lookYaw;
+        renderer.render(scene, camera);
+      };
+      tick();
+      setReady(true);
+
+      // Pause when offscreen / hidden
+      const io = new IntersectionObserver(([e]) => {
+        running = e.isIntersecting;
+      });
+      io.observe(stage);
+      const onVis = () => {
+        running = !document.hidden && running;
+        if (!document.hidden) running = true;
+      };
+      document.addEventListener("visibilitychange", onVis);
+
+      const onResize = () => {
+        renderer.setSize(stage.clientWidth, stage.clientHeight);
+        camera.aspect = stage.clientWidth / stage.clientHeight;
+        camera.fov = fovFor();
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener("resize", onResize);
+
+      // Context loss → fall back to the grid
+      renderer.domElement.addEventListener("webglcontextlost", () => {
+        setCapable(false);
+      });
+
+      api.current = {
+        approach,
+        turnOn,
+        turnOff,
+        dispose: () => {
+          disposed = true;
+          cancelAnimationFrame(raf);
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("pointermove", move);
+          window.removeEventListener("pointerup", up);
+          window.removeEventListener("resize", onResize);
+          document.removeEventListener("visibilitychange", onVis);
+          io.disconnect();
+          turnOff();
+          renderer.dispose();
+          scene.traverse((o: any) => {
+            o.geometry?.dispose?.();
+            const m = o.material;
+            if (m) {
+              (Array.isArray(m) ? m : [m]).forEach((mm: any) => {
+                mm.map?.dispose?.();
+                mm.dispose?.();
+              });
+            }
+          });
+          renderer.domElement.remove();
+        },
+      };
+    })();
+
+    return () => {
+      api.current?.dispose();
+      api.current = null;
+    };
+  }, [capable, works]);
+
+  // Esc returns to the rail
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && approached !== null) api.current?.approach(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [approached]);
+
+  if (!capable) return null;
+
+  const plaque = approached !== null ? works[approached] : null;
+
+  return (
+    <div ref={wrapRef} style={{ height: `${(works.length + 1) * 100}vh` }} className="relative">
+      <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2">
+        {/* Entry line — fades once the visitor moves */}
+        {ready && (
+          <div className="pointer-events-none absolute inset-x-0 top-[max(env(safe-area-inset-top),24px)] z-10 text-center">
+            <p
+              className="t-meta inline-block rounded-full px-4 py-2"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+            >
+              The Museum · scroll to walk · tap a painting
+            </p>
+          </div>
+        )}
+
+        {/* The plaque */}
+        {plaque && (
+          <div className="absolute inset-x-0 bottom-0 z-10">
+            <div className="shell pb-[max(4dvh,24px)]">
+              <div
+                className="max-w-[46ch] rounded-[12px] border border-primary-7 p-6"
+                style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
+              >
+                <p className="t-meta">Mark Priest · Nalle Series · Stop {plaque.order}</p>
+                <p className="t-title-sm mt-3">{plaque.title}</p>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  {plaque.video && (
+                    <button
+                      type="button"
+                      className="btn-sm btn-solid"
+                      onClick={() =>
+                        alive === approached
+                          ? api.current?.turnOff()
+                          : api.current?.turnOn(approached!)
+                      }
+                    >
+                      {alive === approached ? "Let it rest" : "Bring it to life"}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className="btn-sm btn-ghost"
+                    onClick={() => api.current?.approach(null)}
+                  >
+                    Back to the hall
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Keyboard path: real buttons, one per work */}
+        {ready && !plaque && (
+          <nav
+            className="absolute bottom-[max(3dvh,16px)] left-1/2 z-10 -translate-x-1/2"
+            aria-label="Works in the hall"
+          >
+            <ol className="flex items-center gap-2">
+              {works.map((w, i) => (
+                <li key={w.slug + w.key}>
+                  <button
+                    type="button"
+                    onClick={() => api.current?.approach(i)}
+                    aria-label={`Approach “${w.title}”`}
+                    className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-primary-7 transition-colors hover:border-primary-9"
+                    style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary-11" aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </div>
+    </div>
+  );
+}

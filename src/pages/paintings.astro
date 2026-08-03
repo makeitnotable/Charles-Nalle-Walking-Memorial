@@ -13,6 +13,7 @@ import Icon from "../components/Icon.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { fitChars } from "../lib/text";
+import Museum from "../components/Museum";
 const PAINTINGS_HEADING = "THE NALLE<br />SERIES";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -54,6 +55,24 @@ const works = chapters.flatMap((entry) =>
       mapLabel: entry.data.name.short,
     })),
 );
+
+/** The museum's copy of the catalogue — texture URLs + the study beside the
+ * chapter's main canvas. Every asset already exists in the media pipeline. */
+const museumWorks = works.map((w) => {
+  const entry = chapters.find((e) => e.id === w.slug)!;
+  const hasSketch = w.key === "horizontal" && entry.data.media.images.includes("sketch");
+  return {
+    slug: w.slug,
+    key: w.key,
+    title: w.title,
+    order: w.order,
+    tex1440: withBase(`media/${w.slug}/${w.key}-1440.jpg`),
+    tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
+    video: w.video,
+    sketch: hasSketch ? withBase(`media/${w.slug}/sketch-800.webp`) : null,
+    aspect: 1.5,
+  };
+});
 ---
 
 <Base
@@ -64,6 +83,13 @@ const works = chapters.flatMap((entry) =>
     <p class="t-meta">The paintings · {works.length} works</p>
     <h1 class="t-display lines mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
   </header>
+
+  {/* THE MUSEUM (v6 signature). Renders nothing — and costs nothing — for
+      no-WebGL / reduced-motion / Save-Data visitors; the grid below is the
+      page either way, and stays the screen-reader surface always. */}
+  <div class="mt-16">
+    <Museum client:only="react" works={museumWorks} />
+  </div>
 
   <section class="shell sec pb-8">
     <p class="t-prose reveal">
@@ -113,21 +139,28 @@ const works = chapters.flatMap((entry) =>
     </div>
   </section>
 
-  {/* Close-look dialog */}
+  {/* Close-look dialog. v5 P0-4: at 844×390 the caption + Close sat below
+      the viewport — the media now takes what the caption row leaves, never
+      more, so the chrome is always on screen. */}
   <dialog
     id="painting-dialog"
-    class="artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88"
+    class="artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88 open:flex open:flex-col"
   >
-    <img id="painting-dialog-img" src="" alt="" class="max-h-[85dvh] w-auto" />
+    <img
+      id="painting-dialog-img"
+      src=""
+      alt=""
+      class="min-h-0 w-auto max-w-full flex-1 object-contain"
+    />
     <video
       id="painting-dialog-video"
-      class="hidden max-h-[85dvh] w-auto"
+      class="hidden min-h-0 w-auto max-w-full flex-1 object-contain"
       autoplay
       loop
       muted
       playsinline
     ></video>
-    <div class="flex items-center justify-between gap-4 p-4">
+    <div class="flex shrink-0 items-center justify-between gap-4 p-4">
       <p id="painting-dialog-title" class="t-meta-body"></p>
       <button type="button" id="painting-dialog-close" class="btn-sm btn-ghost">
         <Icon name="close" size="sm" />
