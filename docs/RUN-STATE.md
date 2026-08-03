@@ -8,17 +8,16 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 6 — THE GATE**
 
 ## CURRENT ITEM
-Dual-rubric juror pass 2 RUNNING (background agent, fresh juror, own
-evidence under `docs/v5/qa/juror-pass2-v6/`).
+Dual-rubric juror pass 3 RUNNING (fresh juror, evidence under
+`docs/v5/qa/juror-pass3-v6/`). Consecutive-clean counter: 0 (pass 2
+failed on the wipe P0, now fixed at a651e35).
 
 ## NEXT ACTION
-Read pass 2's verdict. If clean (zero P0/P1, axes ≥8, Sheet B holds):
-run pass 3 with another fresh juror (pass 1 failed by one P1, so the
-"two consecutive clean" count starts at pass 2). Between passes: P2/P3
-fixes ONLY. When two consecutive cleans land: live end-to-end verify
-(push → wait ~3min GH Pages → arrival/shots against the live URL), fill
-REVIEW-GUIDE-v6 gate verdicts + rename over docs/v5/REVIEW-GUIDE.md,
-update memory + this file, final push.
+Read pass 3's verdict. If clean → pass 4 with another fresh juror (two
+consecutive cleans required). Between passes: P2/P3 fixes only. When two
+cleans land: live end-to-end verify (push → ~3min GH Pages → arrival +
+spot shots against live URL), fill REVIEW-GUIDE-v6 verdicts + promote to
+docs/v5/REVIEW-GUIDE.md, GATE VERDICTS table, memory update, final push.
 
 ## GATE LOG
 - **Pass 1** (`docs/v5/qa/juror-pass1-v6/`, 151 shots, console clean):
@@ -33,6 +32,20 @@ update memory + this file, final push.
   halo (the P1), interlude fades 12/88, measure 54ch (Caslon's narrow
   zero), no pre-lit marker at overview, attribution bottom-left, hint
   pill ducks on short viewports, moral scrim .78, organised→organized.
+- **Pass 2** (`docs/v5/qa/juror-pass2-v6/`, 130+ shots, console clean):
+  axes 8/8/9/9 both classes — zero P1, **one P0, root-caused by the
+  juror**: `.wipe`'s clip-path sat on the observed element itself;
+  Chromium intersects a target against its own clip, so the archival
+  interlude never revealed at natural scroll — a permanent black band
+  in all five chapters for default-motion visitors (the instruments
+  force `is-in`, which is exactly why they were blind to it). Sheet B:
+  FIVE at Exceeded-or-better incl. the Museum; Execution held at
+  Partial by the P0. P2s noted: home has two links by design (queued
+  for Wil), phone overview edge-clips stop 1 (camera-floor tradeoff,
+  documented), mini-player title truncation, /people odd-count void.
+- **Fix loop 2→3** (a651e35): clip moved to `.wipe-clip` child (also the
+  positioning context); section observed un-clipped; pixel-verified at
+  natural wheel scroll — the ferry landing photograph reveals.
 
 ## P5 CLOSED — evidence
 Item 28: monogram bookplates on People (first+last initials, photo-slot
