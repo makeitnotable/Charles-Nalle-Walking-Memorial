@@ -28,6 +28,15 @@ date lockup with oldstyle figures) in each candidate system, shoot at
 
 ## DECISIONS (v6)
 - All locked decisions live in PLAN.md "Locked decisions" — not repeated here.
+- **D1 (P1 audition, juror + stakeholder-proxy unanimous): Libre Caslon
+  Display (display/title/quote) + Libre Caslon Text (prose + ALL chrome as
+  letterspaced caps). Poppins, Martel and Martel Sans retire.** Playfair
+  rejected ("template DNA"), EB Garamond rejected (bookish at hero scale).
+  Evidence: `docs/v5/elements/audition/` + verdicts quoted in commit.
+- **D2: date lockups use the BROADSIDE register** — letterspaced caps +
+  lining figures (LC ships no oldstyle figures/true smcp; an 1860 handbill
+  set dates exactly this way). Amends PLAN's "oldstyle figures" assumption —
+  logged in DEVIATIONS.md. No third face gets borrowed for dates.
 
 ## CARRIED FORWARD from v5 (open ledger)
 Juror pass 1 (6.8/10, `docs/v5/juror-pass1.md`): **3 open P0s** —

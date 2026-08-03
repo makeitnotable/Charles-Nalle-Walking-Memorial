@@ -1,0 +1,230 @@
+---
+/**
+ * Phase-1 type audition (internal, temporary — deleted once the pick lands).
+ * Three candidate serif-led systems render IDENTICAL real content so a juror
+ * can judge: period credibility · display presence at lighter weight ·
+ * small-size legibility · oldstyle figures for dates · pairing tightness.
+ *
+ * A — Playfair Display over Martel        (Scotch Roman, 1860 newspaper voice)
+ * B — Libre Caslon Display over LC Text   (the American printing face)
+ * C — EB Garamond throughout              (range incl. real small caps)
+ *
+ * Poppins stays as chrome in all three (retirement decided after the pick).
+ */
+import Base from "../layouts/Base.astro";
+import "@fontsource-variable/playfair-display";
+import "@fontsource/libre-caslon-display";
+import "@fontsource/libre-caslon-text";
+import "@fontsource-variable/eb-garamond";
+
+const p1 =
+  "As the sun rose on the morning of April 27, 1860, and light spilled across the cobblestone streets of Troy, New York, Charles Nalle, a humble coachman in his thirties, was walking to George Holeur's Fashionable Bakery to pick up bread for his employers, the Gilberts.";
+const p2 =
+  "He had built a life here in Troy, far from the lash of Blucher Hansbrough, the man who once owned him. But freedom, as Charles would be reminded, is fragile.";
+const candidates = [
+  { id: "a", label: "A · PLAYFAIR DISPLAY / MARTEL" },
+  { id: "b", label: "B · LIBRE CASLON DISPLAY / TEXT" },
+  { id: "c", label: "C · EB GARAMOND" },
+];
+---
+
+<Base title="Type audition — CNWM v6" description="Internal type audition." noMenu>
+  <div class="shell py-16">
+    <p class="t-meta">CNWM · v6 type audition · three candidates, one content block</p>
+
+    {
+      candidates.map((c) => (
+        <section class={`aud aud-${c.id}`}>
+          <hr class="rule" />
+          <p class="t-meta cand-label">{c.label}</p>
+
+          <p class="t-meta kicker">STOP 01 OF 5 · TROY, NY · APRIL 27, 1860</p>
+          <h2 class="aud-display">
+            HOLEUR'S
+            <br />
+            FASHIONABLE
+            <br />
+            BAKERY
+          </h2>
+          <p class="aud-display-lc">The Rescue of Charles Nalle</p>
+
+          <div class="datelock">
+            <span class="t-meta">(CH. 01) — THE DAY</span>
+            <p class="aud-date">April 27, 1860</p>
+          </div>
+
+          <h3 class="aud-title">Captured with Bread in Hand</h3>
+
+          <blockquote class="aud-quote">
+            “Charles Nalle, I hereby arrest you in the name of the United States
+            of America!”
+            <cite class="t-meta">— UNITED STATES DEPUTY MARSHAL HOLMES</cite>
+          </blockquote>
+
+          <p class="aud-prose">{p1}</p>
+          <p class="aud-prose">{p2}</p>
+
+          <div class="cream">
+            <p class="aud-prose">{p1}</p>
+            <p class="aud-meta-body">260 River Street · Troy, New York · 2.5 miles, about 45 minutes</p>
+          </div>
+
+          <div class="small-row">
+            <span class="aud-small">Small sizes: 16px — Harriet Tubman, 1822–1913 — figures 0123456789</span>
+            <span class="aud-smaller">13px — Chapter 1 of 5 · April 27, 1860</span>
+            <span class="aud-caps">SMALL CAPS TEST · April 27, 1860</span>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    margin: 96px 0 24px;
+  }
+  .cand-label {
+    color: var(--color-primary-9);
+  }
+  .kicker {
+    margin-top: 48px;
+  }
+  .aud-display {
+    font-size: var(--fs-display);
+    line-height: 1.02;
+    margin-top: 20px;
+    color: var(--color-neutral-12);
+  }
+  .aud-display-lc {
+    font-size: calc(var(--fs-display) * 0.62);
+    line-height: 1.05;
+    margin-top: 28px;
+    color: var(--color-neutral-12);
+  }
+  .datelock {
+    margin-top: 40px;
+  }
+  .aud-date {
+    font-size: calc(var(--fs-display) * 0.52);
+    color: var(--color-primary-11);
+    font-variant-numeric: oldstyle-nums;
+    font-feature-settings: "onum" 1;
+  }
+  .aud-title {
+    font-size: var(--fs-title-sm);
+    margin-top: 40px;
+    color: var(--color-neutral-12);
+  }
+  .aud-quote {
+    font-size: var(--fs-quote);
+    line-height: 1.35;
+    max-width: 28ch;
+    margin-top: 32px;
+    color: var(--color-primary-12);
+  }
+  .aud-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-style: normal;
+  }
+  .aud-prose {
+    font-size: var(--fs-prose);
+    line-height: 1.75;
+    max-width: var(--measure);
+    margin-top: 20px;
+    color: var(--color-primary-12);
+  }
+  .cream {
+    background: var(--ground-light);
+    color: var(--ink-light);
+    padding: 32px;
+    margin-top: 40px;
+    max-width: 72ch;
+  }
+  .cream .aud-prose,
+  .cream .aud-meta-body {
+    color: var(--ink-light);
+  }
+  .aud-meta-body {
+    font-family: var(--font-poppins);
+    font-size: var(--fs-meta-body);
+    margin-top: 16px;
+  }
+  .small-row {
+    display: grid;
+    gap: 8px;
+    margin-top: 32px;
+  }
+  .aud-small {
+    font-size: 16px;
+  }
+  .aud-smaller {
+    font-size: 13px;
+  }
+  .aud-caps {
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "onum" 1;
+  }
+
+  /* A — Playfair Display over Martel */
+  .aud-a .aud-display,
+  .aud-a .aud-display-lc,
+  .aud-a .aud-date,
+  .aud-a .aud-title {
+    font-family: "Playfair Display Variable", Georgia, serif;
+    font-weight: 470;
+  }
+  .aud-a .aud-quote,
+  .aud-a .aud-caps {
+    font-family: "Playfair Display Variable", Georgia, serif;
+    font-weight: 420;
+  }
+  .aud-a .aud-prose,
+  .aud-a .aud-small,
+  .aud-a .aud-smaller {
+    font-family: "Martel", Georgia, serif;
+    font-weight: 400;
+  }
+
+  /* B — Libre Caslon Display over Libre Caslon Text */
+  .aud-b .aud-display,
+  .aud-b .aud-display-lc,
+  .aud-b .aud-date,
+  .aud-b .aud-title {
+    font-family: "Libre Caslon Display", Georgia, serif;
+    font-weight: 400;
+  }
+  .aud-b .aud-quote,
+  .aud-b .aud-prose,
+  .aud-b .aud-small,
+  .aud-b .aud-smaller,
+  .aud-b .aud-caps {
+    font-family: "Libre Caslon Text", Georgia, serif;
+    font-weight: 400;
+  }
+
+  /* C — EB Garamond throughout */
+  .aud-c .aud-display,
+  .aud-c .aud-display-lc,
+  .aud-c .aud-date,
+  .aud-c .aud-title {
+    font-family: "EB Garamond Variable", Georgia, serif;
+    font-weight: 540;
+  }
+  .aud-c .aud-quote,
+  .aud-c .aud-caps {
+    font-family: "EB Garamond Variable", Georgia, serif;
+    font-weight: 450;
+  }
+  .aud-c .aud-prose,
+  .aud-c .aud-small,
+  .aud-c .aud-smaller {
+    font-family: "EB Garamond Variable", Georgia, serif;
+    font-weight: 430;
+  }
+</style>

@@ -31,3 +31,13 @@ domain-restricted and migrates to a museum-owned free account at handoff).
 - No personal data collected or logged, anywhere, ever.
 - Definition of done still ends with a clean pre-launch ux-review pass and a
   RUNBOOK/handoff doc (M6).
+
+## v6 · Type contract superseded (Wil, 2026-08-02) + broadside dates
+The BASELINE/v4 type contract (Martel Sans display · Martel prose · Poppins
+chrome) is retired by Wil's v6 direction: serif-led display, chosen by
+audition. Winner (juror + stakeholder-proxy unanimous): **Libre Caslon
+Display + Libre Caslon Text**, one family, all chrome in letterspaced LC Text
+caps. PLAN.md assumed oldstyle figures for date lockups; Libre Caslon ships
+none, so dates are set in the **broadside register** (letterspaced caps,
+lining figures — period-honest for 1860 print, and how the bronze plaques
+set dates). Evidence: docs/v5/elements/audition/, docs/RUN-STATE.md D1/D2.
