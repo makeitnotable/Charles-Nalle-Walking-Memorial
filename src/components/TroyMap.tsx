@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { playCover } from "../lib/curtain";
+import ROUTE from "../data/route.json";
 
 /**
  * The Walk — approved map experience (signature #4), rebuilt to spec:
@@ -143,19 +144,20 @@ function markerHtml(stop: Stop, active: boolean): string {
     </div>`;
 }
 
-function lerpRoute(stops: Stop[], per = 60): [number, number][] {
-  const pts: [number, number][] = [];
-  for (let i = 0; i < stops.length - 1; i++) {
-    const [ax, ay] = stops[i].coordinates;
-    const [bx, by] = stops[i + 1].coordinates;
-    for (let t = 0; t < per; t++) {
-      const f = t / per;
-      pts.push([ax + (bx - ax) * f, ay + (by - ay) * f]);
-    }
-  }
-  pts.push(stops[stops.length - 1].coordinates);
-  return pts;
-}
+/**
+ * THE ROUTE — real walking geometry, not a straight line.
+ *
+ * This used to interpolate 60 points between each pair of coordinates, which
+ * drew the "walk" as four straight chords: it crossed the Hudson twice, cut
+ * diagonally through city blocks and the rail yard, and followed no street. On
+ * a site whose whole premise is *walk these five stops in Troy*, the line on
+ * the map was factually wrong.
+ *
+ * `src/data/route.json` is Mapbox Directions walking geometry for the five
+ * stops in plaque order — 125 points, 3,979m, about 47 minutes. Regenerate it
+ * with `node scripts/build-route.mjs`.
+ */
+const routeLine = ROUTE.coordinates as [number, number][];
 
 export default function TroyMap({ stops, baseUrl }: Props) {
   const hasToken = Boolean(mapboxgl.accessToken);
@@ -374,7 +376,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       });
 
       // The route draws itself (M5); instant under reduced motion
-      const route = lerpRoute(stops);
+      const route = routeLine;
       map.addSource("route", {
         type: "geojson",
         data: {
@@ -400,7 +402,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": "#0B0705",
-          "line-width": zoomWidth(11, 17) as unknown as number,
+          "line-width": zoomWidth(8, 13) as unknown as number,
           "line-opacity": 0.85,
         },
       });
@@ -410,8 +412,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         source: "route",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": "#FF9770",
-          "line-width": zoomWidth(5.5, 9) as unknown as number,
+          "line-color": "#FFB394",
+          "line-width": zoomWidth(5, 9) as unknown as number,
           "line-opacity": 1,
         },
       });

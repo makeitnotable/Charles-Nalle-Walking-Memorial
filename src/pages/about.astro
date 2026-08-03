@@ -91,18 +91,25 @@ const people = [
           </div>
           <div>
             <h2 class="t-title reveal">{person.header}</h2>
-            <img
-              src={withBase(`media/site/${person.image}-800.webp`)}
-              srcset={`${withBase(`media/site/${person.image}-800.webp`)} 800w, ${withBase(`media/site/${person.image}-1440.webp`)} 1440w`}
-              sizes="(min-width: 1024px) 52rem, 100vw"
-              alt={person.header}
-              loading="lazy"
-              class="artifact reveal mt-12 w-full object-cover"
-            />
-            <div class="mt-12 space-y-6">
-              {person.paragraphs.map((p) => (
-                <p class="t-prose reveal">{p}</p>
-              ))}
+            {/* These three files are 250×251 — `-800` and `-1440` are the same
+                bytes under different names, so the old srcset was advertising
+                resolutions that do not exist and the browser was painting a
+                250px thumbnail at 828px CSS. It renders at its real size now,
+                set beside the prose instead of stretched above it. */}
+            <div class="mt-12 flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-12">
+              <img
+                src={withBase(`media/site/${person.image}-800.webp`)}
+                width="250"
+                height="251"
+                alt={person.header}
+                loading="lazy"
+                class="artifact reveal w-[168px] flex-none sm:w-[250px]"
+              />
+              <div class="space-y-6">
+                {person.paragraphs.map((p) => (
+                  <p class="t-prose reveal">{p}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -112,10 +119,10 @@ const people = [
 
   <section class="void">
     <div class="shell">
-      <figure class="reveal-quote mx-auto max-w-[54rem] text-center">
+      <figure class="reveal-quote mx-auto max-w-[46rem]">
         <blockquote
           class="t-quote is-hung"
-          style="--fs-quote: clamp(26px, 3.6vw, 52px); max-width: none; text-indent: 0"
+          style="--fs-quote: clamp(22px, 2.2vw, 30px); max-width: none"
         >
           “{about.closingQuote.text}”
         </blockquote>

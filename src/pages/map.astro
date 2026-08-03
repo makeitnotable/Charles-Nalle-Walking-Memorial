@@ -8,8 +8,10 @@ import TroyMap from "../components/TroyMap";
 import Picture from "../components/Picture.astro";
 import Icon from "../components/Icon.astro";
 import WalkProgress from "../components/WalkProgress.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { fitChars } from "../lib/text";
+import route from "../data/route.json";
 const MAP_HEADING = "Five stops<br />through Troy";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -47,7 +49,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
   </div>
 
   {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
-  <section class="shell sec pb-24" aria-label="The five stops">
+  <section class="shell sec" aria-label="The five stops">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
       <div class="rail">
@@ -60,6 +62,13 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
           The rescue of Charles Nalle unfolded across a few blocks of downtown
           Troy in a single day — April 27, 1860. Four stops carry bronze
           plaques; the Ferry Landing is remembered here on the website.
+        </p>
+        {/* The walk has a size, and saying it is the difference between a map
+            and an invitation. Both numbers come from the same Directions
+            geometry the route is drawn from. */}
+        <p class="t-meta reveal mt-8">
+          {(route.distanceMeters / 1609.34).toFixed(1)} miles · about{" "}
+          {Math.round(route.durationSeconds / 60 / 5) * 5} minutes on foot
         </p>
       </div>
     </div>
@@ -106,6 +115,8 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
       }
     </ol>
   </section>
+
+  <SiteFooter hide="map" />
 
   <script>
     const io = new IntersectionObserver(
