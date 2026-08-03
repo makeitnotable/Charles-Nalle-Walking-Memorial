@@ -5,19 +5,28 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 5 — People, About, global a11y** (P4 built; final EXCEEDED call
-happens at the P6 dual-rubric gate per the ship rule)
+**Phase 6 — THE GATE**
 
 ## CURRENT ITEM
-P5 opening: item 28 (People profile cards).
+Evidence regeneration (all instruments, local build).
 
 ## NEXT ACTION
-Read `src/pages/people.astro`; elevate entries to profile-card treatment
-(typographic monogram placeholder, photo slot later; refine the loved
-layout, don't redo). Then item 30 (About: apply system, no regression) and
-the item 23 global pass (contrast sweep done at P3=0 fails; entrance
-choreography audit; hung quotes/hanging numerals/measure≤66ch check; the
-/about 8-size census finding — wordmark+display+title stack). Then P6.
+Run the full battery against the local build: shots (all routes ×
+viewports), census, moments, strip, arrival, contrast, states, perf
+(bars: home ≥90 / chapter ≥90 + a11y ≥95; /map and /paintings documented
+exceptions ≥80 desktop / ≥70 mobile, a11y 100). Then dual-rubric juror
+pass 1 (Sheet A: Awwwards axes ≥8 every breakpoint class, zero P0/P1 ·
+Sheet B: all seven elements ≥ Met in full, ≥2 Exceeded incl. the Museum,
+juror writes the thesis sentence). Fix loop on findings, pass 2 with a
+different fresh juror. Then live verify + REVIEW-GUIDE + memory + push.
+
+## P5 CLOSED — evidence
+Item 28: monogram bookplates on People (first+last initials, photo-slot
+proportions, `p5/people-1440.png`). Item 30: About carries the system, no
+regression (`p5/about-*.png`). Item 23: contrast 0 fails (P3), measure
+≤66ch via t-prose, hung quotes, hanging numerals, reveal grammar
+consistent; /about wordmark+display pairing accepted as the identity
+lockup exception (same class as home).
 
 ## P4 CLOSED (build) — evidence
 Museum committed through 35656f0. Three juror passes: Partial → **strong
