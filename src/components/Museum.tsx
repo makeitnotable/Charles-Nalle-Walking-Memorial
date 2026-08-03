@@ -343,11 +343,23 @@ export default function Museum({ works }: Props) {
         loadWork(i);
         const p = placements[i];
         mode = "approach";
-        /* Stand back proportionally to the canvas width; yaw −π/2·side turns
-           the camera INTO the wall the work hangs on (three's yaw is
-           counter-clockwise: +π/2 faces −x). */
+        /* Stand back far enough that the WHOLE canvas fits the frame at the
+           current FOV/aspect (a portrait phone needs a much longer standoff
+           than a desktop). Yaw −π/2·side turns the camera INTO the wall the
+           work hangs on (three's yaw is counter-clockwise: +π/2 faces −x). */
+        const vfov = (camera.fov * Math.PI) / 180;
+        const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+        const dist = Math.min(
+          6,
+          Math.max(
+            (p.w / 2) / Math.tan(hfov / 2),
+            (p.h / 2) / Math.tan(vfov / 2),
+          ) *
+            1.18 +
+            0.15,
+        );
         target = {
-          x: p.pos.x - p.side * (1.15 + p.w * 0.55),
+          x: p.pos.x - p.side * dist,
           y: p.pos.y,
           z: p.pos.z,
           yaw: (-Math.PI / 2) * p.side,
