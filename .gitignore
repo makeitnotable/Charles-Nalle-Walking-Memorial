@@ -32,3 +32,6 @@ docs/v4/qa/**/*.png
 
 # v5 audit screenshots (evidence, regenerable — the findings are the artefact)
 docs/v5/qa/
+
+# v6 element-battery screenshots (same rule — .md findings commit, pixels don't)
+docs/v5/elements/**/*.png

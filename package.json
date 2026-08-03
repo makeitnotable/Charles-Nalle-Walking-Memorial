@@ -10,7 +10,16 @@
     "build": "astro build && node scripts/check-css.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "qa:shots": "node scripts/shots.mjs",
+    "qa:probe": "node scripts/probe.mjs",
+    "qa:states": "node scripts/states.mjs",
+    "qa:census": "node scripts/census.mjs",
+    "qa:perf": "node scripts/perf.mjs",
+    "qa:moments": "node scripts/moments.mjs",
+    "qa:strip": "node scripts/strip.mjs",
+    "qa:arrival": "node scripts/arrival.mjs",
+    "qa:contrast": "node scripts/contrast.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

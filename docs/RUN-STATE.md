@@ -8,20 +8,23 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 0 — Reconcile reality + instruments**
 
 ## CURRENT ITEM
-Bootstrap complete; Phase 0 instruments.
+Phase 0 — Figma-arrow fetch attempt (node 2142-4066).
 
 ## NEXT ACTION
-Wire `qa:*` npm scripts (shots/probe/states/census/perf + new instruments), then
-build the four new instruments (`scripts/moments.mjs`, `scripts/strip.mjs`,
-`scripts/arrival.mjs`, `scripts/contrast.mjs`), then run baselines E1/E2/E4/E7
-into `docs/v5/elements/`, then attempt the Figma-arrow fetch (node 2142-4066;
-fallback chain: legacy repo extract → faithful redraw).
+Attempt Figma-arrow fetch: ClaudeTalkToFigma `join_channel` (plugin may not be
+open) → official Figma MCP (unauthenticated this session) → extract the arrow
+from the legacy repo (it implemented the Figma) → else queue faithful redraw
+for Phase 1 icon work. Then close Phase 0 and start Phase 1 (type audition:
+build `/styleguide` candidate specimens — Playfair Display / Libre Caslon /
+EB Garamond).
 
 ## DONE (v6)
 
 | Item | Commit | Evidence |
 |---|---|---|
-| Bootstrap: v4 plan archived → `PLAN-v4.md`; v6 plan installed as `PLAN.md`; v6 RUN-STATE section opened | (this commit) | — |
+| Bootstrap: v4 plan archived → `PLAN-v4.md`; v6 plan installed as `PLAN.md`; v6 RUN-STATE section opened | 26158ff | — |
+| P0: `qa:*` scripts wired; 4 new instruments (`moments/strip/arrival/contrast.mjs`); baselines E1/E2/E4/E7 + contrast run | (this commit) | `docs/v5/elements/BASELINES.md` |
+| P0 baseline findings: E1 thesis PASSES (3/3 jurors); 26 off-token motion tuples; mp4 on thin pipe 2.6–4.2s every chapter (P2 target); /map stop chips 2.75:1 contrast (P3 target) | (this commit) | `docs/v5/elements/*.md` |
 
 ## DECISIONS (v6)
 - All locked decisions live in PLAN.md "Locked decisions" — not repeated here.
