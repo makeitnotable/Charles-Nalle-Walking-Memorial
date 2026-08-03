@@ -334,7 +334,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     tourAbort.current = true;
     setTouring(false);
     setFocused(false);
-    setMarkers(stops[0]?.label ?? null);
+    setMarkers(null);
     const target = overviewCamera();
     if (reduced) map.jumpTo(target);
     else map.easeTo({ ...target, duration: 2000, essential: true });
@@ -364,7 +364,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          pixels with a button. */
       attributionControl: false,
     });
-    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-right");
+    /* Bottom-LEFT: the menu FAB owns bottom-right on /map (item 10), and a
+       licence mark must never sit under chrome (juror pass 1 P2). */
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-left");
     mapRef.current = map;
     map.on("load", () => map.resize());
     const ro = new ResizeObserver(() => map.resize());
@@ -390,7 +392,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         el.style.background = "none";
         el.style.border = "0";
         el.style.padding = "0";
-        el.innerHTML = markerHtml(stop, stop.order === 1);
+        /* No stop is "active" at the overview — pre-lighting stop 1 hung its
+           name pill off the right edge of a phone before anything was chosen
+           (juror pass 1 P2). Focus, tour and deep-links light markers. */
+        el.innerHTML = markerHtml(stop, false);
         el.setAttribute(
           "aria-label",
           `Stop ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
@@ -733,7 +738,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           timer, whichever comes first. */}
       {hintOpen && (
         <div
-          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32"
+          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32 [@media(max-height:560px)]:bottom-20"
           aria-hidden="true"
         >
           <div

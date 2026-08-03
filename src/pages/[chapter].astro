@@ -211,17 +211,20 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     </div>
 
     {/* Legibility scrims — the lockup band at the base, a breath at the top
-        so the fixed chrome never sits on raw painting. */}
+        so the fixed chrome never sits on raw painting. Juror pass 1 (P1):
+        at 1440/landscape the lockup rides higher in the band and the kicker
+        sat on thinned scrim over busy paint — the band runs deeper now, and
+        the lockup carries a soft text-shadow as the second lock. */}
     <div
       class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to top, rgba(29,20,17,.92) 0%, rgba(29,20,17,.55) 22%, transparent 44%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+      style="background: linear-gradient(to top, rgba(29,20,17,.94) 0%, rgba(29,20,17,.72) 24%, rgba(29,20,17,.3) 46%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
       aria-hidden="true"
     >
     </div>
 
     <div class="absolute inset-x-0 bottom-0">
       <div class="shell pb-[max(5dvh,32px)]">
-        <div id="hero-lockup">
+        <div id="hero-lockup" style="text-shadow: 0 1px 14px rgba(16,10,6,.85), 0 0 3px rgba(16,10,6,.7)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
           <p class="t-meta">
@@ -355,9 +358,11 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       alt={interlude.alt}
       loading="lazy"
     />
+    {/* Juror P2: the heavy 20/80 gradient + lazy image read as a dead black
+        band at real scrolling pace — the fades breathe at the edges now. */}
     <div
       class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 20%, transparent 80%, var(--color-primary-2))"
+      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
     >
     </div>
     <p class="t-meta absolute right-[var(--gutter)] bottom-8">{interlude.credit}</p>
@@ -434,7 +439,9 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
             style="object-position: center 25%"
             loading="lazy"
           />
-          <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.72) 30%, rgba(29,20,17,.72) 70%, #1d1411)" />
+          {/* .78 mid — barbershop's light sketch ground left the spine labels
+              near-invisible at .72 (juror pass 1 P2). */}
+          <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.78) 30%, rgba(29,20,17,.78) 70%, #1d1411)" />
         </div>
 
         <div class="shell relative z-10 py-32 md:py-40">

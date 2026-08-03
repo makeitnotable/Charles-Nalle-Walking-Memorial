@@ -103,3 +103,8 @@ Wil's punch list item 19: the 1860 map is NOT a Priest work — only the
 paintings and sketches are his. Caption now "Troy, New York · 1860"; alt text
 likewise. If provenance for the map plate arrives (Hart Cluett?), it can be
 credited accurately then.
+
+## v6 · Spelling normalization (2026-08-03)
+"organised" → "organized" in commissioners-office historical content — US
+spelling used everywhere else on the site; mechanical correction, no fact
+touched (flagged by v6 juror pass 1).

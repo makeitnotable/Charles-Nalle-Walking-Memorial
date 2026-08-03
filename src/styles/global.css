@@ -155,7 +155,9 @@
 
   --track-display: -0.02em; /* optical tightening at size */
   --track-meta: 0.1em; /* the fixed micro-grid — GA&C measures 0.073em at 11px */
-  --measure: 66ch; /* prose never wider */
+  /* Caslon's "0" is narrow, so 66ch of Caslon held 84–90 actual characters
+     (juror pass 1) — 54ch of this face is the real 65–70 character line. */
+  --measure: 54ch;
 
   /* ── SPACING — three vertical tokens. Every gap BETWEEN sections
      quantizes to one of these. Component-internal uses --sp-*. ───────────── */

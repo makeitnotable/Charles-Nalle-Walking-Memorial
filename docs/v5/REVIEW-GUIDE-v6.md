@@ -105,7 +105,7 @@ arrive) · 29 museum ✓ · 30 About ✓ (system applied, no regression).
   · /paintings 89 / CLS 0 (documented exception, bar 70) · /map is the
   long-standing Mapbox exception (a11y 100 everywhere; best-practices
   100).
-- States: 90 interaction states; the one flagged pair was the
+- States: **90 interaction states, zero collisions** — the one flagged pair was the
   mini-player pill over passing page content — it carries its own
   ground + blur + border, the same "a scrim makes it a layer" doctrine
   as the menu (v5 F4); the instrument now recognizes self-grounded
