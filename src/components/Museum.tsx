@@ -110,7 +110,7 @@ export default function Museum({ works }: Props) {
       const WALL = new THREE.Color("#2f1d14");
       const FLOOR = new THREE.Color("#1a110c");
       scene.background = GROUND;
-      scene.fog = new THREE.Fog(GROUND, 10, 34);
+      scene.fog = new THREE.Fog(GROUND, 10, 40);
 
       /* A phone corridor is narrower — on the desktop width the art hung at
          the extreme edges of a portrait frame and the centre of the walk was
@@ -179,6 +179,27 @@ export default function Museum({ works }: Props) {
       end.position.set(0, CEIL_Y / 2, -(works.length * SPACING) - 8);
       scene.add(end);
 
+      /* The far-end draw: a warm glow at the end of the hall so the walk is
+         pulled forward by LIGHT, not by UI copy (juror: "no destination
+         cue"). It sits beyond the last canvas, inside the fog. */
+      const drawCanvas = document.createElement("canvas");
+      drawCanvas.width = drawCanvas.height = 128;
+      {
+        const g = drawCanvas.getContext("2d")!;
+        const rg = g.createRadialGradient(64, 64, 4, 64, 64, 64);
+        rg.addColorStop(0, "rgba(255, 190, 130, 0.5)");
+        rg.addColorStop(1, "rgba(255, 190, 130, 0)");
+        g.fillStyle = rg;
+        g.fillRect(0, 0, 128, 128);
+      }
+      const drawTex = new THREE.CanvasTexture(drawCanvas);
+      const drawGlow = new THREE.Mesh(
+        new THREE.PlaneGeometry(5, 4),
+        new THREE.MeshBasicMaterial({ map: drawTex, transparent: true, depthWrite: false, fog: false }),
+      );
+      drawGlow.position.set(0, 1.7, -(works.length * SPACING) - 7.8);
+      scene.add(drawGlow);
+
       // Skirting hairlines — the one linework the hall allows itself. Quiet
       // enough to obey the fog (juror P2-9).
       const skirtMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#4a2416") });
@@ -202,6 +223,40 @@ export default function Museum({ works }: Props) {
       const poolTex = new THREE.CanvasTexture(poolCanvas);
       const poolMat = new THREE.MeshBasicMaterial({
         map: poolTex,
+        transparent: true,
+        depthWrite: false,
+      });
+      /* Floor echoes run dimmer than wall pools — light that has travelled. */
+      const floorPoolMat = new THREE.MeshBasicMaterial({
+        map: poolTex,
+        transparent: true,
+        depthWrite: false,
+        opacity: 0.55,
+      });
+      const fixtureMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#0d0805") });
+      /* The beam: a vertical wash from fixture toward the canvas. */
+      const beamCanvas = document.createElement("canvas");
+      beamCanvas.width = 64;
+      beamCanvas.height = 256;
+      {
+        const g = beamCanvas.getContext("2d")!;
+        const lg = g.createLinearGradient(0, 0, 0, 256);
+        lg.addColorStop(0, "rgba(255, 205, 155, 0.14)");
+        lg.addColorStop(1, "rgba(255, 205, 155, 0)");
+        g.fillStyle = lg;
+        // taper: narrow at top, wide at bottom
+        g.beginPath();
+        g.moveTo(24, 0);
+        g.lineTo(40, 0);
+        g.lineTo(64, 256);
+        g.lineTo(0, 256);
+        g.closePath();
+        g.clip();
+        g.fillRect(0, 0, 64, 256);
+      }
+      const beamTex = new THREE.CanvasTexture(beamCanvas);
+      const beamMat = new THREE.MeshBasicMaterial({
+        map: beamTex,
         transparent: true,
         depthWrite: false,
       });
@@ -265,11 +320,28 @@ export default function Museum({ works }: Props) {
         pool.position.set((CH - 0.03) * side, 1.85, z);
         pool.rotation.y = (-Math.PI / 2) * side;
         scene.add(pool);
-        const fpool = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.5, 1.6), poolMat);
+        const fpool = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.5, 1.6), floorPoolMat);
         fpool.rotation.x = -Math.PI / 2;
         fpool.rotation.z = Math.PI / 2;
         fpool.position.set((CH - 0.9) * side, 0.012, z);
         scene.add(fpool);
+
+        /* The fixture and its beam — the story of where the light comes
+           from. A small dark track head at the ceiling and a soft cone
+           washing down to the canvas top. */
+        const head = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.05, 0.07, 0.16, 10),
+          fixtureMat,
+        );
+        head.position.set((CH - 0.55) * side, CEIL_Y - 0.12, z);
+        head.rotation.z = 0.5 * side;
+        scene.add(head);
+        const beamH = CEIL_Y - (1.7 + h / 2) + 0.35;
+        const beam = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.9, beamH), beamMat);
+        beam.position.set((CH - 0.28) * side, CEIL_Y - beamH / 2 - 0.05, z);
+        beam.rotation.y = (-Math.PI / 2) * side;
+        beam.rotation.x = 0;
+        scene.add(beam);
 
         // The study beside its painting
         if (work.sketch) {
@@ -332,16 +404,23 @@ export default function Museum({ works }: Props) {
       let target = { x: 0, y: EYE, z: camZ, yaw: 0, pitch: 0 };
       const cur = { x: 0, y: EYE, z: camZ, yaw: 0, pitch: 0 };
 
-      const railZ = () => 2.5 - railT * (works.length * SPACING + 2.5);
+      /* Start close to the first canvas — the opening frame must sell the
+         room, not nine metres of fog (juror: "first-paint darkness"). */
+      const railZ = () => 0.2 - railT * (works.length * SPACING - 2.8);
 
       let lastRailIdx = -1;
       const onScroll = () => {
         const r = wrap.getBoundingClientRect();
         const total = r.height - window.innerHeight;
         railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+        /* Camera z = 0.2 − railT·(n·S − 2.8); painting i sits at −(i+1)·S,
+           so the nearest work is round(−z/S) − 1. */
         const idx = Math.min(
           works.length - 1,
-          Math.max(0, Math.round((railT * (works.length * SPACING + 2.5) - 2.5) / SPACING)),
+          Math.max(
+            0,
+            Math.round((railT * (works.length * SPACING - 2.8) - 0.2) / SPACING) - 1,
+          ),
         );
         if (idx !== lastRailIdx) {
           lastRailIdx = idx;
@@ -438,6 +517,9 @@ export default function Museum({ works }: Props) {
               1.18 +
               0.15,
           );
+          /* Portrait: the plaque owns the bottom third, so the canvas rises
+             into the field above it instead of hiding a corner behind it. */
+          yOff = -0.3;
         }
         target = {
           x: p.pos.x - p.side * dist,
@@ -634,6 +716,22 @@ export default function Museum({ works }: Props) {
           </div>
         )}
 
+        {/* Touch skip — small, clear of the hint pill (its own row, phones only) */}
+        {ready && approached === null && (
+          <div className="absolute top-[calc(max(env(safe-area-inset-top),24px)+44px)] right-[var(--gutter)] z-10 sm:hidden">
+            <button
+              type="button"
+              className="t-meta cursor-pointer rounded-full px-3 py-1.5"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+              onClick={() => {
+                const r = wrapRef.current?.getBoundingClientRect();
+                if (r) window.scrollTo({ top: window.scrollY + r.bottom, behavior: "smooth" });
+              }}
+            >
+              Skip ↓
+            </button>
+          </div>
+        )}
         {/* The quiet exit: the index of works is one press away. sm+ only —
             on a phone it collided with the hint pill, and a flick already
             exits in a breath. The wrapper carries the visibility: `.link-meta`
@@ -662,7 +760,10 @@ export default function Museum({ works }: Props) {
                 className="max-w-[46ch] rounded-[12px] border border-primary-7 p-6"
                 style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
               >
-                <p className="t-meta">Mark Priest · Nalle Series · Chapter {plaque.order}</p>
+                <p className="t-meta">
+                  Mark Priest<span className="hidden sm:inline"> · Nalle Series</span> · Chapter{" "}
+                  {plaque.order}
+                </p>
                 <p className="t-title-sm mt-3">{plaque.title}</p>
                 {plaque.line && (
                   <p className="t-meta-body mt-4 italic">
