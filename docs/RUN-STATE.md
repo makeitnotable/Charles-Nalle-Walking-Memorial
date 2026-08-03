@@ -8,16 +8,16 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 6 — THE GATE**
 
 ## CURRENT ITEM
-Dual-rubric juror pass 4 RUNNING (fresh juror, evidence under
-`docs/v5/qa/juror-pass4-v6/`). Consecutive-clean counter: 0 (passes 1–3
-each failed by a shrinking delta; all deltas fixed and pixel-verified).
+Dual-rubric juror pass 5 RUNNING (fresh juror, evidence under
+`docs/v5/qa/juror-pass5-v6/`). **Consecutive-clean counter: 1** (pass 4
+PASSED). ZERO changes made between passes 4 and 5 — identical build.
 
 ## NEXT ACTION
-Read pass 4's verdict. If clean → pass 5 (two consecutive cleans
-required). Between passes: P2/P3 fixes only. When two cleans land: live
-end-to-end verify (push → ~3min GH Pages → arrival + spot shots against
-the live URL), fill REVIEW-GUIDE-v6 verdicts + promote to
-docs/v5/REVIEW-GUIDE.md, GATE VERDICTS table, memory update, final push.
+Read pass 5's verdict. If clean: gate complete → live end-to-end verify
+(push → ~3min GH Pages → arrival + spot shots against the live URL),
+fill REVIEW-GUIDE-v6 verdicts + promote to docs/v5/REVIEW-GUIDE.md,
+GATE VERDICTS table, memory update, final push. If it surfaces anything
+new: fix (P2/P3 only if the pass was otherwise clean) and re-run.
 
 ## GATE LOG
 - **Pass 1** (`docs/v5/qa/juror-pass1-v6/`, 151 shots, console clean):
@@ -59,6 +59,15 @@ docs/v5/REVIEW-GUIDE.md, GATE VERDICTS table, memory update, final push.
   left=20px on all three); typographic ’ “ ” everywhere (glyph-only
   substitution, zero words changed, CONTENT-STATUS logged); active
   marker z-30 (verified in DOM). Ledger gained the Kathy flag.
+- **Pass 4** (`docs/v5/qa/juror-pass4-v6/`, 143 artifacts, console clean
+  everywhere): **GATE PASSED** — zero P0, zero P1, all axes 9/9/9/9 at
+  BOTH breakpoint classes. Sheet B: **FIVE Exceeded** (Thesis,
+  Signature/Museum, Execution, Typography 9/10, Interaction meaning);
+  Content depth 9/10 Met, Threshold Met. Residuals: three P2s (map
+  fit-bounds crops on short viewports — the documented camera-floor
+  tradeoff; unlabeled pins until tap — the documented chip design;
+  desktop left-set measure — house editorial grammar). Consecutive
+  cleans: 1.
 
 ## P5 CLOSED — evidence
 Item 28: monogram bookplates on People (first+last initials, photo-slot
