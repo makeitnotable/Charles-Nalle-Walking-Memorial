@@ -26,7 +26,6 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
-import PressReveal from "../components/PressReveal";
 import AudioStory from "../components/AudioStory";
 import EmbedMap from "../components/EmbedMap";
 import Icon from "../components/Icon.astro";
@@ -114,7 +113,6 @@ c.scenes.forEach((_, i) => {
     sceneIndex: i,
   });
 });
-sections.push({ key: "sketch", rail: "The sketch" });
 sections.push({ key: "history", rail: "History" });
 if (moral) sections.push({ key: "moral", rail: "The moral" });
 sections.push({ key: "onward", rail: "Onward" });
@@ -263,45 +261,6 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     ))
   }
 
-  {/* ══════ FROM THE SKETCH — the artist's-process beat ══════ */}
-  {
-    c.scenes[0].reveal && (
-      <section class="shell sec" id="sketch" aria-labelledby="sketch-heading">
-        <div class="sec-head" />
-        <div class="editorial mt-8">
-          <ChapterSpine sections={sections} current="sketch" />
-          {/* The spine + content grid takes TWO children. This section was
-              passing three, so the press-and-hold — the signature interaction of
-              the whole site — wrapped onto a second row into the 3fr spine
-              column and rendered 276px wide on a 1440 screen. It belongs in the
-              content column at full width. */}
-          <div>
-            <h2 id="sketch-heading" class="t-title reveal">
-              From the
-              <br />
-              sketch
-            </h2>
-            <p class="t-prose reveal mt-8">
-              {c.sketchNote}
-            </p>
-
-            <div class="reveal artifact mt-12 border border-primary-7">
-              <PressReveal
-                client:visible
-                slug={slug}
-                sketch={c.scenes[0].reveal.sketch}
-                video={c.scenes[0].reveal.video}
-                videoVertical={c.scenes[0].reveal.videoVertical}
-                painting={c.scenes[0].reveal.painting}
-                alt={`“${c.name.canonical}” — painting by Mark Priest`}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
   {/* ══════ The interlude — full-bleed, zero chrome ══════ */}
   <section
     class="painting-interlude relative overflow-hidden"
@@ -411,12 +370,37 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               </h2>
               <p class="t-prose reveal mt-12">{moral.message}</p>
 
-              {/* The 220px thumbnail that used to sit here showed the SAME
-                  image already filling this section behind the text — the same
-                  picture twice inside one viewport. The call to action takes
-                  the width it freed. */}
-              <div class="reveal rule-top mt-16 max-w-[46ch] pt-8">
-                <p class="t-meta">{moral.callToAction.title}</p>
+              {/* Item 18: the sketch hangs HERE, in the theme section, per the
+                  Figma placement — the press-and-hold is retired and "the
+                  sketch comes alive" now belongs to the museum. It is the
+                  viewport's one framed artifact. */}
+              {
+                c.scenes[0].reveal && (
+                  <figure class="reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-end">
+                    <div class="artifact border border-primary-7">
+                      <img
+                        src={withBase(`media/${slug}/sketch-1440.jpg`)}
+                        srcset={`${withBase(`media/${slug}/sketch-800.webp`)} 800w, ${withBase(`media/${slug}/sketch-1440.webp`)} 1440w`}
+                        sizes="(min-width: 768px) 420px, 100vw"
+                        alt={`Study for “${c.name.canonical}” — Mark Priest`}
+                        loading="lazy"
+                        decoding="async"
+                        class="h-auto w-full"
+                      />
+                    </div>
+                    <figcaption class="mt-8 max-w-[44ch] md:mt-0">
+                      <p class="t-meta">The artist's study</p>
+                      <p class="t-prose mt-4">{c.sketchNote}</p>
+                      <p class="t-meta-body mt-4">Mark Priest · Nalle Series</p>
+                    </figcaption>
+                  </figure>
+                )
+              }
+
+              {/* Mid-register voice (E4 juror): the call to action stops
+                  whispering — its title is a title, not a breadcrumb. */}
+              <div class="reveal rule-top mt-16 max-w-[52ch] pt-8">
+                <p class="t-title-sm">{moral.callToAction.title}</p>
                 <p class="t-prose mt-4">{moral.callToAction.content}</p>
               </div>
             </div>
