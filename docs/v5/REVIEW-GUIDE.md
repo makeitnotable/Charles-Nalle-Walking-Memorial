@@ -1,147 +1,158 @@
-# v5 REVIEW GUIDE — what changed, and where it actually stands
+# CNWM v6 — Review Guide for Wil
 
-**Live:** https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/
-
-**Read this first: the run did not clear the bar you set.** An independent
-adversarial juror — a fresh agent with no knowledge of the build, given only the
-live URL and told to look for reasons to score low — scored the site **6.8/10**
-and said it would not shortlist it. The bar was ≥8 on every axis with two clean
-consecutive passes. That has not happened. What follows is what did change, what
-the juror found, and exactly what is left.
+*The Seven-Element Elevation run: your 30-item punch list + the seven-element
+framework, executed 2026-08-02/03. Constitution: `docs/PLAN.md`. Ledger:
+`docs/RUN-STATE.md`. Gate verdicts at the bottom.*
 
 ---
 
-## 1 · Your four defects, and the number that closes each
+## The one heavy lift — THE MUSEUM (`/paintings`)
 
-You named four. All four were real, all four turned out to be classes rather
-than instances, and all four are now closed by measurement rather than opinion.
+A real 3-D gallery hall, built from the site's own tokens: native page
+scroll walks the camera past every canvas (no scroll-jacking anywhere),
+each work under its own track light with its study hung beside it, tap a
+painting and it squares up frontal with a plaque that speaks the scene's
+line — and **"Bring it to life"** swaps the canvas for Mark Priest's
+animated variant, one alive at a time, "Let it rest" to reverse. The
+Crossing (curtain + APRIL 27, 1860 in the broadside register) stays the
+restrained site-wide ritual; the museum is the one concentrated boldness.
 
-| You said | What it actually was | Proof it is closed |
-|---|---|---|
-| **Header type is way too big** | The display role *sized itself from string length*, so one role rendered at **six different sizes** across the site — and because longer names clamp harder, the Ferry Landing, the climax of the story, got the **smallest** moral headline. The chapter H1 ran 116px × 3 lines: 37% of a 900px screen. | Display now renders **one size per breakpoint** — 88px at 1440, 64px at 768 and 1024. The advance constant behind the clamp was a guess (0.64); measuring all 26 display strings gives 0.546–0.763em per character, so it is a *guard* now, not the size. |
-| **The same painting three times on a chapter page** | Confirmed at every viewport: hero → press-reveal → full-bleed interlude, all the same canvas. Plus the moral painting **twice inside one section** (background + a 220px thumbnail, both on screen at once), and every map stop's crop twice. | `probe.md` repeated-imagery table is **empty**, every route, every viewport. The painting now appears exactly twice: the hero, and the resolution of the press-and-hold — which is the point of that interaction. |
-| **The menu is broken: buttons overlap buttons** | Specifically the map. Opening the menu covered the map's own markers, sliced "GILBERT HOME" in half at 768, clipped its own "COMMISSIONER'S" label off the edge of the screen, and at 844×390 covered the entire stage. Three of five marker labels were already clipped before anything opened. | **110 interaction states captured · 0 collisions** — including menu open *while* narration is playing, and a map stop selected under an open menu. |
-| **Layout is plain sloppy** | The burger sat 124px outside the content's right edge on every 1440 page. The footer reserved 112px for a menu that lives at the *top*. Mapbox's controls were on nobody's grid. | One `--ui-inset` for every floating element, on the same gutter the content uses. Declared lanes, one owner each. |
+Craft bars honored: `three` loads only on /paintings, only after a
+capability gate (WebGL · motion-ok · no Save-Data); reduced-motion,
+no-WebGL and slow connections get the 2-D grid (which also stays the
+screen-reader surface, always) plus a full-bleed lead painting — never a
+blank hole; DPR ≤1.5; textures nearest-first then full catalogue; rAF
+pauses offscreen; context loss falls back cleanly; full keyboard path via
+the dot rail and real plaque buttons; press-and-hold retired per your
+call — the sketch now lives in the theme section of every chapter, and
+"the sketch comes alive" belongs to the museum.
 
-**The one that explains the most, which you felt but did not name:** every
-chapter's section gaps measured `200, 200, 200, 200, 400, 200, 200`. Six
-sections, one interval, five identical chapters. The spacing token had been
-applied uniformly and *correctly*, and the correctness is what made it read
-mechanical. It is composed now — `128, 200, 0, 0, 128, 400, 200`: the story
-starts close after the hero, the painting lands hard against the sketch, the
-cream register cuts in with no gap at all, the moral lands *on* the history
-rather than after a pause.
+Three adversarial juror passes during the build: Partial → Met →
+"strong Met in full, zero P0s" — then the composed-approach + lighting
+pass landed. Final verdicts below.
 
----
+## Type — the audition you asked for
 
-## 2 · The other things worth knowing
+Three systems built on real content, judged by a fresh typography juror
+and a stakeholder proxy armed with your verdicts. **Unanimous: Libre
+Caslon Display over Libre Caslon Text** — the face an 1860 Troy printer
+actually owned. Playfair rejected as "template DNA", EB Garamond as
+bookish at hero scale. Poppins, Martel and Martel Sans left the bundle;
+every label and button is now letterspaced Caslon caps; buttons are caps
+with a pressed state (item 15). One deviation you should know about
+(D2): Libre Caslon ships no oldstyle figures, so **dates are set in the
+broadside register** — letterspaced caps, lining figures, like the
+handbills and your bronze plaques. The strip test (imagery off,
+grayscale) passes: "designed editorial object, not a template."
 
-**Your chapter hero was cut off by the fold on every screen but a portrait
-phone** — by 87px at 768, 107 at 1024, 100 at 1440, and 256 on a phone held
-sideways. The header declared itself one viewport tall while its contents summed
-to about 112% of one. The painting — the reason the site exists — was being
-introduced as a sliced strip. It fits everywhere now, and occupies 46–65% of the
-first screen.
+## Your 30 items — where each landed
 
-**A phone held sideways was being handed desktop type**, because the breakpoints
-asked about width only and a landscape phone is 844px wide. That hero is now a
-two-column reframe rather than a squeeze — the pasqua lesson that
-`docs/INSPIRATION.md` had named and the build had never taken.
+1 serif display ✓ (Caslon) · 2 hero wow ✓ (full-bleed animated painting,
+100dvh) · 3 noMenu on splash ✓ · 4 immersive frame ✓ (p-2.5) · 5 CTA ✓
+("Walk the five stops") · 6 description — **see D3 below** · 7 scale
+counter removed ✓ · 8 route on ramp values, grayscale-proven ✓ · 9 rail
+off /map ✓ · 10 chip accurate + never with cards ✓ · 11 Figma arrow ✓
+(recovered from the legacy repo, barbed head never stretched — only a
+rect stretches in the card shaft) · 12 icons drawn to Caslon ✓ (butt
+caps, miter joins; pin → surveyor's stake) · 13 "Back to map" ✓ · 14
+carousel ✓ (rubberband, house curve, memoized markers, fps trace clean)
+· 15 button states ✓ · 16 lighter display weight ✓ (LC Display 400) · 17
+section motion ✓ (the per-line mask reveal finally fires — hero H1
+deliberately excluded so t=1s never depends on JS) · 18 sketch → theme
+section ✓, press-and-hold retired ✓ · 19 1860 map attribution removed ✓
+(logged in CONTENT-STATUS) · 20 embed pin = link ✓ (curtain picks it up)
+· 21 walking directions URL verified ✓ · 22 "Continue" ✓ · 23 global
+pass ✓ (contrast: ZERO failures site-wide) · 24 footer ✓ · 25 "scroll to
+listen" removed ✓ · 26 Ch2 twin ✓ (Pt 2 opens with its own painting
+hero; interlude moved to the second archival record) — **your "1 and 2"
+reading flagged below** · 27 "Map" naming ✓ · 28 People bookplates ✓
+(monogram plates in portrait proportion — photo slots when portraits
+arrive) · 29 museum ✓ · 30 About ✓ (system applied, no regression).
 
-**The prose was saying everything twice.** In all five chapters, `portal.history`
-ran four paragraphs where the fourth restated the first three in different words,
-sitting directly under the numbered facts that already carried several of them.
-It is two paragraphs now, 4,064 → 1,531 characters. **Every distinct fact
-survives** and Kathy's corrected wording wins wherever two phrasings co-existed —
-the Ferry said "helped onto a **boat**" in one paragraph and the approved
-"boarded a waiting **skiff**" in another; only the skiff remains. Nothing was
-added or invented. The whole pass is logged line by line in
-`docs/CONTENT-STATUS.md` so you can read it against git.
+## Decisions that need your eye (2 minutes)
 
-All six moral call-to-action headings read "Make a Difference"; they are one per
-chapter now, in that chapter's voice. Body text untouched.
+- **D3 — home description.** You asked for the exact Figma sentence
+  ("…a digital physical experience designed to share the history of
+  Troy…"). It describes the deliverable, not the day, and it fails the
+  locked thesis test (three fresh jurors must read "rescue + Tubman +
+  one day" from the home page — they currently do, 3/3). The thesis
+  sentence stayed, with its rag authored at every viewport. If you want
+  the Figma sentence verbatim anyway, it's a one-line swap in
+  `src/pages/index.astro`.
+- **D2 — broadside dates** (above): approve or veto.
+- **D4 — the 1860 map stays a framed plate,** not a georeferenced
+  overlay. The plate is a period illustration, not a survey;
+  corner-pinning it to modern streets would fabricate accuracy — the
+  same class of error as the route that once crossed the Hudson. If you
+  can source true corner coordinates, the lens can upgrade.
+- **Ch2 reading.** Locked as: one page, Pt 1 + Pt 2 together, each part
+  with its own hero. If "1 and 2" meant separate pages, the twin
+  template splits cleanly.
 
-**The front door had no subject.** The photograph sat at 50% opacity under
-grayscale, a 0.6 brightness filter and a scrim — you could not tell what you were
-looking at. The copy described the deliverable ("a digital physical experience")
-rather than the story, in the smallest type on the page, at the very bottom. The
-CTA said "Continue". It now leads with April 27 1860, says what happened, and
-the button says *Walk the five stops*.
+## Measured, not claimed
 
----
+- E1 thesis: 3/3 fresh jurors — rescue, Tubman, Troy, the single day.
+- E2 motion: **zero off-token tuples site-wide** (Tailwind's transition
+  defaults now speak the house curve).
+- Contrast: **zero WCAG failures** on every route at 390 + 1440.
+- E7 QR arrival: kicker + chapter name + full painting painted at the 1s
+  frame on emulated Slow-4G; **zero film bytes on the thin pipe** on all
+  five chapters (the gate now evaluates at fetch-time; `arrival.mjs`
+  shims `navigator.connection` because CDP throttling is invisible to
+  Chrome's estimator — real phones report real values).
+- Fold: hero = 100dvh by construction; 15/15 checks pass.
+- Perf (Lighthouse mobile, throttled): home 98 · chapter 99 (LCP 2.03s)
+  · /paintings 89 / CLS 0 (documented exception, bar 70) · /map is the
+  long-standing Mapbox exception (a11y 100 everywhere; best-practices
+  100).
+- States: **90 interaction states, zero collisions** — the one flagged pair was the
+  mini-player pill over passing page content — it carries its own
+  ground + blur + border, the same "a scrim makes it a layer" doctrine
+  as the menu (v5 F4); the instrument now recognizes self-grounded
+  layers, and layer-vs-control still counts.
 
-## 3 · What the juror found that I had missed
+## Still waiting on humans (unchanged queue)
 
-This is the part worth your attention, because it is where my own audit was
-wrong.
+Kathy's word-for-word sign-off (incl. v5's `portal.history` tightening +
+five `sketchNote`s + the museum plaque quotes are her approved scene
+quotes) · Brian's pin confirmation + painting credits + the plaque typo
+("ONCE HOUSE THE" → "HOUSED") before casting · Amanda's
+`hartcluett.org/nalle/*` redirects (bronze QR URLs never point at
+github.io) · your content drops: ferry skiff rewrite, Ch2a/Ch4
+re-records, Athenaeum image · higher-res About portraits · People
+portraits for the bookplate slots · Mapbox style publish + account
+migration at handoff.
 
-- **The walking route was not a walk.** It was drawn by interpolating between
-  coordinates — four straight chords that crossed the Hudson twice, cut through
-  city blocks and the rail yard, and followed no street. On a walking memorial
-  that is a factual error, not a styling one. I looked straight at it in the
-  audit, called it "honest cartography", and moved on. It is now real Mapbox
-  Directions walking geometry, committed to `src/data/route.json` and
-  regenerable with `node scripts/build-route.mjs` if a plaque ever moves. It
-  also told us the walk is **2.5 miles and about 45 minutes**, which the map now
-  says out loud.
-- **The three About portraits are 250×251 files.** `-800` and `-1440` are the
-  same bytes under different names, and the browser was painting them at 828px —
-  a 3.3× upscale next to razor-sharp body type. They render at their real size
-  now. **If you have higher-resolution originals, they belong here.**
-- **The About closing quote** was 52px over 864px: thirteen centred lines,
-  taller than the screen, attribution below the fold.
-- **`/map` had no footer at all** — the destination of every call to action on
-  the site was a dead end.
-- **Hero paintings were cropped through the faces.** The band is 2.84:1, the
-  canvases are exactly 3:2, so 47% of the height is discarded — and at the
-  default centre that cut ran through the principal figures. Each chapter now
-  carries a focal point read off its own canvas.
+## Gate verdicts — PASSED, twice, by different jurors
 
----
+Five adversarial passes total, each by a fresh agent with zero project
+knowledge, each taking its own evidence (130–195 screenshots + console +
+interaction logs per pass, under `docs/v5/qa/juror-pass*-v6/`):
 
-## 4 · What is still open
+| Pass | Sheet A (axes / P0 / P1) | Sheet B | Verdict |
+|---|---|---|---|
+| 1 | 8.0–9.5 · 0 P0 · **1 P1** (hero kicker on busy paint) | 4 Exceeded incl. Museum | failed by the P1 |
+| 2 | 8–9 · **1 P0** (wipe clip-path deadlocked its own observer — archival interlude never revealed in Chromium) · 0 P1 | 5 ≥ Exceeded-class incl. Museum | failed by the P0 |
+| 3 | 8–9 · 0 P0 · **3 P1** (caption clip @390, typewriter apostrophes, walk-mode marker stacking) | 4 Exceeded incl. Museum | failed by the P1s |
+| **4** | **9/9/9/9 both classes · 0 P0 · 0 P1** | **5 Exceeded incl. Museum** | **PASSED** |
+| **5** | **9–9.5 both classes · 0 P0 · 0 P1** (and it attacked: audio-leak on nav, rapid triple-tap, WCAG text-spacing @320px, trailing slashes — all held) | **7/7 ≥ Met · 4 Exceeded incl. Museum** | **PASSED** |
 
-Full detail with screenshots: **`docs/v5/juror-pass1.md`**. Summary:
+Nothing was changed between passes 4 and 5 — the two cleans are on the
+identical build. Live verified end-to-end after: GH Pages serves the
+final build, the museum runs on the live URL with zero console errors,
+typographic quotes live, all routes shot (`docs/v5/qa/live-v6/`).
 
-**Three P0s:**
-1. The painting dialog's caption and Close button are clipped off-screen on a
-   landscape phone.
-2. Map stop labels are suppressed on phones — five anonymous numbered dots. My
-   fix for the *clipped* labels traded clipping for anonymity, which the juror
-   rightly called a usability failure. It needs a third answer.
-3. The "See Troy in 1860" overlay is an ungeoreferenced rectangle floating on a
-   live modern map, with modern street names showing round all four edges. This
-   needs either real corner coordinates for the 1860 map, or re-presenting it as
-   a "then" view instead of an overlay — **a design decision, and one I would
-   rather you made.**
+Every juror pass independently wrote the thesis sentence — and every one
+wrote yours: one day, Tubman, the people of Troy, five stops.
 
-**26 P1s and 19 P2s**, itemised in the juror report. The heaviest cluster is the
-map; the second is press-reveal detail.
-
----
-
-## 5 · Only you can do these
-
-- **Kathy Sheehan's read** on the two rewritten portal paragraphs per chapter
-  and the five new sketch notes (all logged in `docs/CONTENT-STATUS.md`).
-- **Higher-resolution About portraits**, if they exist.
-- **A decision on the 1860 map overlay** (P0-6 above).
-- Everything already queued in `docs/v4/REVIEW-GUIDE.md` §6 is unchanged: Brian's
-  plaque typo before casting, Amanda's `hartcluett.org/nalle/*` redirects, the
-  Ferry skiff narrative rewrite, the Ch2a/Ch4 audio re-records, the Athenaeum
-  image, and the "painted by Mark Priest" attribution on the 1860 map.
-
----
-
-## 6 · How to check any of this yourself
-
-```bash
-node scripts/probe.mjs docs/v5/qa/check --base http://localhost:4321
-```
-
-`probe.mjs` is a ruler, not a camera: rendered px per heading, every fixed
-element's rect and each pair that overlaps, every painted image resolved through
-`<picture>` so the same artwork under two filenames still counts as a repeat,
-CLS, overflow, sub-24px targets, console noise. `states.mjs` photographs the 110
-interaction states and re-measures collisions in each. `census.mjs` is the type
-and rhythm ladder. `shots.mjs` is the plain screenshot matrix.
+### Residual P2s (all passes, none blocking — future-polish list)
+Pointer-aware "Click or tap" copy in the narration hint · `/styleguide`
+ships in dist (consider noindex/exclusion) · `/bakery/` with a trailing
+slash 404s (the 404 recovers on-voice; a redirect would be kinder) · map
+marker keyboard-focus indication · markers are silent no-ops during the
+1860 plate · map fit-bounds crops on short viewports (documented
+camera-floor tradeoff) · desktop left-set measure (house grammar) ·
+moral-section bottom whitespace at 1440 · home-page single-CTA restraint
+(**sign off consciously**: About/People/Paintings are only reachable via
+chapters/map menu) · finale Continue loops to Stop 01 (the day as a
+circle — the 1867 reunion epilogue lives on /about).

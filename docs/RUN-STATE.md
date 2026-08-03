@@ -5,19 +5,30 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 6 — THE GATE**
+**RUN COMPLETE — the v6 gate is PASSED.**
 
 ## CURRENT ITEM
-Dual-rubric juror pass 5 RUNNING (fresh juror, evidence under
-`docs/v5/qa/juror-pass5-v6/`). **Consecutive-clean counter: 1** (pass 4
-PASSED). ZERO changes made between passes 4 and 5 — identical build.
+None. The run finished 2026-08-03.
 
 ## NEXT ACTION
-Read pass 5's verdict. If clean: gate complete → live end-to-end verify
-(push → ~3min GH Pages → arrival + spot shots against the live URL),
-fill REVIEW-GUIDE-v6 verdicts + promote to docs/v5/REVIEW-GUIDE.md,
-GATE VERDICTS table, memory update, final push. If it surfaces anything
-new: fix (P2/P3 only if the pass was otherwise clean) and re-run.
+None for the machine. Human queue: Wil reads `docs/v5/REVIEW-GUIDE.md`
+(decisions D2/D3/D4 + the Ch2 reading + the home-nav restraint sign-off
++ residual P2 list); Kathy items and the $1,000-conversion pick are in
+CONTENT-STATUS; standing items (Brian/Amanda/re-records) unchanged. Any
+future run resumes via the usual ritual: PLAN.md → this file → git log.
+
+## THE GATE — FINAL
+- **Pass 4: PASSED** (9/9/9/9 both classes, 0 P0/P1; 5 Exceeded incl.
+  the Museum).
+- **Pass 5: PASSED** (9–9.5 both classes, 0 P0/P1 under novel attack —
+  audio-leak on nav, rapid triple-tap, WCAG text-spacing @320px,
+  trailing slashes; 7/7 ≥ Met, 4 Exceeded incl. the Museum).
+- **Two consecutive cleans on the IDENTICAL build** (nothing changed
+  between passes 4 and 5), different fresh jurors each time.
+- **Live verified**: GH Pages serves the final build; the museum runs on
+  the live URL with zero console errors; live shots in
+  `docs/v5/qa/live-v6/`.
+- Every juror independently wrote the locked thesis sentence back.
 
 ## GATE LOG
 - **Pass 1** (`docs/v5/qa/juror-pass1-v6/`, 151 shots, console clean):
@@ -68,6 +79,12 @@ new: fix (P2/P3 only if the pass was otherwise clean) and re-run.
   tradeoff; unlabeled pins until tap — the documented chip design;
   desktop left-set measure — house editorial grammar). Consecutive
   cleans: 1.
+- **Pass 5** (`docs/v5/qa/juror-pass5-v6/`, 130+ artifacts + novel
+  attacks): **GATE PASSED** — 0 P0, 0 P1, min axis 9. Audio lifecycle
+  clean across navigation; focus management "exemplary"; 320px +
+  text-spacing overflow-free; reduced-motion variants verified real.
+  7/7 ≥ Met, 4 Exceeded incl. the Museum. Five P2 residuals → REVIEW-
+  GUIDE. **Consecutive cleans: 2 — GATE COMPLETE.**
 
 ## P5 CLOSED — evidence
 Item 28: monogram bookplates on People (first+last initials, photo-slot
@@ -304,7 +321,7 @@ no horizontal overflow.
 
 | Stage | Gate | Verdict | Evidence |
 |---|---|---|---|
-| 1 | audit ≥60 findings + scores | — | `docs/v5/AUDIT.md` |
-| 2 | fix plan | — | `docs/v5/FIX-PLAN.md` |
-| 3 | execute (pixel-verified) | — | before/after paths in this file |
-| 4 | adversarial juror ×2 clean | — | `docs/v5/juror-*.md` |
+| 1 | audit ≥60 findings + scores | done (v5) | `docs/v5/AUDIT.md` |
+| 2 | fix plan | done (v5) | `docs/v5/FIX-PLAN.md` |
+| 3 | execute (pixel-verified) | done (v5) | before/after paths in this file |
+| 4 | adversarial juror ×2 clean | **superseded by the v6 dual-rubric gate — PASSED ×2 (passes 4+5, 2026-08-03)** | `docs/v5/qa/juror-pass*-v6/` + THE GATE — FINAL above |
