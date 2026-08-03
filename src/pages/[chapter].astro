@@ -140,7 +140,8 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   title={`${c.name.canonical} — Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
   preloadImages={[
-    { href: poster(vKey, "avif"), type: "image/avif", media: "(max-width: 767px)" },
+    { href: withBase(`media/${slug}/${vKey}-poster-480.avif`), type: "image/avif", media: "(max-width: 480px)" },
+    { href: poster(vKey, "avif"), type: "image/avif", media: "(min-width: 481px) and (max-width: 767px)" },
     { href: poster(hKey, "avif"), type: "image/avif", media: "(min-width: 768px)" },
   ]}
 >
@@ -156,8 +157,19 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       being a page. */}
   <header id="hero" class="relative h-dvh overflow-hidden bg-neutral-2">
     <div id="hero-media" class="absolute inset-0">
-      {/* The still painting — the LCP, responsive and art-directed. */}
+      {/* The still painting — the LCP, responsive and art-directed. The 480
+          tier halves the poster bytes on the QR phone (31KB vs 66KB). */}
       <picture>
+        <source
+          media="(max-width: 480px)"
+          type="image/avif"
+          srcset={withBase(`media/${slug}/${vKey}-poster-480.avif`)}
+        />
+        <source
+          media="(max-width: 480px)"
+          type="image/webp"
+          srcset={withBase(`media/${slug}/${vKey}-poster-480.webp`)}
+        />
         <source
           media="(max-width: 767px)"
           type="image/avif"

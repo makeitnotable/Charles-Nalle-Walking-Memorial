@@ -85,17 +85,49 @@ const museumWorks = works.map((w) => {
 <Base
   title="The Paintings — Charles Nalle Walking Memorial"
   description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
+  preloadImages={[
+    { href: withBase("media/commissioners-office/horizontal-pt2-800.webp"), type: "image/webp", media: "(max-width: 767px)" },
+    { href: withBase("media/commissioners-office/horizontal-pt2-1440.avif"), type: "image/avif", media: "(min-width: 768px)" },
+  ]}
 >
   <header class="shell page-open">
     <p class="t-meta">The paintings · {works.length} works</p>
     <h1 class="t-display lines mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
   </header>
 
-  {/* THE MUSEUM (v6 signature). Renders nothing — and costs nothing — for
-      no-WebGL / reduced-motion / Save-Data visitors; the grid below is the
-      page either way, and stays the screen-reader surface always. */}
-  <div class="mt-16">
-    <Museum client:only="react" works={museumWorks} />
+  {/* THE MUSEUM (v6 signature). The window is SERVER-rendered at one
+      viewport tall — the island expands it after mount, so nothing in view
+      ever shifts (Lighthouse caught CLS 0.555 when the wrapper appeared
+      client-side). Incapable visitors keep the window as a full-bleed lead
+      painting; the grid below is the page either way, and stays the
+      screen-reader surface always. */}
+  <div id="museum-slot" class="relative mt-16 h-dvh">
+    {/* One viewport tall regardless of how far the island expands the slot —
+        the museum's opaque stage paints over it when active. */}
+    <div class="absolute inset-x-0 top-0 h-dvh overflow-hidden">
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          type="image/webp"
+          srcset={withBase("media/commissioners-office/horizontal-pt2-800.webp")}
+        />
+        <source type="image/avif" srcset={withBase("media/commissioners-office/horizontal-pt2-1440.avif")} />
+        <img
+          src={withBase("media/commissioners-office/horizontal-pt2-1440.jpg")}
+          alt="“Commissioner's Office — Part 2”, the crowd of one thousand outside — painting by Mark Priest"
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </picture>
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: linear-gradient(to top, rgba(29,20,17,.85), transparent 30%), linear-gradient(to bottom, rgba(29,20,17,.5), transparent 18%)"
+      >
+      </div>
+      <p class="t-meta absolute bottom-6 left-[var(--gutter)]">Mark Priest · Nalle Series</p>
+    </div>
+    <Museum client:only="react" works={museumWorks} slotId="museum-slot" />
   </div>
 
   <section class="shell sec pb-8">

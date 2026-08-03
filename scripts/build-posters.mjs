@@ -15,7 +15,7 @@ import { join } from "node:path";
 import sharp from "sharp";
 
 const ROOT = "public/media";
-const WIDTHS = [800, 1440];
+const WIDTHS = [480, 800, 1440];
 let made = 0;
 
 for (const slug of readdirSync(ROOT)) {

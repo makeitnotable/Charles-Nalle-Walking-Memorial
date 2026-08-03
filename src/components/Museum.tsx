@@ -44,13 +44,17 @@ export interface Work {
 
 interface Props {
   works: Work[];
+  /** The server-rendered 100dvh window this island expands after mount —
+   *  expansion happens below the fold, so it can never shift visible
+   *  layout (the client-inserted wrapper measured CLS 0.555). */
+  slotId?: string;
 }
 
 const SPACING = 7; // metres of corridor per canvas
 const CORRIDOR_HALF = 3.4; // wall distance from the rail
 const EYE = 1.55;
 
-export default function Museum({ works }: Props) {
+export default function Museum({ works, slotId }: Props) {
   const [capable, setCapable] = useState<boolean | null>(null);
   const [approached, setApproached] = useState<number | null>(null);
   const [alive, setAlive] = useState<number | null>(null);
@@ -83,6 +87,18 @@ export default function Museum({ works }: Props) {
     setCapable(Boolean(gl) && !reduced && !thin);
   }, []);
 
+  // Expand the server-rendered slot once we know the museum is coming —
+  // the growth happens below the fold, so visible layout never shifts.
+  useEffect(() => {
+    if (!capable || !slotId) return;
+    const slot = document.getElementById(slotId);
+    if (!slot) return;
+    slot.style.height = `${(works.length + 1) * 100}vh`;
+    return () => {
+      slot.style.height = "";
+    };
+  }, [capable, slotId, works.length]);
+
   // ——— Scene ———
   useEffect(() => {
     if (!capable || !stageRef.current || !wrapRef.current) return;
@@ -94,6 +110,17 @@ export default function Museum({ works }: Props) {
     const wrap = wrapRef.current;
 
     (async () => {
+      /* three arrives after the window has loaded and the main thread is
+         idle — the museum must never tax the page's own first paint. */
+      await new Promise<void>((resolve) => {
+        const idle = () =>
+          "requestIdleCallback" in window
+            ? (window as any).requestIdleCallback(() => resolve(), { timeout: 2500 })
+            : setTimeout(resolve, 350);
+        if (document.readyState === "complete") idle();
+        else window.addEventListener("load", idle, { once: true });
+      });
+      if (disposed) return;
       const THREE = await import("three");
       if (disposed) return;
 
@@ -691,7 +718,11 @@ export default function Museum({ works }: Props) {
   const plaque = approached !== null ? works[approached] : null;
 
   return (
-    <div ref={wrapRef} style={{ height: `${(works.length + 1) * 100}vh` }} className="relative">
+    <div
+      ref={wrapRef}
+      style={slotId ? undefined : { height: `${(works.length + 1) * 100}vh` }}
+      className={slotId ? "relative h-full" : "relative"}
+    >
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2">
         {/* Wayfinding line — contextual: never instructs a state you left */}
         {ready && (
