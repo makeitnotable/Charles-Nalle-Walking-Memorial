@@ -5,22 +5,33 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 1 — Type & icon system**
+**Phase 3 — Map overhaul** (P2 complete; probe-p2 regression sweep running
+in background — read `docs/v5/elements/probe-p2.md` when it lands)
 
 ## CURRENT ITEM
-P2 — sketch→moral relocation (item 18) + PressReveal retirement.
+P3 opening: items 7/8/9/10/13 on `TroyMap.tsx` + `map.astro`.
 
 ## NEXT ACTION
-Remove the "From the sketch" section from `[chapter].astro`; hang the sketch
-(framed artifact + `sketchNote`) inside the moral section; drop the spine's
-"The sketch" entry; retire `PressReveal.tsx` (check `.reveal-frame` guard in
-`scripts/check-css.mjs` — it may reference PressReveal CSS; keep the
-structural class or update the guard). Re-shoot chapters, commit. Then:
-section motion (17) + mid-register fixes → Ch2 twin (26) → Crossing +
-loading states → P2 gate (E7 done: film gate holds all 5; F2 holds by
-construction — hero IS 100dvh).
-P2 carry-ins from E4 juror: mid-register voice (moral CTA title → t-title-sm);
-meter break; commit-or-cut the "As" first-word device.
+In `TroyMap.tsx`: remove ScaleControl (item 7); route color → accessible
+ramp value, verify via `strip.mjs --keep-imagery` grayscale on /map (item 8,
+W3); remove WalkProgress rail on /map (item 9 — check `map.astro`
+<WalkProgress /> render); chip: accurate copy, hidden when chapter cards
+visible, "Overview" → "Back to map" (items 10/13); card arrows → Figma arrow
+(item 11 — Icon component already carries it; check TroyMap's inline card
+arrow markup); carousel smoothness (item 14: camera-follow on settle,
+easeTo curve, memoized markers, 60fps CDP trace); menu bottom-right on /map
+(pass the dead prop). Then v5 P0-5 (phone stop labels) + stop-chip contrast
+(2.75:1 → fix) + P0-6 (1860 overlay: bounded alignment attempt else framed
+artifact + REVIEW-GUIDE).
+
+## P2 CLOSED — evidence
+- E7: five chapters, zero film bytes on thin pipe; full hero at 1s frame
+  (`arrival-p2/`). F2: hero=100dvh by construction, 15/15 fold checks pass.
+- Splash 3–6 (D3 deviation queued for Wil) · hero full-bleed 2/16 · motion
+  17 (line-mask live) · sketch→moral 18, PressReveal deleted · 20 (pin=link
+  via curtain delegate) · 21 verified · 22 "Continue" · 25 removed · 26 twin
+  (Pt2 hero, ch2 interlude → historical-pt2) · Crossing date-led · audio
+  buffering states · E4 carry-ins done (mid-register CTA, first-word cut).
 
 ## DONE (v6)
 
