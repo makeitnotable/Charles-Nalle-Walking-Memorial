@@ -100,9 +100,26 @@ const COLLIDE = () => {
     .map((el) => {
       const r = el.getBoundingClientRect();
       const cs = getComputedStyle(el);
+      /* An element (or its floating wrapper's child) that carries its own
+         ground — backdrop blur + border + non-transparent background — is a
+         self-scrimmed LAYER (the mini-player pill). */
+      const skin = el.querySelector(":scope > div") ?? el;
+      const scs = skin === el ? cs : getComputedStyle(skin);
+      const layer =
+        (scs.backdropFilter && scs.backdropFilter !== "none") &&
+        scs.borderTopWidth !== "0px" &&
+        scs.backgroundColor !== "rgba(0, 0, 0, 0)";
+      /* A fixed CONTROL (menu burger, map buttons) must never be covered,
+         even by a layer. */
+      const fixedControl =
+        el.matches("button,a,[role='button']") &&
+        (cs.position === "fixed" ||
+          Boolean(el.closest(".mapboxgl-ctrl, .cnwm-menu-burger")));
       return {
         sel: label(el),
         marker: Boolean(el.closest(".mapboxgl-marker")),
+        layer,
+        fixedControl,
         text: (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 34),
         z: cs.zIndex === "auto" ? 0 : Number(cs.zIndex),
         rect: {
@@ -135,6 +152,16 @@ const COLLIDE = () => {
          walk, and pushing them apart would make the map lie. Marker-vs-marker
          is excluded; marker-vs-UI is still very much a collision. */
       if (items[i].marker && items[j].marker) continue;
+      /* A floating pill that carries its own ground (backdrop blur + border
+         + painted background — the mini-player) is a LAYER above in-flow
+         content, the same doctrine as the scrimmed menu (v5 F4).
+         Layer-vs-CONTENT is layering; layer-vs-a-fixed-control still
+         counts as a collision. */
+      if (
+        (items[i].layer && !items[j].fixedControl) ||
+        (items[j].layer && !items[i].fixedControl)
+      )
+        continue;
       const a = items[i].rect;
       const b = items[j].rect;
       const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
