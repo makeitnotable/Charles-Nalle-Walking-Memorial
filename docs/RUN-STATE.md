@@ -5,18 +5,18 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 0 — Reconcile reality + instruments**
+**Phase 1 — Type & icon system**
 
 ## CURRENT ITEM
-Phase 0 — Figma-arrow fetch attempt (node 2142-4066).
+Type audition: candidate specimens on `/styleguide`.
 
 ## NEXT ACTION
-Attempt Figma-arrow fetch: ClaudeTalkToFigma `join_channel` (plugin may not be
-open) → official Figma MCP (unauthenticated this session) → extract the arrow
-from the legacy repo (it implemented the Figma) → else queue faithful redraw
-for Phase 1 icon work. Then close Phase 0 and start Phase 1 (type audition:
-build `/styleguide` candidate specimens — Playfair Display / Libre Caslon /
-EB Garamond).
+Install audition fonts (`@fontsource` Playfair Display / Libre Caslon
+Display+Text / EB Garamond, 400+latin subsets), read current
+`src/styles/global.css` + `src/pages/styleguide.astro`, build an audition
+section rendering the same real content (display/title/quote/prose/meta roles,
+date lockup with oldstyle figures) in each candidate system, shoot at
+390/1440, then juror + stakeholder-proxy pick.
 
 ## DONE (v6)
 
