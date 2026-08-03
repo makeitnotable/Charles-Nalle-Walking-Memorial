@@ -8,15 +8,15 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 6 — THE GATE**
 
 ## CURRENT ITEM
-Dual-rubric juror pass 3 RUNNING (fresh juror, evidence under
-`docs/v5/qa/juror-pass3-v6/`). Consecutive-clean counter: 0 (pass 2
-failed on the wipe P0, now fixed at a651e35).
+Dual-rubric juror pass 4 RUNNING (fresh juror, evidence under
+`docs/v5/qa/juror-pass4-v6/`). Consecutive-clean counter: 0 (passes 1–3
+each failed by a shrinking delta; all deltas fixed and pixel-verified).
 
 ## NEXT ACTION
-Read pass 3's verdict. If clean → pass 4 with another fresh juror (two
-consecutive cleans required). Between passes: P2/P3 fixes only. When two
-cleans land: live end-to-end verify (push → ~3min GH Pages → arrival +
-spot shots against live URL), fill REVIEW-GUIDE-v6 verdicts + promote to
+Read pass 4's verdict. If clean → pass 5 (two consecutive cleans
+required). Between passes: P2/P3 fixes only. When two cleans land: live
+end-to-end verify (push → ~3min GH Pages → arrival + spot shots against
+the live URL), fill REVIEW-GUIDE-v6 verdicts + promote to
 docs/v5/REVIEW-GUIDE.md, GATE VERDICTS table, memory update, final push.
 
 ## GATE LOG
@@ -46,6 +46,19 @@ docs/v5/REVIEW-GUIDE.md, GATE VERDICTS table, memory update, final push.
 - **Fix loop 2→3** (a651e35): clip moved to `.wipe-clip` child (also the
   positioning context); section observed un-clipped; pixel-verified at
   natural wheel scroll — the ferry landing photograph reveals.
+- **Pass 3** (`docs/v5/qa/juror-pass3-v6/`, 195 artifacts, console clean
+  on all 22 loads): axes 9/8/9/9 phone · 9/9/9/9 desktop — zero P0,
+  **three P1s**: interlude credit clipped off-screen left at 390 on 3/5
+  chapters; straight typewriter apostrophes sitewide incl. display
+  glyphs; walk-mode neighbour chip over the active name plate. Sheet B:
+  four Exceeded incl. the Museum; Execution Partial on the P1s. P2s:
+  $1,000 converted two ways ($35k vs $40k — FLAGGED for Kathy, not
+  edited), home-nav restraint (queued for Wil), zoom-floor crops at
+  844×390, moral bottom whitespace at 1440, finale loops to Stop 01.
+- **Fix loop 3→4** (a36c66f): credit clamped to both gutters (verified
+  left=20px on all three); typographic ’ “ ” everywhere (glyph-only
+  substitution, zero words changed, CONTENT-STATUS logged); active
+  marker z-30 (verified in DOM). Ledger gained the Kathy flag.
 
 ## P5 CLOSED — evidence
 Item 28: monogram bookplates on People (first+last initials, photo-slot
