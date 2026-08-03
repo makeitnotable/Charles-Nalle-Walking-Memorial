@@ -92,17 +92,24 @@ const canonical = new URL(
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       // A phone at a bronze plaque is on cellular. Ambient film is an
       // enhancement; the poster IS the finished painting, so on Save-Data or a
-      // slow connection we simply never fetch the film.
-      const conn = (navigator as any).connection;
-      const thinPipe = Boolean(
-        conn && (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))),
-      );
+      // slow connection we simply never fetch the film. Evaluated at FETCH
+      // time, not init: effectiveType starts at "4g" until the estimator has
+      // samples, which is exactly the window the old check sat in — E7 caught
+      // every chapter pulling its reveal film through the emulated thin pipe.
+      // The downlink floor backstops the type label (Slow-4G measures ~1.6).
+      const thinPipe = () => {
+        const conn = (navigator as any).connection;
+        if (!conn) return false;
+        if (conn.saveData) return true;
+        if (/(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))) return true;
+        return typeof conn.downlink === "number" && conn.downlink > 0 && conn.downlink < 3;
+      };
       if (lazyVids.length) {
         const load = (v: HTMLVideoElement) => {
           // `data-reduce-static` marks a film whose poster IS the finished
           // artwork — under reduced motion, or on a thin pipe, we never attach
           // the source and the still painting is what the visitor gets.
-          if ((reducedMotion || thinPipe) && v.hasAttribute("data-reduce-static")) return;
+          if ((reducedMotion || thinPipe()) && v.hasAttribute("data-reduce-static")) return;
           if (!v.src && v.dataset.src) {
             // The poster is attached HERE, not at init: setting it up front
             // fetched every below-fold poster on first paint (153KB of

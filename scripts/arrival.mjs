@@ -52,6 +52,27 @@ for (const route of ROUTES) {
     isMobile: true,
     hasTouch: true,
   });
+  // CDP throttling is invisible to Chrome's network-quality estimator in
+  // headless (navigator.connection keeps reporting 4g / 9.8Mbps / 0ms rtt),
+  // so the site's connection-aware film gate can never see the emulation.
+  // Shim the API to what a real phone on this profile reports — the transport
+  // emulation covers the wire, this covers the app's view of it.
+  await ctx.addInitScript(() => {
+    const fake = {
+      effectiveType: "3g",
+      downlink: 1.6,
+      rtt: 400,
+      saveData: false,
+      addEventListener() {},
+      removeEventListener() {},
+    };
+    try {
+      Object.defineProperty(Navigator.prototype, "connection", {
+        get: () => fake,
+        configurable: true,
+      });
+    } catch {}
+  });
   const page = await ctx.newPage();
   const cdp = await ctx.newCDPSession(page);
   await cdp.send("Network.enable");

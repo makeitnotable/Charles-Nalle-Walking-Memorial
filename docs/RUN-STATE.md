@@ -8,18 +8,19 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 1 — Type & icon system**
 
 ## CURRENT ITEM
-Phase 1 complete pending commit of the spine-contrast fix.
+P2 — sketch→moral relocation (item 18) + PressReveal retirement.
 
 ## NEXT ACTION
-Commit the spine-opacity fix + P1 gate evidence, then open **Phase 2 —
-Splash + chapter template**: splash items 3–6 (`index.astro`: noMenu,
-immersive frame, CTA, exact Figma copy w/ perfect rag), then hero wow
-(items 2/16), section motion (17), sketch→theme (18, retire PressReveal),
-items 20/21/22/25, Ch2 twin template (26), the Crossing restyle, loading
-states, F2 fold guard re-run + E7 filmstrip.
-P2 carry-ins from the E4 juror (7.5/10, passes): add a mid-register subhead
-voice; break the kicker→display→prose meter once per page; commit or cut the
-"As" first-word device; watch Didone fragility at card size (People, P5).
+Remove the "From the sketch" section from `[chapter].astro`; hang the sketch
+(framed artifact + `sketchNote`) inside the moral section; drop the spine's
+"The sketch" entry; retire `PressReveal.tsx` (check `.reveal-frame` guard in
+`scripts/check-css.mjs` — it may reference PressReveal CSS; keep the
+structural class or update the guard). Re-shoot chapters, commit. Then:
+section motion (17) + mid-register fixes → Ch2 twin (26) → Crossing +
+loading states → P2 gate (E7 done: film gate holds all 5; F2 holds by
+construction — hero IS 100dvh).
+P2 carry-ins from E4 juror: mid-register voice (moral CTA title → t-title-sm);
+meter break; commit-or-cut the "As" first-word device.
 
 ## DONE (v6)
 

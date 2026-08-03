@@ -144,40 +144,16 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 >
   <WalkProgress current={c.order} />
 
-  {/* ══════ HERO — the finished animated painting ══════
-      Two rows, not a stack of competing minimums. The lockup takes exactly what
-      it needs; the media takes everything left. What was here before reserved
-      46dvh for the lockup AND 46dvh for the media inside a min-h-dvh box, then
-      added ~190px of padding, rule and cue on top — ~112dvh of content in a
-      100dvh container. The painting was cut off by the fold on every viewport
-      except a portrait phone: by 87px at 768, 107 at 1024, 100 at 1440 and 256
-      on a landscape phone. */}
-  <header id="hero" class="shell grid min-h-dvh grid-rows-[auto_1fr] pt-16 pb-6">
-    <div id="hero-lockup">
-      {/* Two authored lines below sm: the serif meta runs wider than the old
-          sans and a single line walked under the fixed burger. */}
-      <p class="t-meta">
-        Stop {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
-          class="sm:hidden"
-        />Troy, NY · April 27, 1860
-      </p>
-      <h1
-        class="t-display lines mt-[max(3vh,24px)] whitespace-pre-line"
-        style={`--fit-chars: ${longestLine(c.name.display)}`}
-      >
-        {c.name.display}
-      </h1>
-      <div class="rule-top mt-8"></div>
-      <p class="t-meta mt-6 flex items-center gap-3 text-primary-11">
-        <Icon name="headphones" size="sm" /> Scroll to listen
-        <Icon name="arrow" rotate={90} size="sm" class="hero-cue" />
-      </p>
-    </div>
-
-    <div
-      id="hero-media"
-      class="artifact-lg relative mt-8 min-h-[34dvh] bg-neutral-2"
-    >
+  {/* ══════ HERO — the finished animated painting, FULL-BLEED (items 2/16) ══════
+      The painting owns every pixel of the fold; the lockup sits over its base
+      on the house scrim. No frame, no letterbox strip, no fold arithmetic —
+      the hero IS 100dvh, so F2 holds by construction. The kicker and name are
+      plain text over a CSS gradient: they paint before any image byte arrives,
+      which is what the QR filmstrip measures at t=1s. "Scroll to listen" is
+      gone (item 25) — the story begins by scrolling, and the page says so by
+      being a page. */}
+  <header id="hero" class="relative h-dvh overflow-hidden bg-neutral-2">
+    <div id="hero-media" class="absolute inset-0">
       {/* The still painting — the LCP, responsive and art-directed. */}
       <picture>
         <source
@@ -198,7 +174,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       </picture>
 
       {/* The film arrives over it after window load — never under reduced
-          motion, where the painting simply stays still. */}
+          motion or on a thin pipe, where the painting simply stays still. */}
       <video
         class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
         style={`object-position: center ${c.heroFocus}%`}
@@ -218,6 +194,35 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         muted
         playsinline
         aria-hidden="true"></video>
+    </div>
+
+    {/* Legibility scrims — the lockup band at the base, a breath at the top
+        so the fixed chrome never sits on raw painting. */}
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to top, rgba(29,20,17,.92) 0%, rgba(29,20,17,.55) 22%, transparent 44%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="absolute inset-x-0 bottom-0">
+      <div class="shell pb-[max(5dvh,32px)]">
+        <div id="hero-lockup">
+          {/* Two authored lines below sm: the serif meta runs wider than the
+              old sans and a single line walked under the fixed burger. */}
+          <p class="t-meta">
+            Stop {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
+              class="sm:hidden"
+            />Troy, NY · April 27, 1860
+          </p>
+          <h1
+            class="t-display lines mt-[max(2vh,16px)] whitespace-pre-line"
+            style={`--fit-chars: ${longestLine(c.name.display)}`}
+          >
+            {c.name.display}
+          </h1>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -459,7 +464,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               data-curtain-label={nextName?.short}
               data-curtain-date
             >
-              Continue the walk
+              Continue
             </Button>
             {
               nextEntry && (
@@ -499,17 +504,17 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       // full-bleed block report 1584px wide on a 1440 screen. Neither said
       // anything: motion on this site is meant to narrate the past developing
       // into the present, which is the press-and-hold's job, not decoration's.
-      const media = document.getElementById("hero-media");
+      const hero = document.getElementById("hero");
       const lockup = document.getElementById("hero-lockup");
-      if (media && lockup) {
+      if (hero && lockup) {
         gsap.to(lockup, {
-          y: -100,
-          opacity: 0.2,
+          y: -60,
+          opacity: 0,
           ease: "none",
           scrollTrigger: {
-            trigger: media,
+            trigger: hero,
             start: "top top",
-            end: "+=80%",
+            end: "+=55%",
             scrub: 0.5,
             invalidateOnRefresh: false,
           },
