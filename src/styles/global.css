@@ -806,19 +806,6 @@ body {
 .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
   filter: invert(1);
 }
-.mapboxgl-ctrl-scale {
-  background: color-mix(in srgb, var(--color-primary-2) 84%, transparent) !important;
-  border: 1px solid var(--color-primary-7) !important;
-  border-top: 1px solid var(--color-primary-7) !important;
-  border-radius: 4px !important;
-  color: var(--color-primary-11) !important;
-  font-family: var(--font-poppins) !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.08em !important;
-  padding: 3px 8px !important;
-}
-
 /* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
    and the geolocate button at 14px — two controls four pixels out of line with
    each other and with everything else on the page. The inset belongs to the
@@ -848,7 +835,7 @@ body {
 .mapboxgl-ctrl-attrib,
 .mapboxgl-ctrl-attrib a {
   color: var(--color-gray-11) !important;
-  font-family: var(--font-poppins) !important;
+  font-family: var(--font-chrome) !important;
   /* The one documented exception to the 12px floor: a third-party licence
      notice that must be present and must not compete. 10px was illegible. */
   font-size: 11px !important;

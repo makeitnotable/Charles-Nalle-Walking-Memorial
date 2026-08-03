@@ -7,7 +7,6 @@ import Base from "../layouts/Base.astro";
 import TroyMap from "../components/TroyMap";
 import Picture from "../components/Picture.astro";
 import Icon from "../components/Icon.astro";
-import WalkProgress from "../components/WalkProgress.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { fitChars } from "../lib/text";
@@ -33,11 +32,14 @@ const stops = chapters.map((entry) => ({
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
+{/* Item 9: no WalkProgress rail here — the map IS the walk's overview; a
+    second progress instrument above it was chrome noise. Item 10's menu
+    lane: bottom-right, clear of the map's own top chrome. */}
 <Base
   title="Map — Charles Nalle Walking Memorial"
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
+  menuPosition="bottom-right"
 >
-  <WalkProgress />
 
   {/* The shell is server-rendered at full height so island hydration causes
       zero layout shift; the island fills it. */}

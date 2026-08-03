@@ -115,11 +115,22 @@ function markerHtml(stop: Stop, active: boolean): string {
        block apart in Troy. That is the map telling the truth, and it is why
        the chip is 24px with a dark ring rather than 28px: two rings touching
        read as two adjacent stops, which is what they are. Separating them
-       would make the map less accurate, not more. */
+       would make the map less accurate, not more.
+
+       P0-5 (juror pass 1): five anonymous dots was the price of that fix —
+       so the ACTIVE chip carries its name on a pill above it. One name at a
+       time cannot collide with anything; the other four are one tap from
+       being named, and the full index sits directly below the map. */
+    const name = active
+      ? `<div style="position:absolute;left:0;top:-18px;transform:translate(-50%,-100%);padding:5px 10px;border-radius:20px;background:color-mix(in srgb, var(--color-primary-2) 88%, transparent);border:1px solid var(--color-primary-7);white-space:nowrap">
+           <p style="margin:0;font-size:11px;line-height:1.2;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary-11);font-family:var(--font-chrome),serif">${stop.label}</p>
+         </div>`
+      : "";
     return `
     <div style="position:relative;width:0;height:0;cursor:pointer">
+      ${name}
       <div aria-label="${stop.label}" style="position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:9999px;background:${s.bg};color:${s.text};border:1.5px solid ${s.border};box-shadow:0 0 0 2px var(--color-primary-2)">
-        <p style="font-size:12px;margin:0;line-height:1;font-weight:600;font-family:var(--font-poppins),sans-serif">${stop.order}</p>
+        <p style="font-size:12px;margin:0;line-height:1;font-weight:700;font-family:var(--font-chrome),serif">${stop.order}</p>
       </div>
     </div>`;
   }
@@ -135,7 +146,7 @@ function markerHtml(stop: Stop, active: boolean): string {
         <line x1="0" y1="0" x2="${dx}" y2="${dy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
       </svg>
       <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
-      <div style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-poppins),sans-serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
+      <div style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-chrome),serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
         <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px;flex:none">
           <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
         </div>
@@ -189,10 +200,17 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const activeLabelRef = useRef<string | null>(null);
-  const setMarkers = useCallback((activeLabel: string | null) => {
+  const setMarkers = useCallback((activeLabel: string | null, force = false) => {
+    /* Item 14: only the two markers whose state actually changed re-render —
+       rewriting all five innerHTMLs on every carousel settle was layout work
+       the camera animation had to share a frame with. `force` re-renders all
+       (breakpoint changes re-ladder every pill). */
+    const prev = activeLabelRef.current;
     activeLabelRef.current = activeLabel;
     for (const { marker, stop } of markersRef.current) {
-      marker.getElement().innerHTML = markerHtml(stop, stop.label === activeLabel);
+      if (force || stop.label === activeLabel || stop.label === prev) {
+        marker.getElement().innerHTML = markerHtml(stop, stop.label === activeLabel);
+      }
     }
   }, []);
 
@@ -201,7 +219,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     let t: ReturnType<typeof setTimeout> | null = null;
     const onResize = () => {
       if (t) clearTimeout(t);
-      t = setTimeout(() => setMarkers(activeLabelRef.current), 200);
+      t = setTimeout(() => setMarkers(activeLabelRef.current, true), 200);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -343,8 +361,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       }),
       "bottom-left",
     );
-    // On a walking tour, distance is content (blueprint M8)
-    map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-left");
+    // Item 7: the ScaleControl is gone — it read as an "elevation counter"
+    // ticking through the flights. The walk's true size is stated in type
+    // under the map ("2.5 miles · about 45 minutes on foot").
 
     map.on("load", () => {
       // Markers
@@ -395,13 +414,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         b,
       ];
       // Casing first: it is what makes the line legible in greyscale.
+      // Item 8 (W3): both colors are ramp values — casing neutral-2, line
+      // primary-11 — and the pair must read plainly with color removed
+      // (proof: strip.mjs --keep-imagery on /map).
       map.addLayer({
         id: "route-casing",
         type: "line",
         source: "route",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": "#0B0705",
+          "line-color": "#100A06",
           "line-width": zoomWidth(8, 13) as unknown as number,
           "line-opacity": 0.85,
         },
@@ -412,7 +434,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         source: "route",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": "#FFB394",
+          "line-color": "#FF9770",
           "line-width": zoomWidth(5, 9) as unknown as number,
           "line-opacity": 1,
         },
@@ -539,9 +561,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     },
     mode: "snap",
     initial: activeIdx,
-    rubberband: false,
+    /* Item 14: rubberband on, and the settle rides the house curve instead of
+       a linear glide — the card lands, it doesn't stop. */
+    rubberband: true,
     renderMode: "performance",
-    defaultAnimation: { duration: 400, easing: (t: number) => t },
+    defaultAnimation: { duration: 480, easing: (t: number) => 1 - Math.pow(1 - t, 3) },
     created: (s) => {
       const target = activeIdxRef.current;
       if (s.track.details.rel !== target) {
@@ -658,16 +682,19 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </figure>
       </div>
 
-      {/* Place label */}
-      <div className="pointer-events-none absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 mr-[104px]">
-        <p
-          className="t-meta rounded-full px-4 py-2"
-          style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
-        >
-          <span className="sm:hidden">Five stops · April 27, 1860</span>
-          <span className="hidden sm:inline">The Walk · Five stops · April 27, 1860</span>
-        </p>
-      </div>
+      {/* Place chip (items 10/13): accurate copy only, and NEVER on screen at
+          the same time as the chapter cards — two name surfaces at once was
+          the collision class v5 spent a phase killing. */}
+      {!(focused && shellVisible) && (
+        <div className="pointer-events-none absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 mr-[104px]">
+          <p
+            className="t-meta rounded-full px-4 py-2"
+            style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+          >
+            Five stops · April 27, 1860
+          </p>
+        </div>
+      )}
 
       {/* Arrival name plate (M10) — the flight lands on a spoken line */}
       {arrivalStop && (
@@ -709,10 +736,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           className="btn-sm btn-ghost absolute top-[calc(var(--ui-inset)+48px)] left-[var(--ui-inset)] z-20"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
-          <svg className="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M9.5 5.5l6.5 6.5-6.5 6.5" style={{ transform: "rotate(180deg)", transformOrigin: "center" }} />
+          <svg
+            className="icon icon-sm icon-filled"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            style={{ transform: "rotate(180deg)" }}
+          >
+            <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
+            <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
           </svg>
-          Overview
+          Back to map
         </button>
       )}
 
@@ -814,10 +847,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       <div className="flex h-full w-2/3 flex-col justify-between p-3">
                         <div className="m-1 flex flex-row items-center justify-between">
                           <p className="t-meta leading-none">Chapter</p>
+                          {/* Dark ink on the orange chip — the cream ink
+                              measured 2.75:1 (contrast sweep, P0 baseline). */}
                           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5 lg:h-6 lg:w-6">
                             <p
-                              className="mt-0.5 text-[.625rem] leading-none font-medium text-primary-12 sm:text-[0.78125rem] lg:text-[.9375rem]"
-                              style={{ fontFamily: "var(--font-poppins)" }}
+                              className="mt-0.5 text-[.625rem] leading-none font-bold sm:text-[0.78125rem] lg:text-[.9375rem]"
+                              style={{ fontFamily: "var(--font-chrome)", color: "#1D1411" }}
                             >
                               {stop.order}
                             </p>
@@ -827,15 +862,19 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                           <p className="ml-1 text-left text-[1.125rem] leading-tight font-normal text-primary-12 sm:text-[1.40625rem] lg:text-[1.6875rem]">
                             {stop.cardTitle}
                           </p>
-                          <div className="mr-3 ml-1 flex flex-row items-center" aria-hidden="true">
+                          {/* Item 11: the stretched-chevron idiom dies. Only a
+                              RECT is stretched (the shaft); the broadside head
+                              keeps its drawing. */}
+                          <div className="mr-3 ml-1 mt-2 flex flex-row items-center text-primary-11" aria-hidden="true">
+                            <svg className="h-[1.3px] min-w-0 flex-1" viewBox="0 0 2 2" preserveAspectRatio="none">
+                              <rect width="2" height="2" fill="currentColor" />
+                            </svg>
                             <svg
-                              className="-mb-1 h-auto w-full"
-                              viewBox="0 0 120 10"
-                              preserveAspectRatio="none"
-                              fill="none"
+                              className="-ml-px h-[11px] w-[9px] shrink-0"
+                              viewBox="14.1 6.6 8.3 10.8"
+                              fill="currentColor"
                             >
-                              <path d="M0 5H114" stroke="currentColor" strokeWidth="1.2" />
-                              <path d="M110 1L118 5L110 9" stroke="currentColor" strokeWidth="1.2" fill="none" />
+                              <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
                             </svg>
                           </div>
                         </div>
