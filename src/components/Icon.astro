@@ -19,8 +19,9 @@ interface Props {
 const { name, rotate = 0, size = "md", class: cls = "", title } = Astro.props;
 const sizeClass = size === "sm" ? "icon-sm" : size === "lg" ? "icon-lg" : "";
 const paths = ICONS[name];
-/* `play` is the one solid glyph — an outlined triangle reads as a hole. */
-const filledClass = name === "play" ? "icon-filled" : "";
+/* Solid glyphs: `play` (an outlined triangle reads as a hole) and `arrow`
+   (the broadside arrow's barbs are drawn geometry, not strokes). */
+const filledClass = name === "play" || name === "arrow" ? "icon-filled" : "";
 ---
 
 <svg

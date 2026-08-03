@@ -62,7 +62,7 @@ function fmt(s: number): string {
 function Glyph({ name, className = "icon" }: { name: keyof typeof ICONS; className?: string }) {
   return (
     <svg
-      className={name === "play" ? `${className} icon-filled` : className}
+      className={name === "play" || name === "arrow" ? `${className} icon-filled` : className}
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
