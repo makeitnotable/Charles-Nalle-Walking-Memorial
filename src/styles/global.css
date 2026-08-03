@@ -971,18 +971,22 @@ body {
     transition-delay: calc(var(--i, 0) * 200ms);
   }
 
-  /* Media arrives with a clip-wipe and a breath of scale. */
-  .js .wipe {
+  /* Media arrives with a clip-wipe and a breath of scale. The clip lives on
+     .wipe-clip, a CHILD — never on .wipe itself: the observer watches .wipe,
+     and Chromium intersects a target against its own clip-path, so a
+     self-clipped section can never report visible and the wipe deadlocks
+     shut (v6 juror pass 2, P0). */
+  .js .wipe .wipe-clip {
     clip-path: inset(0 0 100% 0);
   }
-  .js .wipe > * {
+  .js .wipe .wipe-clip > * {
     transform: scale(1.04);
   }
-  .js .wipe.is-in {
+  .js .wipe.is-in .wipe-clip {
     clip-path: inset(0 0 0 0);
     transition: clip-path var(--dur-slow) var(--ease);
   }
-  .js .wipe.is-in > * {
+  .js .wipe.is-in .wipe-clip > * {
     transform: none;
     transition: transform var(--dur-slow) var(--ease);
   }
@@ -990,6 +994,12 @@ body {
 .lines .line-box {
   overflow: hidden;
   display: block;
+}
+
+/* The wipe's clipping child is also its positioning context, so the scrim
+   and credit are clipped WITH the image on every engine. */
+.wipe .wipe-clip {
+  position: relative;
 }
 
 /* The map's card strip: neighbours fade at the frame edge instead of being

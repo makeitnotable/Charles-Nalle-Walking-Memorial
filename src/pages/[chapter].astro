@@ -346,26 +346,34 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
   }
 
   {/* ══════ The interlude — full-bleed, zero chrome ══════ */}
+  {/* v6 juror pass 2, P0: the clip-path used to sit on THIS section — the
+      element the IntersectionObserver watches — and Chromium computes
+      intersection against the target's own clip, so a fully-clipped section
+      never intersects and `is-in` never fired: a permanent black band in
+      every chapter. The section is observed un-clipped; the CHILD carries
+      the wipe. */}
   <section
     class="painting-interlude wipe relative overflow-hidden"
     aria-label={interlude.alt}
   >
-    <img
-      class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
-      src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
-      srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
-      sizes="100vw"
-      alt={interlude.alt}
-      loading="lazy"
-    />
-    {/* Juror P2: the heavy 20/80 gradient + lazy image read as a dead black
-        band at real scrolling pace — the fades breathe at the edges now. */}
-    <div
-      class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
-    >
+    <div class="wipe-clip">
+      <img
+        class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
+        src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
+        srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
+        sizes="100vw"
+        alt={interlude.alt}
+        loading="lazy"
+      />
+      {/* Juror pass 1 P2: the heavy 20/80 gradient + lazy image read as a
+          dead band at real scrolling pace — the fades breathe at the edges. */}
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
+      >
+      </div>
+      <p class="t-meta absolute right-[var(--gutter)] bottom-8">{interlude.credit}</p>
     </div>
-    <p class="t-meta absolute right-[var(--gutter)] bottom-8">{interlude.credit}</p>
   </section>
 
   {/* ══════ HISTORICAL CONTEXT ══════ */}
