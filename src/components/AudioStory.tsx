@@ -101,6 +101,9 @@ export default function AudioStory({
   const [active, setActive] = useState(-1);
   const [miniLatched, setMiniLatched] = useState(false);
   const [mainVisible, setMainVisible] = useState(true);
+  /* Buffering on cellular: the control pulses and a live region says why the
+     street went quiet. Cleared the moment playback resumes. */
+  const [buffering, setBuffering] = useState(false);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -117,13 +120,23 @@ export default function AudioStory({
       setPlaying(false);
       setActive(-1);
     };
+    const onWait = () => setBuffering(true);
+    const onGo = () => setBuffering(false);
     a.addEventListener("timeupdate", onTime);
     a.addEventListener("loadedmetadata", onMeta);
     a.addEventListener("ended", onEnd);
+    a.addEventListener("waiting", onWait);
+    a.addEventListener("stalled", onWait);
+    a.addEventListener("playing", onGo);
+    a.addEventListener("canplay", onGo);
     return () => {
       a.removeEventListener("timeupdate", onTime);
       a.removeEventListener("loadedmetadata", onMeta);
       a.removeEventListener("ended", onEnd);
+      a.removeEventListener("waiting", onWait);
+      a.removeEventListener("stalled", onWait);
+      a.removeEventListener("playing", onGo);
+      a.removeEventListener("canplay", onGo);
     };
   }, [timings, duration]);
 
@@ -258,10 +271,15 @@ export default function AudioStory({
         playing
           ? "border-primary-9 bg-primary-9 text-primary-2"
           : "border-primary-10 bg-primary-10 text-primary-2 hover:border-primary-9 hover:bg-primary-9"
-      }`}
+      } ${buffering && playing ? "animate-pulse" : ""}`}
       style={{ transitionDuration: "var(--dur-fast)", transitionTimingFunction: "var(--ease)" }}
     >
       <Glyph name={playing ? "pause" : "play"} className={mini ? "icon icon-sm" : "icon"} />
+      {!mini && (
+        <span aria-live="polite" className="sr-only">
+          {buffering && playing ? "Narration is buffering" : ""}
+        </span>
+      )}
     </button>
   );
 
@@ -322,7 +340,7 @@ export default function AudioStory({
         <div className="flex items-center gap-5">
           {playButton()}
           <div className="min-w-0 flex-1">
-            <p className="t-meta">{playing ? "Now playing" : "Listen"}</p>
+            <p className="t-meta">{buffering && playing ? "Buffering…" : playing ? "Now playing" : "Listen"}</p>
             <p className="t-meta-body mt-1 truncate">
               {subtitle}
               {label.includes("Pt") ? ` · ${label.split("|").pop()?.trim()}` : ""}

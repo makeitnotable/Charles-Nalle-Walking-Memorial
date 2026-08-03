@@ -31,12 +31,14 @@ function els() {
 }
 
 function setLabel(content: HTMLElement, label: string | null, withDate = false) {
-  if (label) {
+  if (label && withDate) {
+    // The Crossing (v6): the DAY is the protagonist — broadside register,
+    // the destination subordinate beneath it.
     content.innerHTML =
-      `<p class="t-wordmark text-center">${label}</p>` +
-      (withDate
-        ? `<p class="t-meta text-center" style="margin-top:1rem">${DATE_LINE}</p>`
-        : "");
+      `<p class="t-crossing text-center">${DATE_LINE}</p>` +
+      `<p class="t-meta text-center" style="margin-top:1.25rem">${label}</p>`;
+  } else if (label) {
+    content.innerHTML = `<p class="t-wordmark text-center">${label}</p>`;
   } else {
     content.innerHTML = `
       <p class="t-wordmark">Charles</p>
