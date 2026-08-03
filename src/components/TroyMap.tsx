@@ -681,7 +681,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
       {/* 1860 lens (M7) — Mark Priest's map of Troy, in the approved frame */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-700 sm:p-10"
+        className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-[1600ms] sm:p-10"
         style={{ opacity: lens ? 1 : 0 }}
         aria-hidden={!lens}
       >
@@ -828,7 +828,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                   className="keen-slider__slide !min-w-[343px] !max-w-[343px] sm:!min-w-[428.75px] sm:!max-w-[428.75px] lg:!min-w-[514.5px] lg:!max-w-[514.5px]"
                 >
                   <div
-                    className={`origin-bottom transition-transform duration-300 ease-out ${isActive ? "scale-100" : "scale-[.92]"}`}
+                    className={`origin-bottom transition-transform duration-300 ${isActive ? "scale-100" : "scale-[.92]"}`}
                   >
                     {/* Two-tap: inactive card focuses; active card navigates */}
                     <div

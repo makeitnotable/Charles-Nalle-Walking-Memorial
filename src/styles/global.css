@@ -49,6 +49,13 @@
   --font-chrome: "Libre Caslon Text", Georgia, serif;
   --font-poppins: var(--font-chrome);
 
+  /* Tailwind's transition utilities default to their OWN easing and
+     durations — every `transition-*` in markup was silently off-token
+     (E2 census: 30+ stray tuples). The utilities now speak the house
+     motion language unless a token duration overrides them. */
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+
   /* Primary (brand: brown → burnt orange). 9 canonicalized to #f26835 —
      legacy token said #f28835 but #F26835 shipped 13×. */
   --color-primary-1: #0e0807;
