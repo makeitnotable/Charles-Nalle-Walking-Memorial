@@ -52,6 +52,8 @@ export default function Museum({ works }: Props) {
   const [approached, setApproached] = useState<number | null>(null);
   const [alive, setAlive] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
+  /** Nearest work while walking — drives the dot rail's active state. */
+  const [railIdx, setRailIdx] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const api = useRef<{
@@ -102,10 +104,16 @@ export default function Museum({ works }: Props) {
 
       const scene = new THREE.Scene();
       const GROUND = new THREE.Color("#1d1411");
-      const WALL = new THREE.Color("#2a1a12");
-      const FLOOR = new THREE.Color("#170f0b");
+      const WALL = new THREE.Color("#2f1d14");
+      const FLOOR = new THREE.Color("#1a110c");
       scene.background = GROUND;
       scene.fog = new THREE.Fog(GROUND, 10, 34);
+
+      /* A phone corridor is narrower — on the desktop width the art hung at
+         the extreme edges of a portrait frame and the centre of the walk was
+         void (juror P1-6). */
+      const portrait = stage.clientWidth < stage.clientHeight;
+      const CH = portrait ? 2.4 : CORRIDOR_HALF;
 
       /* A portrait phone sees a sliver of corridor at 58° — widen the eye so
          the canvases still command the frame. */
@@ -123,7 +131,7 @@ export default function Museum({ works }: Props) {
       // does the depth. Cheap enough for any phone. ———
       const mat = (c: Color) => new THREE.MeshBasicMaterial({ color: c });
       const floor = new THREE.Mesh(
-        new THREE.PlaneGeometry(CORRIDOR_HALF * 2 + 2, hallLen + 20),
+        new THREE.PlaneGeometry(CH * 2 + 2, hallLen + 20),
         mat(FLOOR),
       );
       floor.rotation.x = -Math.PI / 2;
@@ -136,20 +144,21 @@ export default function Museum({ works }: Props) {
       for (const side of [-1, 1]) {
         const wall = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, 4.2), mat(WALL));
         wall.rotation.y = (Math.PI / 2) * side;
-        wall.position.set(CORRIDOR_HALF * -side, 2.1, -hallLen / 2 + 6);
+        wall.position.set(CH * -side, 2.1, -hallLen / 2 + 6);
         scene.add(wall);
       }
       // The far end wall closes the room
-      const end = new THREE.Mesh(new THREE.PlaneGeometry(CORRIDOR_HALF * 2 + 2, 4.4), mat(WALL));
+      const end = new THREE.Mesh(new THREE.PlaneGeometry(CH * 2 + 2, 4.4), mat(WALL));
       end.position.set(0, 2.1, -(works.length * SPACING) - 8);
       scene.add(end);
 
-      // Skirting hairlines — the one linework the hall allows itself.
-      const skirtMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#69311d") });
+      // Skirting hairlines — the one linework the hall allows itself. Quiet
+      // enough to obey the fog (juror P2-9).
+      const skirtMat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#4a2416") });
       for (const side of [-1, 1]) {
         const skirt = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, 0.06), skirtMat);
         skirt.rotation.y = (Math.PI / 2) * side;
-        skirt.position.set((CORRIDOR_HALF - 0.005) * -side, 0.09, -hallLen / 2 + 6);
+        skirt.position.set((CH - 0.005) * -side, 0.09, -hallLen / 2 + 6);
         scene.add(skirt);
       }
 
@@ -158,8 +167,8 @@ export default function Museum({ works }: Props) {
       poolCanvas.width = poolCanvas.height = 256;
       const pctx = poolCanvas.getContext("2d")!;
       const grad = pctx.createRadialGradient(128, 128, 8, 128, 128, 128);
-      grad.addColorStop(0, "rgba(255, 220, 180, 0.5)");
-      grad.addColorStop(0.55, "rgba(255, 200, 150, 0.13)");
+      grad.addColorStop(0, "rgba(255, 220, 180, 0.36)");
+      grad.addColorStop(0.5, "rgba(255, 200, 150, 0.1)");
       grad.addColorStop(1, "rgba(255, 200, 150, 0)");
       pctx.fillStyle = grad;
       pctx.fillRect(0, 0, 256, 256);
@@ -173,6 +182,8 @@ export default function Museum({ works }: Props) {
       // ——— The works ———
       const loader = new THREE.TextureLoader();
       const isPhone = window.innerWidth < 1024;
+      /* Oblique canvases blur without anisotropic filtering (juror P1-3). */
+      const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
       const paintingMeshes: Mesh[] = [];
       const paintingMats: MeshBasicMaterial[] = [];
       const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
@@ -194,13 +205,13 @@ export default function Museum({ works }: Props) {
         const z = -(i + 1) * SPACING;
         const h = 2.0;
         const w = h * work.aspect;
-        const x = (CORRIDOR_HALF - 0.09) * side;
+        const x = (CH - 0.09) * side;
         placements.push({ pos: { x, y: 1.7, z }, side, w, h });
 
         // Frame: a slab slightly proud of the wall, canvas on its face.
         const frame = new THREE.Mesh(new THREE.BoxGeometry(0.12, h + 0.22, w + 0.22), frameMat);
         frame.rotation.y = 0;
-        frame.position.set((CORRIDOR_HALF + 0.02) * side, 1.7, z);
+        frame.position.set((CH + 0.02) * side, 1.7, z);
         frame.rotation.z = 0;
         // orient the box's long axes along the wall
         frame.rotation.y = side === 1 ? 0 : Math.PI;
@@ -223,7 +234,7 @@ export default function Museum({ works }: Props) {
 
         // Spotlight pool above/behind the canvas
         const pool = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.2, h * 2.2), poolMat);
-        pool.position.set((CORRIDOR_HALF - 0.03) * side, 1.85, z);
+        pool.position.set((CH - 0.03) * side, 1.85, z);
         pool.rotation.y = (-Math.PI / 2) * side;
         scene.add(pool);
 
@@ -236,17 +247,18 @@ export default function Museum({ works }: Props) {
             new THREE.BoxGeometry(0.08, sh + 0.14, sw + 0.14),
             frameMat,
           );
-          sframe.position.set((CORRIDOR_HALF + 0.03) * side, 1.55, sz);
+          sframe.position.set((CH + 0.03) * side, 1.55, sz);
           sframe.rotation.y = side === 1 ? 0 : Math.PI;
           scene.add(sframe);
           const smat = new THREE.MeshBasicMaterial({ color: WALL.clone() });
           const smesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), smat);
-          smesh.position.set((CORRIDOR_HALF - 0.045) * side, 1.55, sz);
+          smesh.position.set((CH - 0.045) * side, 1.55, sz);
           smesh.rotation.y = (-Math.PI / 2) * side;
           scene.add(smesh);
           loader.load(work.sketch, (t) => {
             if (disposed) return;
             t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = maxAniso;
             smat.map = t;
             smat.color.set("#ffffff");
             smat.needsUpdate = true;
@@ -260,6 +272,7 @@ export default function Museum({ works }: Props) {
         loader.load(isPhone ? works[i].tex800 : works[i].tex1440, (t) => {
           if (disposed) return;
           t.colorSpace = THREE.SRGBColorSpace;
+          t.anisotropy = maxAniso;
           paintingMats[i].map = t;
           paintingMats[i].color.set("#ffffff");
           paintingMats[i].needsUpdate = true;
@@ -267,6 +280,12 @@ export default function Museum({ works }: Props) {
       };
       loadWork(0);
       loadWork(1);
+      /* Juror P0-2: a half-loaded hall reads as a broken one. The gate
+         already excludes thin pipes, so after the first breath the whole
+         catalogue loads — nearest-first stays only for the first second. */
+      setTimeout(() => {
+        if (!disposed) works.forEach((_, i) => loadWork(i));
+      }, 1200);
 
       // ——— Rail + look state ———
       let railT = 0; // 0..1 scroll progress
@@ -282,10 +301,19 @@ export default function Museum({ works }: Props) {
 
       const railZ = () => 2.5 - railT * (works.length * SPACING + 2.5);
 
+      let lastRailIdx = -1;
       const onScroll = () => {
         const r = wrap.getBoundingClientRect();
         const total = r.height - window.innerHeight;
         railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+        const idx = Math.min(
+          works.length - 1,
+          Math.max(0, Math.round((railT * (works.length * SPACING + 2.5) - 2.5) / SPACING)),
+        );
+        if (idx !== lastRailIdx) {
+          lastRailIdx = idx;
+          setRailIdx(idx);
+        }
       };
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -358,10 +386,14 @@ export default function Museum({ works }: Props) {
             1.18 +
             0.15,
         );
+        /* On a landscape stage the camera steps half a metre to the side so
+           the canvas sits right-of-centre and the plaque owns the left
+           column — a plaque never sits ON the art (juror P1-4). */
+        const lateral = stage.clientWidth > stage.clientHeight ? 0.55 : 0;
         target = {
           x: p.pos.x - p.side * dist,
           y: p.pos.y,
-          z: p.pos.z,
+          z: p.pos.z - lateral * p.side,
           yaw: (-Math.PI / 2) * p.side,
           pitch: 0,
         };
@@ -380,9 +412,26 @@ export default function Museum({ works }: Props) {
         v.muted = true;
         v.playsInline = true;
         v.crossOrigin = "anonymous";
-        v.play().catch(() => {});
         const vt = new THREE.VideoTexture(v);
         vt.colorSpace = THREE.SRGBColorSpace;
+        /* Cover-fit: the film's aspect rarely equals the canvas plane's —
+           unfitted it stretched, so the swap visibly zoom-jumped (P2-13). */
+        v.addEventListener(
+          "loadedmetadata",
+          () => {
+            const va = v.videoWidth / v.videoHeight || w.aspect;
+            const pa = w.aspect;
+            if (va > pa) {
+              vt.repeat.set(pa / va, 1);
+              vt.offset.set((1 - pa / va) / 2, 0);
+            } else {
+              vt.repeat.set(1, va / pa);
+              vt.offset.set(0, (1 - va / pa) / 2);
+            }
+          },
+          { once: true },
+        );
+        v.play().catch(() => {});
         paintingMats[i].map = vt;
         paintingMats[i].needsUpdate = true;
         videoEls[i] = v;
@@ -513,16 +562,40 @@ export default function Museum({ works }: Props) {
   return (
     <div ref={wrapRef} style={{ height: `${(works.length + 1) * 100}vh` }} className="relative">
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2">
-        {/* Entry line — fades once the visitor moves */}
+        {/* Wayfinding line — contextual: never instructs a state you left */}
         {ready && (
           <div className="pointer-events-none absolute inset-x-0 top-[max(env(safe-area-inset-top),24px)] z-10 text-center">
             <p
               className="t-meta inline-block rounded-full px-4 py-2"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
             >
-              The Museum · scroll to walk · tap a painting
+              {approached !== null ? (
+                "Esc or Back returns to the hall"
+              ) : (
+                <>
+                  <span className="hidden sm:inline">The Museum · scroll to walk · tap a painting</span>
+                  <span className="sm:hidden">Scroll to walk · tap a work</span>
+                </>
+              )}
             </p>
           </div>
+        )}
+
+        {/* The quiet exit: the index of works is one press away. sm+ only —
+            on a phone it collided with the hint pill, and a flick already
+            exits in a breath. */}
+        {ready && approached === null && (
+          <button
+            type="button"
+            className="link-meta t-meta absolute top-[max(env(safe-area-inset-top),24px)] right-[var(--gutter)] z-10 hidden rounded-full px-4 py-2 sm:inline-flex"
+            style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+            onClick={() => {
+              const r = wrapRef.current?.getBoundingClientRect();
+              if (r) window.scrollTo({ top: window.scrollY + r.bottom, behavior: "smooth" });
+            }}
+          >
+            Skip the hall
+          </button>
         )}
 
         {/* The plaque */}
@@ -562,12 +635,16 @@ export default function Museum({ works }: Props) {
           </div>
         )}
 
-        {/* Keyboard path: real buttons, one per work */}
+        {/* Keyboard path + wayfinding: real buttons, one per work, the
+            nearest one lit, the count said out loud. */}
         {ready && !plaque && (
           <nav
-            className="absolute bottom-[max(3dvh,16px)] left-1/2 z-10 -translate-x-1/2"
+            className="absolute bottom-[max(3dvh,16px)] left-1/2 z-10 flex -translate-x-1/2 items-center gap-4"
             aria-label="Works in the hall"
           >
+            <p className="t-meta hidden whitespace-nowrap sm:block" aria-hidden="true">
+              {String(railIdx + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}
+            </p>
             <ol className="flex items-center gap-2">
               {works.map((w, i) => (
                 <li key={w.slug + w.key}>
@@ -575,10 +652,16 @@ export default function Museum({ works }: Props) {
                     type="button"
                     onClick={() => api.current?.approach(i)}
                     aria-label={`Approach “${w.title}”`}
-                    className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-primary-7 transition-colors hover:border-primary-9"
+                    aria-current={i === railIdx ? "true" : undefined}
+                    className={`grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-colors ${
+                      i === railIdx ? "border-primary-9" : "border-primary-7 hover:border-primary-9"
+                    }`}
                     style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary-11" aria-hidden="true" />
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${i === railIdx ? "bg-primary-9" : "bg-primary-11/60"}`}
+                      aria-hidden="true"
+                    />
                   </button>
                 </li>
               ))}
