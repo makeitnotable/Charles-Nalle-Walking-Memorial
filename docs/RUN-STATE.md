@@ -40,6 +40,13 @@ voice; break the kicker→display→prose meter once per page; commit or cut the
   lining figures (LC ships no oldstyle figures/true smcp; an 1860 handbill
   set dates exactly this way). Amends PLAN's "oldstyle figures" assumption —
   logged in DEVIATIONS.md. No third face gets borrowed for dates.
+- **D3: home description keeps the thesis sentence, not the exact Figma
+  descriptor** ("…a digital physical experience designed to share the
+  history of Troy…"). The Figma sentence describes the deliverable and
+  cannot pass the locked E1 compression gate (no rescue, no Tubman, no day).
+  Item 6 satisfied via authored rag on the thesis sentence instead.
+  **Queued for Wil in REVIEW-GUIDE** — if he wants the Figma sentence
+  verbatim, it's a one-line swap.
 
 ## CARRIED FORWARD from v5 (open ledger)
 Juror pass 1 (6.8/10, `docs/v5/juror-pass1.md`): **3 open P0s** —

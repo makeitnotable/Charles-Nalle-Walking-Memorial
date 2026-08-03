@@ -13,8 +13,11 @@ import { withBase } from "../lib/url";
   title="Charles Nalle Walking Memorial — Troy, NY"
   description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city — led by Harriet Tubman — rose up to free Charles Nalle from the Fugitive Slave Act."
   preloadImage={withBase("media/site/home-bg-800.avif")}
+  noMenu
 >
-  <div class="h-dvh p-4 md:p-12">
+  {/* Items 3–4: no menu on the title card; the frame runs nearly full-bleed
+      (was p-4/p-12 — a picture on a wall, not a doorway). */}
+  <div class="h-dvh p-2.5 md:p-5">
     <div class="relative flex h-full flex-col items-center justify-between">
       <!-- The photo frame: film plays inside it, treated like the approved still -->
       <div
@@ -64,7 +67,7 @@ import { withBase } from "../lib/url";
           bottom of the frame — 154px of nothing between the date rule and the
           button, 163px between the button and the copy. The eye had nothing to
           hold. Everything below is one lockup with authored spacing. */}
-      <div class="z-10 flex h-full flex-col items-center justify-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
+      <div class="home-stack z-10 flex h-full flex-col items-center justify-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
         <p class="t-meta home-seq" style="--seq: 0">Troy, New York · April 27, 1860</p>
 
         <h1 class="flex flex-col" aria-label="Charles Nalle">
@@ -81,13 +84,17 @@ import { withBase } from "../lib/url";
         {/* The story, not the format. This said "a digital physical experience
             designed to share the history of Troy" — a description of the
             deliverable, in the smallest type on the page, at the very bottom. */}
+        {/* Item 6 (amended — RUN-STATE D3): the Figma descriptor sentence
+            describes the deliverable and would fail the E1 thesis gate; the
+            thesis sentence stays, with the rag authored instead of left to
+            the breaker. Queued for Wil in the REVIEW-GUIDE. */}
         <p
-          class="t-meta-body home-seq max-w-[54ch] text-balance"
+          class="home-desc t-meta-body home-seq max-w-[46ch] text-balance"
           style="--seq: 4"
         >
-          On one day in 1860 the people of this city — led by Harriet Tubman —
-          took Charles Nalle back from the men who had come to return him to
-          slavery. Five stops mark where it happened.
+          On one day in 1860 the people of this city — led by Harriet
+          Tubman&nbsp;— took Charles Nalle back from the men who had come to
+          return him to slavery. Five stops mark where&nbsp;it&nbsp;happened.
         </p>
 
         {/* "Continue" named neither a destination nor a size. */}
@@ -106,6 +113,16 @@ import { withBase } from "../lib/url";
      subject at all: a visitor could not tell what they were looking at. */
   .home-frame {
     opacity: 0.72;
+  }
+  /* A phone held sideways: the stack must answer to 390px of height. Tighter
+     beats, a wider (shorter) description — nothing hidden, nothing clipped. */
+  @media (max-height: 500px) {
+    .home-stack {
+      gap: clamp(10px, 2.6vh, 16px);
+    }
+    .home-desc {
+      max-width: 64ch;
+    }
   }
   /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
      and reduced-motion states are simply "everything visible". */
