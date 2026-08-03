@@ -37,6 +37,9 @@ export interface Work {
   sketch: string | null;
   /** Aspect ratio w/h of the canvas */
   aspect: number;
+  /** A line from the day — the scene's approved quote, spoken on the plaque */
+  line: string | null;
+  lineBy: string | null;
 }
 
 interface Props {
@@ -126,10 +129,31 @@ export default function Museum({ works }: Props) {
       );
 
       const hallLen = works.length * SPACING + 14;
+      /* A phone's tall frame showed mostly ceiling void — bring the roof
+         down and the room fills the format (juror P1-4, pass 2). */
+      const CEIL_Y = portrait ? 3.2 : 4.2;
 
-      // ——— The hall: floor, two walls, ceiling — flat warm materials, fog
-      // does the depth. Cheap enough for any phone. ———
+      // ——— The hall. Walls carry a baked vertical light gradient (lit at
+      // picture height, falling to dark at floor and ceiling) so the room
+      // has a light MODEL, not just sprites (juror P1-3). Fog does depth. ———
       const mat = (c: Color) => new THREE.MeshBasicMaterial({ color: c });
+      const wallGradCanvas = document.createElement("canvas");
+      wallGradCanvas.width = 2;
+      wallGradCanvas.height = 256;
+      {
+        const g = wallGradCanvas.getContext("2d")!;
+        const lg = g.createLinearGradient(0, 0, 0, 256); // top → bottom
+        lg.addColorStop(0, "#221510");
+        lg.addColorStop(0.45, "#3a241a"); // picture-height glow
+        lg.addColorStop(0.68, "#2c1b12");
+        lg.addColorStop(1, "#20130d");
+        g.fillStyle = lg;
+        g.fillRect(0, 0, 2, 256);
+      }
+      const wallTex = new THREE.CanvasTexture(wallGradCanvas);
+      wallTex.colorSpace = THREE.SRGBColorSpace;
+      const wallMat = new THREE.MeshBasicMaterial({ map: wallTex });
+
       const floor = new THREE.Mesh(
         new THREE.PlaneGeometry(CH * 2 + 2, hallLen + 20),
         mat(FLOOR),
@@ -137,19 +161,22 @@ export default function Museum({ works }: Props) {
       floor.rotation.x = -Math.PI / 2;
       floor.position.set(0, 0, -hallLen / 2 + 6);
       scene.add(floor);
-      const ceil = floor.clone();
+      const ceil = new THREE.Mesh(
+        new THREE.PlaneGeometry(CH * 2 + 2, hallLen + 20),
+        mat(new THREE.Color("#150d09")),
+      );
       ceil.rotation.x = Math.PI / 2;
-      ceil.position.y = 4.2;
+      ceil.position.set(0, CEIL_Y, -hallLen / 2 + 6);
       scene.add(ceil);
       for (const side of [-1, 1]) {
-        const wall = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, 4.2), mat(WALL));
+        const wall = new THREE.Mesh(new THREE.PlaneGeometry(hallLen + 20, CEIL_Y), wallMat);
         wall.rotation.y = (Math.PI / 2) * side;
-        wall.position.set(CH * -side, 2.1, -hallLen / 2 + 6);
+        wall.position.set(CH * -side, CEIL_Y / 2, -hallLen / 2 + 6);
         scene.add(wall);
       }
       // The far end wall closes the room
-      const end = new THREE.Mesh(new THREE.PlaneGeometry(CH * 2 + 2, 4.4), mat(WALL));
-      end.position.set(0, 2.1, -(works.length * SPACING) - 8);
+      const end = new THREE.Mesh(new THREE.PlaneGeometry(CH * 2 + 2, CEIL_Y + 0.2), wallMat);
+      end.position.set(0, CEIL_Y / 2, -(works.length * SPACING) - 8);
       scene.add(end);
 
       // Skirting hairlines — the one linework the hall allows itself. Quiet
@@ -232,11 +259,17 @@ export default function Museum({ works }: Props) {
         paintingMeshes.push(canvasMesh);
         paintingMats.push(cmat);
 
-        // Spotlight pool above/behind the canvas
+        // Spotlight pool behind the canvas, and its echo on the floor —
+        // light lands somewhere, so the room believes it.
         const pool = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.2, h * 2.2), poolMat);
         pool.position.set((CH - 0.03) * side, 1.85, z);
         pool.rotation.y = (-Math.PI / 2) * side;
         scene.add(pool);
+        const fpool = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.5, 1.6), poolMat);
+        fpool.rotation.x = -Math.PI / 2;
+        fpool.rotation.z = Math.PI / 2;
+        fpool.position.set((CH - 0.9) * side, 0.012, z);
+        scene.add(fpool);
 
         // The study beside its painting
         if (work.sketch) {
@@ -371,28 +404,44 @@ export default function Museum({ works }: Props) {
         loadWork(i);
         const p = placements[i];
         mode = "approach";
-        /* Stand back far enough that the WHOLE canvas fits the frame at the
-           current FOV/aspect (a portrait phone needs a much longer standoff
-           than a desktop). Yaw −π/2·side turns the camera INTO the wall the
-           work hangs on (three's yaw is counter-clockwise: +π/2 faces −x). */
+        /* Composition, not just fit. Landscape reserves a left column for
+           the plaque (the plaque NEVER sits on the art) and hangs the whole
+           canvas in the remaining field; portrait centres the canvas above
+           the plaque. Yaw −π/2·side turns the camera INTO the wall (three's
+           yaw is counter-clockwise: +π/2 faces −x). */
         const vfov = (camera.fov * Math.PI) / 180;
         const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
-        const dist = Math.min(
-          6,
-          Math.max(
-            (p.w / 2) / Math.tan(hfov / 2),
-            (p.h / 2) / Math.tan(vfov / 2),
-          ) *
-            1.18 +
-            0.15,
-        );
-        /* On a landscape stage the camera steps half a metre to the side so
-           the canvas sits right-of-centre and the plaque owns the left
-           column — a plaque never sits ON the art (juror P1-4). */
-        const lateral = stage.clientWidth > stage.clientHeight ? 0.55 : 0;
+        const landscape = stage.clientWidth > stage.clientHeight;
+        let dist: number;
+        let lateral = 0;
+        let yOff = 0;
+        if (landscape) {
+          const COLUMN = 0.44; // plaque column fraction, incl. breathing room
+          const FIELD = 0.5; // canvas field fraction
+          dist = Math.min(
+            6,
+            Math.max(
+              p.w / (2 * Math.tan(hfov / 2) * FIELD),
+              p.h / (2 * Math.tan(vfov / 2) * 0.62),
+            ),
+          );
+          const centerFrac = COLUMN + FIELD / 2; // canvas centre in [0..1] of the frame
+          lateral = (centerFrac - 0.5) * 2 * dist * Math.tan(hfov / 2);
+          yOff = -0.1; // lift the canvas clear of the plaque's top edge
+        } else {
+          dist = Math.min(
+            6,
+            Math.max(
+              (p.w / 2) / Math.tan(hfov / 2),
+              (p.h / 2) / Math.tan(vfov / 2),
+            ) *
+              1.18 +
+              0.15,
+          );
+        }
         target = {
           x: p.pos.x - p.side * dist,
-          y: p.pos.y,
+          y: p.pos.y + yOff,
           z: p.pos.z - lateral * p.side,
           yaw: (-Math.PI / 2) * p.side,
           pitch: 0,
@@ -570,7 +619,11 @@ export default function Museum({ works }: Props) {
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
             >
               {approached !== null ? (
-                "Esc or Back returns to the hall"
+                window.matchMedia("(pointer: coarse)").matches ? (
+                  "Back returns to the hall"
+                ) : (
+                  "Esc or Back returns to the hall"
+                )
               ) : (
                 <>
                   <span className="hidden sm:inline">The Museum · scroll to walk · tap a painting</span>
@@ -583,19 +636,22 @@ export default function Museum({ works }: Props) {
 
         {/* The quiet exit: the index of works is one press away. sm+ only —
             on a phone it collided with the hint pill, and a flick already
-            exits in a breath. */}
+            exits in a breath. The wrapper carries the visibility: `.link-meta`
+            sets display and out-cascades a bare `hidden` utility. */}
         {ready && approached === null && (
-          <button
-            type="button"
-            className="link-meta t-meta absolute top-[max(env(safe-area-inset-top),24px)] right-[var(--gutter)] z-10 hidden rounded-full px-4 py-2 sm:inline-flex"
-            style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
-            onClick={() => {
-              const r = wrapRef.current?.getBoundingClientRect();
-              if (r) window.scrollTo({ top: window.scrollY + r.bottom, behavior: "smooth" });
-            }}
-          >
-            Skip the hall
-          </button>
+          <div className="absolute top-[max(env(safe-area-inset-top),24px)] right-[var(--gutter)] z-10 hidden sm:block">
+            <button
+              type="button"
+              className="link-meta t-meta rounded-full px-4 py-2"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+              onClick={() => {
+                const r = wrapRef.current?.getBoundingClientRect();
+                if (r) window.scrollTo({ top: window.scrollY + r.bottom, behavior: "smooth" });
+              }}
+            >
+              Skip the hall
+            </button>
+          </div>
         )}
 
         {/* The plaque */}
@@ -606,8 +662,13 @@ export default function Museum({ works }: Props) {
                 className="max-w-[46ch] rounded-[12px] border border-primary-7 p-6"
                 style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
               >
-                <p className="t-meta">Mark Priest · Nalle Series · Stop {plaque.order}</p>
+                <p className="t-meta">Mark Priest · Nalle Series · Chapter {plaque.order}</p>
                 <p className="t-title-sm mt-3">{plaque.title}</p>
+                {plaque.line && (
+                  <p className="t-meta-body mt-4 italic">
+                    “{plaque.line}”{plaque.lineBy ? ` — ${plaque.lineBy}` : ""}
+                  </p>
+                )}
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   {plaque.video && (
                     <button

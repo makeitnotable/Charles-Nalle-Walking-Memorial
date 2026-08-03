@@ -61,6 +61,11 @@ const works = chapters.flatMap((entry) =>
 const museumWorks = works.map((w) => {
   const entry = chapters.find((e) => e.id === w.slug)!;
   const hasSketch = w.key === "horizontal" && entry.data.media.images.includes("sketch");
+  /* The plaque speaks a line from the day — the scene's APPROVED quote
+     (never invented copy): the main canvas gets scene 1's, Part 2 gets
+     scene 2's. */
+  const scene =
+    w.key === "horizontal-pt2" ? entry.data.scenes[1] : entry.data.scenes[0];
   return {
     slug: w.slug,
     key: w.key,
@@ -71,6 +76,8 @@ const museumWorks = works.map((w) => {
     video: w.video,
     sketch: hasSketch ? withBase(`media/${w.slug}/sketch-800.webp`) : null,
     aspect: 1.5,
+    line: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.text : null,
+    lineBy: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.attribution : null,
   };
 });
 ---
