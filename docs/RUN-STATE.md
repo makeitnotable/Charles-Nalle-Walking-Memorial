@@ -52,6 +52,13 @@ artifact + REVIEW-GUIDE).
   lining figures (LC ships no oldstyle figures/true smcp; an 1860 handbill
   set dates exactly this way). Amends PLAN's "oldstyle figures" assumption —
   logged in DEVIATIONS.md. No third face gets borrowed for dates.
+- **D4 (P0-6): the 1860 map stays a framed plate, not a georeferenced
+  overlay.** The plate is a period illustration, not a survey — corner-pinning
+  it to modern streets would fabricate an accuracy it does not have, exactly
+  the class of error P0-3 (the chord route) was. The current presentation
+  (dimmed backdrop, framed artifact, caption, no live map showing through)
+  already reads as a "then" view. Queued for Wil in REVIEW-GUIDE with this
+  reasoning; if he sources true corner coordinates, the lens can upgrade.
 - **D3: home description keeps the thesis sentence, not the exact Figma
   descriptor** ("…a digital physical experience designed to share the
   history of Troy…"). The Figma sentence describes the deliverable and

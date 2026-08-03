@@ -293,10 +293,22 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       const map = mapRef.current;
       const stop = stops[idx];
       if (!map || !stop) return;
+      /* Juror P1-6: zoom 20 framed one intersection ("a parking lot") and
+         erased every other stop. 17.75 keeps the neighbouring blocks — a
+         walking tour needs to see where a stop sits in the walk. P1-7: on a
+         short viewport the camera lifts the stop above the card strip. */
+      const lift: [number, number] = window.innerHeight < 560 ? [0, -64] : [0, 0];
       if (reduced) {
-        map.jumpTo({ center: stop.coordinates, zoom: 18.5 });
+        map.jumpTo({ center: stop.coordinates, zoom: 17.75 });
       } else {
-        map.flyTo({ center: stop.coordinates, zoom: 20, speed: 0.6, curve: 1.4, essential: true });
+        map.flyTo({
+          center: stop.coordinates,
+          zoom: 17.75,
+          speed: 0.6,
+          curve: 1.4,
+          offset: lift,
+          essential: true,
+        });
       }
       setMarkers(stop.label);
     },
@@ -347,7 +359,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       pitch: reduced ? OVERVIEW.pitch : 0,
       bearing: reduced ? OVERVIEW.bearing : 0,
       maxBounds: MAX_BOUNDS,
+      /* Juror P1-2: the full attribution line ran under the experience doors
+         at 768. Compact mode keeps the licence a tap away without sharing
+         pixels with a button. */
+      attributionControl: false,
     });
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-right");
     mapRef.current = map;
     map.on("load", () => map.resize());
     const ro = new ResizeObserver(() => map.resize());
@@ -461,11 +478,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         setMarkers(stops[deepIdx].label);
         setArrivalStop(stops[deepIdx]);
         setTimeout(() => setArrivalStop(null), 5200);
-        if (reduced) map.jumpTo({ center: stops[deepIdx].coordinates, zoom: 18.5, pitch: OVERVIEW.pitch, bearing: OVERVIEW.bearing });
+        if (reduced) map.jumpTo({ center: stops[deepIdx].coordinates, zoom: 17.75, pitch: OVERVIEW.pitch, bearing: OVERVIEW.bearing });
         else
           map.easeTo({
             center: stops[deepIdx].coordinates,
-            zoom: 20,
+            zoom: 17.75,
             pitch: OVERVIEW.pitch,
             bearing: OVERVIEW.bearing,
             duration: 5000,
@@ -488,7 +505,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       const flightTarget = arriving
         ? {
             center: stops[deepIdx].coordinates,
-            zoom: 20,
+            zoom: 17.75,
             pitch: OVERVIEW.pitch,
             bearing: OVERVIEW.bearing,
           }
@@ -811,7 +828,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                   className="keen-slider__slide !min-w-[343px] !max-w-[343px] sm:!min-w-[428.75px] sm:!max-w-[428.75px] lg:!min-w-[514.5px] lg:!max-w-[514.5px]"
                 >
                   <div
-                    className={`origin-bottom transition-transform duration-300 ease-out ${isActive ? "scale-100" : "scale-85"}`}
+                    className={`origin-bottom transition-transform duration-300 ease-out ${isActive ? "scale-100" : "scale-[.92]"}`}
                   >
                     {/* Two-tap: inactive card focuses; active card navigates */}
                     <div

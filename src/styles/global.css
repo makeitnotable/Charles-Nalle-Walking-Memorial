@@ -963,6 +963,25 @@ body {
   display: block;
 }
 
+/* The map's card strip: neighbours fade at the frame edge instead of being
+   guillotined mid-badge (juror P1-4/P1-7) — the fade IS the scroll cue. */
+.location-cards-slider {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent
+  );
+}
+
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
 /* ── The walk rail — persistent progress across the five stops ─────────── */
 .walk-rail {

@@ -33,7 +33,7 @@ const css = cssFiles.map((f) => readFileSync(f, "utf8")).join("\n");
 // Each entry: [human label, regex the dist CSS must match]
 const REQUIRED = [
   // Island-only utilities (proof Tailwind scanned the .tsx files)
-  ["scale-85 utility (TroyMap carousel)", /\.scale-85/],
+  ["scale-[.92] utility (TroyMap carousel)", /scale-\\?\[\\?\.92\\?\]/],
   ["aspect-[3/2] utility", /aspect-ratio:\s*3\s*\/\s*2/],
   ["portrait: variant", /orientation:\s*portrait/],
   // Plain-CSS structural fallbacks (belt and braces)
