@@ -1,4 +1,53 @@
-# RUN-STATE — CNWM v5 "The Award Audit"
+# RUN-STATE — CNWM v6 "Seven-Element Elevation"
+
+*Disk is truth; the conversation is disposable. One work item = implement →
+re-shoot → commit → update this file as ONE atomic act. Push every ≤3 commits.
+NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
+
+## CURRENT PHASE
+**Phase 0 — Reconcile reality + instruments**
+
+## CURRENT ITEM
+Bootstrap complete; Phase 0 instruments.
+
+## NEXT ACTION
+Wire `qa:*` npm scripts (shots/probe/states/census/perf + new instruments), then
+build the four new instruments (`scripts/moments.mjs`, `scripts/strip.mjs`,
+`scripts/arrival.mjs`, `scripts/contrast.mjs`), then run baselines E1/E2/E4/E7
+into `docs/v5/elements/`, then attempt the Figma-arrow fetch (node 2142-4066;
+fallback chain: legacy repo extract → faithful redraw).
+
+## DONE (v6)
+
+| Item | Commit | Evidence |
+|---|---|---|
+| Bootstrap: v4 plan archived → `PLAN-v4.md`; v6 plan installed as `PLAN.md`; v6 RUN-STATE section opened | (this commit) | — |
+
+## DECISIONS (v6)
+- All locked decisions live in PLAN.md "Locked decisions" — not repeated here.
+
+## CARRIED FORWARD from v5 (open ledger)
+Juror pass 1 (6.8/10, `docs/v5/juror-pass1.md`): **3 open P0s** —
+P0-4 painting dialog clipped at 844×390 (→ Phase 4, fix in fallback grid
+regardless); P0-5 map stop labels anonymous on phones (→ Phase 3); P0-6 1860
+overlay ungeoreferenced (→ Phase 3, bounded alignment attempt else artifact
+presentation + REVIEW-GUIDE). Plus **26 P1 · 19 P2** itemised in juror-pass1.md
+(heaviest clusters: `/map` P1-2…7, 11, 25, 26; press-reveal P1-15…17, 20 — the
+press-reveal cluster dies with PressReveal's retirement in Phase 2).
+
+## BLOCKED / NOTES (v6)
+- Branch hazard: local `main` tracks `origin/v2`. Plain `git push` only.
+  **NEVER push `main:main`.**
+- Official Figma MCP unauthenticated this session; ClaudeTalkToFigma plugin
+  tools present but need an open plugin channel — attempt at arrow-fetch step,
+  fall back per PLAN chain.
+- Human-only queue → REVIEW-GUIDE (Kathy sign-offs, Ch2a/Ch4 re-records, ferry
+  rewrite, Athenaeum image, Ch2 "1 and 2" reading flag).
+
+---
+---
+
+# RUN-STATE — CNWM v5 "The Award Audit" (history — superseded by v6)
 
 *Disk is truth. Updated after every sub-step. A stranger must be able to resume
 from IN PROGRESS with no conversation context.*
