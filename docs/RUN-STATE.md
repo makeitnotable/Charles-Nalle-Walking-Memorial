@@ -8,17 +8,31 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 6 — THE GATE**
 
 ## CURRENT ITEM
-Evidence regeneration (all instruments, local build).
+Dual-rubric juror pass 2 RUNNING (background agent, fresh juror, own
+evidence under `docs/v5/qa/juror-pass2-v6/`).
 
 ## NEXT ACTION
-Run the full battery against the local build: shots (all routes ×
-viewports), census, moments, strip, arrival, contrast, states, perf
-(bars: home ≥90 / chapter ≥90 + a11y ≥95; /map and /paintings documented
-exceptions ≥80 desktop / ≥70 mobile, a11y 100). Then dual-rubric juror
-pass 1 (Sheet A: Awwwards axes ≥8 every breakpoint class, zero P0/P1 ·
-Sheet B: all seven elements ≥ Met in full, ≥2 Exceeded incl. the Museum,
-juror writes the thesis sentence). Fix loop on findings, pass 2 with a
-different fresh juror. Then live verify + REVIEW-GUIDE + memory + push.
+Read pass 2's verdict. If clean (zero P0/P1, axes ≥8, Sheet B holds):
+run pass 3 with another fresh juror (pass 1 failed by one P1, so the
+"two consecutive clean" count starts at pass 2). Between passes: P2/P3
+fixes ONLY. When two consecutive cleans land: live end-to-end verify
+(push → wait ~3min GH Pages → arrival/shots against the live URL), fill
+REVIEW-GUIDE-v6 gate verdicts + rename over docs/v5/REVIEW-GUIDE.md,
+update memory + this file, final push.
+
+## GATE LOG
+- **Pass 1** (`docs/v5/qa/juror-pass1-v6/`, 151 shots, console clean):
+  Sheet A phone 9.0/8.5/9.0/9.5, desktop 8.0/8.5/9.0/9.5 — zero P0,
+  **one P1** (hero kicker legibility at 1440/landscape on busy paint).
+  **Sheet B PASSED: four Exceeded — Thesis, Signature (the Museum, named
+  as the moment they'd retell), Interaction meaning, Content depth
+  (curated 9/10); Typography Met (personality 8.5, "not generic");
+  juror's thesis sentence = the locked thesis, verbatim in spirit.**
+  Verdict: failed by exactly the one P1.
+- **Fix loop 1→2** (commit 18243a3): deeper hero scrim band + lockup
+  halo (the P1), interlude fades 12/88, measure 54ch (Caslon's narrow
+  zero), no pre-lit marker at overview, attribution bottom-left, hint
+  pill ducks on short viewports, moral scrim .78, organised→organized.
 
 ## P5 CLOSED — evidence
 Item 28: monogram bookplates on People (first+last initials, photo-slot
