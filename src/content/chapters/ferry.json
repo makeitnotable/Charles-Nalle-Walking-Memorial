@@ -6,7 +6,7 @@
     "short": "Ferry Landing"
   },
   "chapterLabel": "Chapter 4",
-  "sketchNote": "The study is mostly empty paper. Priest let the cobbles run out toward the river and put the whole crowd in one horizontal line, running \u2014 the drawing is about distance, not struggle.",
+  "sketchNote": "The study is mostly empty paper. Priest let the cobbles run out toward the river and put the whole crowd in one horizontal line, running — the drawing is about distance, not struggle.",
   "heroFocus": 50,
   "plaque": false,
   "map": {
@@ -31,7 +31,7 @@
     "hook": null,
     "history": [
       "The crowd pulled Charles away from the authorities and brought him down to the riverbank, where he boarded a waiting skiff.",
-      "He crossed to West Troy \u2014 now Watervliet \u2014 and was briefly taken again on landing, before his allies secured his freedom for good."
+      "He crossed to West Troy — now Watervliet — and was briefly taken again on landing, before his allies secured his freedom for good."
     ]
   },
   "media": {
@@ -86,12 +86,12 @@
         "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113"
       },
       "paragraphs": [
-        "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake\u2014another reminder that freedom was fleeting and didn't come easily or without a fight.",
+        "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn’t come easily or without a fight.",
         "@media:narrative1",
         "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
         "@media:narrative2",
-        "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water's grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
-        "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away\u2014freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot's distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community."
+        "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water’s grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
+        "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot’s distance, Charles could see the local Watervliet police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community."
       ],
       "reveal": {
         "sketch": "sketch",
@@ -102,14 +102,14 @@
     }
   ],
   "historicalContext": [
-    "At the height of the Underground Railroad, the Hudson River had up to 500 ships moving upstream a day, many with black captains, making it an efficient escape route, transporting freedom-seekers from New York City to Canada in just one week\u2014far faster than the more dangerous overland routes.",
-    "After Charles crossed the river into Watervliet and was taken into custody by Albany County sheriff's deputies and federal postmaster, Harriet Tubman and several hundred citizens crossed the river and surrounded the justice's office at Corporation Hall Building, where Charles was being held.",
-    "In 1790, throughout the Hudson Valley\u2014the region along both sides of the Hudson River from Yonkers to Albany\u2014the first federal census counted more than 21,000 enslaved New Yorkers, nearly as many as documented in the State of Georgia, which had 29,264. By 1860, when Charles Nalle escaped, Georgia had as many as 462,198 enslaved people."
+    "At the height of the Underground Railroad, the Hudson River had up to 500 ships moving upstream a day, many with black captains, making it an efficient escape route, transporting freedom-seekers from New York City to Canada in just one week—far faster than the more dangerous overland routes.",
+    "After Charles crossed the river into Watervliet and was taken into custody by Albany County sheriff’s deputies and federal postmaster, Harriet Tubman and several hundred citizens crossed the river and surrounded the justice’s office at Corporation Hall Building, where Charles was being held.",
+    "In 1790, throughout the Hudson Valley—the region along both sides of the Hudson River from Yonkers to Albany—the first federal census counted more than 21,000 enslaved New Yorkers, nearly as many as documented in the State of Georgia, which had 29,264. By 1860, when Charles Nalle escaped, Georgia had as many as 462,198 enslaved people."
   ],
   "morals": [
     {
       "title": "AUTHORITARIANISM\nIS PERSISTENT",
-      "message": "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom\u2014a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
+      "message": "Marshal Holmes and the slave catchers represent authoritarian forces suppressing freedom—a challenge that continues today through power-seeking individuals and politicians who favor and enforce strict obedience to governmental authority.",
       "callToAction": {
         "title": "It comes back",
         "content": "Stand up against authoritarian laws & leaders by staying informed, voting, protesting, using your voice & the press to promote democratic values & hold leaders accountable."

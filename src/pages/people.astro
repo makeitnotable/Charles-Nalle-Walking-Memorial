@@ -13,7 +13,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { rescuers, hunters, type Person } from "../data/people";
 import { fitChars } from "../lib/text";
-const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE CITY'S CAST.";
+const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE CITY’S CAST.";
 
 const chapters = await getCollection("chapters");
 const shortFor = (slug: string) =>
@@ -51,7 +51,7 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
       <div class="lg:pb-3">
         <p class="t-prose">
           Fourteen of them are named here. The <em>New York Times</em> counted
-          the crowd outside the commissioner's office at some one thousand
+          the crowd outside the commissioner’s office at some one thousand
           persons.
         </p>
         <p class="t-meta-body mt-6">

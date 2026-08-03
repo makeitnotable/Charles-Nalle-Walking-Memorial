@@ -208,9 +208,14 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const prev = activeLabelRef.current;
     activeLabelRef.current = activeLabel;
     for (const { marker, stop } of markersRef.current) {
-      if (force || stop.label === activeLabel || stop.label === prev) {
-        marker.getElement().innerHTML = markerHtml(stop, stop.label === activeLabel);
+      const isActive = stop.label === activeLabel;
+      if (force || isActive || stop.label === prev) {
+        marker.getElement().innerHTML = markerHtml(stop, isActive);
       }
+      /* The active stop's name plate must ride ABOVE neighbouring chips —
+         stop 5 sat on the Commissioner's Office label during the walk
+         (juror pass 3 P1). Mapbox stacks markers by DOM order; z wins. */
+      marker.getElement().style.zIndex = isActive ? "30" : "";
     }
   }, []);
 

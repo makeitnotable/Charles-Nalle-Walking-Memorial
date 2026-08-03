@@ -1,6 +1,6 @@
 /**
- * The cast of April 27, 1860 — from the project's character sheet
- * (Context/Website Edits.pdf p.2, with Kathy Sheehan's corrections applied:
+ * The cast of April 27, 1860 — from the project’s character sheet
+ * (Context/Website Edits.pdf p.2, with Kathy Sheehan’s corrections applied:
  * "Horatio" F. Averill, "Captain" Hawk) and the site-history research docs.
  */
 
@@ -8,7 +8,7 @@ export interface Person {
   name: string;
   role: string;
   note: string;
-  /** Chapter slugs where this person's part of the story is told */
+  /** Chapter slugs where this person’s part of the story is told */
   chapters: string[];
 }
 
@@ -22,24 +22,24 @@ export const rescuers: Person[] = [
   {
     name: "Harriet Tubman",
     role: "The general",
-    note: "In Troy visiting her cousin when the church bells rang. Hidden in the crowd, she took charge of the rescue: “Drag us out! Drag him to the river! Drown him! But don't let them have him!”",
+    note: "In Troy visiting her cousin when the church bells rang. Hidden in the crowd, she took charge of the rescue: “Drag us out! Drag him to the river! Drown him! But don’t let them have him!”",
     chapters: ["commissioners-office", "ferry"],
   },
   {
     name: "Peter Baltimore",
     role: "Barber · Underground Railroad",
-    note: "A free man of color whose high-class barbershop at Troy House doubled as the hub of Troy's Underground Railroad. Gave $200 of the $1,000 raised to buy Charles's freedom.",
+    note: "A free man of color whose high-class barbershop at Troy House doubled as the hub of Troy’s Underground Railroad. Gave $200 of the $1,000 raised to buy Charles’s freedom.",
     chapters: ["barbershop", "commissioners-office"],
   },
   {
     name: "Martin I. Townsend",
     role: "Chief civil-rights attorney",
-    note: "Rushed to the commissioner's office to fight the paperwork, and led the plan to buy Charles's freedom: “If we can get him out into the crowd, we can raise the money in five minutes.”",
+    note: "Rushed to the commissioner’s office to fight the paperwork, and led the plan to buy Charles’s freedom: “If we can get him out into the crowd, we can raise the money in five minutes.”",
     chapters: ["commissioners-office"],
   },
   {
     name: "Uri Gilbert",
-    role: "Industrialist · Charles's employer",
+    role: "Industrialist · Charles’s employer",
     note: "Railcar magnate and later mayor of Troy. Hired Charles as coachman on his skills, not his past — Charles lived above the stables behind the Gilbert mansion on Second Street.",
     chapters: ["mansion"],
   },
@@ -64,7 +64,7 @@ export const rescuers: Person[] = [
   {
     name: "George Holeur",
     role: "The baker",
-    note: "The thirty-four-year-old French baker whose shop at 3rd and Division was the site of Charles's capture — in front of the whole city.",
+    note: "The thirty-four-year-old French baker whose shop at 3rd and Division was the site of Charles’s capture — in front of the whole city.",
     chapters: ["bakery"],
   },
 ];
@@ -73,13 +73,13 @@ export const hunters: Person[] = [
   {
     name: "Blucher Hansbrough",
     role: "The claimant",
-    note: "Charles's half-brother — and the man who claimed to own him. Hired slave catchers under the Fugitive Slave Act, then raised his price out of spite as Troy raised the money.",
+    note: "Charles’s half-brother — and the man who claimed to own him. Hired slave catchers under the Fugitive Slave Act, then raised his price out of spite as Troy raised the money.",
     chapters: ["bakery", "commissioners-office"],
   },
   {
     name: "Horatio F. Averill",
     role: "The betrayer",
-    note: "The lawyer who learned Charles's secret while helping him write letters to his wife, Kitty — and sold it to Virginia for the reward.",
+    note: "The lawyer who learned Charles’s secret while helping him write letters to his wife, Kitty — and sold it to Virginia for the reward.",
     chapters: ["commissioners-office"],
   },
   {
@@ -97,7 +97,7 @@ export const hunters: Person[] = [
   {
     name: "Thomas Parr",
     role: "The accomplice",
-    note: "Wale's slave-hunting partner from Culpeper County, waiting with the paperwork at the commissioner's office.",
+    note: "Wale’s slave-hunting partner from Culpeper County, waiting with the paperwork at the commissioner’s office.",
     chapters: ["commissioners-office"],
   },
 ];

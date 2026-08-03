@@ -372,7 +372,11 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
       >
       </div>
-      <p class="t-meta absolute right-[var(--gutter)] bottom-8">{interlude.credit}</p>
+      {/* Left-clamped: with only `right`, a long credit ran past the left
+          edge at 390 and lost its first glyph (juror pass 3 P1). */}
+      <p class="t-meta absolute right-[var(--gutter)] bottom-8 left-[var(--gutter)] text-right">
+        {interlude.credit}
+      </p>
     </div>
   </section>
 

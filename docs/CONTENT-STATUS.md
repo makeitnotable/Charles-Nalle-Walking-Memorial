@@ -108,3 +108,15 @@ credited accurately then.
 "organised" → "organized" in commissioners-office historical content — US
 spelling used everywhere else on the site; mechanical correction, no fact
 touched (flagged by v6 juror pass 1).
+
+## v6 · Typographic quote normalization (2026-08-03)
+Straight typewriter apostrophes and inch-mark quotes → typographic ’ “ ”
+across all five chapter JSONs, people.ts, about.ts and page literals
+(v6 juror pass 3, P1). Mechanical glyph substitution only — zero words
+changed; every value re-verified as parseable JSON with no remaining
+word-internal straight apostrophes.
+
+## v6 · Flag for Kathy: the $1,000 conversion appears two ways
+bakery.json says "($35,000 today)"; barbershop.json says "(almost
+$40,000 today)" for the same 1860 sum. A fact question, so NOT edited —
+needs one number chosen by Kathy/Wil (v6 juror pass 3, P2).
