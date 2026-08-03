@@ -5,24 +5,32 @@ re-shoot → commit → update this file as ONE atomic act. Push every ≤3 comm
 NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 
 ## CURRENT PHASE
-**Phase 4 — THE MUSEUM** (P3 complete)
+**Phase 5 — People, About, global a11y** (P4 built; final EXCEEDED call
+happens at the P6 dual-rubric gate per the ship rule)
 
 ## CURRENT ITEM
-P4 opening: Three.js guided-rail gallery on `/paintings`.
+P5 opening: item 28 (People profile cards).
 
 ## NEXT ACTION
-Read `src/pages/paintings.astro` + its data source; `npm i three` (+ log in
-DEVIATIONS.md); build `src/components/Museum.tsx` island: one warm hall from
-site tokens, camera rail (scroll/swipe scrubs a spline past every canvas),
-drag = clamped look, tap/click → frontal + plaque, Esc/back returns; sketch
-hung beside its painting; plaque captions (Mark Priest · title · series);
-"Bring it to life" swaps canvas texture to the existing reveal .mp4 (one
-live at a time); DPR ≤1.5, progressive texture load by rail proximity,
-pause offscreen/tab-hidden, dispose on leave; full keyboard path; 2-D grid
-stays beneath for SR/no-WebGL/reduced-motion/save-data/context-loss.
-Fix the fallback grid's dialog clip at 844×390 (v5 P0-4) regardless.
-Ship rule: museum ships only if it clears the juror bar (element 2
-Exceeded); own commits, revert-ready.
+Read `src/pages/people.astro`; elevate entries to profile-card treatment
+(typographic monogram placeholder, photo slot later; refine the loved
+layout, don't redo). Then item 30 (About: apply system, no regression) and
+the item 23 global pass (contrast sweep done at P3=0 fails; entrance
+choreography audit; hung quotes/hanging numerals/measure≤66ch check; the
+/about 8-size census finding — wordmark+display+title stack). Then P6.
+
+## P4 CLOSED (build) — evidence
+Museum committed through 35656f0. Three juror passes: Partial → **strong
+"Met in full", zero P0s** (`docs/v5/elements/p4-museum/J*-*.png`). Landed:
+capability-gated three (dynamic import), native-scroll rail + sticky stage,
+fixtures/beams/pools light model, far-end draw, composition-managed
+approach (plaque column on landscape, raised canvas on portrait), plaque
+speaks the scene's approved quote, alive/rest video textures cover-fitted,
+dot rail + counter wayfinding, touch/desktop skips, anisotropy, eager
+catalogue load, fps proxies clean at 390 and 1440. Fallback grid = SR
+surface; P0-4 dialog clip dead (`open:flex`). Residual juror P2s noted in
+pass-3 report (gradient banding, frame flatness, mobile counter) — P6
+inputs. EXCEEDED verdict deferred to the full-site gate by design.
 
 ## P3 CLOSED — evidence
 - Items 7/8/9/10/11/13/14 landed; grayscale route proof
