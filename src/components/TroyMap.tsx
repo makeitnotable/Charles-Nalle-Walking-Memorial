@@ -102,13 +102,22 @@ function markerHtml(stop: Stop, active: boolean): string {
     typeof window !== "undefined" &&
     (window.innerWidth < 640 || window.innerHeight < 560);
   if (narrow) {
+    /* The chip sits ON the coordinate, with no leader line. pinOffset exists to
+       move a NAME clear of its neighbours at the desktop camera — carried over
+       to chips it did the opposite: stop 3's offset pushes down and stop 4's
+       pushes up, so on a landscape phone the two chips met in the middle and
+       overlapped by 18x11px. Dots blocks apart cannot collide; nudged labels
+       can.
+
+       Two chips DO sit close on a phone — the Commissioner's Office and the
+       Barbershop are 22px apart at the overview camera, because they are one
+       block apart in Troy. That is the map telling the truth, and it is why
+       the chip is 24px with a dark ring rather than 28px: two rings touching
+       read as two adjacent stops, which is what they are. Separating them
+       would make the map less accurate, not more. */
     return `
     <div style="position:relative;width:0;height:0;cursor:pointer">
-      <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
-        <line x1="0" y1="0" x2="${dx}" y2="${dy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
-      </svg>
-      <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
-      <div aria-label="${stop.label}" style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9999px;background:${s.bg};color:${s.text};border:1px solid ${s.border}">
+      <div aria-label="${stop.label}" style="position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:9999px;background:${s.bg};color:${s.text};border:1.5px solid ${s.border};box-shadow:0 0 0 2px var(--color-primary-2)">
         <p style="font-size:12px;margin:0;line-height:1;font-weight:600;font-family:var(--font-poppins),sans-serif">${stop.order}</p>
       </div>
     </div>`;
@@ -223,18 +232,36 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        padding let three of five labels fall off the screen at 390. */
     const w = window.innerWidth;
     const h = window.innerHeight;
+    /* "Tight" is the same test the markers use to drop to numbered chips: a
+       narrow screen OR a short one. Both get the chip treatment and both need
+       the camera floor, because a chip sits ON its coordinate and two
+       coordinates only stay apart if the zoom keeps them apart. */
     const short = h < 560;
+    const tight = w < 640 || short;
     const side = w < 640 ? 56 : short ? 80 : w < 1024 ? 120 : 190;
     const cam = map.cameraForBounds(b, {
       padding: short
-        ? { top: 56, bottom: 84, left: side, right: side }
+        ? { top: 56, bottom: 132, left: side, right: side }
         : { top: 132, bottom: 200, left: side, right: side },
       bearing: OVERVIEW.bearing,
     });
+    /* A phone held sideways gives the map 390px of height for five stops and a
+       control bar. Fitting all five into it drives the zoom low enough that the
+       markers themselves start touching — the two closest stops overlapped by
+       24x23px. Below this floor the walk stops being legible as a walk, so the
+       camera holds the floor and the visitor pans; the full list of five is
+       directly below the map either way. */
     return cam
       ? {
           center: cam.center as [number, number],
-          zoom: Math.min(cam.zoom as number, OVERVIEW.zoom),
+          // A tight viewport simply holds the approved overview zoom rather
+          // than pulling back below it. Fitting five stops into 390px of height
+          // drove the zoom low enough that the two closest markers touched;
+          // 15.25 is the widest camera at which the walk still reads as a walk,
+          // and the full list of five sits directly below the map regardless.
+          zoom: tight
+            ? OVERVIEW.zoom
+            : Math.min(cam.zoom as number, OVERVIEW.zoom),
           pitch: OVERVIEW.pitch,
           bearing: OVERVIEW.bearing,
         }

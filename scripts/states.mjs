@@ -102,6 +102,7 @@ const COLLIDE = () => {
       const cs = getComputedStyle(el);
       return {
         sel: label(el),
+        marker: Boolean(el.closest(".mapboxgl-marker")),
         text: (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 34),
         z: cs.zIndex === "auto" ? 0 : Number(cs.zIndex),
         rect: {
@@ -128,6 +129,12 @@ const COLLIDE = () => {
     for (let j = i + 1; j < items.length; j++) {
       if (scrimUp && (isPanelPart(items[i].sel) || isPanelPart(items[j].sel)))
         continue;
+      /* Two map markers are geographic objects: their positions are DATA, not
+         layout. The Commissioner's Office and the Barbershop are one block
+         apart, so their pins are close at any camera that shows the whole
+         walk, and pushing them apart would make the map lie. Marker-vs-marker
+         is excluded; marker-vs-UI is still very much a collision. */
+      if (items[i].marker && items[j].marker) continue;
       const a = items[i].rect;
       const b = items[j].rect;
       const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
