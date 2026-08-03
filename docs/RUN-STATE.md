@@ -8,15 +8,16 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`.*
 **Phase 1 — Type & icon system**
 
 ## CURRENT ITEM
-Type audition: candidate specimens on `/styleguide`.
+P1 iconography: redraw `src/components/icons.ts` to the serif's construction.
 
 ## NEXT ACTION
-Install audition fonts (`@fontsource` Playfair Display / Libre Caslon
-Display+Text / EB Garamond, 400+latin subsets), read current
-`src/styles/global.css` + `src/pages/styleguide.astro`, build an audition
-section rendering the same real content (display/title/quote/prose/meta roles,
-date lockup with oldstyle figures) in each candidate system, shoot at
-390/1440, then juror + stakeholder-proxy pick.
+Read `src/components/icons.ts` + `Icon.astro`; redraw the 11 glyphs to match
+Caslon's stroke logic (modulated weight feel at 1.25–1.5px strokes, bracketed
+terminals where sensible); integrate the Figma arrow
+(`docs/v5/elements/figma-arrow/` — fixed head + stretchable shaft, never
+scale the head); replace the location glyph with a typographic marker. Then
+buttons item 15 → footer item 24 → naming item 27 + attribution item 19 →
+Phase-1 gate (strip + census + contrast re-run).
 
 ## DONE (v6)
 

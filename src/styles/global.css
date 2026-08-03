@@ -1,17 +1,16 @@
 @import "tailwindcss";
 
-/* THREE VOICES (self-hosted).
- * Martel Sans  — display + titles + spine numerals (the approved identity face)
- * Martel       — serif: narrative prose and quotes (same foundry, drawn to pair)
- * Poppins      — meta labels and buttons only. Never prose.
- * Martel ships no italic — never synthesise one. */
-@import "@fontsource/martel-sans/300.css";
-@import "@fontsource/martel-sans/400.css";
-@import "@fontsource/martel-sans/800.css";
-@import "@fontsource/martel/300.css";
-@import "@fontsource/martel/400.css";
-@import "@fontsource/poppins/400.css";
-@import "@fontsource/poppins/500.css";
+/* ONE FAMILY, TWO CUTS (self-hosted) — v6 audition verdict, RUN-STATE D1/D2.
+ * Libre Caslon Display — display, titles, spine numerals. 400 only: the
+ *   drama comes from hairline contrast at scale, never from bulk.
+ * Libre Caslon Text    — prose, quotes, and ALL chrome (meta/buttons) as
+ *   letterspaced caps. Real italic exists — use it, never synthesise bold.
+ * No oldstyle figures in this family: dates are set in the BROADSIDE
+ * register (letterspaced caps + lining figures), like an 1860 handbill. */
+@import "@fontsource/libre-caslon-display/400.css";
+@import "@fontsource/libre-caslon-text/400.css";
+@import "@fontsource/libre-caslon-text/400-italic.css";
+@import "@fontsource/libre-caslon-text/700.css";
 
 /* Tailwind v4 must scan the React islands explicitly — the Vite plugin missed
  * them in production builds, so island-only utilities (h-[100dvh],
@@ -42,10 +41,13 @@
  */
 
 @theme {
-  /* Fonts */
-  --font-sans: "Martel Sans", "Avenir Next", "Segoe UI", sans-serif;
-  --font-serif: "Martel", Georgia, "Times New Roman", serif;
-  --font-poppins: "Poppins", "Avenir Next", "Segoe UI", sans-serif;
+  /* Fonts — one family, two cuts. --font-chrome is the label/button voice
+     (LC Text, always letterspaced caps at the call site). --font-poppins is
+     a compatibility alias for island inline styles; new code uses chrome. */
+  --font-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --font-chrome: "Libre Caslon Text", Georgia, serif;
+  --font-poppins: var(--font-chrome);
 
   /* Primary (brand: brown → burnt orange). 9 canonicalized to #f26835 —
      legacy token said #f28835 but #F26835 shipped 13×. */
@@ -262,7 +264,7 @@ body {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   background: var(--ground);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -292,8 +294,8 @@ body {
  * would reintroduce the overflow it was meant to prevent on the longest string
  * at 390 ("AUTHORITARIANISM", which cannot be large on a phone). */
 .t-display {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.72)));
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
@@ -303,8 +305,8 @@ body {
 
 /* Title: section headings. The workhorse. */
 .t-title-sm {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: var(--fs-title-sm);
   line-height: 1.15;
   letter-spacing: var(--track-display);
@@ -316,8 +318,8 @@ body {
 }
 
 .t-title {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: var(--fs-title);
   line-height: var(--lh-title);
   letter-spacing: var(--track-display);
@@ -328,7 +330,7 @@ body {
 /* Quote: the serif voice at scale, hung punctuation, alone in a void. */
 .t-quote {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: var(--fs-quote);
   line-height: var(--lh-quote);
   color: var(--color-neutral-12);
@@ -358,8 +360,8 @@ body {
    every eyebrow, spine item, credit and pill shares. Labels only — never
    comprehension text. */
 .t-meta {
-  font-family: var(--font-poppins);
-  font-weight: 500;
+  font-family: var(--font-chrome);
+  font-weight: 400;
   font-size: var(--fs-meta);
   line-height: 1.35;
   letter-spacing: var(--track-meta);
@@ -369,7 +371,7 @@ body {
 
 /* Meta-body: addresses, captions, credits — sentence case, still micro. */
 .t-meta-body {
-  font-family: var(--font-poppins);
+  font-family: var(--font-chrome);
   font-weight: 400;
   font-size: var(--fs-meta-body);
   line-height: 1.5;
@@ -381,8 +383,8 @@ body {
    already carrying t-meta-body, btn and two kinds of unstyled span. It is its
    own step now. */
 .t-spine-sm {
-  font-family: var(--font-sans);
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: var(--fs-spine-sm);
   line-height: 1;
   color: var(--ink-meta);
@@ -391,8 +393,8 @@ body {
 
 /* Spine numerals — "(01)". Quiet, large, in their own column. */
 .t-spine {
-  font-family: var(--font-sans);
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: var(--fs-spine);
   line-height: 1;
   letter-spacing: 0;
@@ -403,8 +405,8 @@ body {
 /* Wordmark — the approved interlocked two-line lockup (home + curtain).
    Optical spacing pass: -0.03em, which closes the CH/AR gaps at size. */
 .t-wordmark {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 400;
   /* Answers to the shorter axis as well. On a phone held sideways 11vw is 93px,
      and two lines of it at 0.88 leading took 42% of a 390px-tall viewport —
      which is what pushed the home CTA half off the bottom edge. The 19dvh term
@@ -581,9 +583,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  font-family: var(--font-poppins);
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-family: var(--font-chrome);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;

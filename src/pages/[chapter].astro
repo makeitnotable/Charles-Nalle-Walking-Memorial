@@ -154,8 +154,12 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       on a landscape phone. */}
   <header id="hero" class="shell grid min-h-dvh grid-rows-[auto_1fr] pt-16 pb-6">
     <div id="hero-lockup">
+      {/* Two authored lines below sm: the serif meta runs wider than the old
+          sans and a single line walked under the fixed burger. */}
       <p class="t-meta">
-        Stop {pad2(c.order)} of 5 · Troy, NY · April 27, 1860
+        Stop {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
+          class="sm:hidden"
+        />Troy, NY · April 27, 1860
       </p>
       <h1
         class="t-display lines mt-[max(3vh,24px)] whitespace-pre-line"
