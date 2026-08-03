@@ -56,7 +56,7 @@ for (const vp of VPS) {
       await page.waitForTimeout(route.includes("map") ? 7000 : 1500);
       await page.addStyleTag({ content: STRIP_CSS });
       await page.evaluate(() => {
-        document.querySelectorAll(".reveal,.reveal-quote,.lines,.home-seq").forEach((e) => {
+        document.querySelectorAll(".reveal,.reveal-quote,.lines,.wipe,.home-seq").forEach((e) => {
           e.classList.add("is-in");
           e.style.opacity = "1";
           e.style.transform = "none";

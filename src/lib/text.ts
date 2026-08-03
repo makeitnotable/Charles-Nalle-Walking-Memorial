@@ -22,3 +22,13 @@ export function longestLine(text: string): number {
 export function fitChars(text: string): string {
   return `--fit-chars: ${longestLine(text)}`;
 }
+
+/** Authored lines of a display string — feeds the per-line mask reveal
+ *  (`.lines > .line-box > .line-inner`, global.css). Split at build time so
+ *  the runtime never measures or re-wraps anything. */
+export function splitLines(text: string): string[] {
+  return text
+    .split(/\n|<br\s*\/?>/i)
+    .map((l) => l.trim())
+    .filter(Boolean);
+}

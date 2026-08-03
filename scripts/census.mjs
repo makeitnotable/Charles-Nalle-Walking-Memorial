@@ -37,7 +37,7 @@ const VPS = [
 const CENSUS = () => {
   // Finish every entrance so nothing is measured mid-animation or at opacity 0
   document
-    .querySelectorAll(".reveal,.reveal-quote,.lines,.home-seq")
+    .querySelectorAll(".reveal,.reveal-quote,.lines,.wipe,.home-seq")
     .forEach((e) => {
       e.classList.add("is-in");
       e.style.opacity = "1";

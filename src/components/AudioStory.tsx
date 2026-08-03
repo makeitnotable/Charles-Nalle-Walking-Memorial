@@ -294,9 +294,9 @@ export default function AudioStory({
         </div>
       );
     }
-    const isFirst = item.timingIndex === 0 && globalIndex === 0;
     const isActive = item.timingIndex === active;
-    const words = item.html.split(" ");
+    /* The enlarged first-word device is cut (E4 juror: "half-committed —
+       commit harder or cut"). The transcript opens plainly. */
     return (
       <p
         key={`p-${globalIndex}`}
@@ -305,14 +305,7 @@ export default function AudioStory({
         className={`t-prose cursor-pointer ${isActive ? "narration-active" : ""}`}
         title="Tap to hear this passage"
       >
-        {isFirst ? (
-          <span>
-            <span className="first-word" dangerouslySetInnerHTML={{ __html: words[0] }} />
-            <span dangerouslySetInnerHTML={{ __html: " " + words.slice(1).join(" ") }} />
-          </span>
-        ) : (
-          <span dangerouslySetInnerHTML={{ __html: item.html }} />
-        )}
+        <span dangerouslySetInnerHTML={{ __html: item.html }} />
       </p>
     );
   };

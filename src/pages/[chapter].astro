@@ -31,6 +31,7 @@ import EmbedMap from "../components/EmbedMap";
 import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import Lines from "../components/Lines.astro";
 import ChapterSpine from "../components/ChapterSpine.astro";
 import WalkProgress from "../components/WalkProgress.astro";
 import { withBase } from "../lib/url";
@@ -213,8 +214,10 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               class="sm:hidden"
             />Troy, NY · April 27, 1860
           </p>
+          {/* No .lines mask here — hero legibility at t=1s must not depend
+              on JavaScript (E7). The lockup rises with the page instead. */}
           <h1
-            class="t-display lines mt-[max(2vh,16px)] whitespace-pre-line"
+            class="t-display mt-[max(2vh,16px)] whitespace-pre-line"
             style={`--fit-chars: ${longestLine(c.name.display)}`}
           >
             {c.name.display}
@@ -233,7 +236,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           <ChapterSpine sections={sections} current={`scene-${i}`} />
 
           <div>
-            <h2 class="t-title reveal">{scene.label}</h2>
+            <h2 class="t-title lines"><Lines text={scene.label} /></h2>
 
             {scene.quote && (
               <figure class="reveal-quote beat">
@@ -263,7 +266,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 
   {/* ══════ The interlude — full-bleed, zero chrome ══════ */}
   <section
-    class="painting-interlude relative overflow-hidden"
+    class="painting-interlude wipe relative overflow-hidden"
     aria-label={interlude.alt}
   >
     <img
@@ -291,7 +294,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <ChapterSpine sections={sections} current="history" />
 
       <div>
-        <h2 id="history-heading" class="t-title reveal">Historical<br />context</h2>
+        <h2 id="history-heading" class="t-title lines"><Lines text={"Historical\ncontext"} /></h2>
 
         {/* Only chapter 2 still carries the archival film here — for every other
             chapter it IS the interlude directly above, and showing it twice was
@@ -363,10 +366,10 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
             <div>
               <h2
                 id="moral-heading"
-                class="t-display lines reveal whitespace-pre-line"
+                class="t-display lines"
                 style={`--fit-chars: ${longestLine(moral.title)}`}
               >
-                {moral.title}
+                <Lines text={moral.title} />
               </h2>
               <p class="t-prose reveal mt-12">{moral.message}</p>
 
@@ -417,7 +420,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <ChapterSpine sections={sections} current="onward" />
 
       <div>
-        <h2 class="t-title reveal">Where<br />to next</h2>
+        <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
 
         {
           nextEntry && (
@@ -518,7 +521,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
-    document.querySelectorAll(".reveal, .reveal-quote, .lines").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-quote, .lines, .wipe").forEach((el) => io.observe(el));
 
     // Share: native share sheet, clipboard fallback.
     document.getElementById("share-btn")?.addEventListener("click", async () => {

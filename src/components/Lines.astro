@@ -1,0 +1,29 @@
+---
+/**
+ * Per-line mask-reveal markup for a display heading. The parent carries
+ * `class="lines"` (+ the type role); this renders each authored line inside
+ * the box/inner pair the mask machinery in global.css animates. The line
+ * travels one line-height inside an overflow-hidden box — opacity never
+ * changes; the mask does the work (museos grammar). No-JS and
+ * reduced-motion render the text plainly.
+ *
+ * NEVER use this on the chapter hero H1: its t=1s legibility on a cold
+ * cellular arrival must not depend on JavaScript (E7).
+ */
+import { splitLines } from "../lib/text";
+
+interface Props {
+  text: string;
+}
+const lines = splitLines(Astro.props.text);
+---
+
+{
+  lines.map((l, i) => (
+    <span class="line-box">
+      <span class="line-inner" style={`--i: ${i}`}>
+        {l}
+      </span>
+    </span>
+  ))
+}

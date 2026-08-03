@@ -29,7 +29,7 @@ const VPS = [
 ];
 
 const SWEEP = () => {
-  document.querySelectorAll(".reveal,.reveal-quote,.lines,.home-seq").forEach((e) => {
+  document.querySelectorAll(".reveal,.reveal-quote,.lines,.wipe,.home-seq").forEach((e) => {
     e.classList.add("is-in");
     e.style.opacity = "1";
     e.style.transform = "none";
