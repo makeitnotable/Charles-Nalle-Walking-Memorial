@@ -264,3 +264,36 @@ verdict) — timings regenerate via scripts/audio-timings.mjs when files land.
   deletion is Wil's (instructions provided). Nothing live depends on it.
 STILL PENDING: jump verdict · 1840s map · kickoff year · Kathy's copy-doc
 confirmation · ElevenLabs audio · handoff sequence.
+
+## 2026-08-07 (evening) · Email-thread corrections applied ("CNWM Website Handoff" thread)
+Source: Brian Clyne's corrections email (Fri 2:05 PM MDT, sent from the Tolle
+Studio address, signed Brian C.), Kathy's 2:58 PM map email, Amanda's 3:07 PM
+reply, Wil's 3:32 PM map proposal + direction to implement.
+- ABOUT ¶1: "kicked off in the fall of 2022" restored (Brian C.: "first kicked
+  off back in the fall of 2022"). Kickoff-year dependency CLOSED.
+- ABOUT credits: **Samantha Mahoski of the Hart Cluett Museum ADDED** (Brian
+  C.'s written request — former curator, present at inception). **Amanda stays
+  out at her own written request** ("No need to include me"). **Kathy stays
+  out** (no confirmation; her call-time deferral stands) — one-line add if she
+  asks. Dept name already corrected earlier today; Brian's email confirms, and
+  gives the full chain (Design, Innovation and Society program ⊂ Science and
+  Technology Studies dept ⊂ School of HASS: hass.rpi.edu link on file).
+- FOOTER: disclaimer upgraded to Brian C.'s general no-responsibility form
+  blended with the call's routes-are-suggestions intent. Two sentences,
+  all 10 footer pages.
+- **THE HISTORICAL MAP IS NOW THE 1858 LOC SURVEY (interim per Wil).** Kathy
+  attached an 1845 map (email attachment "Troy map 1845170.jpg", 6.1 MB — not
+  yet saved to the project folder); Wil counter-proposed LOC item 2016585052,
+  "City of Troy, N.Y.: From actual surveys," 1858, and directed: use 1858 now,
+  swap if Kathy says no. Downloaded from LOC's IIIF service, cropped to
+  downtown Troy + the Hudson + West Troy (the exact rescue geography — both
+  banks and the crossing), seam and margin text trimmed, 3:2. New assets
+  `troy-1858-*` in media/site/ AND media/commissioners-office/ (old
+  `troy-1860-*` files left in place, no longer referenced — the name lied
+  anyway; the plate was 1819). Lens button now "See Troy in 1858"; captions
+  "Troy, New York · 1858 · Library of Congress"; Ch2 interlude no longer
+  mis-captioned "archival record". Crop master saved to
+  `Design/Troy map 1858 (LOC 2016585052) - downtown crop master.jpg`.
+- STILL PENDING: Kathy's jump verdict (she reads Scott's book TONIGHT per her
+  email) · her blessing of 1858 vs her 1845 · copy-doc confirmation ·
+  ElevenLabs audio · handoff sequence.

@@ -730,7 +730,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     <div className="relative h-full w-full bg-primary-2">
       <div ref={container} className="map-canvas absolute inset-0" />
 
-      {/* 1860 lens (M7) — Mark Priest's map of Troy, in the approved frame */}
+      {/* 1858 lens (M7): Barton's "City of Troy, N.Y.: From actual surveys" (1858, LOC
+          2016585052), cropped to downtown + the river + West Troy — the exact geography
+          of the rescue. Replaced the 1819 plate mislabeled "1860" (final review 8/7:
+          interim per Wil, pending Kathy's blessing vs. her 1845 map). */}
       <div
         className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-[1600ms] sm:p-10"
         style={{ opacity: lens ? 1 : 0 }}
@@ -743,15 +746,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               stays mounted afterwards so the fade still runs both ways. */}
           {lensSeen && (
             <img
-              src={`${baseUrl}/media/site/troy-1860-1440.jpg`}
-              srcSet={`${baseUrl}/media/site/troy-1860-800.webp 800w, ${baseUrl}/media/site/troy-1860-1440.webp 1440w`}
+              src={`${baseUrl}/media/site/troy-1858-1440.jpg`}
+              srcSet={`${baseUrl}/media/site/troy-1858-800.webp 800w, ${baseUrl}/media/site/troy-1858-1440.webp 1440w`}
               sizes="100vw"
-              alt="Map of Troy, New York in 1860"
+              alt="Map of Troy, New York in 1858 — downtown Troy, the Hudson, and West Troy"
               className="artifact max-h-[75dvh] w-auto"
             />
           )}
           <figcaption className="t-meta mt-4 text-center">
-            Troy, New York · 1860
+            Troy, New York · 1858 · Library of Congress
           </figcaption>
         </figure>
       </div>
@@ -843,7 +846,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="link-meta t-meta rounded-full px-4 py-3"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
           >
-            {lens ? "Back to today" : "See Troy in 1860"}
+            {lens ? "Back to today" : "See Troy in 1858"}
           </button>
         </div>
       )}

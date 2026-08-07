@@ -70,11 +70,16 @@ const links = [
     {share && <Button size="sm" variant="ghost" icon="share" id="share-btn">Share</Button>}
   </div>
 
-  {/* Route-liability disclaimer — requested at the final review (2026-08-07):
-      lives in the footer "so it's available at all times," on every page. */}
+  {/* Disclaimer — requested at the final review (2026-08-07): in the footer
+      "so it's available at all times," on every page. Wording per Brian
+      Clyne's 8/7 email (general no-responsibility form) plus the call's
+      routes-are-suggestions intent. */}
   <div class="shell pb-10">
-    <p class="t-meta-body opacity-70">
-      Walking routes and directions are suggestions only — explore at your own pace and discretion.
+    <p class="t-meta-body max-w-[72ch] opacity-70">
+      The information on this website is provided for general informational purposes only.
+      Walking routes and directions are suggestions — visitors are responsible for how they
+      choose to use them, and we are not responsible for any losses, damages, or liabilities
+      that may result from use of this site or reliance on its content.
     </p>
   </div>
 </footer>

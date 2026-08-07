@@ -111,13 +111,16 @@ const morals = c.morals.map((m, i) => {
 const interlude =
   slug === "commissioners-office"
     ? {
-        /* Pt 2's painting now opens Pt 2 as its own hero (item 26), so the
-           interlude draws the chapter's SECOND archival record instead —
-           every image slot still holds a distinct asset. */
+        /* Ch2's interlude is the city itself: Barton's 1858 survey map (LOC
+           2016585052), downtown Troy + the river + West Troy — the two blocks
+           of the battle and the crossing in one plate. It replaced first the
+           duplicated painting (item 26) and then the 1819 map that had been
+           captioned "archival record" (final review 8/7 — 1858 interim per
+           Wil, pending Kathy's word vs. her 1845 map). */
         kind: "archival" as const,
-        key: "historical-pt2",
-        alt: `Archival photograph — ${c.name.canonical}`,
-        credit: `${c.name.canonical} · archival record`,
+        key: "troy-1858",
+        alt: "Map of Troy, New York in 1858 — downtown Troy, the Hudson, and West Troy",
+        credit: "Troy, New York · 1858 · Library of Congress",
       }
     : {
         kind: "archival" as const,

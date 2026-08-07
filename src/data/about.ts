@@ -14,9 +14,9 @@ export const about = {
     header: "About the Project",
     kicker: "Overview",
     paragraphs: [
-      "The Charles Nalle Walking Memorial website and walking tour is the result of a collaborative project between Rensselaer Polytechnic Institute’s Design, Innovation, and Society Studio B students, the City of Troy, and the Hart Cluett Museum.",
+      "The Charles Nalle Walking Memorial website and walking tour, kicked off in the fall of 2022, is the result of a collaborative project between Rensselaer Polytechnic Institute’s Design, Innovation, and Society Studio B students, the City of Troy, and the Hart Cluett Museum.",
       "After discovering Charles Nalle’s story and the existing commemorative plaque, the team developed this contemporary memorial to help residents and visitors explore the complete narrative of the events that occurred on April 27, 1860.",
-      "This project was made possible through partnerships with: RPI’s Science and Technology Studies department, Troy’s Hart Cluett Museum, the Business Improvement District (BID), Notable Branding & Design, Professors Brian Tolle and Brian Clyne; students Madeleine McNairn, Fiona Clarke, Susan Nguyen, Sara Bayne, Jame Lang, and Jalen Edmonds; artists Mark and Licia Priest; and researchers Scott Christianson and Tamar Gordon.",
+      "This project was made possible through partnerships with: RPI’s Science and Technology Studies department, Troy’s Hart Cluett Museum, the Business Improvement District (BID), Notable Branding & Design, Professors Brian Tolle and Brian Clyne; Samantha Mahoski of the Hart Cluett Museum; students Madeleine McNairn, Fiona Clarke, Susan Nguyen, Sara Bayne, Jame Lang, and Jalen Edmonds; artists Mark and Licia Priest; and researchers Scott Christianson and Tamar Gordon.",
     ],
   } satisfies AboutSection,
 
