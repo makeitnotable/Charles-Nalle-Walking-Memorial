@@ -55,28 +55,7 @@
         "label": "Chapter 3",
         "subtitle": "Uri Gilbert Mansion",
         "file": "audio/ch3-mansion.mp3",
-        "timings": [
-          {
-            "start": 1.2,
-            "end": 29.3
-          },
-          {
-            "start": 29.3,
-            "end": 46.9
-          },
-          {
-            "start": 46.9,
-            "end": 87.5
-          },
-          {
-            "start": 87.5,
-            "end": 125
-          },
-          {
-            "start": 125,
-            "end": 149.2
-          }
-        ],
+        "timings": null,
         "duration": 149
       },
       "quote": {
@@ -85,8 +64,8 @@
         "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95"
       },
       "paragraphs": [
-        "Each stride closed the distance between Charles and the ferryman waiting on the bank of the Hudson River, ready to help him cross to freedom. What was feet away must have felt like miles, and Charles’s mind slipped between the present moment and every step he had previously run north from the fields in Culpeper County, Virginia. Though those fields held his footprints, Charles was determined they would not hold his future.",
-        "By the time he reached New York, the weight of those southern skies seemingly disappeared. In Troy, Charles found refuge; the bustling streets of the city hummed with industry and abolitionists’ quiet acts of defiance against the slave catchers who prowled too far from home.",
+        "Each stride closed the distance between Charles, the freedom seekers, and the ferrymen waiting on the west bank of the Hudson River, ready to help him cross to freedom. What was feet away must have felt like miles, and Charles’s mind slipped between the present moment and every step he had previously run north from the fields in Culpeper County, Virginia. Though those fields held his footprints, Charles was determined they would not hold his future.",
+        "By the time he reached Troy, New York, the weight of those southern skies seemingly disappeared. Here Charles found refuge; the bustling streets of the city hummed with industry and abolitionists’ quiet acts of defiance against the slave catchers who prowled too far from home.",
         "Shortly upon his arrival, Charles’s steady but guarded gaze met the focused eyes of Uri Gilbert, a carriage manufacturer and one of Troy’s wealthiest men. **\"Are you a Negro?” Charles was so taken aback by it, he didn’t know how or on what level to respond. It was, after all, the central and defining characteristic of his life, even if it was not always obvious in his appearance. Finally, he pulled himself together and managed to reply, “Well, sir, I suppose so.” Gilbert nodded and smiled.** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 95).",
         "It was there, surrounded by the opulence of Uri Gilbert’s grand brownstone mansion on 189 Second Street in Troy, NY, that Charles was offered work as a coachman. Day by day, Charles began to fall into the life of Troy, building an unassuming reputation known secretly by those who mattered. With time, his hands and the unspoken history written in their lines mastered the navigation of Gilbert’s carriages across cobbled streets, and his presence became familiar enough to seem invisible. But even in the most peaceful of places, the shadows of the past can cast themselves.",
         "Charles’s freedom was a thin veil, with captivity patiently watching from the other side. Unbeknownst to him, the fields of Culpeper County, Virginia, were closer to Charles than he could imagine. Just a few blocks away, on a morning in April 1860, outside a bakery where he was sent to fetch bread, captivity stepped out from the shadows to reveal its face."
@@ -101,7 +80,7 @@
   ],
   "historicalContext": [
     "Initially Mr. Gilbert’s son asked Mr. Henry, a Black grocery store owner and Charles’s landlord, about Charles’s whereabouts. Despite Mr. Henry not knowing, they worked together to rally Troy’s citizens to find and free Charles.",
-    "The Uri Gilbert Mansion served as a backdrop for the 1992 filming of Martin Scorsese’s “The Age of Innocence,” became the home of the Rensselaer County Arts Council, and was the Vanguard Show House of 2001.",
+    "The Uri Gilbert Mansion served as a backdrop for the 1992 filming of Martin Scorsese’s “The Age of Innocence,” became the home of the Rensselaer County Council of the Arts, and was the Vanguard Show House of 2001.",
     "With a population of 12,063, Culpeper was larger than half of Virginia’s 148 counties in 1860. More than half of that population was African American, including 6,675 slaves."
   ],
   "morals": [

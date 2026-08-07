@@ -28,7 +28,10 @@ export const rescuers: Person[] = [
   {
     name: "Peter Baltimore",
     role: "Barber · Underground Railroad",
-    note: "A free man of color whose high-class barbershop at Troy House doubled as the hub of Troy’s Underground Railroad. Gave $200 of the $1,000 raised to buy Charles’s freedom.",
+    /* Final review 2026-08-07: "next to the Troy House… They were two separate
+       houses" — Kathy. (The shop stood in the Athenaeum building, beside the
+       Troy House hotel.) */
+    note: "A free man of color whose high-class barbershop next to the Troy House doubled as the hub of Troy’s Underground Railroad. Gave $200 of the $1,000 raised to buy Charles’s freedom.",
     chapters: ["barbershop", "commissioners-office"],
   },
   {

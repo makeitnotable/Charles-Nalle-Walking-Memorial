@@ -104,24 +104,12 @@
     },
     {
       "label": "Part 2 — The Mob",
+      "sketchNote": "The brawl is worked nearly black at the center of the sheet, while the street behind it thins to bare paper and a few onlookers. A single club raised at the top marks the heart of the struggle — every figure in the drawing turns toward it.",
       "audio": {
         "label": "Chapter 2 | Pt. 2",
         "subtitle": "Commissioner’s Office",
         "file": "audio/ch2-commissioners-office-pt2.mp3",
-        "timings": [
-          {
-            "start": 1.2,
-            "end": 32.4
-          },
-          {
-            "start": 32.4,
-            "end": 82.7
-          },
-          {
-            "start": 82.7,
-            "end": 107.8
-          }
-        ],
+        "timings": null,
         "duration": 108
       },
       "quote": {
@@ -130,8 +118,9 @@
       },
       "paragraphs": [
         "Outside the Mutual Bank Building, the crowd grew larger, emotions heightened, and the sounds of protest grew deafening. Inside, sweat and the desperation of uncontrollable moments beaded down the frustrated faces of Chief Civil Rights attorney Martin Townsend and fellow Abolitionist and underground railroad barber Peter Baltimore as they frantically negotiated for Charles’s freedom. With thinning patience, Martin Townsend exclaimed, “If we can get him out into the crowd, we can raise the money in five minutes.”",
+        "Refusing to accept defeat, Townsend and Baltimore immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (almost $40,000 today) demanded by Hansbrough for Charles’s freedom—or fight for it once more.",
         "Moments later the downstairs door of the Mutual Bank building flung open and the protestors, primed by the words of Harriet Tubman—“Drag him to the river! Drown him! But don’t let them have him!”—erupted like a bull out of a bullpen. Charles was dragged out, the chains cuffing his hands shimmered in the sunlight. By the time he and his captors made it into the cobblestone street, **\"The crowd was like a lynch mob in reverse—instead of unleashing their fury to string him up, the ringleaders of this mass chaos vented all of their pent-up rage to turn the Negro loose and rescue him from doom\"** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113).",
-        "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they threw punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged—torn free by the sweeping mob—broke into a sprint and started running."
+        "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they threw punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged and, with the crowd, broke into a sprint and started running."
       ],
       "reveal": {
         "sketch": "sketch-pt2",

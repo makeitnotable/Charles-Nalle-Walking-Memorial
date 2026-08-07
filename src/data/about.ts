@@ -14,9 +14,9 @@ export const about = {
     header: "About the Project",
     kicker: "Overview",
     paragraphs: [
-      "The Charles Nalle Walking Memorial website and walking tour, created in Spring of 2025, is the result of a collaborative project between Rensselaer Polytechnic Institute’s Design, Innovation, and Society Studio B students and the City of Troy.",
-      "After discovering Charles Nalle’s story and the existing commemorative plaque, the team developed this contemporary memorial to help residents and visitors explore the complete narrative of the events that occurred in April 1860.",
-      "This project was made possible through partnerships with: RPI’s Science Technology and Society department, Troy’s Hart Cluett Museum, the Business Improvement District (BID), Notable Branding & Design, Professor Brian Tolle; students Madeleine McNairn, Fiona Clarke, Susan Nguyen, Sara Bayne, Jame Lang, and Jalen Edmonds; artists Mark and Licia Priest; and researchers Scott Christianson and Tamar Gordon.",
+      "The Charles Nalle Walking Memorial website and walking tour is the result of a collaborative project between Rensselaer Polytechnic Institute’s Design, Innovation, and Society Studio B students, the City of Troy, and the Hart Cluett Museum.",
+      "After discovering Charles Nalle’s story and the existing commemorative plaque, the team developed this contemporary memorial to help residents and visitors explore the complete narrative of the events that occurred on April 27, 1860.",
+      "This project was made possible through partnerships with: RPI’s Science Technology and Society department, Troy’s Hart Cluett Museum, the Business Improvement District (BID), Notable Branding & Design, Professors Brian Tolle and Brian Clyne; students Madeleine McNairn, Fiona Clarke, Susan Nguyen, Sara Bayne, Jame Lang, and Jalen Edmonds; artists Mark and Licia Priest; and researchers Scott Christianson and Tamar Gordon.",
     ],
   } satisfies AboutSection,
 
@@ -24,7 +24,7 @@ export const about = {
     header: "How the Tour Works",
     kicker: "On the sidewalk",
     steps: [
-      { title: "Start at the Memorial Kiosk" },
+      { title: "Start at the Memorial Plaque" },
       {
         title: "Follow the map to visit five historic locations from 1860:",
         bullets: [

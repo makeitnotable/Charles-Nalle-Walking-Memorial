@@ -178,3 +178,71 @@ that chapter structurally different from the other four for no authored reason.
 Three ways to close it, all needing a human: give every chapter a hook and
 design a slot; drop the field from the schema; or leave it as an author's note.
 Wil / Kathy to decide.
+
+## 2026-08-07 · FINAL REVIEW CALL — the definitive correction round (Kathy live, page by page)
+Source for every entry below: the recorded final review call, 7 Aug 2026 10:01 MDT
+(transcript in the project folder). Kathy approved every page section-by-section
+except the edits listed here. **This supersedes the 16-edit ledger above** — items
+from the old list that Kathy walked past and approved today (Uri Gilbert
+"wealthiest" phrasing, painting placements, Ch2 quotation, Athenaeum photo) are
+considered closed by that approval.
+
+**Narrated story text (audio must be regenerated to match — timings nulled where
+structure changed):**
+- HOME hero: "On April 27, 1860, the people of this city took Charles Nalle back… Harriet
+  Tubman stood with them." — date per Kathy (00:10:35); citizens-led reframe per Kathy
+  (00:05:13: "it's a group of Troy citizens… it was not her thing"). Exact sentence is
+  ours → flagged for written confirmation. Same reframe in the meta description.
+- CH2 Pt2 final line: deleted "torn free by the sweeping mob", added "and, with the
+  crowd," before "broke into a sprint" — Kathy dictated placement (00:27). He is never
+  depicted alone.
+- CH2 Pt2: the ransom/fundraising paragraph MOVED IN from Ch5 (00:49–00:52 — "he only
+  crossed the river once"; the fundraising happened at the commissioner's office).
+  Inserted between the negotiation ¶ and the door-flings-open ¶. Duplicate
+  name-introductions trimmed in the stitch (both men are introduced one ¶ earlier) —
+  flagged in the copy doc.
+- CH3 ¶1: "…between Charles, the freedom seekers, and the ferrymen waiting on the west
+  bank of the Hudson River…" — read back to Kathy, "Perfect. Perfect." (00:31)
+- CH3 ¶2: "By the time he reached Troy, New York… Here Charles found refuge" (00:34)
+- CH4 ¶4: "the local Watervliet police" → "the local West Troy police" (00:42)
+- CH5: opens on "Pushing their way through the gathering of another great crowd…";
+  its last line now "…the Corporation Hall Building grew" (00:52); closing ¶ rebuilt on
+  Kathy's dictation — Schenectady safe houses → Canada, St. Catharines, the safe house
+  OWNED BY HARRIET TUBMAN, where word of the ransom reached him (00:53–00:54).
+  "in vs near Schenectady" flagged.
+- CH4 ¶2 (the river leap) — **UNTOUCHED, under Kathy's explicit asterisk** pending her
+  check of Christianson. Both variants pre-written in `CNWM - Final Copy for Kathy.md`.
+
+**Non-narrated:**
+- CH1 historical context: "the richest city" → "one of the richest cities" (00:18);
+  final history line ends at "…a community-led rescue." (Tubman clause cut, 00:19)
+- CH3 historical context: "Rensselaer County Arts Council" → "Rensselaer County Council
+  of the Arts" (00:36 — Kathy's final self-correction was OF; official form may be
+  "Council FOR the Arts" → flagged)
+- CH4 historical context: "into Watervliet" → "into West Troy" (00:43)
+- CH5 historical context: cut the word "ultimately" before "triggering the Civil War" (00:56)
+- PEOPLE: Peter Baltimore "at Troy House" → "next to the Troy House" — "two separate
+  houses" (00:58). People page otherwise approved name-by-name.
+- ABOUT: "Spring of 2025" removed (typo — real kickoff year pending Brian Clyne);
+  Hart Cluett Museum added to the collaboration line; "in April 1860" → "on April 27,
+  1860"; "Professor Brian Tolle" → "Professors Brian Tolle and Brian Clyne";
+  "Memorial Kiosk" → "Memorial Plaque" (01:04). Samantha + possible Kathy/Amanda
+  credits and the RPI department name are PENDING the confirmation email.
+- FOOTER (site-wide): route disclaimer added per Brian (00:21) — wording ours, flagged.
+- People/index meta descriptions: Tubman no longer leads the lists.
+
+**Artist studies (full image↔caption review, all six):**
+- bakery / commissioners-office pt1 / mansion / barbershop notes verified against
+  their drawings — match, unchanged.
+- ferry `sketchNote` REWRITTEN — the old note described a sparse "distance, not
+  struggle" sheet; the actual study is a dense foreground scrum. New note describes
+  the drawing on the page.
+- commissioners-office Pt2 scene `sketchNote` AUTHORED (the restored second theme's
+  study hung with credit only). Both new notes are in the copy doc for Kathy +
+  Mark Priest.
+
+**Held / pending:** jump verdict (Ch4 text+audio) · 1840s LOC map (replaces the 1819
+plate mislabeled "1860" in BOTH the /map lens and the Ch2 Pt2 interlude, with honest
+captions) · kickoff year · RPI dept name · Samantha spelling · credit consents ·
+new narration for ch2pt1 (Liberty St audio error), ch2pt2, ch3, ch5 (+ch4 after
+verdict) — timings regenerate via scripts/audio-timings.mjs when files land.

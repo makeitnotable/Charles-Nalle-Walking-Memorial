@@ -285,13 +285,17 @@ export default function AudioStory({
 
   const renderItem = (item: Item, globalIndex: number) => {
     if (item.type === "media") {
+      /* Final review (2026-08-07), Wil's own note: the in-narrative paintings
+         ran the full transcript column — the vertical canvases especially were
+         "a little bit too big." The box now fits the image, capped at 64vh, so
+         a portrait plate no longer owns two screens of scroll. */
       return (
-        <div key={`m-${globalIndex}`} className="artifact relative my-10">
+        <div key={`m-${globalIndex}`} className="artifact relative mx-auto my-10 w-fit">
           <picture>
             <source type="image/avif" srcSet={base(`media/${slug}/${item.mediaKey}-poster-800.avif`)} />
             <source type="image/webp" srcSet={base(`media/${slug}/${item.mediaKey}-poster-800.webp`)} />
             <img
-              className="story-film-poster h-auto w-full transition-opacity"
+              className="story-film-poster max-h-[64vh] w-auto max-w-full transition-opacity"
               style={{ transitionDuration: "var(--dur-slow)" }}
               src={base(`media/${slug}/${item.mediaKey}-poster.jpg`)}
               alt={`Animated painting — ${subtitle}`}
