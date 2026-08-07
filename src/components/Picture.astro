@@ -8,6 +8,8 @@ interface Props {
   sizes?: string;
   class?: string;
   loading?: "lazy" | "eager";
+  /** Srcset ladder. Thumbnail slots should pass a small one — see lib/media.ts. */
+  widths?: number[];
 }
 
 const {
@@ -17,8 +19,9 @@ const {
   sizes = "(min-width: 768px) 42rem, 100vw",
   class: className,
   loading = "lazy",
+  widths,
 } = Astro.props;
-const p = picture(slug, imageKey);
+const p = picture(slug, imageKey, widths);
 ---
 
 <picture>

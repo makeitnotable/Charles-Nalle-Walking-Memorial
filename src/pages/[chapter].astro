@@ -25,10 +25,8 @@
  */
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
-import Picture from "../components/Picture.astro";
 import AudioStory from "../components/AudioStory";
 import EmbedMap from "../components/EmbedMap";
-import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Lines from "../components/Lines.astro";
@@ -60,8 +58,35 @@ const cameras: Record<number, { pitch: number; bearing: number; zoom: number }> 
 const camera = cameras[c.order] ?? { pitch: 33, bearing: 10, zoom: 15.25 };
 
 const hasHistoricalVideo = c.media.videos.includes("historical");
-const moral = c.morals[0];
 const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * EVERY authored moral renders.
+ *
+ * This line used to read `const moral = c.morals[0]`. Chapter 2 is the only
+ * chapter with two, so its second theme — "FREEDOM ISN'T FREE" — was written,
+ * corrected, approved, and then never once appeared on the website. The
+ * ground and the study it was always meant to hang beside (`moral-pt2`,
+ * `sketch-pt2`) have been sitting unused in public/media the whole time.
+ *
+ * Moral N pairs with scene N: the twin template's second half gets its own
+ * theme, its own ground, and its own study, exactly like the first.
+ */
+const morals = c.morals.map((m, i) => {
+  const scene = c.scenes[i] ?? c.scenes[0];
+  return {
+    ...m,
+    key: c.morals.length > 1 ? `moral-${i}` : "moral",
+    rail: c.morals.length > 1 ? `The moral · Pt ${i + 1}` : "The moral",
+    /** Ch2's second theme has its own full-bleed ground; one-moral chapters keep `moral`. */
+    ground: i === 0 ? "moral" : `moral-pt${i + 1}`,
+    sketchKey: scene.reveal?.sketch ?? null,
+    /* Never invent a caption: scene 1 uses the chapter note, a later scene
+       uses its own if one has been written. Ch2 Pt 2's is outstanding —
+       docs/CONTENT-STATUS.md. */
+    note: i === 0 ? c.sketchNote : (scene.sketchNote ?? null),
+  };
+});
 
 /**
  * THE INTERLUDE — the full-bleed beat between the sketch and the history.
@@ -118,9 +143,8 @@ c.scenes.forEach((_, i) => {
   });
 });
 sections.push({ key: "history", rail: "History" });
-if (moral) sections.push({ key: "moral", rail: "The moral" });
+morals.forEach((m) => sections.push({ key: m.key, rail: m.rail }));
 sections.push({ key: "onward", rail: "Onward" });
-const num = (key: string) => pad2(sections.findIndex((s) => s.key === key) + 1);
 
 /** Longest authored line in a display string — drives the fit-clamp. */
 const longestLine = (t: string) => Math.max(...t.split("\n").map((l) => l.trim().length));
@@ -439,13 +463,13 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
    </div>
   </section>
 
-  {/* ══════ THE MORAL — full-bleed, one artifact ══════ */}
+  {/* ══════ THE MORAL(S) — full-bleed, one artifact each ══════ */}
   {
-    moral && (
-      <section class="beat relative" id="moral" aria-labelledby="moral-heading">
+    morals.map((m) => (
+      <section class="beat relative" id={m.key} aria-labelledby={`${m.key}-heading`}>
         <div class="absolute inset-0" aria-hidden="true">
           <img
-            src={withBase(`media/${slug}/moral-1440.jpg`)}
+            src={withBase(`media/${slug}/${m.ground}-1440.jpg`)}
             alt=""
             class="h-full w-full object-cover"
             style="object-position: center 25%"
@@ -459,28 +483,30 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         <div class="shell relative z-10 py-32 md:py-40">
           <div class="sec-head"></div>
         <div class="editorial mt-8">
-            <ChapterSpine sections={sections} current="moral" />
+            <ChapterSpine sections={sections} current={m.key} />
             <div>
               <h2
-                id="moral-heading"
+                id={`${m.key}-heading`}
                 class="t-display lines"
-                style={`--fit-chars: ${longestLine(moral.title)}`}
+                style={`--fit-chars: ${longestLine(m.title)}`}
               >
-                <Lines text={moral.title} />
+                <Lines text={m.title} />
               </h2>
-              <p class="t-prose reveal mt-12">{moral.message}</p>
+              <p class="t-prose reveal mt-12">{m.message}</p>
 
               {/* Item 18: the sketch hangs HERE, in the theme section, per the
                   Figma placement — the press-and-hold is retired and "the
                   sketch comes alive" now belongs to the museum. It is the
-                  viewport's one framed artifact. */}
+                  viewport's one framed artifact. Each scene hangs its OWN
+                  study, so Ch2 Pt 2 gets `sketch-pt2` rather than a second
+                  copy of Pt 1's drawing. */}
               {
-                c.scenes[0].reveal && (
+                m.sketchKey && (
                   <figure class="reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-end">
                     <div class="artifact border border-primary-7">
                       <img
-                        src={withBase(`media/${slug}/sketch-1440.jpg`)}
-                        srcset={`${withBase(`media/${slug}/sketch-800.webp`)} 800w, ${withBase(`media/${slug}/sketch-1440.webp`)} 1440w`}
+                        src={withBase(`media/${slug}/${m.sketchKey}-1440.jpg`)}
+                        srcset={`${withBase(`media/${slug}/${m.sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${m.sketchKey}-1440.webp`)} 1440w`}
                         sizes="(min-width: 768px) 420px, 100vw"
                         alt={`Study for “${c.name.canonical}” — Mark Priest`}
                         loading="lazy"
@@ -490,7 +516,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
                     </div>
                     <figcaption class="mt-8 max-w-[44ch] md:mt-0">
                       <p class="t-meta">The artist's study</p>
-                      <p class="t-prose mt-4">{c.sketchNote}</p>
+                      {m.note && <p class="t-prose mt-4">{m.note}</p>}
                       <p class="t-meta-body mt-4">Mark Priest · Nalle Series</p>
                     </figcaption>
                   </figure>
@@ -500,14 +526,14 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               {/* Mid-register voice (E4 juror): the call to action stops
                   whispering — its title is a title, not a breadcrumb. */}
               <div class="reveal rule-top mt-16 max-w-[52ch] pt-8">
-                <p class="t-title-sm">{moral.callToAction.title}</p>
-                <p class="t-prose mt-4">{moral.callToAction.content}</p>
+                <p class="t-title-sm">{m.callToAction.title}</p>
+                <p class="t-prose mt-4">{m.callToAction.content}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-    )
+    ))
   }
 
   {/* ══════ ONWARD ══════ */}

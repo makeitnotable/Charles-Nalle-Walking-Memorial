@@ -28,6 +28,14 @@ const scene = z.object({
     source: z.string().optional(),
   }),
   paragraphs: z.array(z.string()),
+  /**
+   * What to say beside THIS scene's pencil study, when a chapter runs more
+   * than one. The chapter-level `sketchNote` covers scene 1; a chapter with a
+   * second scene (only Ch2 today) needs its own note here or the second study
+   * hangs with the credit block alone. Optional so the caption is never
+   * invented — see docs/CONTENT-STATUS.md.
+   */
+  sketchNote: z.string().optional(),
   /** Press-and-hold hero: media keys into public/media/<slug>/ */
   reveal: z
     .object({

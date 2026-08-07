@@ -12,6 +12,12 @@ interface Props {
   menuPosition?: "top-right" | "bottom-right";
   /** Hide the floating menu (styleguide/internal pages). */
   noMenu?: boolean;
+  /**
+   * Keep the page out of search results. Internal proof sheets are publicly
+   * reachable by design (no server to gate them) but must never be indexed
+   * alongside the memorial itself.
+   */
+  noIndex?: boolean;
   /** Preload the page's LCP image so it starts with the HTML parse. */
   preloadImage?: string;
   /** Art-directed LCP preloads (chapter heroes: portrait vs landscape poster). */
@@ -23,6 +29,7 @@ const {
   description,
   menuPosition = "top-right",
   noMenu = false,
+  noIndex = false,
   preloadImage,
   preloadImages = [],
 } = Astro.props;
@@ -41,6 +48,7 @@ const canonical = new URL(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
     <meta name="theme-color" content="#1d1411" />

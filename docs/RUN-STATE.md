@@ -158,14 +158,20 @@ inputs. EXCEEDED verdict deferred to the full-site gate by design.
   **Queued for Wil in REVIEW-GUIDE** — if he wants the Figma sentence
   verbatim, it's a one-line swap.
 
-## CARRIED FORWARD from v5 (open ledger)
-Juror pass 1 (6.8/10, `docs/v5/juror-pass1.md`): **3 open P0s** —
-P0-4 painting dialog clipped at 844×390 (→ Phase 4, fix in fallback grid
-regardless); P0-5 map stop labels anonymous on phones (→ Phase 3); P0-6 1860
-overlay ungeoreferenced (→ Phase 3, bounded alignment attempt else artifact
-presentation + REVIEW-GUIDE). Plus **26 P1 · 19 P2** itemised in juror-pass1.md
-(heaviest clusters: `/map` P1-2…7, 11, 25, 26; press-reveal P1-15…17, 20 — the
-press-reveal cluster dies with PressReveal's retirement in Phase 2).
+## CARRIED FORWARD from v5 (open ledger) — CLOSED 2026-08-07
+This block used to say "**3 open P0s**" while the rest of this same file
+recorded all three as dead. It was read as live by the 2026-08-04 stakeholder
+audit. Resolved state, for the record:
+
+| v5 juror pass 1 P0 | Status |
+|---|---|
+| P0-4 painting dialog clipped at 844×390 | **Dead** — superseded by the P4 museum; the fallback grid's dialog fixed via `open:flex` |
+| P0-5 map stop labels anonymous on phones | **Dead** — the active chip carries its name (Phase 3) |
+| P0-6 1860 overlay ungeoreferenced | **Decided, not open** — D4: it stays a framed plate. Georeferencing it would invent accuracy the plate never had |
+
+Remaining from that pass: **26 P1 · 19 P2** itemised in `docs/v5/juror-pass1.md`,
+swept through the v6 item list. The press-reveal cluster (P1-15…17, 20) died
+with PressReveal's retirement in Phase 2.
 
 ## BLOCKED / NOTES (v6)
 - Branch hazard: local `main` tracks `origin/v2`. Plain `git push` only.

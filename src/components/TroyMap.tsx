@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
+/**
+ * TYPES ONLY. The Mapbox runtime is 486 KB of script and ~14.5 seconds of CPU
+ * on the throttled mobile profile — and as a static import it sat in this
+ * island's eager bundle, so nothing on /map could paint until the whole thing
+ * had downloaded and parsed. It is now loaded as its own chunk from the
+ * lifecycle effect below. A `import type` is erased at build time and costs
+ * nothing. The stylesheet stays static: it is small, and check-css.mjs guards
+ * island CSS being present at first paint.
+ */
+import type * as MapboxGL from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -21,7 +30,8 @@ import ROUTE from "../data/route.json";
  * instantly, the tour steps.
  */
 
-mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+/** Applied to the Mapbox runtime once it lands (see the lifecycle effect). */
+const TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
 const STYLE = "mapbox://styles/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft";
 
 const OVERVIEW = {
@@ -171,10 +181,12 @@ function markerHtml(stop: Stop, active: boolean): string {
 const routeLine = ROUTE.coordinates as [number, number][];
 
 export default function TroyMap({ stops, baseUrl }: Props) {
-  const hasToken = Boolean(mapboxgl.accessToken);
+  const hasToken = Boolean(TOKEN);
   const container = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
-  const markersRef = useRef<{ marker: mapboxgl.Marker; stop: Stop }[]>([]);
+  const mapRef = useRef<MapboxGL.Map | null>(null);
+  const markersRef = useRef<{ marker: MapboxGL.Marker; stop: Stop }[]>([]);
+  /** The Mapbox runtime, once its chunk has landed. Null until then. */
+  const glRef = useRef<typeof MapboxGL.default | null>(null);
 
   useEffect(() => {
     // The server-rendered placeholder is a first-paint device; left in the DOM
@@ -185,6 +197,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lens, setLens] = useState(false);
+  /** Latches true the first time the 1860 lens opens — see the <figure> below. */
+  const [lensSeen, setLensSeen] = useState(false);
   const [touring, setTouring] = useState(false);
   const [hintOpen, setHintOpen] = useState(false);
   const [arrivalStop, setArrivalStop] = useState<Stop | null>(null);
@@ -249,8 +263,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
    * approved overview exactly; narrow ones pull back just enough). */
   const overviewCamera = useCallback(() => {
     const map = mapRef.current;
-    if (!map) return OVERVIEW;
-    const b = new mapboxgl.LngLatBounds();
+    const gl = glRef.current;
+    /* `map` only exists once the runtime has landed, so `gl` is non-null
+       wherever `map` is — the guard is belt-and-braces for the type. */
+    if (!map || !gl) return OVERVIEW;
+    const b = new gl.LngLatBounds();
     stops.forEach((s) => b.extend(s.coordinates));
     /* The padding has to clear the LABELS, not the dots. A named pill runs up
        to ~210px and hangs off its coordinate on a leader line, so 48px of side
@@ -351,6 +368,22 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   // ——— Map lifecycle (single instance) ———
   useEffect(() => {
     if (!hasToken || !container.current || mapRef.current) return;
+
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
+
+    /**
+     * The Mapbox runtime arrives as its own chunk, after this island has
+     * mounted. Nothing about the experience changes — the map still loads by
+     * itself with no interaction required — but the carousel, the controls and
+     * the typographic index below now paint without waiting behind half a
+     * megabyte of mapping engine.
+     */
+    void (async () => {
+      const mapboxgl = (await import("mapbox-gl")).default;
+      if (cancelled || !container.current || mapRef.current) return;
+      glRef.current = mapboxgl;
+      mapboxgl.accessToken = TOKEN;
 
     const deepSlug = new URL(location.href).searchParams.get("stop");
     const deepIdx = stops.findIndex((s) => s.slug === deepSlug);
@@ -470,7 +503,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         let i = 1;
         const draw = () => {
           i += 5;
-          (map.getSource("route") as mapboxgl.GeoJSONSource).setData({
+          (map.getSource("route") as MapboxGL.GeoJSONSource).setData({
             type: "Feature",
             properties: {},
             geometry: { type: "LineString", coordinates: route.slice(0, i) },
@@ -498,7 +531,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             duration: 5000,
             curve: 1.4,
             essential: true,
-          } as Parameters<mapboxgl.Map["easeTo"]>[0]);
+          } as Parameters<MapboxGL.Map["easeTo"]>[0]);
       } else {
         const target = overviewCamera();
         if (reduced) {
@@ -559,11 +592,19 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       }
     });
 
-    return () => {
+    teardown = () => {
       ro.disconnect();
       map.remove();
       mapRef.current = null;
       markersRef.current = [];
+    };
+    /* Unmounted while the chunk was in flight: tear the map straight back down. */
+    if (cancelled) teardown();
+    })();
+
+    return () => {
+      cancelled = true;
+      teardown?.();
     };
   }, []);
 
@@ -696,13 +737,19 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         aria-hidden={!lens}
       >
         <figure className="max-h-full">
-          <img
-            src={`${baseUrl}/media/site/troy-1860-1440.jpg`}
-            srcSet={`${baseUrl}/media/site/troy-1860-800.webp 800w, ${baseUrl}/media/site/troy-1860-1440.webp 1440w`}
-            sizes="100vw"
-            alt="Map of Troy, New York in 1860"
-            className="artifact max-h-[75dvh] w-auto"
-          />
+          {/* Mounted on first open, not on page load. Sitting in the DOM at
+              opacity 0 it was still a 68 KB download on every visit to /map —
+              paid by everyone, used by the few who open the lens. The element
+              stays mounted afterwards so the fade still runs both ways. */}
+          {lensSeen && (
+            <img
+              src={`${baseUrl}/media/site/troy-1860-1440.jpg`}
+              srcSet={`${baseUrl}/media/site/troy-1860-800.webp 800w, ${baseUrl}/media/site/troy-1860-1440.webp 1440w`}
+              sizes="100vw"
+              alt="Map of Troy, New York in 1860"
+              className="artifact max-h-[75dvh] w-auto"
+            />
+          )}
           <figcaption className="t-meta mt-4 text-center">
             Troy, New York · 1860
           </figcaption>
@@ -788,7 +835,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           </button>
           <button
             type="button"
-            onClick={() => setLens((v) => !v)}
+            onClick={() => {
+              setLensSeen(true);
+              setLens((v) => !v);
+            }}
             aria-pressed={lens}
             className="link-meta t-meta rounded-full px-4 py-3"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
@@ -863,13 +913,26 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       }}
                     >
                       <div className="h-full flex-shrink-0">
-                        <img
-                          src={`${baseUrl}/media/${stop.slug}/square-800.webp`}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          className="h-[128px] w-[128px] border-r border-primary-6 object-cover sm:h-[160px] sm:w-[160px] lg:h-[192px] lg:w-[192px]"
-                        />
+                        {/* 192 CSS px at the largest = 384 device px at DPR2.
+                            This used to load `square-800.webp` — 592 KB across
+                            the five cards, every byte of it fetched while the
+                            map itself was still loading. The 400 tier is the
+                            size actually rendered (scripts/build-carousel-tier.mjs). */}
+                        <picture>
+                          <source
+                            type="image/avif"
+                            srcSet={`${baseUrl}/media/${stop.slug}/square-400.avif`}
+                          />
+                          <img
+                            src={`${baseUrl}/media/${stop.slug}/square-400.webp`}
+                            alt=""
+                            width={400}
+                            height={400}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-[128px] w-[128px] border-r border-primary-6 object-cover sm:h-[160px] sm:w-[160px] lg:h-[192px] lg:w-[192px]"
+                          />
+                        </picture>
                       </div>
                       <div className="flex h-full w-2/3 flex-col justify-between p-3">
                         <div className="m-1 flex flex-row items-center justify-between">

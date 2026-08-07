@@ -92,11 +92,15 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
                   building is also the more useful thing when the index is being
                   used for what it is — finding a door on a street. */}
               <span class="overflow-hidden rounded-[12px]">
+                {/* 112 CSS px at the largest. With only 800/1440 offered the
+                    browser had to take the 800 for every row — five of them,
+                    ~250 KB, competing with the map's own load. */}
                 <Picture
                   slug={entry.id}
                   imageKey="historical"
                   alt=""
                   sizes="7rem"
+                  widths={[400, 800]}
                   class="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 sm:h-28 sm:w-28"
                 />
               </span>

@@ -120,3 +120,61 @@ word-internal straight apostrophes.
 bakery.json says "($35,000 today)"; barbershop.json says "(almost
 $40,000 today)" for the same 1860 sum. A fact question, so NOT edited —
 needs one number chosen by Kathy/Wil (v6 juror pass 3, P2).
+
+## 2026-08-07 · Ch2's second theme restored to the site
+**"FREEDOM ISN'T FREE" had never rendered.** `[chapter].astro` read
+`c.morals[0]`, and Chapter 2 is the only chapter authored with two morals — so
+the second theme, its message and its call to action ("What freedom costs to
+keep") were written, corrected and approved, and then never once appeared on a
+page. Confirmed absent from the live HTML on 2026-08-04.
+
+The template now renders every authored moral. Moral N pairs with scene N, so
+Ch2 Pt 2 draws its own full-bleed ground (`moral-pt2`) and its own study
+(`sketch-pt2`) — both assets have been sitting unused in `public/media` since
+the media build. The editorial spine numbers accordingly: Ch2 now runs
+01 Listen Pt 1 · 02 Listen Pt 2 · 03 History · 04 The moral Pt 1 ·
+05 The moral Pt 2 · 06 Onward. One-moral chapters are byte-identical to before.
+
+**No prose was written, rewritten or paraphrased** — the restored text is
+exactly what `commissioners-office.json` has always held.
+
+### ⏳ Open: Ch2 Pt 2 needs a `sketchNote`
+Every chapter has one authored note describing its study. Ch2 now hangs two
+studies but has one note, so **Pt 2's study currently shows the credit block
+with no descriptive line**. Deliberately left blank rather than invented.
+Drop a `sketchNote` on the second scene in `commissioners-office.json` (the
+scene schema now accepts one) and it renders. Mark Priest should read it, as
+he should the other five.
+
+## 2026-08-07 · Two mechanical spelling corrections
+`barbershop.json` `portal.history` kept British spellings the v6 US-spelling
+pass missed: "centre" → "center", "organise" → "organize". Mechanical, no fact
+touched — same class as the 2026-08-03 normalization.
+
+## 2026-08-07 · Retired name string removed from Ch2
+Two `scenes[].audio.subtitle` values still read "Office of the Commissioner", a
+name the naming canon retired (D1). They render nowhere — the chapter template
+passes `c.name.canonical` to `AudioStory` — but they were visible to anyone
+reading the JSON and would have been a trap for the next editor. Now
+"Commissioner's Office".
+
+**Still open and untouched, needing Kathy:** the "richest man" ruling, the
+exact Peter Baltimore quotation wording, the two arrow relocations, the Pliny
+Moore caption, the Athenaeum and Peter Baltimore images, the $35,000/$40,000
+figure, the Ferry skiff narrative rewrite, and her read of the condensed
+`portal.history` prose. None of these were changed by this pass.
+
+## ⏳ Open question: `mansion.json` carries a `portal.hook` that renders nowhere
+Uri Gilbert Home is the **only** chapter with a non-null `portal.hook`
+("People will ignore your efforts to steal your opportunities."). All four
+other chapters have `null`, and no template reads the field.
+
+Deliberately **not** rendered by the 2026-08-07 pass. Ch2's second moral was
+restored because the design clearly intended it — a second ground and a second
+study were already sitting in `public/media` waiting for it. A hook has no such
+slot, and inventing a placement for the one chapter that has one would make
+that chapter structurally different from the other four for no authored reason.
+
+Three ways to close it, all needing a human: give every chapter a hook and
+design a slot; drop the field from the schema; or leave it as an author's note.
+Wil / Kathy to decide.
