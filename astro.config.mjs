@@ -5,11 +5,11 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
 // Deploys as the `v2` branch of makeitnotable/Charles-Nalle-Walking-Memorial.
-// Vercel (project notableprojects/charles-nalle-walking-memorial) is the launch
-// target and builds every push to `v2` as a preview from "/"; the GH Pages
-// workflow overrides SITE and BASE for the zero-cost handoff build.
-const site =
-  process.env.SITE ?? "https://charles-nalle-walking-memorial.vercel.app";
+// GitHub Pages is the ONLY deploy target (the workflow sets SITE and BASE);
+// the old Vercel project served a superseded 2024 prototype and is being
+// decommissioned (2026-08-07). This fallback only shapes canonical/og URLs in
+// local QA builds, which are never published.
+const site = process.env.SITE ?? "https://makeitnotable.github.io";
 const base = process.env.BASE ?? "/";
 
 // https://astro.build/config

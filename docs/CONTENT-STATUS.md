@@ -246,3 +246,21 @@ plate mislabeled "1860" in BOTH the /map lens and the Ch2 Pt2 interlude, with ho
 captions) · kickoff year · RPI dept name · Samantha spelling · credit consents ·
 new narration for ch2pt1 (Liberty St audio error), ch2pt2, ch3, ch5 (+ch4 after
 verdict) — timings regenerate via scripts/audio-timings.mjs when files land.
+
+## 2026-08-07 (later) · Wil's answers to the open flags
+- RPI department: **"Science and Technology Studies"** (Brian Clyne confirmed) — About
+  partnerships line corrected.
+- Ch5: "safe house to safe house **near** Schenectady" (was "in") — narrated; ch5
+  re-record already queued, no extra audio work.
+- "Rensselaer County **Council of the Arts**" CONFIRMED as printed — flag closed.
+- Credits decision: **Kathy, Amanda and Samantha are NOT added individually** — the
+  Hart Cluett Museum credit covers the museum team (Kathy's own suggestion on the
+  call). Brian Clyne stays listed with Brian Tolle as professors. Samantha's spelling
+  for the record: **Samantha Mahoski**. Note: Brian Clyne's call recap asked to "add
+  me and Samantha" — Wil to mention the museum-credit approach in the team email.
+- Speaker attribution confirmed: the two Brians are Brian Tolle (plaques/building
+  dept) and Brian Clyne (RPI/About) — email attributions stand.
+- Vercel: fallback URL removed from astro.config, vercel.json deleted; dashboard
+  deletion is Wil's (instructions provided). Nothing live depends on it.
+STILL PENDING: jump verdict · 1840s map · kickoff year · Kathy's copy-doc
+confirmation · ElevenLabs audio · handoff sequence.
