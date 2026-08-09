@@ -336,3 +336,18 @@ than the 1845" 6:44 PM).
 COPY IS LOCKED. All six narrations may now be generated from
 `CNWM - Audio Scripts - FINAL.md` (project folder), which is produced directly
 from these JSONs.
+
+## 2026-08-09 (later) · Wil's final three rulings
+1. **"Stops is now Spots"** — Kathy's "Five spots" was intentional. The walk
+   vocabulary changed site-wide in every user-visible string: home hero + CTA,
+   about/people CTAs, chapter "Spot NN of 5" / "· continued" / "Next — Spot",
+   map heading "Five spots through Troy" + description + index + "Four spots
+   carry bronze plaques", people cards "Spot N ·", paintings "Spot N",
+   WalkProgress, TroyMap chip/arias/fallback. Code identifiers (`?stop=`,
+   props, functions) unchanged. Narration contains neither word — audio
+   scripts unaffected.
+2. Grammar pass confirmed — the mechanical hyphens/commas on Kathy's raw
+   edits stand.
+3. **Footer FINAL (verbatim, replaces the merged version):** "Walking routes
+   and directions are suggestions only. Explore at your own pace, discretion,
+   and risk." Brian C.'s general-liability sentence removed per Wil.

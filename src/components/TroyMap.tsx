@@ -570,7 +570,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         el.innerHTML = markerHtml(stop, false);
         el.setAttribute(
           "aria-label",
-          `Stop ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
+          `Spot ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
         );
         el.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -852,7 +852,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         <div>
           <p className="t-meta">The interactive map is warming up</p>
           <p className="t-prose mx-auto mt-3 max-w-md">
-            This build is missing its map key. Every stop on the walk is listed
+            This build is missing its map key. Every spot on the walk is listed
             below with addresses and links to each chapter.
           </p>
         </div>
@@ -953,7 +953,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="t-meta rounded-full px-4 py-2"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
           >
-            Five stops · April 27, 1860
+            Five spots · April 27, 1860
           </p>
         </div>
       )}
@@ -1090,7 +1090,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       aria-label={
                         isActive
                           ? `Enter Chapter ${stop.order}: ${stop.cardTitle}`
-                          : `Focus stop ${stop.order}: ${stop.cardTitle}`
+                          : `Focus spot ${stop.order}: ${stop.cardTitle}`
                       }
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {

@@ -11,7 +11,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { fitChars } from "../lib/text";
 import route from "../data/route.json";
-const MAP_HEADING = "Five stops<br />through Troy";
+const MAP_HEADING = "Five spots<br />through Troy";
 
 const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -37,7 +37,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
     lane: bottom-right, clear of the map's own top chrome. */}
 <Base
   title="Map — Charles Nalle Walking Memorial"
-  description="The route of the Charles Nalle rescue through downtown Troy, NY: five stops from the bakery where he was seized to the barbershop where his freedom was won."
+  description="The route of the Charles Nalle rescue through downtown Troy, NY: five spots from the bakery where he was seized to the barbershop where his freedom was won."
   menuPosition="bottom-right"
 >
 
@@ -51,7 +51,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
   </div>
 
   {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
-  <section class="shell sec" aria-label="The five stops">
+  <section class="shell sec" aria-label="The five spots">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
       <div class="rail">
@@ -62,7 +62,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
         <h1 class="t-display reveal" style={fitChars(MAP_HEADING)} set:html={MAP_HEADING} />
         <p class="t-prose reveal mt-10">
           The rescue of Charles Nalle unfolded across a few blocks of downtown
-          Troy in a single day — April 27, 1860. Four stops carry bronze
+          Troy in a single day — April 27, 1860. Four spots carry bronze
           plaques; the Ferry Landing is remembered here on the website.
         </p>
         {/* The walk has a size, and saying it is the difference between a map
@@ -105,7 +105,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
                 />
               </span>
               <span class="min-w-0">
-                <span class="t-meta block">Stop {String(entry.data.order).padStart(2, "0")}</span>
+                <span class="t-meta block">Spot {String(entry.data.order).padStart(2, "0")}</span>
                 <span class="t-title-sm mt-3 block">
                   {entry.data.name.canonical}
                 </span>
