@@ -60,24 +60,7 @@
         "label": "Chapter 4",
         "subtitle": "Washington Street Ferry Landing",
         "file": "audio/ch4-ferry.mp3",
-        "timings": [
-          {
-            "start": 1.2,
-            "end": 34.6
-          },
-          {
-            "start": 34.6,
-            "end": 78.3
-          },
-          {
-            "start": 78.3,
-            "end": 102.8
-          },
-          {
-            "start": 102.8,
-            "end": 135
-          }
-        ],
+        "timings": null,
         "duration": 135
       },
       "quote": {
@@ -88,9 +71,9 @@
       "paragraphs": [
         "Behind Charles, the mob and his captors surged through the streets of Troy, pressing toward the Washington Street Ferry Landing. Finally, the distance between Charles and freedom felt reachable, but fate had other plans. Ahead, Charles could see the ferry departing; the old wood planks beneath his feet seemed to creak with the weight of his despair as he watched the ferry float upriver, leaving only a trail of churning water in its wake—another reminder that freedom was fleeting and didn’t come easily or without a fight.",
         "@media:narrative1",
-        "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their every footfall becoming louder with each passing second. By now, the trail of churning water had disappeared with the ferry. Charles hurled himself into the cold embrace of the dark and forbidding Hudson. His body disappeared, the crowd gasped, and Marshal Holmes and the slave catchers froze. A deafening silence stole the sound from the air. From the icy depths below, Charles emerged, and the unbearable silence was replaced by an eruption of cheers from the crowd.",
+        "Bound and shackled, standing at the edge of the Hudson, Charles could feel his options thinning and the desperation of the moment growing. Marshal Holmes and the slave catchers were closing in fast, the sound of their footfalls growing louder with each passing second. By now, the trail of churning water from the ferry had disappeared and, seemingly, along with it, the path to freedom.",
         "@media:narrative2",
-        "In a quick-thinking rescue effort, local waterman Billy Loreman scrambled into a small skiff, his oars cutting through the water with practiced precision. Nearly exhausted from his fight against the river current, he mustered just enough strength to pull a still-bound and shackled Charles from the water’s grip to safety. From the shore, the dumbfounded shouting of Marshal Holmes and slave catchers grew quieter.",
+        "Then, in a quick-thinking rescue effort, local waterman Billy Loreman, with the help of willing hands, pulled a still-bound Charles aboard a small skiff, his oars cutting through the water with practiced precision in an all-out effort for the far shore. From the landing behind them, the dumbfounded shouting of Marshal Holmes and the slave catchers grew quieter.",
         "Behind him, the rage-filled faces of Marshal Holmes and the slave catchers radiated enough heat to dry up the Hudson. Across the river in West Troy (modern-day Watervliet), freedom lay just feet away—freedom that vanished no slower than the time it took Billy Loreman to secure the skiff. From an eyeshot’s distance, Charles could see the local West Troy police strutting toward him in a pompous march, ready to rip the taste of freedom from his mouth and send shockwaves through the Troy abolitionist community."
       ],
       "reveal": {

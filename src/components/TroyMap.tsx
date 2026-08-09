@@ -197,8 +197,142 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lens, setLens] = useState(false);
-  /** Latches true the first time the 1860 lens opens — see the <figure> below. */
+  /** Latches true the first time the 1858 lens opens — see the <figure> below. */
   const [lensSeen, setLensSeen] = useState(false);
+
+  /* ——— The 1858 map viewer (Kathy, 8/7: "do not crop allow pan and zoom") ———
+   * Pure ref state: the transform mutates the <img> node directly so a 60fps
+   * drag never re-renders this (large) island. Scale 1 = the whole plate
+   * fitted; 6 ≈ street-name legibility on the 4096px asset. */
+  const lensBoxRef = useRef<HTMLDivElement>(null);
+  const lensImgRef = useRef<HTMLImageElement>(null);
+  const lensView = useRef({ s: 1, tx: 0, ty: 0 });
+  const lensPointers = useRef(new Map<number, { x: number; y: number }>());
+  const lensPinch = useRef(0);
+
+  const lensApply = useCallback(() => {
+    const img = lensImgRef.current;
+    const box = lensBoxRef.current;
+    if (!img || !box) return;
+    const v = lensView.current;
+    const maxX = (box.clientWidth * (v.s - 1)) / 2;
+    const maxY = (box.clientHeight * (v.s - 1)) / 2;
+    v.tx = Math.max(-maxX, Math.min(maxX, v.tx));
+    v.ty = Math.max(-maxY, Math.min(maxY, v.ty));
+    img.style.transform = `translate(${v.tx}px, ${v.ty}px) scale(${v.s})`;
+  }, []);
+
+  /** Zoom keeping the container-relative point (px,py — offsets from center) fixed. */
+  const lensZoomAt = useCallback(
+    (factor: number, px = 0, py = 0) => {
+      const v = lensView.current;
+      const next = Math.max(1, Math.min(6, v.s * factor));
+      const ratio = next / v.s;
+      v.tx = px - (px - v.tx) * ratio;
+      v.ty = py - (py - v.ty) * ratio;
+      v.s = next;
+      lensApply();
+    },
+    [lensApply],
+  );
+  const lensZoomBy = useCallback((f: number) => lensZoomAt(f), [lensZoomAt]);
+  const lensReset = useCallback(() => {
+    lensView.current = { s: 1, tx: 0, ty: 0 };
+    lensApply();
+  }, [lensApply]);
+
+  const lensCenterOffset = (e: { clientX: number; clientY: number }) => {
+    const r = lensBoxRef.current?.getBoundingClientRect();
+    if (!r) return { px: 0, py: 0 };
+    return { px: e.clientX - (r.left + r.width / 2), py: e.clientY - (r.top + r.height / 2) };
+  };
+
+  const lensPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    /* Capturing here would steal the subsequent click from the +/−/reset
+       buttons (a captured pointerup retargets the click) — let them be. */
+    if ((e.target as HTMLElement).closest("button")) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    lensPointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (lensPointers.current.size === 2) {
+      const [a, b] = [...lensPointers.current.values()];
+      lensPinch.current = Math.hypot(a.x - b.x, a.y - b.y);
+    }
+    e.currentTarget.style.cursor = "grabbing";
+  }, []);
+
+  const lensPointerMove = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const pts = lensPointers.current;
+      const prev = pts.get(e.pointerId);
+      if (!prev) return;
+      const cur = { x: e.clientX, y: e.clientY };
+      if (pts.size === 1) {
+        lensView.current.tx += cur.x - prev.x;
+        lensView.current.ty += cur.y - prev.y;
+        pts.set(e.pointerId, cur);
+        lensApply();
+        return;
+      }
+      pts.set(e.pointerId, cur);
+      if (pts.size === 2) {
+        const [a, b] = [...pts.values()];
+        const dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (lensPinch.current > 0) {
+          const mid = { clientX: (a.x + b.x) / 2, clientY: (a.y + b.y) / 2 };
+          const { px, py } = lensCenterOffset(mid);
+          lensZoomAt(dist / lensPinch.current, px, py);
+        }
+        lensPinch.current = dist;
+      }
+    },
+    [lensApply, lensZoomAt],
+  );
+
+  const lensPointerEnd = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    lensPointers.current.delete(e.pointerId);
+    lensPinch.current = 0;
+    if (lensPointers.current.size === 0) e.currentTarget.style.cursor = "grab";
+  }, []);
+
+  const lensDoubleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const { px, py } = lensCenterOffset(e);
+      if (lensView.current.s > 1.05) lensReset();
+      else lensZoomAt(2.5, px, py);
+    },
+    [lensReset, lensZoomAt],
+  );
+
+  const lensKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const v = lensView.current;
+      const pan = 48;
+      if (e.key === "+" || e.key === "=") lensZoomAt(1.5);
+      else if (e.key === "-" || e.key === "_") lensZoomAt(1 / 1.5);
+      else if (e.key === "0") lensReset();
+      else if (e.key === "ArrowLeft") { v.tx += pan; lensApply(); }
+      else if (e.key === "ArrowRight") { v.tx -= pan; lensApply(); }
+      else if (e.key === "ArrowUp") { v.ty += pan; lensApply(); }
+      else if (e.key === "ArrowDown") { v.ty -= pan; lensApply(); }
+      else return;
+      e.preventDefault();
+    },
+    [lensApply, lensReset, lensZoomAt],
+  );
+
+  /* Wheel must be non-passive to preventDefault (page zoom/scroll), and React
+   * won't attach it that way — bind natively once the viewer mounts. */
+  useEffect(() => {
+    const box = lensBoxRef.current;
+    if (!box || !lensSeen) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const { px, py } = lensCenterOffset(e);
+      lensZoomAt(Math.exp(-e.deltaY * 0.0018), px, py);
+    };
+    box.addEventListener("wheel", onWheel, { passive: false });
+    return () => box.removeEventListener("wheel", onWheel);
+  }, [lensSeen, lensZoomAt]);
   const [touring, setTouring] = useState(false);
   const [hintOpen, setHintOpen] = useState(false);
   const [arrivalStop, setArrivalStop] = useState<Stop | null>(null);
@@ -731,31 +865,82 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       <div ref={container} className="map-canvas absolute inset-0" />
 
       {/* 1858 lens (M7): Barton's "City of Troy, N.Y.: From actual surveys" (1858, LOC
-          2016585052), cropped to downtown + the river + West Troy — the exact geography
-          of the rescue. Replaced the 1819 plate mislabeled "1860" (final review 8/7:
-          interim per Wil, pending Kathy's blessing vs. her 1845 map). */}
+          2016585052) — the FULL plate, blessed by Kathy in writing 8/7 ("even
+          better than the 1845") with one instruction: "do not crop allow pan
+          and zoom." So the lens is a viewer now: drag to pan, pinch or scroll
+          to zoom, double-tap to jump in, +/−/reset buttons and arrow keys for
+          everyone else. The 4096px asset (≈1MB avif) still mounts only on
+          first open. The transform lives in refs and is applied directly to
+          the node — panning at 60fps must not re-render the map island. */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-[1600ms] sm:p-10"
-        style={{ opacity: lens ? 1 : 0 }}
+        className="absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-[1600ms] sm:p-10"
+        style={{ opacity: lens ? 1 : 0, pointerEvents: lens ? "auto" : "none" }}
         aria-hidden={!lens}
       >
         <figure className="max-h-full">
-          {/* Mounted on first open, not on page load. Sitting in the DOM at
-              opacity 0 it was still a 68 KB download on every visit to /map —
-              paid by everyone, used by the few who open the lens. The element
-              stays mounted afterwards so the fade still runs both ways. */}
           {lensSeen && (
-            <img
-              src={`${baseUrl}/media/site/troy-1858-1440.jpg`}
-              srcSet={`${baseUrl}/media/site/troy-1858-800.webp 800w, ${baseUrl}/media/site/troy-1858-1440.webp 1440w`}
-              sizes="100vw"
-              alt="Map of Troy, New York in 1858 — downtown Troy, the Hudson, and West Troy"
-              className="artifact max-h-[75dvh] w-auto"
-            />
+            <div
+              ref={lensBoxRef}
+              role="application"
+              aria-label="Map of Troy in 1858 — drag to pan, pinch or scroll to zoom, arrow keys to pan, plus and minus to zoom"
+              tabIndex={lens ? 0 : -1}
+              className="artifact relative cursor-grab overflow-hidden"
+              style={{
+                width: "min(92vw, 88dvh)",
+                aspectRatio: "4096 / 3431",
+                touchAction: "none",
+              }}
+              onPointerDown={lensPointerDown}
+              onPointerMove={lensPointerMove}
+              onPointerUp={lensPointerEnd}
+              onPointerCancel={lensPointerEnd}
+              onDoubleClick={lensDoubleClick}
+              onKeyDown={lensKeyDown}
+            >
+              <picture>
+                <source type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-4096.avif`} />
+                <img
+                  ref={lensImgRef}
+                  src={`${baseUrl}/media/site/troy-1858-full-4096.webp`}
+                  alt="Map of Troy, New York in 1858 — the full city survey: Troy, the Hudson, West Troy and Green Island"
+                  draggable={false}
+                  decoding="async"
+                  className="h-full w-full select-none"
+                  style={{ transformOrigin: "center", willChange: "transform" }}
+                />
+              </picture>
+              <div className="absolute top-2 right-2 flex flex-col gap-1">
+                {(
+                  [
+                    ["+", "Zoom in", () => lensZoomBy(1.5)],
+                    ["−", "Zoom out", () => lensZoomBy(1 / 1.5)],
+                    ["⟲", "Reset view", lensReset],
+                  ] as const
+                ).map(([glyph, label, fn]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    aria-label={label}
+                    onClick={fn}
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-base"
+                    style={{
+                      background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)",
+                      color: "var(--color-primary-11)",
+                      border: "1px solid var(--color-primary-7)",
+                    }}
+                  >
+                    {glyph}
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
           <figcaption className="t-meta mt-4 text-center">
             Troy, New York · 1858 · Library of Congress
           </figcaption>
+          <p className="t-meta-body mt-2 text-center opacity-70">
+            Drag to explore · pinch or scroll to zoom
+          </p>
         </figure>
       </div>
 

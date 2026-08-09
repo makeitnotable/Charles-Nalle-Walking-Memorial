@@ -21,8 +21,10 @@ export const rescuers: Person[] = [
   },
   {
     name: "Harriet Tubman",
-    role: "The general",
-    note: "In Troy visiting her cousin when the church bells rang. Hidden in the crowd, she took charge of the rescue: “Drag us out! Drag him to the river! Drown him! But don’t let them have him!”",
+    /* Kathy's written confirmation (8/7 annotated copy doc): the citizens led,
+       she rallied — "Use your suggestion." */
+    role: "The voice in the crowd",
+    note: "In Troy visiting her cousin when the church bells rang. From within the crowd she rallied the rescuers: “Drag us out! Drag him to the river! Drown him! But don’t let them have him!”",
     chapters: ["commissioners-office", "ferry"],
   },
   {

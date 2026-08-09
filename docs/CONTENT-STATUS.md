@@ -297,3 +297,42 @@ reply, Wil's 3:32 PM map proposal + direction to implement.
 - STILL PENDING: Kathy's jump verdict (she reads Scott's book TONIGHT per her
   email) · her blessing of 1858 vs her 1845 · copy-doc confirmation ·
   ElevenLabs audio · handoff sequence.
+
+## 2026-08-09 · KATHY'S WRITTEN CONFIRMATION APPLIED — copy is LOCKED
+Source: her annotated copy doc ("CNWM - Final Copy for Kathy (MD).md", edits in
+red, "I made all the edits… its done" — 8/7 7:44 PM email) + her thread emails
+("Charles did not jump in the water…" 6:40 PM; "The 1858 map is even better
+than the 1845" 6:44 PM).
+- CH1 historical: "one of the richest" → "one of the WEALTHIEST cities" (her pick).
+- CH2 Pt2: confirmed exactly as implemented (titles-trim OK, keep "$40,000
+  today", no money-detail expansion — "No change").
+- CH3: keep "ready to help him cross to freedom"; "Council OF the Arts" →
+  **"Council ON the Arts"** (her final written correction).
+- CH4: **VERSION B — Charles did not jump.** Her own edited text used verbatim;
+  mechanical hyphens added ("still-bound", "all-out") + "Loreman, with the help
+  of willing hands," commas — flagged. "West Troy police" kept. timings → null
+  (structure/text changed; audio regenerating).
+- CH5: her revised Canada sentence — "near Schenectady AND BEYOND … into
+  Canada, WHERE he found refuge in St. Catharines, ONTARIO, at a safe house…"
+  (mechanical commas flagged). Pistol shots stay ("shots fired in West Troy as
+  well" — her re-read of Christianson).
+- PEOPLE: Tubman card → role "The voice in the crowd" + rally note ("Use your
+  suggestion"). Baltimore card figures confirmed ($200 his gift — Martin $200,
+  Peter $200, ~$200–250 crowd, $600 traditional bounty raised to $1,000 upstairs).
+- HOME hero → her sentence: "the people of Troy, New York, took Charles Nalle
+  back… Harriet Tubman stood with them." NOTE: she typed "Five SPOTS mark"
+  twice; we kept "STOPS" — the site's entire vocabulary (Stop 01 of 5, Walk the
+  five stops). FLAGGED to Wil; one-word swap if she meant it. Comma after
+  "New York" added (mechanical).
+- FOOTER → her confirmed sentences verbatim ("…Explore at your own pace,
+  discretion, and risk.") followed by Brian C.'s no-responsibility sentence —
+  both stakeholders' asks, merged; flagged.
+- Study captions (Ch2 Pt2 + Ch4): confirmed as written.
+- **MAP FINAL: 1858 confirmed** — "do not crop allow pan and zoom" → the /map
+  lens is now a pan/zoom viewer of the FULL uncropped plate
+  (`troy-1858-full-4096.{avif,webp}`, mounts on first open; drag/pinch/wheel/
+  double-tap + buttons + arrow keys). The Ch2 interlude KEEPS the downtown
+  crop — a full-bleed reading beat can't pan; interpretation flagged to Wil.
+COPY IS LOCKED. All six narrations may now be generated from
+`CNWM - Audio Scripts - FINAL.md` (project folder), which is produced directly
+from these JSONs.
