@@ -60,8 +60,21 @@
         "label": "Chapter 5",
         "subtitle": "Peter Baltimore’s Barbershop",
         "file": "audio/ch5-barbershop.mp3",
-        "timings": null,
-        "duration": 121
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 44.4
+          },
+          {
+            "start": 44.4,
+            "end": 96.3
+          },
+          {
+            "start": 96.3,
+            "end": 114.1
+          }
+        ],
+        "duration": 114
       },
       "quote": {
         "text": "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",

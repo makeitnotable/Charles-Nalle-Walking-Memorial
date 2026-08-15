@@ -69,22 +69,22 @@
         "timings": [
           {
             "start": 1.2,
-            "end": 17.4
+            "end": 19.9
           },
           {
-            "start": 17.4,
-            "end": 40.2
+            "start": 19.9,
+            "end": 46.3
           },
           {
-            "start": 40.2,
-            "end": 43.4
+            "start": 46.3,
+            "end": 50
           },
           {
-            "start": 43.4,
-            "end": 69.8
+            "start": 50,
+            "end": 80.5
           }
         ],
-        "duration": 70
+        "duration": 81
       },
       "quote": {
         "text": "If we can get him out into the crowd, we can raise the money in five minutes.",
@@ -110,8 +110,25 @@
         "label": "Chapter 2 | Pt. 2",
         "subtitle": "Commissioner’s Office",
         "file": "audio/ch2-commissioners-office-pt2.mp3",
-        "timings": null,
-        "duration": 108
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 35.5
+          },
+          {
+            "start": 35.5,
+            "end": 56.4
+          },
+          {
+            "start": 56.4,
+            "end": 111.6
+          },
+          {
+            "start": 111.6,
+            "end": 139.2
+          }
+        ],
+        "duration": 139
       },
       "quote": {
         "text": "Drag him to the river! Drown him! But don’t let them have him!",

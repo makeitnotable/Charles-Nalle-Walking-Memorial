@@ -55,8 +55,29 @@
         "label": "Chapter 3",
         "subtitle": "Uri Gilbert Mansion",
         "file": "audio/ch3-mansion.mp3",
-        "timings": null,
-        "duration": 149
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 35
+          },
+          {
+            "start": 35,
+            "end": 55.1
+          },
+          {
+            "start": 55.1,
+            "end": 101.4
+          },
+          {
+            "start": 101.4,
+            "end": 144.2
+          },
+          {
+            "start": 144.2,
+            "end": 171.8
+          }
+        ],
+        "duration": 172
       },
       "quote": {
         "text": "Are you a Negro?",

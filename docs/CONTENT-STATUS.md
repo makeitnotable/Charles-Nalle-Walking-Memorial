@@ -351,3 +351,17 @@ from these JSONs.
 3. **Footer FINAL (verbatim, replaces the merged version):** "Walking routes
    and directions are suggestions only. Explore at your own pace, discretion,
    and risk." Brian C.'s general-liability sentence removed per Wil.
+
+## 2026-08-15 · NEW NARRATION LIVE — text and audio match on every chapter
+All six narrations regenerated (ElevenLabs) from `CNWM - Audio Scripts - FINAL.md`
+= the locked copy, one consistent voice. Files renamed from ElevenLabs' chapter
+titles to the canonical `ch*.mp3` names the JSON references. Durations:
+ch1 100.7s · ch2pt1 80.5s · ch2pt2 139.2s · ch3 171.8s · ch4 138.2s · ch5 114.1s
+(~2.2 words/s throughout — nothing truncated). `scripts/audio-timings.mjs` run:
+every scene has word-proportional timings again (the three nulled scenes
+restored), `duration` updated. Closes the two long-standing audio/text
+contradictions (Ch2 Pt1 "Liberty Street"; Ch4 river leap) and delivers
+Version B + the reordered Ch2/Ch5 aloud for the first time.
+Verified in-browser (390px, all six scenes): file loads with correct duration,
+highlight lights ¶0 after the 1.2s lead-in, tracks to the final paragraph,
+tap-a-paragraph seeks to its start and plays; console clean.
