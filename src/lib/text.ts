@@ -32,3 +32,19 @@ export function splitLines(text: string): string[] {
     .map((l) => l.trim())
     .filter(Boolean);
 }
+
+/** Glue the last two words of a label/heading/caption with a no-break space so
+ *  the final line can never be a single word (v7 G1). Strings of one word (or
+ *  ending in a break/tag) return unchanged; authored "\n" lines are glued
+ *  per line. */
+export function nbsp(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => {
+      const i = line.trimEnd().lastIndexOf(" ");
+      if (i <= 0) return line;
+      // never glue across a trailing tag or an already-glued pair
+      return line.slice(0, i) + " " + line.slice(i + 1);
+    })
+    .join("\n");
+}

@@ -278,6 +278,23 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* v7 G1: never auto-hyphenate; breaks are authored (nbsp/&shy;) or pretty. */
+  hyphens: manual;
+}
+/* v7 G1: body copy that isn't a role (li, dd, figcaption, generic p) still
+   avoids single-word last lines. Roles set their own text-wrap. */
+p,
+li,
+dd,
+dt,
+figcaption,
+blockquote {
+  text-wrap: pretty;
+}
+h1:not(.lines),
+h2:not(.lines),
+h3 {
+  text-wrap: balance;
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -308,6 +325,9 @@ body {
   font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.72)));
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
+  /* v7 G1: negative tracking + zero word-spacing read "FORJUSTICE" at phone
+     sizes; a hair of word space keeps the words apart without loosening. */
+  word-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-neutral-12);
 }
@@ -319,8 +339,10 @@ body {
   font-size: var(--fs-title-sm);
   line-height: 1.15;
   letter-spacing: var(--track-display);
+  word-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-neutral-12);
+  text-wrap: balance;
 }
 .ground-cream .t-title-sm {
   color: var(--ink-light);
@@ -332,6 +354,7 @@ body {
   font-size: var(--fs-title);
   line-height: var(--lh-title);
   letter-spacing: var(--track-display);
+  word-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-neutral-12);
 }
@@ -343,6 +366,12 @@ body {
   font-size: var(--fs-quote);
   line-height: var(--lh-quote);
   color: var(--color-neutral-12);
+  /* v7 G1: quotes are short — balance them so no line is left holding one
+     word (Chromium balances up to 6 lines; longer quotes fall back to
+     `pretty` via .t-quote-long). */
+  text-wrap: balance;
+}
+.t-quote-long {
   text-wrap: pretty;
 }
 /* Hanging punctuation: the opening quote mark sits in the margin so the
@@ -376,6 +405,7 @@ body {
   letter-spacing: var(--track-meta);
   text-transform: uppercase;
   color: var(--ink-meta);
+  text-wrap: pretty;
 }
 
 /* Meta-body: addresses, captions, credits — sentence case, still micro. */
@@ -385,6 +415,7 @@ body {
   font-size: var(--fs-meta-body);
   line-height: 1.5;
   color: var(--ink-quiet);
+  text-wrap: pretty;
 }
 
 /* The spine's list form. The chapter spine was setting `font-size:15px` inline,
@@ -963,7 +994,7 @@ body {
      work), and siblings stagger by 200ms. */
   .js .lines .line-inner {
     display: block;
-    transform: translateY(100%);
+    transform: translateY(calc(100% + 0.22em));
   }
   .js .lines.is-in .line-inner {
     transform: none;
@@ -991,9 +1022,18 @@ body {
     transition: transform var(--dur-slow) var(--ease);
   }
 }
+/* v7 G2 — the mask box gives the ink room. Range/ink measurement (rag.mjs)
+   showed Caslon's J/Q tails overhanging a .95 line box by 2–4px and the W's
+   left side-bearing by 1–2px, so `overflow:hidden` guillotined them
+   ("FOR JUSTICE", "INJUSTICE"). The clip edge now sits .22em below and .12em
+   outside the box; the negative margins hand the room back to the layout so
+   the leading is unchanged. The inner travels the extra .22em so nothing
+   peeks through the padding before the reveal. */
 .lines .line-box {
   overflow: hidden;
   display: block;
+  padding: 0 0.12em 0.22em;
+  margin: 0 -0.12em -0.22em;
 }
 
 /* The wipe's clipping child is also its positioning context, so the scrim

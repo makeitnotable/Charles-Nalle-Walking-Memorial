@@ -5,7 +5,7 @@
  * For every visible text block on every route × the v7 viewport matrix:
  *   - line count, last-line word count, last-line width ratio (from Range
  *     client rects, grouped by top coordinate);
- *   - RUNT: a ≥2-line block whose last line is one word or ≤3 characters,
+ *   - RUNT: a ≥2-line block whose last line is SHORT — one word or ≤3 characters at < 60% of the widest line,
  *     plus 2-word last lines on display/title/quote roles;
  *   - CLIP: text rects (per word) that overhang the nearest overflow:hidden|clip
  *     or clip-path ancestor by >1px on any side. `.lines .line-box` is checked
@@ -141,7 +141,43 @@ const MEASURE = () => {
     }
     return null;
   };
-  // Overhang of text rects beyond the clip box (>1px). Horizontal overhang is
+  // INK extents, not the font's content box. Range rects are the inline box
+  // (ascent+descent of the font, ~1.25em for Caslon) — at --lh-display .95
+  // that box overhangs every line box by 6–13px while the actual glyph ink
+  // (cap height above, a J tail below) may or may not. So we measure ink with
+  // canvas TextMetrics for the line's own text in the element's font, and
+  // place it on the baseline of each rect (top + fontBoundingBoxAscent).
+  const inkCanvas = document.createElement("canvas").getContext("2d");
+  const inkOf = (el, r) => {
+    const cs = getComputedStyle(el);
+    inkCanvas.font = `${cs.fontStyle} ${cs.fontWeight} ${parseFloat(cs.fontSize)}px ${cs.fontFamily}`;
+    let t = r.word || "";
+    if (cs.textTransform === "uppercase") t = t.toUpperCase();
+    const m = inkCanvas.measureText(t);
+    const fa = m.fontBoundingBoxAscent ?? parseFloat(cs.fontSize) * 0.9;
+    const fd = m.fontBoundingBoxDescent ?? parseFloat(cs.fontSize) * 0.25;
+    // baseline inside the rect: the rect is the content area (fa+fd tall),
+    // possibly scaled if line-height < content area (rect height still fa+fd).
+    const scale = r.height && fa + fd ? r.height / (fa + fd) : 1;
+    const baseline = r.top + fa * scale;
+    return {
+      top: baseline - (m.actualBoundingBoxAscent ?? fa) * scale,
+      bottom: baseline + (m.actualBoundingBoxDescent ?? 0) * scale,
+      left: r.left - Math.max(0, m.actualBoundingBoxLeft ?? 0),
+      right: r.right + Math.max(0, (m.actualBoundingBoxRight ?? 0) - m.width),
+    };
+  };
+  const overhang = (el, rects, b, axes = { x: true, y: true }, scrollsX = false) => {
+    const inks = rects.map((r) => inkOf(el, r));
+    const over = {
+      top: axes.y ? Math.max(0, b.top - Math.min(...inks.map((i) => i.top))) : 0,
+      bottom: axes.y ? Math.max(0, Math.max(...inks.map((i) => i.bottom)) - b.bottom) : 0,
+      left: axes.x ? Math.max(0, b.left - Math.min(...inks.map((i) => i.left))) : 0,
+      right: axes.x && !scrollsX ? Math.max(0, Math.max(...inks.map((i) => i.right)) - b.right) : 0,
+    };
+    return Object.entries(over).filter(([, v]) => v > 1).map(([k, v]) => `${k} ${v.toFixed(1)}px`);
+  };
+  // Overhang of text INK beyond the clip box (>1px). Horizontal overhang is
   // ignored inside a wider-than-itself container (carousels/marquees scroll by
   // design); left overhang from negative indent still registers there.
   const clipOf = (rects, el) => {
@@ -149,13 +185,7 @@ const MEASURE = () => {
     if (!c || !rects.length) return null;
     const b = c.el.getBoundingClientRect();
     const scrollsX = c.el.scrollWidth > c.el.clientWidth + 2;
-    const over = {
-      top: c.y ? Math.max(0, b.top - Math.min(...rects.map((r) => r.top))) : 0,
-      bottom: c.y ? Math.max(0, Math.max(...rects.map((r) => r.bottom)) - b.bottom) : 0,
-      left: c.x ? Math.max(0, b.left - Math.min(...rects.map((r) => r.left))) : 0,
-      right: c.x && !scrollsX ? Math.max(0, Math.max(...rects.map((r) => r.right)) - b.right) : 0,
-    };
-    const sides = Object.entries(over).filter(([, v]) => v > 1).map(([k, v]) => `${k} ${v.toFixed(1)}px`);
+    const sides = overhang(el, rects, b, c, scrollsX);
     return sides.length ? { by: label(c.el), sides } : null;
   };
 
@@ -168,24 +198,28 @@ const MEASURE = () => {
     const widest = Math.max(...lines.map((l) => l.right - l.left));
     const lastText = last.words.join(" ");
     const isDisplay = el.matches(DISPLAY_SEL);
+    // A runt is a SHORT last line (the typographic definition): one word or
+    // ≤3 chars at < 60% of the widest line, or two words on display/title
+    // roles at < 50%. A balanced two-line name ("MARTIN I. / TOWNSEND",
+    // ratio ≈ 1) is not a runt — `text-wrap: balance` did its job.
+    const ratio0 = widest ? (last.right - last.left) / widest : 1;
     const runt =
       lines.length >= 2 &&
-      (last.words.length === 1 || lastText.length <= 3 || (isDisplay && last.words.length === 2));
+      (((last.words.length === 1 || lastText.length <= 3) && ratio0 < 0.6) ||
+        (isDisplay && last.words.length === 2 && ratio0 < 0.5));
     // .lines headings: each authored line sits in its own overflow-hidden box —
     // check every line-box's text against that box, else the block's clipper.
     let clip = null;
     if (el.matches(".lines") && el.querySelector(".line-box")) {
       const hits = [];
       for (const lb of el.querySelectorAll(".line-box")) {
-        const b = lb.getBoundingClientRect(), rs = wordRects(lb);
+        const rs = wordRects(lb);
         if (!rs.length) continue;
-        const over = {
-          top: b.top - Math.min(...rs.map((r) => r.top)),
-          bottom: Math.max(...rs.map((r) => r.bottom)) - b.bottom,
-          left: b.left - Math.min(...rs.map((r) => r.left)),
-          right: Math.max(...rs.map((r) => r.right)) - b.right,
-        };
-        const sides = Object.entries(over).filter(([, v]) => v > 1).map(([k, v]) => `${k} ${v.toFixed(1)}px`);
+        // The clip edge is the padding box (padding-bottom gives descender room).
+        const lcs = getComputedStyle(lb);
+        if (!/hidden|clip/.test(lcs.overflow) && (!lcs.clipPath || lcs.clipPath === "none")) continue;
+        const b = lb.getBoundingClientRect();
+        const sides = overhang(el, rs, b);
         if (sides.length) hits.push(`"${rs.map((r) => r.word).join(" ").slice(0, 24)}": ${sides.join(", ")}`);
       }
       if (hits.length) clip = { by: ".line-box", sides: hits };
@@ -210,6 +244,8 @@ const MEASURE = () => {
       authored,
       runt,
       twoWord: runt && isDisplay && last.words.length === 2,
+      // The gate counts only UNAUTHORED runts (authored lockups are listed for eyeballing).
+      gate: runt && !authored,
       clip,
     });
   }
@@ -238,7 +274,7 @@ for (const vp of VPS) {
       await page.evaluate(REVEAL);
       await page.waitForTimeout(1800); // let reveal/opacity transitions settle
       const blocks = await page.evaluate(MEASURE);
-      const runts = blocks.filter((b) => b.runt).length, clips = blocks.filter((b) => b.clip).length;
+      const runts = blocks.filter((b) => b.gate).length, clips = blocks.filter((b) => b.clip).length;
       results.push({ route, vp: vp.name, blocks });
       console.log(`${runts || clips ? "✗" : "✓"} ${route} @ ${vp.name} — ${blocks.length} blocks · ${runts} runts · ${clips} clips`);
     } catch (e) {
@@ -253,13 +289,13 @@ await browser.close();
 
 // Reports
 const flat = results.flatMap((r) => r.blocks.map((b) => ({ route: r.route, vp: r.vp, ...b })));
-const runts = flat.filter((b) => b.runt), twoWord = flat.filter((b) => b.twoWord), clips = flat.filter((b) => b.clip);
+const allRunts = flat.filter((b) => b.runt), runts = allRunts.filter((b) => b.gate), authoredRunts = allRunts.filter((b) => !b.gate), twoWord = runts.filter((b) => b.twoWord), clips = flat.filter((b) => b.clip);
 const errors = results.filter((r) => r.error);
 writeFileSync(join(outdir, "rag.json"), JSON.stringify({ base: BASE, generated: new Date().toISOString(), results }, null, 2));
 const L = [
   `# Rag & clip sweep — ${BASE}`,
   "",
-  `**${runts.length} runts · ${twoWord.length} two-word display runts · ${clips.length} clips**` +
+  `**${runts.length} runts (unauthored, the gate) · ${twoWord.length} two-word display runts · ${clips.length} ink clips** · ${authoredRunts.length} authored-lockup rows listed separately` +
     (errors.length ? ` · ${errors.length} route error(s)` : "") +
     ` — ${flat.length} blocks over ${results.length} route × viewport passes.`,
   "",
@@ -272,7 +308,13 @@ const L = [
       `| ${b.route} | ${b.vp} | \`${b.sel}\` | "${b.text}" | ${b.fontSize} | ${b.lines} | "${b.lastText}" (${b.lastWords}w) | ${b.ratio} | ${[b.twoWord && "two-word display", b.authored && "authored break"].filter(Boolean).join(", ")} |`,
   ),
   "",
-  "## Clips",
+  "## Authored lockups (not gated — eyeball)",
+  "",
+  "| route | vp | selector | text | lines | last line |",
+  "|---|---|---|---|---|---|",
+  ...authoredRunts.map((b) => `| ${b.route} | ${b.vp} | \`${b.sel}\` | "${b.text}" | ${b.lines} | "${b.lastText}" |`),
+  "",
+  "## Clips (ink vs clip box)",
   "",
   "| route | vp | selector | text | px | clipped by | overhang |",
   "|---|---|---|---|---|---|---|",
