@@ -198,7 +198,10 @@
   /* Scrims */
   --scrim-moral: linear-gradient(#1d1411, rgba(16, 10, 6, 0.9), #1d1411);
   --scrim-hero-fade: linear-gradient(to top, var(--color-primary-2), transparent);
-  --scrim-photo: linear-gradient(180deg, rgba(16, 10, 6, 0) 65%, #100a06 100%);
+  /* v7 H5: the home film's scrim starts higher and deepens sooner — the lockup
+     now sits from ~43% down and the description must measure ≥ 4.5:1 by pixel
+     against the composited photograph (contrast.mjs), not by eye. */
+  --scrim-photo: linear-gradient(180deg, rgba(16, 10, 6, 0) 22%, rgba(16, 10, 6, 0.38) 36%, rgba(16, 10, 6, 0.66) 58%, #100a06 100%);
 
   /* ── MOTION — two durations, one easing. Exceptions are documented in
      docs/v4/MOTION.md: the curtain set-piece keeps its circ timing, map

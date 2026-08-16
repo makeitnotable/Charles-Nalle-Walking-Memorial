@@ -10,8 +10,8 @@ import { withBase } from "../lib/url";
 ---
 
 <Base
-  title="Charles Nalle Walking Memorial — Troy, NY"
-  description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city rose up — Harriet Tubman among them — to free Charles Nalle from the Fugitive Slave Act."
+  title="Charles Nalle Walking Memorial · Troy, NY"
+  description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city rose up, Harriet Tubman among them, to free Charles Nalle from the Fugitive Slave Act."
   preloadImage={withBase("media/site/home-bg-800.avif")}
   noMenu
 >
@@ -25,7 +25,7 @@ import { withBase } from "../lib/url";
         aria-hidden="true"
       >
         <video
-          class="lazy-video h-full w-full object-cover motion-reduce:hidden"
+          class="lazy-video home-media h-full w-full object-cover motion-reduce:hidden"
           style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
           data-src={withBase("media/site/splash.mp4")}
           data-poster={withBase("media/site/home-bg-800.avif")}
@@ -43,7 +43,7 @@ import { withBase } from "../lib/url";
             sizes="100vw"
           />
           <img
-            class="hidden h-full w-full object-cover motion-reduce:block"
+            class="home-media hidden h-full w-full object-cover motion-reduce:block"
             style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
             src={withBase("media/site/home-bg-1440.jpg")}
             loading="lazy"
@@ -67,7 +67,11 @@ import { withBase } from "../lib/url";
           bottom of the frame — 154px of nothing between the date rule and the
           button, 163px between the button and the copy. The eye had nothing to
           hold. Everything below is one lockup with authored spacing. */}
-      <div class="home-stack z-10 flex h-full flex-col items-center justify-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
+      {/* v7 H1/H4: the lockup starts BELOW Charles Nalle's chin (his head is
+          at ~30–40% of the frame at every aspect once the film is positioned),
+          and on phones the CTA is pinned to the frame's bottom on the content
+          inset. Landscape phones keep the centred in-flow layout. */}
+      <div class="home-stack z-10 flex h-full w-full flex-col items-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
         <p class="t-meta home-seq" style="--seq: 0">Troy, New York · April 27, 1860</p>
 
         <h1 class="flex flex-col" aria-label="Charles Nalle">
@@ -88,8 +92,11 @@ import { withBase } from "../lib/url";
             describes the deliverable and would fail the E1 thesis gate; the
             thesis sentence stays, with the rag authored instead of left to
             the breaker. Queued for Wil in the REVIEW-GUIDE. */}
+        {/* v7 H2/H5: measure widened to three lines at ≥1200 (balanced), the
+            last two words glued; the role steps up to 16px cream at .92 on a
+            deeper film so it measures ≥ 4.5:1 by pixel (contrast.mjs). */}
         <p
-          class="home-desc t-meta-body home-seq max-w-[46ch] text-balance"
+          class="home-desc home-seq text-balance"
           style="--seq: 4"
         >
           On April 27, 1860, the people of Troy, New York, took Charles Nalle
@@ -97,9 +104,9 @@ import { withBase } from "../lib/url";
           Tubman stood with them. Five spots mark where&nbsp;it&nbsp;happened.
         </p>
 
-        {/* "Continue" named neither a destination nor a size. */}
-        <a href={withBase("map")} class="btn btn-cta home-seq" style="--seq: 5">
-          Walk the five spots
+        {/* v7 H3 (Wil): the story, not the format. */}
+        <a href={withBase("map")} class="btn btn-cta home-cta home-seq" style="--seq: 5">
+          Walk the story
           <Icon name="arrow" />
         </a>
       </div>
@@ -114,10 +121,94 @@ import { withBase } from "../lib/url";
   .home-frame {
     opacity: 0.72;
   }
+  /* v7 H1 — art direction of the film/still (portrait source, 1080×1920; the
+     subject's head sits at 30–40% of the source). Portrait frames show the
+     source's full height, so only the lockup moves; landscape frames crop
+     vertically, so the film is positioned to show the whole head with
+     headroom (was 50%, which guillotined it). */
+  .home-media {
+    object-position: 50% 50%;
+  }
+  /* The lockup starts below the chin. Portrait frames show the source's full
+     height (chin ≈ 40% of the frame) → eyebrow at ≈ 41%; landscape frames are
+     positioned so the chin lands at 30–35% → eyebrow at ≈ 32%. */
+  .home-stack {
+    justify-content: flex-start;
+    padding-top: clamp(200px, 41dvh, 460px);
+    padding-bottom: 16px;
+  }
+  @media (orientation: landscape) and (min-height: 501px) {
+    .home-media {
+      object-position: 50% 43%;
+    }
+    .home-stack {
+      padding-top: clamp(180px, 32dvh, 380px);
+    }
+  }
+  /* Short landscape frames (laptops at 768–820 tall): the head is placed a
+     little higher and the beats tighten so the lockup fits with the CTA
+     inside the frame. */
+  @media (orientation: landscape) and (min-height: 501px) and (max-height: 820px) {
+    .home-media {
+      object-position: 50% 46%;
+    }
+    .home-stack {
+      padding-top: clamp(170px, 30dvh, 260px);
+      gap: clamp(16px, 3vh, 32px);
+    }
+  }
+  @media (orientation: portrait) and (max-height: 820px) {
+    .home-stack {
+      gap: clamp(14px, 3vh, 28px);
+    }
+  }
+  @media (max-height: 700px) and (orientation: portrait) {
+    .home-stack {
+      padding-top: clamp(150px, 33dvh, 240px);
+      gap: clamp(14px, 3vh, 24px);
+    }
+  }
+  @media (max-height: 620px) and (orientation: portrait) {
+    .home-stack {
+      padding-top: clamp(100px, 22dvh, 160px);
+      gap: 12px;
+    }
+  }
+  /* v7 H4 — phones: the CTA is pinned to the frame's bottom on the content
+     inset (16px, = the stack's px-4), full-width within it, ≥ 48px tall. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-cta {
+      margin-top: auto;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  /* The eyebrow crosses the lit part of the film at desktop widths; a soft
+     ink halo (not a chip) keeps it ≥ 4.5:1 by pixel without a box. */
+  .home-stack > .t-meta.home-seq {
+    text-shadow: 0 1px 2px rgba(16, 10, 6, 0.9), 0 0 14px rgba(16, 10, 6, 0.85);
+  }
+  /* v7 H2 — three balanced lines at desktop widths. */
+  .home-desc {
+    font-family: var(--font-chrome);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--color-neutral-12);
+    opacity: 0.92;
+    max-width: 46ch;
+  }
+  @media (min-width: 1200px) {
+    .home-desc {
+      max-width: 60ch;
+    }
+  }
   /* A phone held sideways: the stack must answer to 390px of height. Tighter
-     beats, a wider (shorter) description — nothing hidden, nothing clipped. */
+     beats, a wider (shorter) description — nothing hidden, nothing clipped;
+     the lockup stays centred (no head-room rule at 370px tall). */
   @media (max-height: 500px) {
     .home-stack {
+      justify-content: center;
+      padding-top: 16px;
       gap: clamp(10px, 2.6vh, 16px);
     }
     .home-desc {
