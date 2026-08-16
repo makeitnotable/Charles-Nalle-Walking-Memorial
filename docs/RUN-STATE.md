@@ -19,7 +19,23 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 9 = FAIL** (`docs/v7/juror-pass9.md`, build 480f715; Sheet A phone
+**Juror pass 10 = PASS** (`docs/v7/juror-pass10.md`, build f1dbbb3; Sheet A phone
+9/9/9/9, tablet 8/9/9/9, desktop 9/9/10/9; ZERO P0/P1; Sheet B all Met/N-A;
+juror-9 P1/P2 + P3s confirmed fixed). Its two P2s fixed between passes (allowed):
+(1) the desktop overview hint chip sat on stop 4's pill at 1440/1920 → from
+1280 up it rides in the doors' row (left of the doors, right of the (i)),
+below the label-fit safe box, so no pill can be under it — verified 0 pill /
+door / attribution overlaps at 1440/1920 (1024 keeps the centred slot, also
+clear); (2) a single-segment People role (`Chief civil-rights attorney`) was
+made unbreakable by `.sep-list` and overran its column at 768/1024 → one-segment
+roles wrap like prose (hyphenated words whole, last two words glued); measured
+0 px overrun at 768/1024/1440. P3 taken: `cnwm:menu-show` on every approach so
+the ☰ is present in inspect mode even when the rail had hidden it. Regression:
+states + walk (`docs/v7/qa/j9fix/states.log`, `walk.log`). Next: commit → push
+→ verify live → **juror pass 11** (fresh, identical build) → if PASS → REVIEW-GUIDE
+§3 → RUN COMPLETE → memory → push.
+
+(Earlier) **Juror pass 9 = FAIL** (`docs/v7/juror-pass9.md`, build 480f715; Sheet A phone
 8/7/9/8, tablet 8/8/9/9, desktop 9/9/9/9; ONE P1 = my `nowrap` on People roles
 clipped every note at 360/390 (see DECISIONS) → `.sep-list` pattern; verified
 `body.scrollWidth` = viewport at 360/390/768/1440, wraps by segment, one-line

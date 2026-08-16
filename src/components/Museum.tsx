@@ -772,10 +772,12 @@ export default function Museum({ works, slotId }: Props) {
           if (dy !== 0) {
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
-            /* the scripted scroll is not "reading forward" — keep the corner
-               menu (its scroll-hide would otherwise swallow it; juror pass 9) */
-            window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
           }
+          /* Inspect mode locks the wheel, so the corner menu must be there
+             when it opens: the scripted scroll is not "reading forward", and
+             a rail already scrolled past 240 px had hidden it (juror passes
+             9–10). */
+          window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
         }
         setSheet("peek");
         setApproached(i);

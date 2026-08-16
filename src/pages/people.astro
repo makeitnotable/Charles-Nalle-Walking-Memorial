@@ -101,14 +101,30 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
                     </div>
                     <div>
                       {/* ` · ` roles: segments whole, the dot vanishes at a wrap (juror passes 8–9) */}
-                      <p class="t-meta sep-list">
-                        {person.role.split(" · ").map((seg, i) => (
-                          <span>
-                            {i > 0 && <span class="sr-only">· </span>}
-                            {seg}
-                          </span>
-                        ))}
-                      </p>
+                      {person.role.includes(" · ") ? (
+                        <p class="t-meta sep-list">
+                          {person.role.split(" · ").map((seg, i) => (
+                            <span>
+                              {i > 0 && <span class="sr-only">· </span>}
+                              {seg}
+                            </span>
+                          ))}
+                        </p>
+                      ) : (
+                        /* one segment wraps like prose (juror pass 10: an unbreakable
+                           `CHIEF CIVIL-RIGHTS ATTORNEY` overran its column at 768/1024);
+                           hyphenated words stay whole, the last two words glued */
+                        <p class="t-meta">
+                          {nbsp(person.role)
+                            .split(" ")
+                            .map((w, i, arr) => (
+                              <>
+                                {w.includes("-") ? <span class="whitespace-nowrap">{w}</span> : w}
+                                {i < arr.length - 1 ? " " : ""}
+                              </>
+                            ))}
+                        </p>
+                      )}
                       <h3 class="t-title-sm mt-3">
                         {person.name}
                       </h3>

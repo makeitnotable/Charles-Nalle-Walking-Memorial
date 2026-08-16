@@ -1359,9 +1359,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* Hint card (M8) — fully inert: it can never intercept a tap anywhere.
           It leaves on the first map gesture (the gesture it teaches) or on a
           timer, whichever comes first. */}
+      {/* Juror pass 10 P2: from 1280 up the hint rides in the doors' row (left
+          of the doors, right of the (i)) — BELOW the label-fit safe box, so no
+          stop pill can sit under it; narrower screens keep it centred above. */}
       {hintOpen && (
         <div
-          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32 [@media(max-height:560px)]:bottom-20"
+          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32 [@media(max-height:560px)]:bottom-20 xl:bottom-[calc(var(--ui-inset)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
           aria-hidden="true"
         >
           <div
