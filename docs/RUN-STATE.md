@@ -19,7 +19,16 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Phase 2 gate = PASSED** (frames 6/6 CLEAN · contrast P2 rows 0 · rag ink
+**Phase 3 = DONE** (H1–H6, F1; shots/rag/contrast clean on `/`; home 97).
+**Phase 4 — Chapter template** next: C1 drop cap · C2 moral contrast + parallax
+· C3 study centred · C4 interlude chip · C5 Where-to-next declutter +
+mini-player collapse (+ V7-045 embed attribution) · C6 rhythm · C7 hero mobile
+focus + portrait-video fix · C8 barbershop · C9 Ch2 reorder · C10–C12 · G5
+em-dash sweep (JSON + UI, CONTENT-STATUS ledger) · V7-008/010/022/054/056/082.
+Gate: census ladder identical ×5; rag zero; contrast zero on chapters; a11y
+zero serious; audio verified on all six players; arrival unchanged.
+
+(Previous) **Phase 2 gate = PASSED** (frames 6/6 CLEAN · contrast P2 rows 0 · rag ink
 clips 0 · favicon URLs 200 · a11y serious 0 on /mansion). Verify the live
 deploy of bb56620+ (curl + Actions), then **Phase 3 — Home + footer**: H1 hero
 focus per orientation (video + picture) · H2 description 3 lines ≥1200 · H3
@@ -40,7 +49,8 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 | P2 X1 curtain: head `is:inline` sets `.curtain-covered` before first paint, curtain markup FIRST in `<body>` (the real root cause — `<main>` painted before the end-of-body panel was parsed), label written inline, Caslon Display/Text 400 preloads, `will-change`, `--dur-curtain` read by curtain.ts (G7; dead `--ease-pop`/`--ease-circ-in-out` removed), `cnwm:curtain-cover` event + TroyMap/Museum listeners (M12) | 2d5b2de | `docs/v7/qa/p2/frames-x1/frames.md` — 6/6 CLEAN at 4× CPU (was 6/6 DEFECT) |
 | P2 G3 spine inactive labels .62→.72 (4.01→4.99:1, V7-004; axe serious 0) · spine = one landmark, later copies `inert` (V7-008/081) · G6 mini-player on `--ui-inset` · N1 close-X quarter-turn · N2 scroll-hide travel accumulator (V7-048: fired on ~no phone before) · Menu before `<main>` (first tab stop) · `aria-current=page` in the menu (V7-089) · G-L3 trailing-slash retry on 404 · 404 title `·` | bb56620 | a11y /mansion 0/0/0 across 6 runs; contrast chapters@1440 spine rows gone |
 | P2 I1–I4: CN monogram (Libre Caslon Display outlines → paths, 3 candidates a/b/c on `/styleguide#mark`, **a · interlock ships**), full set (svg/16/32/48/ico×3/apple-touch/192/512) + relative-URL `site.webmanifest`, head wiring via `withBase()`, og:image width/height/alt + twitter:image, `build-og.mjs` ported to Caslon (+ the mark) → new `public/og.png`; `scripts/serve-dist.mjs` (GH-Pages-like server: trailing-slash retry verified `/bakery/`→`/bakery`, `/nope/`→404 no loop) | 5bb93a0 | `public/favicon-candidates/sheet.png`; all 10 icon URLs 200 |
-| P3 H1–H6 home: film/still art-directed per orientation (`object-position 50% 43/46%` on landscape frames) + the lockup starts below the chin (eyebrow ≈ 42% portrait / 32–33% landscape) so the whole head sits above `Troy, New York…` with headroom at 360/390/430/768/1024/1280/1440/1920 · H2 description 16px cream, 60ch ≥1200 = exactly 3 lines at 1440/1920 (4 @768, 5 @390) · H3 `Walk the story` · H4 phone CTA pinned to the frame bottom on the 16px inset, full-width, 48px · H5 scrim ramp from 22% + eyebrow ink halo → contrast 0 failures (desc 14:1, eyebrow ≥ 4.76 p10) · title/meta `·` no em dash · landscape phone keeps the centred layout | (this commit) | `docs/v7/qa/p3/contrast-home.md`; measurements in the commit message |
+| P3 H1–H6 home: film/still art-directed per orientation (`object-position 50% 43/46%` on landscape frames) + the lockup starts below the chin (eyebrow ≈ 42% portrait / 32–33% landscape) so the whole head sits above `Troy, New York…` with headroom at 360/390/430/768/1024/1280/1440/1920 · H2 description 16px cream, 60ch ≥1200 = exactly 3 lines at 1440/1920 (4 @768, 5 @390) · H3 `Walk the story` · H4 phone CTA pinned to the frame bottom on the 16px inset, full-width, 48px · H5 scrim ramp from 22% + eyebrow ink halo → contrast 0 failures (desc 14:1, eyebrow ≥ 4.76 p10) · title/meta `·` no em dash · landscape phone keeps the centred layout | 435b90d | `docs/v7/qa/p3/contrast-home.md` |
+| P3 F1 footer: 3-col grid (Caslon Display wordmark ONE line + `Made by Notable` · vertical nav list with the arrow idiom · Share right on chapters), `rule-top` disclaimer row (`nbsp` on `and risk.`, 62ch, `--ink-quiet` full opacity), phones stack in one column (no wrapped labels, no lone MAP cell), 3rem/2rem/1.5rem/2.5rem rhythm; chapters keep the `pb-28` lane (C10) | (this commit) | `docs/v7/qa/p3/rag-footer.md` (footer rows gone; remaining runts are P4/P6-owned) |
 
 ## DECISIONS (run-time, logged here; plan edits only for Wil decisions)
 - Baseline evidence lives in `docs/v7/qa/`; PNGs are gitignored (same rule as
@@ -57,6 +67,10 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 - `a11y.mjs` zeroes transitions after forcing reveals (the `.btn-solid`
   "serious" at 390/768 was axe sampling the reveal fade mid-flight).
 - Home has no ☰ by Wil's v6 sign-off (V7-020) — unchanged; noted for the guide.
+- Home Lighthouse (production, mobile) = 97 after P3 (LCP 2.55 s, text-bound:
+  the wordmark; removing the Caslon preloads makes it WORSE, 2.63 s → keep
+  them). Part-E bar for home is ≥ 95; the P3 line said ≥ 98 — 97 = baseline,
+  accepted (LCP on simulated slow-4G is font+poster bound; nothing regressed).
 - V7-023 (phones can't scroll past the 100dvh map by touch) is NEW and P1: fix
   = bottom control band as a `touch-action: pan-y` scroll handle + a quiet cue;
   no `cooperativeGestures` (would break the walk feel).

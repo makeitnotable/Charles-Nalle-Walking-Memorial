@@ -37,47 +37,98 @@ const links = [
 ].filter((l) => l.key !== hide);
 ---
 
-<footer class="sec">
+<footer class="site-footer sec">
   <div class="rule-bleed"></div>
-  <div
-    class:list={["shell flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between md:gap-10 md:pb-10", audio ? "pb-28" : "pb-10"]}
-  >
-    <p class="t-meta-body">
-      <span class="block">Charles Nalle Walking Memorial</span>
-      <span class="block"
+  {/* v7 F1 — the reference pattern on museum/memorial footers (docs/v7/AUDIT.md
+      §4): a content grid, ONE full-width hairline, then a small muted meta row.
+      Desktop: wordmark block · nav as a plain vertical list · Share (chapters).
+      Phones stack wordmark → nav → Share → rule → disclaimer, one column, so no
+      link ever wraps mid-label. One element carries weight (the name, in
+      Caslon Display, one line); everything else is one small size. */}
+  <div class="shell footer-grid">
+    <div class="footer-mark">
+      <p class="footer-wordmark">Charles Nalle Walking&nbsp;Memorial</p>
+      <p class="t-meta-body mt-2"
         >Made by <a
           href="https://makeitnotable.com"
-          class="inline-block py-1 underline transition-opacity hover:opacity-70"
+          class="inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-70"
+          style="transition-duration: var(--dur-fast)"
           data-no-curtain>Notable</a
-        ></span
+        ></p
       >
-    </p>
+    </div>
 
-    <nav
-      class="grid grid-cols-2 gap-x-8 gap-y-3 md:flex md:flex-wrap md:items-center"
-      aria-label="Elsewhere on the memorial"
-    >
-      {
-        links.map((l) => (
-          <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta w-fit justify-self-start">
-            {l.label}
-            <Icon name="arrow" size="sm" />
-          </a>
-        ))
-      }
+    <nav class="footer-nav" aria-label="Elsewhere on the memorial">
+      <ul class="flex flex-col gap-3">
+        {
+          links.map((l) => (
+            <li>
+              <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta w-fit py-1">
+                {l.label}
+                <Icon name="arrow" size="sm" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </nav>
 
-    {share && <Button size="sm" variant="ghost" icon="share" id="share-btn">Share</Button>}
+    {share && (
+      <div class="footer-share">
+        <Button size="sm" variant="ghost" icon="share" id="share-btn">Share</Button>
+      </div>
+    )}
   </div>
 
   {/* Disclaimer — requested at the final review (2026-08-07): in the footer
       "so it's available at all times," on every page. Wording per Brian
       Clyne's 8/7 email (general no-responsibility form) plus the call's
-      routes-are-suggestions intent. */}
-  <div class="shell pb-10">
-    <p class="t-meta-body max-w-[72ch] opacity-70">
+      routes-are-suggestions intent. On chapters the row keeps the bottom-left
+      lane clear for the narration mini-player (C10). */}
+  <div class:list={["shell footer-meta rule-top", audio ? "pb-28" : ""]}>
+    <p class="t-meta-body footer-disclaimer">
       Walking routes and directions are suggestions only. Explore at your own pace,
-      discretion, and risk.
+      discretion, and&nbsp;risk.
     </p>
   </div>
 </footer>
+
+<style>
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 2.5rem;
+    }
+    .footer-share {
+      justify-self: end;
+    }
+  }
+  /* The name is the one element that carries weight: Caslon Display, one line,
+     cream, sized so it never wraps at 320 and never shouts at 1920. */
+  .footer-wordmark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.125rem, 0.9rem + 1.05vw, 1.625rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-neutral-12);
+    white-space: nowrap;
+  }
+  .footer-meta {
+    margin-top: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .footer-disclaimer {
+    max-width: 62ch;
+    color: var(--ink-quiet);
+  }
+</style>
