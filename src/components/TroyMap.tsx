@@ -44,6 +44,16 @@ const MAX_BOUNDS: [[number, number], [number, number]] = [
   [-73.73, 42.7],
   [-73.65, 42.75],
 ];
+/* v7 L1 — the 1858 plate is two panels; the seam sits at 50% of its height.
+   The lower panel (downtown Troy, the Hudson, West Troy) is the initial and
+   reset view, filled by height and centred on the river; the upper panel is
+   reached by panning (Kathy: "do not crop, allow pan and zoom"). */
+const LOWER_PANEL = { y0: 0.5, y1: 1, cx: 0.5 };
+/* v7 M2 — pitch candidates, steepest first; the label-fit search picks the
+   first at which every marker label sits inside the safe box. */
+const PITCHES = [52, 48, 44, 40, 36, 33];
+const expoOut = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 /* Stem direction is now DATA (`pinPosition` in the chapter JSON), not a
  * hardcoded label match. The old `PIN_ABOVE = new Set(["Commissioner's
@@ -197,6 +207,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const [focused, setFocused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lens, setLens] = useState(false);
+  const lensRef = useRef(false);
+  lensRef.current = lens;
   /** Latches true the first time the 1858 lens opens — see the <figure> below. */
   const [lensSeen, setLensSeen] = useState(false);
 
@@ -210,23 +222,35 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const lensPointers = useRef(new Map<number, { x: number; y: number }>());
   const lensPinch = useRef(0);
 
+  /* v7 L2 geometry: the box is the whole shell (any aspect); the plate is
+     sized to the box WIDTH at scale 1 (natural aspect 4096/3431), centred,
+     and must always cover the box — so the minimum scale is the cover scale
+     and the whole plate stays reachable by panning. */
+  const PLATE = 3431 / 4096;
+  const lensMinScale = () => {
+    const box = lensBoxRef.current;
+    if (!box) return 1;
+    return Math.max(1, box.clientHeight / (box.clientWidth * PLATE));
+  };
   const lensApply = useCallback(() => {
     const img = lensImgRef.current;
     const box = lensBoxRef.current;
     if (!img || !box) return;
     const v = lensView.current;
-    const maxX = (box.clientWidth * (v.s - 1)) / 2;
-    const maxY = (box.clientHeight * (v.s - 1)) / 2;
+    const W = box.clientWidth, H = box.clientHeight;
+    const imgW = W * v.s, imgH = W * PLATE * v.s;
+    const maxX = Math.max(0, (imgW - W) / 2);
+    const maxY = Math.max(0, (imgH - H) / 2);
     v.tx = Math.max(-maxX, Math.min(maxX, v.tx));
     v.ty = Math.max(-maxY, Math.min(maxY, v.ty));
-    img.style.transform = `translate(${v.tx}px, ${v.ty}px) scale(${v.s})`;
+    img.style.transform = `translate(-50%, -50%) translate(${v.tx}px, ${v.ty}px) scale(${v.s})`;
   }, []);
 
   /** Zoom keeping the container-relative point (px,py — offsets from center) fixed. */
   const lensZoomAt = useCallback(
     (factor: number, px = 0, py = 0) => {
       const v = lensView.current;
-      const next = Math.max(1, Math.min(6, v.s * factor));
+      const next = Math.max(lensMinScale(), Math.min(6, v.s * factor));
       const ratio = next / v.s;
       v.tx = px - (px - v.tx) * ratio;
       v.ty = py - (py - v.ty) * ratio;
@@ -237,9 +261,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   );
   const lensZoomBy = useCallback((f: number) => lensZoomAt(f), [lensZoomAt]);
   const lensReset = useCallback(() => {
-    lensView.current = { s: 1, tx: 0, ty: 0 };
+    /* v7 L1: the lower panel, filled by height (scale 1/(1−y0)) and centred on
+       the river; the clamp in lensApply keeps the whole plate reachable. */
+    const box = lensBoxRef.current;
+    const w = box?.clientWidth ?? 0;
+    const h = box?.clientHeight ?? 0;
+    const imgH0 = w * PLATE;
+    const s0 = Math.max(lensMinScale(), imgH0 ? h / (imgH0 * (LOWER_PANEL.y1 - LOWER_PANEL.y0)) : 1);
+    const panelCy = (LOWER_PANEL.y0 + LOWER_PANEL.y1) / 2;
+    lensView.current = { s: s0, tx: -(LOWER_PANEL.cx - 0.5) * w * s0, ty: -(panelCy - 0.5) * imgH0 * s0 };
     lensApply();
   }, [lensApply]);
+  // First open lands on the lower panel too (the image mounts on first open).
+  useEffect(() => {
+    if (lensSeen) requestAnimationFrame(() => lensReset());
+  }, [lensSeen, lensReset]);
 
   const lensCenterOffset = (e: { clientX: number; clientY: number }) => {
     const r = lensBoxRef.current?.getBoundingClientRect();
@@ -333,18 +369,28 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     box.addEventListener("wheel", onWheel, { passive: false });
     return () => box.removeEventListener("wheel", onWheel);
   }, [lensSeen, lensZoomAt]);
-  const [touring, setTouring] = useState(false);
+  /* v7 M4 — the walk is a state machine, not a boolean: idle · walking ·
+     paused (a drag, tap or key took over) · done (stop 5 reached). `tourRun`
+     is a run counter: every sleeping loop iteration re-checks it and stands
+     down if a newer run (or a pause/stop) has superseded it — no double-drive,
+     no yank. */
+  type Walk = "idle" | "walking" | "paused" | "done";
+  const [walk, setWalk] = useState<Walk>("idle");
+  const walkRef = useRef<Walk>("idle");
+  walkRef.current = walk;
+  const tourRun = useRef(0);
   const [hintOpen, setHintOpen] = useState(false);
   const [arrivalStop, setArrivalStop] = useState<Stop | null>(null);
-  const tourAbort = useRef(false);
   const flyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** v7 X1: set once the curtain starts covering — every camera/route
    *  animation checks it and stands down so page A is still under the cover. */
   const leavingRef = useRef(false);
   const focusedRef = useRef(false);
   focusedRef.current = focused;
-  const touringRef = useRef(false);
-  touringRef.current = touring;
+  /** keen: true between dragStarted and dragEnded. */
+  const dragRef = useRef(false);
+  const dragStartIdx = useRef(0);
+  const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const reduced =
     typeof window !== "undefined" &&
@@ -395,57 +441,118 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return () => io.disconnect();
   }, []);
 
-  /** The approved tilt, framed so all five pills fit at any viewport: fit
-   * bounds, capped at the approved zoom 15.25 (wide screens render the
-   * approved overview exactly; narrow ones pull back just enough). */
-  const overviewCamera = useCallback(() => {
+  /**
+   * v7 M2 — the overview camera. `cameraForBounds` honours `pitch` in
+   * mapbox-gl 3.27 but knows nothing about the DOM label pills, so for each
+   * pitch candidate (steepest first) the fit is tried and every marker LABEL
+   * rect (phone chips 24×24 with ≥ 22px centre separation; desktop pills on
+   * their pinOffset leader) is checked against the safe box (inside
+   * --ui-inset, below the chip row, above the door row) by a synchronous
+   * jumpTo + project, restored in the same task (Mapbox paints on rAF, so no
+   * frame ever shows the probe). Cached per viewport size.
+   */
+  const camCache = useRef<{ key: string; cam: typeof OVERVIEW } | null>(null);
+  const overviewCamera = useCallback((): typeof OVERVIEW => {
     const map = mapRef.current;
     const gl = glRef.current;
-    /* `map` only exists once the runtime has landed, so `gl` is non-null
-       wherever `map` is — the guard is belt-and-braces for the type. */
     if (!map || !gl) return OVERVIEW;
-    const b = new gl.LngLatBounds();
-    stops.forEach((s) => b.extend(s.coordinates));
-    /* The padding has to clear the LABELS, not the dots. A named pill runs up
-       to ~210px and hangs off its coordinate on a leader line, so 48px of side
-       padding let three of five labels fall off the screen at 390. */
     const w = window.innerWidth;
     const h = window.innerHeight;
-    /* "Tight" is the same test the markers use to drop to numbered chips: a
-       narrow screen OR a short one. Both get the chip treatment and both need
-       the camera floor, because a chip sits ON its coordinate and two
-       coordinates only stay apart if the zoom keeps them apart. */
+    const key = `${w}x${h}`;
+    if (camCache.current?.key === key) return camCache.current.cam;
+    const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+    const b = new gl.LngLatBounds();
+    stops.forEach((st) => b.extend(st.coordinates));
     const short = h < 560;
-    const tight = w < 640 || short;
-    const side = w < 640 ? 56 : short ? 80 : w < 1024 ? 120 : 190;
-    const cam = map.cameraForBounds(b, {
-      padding: short
-        ? { top: 56, bottom: 132, left: side, right: side }
-        : { top: 132, bottom: 200, left: side, right: side },
-      bearing: OVERVIEW.bearing,
-    });
-    /* A phone held sideways gives the map 390px of height for five stops and a
-       control bar. Fitting all five into it drives the zoom low enough that the
-       markers themselves start touching — the two closest stops overlapped by
-       24x23px. Below this floor the walk stops being legible as a walk, so the
-       camera holds the floor and the visitor pans; the full list of five is
-       directly below the map either way. */
-    return cam
-      ? {
-          center: cam.center as [number, number],
-          // A tight viewport simply holds the approved overview zoom rather
-          // than pulling back below it. Fitting five stops into 390px of height
-          // drove the zoom low enough that the two closest markers touched;
-          // 15.25 is the widest camera at which the walk still reads as a walk,
-          // and the full list of five sits directly below the map regardless.
-          zoom: tight
-            ? OVERVIEW.zoom
-            : Math.min(cam.zoom as number, OVERVIEW.zoom),
-          pitch: OVERVIEW.pitch,
-          bearing: OVERVIEW.bearing,
+    const narrow = w < 640 || short;
+    // Safe box for LABELS: chip row on top, door/attribution row at the bottom.
+    const safe = { x0: inset, y0: inset + 56, x1: w - inset, y1: h - (inset + 12 + 48 + 12) };
+    const labelRect = (pt: { x: number; y: number }, st: Stop) => {
+      if (narrow) return { x0: pt.x - 12, y0: pt.y - 12, x1: pt.x + 12, y1: pt.y + 12, cx: pt.x, cy: pt.y };
+      const [dx, dy] = st.pinOffset ?? [0, -46];
+      const wpx = 26 + 9.4 * st.label.length; // measured: "2 COMMISSIONER'S OFFICE" ≈ 241px
+      const cx = pt.x + dx, cy = pt.y + dy;
+      return { x0: cx - wpx / 2, y0: cy - 20, x1: cx + wpx / 2, y1: cy + 20, cx, cy };
+    };
+    const saved = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing() };
+    let chosen: typeof OVERVIEW | null = null;
+    if (narrow) {
+      /* Phones: cameraForBounds under pitch is far too conservative (zoom ~14.3
+         for a walk that fits at ~15.0), so search directly — the highest zoom
+         at which the projected chip box fits the safe box, re-centred through
+         unproject (twice: perspective makes the first shift approximate). */
+      const centroid: [number, number] = [
+        stops.reduce((a, st) => a + st.coordinates[0], 0) / stops.length,
+        stops.reduce((a, st) => a + st.coordinates[1], 0) / stops.length,
+      ];
+      outerN: for (const pitch of PITCHES) {
+        for (let zoom = OVERVIEW.zoom; zoom >= 14.7; zoom -= 0.05) {
+          let center: [number, number] = centroid;
+          let ok = false;
+          for (let pass = 0; pass < 3; pass++) {
+            map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
+            const pts = stops.map((st) => map.project(st.coordinates));
+            const x0 = Math.min(...pts.map((q) => q.x)) - 12, x1 = Math.max(...pts.map((q) => q.x)) + 12;
+            const y0 = Math.min(...pts.map((q) => q.y)) - 12, y1 = Math.max(...pts.map((q) => q.y)) + 12;
+            if (x1 - x0 > safe.x1 - safe.x0 || y1 - y0 > safe.y1 - safe.y0) break;
+            const shift = { x: (safe.x0 + safe.x1) / 2 - (x0 + x1) / 2, y: (safe.y0 + safe.y1) / 2 - (y0 + y1) / 2 };
+            if (Math.abs(shift.x) < 1 && Math.abs(shift.y) < 1) { ok = true; break; }
+            const c = map.unproject([w / 2 - shift.x, h / 2 - shift.y]);
+            center = [c.lng, c.lat];
+            ok = true;
+          }
+          if (!ok) continue;
+          map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
+          const pts = stops.map((st) => map.project(st.coordinates));
+          const inside = pts.every((q) => q.x - 12 >= safe.x0 && q.y - 12 >= safe.y0 && q.x + 12 <= safe.x1 && q.y + 12 <= safe.y1);
+          let sep = Infinity;
+          for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) sep = Math.min(sep, Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y));
+          if (inside && sep >= 14) {
+            chosen = { center, zoom: +zoom.toFixed(2), pitch, bearing: OVERVIEW.bearing };
+            break outerN;
+          }
         }
-      : OVERVIEW;
+      }
+    } else {
+      outer: for (const pitch of PITCHES) {
+        const cam = map.cameraForBounds(b, {
+          padding: { top: 120, bottom: 140, left: 140, right: 140 },
+          bearing: OVERVIEW.bearing,
+          pitch,
+        } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
+        if (!cam) continue;
+        const baseZoom = Math.min(cam.zoom as number, 15.6);
+        for (const dz of [0, 0.25, 0.5, 0.75, 1.0]) {
+          const zoom = baseZoom - dz;
+          if (zoom < 14.2) break;
+          map.jumpTo({ center: cam.center as [number, number], zoom, pitch, bearing: OVERVIEW.bearing });
+          const rects = stops.map((st) => labelRect(map.project(st.coordinates), st));
+          const inside = rects.every((r) => r.x0 >= safe.x0 && r.y0 >= safe.y0 && r.x1 <= safe.x1 && r.y1 <= safe.y1);
+          let apart = true;
+          for (let i = 0; i < rects.length && apart; i++)
+            for (let j = i + 1; j < rects.length; j++) {
+              const a = rects[i], c = rects[j];
+              if (Math.min(a.x1, c.x1) - Math.max(a.x0, c.x0) > 0 && Math.min(a.y1, c.y1) - Math.max(a.y0, c.y0) > 0) { apart = false; break; }
+            }
+          if (inside && apart) {
+            chosen = { center: cam.center as [number, number], zoom, pitch, bearing: OVERVIEW.bearing };
+            break outer;
+          }
+        }
+      }
+    }
+    map.jumpTo(saved);
+    const cam = chosen ?? { ...OVERVIEW, pitch: PITCHES[PITCHES.length - 1] };
+    camCache.current = { key, cam };
+    return cam;
   }, [stops]);
+  useEffect(() => {
+    const onResize = () => {
+      camCache.current = null;
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const flyToStop = useCallback(
     (idx: number) => {
@@ -474,8 +581,33 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     [stops, reduced, setMarkers],
   );
 
+  /** v7 M5: the short hop between neighbouring cards (a swipe/settle) —
+   *  easeTo on the house curve; `flyTo` stays for marker taps from the
+   *  overview. */
+  const followCamera = useCallback(
+    (idx: number) => {
+      const map = mapRef.current;
+      const stop = stops[idx];
+      if (!map || !stop) return;
+      const lift: [number, number] = window.innerHeight < 560 ? [0, -64] : [0, 0];
+      if (reduced) map.jumpTo({ center: stop.coordinates, zoom: 17.75 });
+      else map.easeTo({ center: stop.coordinates, zoom: 17.75, duration: 1100, easing: expoOut, offset: lift, essential: true });
+      setMarkers(stop.label);
+    },
+    [stops, reduced, setMarkers],
+  );
+
+  /** v7 M4: a drag, tap or key takes the walk over — the loop stands down. */
+  const pauseWalk = useCallback(() => {
+    if (walkRef.current !== "walking") return;
+    tourRun.current++;
+    mapRef.current?.stop();
+    setWalk("paused");
+  }, []);
+
   const focusStop = useCallback(
     (idx: number) => {
+      pauseWalk();
       setFocused(true);
       setActiveIdx(idx);
       setHintOpen(false);
@@ -484,14 +616,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       url.searchParams.set("stop", stops[idx].slug);
       history.replaceState(null, "", url);
     },
-    [flyToStop, stops],
+    [flyToStop, stops, pauseWalk],
   );
 
   const backToOverview = useCallback(() => {
     const map = mapRef.current;
     if (!map) return;
-    tourAbort.current = true;
-    setTouring(false);
+    tourRun.current++;
+    map.stop();
+    setWalk("idle");
     setFocused(false);
     setMarkers(null);
     const target = overviewCamera();
@@ -547,14 +680,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(container.current);
 
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: { enableHighAccuracy: true },
-        trackUserLocation: true,
-        showUserHeading: true,
-      }),
-      "bottom-left",
-    );
+    // v7 M1: the GeolocateControl is gone (Wil) — bottom-left is attribution alone.
     // Item 7: the ScaleControl is gone — it read as an "elevation counter"
     // ticking through the flights. The walk's true size is stated in type
     // under the map ("2.5 miles · about 45 minutes on foot").
@@ -573,7 +699,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         el.innerHTML = markerHtml(stop, false);
         el.setAttribute(
           "aria-label",
-          `Spot ${stop.order}: ${stop.cardTitle}${stop.plaque ? "" : " (no plaque — website only)"}`,
+          `Spot ${stop.order}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}${stop.plaque ? "" : " (no plaque, website only)"}`,
         );
         el.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -588,8 +714,44 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         })
           .setLngLat(stop.coordinates)
           .addTo(map);
+        /* v7 V7-009: Mapbox stamps role="img" on the marker element — ours is
+           the <button> itself, whose aria-label is the accessible object. */
+        el.removeAttribute("role");
         return { marker, stop };
       });
+      /* v7 M2 (phones): two chips one block apart would overlap at the camera
+         that shows all five; when two chip centres come within 24px they are
+         eased apart along their joining line (≤ 6px each — a leader's worth,
+         the dot stays on its block). Reset once the walk zooms in. */
+      const chipNudge = () => {
+        if (!(window.innerWidth < 640 || window.innerHeight < 560)) return;
+        const ms = markersRef.current;
+        const pts = ms.map(({ stop }) => map.project(stop.coordinates));
+        const off = ms.map(() => ({ x: 0, y: 0 }));
+        if (map.getZoom() < 16) {
+          for (let i = 0; i < pts.length; i++)
+            for (let j = i + 1; j < pts.length; j++) {
+              const dx = pts[j].x - pts[i].x, dy = pts[j].y - pts[i].y;
+              const d = Math.hypot(dx, dy) || 1;
+              if (d < 25) {
+                const push = Math.min(6, (25 - d) / 2);
+                off[i].x -= (dx / d) * push; off[i].y -= (dy / d) * push;
+                off[j].x += (dx / d) * push; off[j].y += (dy / d) * push;
+              }
+            }
+        }
+        ms.forEach(({ marker }, i) => {
+          const inner = marker.getElement().firstElementChild as HTMLElement | null;
+          if (inner) inner.style.translate = off[i].x || off[i].y ? `${off[i].x.toFixed(1)}px ${off[i].y.toFixed(1)}px` : "";
+        });
+      };
+      map.on("render", chipNudge);
+      /* v7 V7-037: blank highway-shield glyphs render in the Studio style at
+         these zooms; hide the shield layers at runtime (the style lives on
+         Wil's account — noted for the guide). */
+      for (const l of map.getStyle()?.layers ?? []) {
+        if (/shield/i.test(l.id)) map.setLayoutProperty(l.id, "visibility", "none");
+      }
 
       // The route draws itself (M5); instant under reduced motion
       const route = routeLine;
@@ -659,12 +821,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         setMarkers(stops[deepIdx].label);
         setArrivalStop(stops[deepIdx]);
         setTimeout(() => setArrivalStop(null), 5200);
-        if (reduced) map.jumpTo({ center: stops[deepIdx].coordinates, zoom: 17.75, pitch: OVERVIEW.pitch, bearing: OVERVIEW.bearing });
+        const arrPitch = overviewCamera().pitch;
+        if (reduced) map.jumpTo({ center: stops[deepIdx].coordinates, zoom: 17.75, pitch: arrPitch, bearing: OVERVIEW.bearing });
         else
           map.easeTo({
             center: stops[deepIdx].coordinates,
             zoom: 17.75,
-            pitch: OVERVIEW.pitch,
+            pitch: arrPitch,
             bearing: OVERVIEW.bearing,
             duration: 5000,
             curve: 1.4,
@@ -687,7 +850,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         ? {
             center: stops[deepIdx].coordinates,
             zoom: 17.75,
-            pitch: OVERVIEW.pitch,
+            pitch: overviewCamera().pitch,
             bearing: OVERVIEW.bearing,
           }
         : overviewCamera();
@@ -747,77 +910,122 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }, []);
 
   // ——— Carousel (approved overlap slider) ———
-  const debouncedFly = useCallback(
-    (idx: number) => {
-      if (flyTimeout.current) clearTimeout(flyTimeout.current);
-      flyTimeout.current = setTimeout(() => flyToStop(idx), 150);
-    },
-    [flyToStop],
-  );
 
   // The slider mounts fresh each time focus begins; keen's `initial` option
   // proved unreliable with perView:auto (it landed on the wrong card — QA
   // final, defect 2), so creation force-jumps to the chosen stop.
   const activeIdxRef = useRef(0);
   activeIdxRef.current = activeIdx;
+  /* v7 M5 — root cause: keen-slider 6.8's snap mode hard-codes a 500ms
+     quintic on ANY release velocity (a 5px nudge flung a whole card) and the
+     reconciliation retry yanked live drags. Here `dragEnded` runs after keen's
+     snap plugin, so the moveToIdx below REPLACES its animation: the target is
+     the nearest snap point, or start ± 1 for a real flick, never more than one
+     card, on the house curve. `slideChanged` only lights the marker; the map
+     follows on `settle()` (animationEnded, or a fallback timer, or a
+     zero-distance release which emits no animationEnded). */
+  const settle = useCallback(
+    (idx: number) => {
+      if (settleTimer.current) clearTimeout(settleTimer.current);
+      settleTimer.current = null;
+      setActiveIdx(idx);
+      if (focusedRef.current && walkRef.current !== "walking") followCamera(idx);
+      else setMarkers(stops[idx]?.label ?? null);
+      /* v7 V7-095: the URL follows the card, so Back from a chapter (or a
+         reload) restores this stop instead of the plain overview. */
+      if (focusedRef.current && stops[idx]) {
+        const url = new URL(location.href);
+        url.searchParams.set("stop", stops[idx].slug);
+        history.replaceState(null, "", url);
+      }
+    },
+    [followCamera, setMarkers, stops],
+  );
   const [sliderRef, sliderInstance] = useKeenSlider({
-    slides: { perView: "auto", spacing: -20, origin: "center" },
+    slides: { perView: "auto", spacing: 12, origin: "center" },
     breakpoints: {
       "(min-width: 640px)": { slides: { perView: "auto", spacing: 16, origin: "center" } },
     },
     mode: "snap",
     initial: activeIdx,
-    /* Item 14: rubberband on, and the settle rides the house curve instead of
-       a linear glide — the card lands, it doesn't stop. */
     rubberband: true,
     renderMode: "performance",
-    defaultAnimation: { duration: 480, easing: (t: number) => 1 - Math.pow(1 - t, 3) },
-    created: (s) => {
+    dragSpeed: 1,
+    defaultAnimation: { duration: reduced ? 0 : 650, easing: expoOut },
+    created: (sl) => {
       const target = activeIdxRef.current;
-      if (s.track.details.rel !== target) {
-        s.moveToIdx(target, true, { duration: 0 });
-      }
+      if (sl.track.details.rel !== target) sl.moveToIdx(target, true, { duration: 0 });
     },
-    slideChanged: (s) => setActiveIdx(s.track.details.rel),
-    animationEnded: (s) => {
-      const idx = s.track.details.rel;
-      setActiveIdx(idx);
-      if (!touringRef.current && focusedRef.current) debouncedFly(idx);
+    dragStarted: (sl) => {
+      dragRef.current = true;
+      dragStartIdx.current = sl.track.details.rel;
+      pauseWalk();
+    },
+    dragEnded: (sl) => {
+      dragRef.current = false;
+      const d = sl.track.details;
+      const v = sl.track.velocity();
+      let target = d.rel;
+      if (Math.abs(v) > 0.0008) target = dragStartIdx.current + (v > 0 ? 1 : -1);
+      target = Math.max(0, Math.min(stops.length - 1, target));
+      if (Math.abs(sl.track.idxToDist(target, true)) < 0.001) {
+        settle(target);
+        return;
+      }
+      sl.moveToIdx(target, true, { duration: reduced ? 0 : 650, easing: expoOut });
+      if (settleTimer.current) clearTimeout(settleTimer.current);
+      settleTimer.current = setTimeout(() => settle(sl.track.details.rel), 800);
+    },
+    slideChanged: (sl) => {
+      const idx = sl.track.details.rel;
+      setMarkers(stops[idx]?.label ?? null);
+    },
+    animationEnded: (sl) => settle(sl.track.details.rel),
+    detailsChanged: (sl) => {
+      /* v7 M9: neighbours scale continuously by distance (0.92 → 1), no
+         allocations — transform writes only. */
+      const det = sl.track.details;
+      if (!det) return;
+      det.slides.forEach((sd, i) => {
+        const inner = sl.slides[i]?.firstElementChild as HTMLElement | null;
+        if (!inner) return;
+        const t = Math.min(1, Math.abs(sd.distance));
+        inner.style.transform = `scale(${(1 - 0.08 * t).toFixed(4)})`;
+      });
     },
   });
 
-  // Keep slider in sync when focus/tour set the index programmatically.
-  // The settle retry covers keen measuring slides a frame after creation.
+  // Keep slider in sync when focus/tour set the index programmatically —
+  // never while a finger or an animation owns the strip.
   useEffect(() => {
     const inst = sliderInstance.current;
     if (!inst || !focused) return;
-    if (inst.track.details.rel !== activeIdx) {
-      inst.moveToIdx(activeIdx);
-    }
+    if (dragRef.current || inst.animator.active) return;
+    if (inst.track.details.rel !== activeIdx) inst.moveToIdx(activeIdx);
     const t = setTimeout(() => {
       const i = sliderInstance.current;
-      if (i && i.track.details.rel !== activeIdxRef.current) {
+      if (i && !dragRef.current && !i.animator.active && i.track.details.rel !== activeIdxRef.current) {
         i.moveToIdx(activeIdxRef.current, true, { duration: 0 });
       }
     }, 80);
     return () => clearTimeout(t);
   }, [activeIdx, focused, sliderInstance]);
 
-  // ——— Guided flythrough (M6) ———
-  const tour = async () => {
+  // ——— The walk (v7 M4) — an abortable loop keyed on tourRun ———
+  const runTour = async (from: number) => {
     const map = mapRef.current;
-    if (!map || touring) return;
-    setTouring(true);
+    if (!map) return;
+    const run = ++tourRun.current;
+    setWalk("walking");
     setFocused(true);
     setHintOpen(false);
-    tourAbort.current = false;
-    for (let i = 0; i < stops.length; i++) {
-      if (tourAbort.current) break;
+    for (let i = from; i < stops.length; i++) {
+      if (run !== tourRun.current || leavingRef.current) return;
       setActiveIdx(i);
       setMarkers(stops[i].label);
       if (reduced) {
         map.jumpTo({ center: stops[i].coordinates, zoom: 17.5 });
-        await new Promise((r) => setTimeout(r, 1200));
+        await sleep(2500); // v7 V7-038: a gentler cadence for the cuts
       } else {
         map.flyTo({
           center: stops[i].coordinates,
@@ -827,18 +1035,45 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           duration: 2600,
           essential: false,
         });
-        await new Promise((r) => setTimeout(r, 3400));
+        await sleep(3400);
       }
     }
-    setTouring(false);
-    if (!tourAbort.current) flyToStop(stops.length - 1);
+    if (run !== tourRun.current || leavingRef.current) return;
+    setWalk("done");
+    followCamera(stops.length - 1);
   };
-
-  const stopTour = () => {
-    tourAbort.current = true;
+  const stopWalk = () => {
+    tourRun.current++;
     mapRef.current?.stop();
-    setTouring(false);
+    setWalk("idle");
+    // never leave the camera frozen mid-arc
+    followCamera(activeIdxRef.current);
   };
+  const continueWalk = () => runTour(activeIdxRef.current);
+
+  /* v7 V7-079: Escape closes the lens → pauses the walk → leaves focused. */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (lensRef.current) setLens(false);
+      else if (walkRef.current === "walking") pauseWalk();
+      else if (focusedRef.current) backToOverview();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [pauseWalk, backToOverview]);
+
+  /* v7 M9: on phones the ☰ retreats while a stop is focused (a 360px top row
+     cannot hold Back + Stop the walk + ☰); `Back` is the exit that brings it
+     back. A separate attribute so Menu.astro's scroll handler can't fight it. */
+  useEffect(() => {
+    const menu = document.querySelector<HTMLElement>(".cnwm-menu");
+    if (!menu) return;
+    menu.dataset.walk = focused || lens ? "true" : "false";
+    return () => {
+      menu.dataset.walk = "false";
+    };
+  }, [focused, lens]);
 
   const navigateToStop = (stop: Stop) => {
     playCover(
@@ -854,7 +1089,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   useEffect(() => {
     const onCover = () => {
       leavingRef.current = true;
-      tourAbort.current = true;
+      tourRun.current++;
       if (flyTimeout.current) clearTimeout(flyTimeout.current);
       mapRef.current?.stop();
     };
@@ -866,8 +1101,6 @@ export default function TroyMap({ stops, baseUrl }: Props) {
    * A static site: exposing the map instance and a state snapshot on `window`
    * is harmless in production and lets the QA instruments assert camera,
    * carousel and walk state without poking at React internals. */
-  const lensRef = useRef(false);
-  lensRef.current = lens;
   useEffect(() => {
     const hook = {
       get map() {
@@ -877,8 +1110,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       get state() {
         return {
           focused: focusedRef.current,
-          touring: touringRef.current,
+          walk: walkRef.current,
+          touring: walkRef.current === "walking",
           activeIdx: activeIdxRef.current,
+          dragging: dragRef.current,
+          leaving: leavingRef.current,
           lens: lensRef.current,
           hasToken,
         };
@@ -919,23 +1155,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           first open. The transform lives in refs and is applied directly to
           the node — panning at 60fps must not re-render the map island. */}
       <div
-        className="absolute inset-0 z-10 grid place-items-center bg-black/70 p-4 transition-opacity duration-[1600ms] sm:p-10"
-        style={{ opacity: lens ? 1 : 0, pointerEvents: lens ? "auto" : "none" }}
+        className="lens-shell absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70 transition-opacity duration-[1600ms]"
+        style={{ opacity: lens ? 1 : 0, pointerEvents: lens ? "auto" : "none", padding: "var(--ui-inset)", paddingTop: "calc(var(--ui-inset) + 4px)" }}
         aria-hidden={!lens}
       >
-        <figure className="max-h-full">
+        <figure className="flex h-full max-h-full w-full flex-col items-center">
+          {/* v7 L2: the viewer fills the shell (within --ui-inset), leaving one
+              caption row and the Back-to-today door below it. */}
           {lensSeen && (
             <div
               ref={lensBoxRef}
               role="application"
-              aria-label="Map of Troy in 1858 — drag to pan, pinch or scroll to zoom, arrow keys to pan, plus and minus to zoom"
+              aria-label="Map of Troy in 1858: drag to pan, pinch or scroll to zoom, arrow keys to pan, plus and minus to zoom, 0 to reset"
               tabIndex={lens ? 0 : -1}
-              className="artifact relative cursor-grab overflow-hidden"
-              style={{
-                width: "min(92vw, 88dvh)",
-                aspectRatio: "4096 / 3431",
-                touchAction: "none",
-              }}
+              className="artifact relative w-full min-h-0 flex-1 cursor-grab overflow-hidden"
+              style={{ touchAction: "none" }}
               onPointerDown={lensPointerDown}
               onPointerMove={lensPointerMove}
               onPointerUp={lensPointerEnd}
@@ -948,11 +1182,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                 <img
                   ref={lensImgRef}
                   src={`${baseUrl}/media/site/troy-1858-full-4096.webp`}
-                  alt="Map of Troy, New York in 1858 — the full city survey: Troy, the Hudson, West Troy and Green Island"
+                  alt="Map of Troy, New York in 1858: the full city survey, Troy, the Hudson, West Troy and Green Island"
                   draggable={false}
                   decoding="async"
-                  className="h-full w-full select-none"
-                  style={{ transformOrigin: "center", willChange: "transform" }}
+                  className="absolute top-1/2 left-1/2 w-full max-w-none select-none"
+                  style={{ transformOrigin: "center", willChange: "transform", transform: "translate(-50%, -50%)" }}
                 />
               </picture>
               <div className="absolute top-2 right-2 flex flex-col gap-1">
@@ -967,6 +1201,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                     key={label}
                     type="button"
                     aria-label={label}
+                    tabIndex={lens ? 0 : -1}
                     onClick={fn}
                     className="flex h-8 w-8 items-center justify-center rounded-full text-base"
                     style={{
@@ -981,25 +1216,38 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               </div>
             </div>
           )}
-          <figcaption className="t-meta mt-4 text-center">
-            Troy, New York · 1858 · Library of Congress
+          <figcaption className="t-meta mt-3 text-center">
+            Troy, New York · 1858 · Library of&nbsp;Congress
           </figcaption>
-          <p className="t-meta-body mt-2 text-center opacity-70">
-            Drag to explore · pinch or scroll to zoom
+          <p className="t-meta-body mt-1 text-center opacity-80">
+            <span className="hidden sm:inline">Drag to explore · pinch or scroll to zoom</span>
+            <span className="sm:hidden">Drag to explore · pinch to&nbsp;zoom</span>
           </p>
+          {/* v7 L3: the lens's ONE door — Back to today, centred; mounted only
+              while the lens is open so it is never a hidden tab stop. */}
+          {lens && (
+            <button
+              type="button"
+              onClick={() => setLens(false)}
+              className="btn-sm btn-ghost mt-3"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
+            >
+              Back to today
+            </button>
+          )}
         </figure>
       </div>
 
       {/* Place chip (items 10/13): accurate copy only, and NEVER on screen at
           the same time as the chapter cards — two name surfaces at once was
           the collision class v5 spent a phase killing. */}
-      {!(focused && shellVisible) && (
+      {!(focused && shellVisible) && !lens && (
         <div className="pointer-events-none absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 mr-[104px]">
           <p
             className="t-meta rounded-full px-4 py-2"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
           >
-            Five spots · April 27, 1860
+            April 27, 1860
           </p>
         </div>
       )}
@@ -1011,7 +1259,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="rounded-full px-6 py-3 text-center"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
           >
-            <p className="t-meta">Stop {arrivalStop.order} of {stops.length}</p>
+            <p className="t-meta">Spot {String(arrivalStop.order).padStart(2, "0")} of {stops.length}</p>
             <p className="t-title-sm mt-2">
               {arrivalStop.canonical ?? arrivalStop.cardTitle}
             </p>
@@ -1036,12 +1284,14 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </div>
       )}
 
-      {/* Back to overview */}
-      {focused && !touring && (
+      {/* v7 M7: Back — top-left at the equal inset (the chip is hidden in
+          focused mode). Phones read "Back", larger screens "Back to map". */}
+      {focused && !lens && (
         <button
           type="button"
           onClick={backToOverview}
-          className="btn-sm btn-ghost absolute top-[calc(var(--ui-inset)+48px)] left-[var(--ui-inset)] z-20"
+          aria-label="Back to map"
+          className="btn-sm btn-ghost absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-30"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
           <svg
@@ -1053,46 +1303,84 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
             <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
           </svg>
-          Back to map
+          Back<span className="hidden sm:inline">&nbsp;to map</span>
         </button>
       )}
 
-      {/* Experience doors (overview only) */}
-      {!focused && (
-        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={touring ? stopTour : tour}
-            className="btn btn-solid"
-          >
-            Take the walk
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setLensSeen(true);
-              setLens((v) => !v);
-            }}
-            aria-pressed={lens}
-            className="link-meta t-meta rounded-full px-4 py-3"
-            style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
-          >
-            {lens ? "Back to today" : "See Troy in 1858"}
-          </button>
-        </div>
+      {/* v7 M3/M4: the walk control — top-right at the inset on every
+          breakpoint, mirroring Back. Stop the walk ⇄ Continue; Walk again
+          after stop 5. */}
+      {focused && !lens && (
+        <button
+          type="button"
+          onClick={walk === "walking" ? stopWalk : walk === "done" ? () => runTour(0) : continueWalk}
+          aria-label={
+            walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again from the first spot" : "Continue the walk"
+          }
+          className="btn-sm btn-solid absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-30"
+        >
+          {walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again" : "Continue"}
+        </button>
       )}
 
-      {/* Stop the tour */}
-      {touring && (
-        <div className="absolute bottom-44 left-1/2 z-30 -translate-x-1/2 sm:bottom-52">
-          <button
-            type="button"
-            onClick={stopTour}
-            className="btn-sm btn-solid"
+      {/* Experience doors (overview only). ≥640: the centred pair. Phones
+          (v7 M8): one bottom row on the ☰'s axis — attribution (i) at the left
+          inset, Take the walk centred in the free lane, ☰ bottom-right — and
+          the 1858 door becomes a top-right pill opposite the date chip. */}
+      {!focused && !lens && (
+        <>
+          {/* v7 V7-023: the bottom band is a scroll handle on touch screens —
+              a vertical drag here scrolls the page (the map swallows every
+              other one); the buttons ride above it. */}
+          <div
+            className="map-scroll-handle absolute right-0 bottom-0 left-0 z-10 sm:hidden"
+            style={{ height: "calc(var(--ui-inset) + 84px)", touchAction: "pan-y" }}
+            aria-hidden="true"
           >
-            Stop the walk
-          </button>
-        </div>
+            <svg
+              className="absolute bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 opacity-60"
+              viewBox="0 0 24 24"
+              fill="var(--color-primary-11)"
+              aria-hidden="true"
+              style={{ transform: "translateX(-50%) rotate(90deg)" }}
+            >
+              <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
+            </svg>
+          </div>
+          <div className="absolute z-20 flex items-center justify-center gap-3 max-sm:bottom-[calc(var(--ui-inset)+12px)] max-sm:left-[calc(50%-24px)] max-sm:-translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+12px)] sm:left-1/2 sm:-translate-x-1/2">
+            <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
+              Take the walk
+            </button>
+            {/* `.link-meta` sets display and out-cascades a bare `hidden`
+                utility — the wrapper carries the visibility (≥640 only). */}
+            <span className="hidden sm:inline-flex">
+              <button
+                type="button"
+                onClick={() => {
+                  setLensSeen(true);
+                  setLens(true);
+                }}
+                className="link-meta t-meta rounded-full px-4 py-3"
+                style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)", minHeight: 44 }}
+              >
+                See Troy in 1858
+              </button>
+            </span>
+          </div>
+          <span className="absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-20 inline-flex sm:hidden">
+            <button
+              type="button"
+              onClick={() => {
+                setLensSeen(true);
+                setLens(true);
+              }}
+              className="link-meta t-meta rounded-full px-4 py-3"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
+            >
+              See Troy in 1858
+            </button>
+          </span>
+        </>
       )}
 
       {/* ——— The overlap carousel (approved) ———
@@ -1101,7 +1389,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           moveToIdx reliably. Visibility is opacity/pointer-events only. */}
       {
         <div
-          className="fixed right-0 bottom-0 left-0 z-10 pb-24 transition-opacity duration-300 sm:pb-6"
+          className="fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+32px)] transition-opacity duration-300 sm:pb-[calc(var(--ui-inset)+96px)]"
           style={{
             opacity: focused && shellVisible ? 1 : 0,
             pointerEvents: focused && shellVisible ? "auto" : "none",
@@ -1119,30 +1407,35 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               return (
                 <div
                   key={stop.slug}
-                  className="keen-slider__slide !min-w-[343px] !max-w-[343px] sm:!min-w-[428.75px] sm:!max-w-[428.75px] lg:!min-w-[514.5px] lg:!max-w-[514.5px]"
+                  className="keen-slider__slide walk-slide"
                 >
-                  <div
-                    className={`origin-bottom transition-transform duration-300 ${isActive ? "scale-100" : "scale-[.92]"}`}
-                  >
+                  {/* v7 M9: the scale is written by detailsChanged (continuous). */}
+                  <div className="origin-bottom">
                     {/* Two-tap: inactive card focuses; active card navigates */}
                     <div
-                      className="mx-auto flex h-[128px] w-[343px] cursor-pointer overflow-hidden rounded-xl border-2 border-primary-3 bg-primary-2 sm:h-[160px] sm:w-[428.75px] lg:h-[192px] lg:w-[514.5px]"
+                      className="mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2 border-primary-3 bg-primary-2 sm:h-[160px] lg:h-[192px]"
                       onClick={() => {
                         if (isActive) navigateToStop(stop);
-                        else sliderInstance.current?.moveToIdx(index);
+                        else {
+                          pauseWalk();
+                          sliderInstance.current?.moveToIdx(index);
+                        }
                       }}
                       role="button"
                       tabIndex={focused && isActive ? 0 : -1}
                       aria-label={
                         isActive
-                          ? `Enter Chapter ${stop.order}: ${stop.cardTitle}`
-                          : `Focus spot ${stop.order}: ${stop.cardTitle}`
+                          ? `Enter Spot ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
+                          : `Focus Spot ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
                       }
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           if (isActive) navigateToStop(stop);
-                          else sliderInstance.current?.moveToIdx(index);
+                          else {
+                            pauseWalk();
+                            sliderInstance.current?.moveToIdx(index);
+                          }
                         }
                       }}
                     >
@@ -1170,7 +1463,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       </div>
                       <div className="flex h-full w-2/3 flex-col justify-between p-3">
                         <div className="m-1 flex flex-row items-center justify-between">
-                          <p className="t-meta leading-none">Chapter</p>
+                          <p className="t-meta leading-none">Spot</p>
                           {/* Dark ink on the orange chip — the cream ink
                               measured 2.75:1 (contrast sweep, P0 baseline). */}
                           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5 lg:h-6 lg:w-6">
@@ -1183,7 +1476,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                           </div>
                         </div>
                         <div className="flex flex-col">
-                          <p className="ml-1 text-left text-[1.125rem] leading-tight font-normal text-primary-12 sm:text-[1.40625rem] lg:text-[1.6875rem]">
+                          {/* v7 M6: `name.card` (authored two lines) as a type role. */}
+                          <p className="t-card ml-1 text-left whitespace-pre-line">
                             {stop.cardTitle}
                           </p>
                           {/* Item 11: the stretched-chevron idiom dies. Only a

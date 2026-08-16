@@ -64,6 +64,9 @@ const chapters = defineCollection({
       canonical: z.string(),
       display: z.string(),
       short: z.string(),
+      /** v7 M6: the map card's authored two-line title ("Holeur’s\nFashionable
+       *  Bakery"); falls back to `canonical`. See docs/v4/NAMING-CANON.md. */
+      card: z.string().optional(),
     }),
     /**
      * Leader-line vector from the pin to its label, in screen px at the

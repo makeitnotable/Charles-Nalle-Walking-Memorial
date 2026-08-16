@@ -100,6 +100,7 @@ const COLLIDE = () => {
     .map((el) => {
       const r = el.getBoundingClientRect();
       const cs = getComputedStyle(el);
+      const inLens = Boolean(el.closest(".lens-shell"));
       /* An element (or its floating wrapper's child) that carries its own
          ground — backdrop blur + border + non-transparent background — is a
          self-scrimmed LAYER (the mini-player pill). */
@@ -114,9 +115,12 @@ const COLLIDE = () => {
       const fixedControl =
         el.matches("button,a,[role='button']") &&
         (cs.position === "fixed" ||
-          Boolean(el.closest(".mapboxgl-ctrl, .cnwm-menu-burger")));
+          Boolean(el.closest(".mapboxgl-ctrl, .cnwm-menu-burger")) ||
+          /* the map's own corner controls are `absolute` inside the 100dvh shell */
+          (cs.position === "absolute" && Boolean(el.closest(".map-shell"))));
       return {
         sel: label(el),
+        inLens,
         marker: Boolean(el.closest(".mapboxgl-marker")),
         layer,
         fixedControl,
@@ -140,18 +144,39 @@ const COLLIDE = () => {
     document.querySelector(".cnwm-menu-scrim:not([hidden])"),
   );
   const isPanelPart = (sel) => /cnwm-menu/.test(sel);
+  /* v7: the open 1858 lens is a modal layer over the map (70% black ground,
+     pointer-events on) — the same doctrine as the scrimmed menu: pairs of a
+     lens element with anything outside it are layering, not collision. */
+  const lensUp = (() => {
+    const l = document.querySelector(".lens-shell");
+    return Boolean(l && getComputedStyle(l).opacity === "1");
+  })();
 
   const hits = [];
   for (let i = 0; i < items.length; i++)
     for (let j = i + 1; j < items.length; j++) {
       if (scrimUp && (isPanelPart(items[i].sel) || isPanelPart(items[j].sel)))
         continue;
+      if (lensUp && items[i].inLens !== items[j].inLens) continue;
       /* Two map markers are geographic objects: their positions are DATA, not
          layout. The Commissioner's Office and the Barbershop are one block
          apart, so their pins are close at any camera that shows the whole
          walk, and pushing them apart would make the map lie. Marker-vs-marker
          is excluded; marker-vs-UI is still very much a collision. */
       if (items[i].marker && items[j].marker) continue;
+      /* v7 (P5): while a stop is focused the camera flies over the city and a
+         neighbouring marker's pill will pass UNDER the fixed corner controls
+         (Back / Stop the walk), which carry their own opaque ground. The map
+         moving under fixed chrome is layering, not layout — the pill is back
+         a beat later, the control is always legible. Overview state (camera
+         at rest) still counts marker-vs-control. */
+      const focusedWalk = Boolean(window.__troyMap?.state?.focused);
+      if (
+        focusedWalk &&
+        ((items[i].marker && items[j].fixedControl && !items[j].marker) ||
+          (items[j].marker && items[i].fixedControl && !items[i].marker))
+      )
+        continue;
       /* A floating pill that carries its own ground (backdrop blur + border
          + painted background — the mini-player) is a LAYER above in-flow
          content, the same doctrine as the scrimmed menu (v5 F4).
@@ -257,6 +282,15 @@ for (const vp of VPS) {
       await page.waitForTimeout(500);
     }
 
+    // v7: the mini-player collapses once the transcript has scrolled away
+    if (await play.count()) {
+      await page.evaluate(() => window.scrollTo({ top: document.getElementById("onward")?.offsetTop ?? 0, behavior: "instant" }));
+      await page.waitForTimeout(1200);
+      await record(page, `mansion-${vp.name}-11-mini-collapsed`, "mini-player COLLAPSED at Onward (one orange: Continue)");
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.waitForTimeout(600);
+    }
+
     // Press-and-hold, mid-hold
     const pr = page.locator("[data-press-reveal], .press-reveal, [aria-label*='Press']").first();
     const target = (await pr.count())
@@ -320,6 +354,44 @@ for (const vp of VPS) {
     await page.evaluate(() => window.scrollBy(0, window.innerHeight * 0.9));
     await page.waitForTimeout(1200);
     await record(page, `map-${vp.name}-05-index`, "map index below the fold");
+
+    // ─── v7 states: the walk, paused, lens, walk + menu ───
+    await go("/map", 8000);
+    const walkBtn = page.getByRole("button", { name: /take the walk/i }).first();
+    if (await walkBtn.count()) {
+      await page.evaluate(() => [...document.querySelectorAll("button")].find((b) => /take the walk/i.test(b.innerText))?.click());
+      await page.waitForTimeout(3800);
+      await record(page, `map-${vp.name}-06-walk`, "WALK MODE: Back top-left, Stop the walk top-right, cards");
+      // a drag pauses the walk
+      const strip = page.locator(".keen-slider").first();
+      const box = await strip.boundingBox().catch(() => null);
+      if (box) {
+        await page.mouse.move(box.x + box.width * 0.7, box.y + box.height / 2);
+        await page.mouse.down();
+        for (let i = 1; i <= 8; i++) {
+          await page.mouse.move(box.x + box.width * 0.7 - i * 12, box.y + box.height / 2);
+          await page.waitForTimeout(16);
+        }
+        await page.mouse.up();
+        await page.waitForTimeout(1600);
+        await record(page, `map-${vp.name}-07-walk-paused`, "walk PAUSED by a drag: button reads Continue");
+      }
+      await page.click(".cnwm-menu-burger", { timeout: 2000 }).catch(() => {});
+      await page.waitForTimeout(900);
+      await record(page, `map-${vp.name}-08-walk-plus-menu`, "walk + menu (phones: ☰ retreats while focused)");
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(500);
+      await page.keyboard.press("Escape"); // back to overview
+      await page.waitForTimeout(2200);
+    }
+    const lensBtn = page.getByRole("button", { name: /see troy in 1858/i }).first();
+    if (await lensBtn.count()) {
+      await page.evaluate(() => [...document.querySelectorAll("button")].find((b) => /see troy in 1858/i.test(b.innerText) && b.getClientRects().length)?.click());
+      await page.waitForTimeout(2500);
+      await record(page, `map-${vp.name}-09-lens-open`, "1858 LENS open: only Back to today");
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(800);
+    }
 
     // ─── PAINTINGS: the dialog ───
     await go("/paintings");

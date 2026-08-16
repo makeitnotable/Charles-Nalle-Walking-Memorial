@@ -6,7 +6,7 @@ NEXT ACTION is always written before any stop. Constitution: `docs/PLAN.md`
 (v7). Previous run: `docs/PLAN-v6.md` + `docs/RUN-STATE-v6.md`.*
 
 ## CURRENT PHASE
-**Phase 5 — Map + walk + lens** (Phases 0–4 complete 2026-08-16, Fable 5 / HIGH)
+**Phase 6 — People + About** (Phases 0–5 complete 2026-08-16, Fable 5 / HIGH)
 
 ## CURRENT ITEM
 P2 order: G1 rag utilities (`text.ts nbsp()`, `text-wrap` roles, word-spacing)
@@ -19,7 +19,15 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Phase 4 = DONE.** Phase 5: M1 geolocate out · M2 pitch/label-fit
+**Phase 5 = DONE.** Phase 6: P1 remove spot links · P2 closer copy (`Their
+story lives on` / `Stand where they stood` / `Walk the story`) · P3 people
+dashes (punctuation-only, log) · P4 H1 breaks per breakpoint · P5 grid check ·
+A1 quote → `.sec` + numbered (06) Afterword, Onward (07) · A2 section 06 copy
++ computed distance/minutes from `route.json` · A3 attribution dash · A4 dead
+kicker · V7-091 smart quotes · title `·`. Gate: shots, rag, contrast, a11y on
+/people /about. Then Phase 7 (Museum, XHIGH).
+
+(Previous) **Phase 4 = DONE.** Phase 5: M1 geolocate out · M2 pitch/label-fit
 (`cameraForBounds` + projected label rects, phone chip separation, desktop
 zoom ≈ 15.3, leader-line flip) · M3 Stop-the-walk top-right · M4 walk state
 machine (idle/walking/paused, `Continue`/`Walk again`, drag pauses, Esc
@@ -73,7 +81,8 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 | P3 H1–H6 home: film/still art-directed per orientation (`object-position 50% 43/46%` on landscape frames) + the lockup starts below the chin (eyebrow ≈ 42% portrait / 32–33% landscape) so the whole head sits above `Troy, New York…` with headroom at 360/390/430/768/1024/1280/1440/1920 · H2 description 16px cream, 60ch ≥1200 = exactly 3 lines at 1440/1920 (4 @768, 5 @390) · H3 `Walk the story` · H4 phone CTA pinned to the frame bottom on the 16px inset, full-width, 48px · H5 scrim ramp from 22% + eyebrow ink halo → contrast 0 failures (desc 14:1, eyebrow ≥ 4.76 p10) · title/meta `·` no em dash · landscape phone keeps the centred layout | 435b90d | `docs/v7/qa/p3/contrast-home.md` |
 | P3 F1 footer: 3-col grid (Caslon Display wordmark ONE line + `Made by Notable` · vertical nav list with the arrow idiom · Share right on chapters), `rule-top` disclaimer row (`nbsp` on `and risk.`, 62ch, `--ink-quiet` full opacity), phones stack in one column (no wrapped labels, no lone MAP cell), 3rem/2rem/1.5rem/2.5rem rhythm; chapters keep the `pb-28` lane (C10) | 0483cf5 | `docs/v7/qa/p3/rag-footer.md` |
 | P4 chunk 1 — C9 Ch2 ordered render list (`blocks`; ids hero→scene-0→history→moral-0→hero-2→scene-1→moral-1→onward; spine follows; twin players: one at a time via `cnwm:audio-play`) · C6 rhythm (heading→quote 48/64; Onward `void`→`sec`, moral `pb-16` → ladder `…128, 200, 200` on all five) · C1 drop cap (`initial-letter` + float fallback) · C2 moral: cream body, scrim .86, parallax ±6% scrub (RM off) · C3 study `items-center` · C4 credit chip (phones drop the name) · C5 quiet embed pill + shadow + centred CTAs + mini-player collapse to a time pill + compact Mapbox attribution (V7-045) · C7 `heroFocus {landscape, portrait, portraitX}` (portrait `<video>` finally positioned; bakery face clear of the ☰) · C8 barbershop T→I→T→I→T, focus 44 · C11 `Next · Spot 02`, attribution/alt dashes, `Part 1\nTubman…` labels, ch2 address `·` · C12 `fitChars()` used, dup `longestLine` gone · V7-022 hash re-land · V7-054 phone gutter · V7-056 44px scrub · V7-082 `client:visible rootMargin 600px` · V7-083 hint copy · nbsp glue on prose/dd/moral · `scripts/audio-check.mjs` (`qa:audio`) | 754f627 | `docs/v7/qa/p4/{contrast-chapters,census}.md`; audio-check 5/5 ✓; contrast chapters 0; rag chapters 0/0; census ladder identical ×5 |
-| P4 chunk 2 — G5 in locked prose: 25 punctuation-only substitutions across the five JSONs (0 em dashes left; ledger in `docs/CONTENT-STATUS.md`, words identical, timings not re-run) · AudioStory alt · WalkProgress sr-only · styleguide specimens · `rag.mjs` DOM em-dash sweep (title/meta/aria/alt/text) — chapters clean; remaining 40 are `/map` (P5), `/people` `/about` (P6), `/paintings` (P7) · **P4 gate: a11y 0/0/0 across 14 runs (390/1440), audio-check 5/5 at 1440 and 390 with console clean, arrival 5/5 no film bytes, contrast 0, rag 0/0, census ladder ×5** | (this commit) | `docs/v7/qa/p4/{a11y-chapters,rag-dash-sweep}.md` |
+| P4 chunk 2 — G5 in locked prose: 25 punctuation-only substitutions across the five JSONs (0 em dashes left; ledger in `docs/CONTENT-STATUS.md`, words identical, timings not re-run) · AudioStory alt · WalkProgress sr-only · styleguide specimens · `rag.mjs` DOM em-dash sweep (title/meta/aria/alt/text) — chapters clean; remaining 40 are `/map` (P5), `/people` `/about` (P6), `/paintings` (P7) · **P4 gate: a11y 0/0/0 across 14 runs (390/1440), audio-check 5/5 at 1440 and 390 with console clean, arrival 5/5 no film bytes, contrast 0, rag 0/0, census ladder ×5** | 344612b | `docs/v7/qa/p4/{a11y-chapters,rag-dash-sweep}.md` |
+| **P5 map + walk + lens** — M1 geolocate gone · M2 label-fit overview camera (desktop `cameraForBounds` + projected pill rects → pitch 52 @ zoom 14.7–15.4; phones a direct search → pitch 48–52 @ 14.9–15.15 with all five chips inside the safe box + a render-time chip nudge for the two one-block-apart stops; landscape phones keep the 33/15.25 pan floor) · M3 `Stop the walk` top-right · M4 walk state machine (idle/walking/paused/done, `tourRun` counter, drag/tap/key pause, `Continue`/`Walk again`, Esc chain V7-079, URL follows the card V7-095) · M5 keen `dragEnded` override (nearest snap or ±1 flick, 650ms expo, reconciliation guard, `settle → followCamera`, continuous neighbour scale) · M6 `name.card` + `.t-card` role · M7 Back at the inset · M8 phone row (attribution · Take the walk · ☰ on one axis; 1858 pill top-right; bottom band = `touch-action: pan-y` scroll handle V7-023) · M9 phone cards `min(343px,84vw)`, spacing 12, mask ≥640, ☰ retreats while focused/lens (`data-walk`), desktop strip raised past the ☰ (V7-077) · M10 chip `April 27, 1860` (hidden in the lens) · M13 index copy/nbsp/`no plaque, website only` · L1–L4 lens = the whole shell, plate covers the box (min scale = cover), reset/first-open = lower panel filled by height centred on the river, one door `Back to today` (mounted only when open), touch caption · V7-009 marker role · V7-037 shield layers hidden · V7-038 RM cadence 2.5s · V7-088 ctrl focus ring · `text-wrap-style` longhand site-wide (the shorthand had been re-enabling wrap inside `nowrap` pills/truncate) · states.mjs: 5 new map states + lens-layer + focused-chrome doctrine · walk-check: long-task probe, landscape note | (this commit) | `docs/v7/qa/p5/{walk,states,a11y-map}.md` — walk-check 8/8 ✓ (drag pauses, 0 reversal, swipes land 0 m, titles 2L), states 0/111, a11y /map 0/0/0, rag /map 0 runts 0 clips 0 dashes, LH /map 64 (baseline 63), home 97 |
 
 ## DECISIONS (run-time, logged here; plan edits only for Wil decisions)
 - Baseline evidence lives in `docs/v7/qa/`; PNGs are gitignored (same rule as
@@ -99,6 +108,15 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
   no `cooperativeGestures` (would break the walk feel).
 - V7-045 (embed maps ship no Mapbox attribution) is NEW and P1: compact
   attribution on every chapter embed.
+
+- Collision doctrine (P5): while a stop is focused, a marker pill passing under
+  a grounded corner control (Back / Stop the walk) is layering, not a
+  collision — the map moves under fixed chrome by nature. The open lens is a
+  modal layer (like the scrimmed menu). Landscape phones (h < 560) cannot show
+  five stops in a 222px safe band at a legible zoom: the camera holds the
+  15.25 floor and the visitor pans (v6 decision kept; walk-check records it).
+- `text-wrap`: always the `text-wrap-style` LONGHAND on rules that may land on
+  `white-space: nowrap` / `.truncate` elements — the shorthand resets the mode.
 
 ## STANDING NOTES
 - Dev server: `astro dev` on :4321 (background); production preview on :4322

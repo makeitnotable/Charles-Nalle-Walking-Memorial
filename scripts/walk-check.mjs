@@ -158,7 +158,11 @@ for (const vp of VPS) {
     await page.screenshot({ path: join(outdir, `overview-${vp.name}.png`) });
     rec.overview = await page.evaluate(SNAPSHOT);
     if (rec.overview.missing) throw new Error("hook missing (no token or island not mounted)");
-    if (rec.overview.labelsOutsideSafe.length) rec.findings.push(`M2 labels outside safe box: ${rec.overview.labelsOutsideSafe.join(", ")}`);
+    /* Landscape phones (h < 560) cannot hold five stops in a 222px safe band at
+       any legible zoom — the camera holds the floor and the visitor pans (v6
+       decision, kept in v7); recorded, not failed. */
+    if (rec.overview.labelsOutsideSafe.length && vp.height >= 560) rec.findings.push(`M2 labels outside safe box: ${rec.overview.labelsOutsideSafe.join(", ")}`);
+    else if (rec.overview.labelsOutsideSafe.length) rec.note = `landscape: labels outside safe (accepted pan): ${rec.overview.labelsOutsideSafe.join(", ")}`;
     if (phone && rec.overview.minMarkerSep < 22) rec.findings.push(`M2 marker centres too close: ${rec.overview.minMarkerSep}px`);
     if (rec.overview.geolocate) rec.findings.push("M1 GeolocateControl present");
     if (vp.width >= 1024 && rec.overview.camera.pitch < 40) rec.findings.push(`M2 overview pitch ${rec.overview.camera.pitch} < 40 on desktop`);
@@ -198,6 +202,13 @@ for (const vp of VPS) {
             return { walking: h.state.touring === true || h.state.walk === "walking", pos: s ? +s.track.details.position.toFixed(3) : null, idx: h.state.activeIdx, moving: h.map.isMoving() };
           });
           const samples = { before: await sample(), during: [], after: [], pos: [] };
+          // M5: long tasks (> 50ms) during the drag + settle = jank
+          await page.evaluate(() => {
+            window.__lt = [];
+            try {
+              new PerformanceObserver((l) => l.getEntries().forEach((e) => window.__lt.push(Math.round(e.duration)))).observe({ type: "longtask" });
+            } catch {}
+          });
           await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y }] });
           for (let i = 1; i <= 12; i++) {
             await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 - i * 10, y }] });
@@ -227,6 +238,8 @@ for (const vp of VPS) {
             const d2 = pos[i] - pos[i - 1];
             if (d1 * d2 < 0 && Math.abs(d2) > 0.03) rev = Math.max(rev, Math.abs(d2));
           }
+          rec.dragTest.longTasks = await page.evaluate(() => window.__lt || []);
+          if (rec.dragTest.longTasks.length) rec.findings.push(`M5 ${rec.dragTest.longTasks.length} long task(s) during the drag: ${rec.dragTest.longTasks.join(",")}ms`);
           rec.dragTest.maxReversal = rev;
           rec.dragTest.moved = pos.length ? +(Math.max(...pos) - Math.min(...pos)).toFixed(3) : 0;
           if (rev > 0.03) rec.findings.push(`M4/M5 snap-back after drag: reversal ${rev.toFixed(3)}`);

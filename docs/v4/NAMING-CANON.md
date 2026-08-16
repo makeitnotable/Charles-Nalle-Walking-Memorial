@@ -533,3 +533,14 @@ a new scan.
   (Chapter 3), 3 confirmed.
 - **Needs human sign-off:** 15 items (§E) — 5 of which also require an audio re-record.
 - **Missing media:** 3 undelivered assets + 1 missing schema field + 1 verification item (§F).
+
+
+## v7 addendum (2026-08-16) — `name.card`
+
+The map's stop cards carry an optional authored two-line title, `name.card`
+(`"Holeur’s\nFashionable Bakery"`, `"Commissioner’s\nOffice"`), rendered
+`whitespace-pre-line` in the `.t-card` role; chapters without one fall back to
+`name.canonical` (Uri Gilbert Home, Washington Street Ferry Landing, Peter
+Baltimore’s Barbershop wrap naturally and never cross the card's arrow rule).
+Wil, 2026-08-15 review: "Holeur's / Fashionable Bakery" and "Commissioner's /
+Office" on two lines. `map.astro` resolves `cardTitle = name.card ?? name.canonical`.
