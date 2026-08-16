@@ -365,3 +365,37 @@ Version B + the reordered Ch2/Ch5 aloud for the first time.
 Verified in-browser (390px, all six scenes): file loads with correct duration,
 highlight lights ¶0 after the 1.2s lead-in, tracks to the final paragraph,
 tap-a-paragraph seeks to its start and plays; console clean.
+
+## v7 (2026-08-16) — em-dash removal inside locked prose: punctuation-only substitutions
+
+Locked decision 2 (Wil, 2026-08-15): em dashes leave the site everywhere. Inside Kathy-locked prose the change is PUNCTUATION ONLY — commas for appositive pairs, a colon before an elaboration, parentheses around the embedded Tubman quote — with **zero word changes**, so every paragraph still matches its ElevenLabs narration word for word (audio timings NOT re-run; the words are identical). Kathy receives a courtesy note (REVIEW-GUIDE human queue). Ledger, before → after:
+
+| chapter | field | before | after |
+|---|---|---|---|
+| bakery | `sketchNote` | …separable — a body… | …separable: a body… |
+| bakery | `portal.history[0]` | …took him — April 27, 1860, under… | …took him: April 27, 1860, under… |
+| bakery | `scenes[0].paragraphs[0]` | …heroic postures—just a man… | …heroic postures, just a man… |
+| bakery | `scenes[0].paragraphs[2]` | …Blucher Hansbrough—who had hired the slave catchers under the Fugitive Slave Act of 1850—would… | …Blucher Hansbrough, who had hired the slave catchers under the Fugitive Slave Act of 1850, would… |
+| bakery | `historicalContext[2]` | …all citizens—regardless of their beliefs—to assist… | …all citizens, regardless of their beliefs, to assist… |
+| bakery | `morals[0].message` | …target people—a pattern… | …target people, a pattern… |
+| barbershop | `scenes[0].paragraphs[4]` | …like a hero—a testament… | …like a hero, a testament… |
+| commissioners-office | `scenes[0].paragraphs[0]` | …Mutual Bank Building—a grand… | …Mutual Bank Building, a grand… |
+| commissioners-office | `scenes[0].paragraphs[1]` | …Horatio Averill—the lawyer… | …Horatio Averill, the lawyer… |
+| commissioners-office | `scenes[0].paragraphs[3]` | …Harriet Tubman—who happened to be in Troy visiting her cousin—pushed… | …Harriet Tubman, who happened to be in Troy visiting her cousin, pushed… |
+| commissioners-office | `scenes[1].sketchNote` | …struggle — every figure… | …struggle: every figure… |
+| commissioners-office | `scenes[1].paragraphs[1]` | …freedom—or fight… | …freedom, or fight… |
+| commissioners-office | `scenes[1].paragraphs[2]` | …Harriet Tubman—“Drag him to the river! Drown him! But don’t let them have him!”—erupted… | …Harriet Tubman (“Drag him to the river! Drown him! But don’t let them have him!”) erupted… |
+| commissioners-office | `scenes[1].paragraphs[2]` | …in reverse—instead of… | …in reverse: instead of… |
+| commissioners-office | `historicalContext[0]` | …James McCune Smith—the first Black doctor in the United States—and… | …James McCune Smith, the first Black doctor in the United States, and… |
+| commissioners-office | `morals[0].message` | …Charles Nalle—much like… | …Charles Nalle, much like… |
+| ferry | `sketchNote` | …one taut line — hauling Charles forward — and every hand… | …one taut line, hauling Charles forward, and every hand… |
+| ferry | `portal.history[1]` | …West Troy — now Watervliet — and… | …West Troy, now Watervliet, and… |
+| ferry | `scenes[0].paragraphs[0]` | …in its wake—another reminder… | …in its wake, another reminder… |
+| ferry | `scenes[0].paragraphs[5]` | …just feet away—freedom that… | …just feet away: freedom that… |
+| ferry | `historicalContext[0]` | …one week—far faster… | …one week, far faster… |
+| ferry | `historicalContext[2]` | …Hudson Valley—the region along both sides of the Hudson River from Yonkers to Albany—the first… | …Hudson Valley, the region along both sides of the Hudson River from Yonkers to Albany, the first… |
+| ferry | `morals[0].message` | …suppressing freedom—a challenge… | …suppressing freedom, a challenge… |
+| mansion | `sketchNote` | …at the corner — the ordinary street… | …at the corner: the ordinary street… |
+| mansion | `portal.history[0]` | …Uri Gilbert — mayor of Troy, and a manufacturer of coaches and railway cars — built… | …Uri Gilbert, mayor of Troy, and a manufacturer of coaches and railway cars, built… |
+
+Also (UI, not locked prose): ch2 scene labels `Part 1 — Tubman Creates a Crowd` → `Part 1\nTubman Creates a Crowd` (two authored lines), `Part 2 — The Mob` → `Part 2\nThe Mob`; ch2 address `5 State Street — Mutual Bank Building` → `5 State Street · Mutual Bank Building`; barbershop story media order T→I→T→I→T (Wil); the mansion audio subtitle shown in the player is `Uri Gilbert Home` (canonical) — the JSON `audio.label` data field is not displayed.

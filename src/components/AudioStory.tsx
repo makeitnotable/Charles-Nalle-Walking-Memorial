@@ -334,7 +334,7 @@ export default function AudioStory({
               className="story-film-poster max-h-[64vh] w-auto max-w-full transition-opacity"
               style={{ transitionDuration: "var(--dur-slow)" }}
               src={base(`media/${slug}/${item.mediaKey}-poster.jpg`)}
-              alt={`Animated painting — ${subtitle}`}
+              alt={`Animated painting, ${subtitle}`}
               loading="lazy"
               decoding="async"
             />

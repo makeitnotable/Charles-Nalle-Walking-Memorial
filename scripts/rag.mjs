@@ -275,7 +275,31 @@ for (const vp of VPS) {
       await page.waitForTimeout(1800); // let reveal/opacity transitions settle
       const blocks = await page.evaluate(MEASURE);
       const runts = blocks.filter((b) => b.gate).length, clips = blocks.filter((b) => b.clip).length;
-      results.push({ route, vp: vp.name, blocks });
+      /* v7 G5: visible em dashes — text nodes (any state, incl. hidden
+         menu/dialog markup), <title>, meta description, aria-labels, alts,
+         titles. Only measured at the first viewport (the DOM is the same). */
+      const dashes = vp === VPS[0] ? await page.evaluate(() => {
+        const out = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        let n;
+        while ((n = walker.nextNode())) {
+          if (n.nodeValue.includes("—") && !n.parentElement.closest("script,style,noscript")) {
+            const el = n.parentElement;
+            out.push({ where: "text", el: el.tagName.toLowerCase() + (el.id ? "#" + el.id : "") + (el.className && typeof el.className === "string" ? "." + el.className.split(/\s+/).slice(0, 2).join(".") : ""), text: n.nodeValue.trim().replace(/\s+/g, " ").slice(0, 80) });
+          }
+        }
+        if (document.title.includes("—")) out.push({ where: "title", el: "title", text: document.title });
+        const md = document.querySelector('meta[name="description"]')?.content || "";
+        if (md.includes("—")) out.push({ where: "meta", el: "meta[description]", text: md.slice(0, 80) });
+        for (const el of document.querySelectorAll("[aria-label],[alt],[title]")) {
+          for (const a of ["aria-label", "alt", "title"]) {
+            const v = el.getAttribute(a);
+            if (v && v.includes("—")) out.push({ where: a, el: el.tagName.toLowerCase(), text: v.slice(0, 80) });
+          }
+        }
+        return out;
+      }) : [];
+      results.push({ route, vp: vp.name, blocks, dashes });
       console.log(`${runts || clips ? "✗" : "✓"} ${route} @ ${vp.name} — ${blocks.length} blocks · ${runts} runts · ${clips} clips`);
     } catch (e) {
       const error = e.message.split("\n")[0];
@@ -308,6 +332,13 @@ const L = [
       `| ${b.route} | ${b.vp} | \`${b.sel}\` | "${b.text}" | ${b.fontSize} | ${b.lines} | "${b.lastText}" (${b.lastWords}w) | ${b.ratio} | ${[b.twoWord && "two-word display", b.authored && "authored break"].filter(Boolean).join(", ")} |`,
   ),
   "",
+  "## Visible em dashes (v7 G5 — gate: zero outside code comments)",
+  "",
+  ...(() => {
+    const rows = results.flatMap((r) => (r.dashes || []).map((d) => `| ${r.route} | ${d.where} | \`${d.el}\` | "${d.text}" |`));
+    return rows.length ? ["| route | where | element | text |", "|---|---|---|---|", ...rows] : ["None."];
+  })(),
+  "",
   "## Authored lockups (not gated — eyeball)",
   "",
   "| route | vp | selector | text | lines | last line |",
@@ -323,4 +354,6 @@ const L = [
 if (errors.length) L.push("", "## Errors", "", ...errors.map((r) => `- ${r.route} @ ${r.vp}: ${r.error}`));
 writeFileSync(join(outdir, "rag.md"), L.join("\n") + "\n");
 console.log(`\nrag → ${outdir}/rag.{json,md}  (${runts.length} runts · ${twoWord.length} two-word display runts · ${clips.length} clips)`);
-process.exit(runts.length || clips.length || errors.length ? 1 : 0);
+const dashCount = results.reduce((a, r) => a + (r.dashes || []).length, 0);
+console.log(`em dashes visible: ${dashCount}`);
+process.exit(runts.length || clips.length || errors.length || dashCount ? 1 : 0);
