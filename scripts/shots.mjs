@@ -5,7 +5,7 @@
  * every phase (docs/PLAN.md).
  *
  * Usage:
- *   node scripts/shots.mjs <outdir> [--base http://localhost:4321] [--routes /,/map]
+ *   node scripts/shots.mjs <outdir> [--base http://localhost:4321] [--routes /,/map] [--vp all|390,768,1440]
  *   node scripts/shots.mjs docs/qa/phase0
  *   node scripts/shots.mjs docs/qa/phase6-live --base https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial
  *
@@ -24,14 +24,27 @@ function flag(name, fallback) {
 const BASE = flag("base", "http://localhost:4321").replace(/\/$/, "");
 const ROUTES = flag(
   "routes",
-  "/,/mansion,/commissioners-office,/barbershop,/ferry,/bakery,/map,/people,/paintings,/about",
+  "/,/mansion,/commissioners-office,/barbershop,/ferry,/bakery,/map,/people,/paintings,/about,/404",
 ).split(",");
 const SCROLLS = Number(flag("scrolls", "3")); // extra shots per long page
-const VIEWPORTS = [
+/* v7 matrix — 9 viewports (docs/PLAN.md Part B). `--vp 390,768,1440` restores
+   the classic three; `--vp all` (default) runs the whole ladder. */
+const ALL_VIEWPORTS = [
+  { name: "360", width: 360, height: 800 },
   { name: "390", width: 390, height: 844 },
+  { name: "430", width: 430, height: 932 },
+  { name: "land", width: 844, height: 390 },
   { name: "768", width: 768, height: 1024 },
+  { name: "1024", width: 1024, height: 768 },
+  { name: "1280", width: 1280, height: 800 },
   { name: "1440", width: 1440, height: 900 },
+  { name: "1920", width: 1920, height: 1080 },
 ];
+const VP_FLAG = flag("vp", "all");
+const VIEWPORTS =
+  VP_FLAG === "all"
+    ? ALL_VIEWPORTS
+    : VP_FLAG.split(",").map((n) => ALL_VIEWPORTS.find((v) => v.name === n)).filter(Boolean);
 
 mkdirSync(outdir, { recursive: true });
 

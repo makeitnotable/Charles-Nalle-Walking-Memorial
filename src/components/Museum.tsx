@@ -500,7 +500,9 @@ export default function Museum({ works, slotId }: Props) {
         if (Date.now() - downAt < 250) clickAt(e);
       });
 
+      let approachedIdx: number | null = null;
       const approach = (i: number | null) => {
+        approachedIdx = i;
         if (i === null) {
           mode = "rail";
           setApproached(null);
@@ -668,12 +670,76 @@ export default function Museum({ works, slotId }: Props) {
         setCapable(false);
       });
 
+      /* ——— v7 debug hook (`scripts/museum-check.mjs`) ———
+       * Read-only snapshots + the same verbs the UI has. Harmless on a static
+       * site; lets the instruments assert camera, mode and the projected
+       * painting rect (CSS px) without touching React internals. */
+      const paintingRect = (i: number) => {
+        const m = paintingMeshes[i];
+        if (!m) return null;
+        m.updateWorldMatrix(true, false);
+        const geo = m.geometry as any;
+        geo.computeBoundingBox?.();
+        const bb = geo.boundingBox;
+        if (!bb) return null;
+        const rect = renderer.domElement.getBoundingClientRect();
+        const pts = [
+          [bb.min.x, bb.min.y, 0],
+          [bb.max.x, bb.min.y, 0],
+          [bb.min.x, bb.max.y, 0],
+          [bb.max.x, bb.max.y, 0],
+        ].map(([x, y, z]) => {
+          const v = new THREE.Vector3(x, y, z).applyMatrix4(m.matrixWorld).project(camera);
+          return { x: rect.left + ((v.x + 1) / 2) * rect.width, y: rect.top + ((1 - v.y) / 2) * rect.height, behind: v.z > 1 };
+        });
+        const xs = pts.map((p) => p.x);
+        const ys = pts.map((p) => p.y);
+        return {
+          left: Math.min(...xs),
+          right: Math.max(...xs),
+          top: Math.min(...ys),
+          bottom: Math.max(...ys),
+          behind: pts.some((p) => p.behind),
+        };
+      };
+      const hook = {
+        get state() {
+          return {
+            mode,
+            railT,
+            railIdx: lastRailIdx,
+            approached: approachedIdx,
+            cur: { ...cur },
+            target: { ...target },
+            look: { yaw: lookYaw, pitch: lookPitch, dragYaw, dragPitch },
+            alive: videoEls.findIndex((v) => Boolean(v)),
+            fov: camera.fov,
+            far: camera.far,
+            portrait,
+            running,
+            works: works.length,
+            spacing: SPACING,
+          };
+        },
+        approach,
+        turnOn,
+        turnOff,
+        paintingRect,
+        placements,
+        get info() {
+          return renderer.info;
+        },
+        camera,
+      };
+      (window as any).__museum = hook;
+
       api.current = {
         approach,
         turnOn,
         turnOff,
         dispose: () => {
           disposed = true;
+          if ((window as any).__museum === hook) delete (window as any).__museum;
           cancelAnimationFrame(raf);
           window.removeEventListener("scroll", onScroll);
           window.removeEventListener("pointermove", move);

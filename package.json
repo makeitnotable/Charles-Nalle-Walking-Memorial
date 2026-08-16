@@ -19,7 +19,14 @@
     "qa:moments": "node scripts/moments.mjs",
     "qa:strip": "node scripts/strip.mjs",
     "qa:arrival": "node scripts/arrival.mjs",
-    "qa:contrast": "node scripts/contrast.mjs"
+    "qa:contrast": "node scripts/contrast.mjs",
+    "qa:rag": "node scripts/rag.mjs",
+    "qa:a11y": "node scripts/a11y.mjs",
+    "qa:frames": "node scripts/frames.mjs",
+    "qa:walk": "node scripts/walk-check.mjs",
+    "qa:museum": "node scripts/museum-check.mjs",
+    "build:favicon": "node scripts/build-favicon.mjs",
+    "build:og": "node scripts/build-og.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",
@@ -45,6 +52,7 @@
     "lighthouse": "^13.4.1",
     "playwright": "^1.62.1",
     "sharp": "^0.35.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "chrome-launcher": "^1.2.0"
   }
 }

@@ -846,6 +846,36 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     );
   };
 
+  /* ——— v7 debug hook (`scripts/walk-check.mjs`) ———
+   * A static site: exposing the map instance and a state snapshot on `window`
+   * is harmless in production and lets the QA instruments assert camera,
+   * carousel and walk state without poking at React internals. */
+  const lensRef = useRef(false);
+  lensRef.current = lens;
+  useEffect(() => {
+    const hook = {
+      get map() {
+        return mapRef.current;
+      },
+      slider: () => sliderInstance.current,
+      get state() {
+        return {
+          focused: focusedRef.current,
+          touring: touringRef.current,
+          activeIdx: activeIdxRef.current,
+          lens: lensRef.current,
+          hasToken,
+        };
+      },
+      stops,
+    };
+    (window as unknown as { __troyMap?: typeof hook }).__troyMap = hook;
+    return () => {
+      delete (window as unknown as { __troyMap?: typeof hook }).__troyMap;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (!hasToken) {
     return (
       <div className="grid min-h-[50dvh] place-items-center px-6 text-center">

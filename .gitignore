@@ -35,3 +35,11 @@ docs/v5/qa/
 
 # v6 element-battery screenshots (same rule — .md findings commit, pixels don't)
 docs/v5/elements/**/*.png
+
+# v7 QA evidence (baseline + audits + juror passes): findings (.md/.json) commit,
+# pixels don't — same rule as v5/v6.
+docs/v7/qa/**/*.png
+docs/v7/qa/**/*.jpg
+docs/v7/qa/**/*.jpeg
+docs/v7/qa/**/*.webm
+!docs/v7/qa/before-after/**
