@@ -1,0 +1,230 @@
+{
+  "log": {
+    "s0": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "r0": {
+      "left": 454.9561064700747,
+      "right": 985.0307886526274,
+      "top": 300.91808697510396,
+      "bottom": 599.0813970338719,
+      "behind": false
+    },
+    "btn0": [
+      {
+        "l": "Bring the painting to life",
+        "rect": [
+          455,
+          301,
+          530,
+          298
+        ],
+        "pe": "auto",
+        "op": "1"
+      }
+    ],
+    "after1": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "btn": [
+        {
+          "l": "Let the painting rest",
+          "rect": [
+            455,
+            301,
+            530,
+            298
+          ],
+          "pe": "auto",
+          "op": "1"
+        }
+      ],
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "afterWait": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "afterRest": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": -1,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "btn": [
+        {
+          "l": "Bring the painting to life",
+          "rect": [
+            455,
+            301,
+            530,
+            298
+          ],
+          "pe": "auto",
+          "op": "1"
+        }
+      ]
+    },
+    "afterWheelZoom": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 2.4,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "afterWheelOut": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": -1,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      }
+    },
+    "afterEsc": {
+      "mode": "rail",
+      "approached": null,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": 0,
+      "sheet": "peek"
+    },
+    "tabSeq": [
+      "Approach “Holeur’s Fashionable Baker@816"
+    ],
+    "focusRing": {
+      "outline": "solid 2px rgb(242, 104, 53)",
+      "boxShadow": "none"
+    },
+    "kbEnter": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "kbRight": {
+      "mode": "approach",
+      "approached": 1,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": 1.57,
+      "sheet": "peek"
+    },
+    "kbLeft": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "kbFocusAlive": null,
+    "kbAlive": {
+      "st": null,
+      "vids": [
+        {
+          "paused": false,
+          "t": 1.5,
+          "w": 1200,
+          "src": "reveal-horizontal.mp4",
+          "rs": 4
+        },
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "kbEsc": null,
+    "railArrow": null,
+    "skipCount": 0,
+    "menuBtn": {
+      "x": 1312,
+      "y": 56,
+      "width": 72,
+      "height": 72
+    },
+    "menuOpen": {
+      "x": 1015,
+      "y": 57,
+      "width": 368,
+      "height": 57,
+      "top": 57,
+      "right": 1383,
+      "bottom": 114,
+      "left": 1015
+    }
+  },
+  "errs": [
+    {
+      "tag": "museum-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "log": {
+    "scrollAfterSwipeOnMap": 0,
+    "mapCanvasTouchAction": {
+      "ta": "none",
+      "parentTa": "none",
+      "h": 844,
+      "docH": 3115
+    },
+    "hints": [],
+    "scrollAfterSwipeBottomLane": 393,
+    "lensBtnCount": 2,
+    "lensBtnBox": {
+      "x": 209.953125,
+      "y": 20,
+      "width": 160.046875,
+      "height": 44
+    },
+    "lensControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          300,
+          766,
+          68,
+          68
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          20,
+          773,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Zoom in",
+        "rect": [
+          330,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Zoom out",
+        "rect": [
+          330,
+          68,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          330,
+          104,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Back to today",
+        "rect": [
+          110,
+          780,
+          169,
+          44
+        ]
+      },
+      {
+        "label": "Enter Spot 01: Holeur’s Fashionable Bakery",
+        "rect": [
+          32,
+          617,
+          325,
+          127
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          383,
+          626,
+          303,
+          118
+        ]
+      }
+    ],
+    "lensCaption": [
+      {
+        "t": "Drag to explore · pinch or scroll to zoomDrag to explore · pinch to zoom",
+        "h": 21,
+        "lh": 21,
+        "rect": [
+          90,
+          747,
+          210,
+          21
+        ]
+      },
+      {
+        "t": "Drag to explore · pinch to zoom",
+        "h": 18,
+        "lh": 21,
+        "rect": [
+          90,
+          748,
+          210,
+          18
+        ]
+      }
+    ],
+    "lensImg": {
+      "src": "troy-1858-full-4096.avif",
+      "rect": [
+        -611,
+        -651,
+        1612,
+        1350
+      ],
+      "parent": [
+        20,
+        24,
+        0,
+        0
+      ],
+      "transform": "matrix(4.60474, 0, 0, 4.60474, -175, -484.086)",
+      "natural": [
+        4096,
+        3431
+      ],
+      "parentOverflow": "visible"
+    },
+    "chipWhileLens": [],
+    "lensImgAfterDrag": "matrix(4.60474, 0, 0, 4.60474, -295, -484.086)",
+    "lensImgAfterZoom": "matrix(6, 0, 0, 6, -331.361, -586.35)",
+    "lensImgAfterReset": "matrix(4.60474, 0, 0, 4.60474, -175, -484.086)",
+    "afterLensControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          298,
+          752,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          20,
+          773,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Zoom in",
+        "rect": [
+          330,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Zoom out",
+        "rect": [
+          330,
+          68,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          330,
+          104,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          68,
+          764,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          210,
+          20,
+          160,
+          44
+        ]
+      },
+      {
+        "label": "Enter Spot 01: Holeur’s Fashionable Bakery",
+        "rect": [
+          32,
+          617,
+          325,
+          127
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          383,
+          626,
+          303,
+          118
+        ]
+      }
+    ],
+    "indexCards": [
+      [
+        {
+          "t": "Spot 01",
+          "cls": "t-meta block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Holeur’s\nFashionable Bakery",
+          "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "3rd & Division Streets (vacant lot today",
+          "cls": "t-meta-body mt-3 block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        }
+      ],
+      [
+        {
+          "t": "Spot 02",
+          "cls": "t-meta block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Commissioner’s\nOffice",
+          "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+          "lines": 1,
+          "sw": 209,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "5 State Street · Mutual Bank Building",
+          "cls": "t-meta-body mt-3 block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        }
+      ],
+      [
+        {
+          "t": "Spot 03",
+          "cls": "t-meta block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Uri Gilbert Home",
+          "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "189 Second Street",
+          "cls": "t-meta-body mt-3 block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        }
+      ],
+      [
+        {
+          "t": "Spot 04",
+          "cls": "t-meta block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Washington Street Ferry Landing",
+          "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Riverfront at the end of Madison Street ",
+          "cls": "t-meta-body mt-3 block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        }
+      ],
+      [
+        {
+          "t": "Spot 05",
+          "cls": "t-meta block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "Peter Baltimore’s Barbershop",
+          "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        },
+        {
+          "t": "First Street (Athenaeum building)",
+          "cls": "t-meta-body mt-3 block",
+          "lines": 1,
+          "sw": 206,
+          "cw": 206,
+          "w": 206
+        }
+      ]
+    ]
+  },
+  "errs": []
+}

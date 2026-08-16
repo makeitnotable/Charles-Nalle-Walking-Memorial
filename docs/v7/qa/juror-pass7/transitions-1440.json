@@ -1,0 +1,3543 @@
+{
+  "log": {
+    "mapcard": {
+      "navMs": 179,
+      "frames": [
+        {
+          "i": 3,
+          "rel": -235,
+          "mean": 51.5,
+          "fn": "mapcard-003-m235.jpg"
+        },
+        {
+          "i": 4,
+          "rel": -207,
+          "mean": 51.5,
+          "fn": "mapcard-004-m207.jpg"
+        },
+        {
+          "i": 5,
+          "rel": -178,
+          "mean": 51.4,
+          "fn": "mapcard-005-m178.jpg"
+        },
+        {
+          "i": 6,
+          "rel": -146,
+          "mean": 51.4,
+          "fn": "mapcard-006-m146.jpg"
+        },
+        {
+          "i": 7,
+          "rel": -118,
+          "mean": 51.2,
+          "fn": "mapcard-007-m118.jpg"
+        },
+        {
+          "i": 8,
+          "rel": -89,
+          "mean": 51.1,
+          "fn": "mapcard-008-m89.jpg"
+        },
+        {
+          "i": 9,
+          "rel": -62,
+          "mean": 51,
+          "fn": "mapcard-009-m62.jpg"
+        },
+        {
+          "i": 10,
+          "rel": -36,
+          "mean": 50.8,
+          "fn": "mapcard-010-m36.jpg"
+        },
+        {
+          "i": 11,
+          "rel": -12,
+          "mean": 50.9,
+          "fn": "mapcard-011-m12.jpg"
+        },
+        {
+          "i": 12,
+          "rel": 12,
+          "mean": 50.9,
+          "fn": "mapcard-012-12.jpg"
+        },
+        {
+          "i": 13,
+          "rel": 43,
+          "mean": 51.1,
+          "fn": "mapcard-013-43.jpg"
+        },
+        {
+          "i": 14,
+          "rel": 68,
+          "mean": 51.2,
+          "fn": "mapcard-014-68.jpg"
+        },
+        {
+          "i": 15,
+          "rel": 93,
+          "mean": 51.3,
+          "fn": "mapcard-015-93.jpg"
+        },
+        {
+          "i": 16,
+          "rel": 117,
+          "mean": 51.1,
+          "fn": "mapcard-016-117.jpg"
+        },
+        {
+          "i": 17,
+          "rel": 141,
+          "mean": 51,
+          "fn": "mapcard-017-141.jpg"
+        },
+        {
+          "i": 18,
+          "rel": 165,
+          "mean": 51,
+          "fn": "mapcard-018-165.jpg"
+        },
+        {
+          "i": 19,
+          "rel": 206,
+          "mean": 50.7,
+          "fn": "mapcard-019-206.jpg"
+        },
+        {
+          "i": 20,
+          "rel": 223,
+          "mean": 50.6,
+          "fn": "mapcard-020-223.jpg"
+        },
+        {
+          "i": 21,
+          "rel": 241,
+          "mean": 50.4,
+          "fn": "mapcard-021-241.jpg"
+        },
+        {
+          "i": 22,
+          "rel": 264,
+          "mean": 50,
+          "fn": "mapcard-022-264.jpg"
+        },
+        {
+          "i": 23,
+          "rel": 283,
+          "mean": 49.6,
+          "fn": "mapcard-023-283.jpg"
+        },
+        {
+          "i": 24,
+          "rel": 306,
+          "mean": 49,
+          "fn": "mapcard-024-306.jpg"
+        },
+        {
+          "i": 25,
+          "rel": 320,
+          "mean": 48.5,
+          "fn": "mapcard-025-320.jpg"
+        },
+        {
+          "i": 26,
+          "rel": 337,
+          "mean": 47.8,
+          "fn": "mapcard-026-337.jpg"
+        },
+        {
+          "i": 27,
+          "rel": 353,
+          "mean": 47.2,
+          "fn": "mapcard-027-353.jpg"
+        },
+        {
+          "i": 28,
+          "rel": 369,
+          "mean": 46.4,
+          "fn": "mapcard-028-369.jpg"
+        },
+        {
+          "i": 29,
+          "rel": 386,
+          "mean": 45.6,
+          "fn": "mapcard-029-386.jpg"
+        },
+        {
+          "i": 30,
+          "rel": 402,
+          "mean": 44.7,
+          "fn": "mapcard-030-402.jpg"
+        },
+        {
+          "i": 31,
+          "rel": 418,
+          "mean": 43.7,
+          "fn": "mapcard-031-418.jpg"
+        },
+        {
+          "i": 32,
+          "rel": 435,
+          "mean": 42,
+          "fn": "mapcard-032-435.jpg"
+        },
+        {
+          "i": 33,
+          "rel": 454,
+          "mean": 39.5,
+          "fn": "mapcard-033-454.jpg"
+        },
+        {
+          "i": 34,
+          "rel": 471,
+          "mean": 35.7,
+          "fn": "mapcard-034-471.jpg"
+        },
+        {
+          "i": 35,
+          "rel": 489,
+          "mean": 28.7,
+          "fn": "mapcard-035-489.jpg"
+        },
+        {
+          "i": 36,
+          "rel": 505,
+          "mean": 26.5,
+          "fn": "mapcard-036-505.jpg"
+        },
+        {
+          "i": 37,
+          "rel": 521,
+          "mean": 25.2,
+          "fn": "mapcard-037-521.jpg"
+        },
+        {
+          "i": 38,
+          "rel": 538,
+          "mean": 23.4,
+          "fn": "mapcard-038-538.jpg"
+        },
+        {
+          "i": 39,
+          "rel": 553,
+          "mean": 22.3,
+          "fn": "mapcard-039-553.jpg"
+        },
+        {
+          "i": 40,
+          "rel": 569,
+          "mean": 21.9,
+          "fn": "mapcard-040-569.jpg"
+        },
+        {
+          "i": 41,
+          "rel": 585,
+          "mean": 21.3,
+          "fn": "mapcard-041-585.jpg"
+        },
+        {
+          "i": 42,
+          "rel": 600,
+          "mean": 20.7,
+          "fn": "mapcard-042-600.jpg"
+        },
+        {
+          "i": 43,
+          "rel": 620,
+          "mean": 19.7,
+          "fn": "mapcard-043-620.jpg"
+        },
+        {
+          "i": 44,
+          "rel": 638,
+          "mean": 19.2,
+          "fn": "mapcard-044-638.jpg"
+        },
+        {
+          "i": 45,
+          "rel": 658,
+          "mean": 18.9,
+          "fn": "mapcard-045-658.jpg"
+        },
+        {
+          "i": 46,
+          "rel": 678,
+          "mean": 18.7,
+          "fn": "mapcard-046-678.jpg"
+        },
+        {
+          "i": 47,
+          "rel": 702,
+          "mean": 18.3,
+          "fn": "mapcard-047-702.jpg"
+        },
+        {
+          "i": 48,
+          "rel": 723,
+          "mean": 18.1,
+          "fn": "mapcard-048-723.jpg"
+        },
+        {
+          "i": 49,
+          "rel": 744,
+          "mean": 18.1,
+          "fn": "mapcard-049-744.jpg"
+        },
+        {
+          "i": 50,
+          "rel": 765,
+          "mean": 18,
+          "fn": "mapcard-050-765.jpg"
+        },
+        {
+          "i": 51,
+          "rel": 788,
+          "mean": 18,
+          "fn": "mapcard-051-788.jpg"
+        },
+        {
+          "i": 52,
+          "rel": 812,
+          "mean": 18,
+          "fn": "mapcard-052-812.jpg"
+        },
+        {
+          "i": 53,
+          "rel": 833,
+          "mean": 18,
+          "fn": "mapcard-053-833.jpg"
+        },
+        {
+          "i": 54,
+          "rel": 856,
+          "mean": 18,
+          "fn": "mapcard-054-856.jpg"
+        },
+        {
+          "i": 55,
+          "rel": 877,
+          "mean": 18,
+          "fn": "mapcard-055-877.jpg"
+        },
+        {
+          "i": 56,
+          "rel": 899,
+          "mean": 18,
+          "fn": "mapcard-056-899.jpg"
+        },
+        {
+          "i": 57,
+          "rel": 918,
+          "mean": 18,
+          "fn": "mapcard-057-918.jpg"
+        },
+        {
+          "i": 58,
+          "rel": 941,
+          "mean": 18,
+          "fn": "mapcard-058-941.jpg"
+        },
+        {
+          "i": 59,
+          "rel": 965,
+          "mean": 18,
+          "fn": "mapcard-059-965.jpg"
+        },
+        {
+          "i": 60,
+          "rel": 1082,
+          "mean": 29,
+          "fn": "mapcard-060-1082.jpg"
+        },
+        {
+          "i": 61,
+          "rel": 1117,
+          "mean": 18,
+          "fn": "mapcard-061-1117.jpg"
+        },
+        {
+          "i": 62,
+          "rel": 1124,
+          "mean": 18,
+          "fn": "mapcard-062-1124.jpg"
+        },
+        {
+          "i": 63,
+          "rel": 1149,
+          "mean": 18,
+          "fn": "mapcard-063-1149.jpg"
+        },
+        {
+          "i": 64,
+          "rel": 1158,
+          "mean": 18,
+          "fn": "mapcard-064-1158.jpg"
+        },
+        {
+          "i": 65,
+          "rel": 1409,
+          "mean": 18,
+          "fn": "mapcard-065-1409.jpg"
+        },
+        {
+          "i": 66,
+          "rel": 1602,
+          "mean": 19.1,
+          "fn": "mapcard-066-1602.jpg"
+        },
+        {
+          "i": 67,
+          "rel": 1608,
+          "mean": 23.1,
+          "fn": "mapcard-067-1608.jpg"
+        },
+        {
+          "i": 68,
+          "rel": 1615,
+          "mean": 25.3,
+          "fn": "mapcard-068-1615.jpg"
+        },
+        {
+          "i": 69,
+          "rel": 1631,
+          "mean": 28.9,
+          "fn": "mapcard-069-1631.jpg"
+        },
+        {
+          "i": 70,
+          "rel": 1641,
+          "mean": 30.9,
+          "fn": "mapcard-070-1641.jpg"
+        },
+        {
+          "i": 71,
+          "rel": 1649,
+          "mean": 32.3,
+          "fn": "mapcard-071-1649.jpg"
+        },
+        {
+          "i": 72,
+          "rel": 1656,
+          "mean": 33.4,
+          "fn": "mapcard-072-1656.jpg"
+        },
+        {
+          "i": 73,
+          "rel": 1666,
+          "mean": 34.8,
+          "fn": "mapcard-073-1666.jpg"
+        },
+        {
+          "i": 74,
+          "rel": 1682,
+          "mean": 37.1,
+          "fn": "mapcard-074-1682.jpg"
+        },
+        {
+          "i": 75,
+          "rel": 1691,
+          "mean": 38.1,
+          "fn": "mapcard-075-1691.jpg"
+        },
+        {
+          "i": 76,
+          "rel": 1700,
+          "mean": 39.5,
+          "fn": "mapcard-076-1700.jpg"
+        },
+        {
+          "i": 77,
+          "rel": 1716,
+          "mean": 43.1,
+          "fn": "mapcard-077-1716.jpg"
+        },
+        {
+          "i": 78,
+          "rel": 1725,
+          "mean": 45.2,
+          "fn": "mapcard-078-1725.jpg"
+        },
+        {
+          "i": 79,
+          "rel": 1733,
+          "mean": 47.3,
+          "fn": "mapcard-079-1733.jpg"
+        },
+        {
+          "i": 80,
+          "rel": 1741,
+          "mean": 49,
+          "fn": "mapcard-080-1741.jpg"
+        },
+        {
+          "i": 81,
+          "rel": 1757,
+          "mean": 52.5,
+          "fn": "mapcard-081-1757.jpg"
+        },
+        {
+          "i": 82,
+          "rel": 1766,
+          "mean": 54.1,
+          "fn": "mapcard-082-1766.jpg"
+        },
+        {
+          "i": 83,
+          "rel": 1774,
+          "mean": 55.5,
+          "fn": "mapcard-083-1774.jpg"
+        },
+        {
+          "i": 84,
+          "rel": 1783,
+          "mean": 56.9,
+          "fn": "mapcard-084-1783.jpg"
+        },
+        {
+          "i": 85,
+          "rel": 1800,
+          "mean": 60.1,
+          "fn": "mapcard-085-1800.jpg"
+        },
+        {
+          "i": 86,
+          "rel": 1807,
+          "mean": 61.3,
+          "fn": "mapcard-086-1807.jpg"
+        },
+        {
+          "i": 87,
+          "rel": 1815,
+          "mean": 62.6,
+          "fn": "mapcard-087-1815.jpg"
+        },
+        {
+          "i": 88,
+          "rel": 1824,
+          "mean": 64.3,
+          "fn": "mapcard-088-1824.jpg"
+        },
+        {
+          "i": 89,
+          "rel": 1841,
+          "mean": 67.1,
+          "fn": "mapcard-089-1841.jpg"
+        },
+        {
+          "i": 90,
+          "rel": 1849,
+          "mean": 68.5,
+          "fn": "mapcard-090-1849.jpg"
+        },
+        {
+          "i": 91,
+          "rel": 1859,
+          "mean": 69.2,
+          "fn": "mapcard-091-1859.jpg"
+        },
+        {
+          "i": 92,
+          "rel": 1874,
+          "mean": 71.5,
+          "fn": "mapcard-092-1874.jpg"
+        },
+        {
+          "i": 93,
+          "rel": 1882,
+          "mean": 72.4,
+          "fn": "mapcard-093-1882.jpg"
+        },
+        {
+          "i": 94,
+          "rel": 1891,
+          "mean": 73.7,
+          "fn": "mapcard-094-1891.jpg"
+        },
+        {
+          "i": 95,
+          "rel": 1906,
+          "mean": 75.5,
+          "fn": "mapcard-095-1906.jpg"
+        },
+        {
+          "i": 96,
+          "rel": 1914,
+          "mean": 76.4,
+          "fn": "mapcard-096-1914.jpg"
+        },
+        {
+          "i": 97,
+          "rel": 1924,
+          "mean": 77.2,
+          "fn": "mapcard-097-1924.jpg"
+        },
+        {
+          "i": 98,
+          "rel": 1939,
+          "mean": 78.6,
+          "fn": "mapcard-098-1939.jpg"
+        },
+        {
+          "i": 99,
+          "rel": 1948,
+          "mean": 79.3,
+          "fn": "mapcard-099-1948.jpg"
+        },
+        {
+          "i": 100,
+          "rel": 1958,
+          "mean": 80,
+          "fn": "mapcard-100-1958.jpg"
+        },
+        {
+          "i": 101,
+          "rel": 1967,
+          "mean": 80.7,
+          "fn": "mapcard-101-1967.jpg"
+        },
+        {
+          "i": 102,
+          "rel": 1982,
+          "mean": 81.6,
+          "fn": "mapcard-102-1982.jpg"
+        },
+        {
+          "i": 103,
+          "rel": 1990,
+          "mean": 81.9,
+          "fn": "mapcard-103-1990.jpg"
+        },
+        {
+          "i": 104,
+          "rel": 1998,
+          "mean": 82.4,
+          "fn": "mapcard-104-1998.jpg"
+        },
+        {
+          "i": 105,
+          "rel": 2007,
+          "mean": 82.8,
+          "fn": "mapcard-105-2007.jpg"
+        },
+        {
+          "i": 106,
+          "rel": 2023,
+          "mean": 83.9,
+          "fn": "mapcard-106-2023.jpg"
+        },
+        {
+          "i": 107,
+          "rel": 2033,
+          "mean": 84.3,
+          "fn": "mapcard-107-2033.jpg"
+        },
+        {
+          "i": 108,
+          "rel": 2040,
+          "mean": 84.6,
+          "fn": "mapcard-108-2040.jpg"
+        },
+        {
+          "i": 109,
+          "rel": 2056,
+          "mean": 85.2,
+          "fn": "mapcard-109-2056.jpg"
+        },
+        {
+          "i": 110,
+          "rel": 2065,
+          "mean": 85.4,
+          "fn": "mapcard-110-2065.jpg"
+        },
+        {
+          "i": 111,
+          "rel": 2074,
+          "mean": 85.7,
+          "fn": "mapcard-111-2074.jpg"
+        },
+        {
+          "i": 112,
+          "rel": 2082,
+          "mean": 85.9,
+          "fn": "mapcard-112-2082.jpg"
+        },
+        {
+          "i": 113,
+          "rel": 2097,
+          "mean": 86.4,
+          "fn": "mapcard-113-2097.jpg"
+        },
+        {
+          "i": 114,
+          "rel": 2107,
+          "mean": 86.6,
+          "fn": "mapcard-114-2107.jpg"
+        },
+        {
+          "i": 115,
+          "rel": 2116,
+          "mean": 86.7,
+          "fn": "mapcard-115-2116.jpg"
+        },
+        {
+          "i": 116,
+          "rel": 2123,
+          "mean": 86.6,
+          "fn": "mapcard-116-2123.jpg"
+        },
+        {
+          "i": 117,
+          "rel": 2140,
+          "mean": 86.9,
+          "fn": "mapcard-117-2140.jpg"
+        },
+        {
+          "i": 118,
+          "rel": 2148,
+          "mean": 86.9,
+          "fn": "mapcard-118-2148.jpg"
+        },
+        {
+          "i": 119,
+          "rel": 2157,
+          "mean": 87.4,
+          "fn": "mapcard-119-2157.jpg"
+        },
+        {
+          "i": 120,
+          "rel": 2167,
+          "mean": 87.6,
+          "fn": "mapcard-120-2167.jpg"
+        },
+        {
+          "i": 121,
+          "rel": 2181,
+          "mean": 87.7,
+          "fn": "mapcard-121-2181.jpg"
+        },
+        {
+          "i": 122,
+          "rel": 2191,
+          "mean": 87.7,
+          "fn": "mapcard-122-2191.jpg"
+        },
+        {
+          "i": 123,
+          "rel": 2200,
+          "mean": 87.7,
+          "fn": "mapcard-123-2200.jpg"
+        },
+        {
+          "i": 124,
+          "rel": 2223,
+          "mean": 87.8,
+          "fn": "mapcard-124-2223.jpg"
+        },
+        {
+          "i": 125,
+          "rel": 2257,
+          "mean": 87.5,
+          "fn": "mapcard-125-2257.jpg"
+        },
+        {
+          "i": 126,
+          "rel": 2290,
+          "mean": 87.8,
+          "fn": "mapcard-126-2290.jpg"
+        },
+        {
+          "i": 127,
+          "rel": 2324,
+          "mean": 87.8,
+          "fn": "mapcard-127-2324.jpg"
+        },
+        {
+          "i": 128,
+          "rel": 2358,
+          "mean": 87.8,
+          "fn": "mapcard-128-2358.jpg"
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office"
+    },
+    "continue": {
+      "navMs": 20317,
+      "frames": [
+        {
+          "i": 10,
+          "rel": -248,
+          "mean": 36.4,
+          "fn": "continue-010-m248.jpg"
+        },
+        {
+          "i": 11,
+          "rel": -229,
+          "mean": 36.4,
+          "fn": "continue-011-m229.jpg"
+        },
+        {
+          "i": 12,
+          "rel": -217,
+          "mean": 36.4,
+          "fn": "continue-012-m217.jpg"
+        },
+        {
+          "i": 13,
+          "rel": -207,
+          "mean": 36.4,
+          "fn": "continue-013-m207.jpg"
+        },
+        {
+          "i": 14,
+          "rel": -197,
+          "mean": 36.5,
+          "fn": "continue-014-m197.jpg"
+        },
+        {
+          "i": 15,
+          "rel": -190,
+          "mean": 36.5,
+          "fn": "continue-015-m190.jpg"
+        },
+        {
+          "i": 16,
+          "rel": -173,
+          "mean": 36.5,
+          "fn": "continue-016-m173.jpg"
+        },
+        {
+          "i": 17,
+          "rel": -164,
+          "mean": 36.5,
+          "fn": "continue-017-m164.jpg"
+        },
+        {
+          "i": 18,
+          "rel": -157,
+          "mean": 36.5,
+          "fn": "continue-018-m157.jpg"
+        },
+        {
+          "i": 19,
+          "rel": -140,
+          "mean": 36.5,
+          "fn": "continue-019-m140.jpg"
+        },
+        {
+          "i": 20,
+          "rel": -133,
+          "mean": 36.5,
+          "fn": "continue-020-m133.jpg"
+        },
+        {
+          "i": 21,
+          "rel": -124,
+          "mean": 36.5,
+          "fn": "continue-021-m124.jpg"
+        },
+        {
+          "i": 22,
+          "rel": -114,
+          "mean": 36.5,
+          "fn": "continue-022-m114.jpg"
+        },
+        {
+          "i": 23,
+          "rel": -99,
+          "mean": 36.5,
+          "fn": "continue-023-m99.jpg"
+        },
+        {
+          "i": 24,
+          "rel": -89,
+          "mean": 36.5,
+          "fn": "continue-024-m89.jpg"
+        },
+        {
+          "i": 25,
+          "rel": -81,
+          "mean": 36.5,
+          "fn": "continue-025-m81.jpg"
+        },
+        {
+          "i": 26,
+          "rel": -65,
+          "mean": 36.5,
+          "fn": "continue-026-m65.jpg"
+        },
+        {
+          "i": 27,
+          "rel": -56,
+          "mean": 36.4,
+          "fn": "continue-027-m56.jpg"
+        },
+        {
+          "i": 28,
+          "rel": -31,
+          "mean": 36.4,
+          "fn": "continue-028-m31.jpg"
+        },
+        {
+          "i": 29,
+          "rel": -22,
+          "mean": 36.3,
+          "fn": "continue-029-m22.jpg"
+        },
+        {
+          "i": 30,
+          "rel": 16,
+          "mean": 36.2,
+          "fn": "continue-030-16.jpg"
+        },
+        {
+          "i": 31,
+          "rel": 70,
+          "mean": 36.2,
+          "fn": "continue-031-70.jpg"
+        },
+        {
+          "i": 32,
+          "rel": 102,
+          "mean": 36.1,
+          "fn": "continue-032-102.jpg"
+        },
+        {
+          "i": 33,
+          "rel": 143,
+          "mean": 36,
+          "fn": "continue-033-143.jpg"
+        },
+        {
+          "i": 34,
+          "rel": 177,
+          "mean": 36,
+          "fn": "continue-034-177.jpg"
+        },
+        {
+          "i": 35,
+          "rel": 209,
+          "mean": 35.8,
+          "fn": "continue-035-209.jpg"
+        },
+        {
+          "i": 36,
+          "rel": 245,
+          "mean": 35.8,
+          "fn": "continue-036-245.jpg"
+        },
+        {
+          "i": 37,
+          "rel": 269,
+          "mean": 35.8,
+          "fn": "continue-037-269.jpg"
+        },
+        {
+          "i": 38,
+          "rel": 316,
+          "mean": 35.8,
+          "fn": "continue-038-316.jpg"
+        },
+        {
+          "i": 39,
+          "rel": 348,
+          "mean": 35.9,
+          "fn": "continue-039-348.jpg"
+        },
+        {
+          "i": 40,
+          "rel": 374,
+          "mean": 36.1,
+          "fn": "continue-040-374.jpg"
+        },
+        {
+          "i": 41,
+          "rel": 398,
+          "mean": 36.2,
+          "fn": "continue-041-398.jpg"
+        },
+        {
+          "i": 42,
+          "rel": 421,
+          "mean": 36.2,
+          "fn": "continue-042-421.jpg"
+        },
+        {
+          "i": 43,
+          "rel": 445,
+          "mean": 36.1,
+          "fn": "continue-043-445.jpg"
+        },
+        {
+          "i": 44,
+          "rel": 470,
+          "mean": 35.9,
+          "fn": "continue-044-470.jpg"
+        },
+        {
+          "i": 45,
+          "rel": 494,
+          "mean": 35.7,
+          "fn": "continue-045-494.jpg"
+        },
+        {
+          "i": 46,
+          "rel": 519,
+          "mean": 35.7,
+          "fn": "continue-046-519.jpg"
+        },
+        {
+          "i": 47,
+          "rel": 553,
+          "mean": 35.6,
+          "fn": "continue-047-553.jpg"
+        },
+        {
+          "i": 48,
+          "rel": 581,
+          "mean": 35.6,
+          "fn": "continue-048-581.jpg"
+        },
+        {
+          "i": 49,
+          "rel": 659,
+          "mean": 35.7,
+          "fn": "continue-049-659.jpg"
+        },
+        {
+          "i": 50,
+          "rel": 740,
+          "mean": 35.8,
+          "fn": "continue-050-740.jpg"
+        },
+        {
+          "i": 51,
+          "rel": 783,
+          "mean": 35.9,
+          "fn": "continue-051-783.jpg"
+        },
+        {
+          "i": 52,
+          "rel": 829,
+          "mean": 36.1,
+          "fn": "continue-052-829.jpg"
+        },
+        {
+          "i": 53,
+          "rel": 874,
+          "mean": 36.1,
+          "fn": "continue-053-874.jpg"
+        },
+        {
+          "i": 54,
+          "rel": 904,
+          "mean": 36,
+          "fn": "continue-054-904.jpg"
+        },
+        {
+          "i": 55,
+          "rel": 929,
+          "mean": 36,
+          "fn": "continue-055-929.jpg"
+        },
+        {
+          "i": 56,
+          "rel": 955,
+          "mean": 36,
+          "fn": "continue-056-955.jpg"
+        },
+        {
+          "i": 57,
+          "rel": 984,
+          "mean": 36,
+          "fn": "continue-057-984.jpg"
+        },
+        {
+          "i": 58,
+          "rel": 1008,
+          "mean": 36.1,
+          "fn": "continue-058-1008.jpg"
+        },
+        {
+          "i": 59,
+          "rel": 1030,
+          "mean": 36.1,
+          "fn": "continue-059-1030.jpg"
+        },
+        {
+          "i": 60,
+          "rel": 1051,
+          "mean": 36.1,
+          "fn": "continue-060-1051.jpg"
+        },
+        {
+          "i": 61,
+          "rel": 1073,
+          "mean": 36.1,
+          "fn": "continue-061-1073.jpg"
+        },
+        {
+          "i": 62,
+          "rel": 1094,
+          "mean": 36.1,
+          "fn": "continue-062-1094.jpg"
+        },
+        {
+          "i": 63,
+          "rel": 1116,
+          "mean": 36.1,
+          "fn": "continue-063-1116.jpg"
+        },
+        {
+          "i": 64,
+          "rel": 1137,
+          "mean": 36,
+          "fn": "continue-064-1137.jpg"
+        },
+        {
+          "i": 65,
+          "rel": 1158,
+          "mean": 36,
+          "fn": "continue-065-1158.jpg"
+        },
+        {
+          "i": 66,
+          "rel": 1181,
+          "mean": 36,
+          "fn": "continue-066-1181.jpg"
+        },
+        {
+          "i": 67,
+          "rel": 1204,
+          "mean": 35.9,
+          "fn": "continue-067-1204.jpg"
+        },
+        {
+          "i": 68,
+          "rel": 1224,
+          "mean": 35.9,
+          "fn": "continue-068-1224.jpg"
+        },
+        {
+          "i": 69,
+          "rel": 1245,
+          "mean": 35.9,
+          "fn": "continue-069-1245.jpg"
+        },
+        {
+          "i": 70,
+          "rel": 1265,
+          "mean": 35.8,
+          "fn": "continue-070-1265.jpg"
+        },
+        {
+          "i": 71,
+          "rel": 1286,
+          "mean": 35.7,
+          "fn": "continue-071-1286.jpg"
+        },
+        {
+          "i": 72,
+          "rel": 1307,
+          "mean": 35.7,
+          "fn": "continue-072-1307.jpg"
+        },
+        {
+          "i": 73,
+          "rel": 1327,
+          "mean": 35.7,
+          "fn": "continue-073-1327.jpg"
+        },
+        {
+          "i": 74,
+          "rel": 1348,
+          "mean": 35.7,
+          "fn": "continue-074-1348.jpg"
+        },
+        {
+          "i": 75,
+          "rel": 1370,
+          "mean": 35.7,
+          "fn": "continue-075-1370.jpg"
+        },
+        {
+          "i": 76,
+          "rel": 1391,
+          "mean": 35.7,
+          "fn": "continue-076-1391.jpg"
+        },
+        {
+          "i": 77,
+          "rel": 1411,
+          "mean": 35.7,
+          "fn": "continue-077-1411.jpg"
+        },
+        {
+          "i": 78,
+          "rel": 1429,
+          "mean": 35.7,
+          "fn": "continue-078-1429.jpg"
+        },
+        {
+          "i": 79,
+          "rel": 1451,
+          "mean": 35.7,
+          "fn": "continue-079-1451.jpg"
+        },
+        {
+          "i": 80,
+          "rel": 1473,
+          "mean": 35.7,
+          "fn": "continue-080-1473.jpg"
+        },
+        {
+          "i": 81,
+          "rel": 1494,
+          "mean": 35.7,
+          "fn": "continue-081-1494.jpg"
+        },
+        {
+          "i": 82,
+          "rel": 1516,
+          "mean": 35.7,
+          "fn": "continue-082-1516.jpg"
+        },
+        {
+          "i": 83,
+          "rel": 1537,
+          "mean": 35.7,
+          "fn": "continue-083-1537.jpg"
+        },
+        {
+          "i": 84,
+          "rel": 1561,
+          "mean": 35.7,
+          "fn": "continue-084-1561.jpg"
+        },
+        {
+          "i": 85,
+          "rel": 1583,
+          "mean": 35.6,
+          "fn": "continue-085-1583.jpg"
+        },
+        {
+          "i": 86,
+          "rel": 1603,
+          "mean": 35.7,
+          "fn": "continue-086-1603.jpg"
+        },
+        {
+          "i": 87,
+          "rel": 1622,
+          "mean": 35.7,
+          "fn": "continue-087-1622.jpg"
+        },
+        {
+          "i": 88,
+          "rel": 1642,
+          "mean": 35.6,
+          "fn": "continue-088-1642.jpg"
+        },
+        {
+          "i": 89,
+          "rel": 1661,
+          "mean": 35.6,
+          "fn": "continue-089-1661.jpg"
+        },
+        {
+          "i": 90,
+          "rel": 1682,
+          "mean": 35.6,
+          "fn": "continue-090-1682.jpg"
+        },
+        {
+          "i": 91,
+          "rel": 1702,
+          "mean": 35.7,
+          "fn": "continue-091-1702.jpg"
+        },
+        {
+          "i": 92,
+          "rel": 1723,
+          "mean": 35.7,
+          "fn": "continue-092-1723.jpg"
+        },
+        {
+          "i": 93,
+          "rel": 1743,
+          "mean": 35.7,
+          "fn": "continue-093-1743.jpg"
+        },
+        {
+          "i": 94,
+          "rel": 1764,
+          "mean": 35.7,
+          "fn": "continue-094-1764.jpg"
+        },
+        {
+          "i": 95,
+          "rel": 1786,
+          "mean": 35.6,
+          "fn": "continue-095-1786.jpg"
+        },
+        {
+          "i": 96,
+          "rel": 1807,
+          "mean": 35.6,
+          "fn": "continue-096-1807.jpg"
+        },
+        {
+          "i": 97,
+          "rel": 1825,
+          "mean": 35.6,
+          "fn": "continue-097-1825.jpg"
+        },
+        {
+          "i": 98,
+          "rel": 1844,
+          "mean": 35.6,
+          "fn": "continue-098-1844.jpg"
+        },
+        {
+          "i": 99,
+          "rel": 1863,
+          "mean": 35.6,
+          "fn": "continue-099-1863.jpg"
+        },
+        {
+          "i": 100,
+          "rel": 1882,
+          "mean": 35.6,
+          "fn": "continue-100-1882.jpg"
+        },
+        {
+          "i": 101,
+          "rel": 1901,
+          "mean": 35.6,
+          "fn": "continue-101-1901.jpg"
+        },
+        {
+          "i": 102,
+          "rel": 1920,
+          "mean": 35.6,
+          "fn": "continue-102-1920.jpg"
+        },
+        {
+          "i": 103,
+          "rel": 1944,
+          "mean": 35.6,
+          "fn": "continue-103-1944.jpg"
+        },
+        {
+          "i": 104,
+          "rel": 1964,
+          "mean": 35.5,
+          "fn": "continue-104-1964.jpg"
+        },
+        {
+          "i": 105,
+          "rel": 1986,
+          "mean": 35.6,
+          "fn": "continue-105-1986.jpg"
+        },
+        {
+          "i": 106,
+          "rel": 2005,
+          "mean": 35.5,
+          "fn": "continue-106-2005.jpg"
+        },
+        {
+          "i": 107,
+          "rel": 2023,
+          "mean": 35.5,
+          "fn": "continue-107-2023.jpg"
+        },
+        {
+          "i": 108,
+          "rel": 2044,
+          "mean": 35.5,
+          "fn": "continue-108-2044.jpg"
+        },
+        {
+          "i": 109,
+          "rel": 2064,
+          "mean": 35.5,
+          "fn": "continue-109-2064.jpg"
+        },
+        {
+          "i": 110,
+          "rel": 2083,
+          "mean": 35.5,
+          "fn": "continue-110-2083.jpg"
+        },
+        {
+          "i": 111,
+          "rel": 2101,
+          "mean": 35.5,
+          "fn": "continue-111-2101.jpg"
+        },
+        {
+          "i": 112,
+          "rel": 2120,
+          "mean": 35.5,
+          "fn": "continue-112-2120.jpg"
+        },
+        {
+          "i": 113,
+          "rel": 2140,
+          "mean": 35.5,
+          "fn": "continue-113-2140.jpg"
+        },
+        {
+          "i": 114,
+          "rel": 2158,
+          "mean": 35.5,
+          "fn": "continue-114-2158.jpg"
+        },
+        {
+          "i": 115,
+          "rel": 2179,
+          "mean": 35.5,
+          "fn": "continue-115-2179.jpg"
+        },
+        {
+          "i": 116,
+          "rel": 2199,
+          "mean": 35.5,
+          "fn": "continue-116-2199.jpg"
+        },
+        {
+          "i": 117,
+          "rel": 2219,
+          "mean": 35.5,
+          "fn": "continue-117-2219.jpg"
+        },
+        {
+          "i": 118,
+          "rel": 2237,
+          "mean": 35.5,
+          "fn": "continue-118-2237.jpg"
+        },
+        {
+          "i": 119,
+          "rel": 2254,
+          "mean": 35.5,
+          "fn": "continue-119-2254.jpg"
+        },
+        {
+          "i": 120,
+          "rel": 2272,
+          "mean": 35.5,
+          "fn": "continue-120-2272.jpg"
+        },
+        {
+          "i": 121,
+          "rel": 2294,
+          "mean": 35.5,
+          "fn": "continue-121-2294.jpg"
+        },
+        {
+          "i": 122,
+          "rel": 2313,
+          "mean": 35.5,
+          "fn": "continue-122-2313.jpg"
+        },
+        {
+          "i": 123,
+          "rel": 2332,
+          "mean": 35.5,
+          "fn": "continue-123-2332.jpg"
+        },
+        {
+          "i": 124,
+          "rel": 2352,
+          "mean": 35.5,
+          "fn": "continue-124-2352.jpg"
+        },
+        {
+          "i": 125,
+          "rel": 2370,
+          "mean": 35.5,
+          "fn": "continue-125-2370.jpg"
+        },
+        {
+          "i": 126,
+          "rel": 2390,
+          "mean": 35.5,
+          "fn": "continue-126-2390.jpg"
+        },
+        {
+          "i": 127,
+          "rel": 2410,
+          "mean": 35.5,
+          "fn": "continue-127-2410.jpg"
+        },
+        {
+          "i": 128,
+          "rel": 2429,
+          "mean": 35.5,
+          "fn": "continue-128-2429.jpg"
+        },
+        {
+          "i": 129,
+          "rel": 2448,
+          "mean": 35.5,
+          "fn": "continue-129-2448.jpg"
+        },
+        {
+          "i": 130,
+          "rel": 2479,
+          "mean": 35.5,
+          "fn": "continue-130-2479.jpg"
+        },
+        {
+          "i": 131,
+          "rel": 2508,
+          "mean": 35.5,
+          "fn": "continue-131-2508.jpg"
+        },
+        {
+          "i": 132,
+          "rel": 2573,
+          "mean": 35.5,
+          "fn": "continue-132-2573.jpg"
+        },
+        {
+          "i": 133,
+          "rel": 2608,
+          "mean": 35.6,
+          "fn": "continue-133-2608.jpg"
+        },
+        {
+          "i": 134,
+          "rel": 2637,
+          "mean": 35.6,
+          "fn": "continue-134-2637.jpg"
+        },
+        {
+          "i": 135,
+          "rel": 2676,
+          "mean": 35.6,
+          "fn": "continue-135-2676.jpg"
+        },
+        {
+          "i": 136,
+          "rel": 2705,
+          "mean": 35.7,
+          "fn": "continue-136-2705.jpg"
+        },
+        {
+          "i": 137,
+          "rel": 2724,
+          "mean": 35.7,
+          "fn": "continue-137-2724.jpg"
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery"
+    },
+    "menu": {
+      "navMs": 978,
+      "frames": [
+        {
+          "i": 2,
+          "rel": -238,
+          "mean": 38.3,
+          "fn": "menu-002-m238.jpg"
+        },
+        {
+          "i": 3,
+          "rel": -204,
+          "mean": 38.2,
+          "fn": "menu-003-m204.jpg"
+        },
+        {
+          "i": 4,
+          "rel": -170,
+          "mean": 38.3,
+          "fn": "menu-004-m170.jpg"
+        },
+        {
+          "i": 5,
+          "rel": -137,
+          "mean": 38.2,
+          "fn": "menu-005-m137.jpg"
+        },
+        {
+          "i": 6,
+          "rel": -104,
+          "mean": 38.3,
+          "fn": "menu-006-m104.jpg"
+        },
+        {
+          "i": 7,
+          "rel": -70,
+          "mean": 38.2,
+          "fn": "menu-007-m70.jpg"
+        },
+        {
+          "i": 8,
+          "rel": -37,
+          "mean": 38.3,
+          "fn": "menu-008-m37.jpg"
+        },
+        {
+          "i": 9,
+          "rel": -4,
+          "mean": 38.2,
+          "fn": "menu-009-m4.jpg"
+        },
+        {
+          "i": 10,
+          "rel": 21,
+          "mean": 38.2,
+          "fn": "menu-010-21.jpg"
+        },
+        {
+          "i": 11,
+          "rel": 28,
+          "mean": 38.2,
+          "fn": "menu-011-28.jpg"
+        },
+        {
+          "i": 12,
+          "rel": 37,
+          "mean": 38.1,
+          "fn": "menu-012-37.jpg"
+        },
+        {
+          "i": 13,
+          "rel": 45,
+          "mean": 38,
+          "fn": "menu-013-45.jpg"
+        },
+        {
+          "i": 14,
+          "rel": 60,
+          "mean": 37.8,
+          "fn": "menu-014-60.jpg"
+        },
+        {
+          "i": 15,
+          "rel": 69,
+          "mean": 37.8,
+          "fn": "menu-015-69.jpg"
+        },
+        {
+          "i": 16,
+          "rel": 78,
+          "mean": 37.7,
+          "fn": "menu-016-78.jpg"
+        },
+        {
+          "i": 17,
+          "rel": 86,
+          "mean": 37.7,
+          "fn": "menu-017-86.jpg"
+        },
+        {
+          "i": 18,
+          "rel": 104,
+          "mean": 37.7,
+          "fn": "menu-018-104.jpg"
+        },
+        {
+          "i": 19,
+          "rel": 111,
+          "mean": 37.6,
+          "fn": "menu-019-111.jpg"
+        },
+        {
+          "i": 20,
+          "rel": 121,
+          "mean": 37.6,
+          "fn": "menu-020-121.jpg"
+        },
+        {
+          "i": 21,
+          "rel": 129,
+          "mean": 37.4,
+          "fn": "menu-021-129.jpg"
+        },
+        {
+          "i": 22,
+          "rel": 145,
+          "mean": 37.4,
+          "fn": "menu-022-145.jpg"
+        },
+        {
+          "i": 23,
+          "rel": 154,
+          "mean": 37.3,
+          "fn": "menu-023-154.jpg"
+        },
+        {
+          "i": 24,
+          "rel": 162,
+          "mean": 37.3,
+          "fn": "menu-024-162.jpg"
+        },
+        {
+          "i": 25,
+          "rel": 171,
+          "mean": 37.3,
+          "fn": "menu-025-171.jpg"
+        },
+        {
+          "i": 26,
+          "rel": 187,
+          "mean": 37.1,
+          "fn": "menu-026-187.jpg"
+        },
+        {
+          "i": 27,
+          "rel": 196,
+          "mean": 37,
+          "fn": "menu-027-196.jpg"
+        },
+        {
+          "i": 28,
+          "rel": 204,
+          "mean": 36.9,
+          "fn": "menu-028-204.jpg"
+        },
+        {
+          "i": 29,
+          "rel": 221,
+          "mean": 36.7,
+          "fn": "menu-029-221.jpg"
+        },
+        {
+          "i": 30,
+          "rel": 229,
+          "mean": 36.6,
+          "fn": "menu-030-229.jpg"
+        },
+        {
+          "i": 31,
+          "rel": 236,
+          "mean": 36.5,
+          "fn": "menu-031-236.jpg"
+        },
+        {
+          "i": 32,
+          "rel": 254,
+          "mean": 36.2,
+          "fn": "menu-032-254.jpg"
+        },
+        {
+          "i": 33,
+          "rel": 261,
+          "mean": 35.7,
+          "fn": "menu-033-261.jpg"
+        },
+        {
+          "i": 34,
+          "rel": 271,
+          "mean": 35.4,
+          "fn": "menu-034-271.jpg"
+        },
+        {
+          "i": 35,
+          "rel": 286,
+          "mean": 34.6,
+          "fn": "menu-035-286.jpg"
+        },
+        {
+          "i": 36,
+          "rel": 296,
+          "mean": 34.2,
+          "fn": "menu-036-296.jpg"
+        },
+        {
+          "i": 37,
+          "rel": 302,
+          "mean": 33.5,
+          "fn": "menu-037-302.jpg"
+        },
+        {
+          "i": 38,
+          "rel": 312,
+          "mean": 32.6,
+          "fn": "menu-038-312.jpg"
+        },
+        {
+          "i": 39,
+          "rel": 328,
+          "mean": 27.6,
+          "fn": "menu-039-328.jpg"
+        },
+        {
+          "i": 40,
+          "rel": 337,
+          "mean": 26.2,
+          "fn": "menu-040-337.jpg"
+        },
+        {
+          "i": 41,
+          "rel": 345,
+          "mean": 24.8,
+          "fn": "menu-041-345.jpg"
+        },
+        {
+          "i": 42,
+          "rel": 361,
+          "mean": 22.9,
+          "fn": "menu-042-361.jpg"
+        },
+        {
+          "i": 43,
+          "rel": 369,
+          "mean": 22.4,
+          "fn": "menu-043-369.jpg"
+        },
+        {
+          "i": 44,
+          "rel": 378,
+          "mean": 22.1,
+          "fn": "menu-044-378.jpg"
+        },
+        {
+          "i": 45,
+          "rel": 395,
+          "mean": 21.5,
+          "fn": "menu-045-395.jpg"
+        },
+        {
+          "i": 46,
+          "rel": 403,
+          "mean": 21.3,
+          "fn": "menu-046-403.jpg"
+        },
+        {
+          "i": 47,
+          "rel": 410,
+          "mean": 21.1,
+          "fn": "menu-047-410.jpg"
+        },
+        {
+          "i": 48,
+          "rel": 428,
+          "mean": 20.7,
+          "fn": "menu-048-428.jpg"
+        },
+        {
+          "i": 49,
+          "rel": 437,
+          "mean": 20.6,
+          "fn": "menu-049-437.jpg"
+        },
+        {
+          "i": 50,
+          "rel": 444,
+          "mean": 20.5,
+          "fn": "menu-050-444.jpg"
+        },
+        {
+          "i": 51,
+          "rel": 454,
+          "mean": 20.4,
+          "fn": "menu-051-454.jpg"
+        },
+        {
+          "i": 52,
+          "rel": 472,
+          "mean": 20.1,
+          "fn": "menu-052-472.jpg"
+        },
+        {
+          "i": 53,
+          "rel": 477,
+          "mean": 20.1,
+          "fn": "menu-053-477.jpg"
+        },
+        {
+          "i": 54,
+          "rel": 486,
+          "mean": 20,
+          "fn": "menu-054-486.jpg"
+        },
+        {
+          "i": 55,
+          "rel": 503,
+          "mean": 19.9,
+          "fn": "menu-055-503.jpg"
+        },
+        {
+          "i": 56,
+          "rel": 511,
+          "mean": 19.8,
+          "fn": "menu-056-511.jpg"
+        },
+        {
+          "i": 57,
+          "rel": 519,
+          "mean": 19.8,
+          "fn": "menu-057-519.jpg"
+        },
+        {
+          "i": 58,
+          "rel": 528,
+          "mean": 19.8,
+          "fn": "menu-058-528.jpg"
+        },
+        {
+          "i": 59,
+          "rel": 544,
+          "mean": 19.6,
+          "fn": "menu-059-544.jpg"
+        },
+        {
+          "i": 60,
+          "rel": 552,
+          "mean": 19.6,
+          "fn": "menu-060-552.jpg"
+        },
+        {
+          "i": 61,
+          "rel": 563,
+          "mean": 19.6,
+          "fn": "menu-061-563.jpg"
+        },
+        {
+          "i": 62,
+          "rel": 571,
+          "mean": 19.5,
+          "fn": "menu-062-571.jpg"
+        },
+        {
+          "i": 63,
+          "rel": 586,
+          "mean": 19.5,
+          "fn": "menu-063-586.jpg"
+        },
+        {
+          "i": 64,
+          "rel": 596,
+          "mean": 19.5,
+          "fn": "menu-064-596.jpg"
+        },
+        {
+          "i": 65,
+          "rel": 604,
+          "mean": 19.4,
+          "fn": "menu-065-604.jpg"
+        },
+        {
+          "i": 66,
+          "rel": 612,
+          "mean": 19.4,
+          "fn": "menu-066-612.jpg"
+        },
+        {
+          "i": 67,
+          "rel": 628,
+          "mean": 19.4,
+          "fn": "menu-067-628.jpg"
+        },
+        {
+          "i": 68,
+          "rel": 662,
+          "mean": 19.4,
+          "fn": "menu-068-662.jpg"
+        },
+        {
+          "i": 69,
+          "rel": 696,
+          "mean": 19.4,
+          "fn": "menu-069-696.jpg"
+        },
+        {
+          "i": 70,
+          "rel": 728,
+          "mean": 19.4,
+          "fn": "menu-070-728.jpg"
+        },
+        {
+          "i": 71,
+          "rel": 762,
+          "mean": 19.4,
+          "fn": "menu-071-762.jpg"
+        },
+        {
+          "i": 72,
+          "rel": 795,
+          "mean": 19.4,
+          "fn": "menu-072-795.jpg"
+        },
+        {
+          "i": 73,
+          "rel": 829,
+          "mean": 19.4,
+          "fn": "menu-073-829.jpg"
+        },
+        {
+          "i": 74,
+          "rel": 896,
+          "mean": 19.4,
+          "fn": "menu-074-896.jpg"
+        },
+        {
+          "i": 75,
+          "rel": 911,
+          "mean": 19.4,
+          "fn": "menu-075-911.jpg"
+        },
+        {
+          "i": 76,
+          "rel": 988,
+          "mean": 19.4,
+          "fn": "menu-076-988.jpg"
+        },
+        {
+          "i": 77,
+          "rel": 1234,
+          "mean": 19.4,
+          "fn": "menu-077-1234.jpg"
+        },
+        {
+          "i": 78,
+          "rel": 1242,
+          "mean": 19.4,
+          "fn": "menu-078-1242.jpg"
+        },
+        {
+          "i": 79,
+          "rel": 1250,
+          "mean": 19.4,
+          "fn": "menu-079-1250.jpg"
+        },
+        {
+          "i": 80,
+          "rel": 1258,
+          "mean": 19.4,
+          "fn": "menu-080-1258.jpg"
+        },
+        {
+          "i": 81,
+          "rel": 1275,
+          "mean": 19.4,
+          "fn": "menu-081-1275.jpg"
+        },
+        {
+          "i": 82,
+          "rel": 1284,
+          "mean": 19.4,
+          "fn": "menu-082-1284.jpg"
+        },
+        {
+          "i": 83,
+          "rel": 1292,
+          "mean": 19.4,
+          "fn": "menu-083-1292.jpg"
+        },
+        {
+          "i": 84,
+          "rel": 1300,
+          "mean": 19.4,
+          "fn": "menu-084-1300.jpg"
+        },
+        {
+          "i": 85,
+          "rel": 1317,
+          "mean": 19.4,
+          "fn": "menu-085-1317.jpg"
+        },
+        {
+          "i": 86,
+          "rel": 1325,
+          "mean": 19.4,
+          "fn": "menu-086-1325.jpg"
+        },
+        {
+          "i": 87,
+          "rel": 1334,
+          "mean": 19.4,
+          "fn": "menu-087-1334.jpg"
+        },
+        {
+          "i": 88,
+          "rel": 1342,
+          "mean": 19.4,
+          "fn": "menu-088-1342.jpg"
+        },
+        {
+          "i": 89,
+          "rel": 1359,
+          "mean": 22.6,
+          "fn": "menu-089-1359.jpg"
+        },
+        {
+          "i": 90,
+          "rel": 1366,
+          "mean": 23.2,
+          "fn": "menu-090-1366.jpg"
+        },
+        {
+          "i": 91,
+          "rel": 1375,
+          "mean": 23.8,
+          "fn": "menu-091-1375.jpg"
+        },
+        {
+          "i": 92,
+          "rel": 1384,
+          "mean": 24.2,
+          "fn": "menu-092-1384.jpg"
+        },
+        {
+          "i": 93,
+          "rel": 1400,
+          "mean": 24.9,
+          "fn": "menu-093-1400.jpg"
+        },
+        {
+          "i": 94,
+          "rel": 1408,
+          "mean": 25,
+          "fn": "menu-094-1408.jpg"
+        },
+        {
+          "i": 95,
+          "rel": 1417,
+          "mean": 25.2,
+          "fn": "menu-095-1417.jpg"
+        },
+        {
+          "i": 96,
+          "rel": 1433,
+          "mean": 25.2,
+          "fn": "menu-096-1433.jpg"
+        },
+        {
+          "i": 97,
+          "rel": 1443,
+          "mean": 25,
+          "fn": "menu-097-1443.jpg"
+        },
+        {
+          "i": 98,
+          "rel": 1450,
+          "mean": 25.4,
+          "fn": "menu-098-1450.jpg"
+        },
+        {
+          "i": 99,
+          "rel": 1465,
+          "mean": 26,
+          "fn": "menu-099-1465.jpg"
+        },
+        {
+          "i": 100,
+          "rel": 1475,
+          "mean": 26.3,
+          "fn": "menu-100-1475.jpg"
+        },
+        {
+          "i": 101,
+          "rel": 1483,
+          "mean": 26.5,
+          "fn": "menu-101-1483.jpg"
+        },
+        {
+          "i": 102,
+          "rel": 1493,
+          "mean": 26.7,
+          "fn": "menu-102-1493.jpg"
+        },
+        {
+          "i": 103,
+          "rel": 1508,
+          "mean": 27.2,
+          "fn": "menu-103-1508.jpg"
+        },
+        {
+          "i": 104,
+          "rel": 1515,
+          "mean": 27.4,
+          "fn": "menu-104-1515.jpg"
+        },
+        {
+          "i": 105,
+          "rel": 1525,
+          "mean": 27.8,
+          "fn": "menu-105-1525.jpg"
+        },
+        {
+          "i": 106,
+          "rel": 1533,
+          "mean": 28.1,
+          "fn": "menu-106-1533.jpg"
+        },
+        {
+          "i": 107,
+          "rel": 1549,
+          "mean": 28.8,
+          "fn": "menu-107-1549.jpg"
+        },
+        {
+          "i": 108,
+          "rel": 1559,
+          "mean": 28.9,
+          "fn": "menu-108-1559.jpg"
+        },
+        {
+          "i": 109,
+          "rel": 1565,
+          "mean": 29.1,
+          "fn": "menu-109-1565.jpg"
+        },
+        {
+          "i": 110,
+          "rel": 1576,
+          "mean": 29.5,
+          "fn": "menu-110-1576.jpg"
+        },
+        {
+          "i": 111,
+          "rel": 1592,
+          "mean": 30.1,
+          "fn": "menu-111-1592.jpg"
+        },
+        {
+          "i": 112,
+          "rel": 1600,
+          "mean": 30.5,
+          "fn": "menu-112-1600.jpg"
+        },
+        {
+          "i": 113,
+          "rel": 1608,
+          "mean": 30.8,
+          "fn": "menu-113-1608.jpg"
+        },
+        {
+          "i": 114,
+          "rel": 1625,
+          "mean": 31.4,
+          "fn": "menu-114-1625.jpg"
+        },
+        {
+          "i": 115,
+          "rel": 1634,
+          "mean": 31.5,
+          "fn": "menu-115-1634.jpg"
+        },
+        {
+          "i": 116,
+          "rel": 1642,
+          "mean": 31.6,
+          "fn": "menu-116-1642.jpg"
+        },
+        {
+          "i": 117,
+          "rel": 1651,
+          "mean": 31.7,
+          "fn": "menu-117-1651.jpg"
+        },
+        {
+          "i": 118,
+          "rel": 1666,
+          "mean": 32,
+          "fn": "menu-118-1666.jpg"
+        },
+        {
+          "i": 119,
+          "rel": 1675,
+          "mean": 32,
+          "fn": "menu-119-1675.jpg"
+        },
+        {
+          "i": 120,
+          "rel": 1684,
+          "mean": 32.1,
+          "fn": "menu-120-1684.jpg"
+        },
+        {
+          "i": 121,
+          "rel": 1692,
+          "mean": 32.2,
+          "fn": "menu-121-1692.jpg"
+        },
+        {
+          "i": 122,
+          "rel": 1709,
+          "mean": 32.3,
+          "fn": "menu-122-1709.jpg"
+        },
+        {
+          "i": 123,
+          "rel": 1717,
+          "mean": 32.4,
+          "fn": "menu-123-1717.jpg"
+        },
+        {
+          "i": 124,
+          "rel": 1725,
+          "mean": 32.5,
+          "fn": "menu-124-1725.jpg"
+        },
+        {
+          "i": 125,
+          "rel": 1740,
+          "mean": 32.7,
+          "fn": "menu-125-1740.jpg"
+        },
+        {
+          "i": 126,
+          "rel": 1750,
+          "mean": 32.7,
+          "fn": "menu-126-1750.jpg"
+        },
+        {
+          "i": 127,
+          "rel": 1758,
+          "mean": 32.8,
+          "fn": "menu-127-1758.jpg"
+        },
+        {
+          "i": 128,
+          "rel": 1767,
+          "mean": 32.9,
+          "fn": "menu-128-1767.jpg"
+        },
+        {
+          "i": 129,
+          "rel": 1783,
+          "mean": 32.9,
+          "fn": "menu-129-1783.jpg"
+        },
+        {
+          "i": 130,
+          "rel": 1793,
+          "mean": 33,
+          "fn": "menu-130-1793.jpg"
+        },
+        {
+          "i": 131,
+          "rel": 1800,
+          "mean": 32.9,
+          "fn": "menu-131-1800.jpg"
+        },
+        {
+          "i": 132,
+          "rel": 1809,
+          "mean": 33,
+          "fn": "menu-132-1809.jpg"
+        },
+        {
+          "i": 133,
+          "rel": 1824,
+          "mean": 33.1,
+          "fn": "menu-133-1824.jpg"
+        },
+        {
+          "i": 134,
+          "rel": 1832,
+          "mean": 33.2,
+          "fn": "menu-134-1832.jpg"
+        },
+        {
+          "i": 135,
+          "rel": 1842,
+          "mean": 33.2,
+          "fn": "menu-135-1842.jpg"
+        },
+        {
+          "i": 136,
+          "rel": 1860,
+          "mean": 33.2,
+          "fn": "menu-136-1860.jpg"
+        },
+        {
+          "i": 137,
+          "rel": 1866,
+          "mean": 33.3,
+          "fn": "menu-137-1866.jpg"
+        },
+        {
+          "i": 138,
+          "rel": 1884,
+          "mean": 33.3,
+          "fn": "menu-138-1884.jpg"
+        },
+        {
+          "i": 139,
+          "rel": 1890,
+          "mean": 33.3,
+          "fn": "menu-139-1890.jpg"
+        },
+        {
+          "i": 140,
+          "rel": 1900,
+          "mean": 33.3,
+          "fn": "menu-140-1900.jpg"
+        },
+        {
+          "i": 141,
+          "rel": 1917,
+          "mean": 33.4,
+          "fn": "menu-141-1917.jpg"
+        },
+        {
+          "i": 142,
+          "rel": 1926,
+          "mean": 33.4,
+          "fn": "menu-142-1926.jpg"
+        },
+        {
+          "i": 143,
+          "rel": 1932,
+          "mean": 33.4,
+          "fn": "menu-143-1932.jpg"
+        },
+        {
+          "i": 144,
+          "rel": 1943,
+          "mean": 33.4,
+          "fn": "menu-144-1943.jpg"
+        },
+        {
+          "i": 145,
+          "rel": 1958,
+          "mean": 33.4,
+          "fn": "menu-145-1958.jpg"
+        },
+        {
+          "i": 146,
+          "rel": 1966,
+          "mean": 33.4,
+          "fn": "menu-146-1966.jpg"
+        },
+        {
+          "i": 147,
+          "rel": 1974,
+          "mean": 33.4,
+          "fn": "menu-147-1974.jpg"
+        },
+        {
+          "i": 148,
+          "rel": 1991,
+          "mean": 33.4,
+          "fn": "menu-148-1991.jpg"
+        },
+        {
+          "i": 149,
+          "rel": 1999,
+          "mean": 33.4,
+          "fn": "menu-149-1999.jpg"
+        },
+        {
+          "i": 150,
+          "rel": 2007,
+          "mean": 33.4,
+          "fn": "menu-150-2007.jpg"
+        },
+        {
+          "i": 151,
+          "rel": 2015,
+          "mean": 33.4,
+          "fn": "menu-151-2015.jpg"
+        },
+        {
+          "i": 152,
+          "rel": 2032,
+          "mean": 33.4,
+          "fn": "menu-152-2032.jpg"
+        },
+        {
+          "i": 153,
+          "rel": 2040,
+          "mean": 33.4,
+          "fn": "menu-153-2040.jpg"
+        },
+        {
+          "i": 154,
+          "rel": 2050,
+          "mean": 33.4,
+          "fn": "menu-154-2050.jpg"
+        },
+        {
+          "i": 155,
+          "rel": 2066,
+          "mean": 33.4,
+          "fn": "menu-155-2066.jpg"
+        },
+        {
+          "i": 156,
+          "rel": 2073,
+          "mean": 33.4,
+          "fn": "menu-156-2073.jpg"
+        },
+        {
+          "i": 157,
+          "rel": 2082,
+          "mean": 33.4,
+          "fn": "menu-157-2082.jpg"
+        },
+        {
+          "i": 158,
+          "rel": 2100,
+          "mean": 33.4,
+          "fn": "menu-158-2100.jpg"
+        },
+        {
+          "i": 159,
+          "rel": 2107,
+          "mean": 33.4,
+          "fn": "menu-159-2107.jpg"
+        },
+        {
+          "i": 160,
+          "rel": 2115,
+          "mean": 33.4,
+          "fn": "menu-160-2115.jpg"
+        },
+        {
+          "i": 161,
+          "rel": 2133,
+          "mean": 33.4,
+          "fn": "menu-161-2133.jpg"
+        },
+        {
+          "i": 162,
+          "rel": 2140,
+          "mean": 33.4,
+          "fn": "menu-162-2140.jpg"
+        },
+        {
+          "i": 163,
+          "rel": 2148,
+          "mean": 33.4,
+          "fn": "menu-163-2148.jpg"
+        },
+        {
+          "i": 164,
+          "rel": 2165,
+          "mean": 33.4,
+          "fn": "menu-164-2165.jpg"
+        },
+        {
+          "i": 165,
+          "rel": 2174,
+          "mean": 33.4,
+          "fn": "menu-165-2174.jpg"
+        },
+        {
+          "i": 166,
+          "rel": 2182,
+          "mean": 33.4,
+          "fn": "menu-166-2182.jpg"
+        },
+        {
+          "i": 167,
+          "rel": 2198,
+          "mean": 33.4,
+          "fn": "menu-167-2198.jpg"
+        },
+        {
+          "i": 168,
+          "rel": 2206,
+          "mean": 33.4,
+          "fn": "menu-168-2206.jpg"
+        },
+        {
+          "i": 169,
+          "rel": 2215,
+          "mean": 33.4,
+          "fn": "menu-169-2215.jpg"
+        },
+        {
+          "i": 170,
+          "rel": 2225,
+          "mean": 33.4,
+          "fn": "menu-170-2225.jpg"
+        },
+        {
+          "i": 171,
+          "rel": 2241,
+          "mean": 33.4,
+          "fn": "menu-171-2241.jpg"
+        },
+        {
+          "i": 172,
+          "rel": 2250,
+          "mean": 33.4,
+          "fn": "menu-172-2250.jpg"
+        },
+        {
+          "i": 173,
+          "rel": 2257,
+          "mean": 33.4,
+          "fn": "menu-173-2257.jpg"
+        },
+        {
+          "i": 174,
+          "rel": 2273,
+          "mean": 33.4,
+          "fn": "menu-174-2273.jpg"
+        },
+        {
+          "i": 175,
+          "rel": 2283,
+          "mean": 33.4,
+          "fn": "menu-175-2283.jpg"
+        },
+        {
+          "i": 176,
+          "rel": 2290,
+          "mean": 33.4,
+          "fn": "menu-176-2290.jpg"
+        },
+        {
+          "i": 177,
+          "rel": 2300,
+          "mean": 33.4,
+          "fn": "menu-177-2300.jpg"
+        },
+        {
+          "i": 178,
+          "rel": 2317,
+          "mean": 33.4,
+          "fn": "menu-178-2317.jpg"
+        },
+        {
+          "i": 179,
+          "rel": 2325,
+          "mean": 33.4,
+          "fn": "menu-179-2325.jpg"
+        },
+        {
+          "i": 180,
+          "rel": 2333,
+          "mean": 33.4,
+          "fn": "menu-180-2333.jpg"
+        },
+        {
+          "i": 181,
+          "rel": 2350,
+          "mean": 33.4,
+          "fn": "menu-181-2350.jpg"
+        },
+        {
+          "i": 182,
+          "rel": 2358,
+          "mean": 33.4,
+          "fn": "menu-182-2358.jpg"
+        },
+        {
+          "i": 183,
+          "rel": 2367,
+          "mean": 33.4,
+          "fn": "menu-183-2367.jpg"
+        },
+        {
+          "i": 184,
+          "rel": 2382,
+          "mean": 33.4,
+          "fn": "menu-184-2382.jpg"
+        },
+        {
+          "i": 185,
+          "rel": 2390,
+          "mean": 33.4,
+          "fn": "menu-185-2390.jpg"
+        },
+        {
+          "i": 186,
+          "rel": 2399,
+          "mean": 33.4,
+          "fn": "menu-186-2399.jpg"
+        },
+        {
+          "i": 187,
+          "rel": 2416,
+          "mean": 33.4,
+          "fn": "menu-187-2416.jpg"
+        },
+        {
+          "i": 188,
+          "rel": 2423,
+          "mean": 33.4,
+          "fn": "menu-188-2423.jpg"
+        },
+        {
+          "i": 189,
+          "rel": 2433,
+          "mean": 33.4,
+          "fn": "menu-189-2433.jpg"
+        },
+        {
+          "i": 190,
+          "rel": 2441,
+          "mean": 33.4,
+          "fn": "menu-190-2441.jpg"
+        },
+        {
+          "i": 191,
+          "rel": 2457,
+          "mean": 33.4,
+          "fn": "menu-191-2457.jpg"
+        },
+        {
+          "i": 192,
+          "rel": 2467,
+          "mean": 33.4,
+          "fn": "menu-192-2467.jpg"
+        },
+        {
+          "i": 193,
+          "rel": 2476,
+          "mean": 33.4,
+          "fn": "menu-193-2476.jpg"
+        },
+        {
+          "i": 194,
+          "rel": 2501,
+          "mean": 33.4,
+          "fn": "menu-194-2501.jpg"
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/people"
+    },
+    "home": {
+      "navMs": 853,
+      "frames": [
+        {
+          "i": 2,
+          "rel": -234,
+          "mean": 44.1,
+          "fn": "home-002-m234.jpg"
+        },
+        {
+          "i": 3,
+          "rel": -201,
+          "mean": 44.1,
+          "fn": "home-003-m201.jpg"
+        },
+        {
+          "i": 4,
+          "rel": -167,
+          "mean": 44.1,
+          "fn": "home-004-m167.jpg"
+        },
+        {
+          "i": 5,
+          "rel": -133,
+          "mean": 44.1,
+          "fn": "home-005-m133.jpg"
+        },
+        {
+          "i": 6,
+          "rel": -100,
+          "mean": 44.1,
+          "fn": "home-006-m100.jpg"
+        },
+        {
+          "i": 7,
+          "rel": -67,
+          "mean": 44.1,
+          "fn": "home-007-m67.jpg"
+        },
+        {
+          "i": 8,
+          "rel": -34,
+          "mean": 44.1,
+          "fn": "home-008-m34.jpg"
+        },
+        {
+          "i": 9,
+          "rel": 1,
+          "mean": 44.1,
+          "fn": "home-009-1.jpg"
+        },
+        {
+          "i": 10,
+          "rel": 26,
+          "mean": 44.1,
+          "fn": "home-010-26.jpg"
+        },
+        {
+          "i": 11,
+          "rel": 34,
+          "mean": 44.1,
+          "fn": "home-011-34.jpg"
+        },
+        {
+          "i": 12,
+          "rel": 65,
+          "mean": 44.1,
+          "fn": "home-012-65.jpg"
+        },
+        {
+          "i": 13,
+          "rel": 69,
+          "mean": 44.1,
+          "fn": "home-013-69.jpg"
+        },
+        {
+          "i": 14,
+          "rel": 76,
+          "mean": 44.1,
+          "fn": "home-014-76.jpg"
+        },
+        {
+          "i": 15,
+          "rel": 84,
+          "mean": 44.1,
+          "fn": "home-015-84.jpg"
+        },
+        {
+          "i": 16,
+          "rel": 101,
+          "mean": 44,
+          "fn": "home-016-101.jpg"
+        },
+        {
+          "i": 17,
+          "rel": 109,
+          "mean": 44,
+          "fn": "home-017-109.jpg"
+        },
+        {
+          "i": 18,
+          "rel": 117,
+          "mean": 43.9,
+          "fn": "home-018-117.jpg"
+        },
+        {
+          "i": 19,
+          "rel": 127,
+          "mean": 43.9,
+          "fn": "home-019-127.jpg"
+        },
+        {
+          "i": 20,
+          "rel": 143,
+          "mean": 43.8,
+          "fn": "home-020-143.jpg"
+        },
+        {
+          "i": 21,
+          "rel": 149,
+          "mean": 43.8,
+          "fn": "home-021-149.jpg"
+        },
+        {
+          "i": 22,
+          "rel": 158,
+          "mean": 43.7,
+          "fn": "home-022-158.jpg"
+        },
+        {
+          "i": 23,
+          "rel": 167,
+          "mean": 43.7,
+          "fn": "home-023-167.jpg"
+        },
+        {
+          "i": 24,
+          "rel": 183,
+          "mean": 43.7,
+          "fn": "home-024-183.jpg"
+        },
+        {
+          "i": 25,
+          "rel": 192,
+          "mean": 43.6,
+          "fn": "home-025-192.jpg"
+        },
+        {
+          "i": 26,
+          "rel": 201,
+          "mean": 43.6,
+          "fn": "home-026-201.jpg"
+        },
+        {
+          "i": 27,
+          "rel": 209,
+          "mean": 43.6,
+          "fn": "home-027-209.jpg"
+        },
+        {
+          "i": 28,
+          "rel": 226,
+          "mean": 43.4,
+          "fn": "home-028-226.jpg"
+        },
+        {
+          "i": 29,
+          "rel": 234,
+          "mean": 43.1,
+          "fn": "home-029-234.jpg"
+        },
+        {
+          "i": 30,
+          "rel": 243,
+          "mean": 42.5,
+          "fn": "home-030-243.jpg"
+        },
+        {
+          "i": 31,
+          "rel": 259,
+          "mean": 41.6,
+          "fn": "home-031-259.jpg"
+        },
+        {
+          "i": 32,
+          "rel": 268,
+          "mean": 41.2,
+          "fn": "home-032-268.jpg"
+        },
+        {
+          "i": 33,
+          "rel": 276,
+          "mean": 41.1,
+          "fn": "home-033-276.jpg"
+        },
+        {
+          "i": 34,
+          "rel": 292,
+          "mean": 40.7,
+          "fn": "home-034-292.jpg"
+        },
+        {
+          "i": 35,
+          "rel": 299,
+          "mean": 40.4,
+          "fn": "home-035-299.jpg"
+        },
+        {
+          "i": 36,
+          "rel": 309,
+          "mean": 40,
+          "fn": "home-036-309.jpg"
+        },
+        {
+          "i": 37,
+          "rel": 318,
+          "mean": 39.5,
+          "fn": "home-037-318.jpg"
+        },
+        {
+          "i": 38,
+          "rel": 333,
+          "mean": 39,
+          "fn": "home-038-333.jpg"
+        },
+        {
+          "i": 39,
+          "rel": 342,
+          "mean": 38.6,
+          "fn": "home-039-342.jpg"
+        },
+        {
+          "i": 40,
+          "rel": 350,
+          "mean": 38,
+          "fn": "home-040-350.jpg"
+        },
+        {
+          "i": 41,
+          "rel": 367,
+          "mean": 32,
+          "fn": "home-041-367.jpg"
+        },
+        {
+          "i": 42,
+          "rel": 375,
+          "mean": 30.8,
+          "fn": "home-042-375.jpg"
+        },
+        {
+          "i": 43,
+          "rel": 383,
+          "mean": 29.8,
+          "fn": "home-043-383.jpg"
+        },
+        {
+          "i": 44,
+          "rel": 399,
+          "mean": 28.4,
+          "fn": "home-044-399.jpg"
+        },
+        {
+          "i": 45,
+          "rel": 409,
+          "mean": 27.6,
+          "fn": "home-045-409.jpg"
+        },
+        {
+          "i": 46,
+          "rel": 417,
+          "mean": 26.8,
+          "fn": "home-046-417.jpg"
+        },
+        {
+          "i": 47,
+          "rel": 425,
+          "mean": 26.1,
+          "fn": "home-047-425.jpg"
+        },
+        {
+          "i": 48,
+          "rel": 442,
+          "mean": 25,
+          "fn": "home-048-442.jpg"
+        },
+        {
+          "i": 49,
+          "rel": 450,
+          "mean": 24.4,
+          "fn": "home-049-450.jpg"
+        },
+        {
+          "i": 50,
+          "rel": 459,
+          "mean": 23.8,
+          "fn": "home-050-459.jpg"
+        },
+        {
+          "i": 51,
+          "rel": 469,
+          "mean": 23.2,
+          "fn": "home-051-469.jpg"
+        },
+        {
+          "i": 52,
+          "rel": 483,
+          "mean": 22.4,
+          "fn": "home-052-483.jpg"
+        },
+        {
+          "i": 53,
+          "rel": 492,
+          "mean": 22,
+          "fn": "home-053-492.jpg"
+        },
+        {
+          "i": 54,
+          "rel": 500,
+          "mean": 21.7,
+          "fn": "home-054-500.jpg"
+        },
+        {
+          "i": 55,
+          "rel": 508,
+          "mean": 21.6,
+          "fn": "home-055-508.jpg"
+        },
+        {
+          "i": 56,
+          "rel": 526,
+          "mean": 21,
+          "fn": "home-056-526.jpg"
+        },
+        {
+          "i": 57,
+          "rel": 535,
+          "mean": 20.8,
+          "fn": "home-057-535.jpg"
+        },
+        {
+          "i": 58,
+          "rel": 541,
+          "mean": 20.6,
+          "fn": "home-058-541.jpg"
+        },
+        {
+          "i": 59,
+          "rel": 558,
+          "mean": 20.3,
+          "fn": "home-059-558.jpg"
+        },
+        {
+          "i": 60,
+          "rel": 566,
+          "mean": 20.1,
+          "fn": "home-060-566.jpg"
+        },
+        {
+          "i": 61,
+          "rel": 575,
+          "mean": 20.1,
+          "fn": "home-061-575.jpg"
+        },
+        {
+          "i": 62,
+          "rel": 592,
+          "mean": 20.1,
+          "fn": "home-062-592.jpg"
+        },
+        {
+          "i": 63,
+          "rel": 601,
+          "mean": 20,
+          "fn": "home-063-601.jpg"
+        },
+        {
+          "i": 64,
+          "rel": 609,
+          "mean": 20,
+          "fn": "home-064-609.jpg"
+        },
+        {
+          "i": 65,
+          "rel": 625,
+          "mean": 20,
+          "fn": "home-065-625.jpg"
+        },
+        {
+          "i": 66,
+          "rel": 634,
+          "mean": 20,
+          "fn": "home-066-634.jpg"
+        },
+        {
+          "i": 67,
+          "rel": 642,
+          "mean": 20,
+          "fn": "home-067-642.jpg"
+        },
+        {
+          "i": 68,
+          "rel": 652,
+          "mean": 20,
+          "fn": "home-068-652.jpg"
+        },
+        {
+          "i": 69,
+          "rel": 666,
+          "mean": 20,
+          "fn": "home-069-666.jpg"
+        },
+        {
+          "i": 70,
+          "rel": 701,
+          "mean": 20,
+          "fn": "home-070-701.jpg"
+        },
+        {
+          "i": 71,
+          "rel": 733,
+          "mean": 20,
+          "fn": "home-071-733.jpg"
+        },
+        {
+          "i": 72,
+          "rel": 766,
+          "mean": 20,
+          "fn": "home-072-766.jpg"
+        },
+        {
+          "i": 73,
+          "rel": 800,
+          "mean": 20,
+          "fn": "home-073-800.jpg"
+        },
+        {
+          "i": 74,
+          "rel": 841,
+          "mean": 20,
+          "fn": "home-074-841.jpg"
+        },
+        {
+          "i": 75,
+          "rel": 858,
+          "mean": 20,
+          "fn": "home-075-858.jpg"
+        },
+        {
+          "i": 76,
+          "rel": 873,
+          "mean": 20,
+          "fn": "home-076-873.jpg"
+        },
+        {
+          "i": 77,
+          "rel": 876,
+          "mean": 20,
+          "fn": "home-077-876.jpg"
+        },
+        {
+          "i": 78,
+          "rel": 1135,
+          "mean": 20,
+          "fn": "home-078-1135.jpg"
+        },
+        {
+          "i": 79,
+          "rel": 1184,
+          "mean": 20,
+          "fn": "home-079-1184.jpg"
+        },
+        {
+          "i": 80,
+          "rel": 1361,
+          "mean": 20,
+          "fn": "home-080-1361.jpg"
+        },
+        {
+          "i": 81,
+          "rel": 1378,
+          "mean": 36.2,
+          "fn": "home-081-1378.jpg"
+        },
+        {
+          "i": 82,
+          "rel": 1413,
+          "mean": 37.8,
+          "fn": "home-082-1413.jpg"
+        },
+        {
+          "i": 83,
+          "rel": 1471,
+          "mean": 42.2,
+          "fn": "home-083-1471.jpg"
+        },
+        {
+          "i": 84,
+          "rel": 1480,
+          "mean": 42.9,
+          "fn": "home-084-1480.jpg"
+        },
+        {
+          "i": 85,
+          "rel": 1489,
+          "mean": 43.4,
+          "fn": "home-085-1489.jpg"
+        },
+        {
+          "i": 86,
+          "rel": 1504,
+          "mean": 44.2,
+          "fn": "home-086-1504.jpg"
+        },
+        {
+          "i": 87,
+          "rel": 1549,
+          "mean": 48.4,
+          "fn": "home-087-1549.jpg"
+        },
+        {
+          "i": 88,
+          "rel": 1609,
+          "mean": 48.5,
+          "fn": "home-088-1609.jpg"
+        },
+        {
+          "i": 89,
+          "rel": 1631,
+          "mean": 49.5,
+          "fn": "home-089-1631.jpg"
+        },
+        {
+          "i": 90,
+          "rel": 1651,
+          "mean": 50.2,
+          "fn": "home-090-1651.jpg"
+        },
+        {
+          "i": 91,
+          "rel": 1678,
+          "mean": 50.8,
+          "fn": "home-091-1678.jpg"
+        },
+        {
+          "i": 92,
+          "rel": 1738,
+          "mean": 51.9,
+          "fn": "home-092-1738.jpg"
+        },
+        {
+          "i": 93,
+          "rel": 1769,
+          "mean": 52.9,
+          "fn": "home-093-1769.jpg"
+        },
+        {
+          "i": 94,
+          "rel": 1844,
+          "mean": 54.8,
+          "fn": "home-094-1844.jpg"
+        },
+        {
+          "i": 95,
+          "rel": 1879,
+          "mean": 55.4,
+          "fn": "home-095-1879.jpg"
+        },
+        {
+          "i": 96,
+          "rel": 1913,
+          "mean": 55.6,
+          "fn": "home-096-1913.jpg"
+        },
+        {
+          "i": 97,
+          "rel": 1939,
+          "mean": 55.6,
+          "fn": "home-097-1939.jpg"
+        },
+        {
+          "i": 98,
+          "rel": 1965,
+          "mean": 55.6,
+          "fn": "home-098-1965.jpg"
+        },
+        {
+          "i": 99,
+          "rel": 1989,
+          "mean": 55.6,
+          "fn": "home-099-1989.jpg"
+        },
+        {
+          "i": 100,
+          "rel": 2011,
+          "mean": 55.7,
+          "fn": "home-100-2011.jpg"
+        },
+        {
+          "i": 101,
+          "rel": 2034,
+          "mean": 55.6,
+          "fn": "home-101-2034.jpg"
+        },
+        {
+          "i": 102,
+          "rel": 2055,
+          "mean": 55.6,
+          "fn": "home-102-2055.jpg"
+        },
+        {
+          "i": 103,
+          "rel": 2077,
+          "mean": 55.7,
+          "fn": "home-103-2077.jpg"
+        },
+        {
+          "i": 104,
+          "rel": 2101,
+          "mean": 55.8,
+          "fn": "home-104-2101.jpg"
+        },
+        {
+          "i": 105,
+          "rel": 2122,
+          "mean": 55.8,
+          "fn": "home-105-2122.jpg"
+        },
+        {
+          "i": 106,
+          "rel": 2143,
+          "mean": 55.9,
+          "fn": "home-106-2143.jpg"
+        },
+        {
+          "i": 107,
+          "rel": 2176,
+          "mean": 55.9,
+          "fn": "home-107-2176.jpg"
+        },
+        {
+          "i": 108,
+          "rel": 2202,
+          "mean": 55.9,
+          "fn": "home-108-2202.jpg"
+        },
+        {
+          "i": 109,
+          "rel": 2225,
+          "mean": 55.9,
+          "fn": "home-109-2225.jpg"
+        },
+        {
+          "i": 110,
+          "rel": 2245,
+          "mean": 55.9,
+          "fn": "home-110-2245.jpg"
+        },
+        {
+          "i": 111,
+          "rel": 2268,
+          "mean": 56,
+          "fn": "home-111-2268.jpg"
+        },
+        {
+          "i": 112,
+          "rel": 2291,
+          "mean": 56.6,
+          "fn": "home-112-2291.jpg"
+        },
+        {
+          "i": 113,
+          "rel": 2316,
+          "mean": 56.5,
+          "fn": "home-113-2316.jpg"
+        },
+        {
+          "i": 114,
+          "rel": 2337,
+          "mean": 56.6,
+          "fn": "home-114-2337.jpg"
+        },
+        {
+          "i": 115,
+          "rel": 2357,
+          "mean": 56.6,
+          "fn": "home-115-2357.jpg"
+        },
+        {
+          "i": 116,
+          "rel": 2378,
+          "mean": 56.6,
+          "fn": "home-116-2378.jpg"
+        },
+        {
+          "i": 117,
+          "rel": 2430,
+          "mean": 56.5,
+          "fn": "home-117-2430.jpg"
+        },
+        {
+          "i": 118,
+          "rel": 2472,
+          "mean": 56.3,
+          "fn": "home-118-2472.jpg"
+        },
+        {
+          "i": 119,
+          "rel": 2572,
+          "mean": 56.3,
+          "fn": "home-119-2572.jpg"
+        },
+        {
+          "i": 120,
+          "rel": 2671,
+          "mean": 55.7,
+          "fn": "home-120-2671.jpg"
+        },
+        {
+          "i": 121,
+          "rel": 2740,
+          "mean": 56,
+          "fn": "home-121-2740.jpg"
+        },
+        {
+          "i": 122,
+          "rel": 2816,
+          "mean": 56,
+          "fn": "home-122-2816.jpg"
+        },
+        {
+          "i": 123,
+          "rel": 2868,
+          "mean": 56,
+          "fn": "home-123-2868.jpg"
+        },
+        {
+          "i": 124,
+          "rel": 2907,
+          "mean": 56,
+          "fn": "home-124-2907.jpg"
+        },
+        {
+          "i": 125,
+          "rel": 2949,
+          "mean": 55.9,
+          "fn": "home-125-2949.jpg"
+        },
+        {
+          "i": 126,
+          "rel": 2990,
+          "mean": 55.8,
+          "fn": "home-126-2990.jpg"
+        },
+        {
+          "i": 127,
+          "rel": 3031,
+          "mean": 55.7,
+          "fn": "home-127-3031.jpg"
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/map"
+    }
+  },
+  "errs": [
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=1015WomfucWt8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=1015WomfucWt8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24147.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24148.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24148.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24147.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19355/24147.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19350/24148.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19350/24147.vector.pbf?sku=1015WomfucWt8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch3-mansion.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=101oEmMSVleJ1&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=101oEmMSVleJ1&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Interaction states — http://localhost:4321
 
-**127 states captured · 0 with floating-UI collisions.**
+**133 states captured · 0 with floating-UI collisions.**
 
 No collisions detected in any captured state.
 
@@ -10,7 +10,8 @@ No collisions detected in any captured state.
 - `mansion-390-02-menu-open.png` — menu open at top (3 floating, 0 collisions)
 - `mansion-390-03-player-inview.png` — narration object in view (0 floating, 0 collisions)
 - `mansion-390-04-mini-player.png` — audio playing, mini-player latched (1 floating, 0 collisions)
-- `mansion-390-05-mini-plus-menu.png` — THE COMBINED STATE: audio playing + menu open (1 floating, 0 collisions)
+- `mansion-390-05-mini-plus-menu.png` — THE COMBINED STATE: audio playing + menu open (0 floating, 0 collisions)
+- `mansion-390-11-mini-collapsed.png` — mini-player COLLAPSED at Onward (one orange: Continue) (0 floating, 0 collisions)
 - `mansion-390-08-foot.png` — chapter foot / onward (0 floating, 0 collisions)
 - `mansion-390-09-cta-focus.png` — primary CTA focus ring (0 floating, 0 collisions)
 - `mansion-390-10-cta-hover.png` — primary CTA hover (0 floating, 0 collisions)
@@ -18,8 +19,8 @@ No collisions detected in any captured state.
 - `map-390-02-menu-open.png` — map + menu open (10 floating, 0 collisions)
 - `map-390-05-index.png` — map index below the fold (2 floating, 0 collisions)
 - `map-390-06-walk.png` — WALK MODE: Back top-left, Stop the walk top-right, cards (5 floating, 0 collisions)
-- `map-390-07-walk-paused.png` — walk PAUSED by a drag: button reads Continue (7 floating, 0 collisions)
-- `map-390-08-walk-plus-menu.png` — walk + menu (phones: ☰ retreats while focused) (7 floating, 0 collisions)
+- `map-390-07-walk-paused.png` — walk PAUSED by a drag: button reads Continue (6 floating, 0 collisions)
+- `map-390-08-walk-plus-menu.png` — walk + menu (phones: ☰ retreats while focused) (6 floating, 0 collisions)
 - `map-390-09-lens-open.png` — 1858 LENS open: only Back to today (7 floating, 0 collisions)
 - `paintings-390-01-rest.png` — gallery at rest (1 floating, 0 collisions)
 - `museum-390-01-rail-rest.png` — MUSEUM rail at rest (chip, Skip top-left, dots, menu) (1 floating, 0 collisions)
@@ -53,7 +54,12 @@ No collisions detected in any captured state.
 - `museum-land-02-looked-away.png` — MUSEUM looked away: Face forward (2 floating, 0 collisions)
 - `museum-land-03-approach.png` — MUSEUM approach: card/sheet + painting + Back (3 floating, 0 collisions)
 - `museum-land-05-alive.png` — MUSEUM approach: the painting alive (3 floating, 0 collisions)
-- `FAILURE@land.png` — page.waitForTimeout: Target page, context or browser has been closed (? floating, 0 collisions)
+- `paintings-land-02-dialog.png` — painting dialog open (1 floating, 0 collisions)
+- `home-land-01-rest.png` — home at rest (0 floating, 0 collisions)
+- `people-land-01-rest.png` — /people at rest (0 floating, 0 collisions)
+- `people-land-02-menu.png` — /people + menu open (2 floating, 0 collisions)
+- `about-land-01-rest.png` — /about at rest (0 floating, 0 collisions)
+- `about-land-02-menu.png` — /about + menu open (2 floating, 0 collisions)
 - `mansion-768-01-rest.png` — chapter at rest (1 floating, 0 collisions)
 - `mansion-768-02-menu-open.png` — menu open at top (3 floating, 0 collisions)
 - `mansion-768-03-player-inview.png` — narration object in view (0 floating, 0 collisions)

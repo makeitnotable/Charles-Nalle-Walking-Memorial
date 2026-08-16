@@ -1,0 +1,257 @@
+{
+  "log": {
+    "rest": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": 376,
+        "r": 567,
+        "t": 503,
+        "b": 828
+      },
+      "r1": {
+        "l": 41,
+        "r": 88,
+        "t": 614,
+        "b": 750
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          318,
+          390,
+          844
+        ],
+        "scrollY": 0,
+        "vh": 844
+      }
+    },
+    "clickAt": [
+      471.5,
+      665.5
+    ],
+    "t600": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": 376,
+        "r": 567,
+        "t": 503,
+        "b": 828
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          318,
+          390,
+          844
+        ],
+        "scrollY": 0,
+        "vh": 844
+      }
+    },
+    "t3000": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": 376,
+        "r": 567,
+        "t": 503,
+        "b": 828
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          318,
+          390,
+          844
+        ],
+        "scrollY": 0,
+        "vh": 844
+      }
+    },
+    "t6000": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": 376,
+        "r": 567,
+        "t": 503,
+        "b": 828
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          318,
+          390,
+          844
+        ],
+        "scrollY": 0,
+        "vh": 844
+      }
+    },
+    "afterScrollAttempt": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": 405,
+        "r": 735,
+        "t": 55,
+        "b": 517
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 467,
+        "vh": 844
+      }
+    },
+    "afterWallClick": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 467,
+        "vh": 844
+      }
+    },
+    "afterPageDown": {
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 1271,
+        "vh": 844
+      },
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      }
+    },
+    "afterEsc": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 1271,
+        "vh": 844
+      }
+    },
+    "stageInView": {
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 1271,
+        "vh": 844
+      },
+      "r0": {
+        "l": -303,
+        "r": 2438,
+        "t": -823,
+        "b": 899
+      },
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      }
+    },
+    "approachProper": {
+      "st": {
+        "mode": "rail",
+        "approached": null,
+        "alive": -1,
+        "zoom": 1,
+        "running": true
+      },
+      "r0": {
+        "l": -303,
+        "r": 2438,
+        "t": -823,
+        "b": 899
+      },
+      "vis": {
+        "back": [],
+        "stage": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "scrollY": 1271,
+        "vh": 844
+      }
+    }
+  },
+  "errs": []
+}

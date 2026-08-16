@@ -351,6 +351,12 @@ h3 {
   color: var(--color-neutral-12);
   text-wrap-style: balance;
 }
+/* v7 (juror pass 7 P3): the map index at 360 — "COMMISSIONER'S" (26 px Caslon,
+   one unbreakable word) ran 33 px past its column; the title follows the
+   phone's width until the ladder size fits (≥ 400 px = 26 px again). */
+.map-index-title {
+  font-size: min(var(--fs-title-sm), 6.2vw);
+}
 .ground-cream .t-title-sm {
   color: var(--ink-light);
 }
@@ -924,6 +930,34 @@ h3 {
 }
 .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
   filter: invert(1);
+}
+/* v7 (juror pass 7): cooperative-gesture notice on fine pointers — Mapbox's
+   default is a full-map black veil with system type. Ours is the hint chip:
+   a centred pill on the house ground in the meta role, no veil. */
+.mapboxgl-scroll-zoom-blocker,
+.mapboxgl-touch-pan-blocker {
+  top: 50% !important;
+  left: 50% !important;
+  width: max-content !important;
+  max-width: 86vw;
+  height: auto !important;
+  padding: 10px 16px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-2) 86%, transparent) !important;
+  color: var(--color-primary-12) !important;
+  font-family: var(--font-chrome), serif !important;
+  font-size: 12px !important;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Mapbox pulls the show class back after 200 ms; the notice lingers on
+     the hide DELAY (1.4 s), then fades on the UI tier. */
+  transition: opacity var(--dur-fast) var(--ease) 1.4s !important;
+}
+.mapboxgl-scroll-zoom-blocker-show,
+.mapboxgl-touch-pan-blocker-show {
+  transition: opacity 100ms var(--ease) 0s !important;
 }
 /* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
    and the geolocate button at 14px — two controls four pixels out of line with

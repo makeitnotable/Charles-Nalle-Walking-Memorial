@@ -62,14 +62,46 @@ people/about 99).
 
 ## 3 · Juror passes
 
-{{JUROR}}
+Protocol: `docs/v7/JUROR-PROMPT.md` — a fresh agent per pass, no source
+reading before scoring, live URL, six viewports (390/360 · 768/1024 ·
+1440/1920) plus 844×390 and 720×450 (200 % zoom) spot checks, real touch via
+CDP, screencasts at 4× CPU for the curtain. Two consecutive clean passes on the
+identical build end the run; only P2/P3 fixes may land between them. Reports:
+`docs/v7/juror-pass1.md` … `juror-pass9.md`; their scripts `scripts/juror*-*.mjs`.
+
+| pass | build | Sheet A (design·usability·creativity·content) phone / tablet / desktop | P0/P1 | verdict → what changed |
+|---|---|---|---|---|
+| 1 | a8328c8 | 8·7·9·9 / 8·7·9·9 / 8·9·9·9 | 2 P1 | FAIL — the portrait work rendered 1.5:1 in production (`sharp` path resolved from the module, not `process.cwd()`), the phone peek-sheet was dead to touch (pointer capture on the sheet; touch emulation delivers only `click`) → both fixed. |
+| 2 | 50f9fcb | 7·8·9·9 / 8·8·9·9 / 9·9·9·9 | 1 P1 | FAIL — my `nbsp()` glue clipped the map index titles at 390 → authored two-line names, never glued; also the walk marker over the card strip on landscape/1024 (`cardLift` + labels fade under the strip). |
+| 3 | 3396185 | 9·8·10·9 / 9·9·10·9 / 9·9·10·9 | 0 | FAIL on Sheet B only — C2 body colour still peach (an unlayered `.t-prose` role beat the utility) and the phone pill hid through the footer → fixed (pill shrinks to the round button instead). |
+| 4 | eae5219 | 9·8·9·9 / 7·8·9·9 / 9·9·9·9 | 1 P1 | FAIL — museum chip under the `Skip the hall` pill at 640–830 → chip lane right of the pill; P2s: walk/focus scroll the shell into view, sheet layout reserves the dot rail, footer lane 8rem, lens takes focus. |
+| 5 | 9fd4401 | 8·9·9·9 / 8·9·9·9 / 9·9·9·9 | 1 P1 | FAIL — the phone chip wrapped to three lines in the tablet lane → phones get their own row under Skip, `nowrap`; P2: chapter footer nav ≥ 15rem + `nowrap`. |
+| 6 | df0ee6c | 9·8·9.5·9.5 / 8.5·8.5·9.5·9.5 / 9.5·9·9.5·9.5 | 0 | **PASS** — three P2s fixed between passes (mini-player when the main control is off-screen above; museum composition fits the frame; 13rem card floor at 200 % zoom + full-width button) → c586a93, c202f20. |
+| 7 | c202f20 | 9·8·9·9 / 9·8·9·9 / 9·7·9·9 | 1 P1 | FAIL — clicking a painting from the page top (desktop / tablet-landscape) opened the inspect view cropped, `Back` below the fold, wheel captured → `approach()` scrolls the sticky stage flush first. Also: desktop map wheel is cooperative (plain wheel scrolls the page, ⌘/Ctrl+wheel zooms), M9 peeks 17/19 px, 1024×768 painting 2× wider, 1858 pill backdrop, index title fits at 360. Count restarted. |
+| 8 | {{PASS8_BUILD}} | {{PASS8_SHEET}} | {{PASS8_P01}} | {{PASS8_VERDICT}} |
+| 9 | {{PASS9_BUILD}} | {{PASS9_SHEET}} | {{PASS9_P01}} | {{PASS9_VERDICT}} |
+
+Retell moment, every pass: the Museum (the walk down the hall, `Face forward`,
+the approach that centres the painting with the plaque left and the study
+right, and the tap that brings the crowd to life).
+
+{{PASS_NOTES}}
 
 ## 4 · Residual P2/P3 (nothing here blocks anything)
 
-- Intermittent React hydration-mismatch warning on chapter pages in the DEV
-  server under heavy parallel test load (dev-only console message; the
-  production build and Lighthouse best-practices 100 show a clean console; not
-  reproducible in isolation).
+- (Closed) The intermittent React hydration-mismatch warning on chapter pages
+  was root-caused during the juror loop — the scrub's `var()` gradient in a
+  React style object — and fixed with a `--pct` custom property; the console is
+  clean in dev and production.
+- Phones: the full-viewport map takes one-finger swipes as pans; the page
+  below is reached from the bottom control lane (the scroll handle + chevron,
+  your M8 answer). Two-finger cooperative panning would change "drag to
+  explore" — yours to call (§5). Desktops now scroll on a plain wheel and zoom
+  on ⌘/Ctrl + wheel (juror pass 7).
+- Map, small nits jurors listed as P3 and left: the 1920 overview's Ferry
+  Landing label, hint chip and doors sit within ~10 px of each other; a
+  world-anchored stop label can pass under `Stop the walk`/`Continue`
+  mid-flight; the Where-to-next embed flies in for 2.6 s (v4 arrival, kept).
 - Landscape phones (844×390): the map overview cannot hold five stops in a
   222 px safe band at a legible zoom — it holds the 15.25 floor and pans
   (v6 decision, kept).
@@ -88,7 +120,10 @@ people/about 99).
   word for word) — table in `docs/CONTENT-STATUS.md` (v7 sections). Also the
   player's subtitle reads the canonical `Uri Gilbert Home` (the JSON's data
   label still says Mansion; nothing visible).
-- **Wil** — favicon pick if you prefer b (cameo) or c (step) over a
+- **Wil** — the phone map's one-finger pan vs page scroll: keep "drag to
+  explore" (today; the bottom lane scrolls) or switch touch to two-finger
+  cooperative panning (one flag: `cooperativeGestures` for coarse pointers too);
+  favicon pick if you prefer b (cameo) or c (step) over a
   (`/styleguide#mark`); `quote.source` and mansion `portal.hook` are authored
   but never rendered (render or delete); a "walk complete" state on the last
   chapter's Where-to-next; footer content additions the desk juror suggested

@@ -1,0 +1,15 @@
+import { launch, ctx, shot, sleep, goto, VPS } from "./juror4-lib.mjs";
+const browser = await launch(); const c = await ctx(browser, VPS.p390); const page = await c.newPage();
+await goto(page, "/paintings"); await sleep(1500);
+const top = await page.evaluate(() => document.querySelector("#museum-slot").offsetTop); await page.evaluate((y) => scrollTo(0, y + 300), top); await sleep(1500);
+await page.locator('#museum-slot button[aria-label^="Approach"]').first().focus(); await page.keyboard.press("Enter"); await sleep(2500);
+const st = () => page.evaluate(() => { const s = window.__museum.state; const dots = document.querySelector('#museum-slot button[aria-label^="Approach"]').getBoundingClientRect(); const h = document.querySelector('#museum-slot [aria-label*="plaque" i]')?.getBoundingClientRect(); const r = window.__museum.paintingRect(s.approached ?? 0); return { sheet: s.sheet, dotsY: Math.round(dots.top), headerY: h && Math.round(h.top), rect: `${Math.round(r.top)}-${Math.round(r.bottom)}`, active: document.activeElement?.getAttribute("aria-label") }; });
+console.log("approached by kb", await st());
+await page.locator('#museum-slot [aria-label*="plaque" i]').focus(); await page.keyboard.press("Enter"); await sleep(1000);
+console.log("after Enter on header", await st());
+await shot(page, "mus-p390-25-sheet-kb-full");
+await page.keyboard.press("Enter"); await sleep(1000);
+console.log("after Enter again", await st());
+await page.keyboard.press("Escape"); await sleep(1000);
+console.log("after Esc", await st().catch(() => "n/a"), await page.evaluate(() => window.__museum.state.mode));
+await browser.close();

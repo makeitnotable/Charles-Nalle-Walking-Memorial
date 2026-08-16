@@ -1,0 +1,89 @@
+{
+  "log": {
+    "menu0": {
+      "scrollY": 0,
+      "transform": "none",
+      "opacity": "1",
+      "vis": "visible",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000]",
+      "attrs": "class=cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=top-right",
+      "btnY": 20,
+      "btnOnScreen": true
+    },
+    "menuDown": {
+      "scrollY": 1440,
+      "transform": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+      "opacity": "0",
+      "vis": "visible",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000]",
+      "attrs": "class=cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=top-right data-hidden=true",
+      "btnY": 34,
+      "btnOnScreen": true
+    },
+    "menuUp": {
+      "scrollY": 1320,
+      "transform": "none",
+      "opacity": "1",
+      "vis": "visible",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000]",
+      "attrs": "class=cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=top-right data-hidden=false",
+      "btnY": 20,
+      "btnOnScreen": true
+    },
+    "narrInfo": {
+      "hint": "Tap or click a paragraph to hear it read aloudAs t",
+      "rootTag": "SECTION",
+      "rootCls": "shell beat",
+      "n": 2,
+      "first": [
+        {
+          "t": "As the sun rose on the morning of April ",
+          "cls": "t-prose cursor-pointer drop-cap ",
+          "attrs": "data-timing,class,title"
+        },
+        {
+          "t": "The aroma of fresh-baked bread filled th",
+          "cls": "t-prose cursor-pointer  ",
+          "attrs": "data-timing,class,title"
+        }
+      ]
+    },
+    "narrCount": 0,
+    "tapSeek": {
+      "targetText": "The aroma of fresh-baked bread filled th",
+      "before": 1.917343,
+      "after": 49.557176,
+      "jumped": true
+    },
+    "activeAfterTap": {
+      "t": "(01)Listen",
+      "cls": "group flex items-baseline gap-3 py-2.5",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    "contBox": {
+      "x": 101.578125,
+      "y": 790.2509155273438,
+      "width": 186.84375,
+      "height": 48
+    },
+    "navMs": 1072,
+    "nextUrl": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office"
+  },
+  "errs": [
+    {
+      "tag": "bakery-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "bakery-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "bakery-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    }
+  ]
+}

@@ -691,11 +691,27 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          at 768. Compact mode keeps the licence a tap away without sharing
          pixels with a button. */
       attributionControl: false,
+      /* Juror pass 7 P2: on desktops the full-viewport map ate every wheel —
+         the copy, the spot index and the footer under it were unreachable by
+         mouse (a scroll-jack by another name). Cooperative gestures on FINE
+         pointers only: a plain wheel scrolls the page, ⌘/Ctrl + wheel zooms the
+         map (drag, double-click and the walk are unchanged). Touch stays as it
+         was — one finger explores, the bottom lane scrolls (M8/V7-023). */
+      cooperativeGestures: typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches,
+      locale: {
+        "ScrollZoomBlocker.CmdMessage": "Hold ⌘ and scroll to zoom the map",
+        "ScrollZoomBlocker.CtrlMessage": "Hold Ctrl and scroll to zoom the map",
+        "TouchPanBlocker.Message": "Use two fingers to move the map",
+      },
     });
     /* Bottom-LEFT: the menu FAB owns bottom-right on /map (item 10), and a
        licence mark must never sit under chrome (juror pass 1 P2). */
     map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-left");
     mapRef.current = map;
+    /* A pointer that changes kind (tablet + trackpad, hybrids) re-decides. */
+    const finePointer = window.matchMedia("(pointer: fine)");
+    const onPointerKind = () => map.setCooperativeGestures(finePointer.matches);
+    finePointer.addEventListener("change", onPointerKind);
     map.on("load", () => map.resize());
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(container.current);
@@ -943,6 +959,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
     teardown = () => {
       ro.disconnect();
+      finePointer.removeEventListener("change", onPointerKind);
       map.remove();
       mapRef.current = null;
       markersRef.current = [];
@@ -1039,6 +1056,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         if (!inner) return;
         const t = Math.min(1, Math.abs(sd.distance));
         inner.style.transform = `scale(${(1 - 0.08 * t).toFixed(4)})`;
+        /* Juror pass 7 (M9): scale about the edge NEAREST the active card, so
+           the neighbour recedes away from the centre and the layout peek
+           (16.8 px at 360, 19 px at 390) stays fully visible — about its own
+           centre the near edge slid 12 px inward and the peek read as 5–7 px.
+           Bottoms stay aligned (origin on the bottom edge). */
+        inner.style.transformOrigin = sd.distance > 0.02 ? "left bottom" : sd.distance < -0.02 ? "right bottom" : "center bottom";
       });
     },
   });
@@ -1416,7 +1439,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                   setLens(true);
                 }}
                 className="link-meta t-meta rounded-full px-4 py-3"
-                style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)", minHeight: 44 }}
+                style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(6px)", minHeight: 44 }}
               >
                 See Troy in 1858
               </button>

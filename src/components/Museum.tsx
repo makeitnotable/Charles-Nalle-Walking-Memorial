@@ -568,7 +568,9 @@ export default function Museum({ works, slotId }: Props) {
           return { F: 0.86, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
         }
         // desktop / landscape: card left ~30%, painting centred, sketch right
-        const cardW = Math.max(13 * 16, Math.min(0.3 * W, 22 * 16));
+        // one formula with the card's CSS width (clamp(13rem, 30vw − inset − 24px − 3rem, 22rem));
+        // the 3rem gives the painting the room at 1024×768 (juror pass 7 P3-8)
+        const cardW = Math.max(13 * 16, Math.min(0.3 * W - inset - 24 - 48, 22 * 16));
         const cardFrac = Math.min(0.4, (cardW + inset + 24) / W);
         return { F: Math.max(0.2, 1 - 2 * cardFrac), V: 0.72, cx: 0.5, cy: 0.5 };
       };
@@ -753,6 +755,20 @@ export default function Museum({ works, slotId }: Props) {
         alivePrimed = true;
         recenter();
         approachedAt = performance.now();
+        /* Juror pass 7 P1: the composition is made for the WHOLE stage, so the
+           stage must be whole on screen — from the page top (the hall peeks
+           under the header) or past the end of the rail (the stage has
+           unpinned) the inspect view opened cropped with `Back` below the
+           fold. Bring the sticky stage flush with the viewport first. */
+        {
+          const r = stage.getBoundingClientRect();
+          const H = window.innerHeight;
+          const dy = r.top > 1 ? r.top : r.bottom < H - 1 ? r.bottom - H : 0;
+          if (dy !== 0) {
+            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
+          }
+        }
         setSheet("peek");
         setApproached(i);
         renderer.domElement.style.touchAction = "none";
@@ -1199,7 +1215,7 @@ export default function Museum({ works, slotId }: Props) {
         {plaque && !portraitUI && (
           <div
             className="absolute z-20 -translate-y-1/2"
-            style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px), 22rem)" }}
+            style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px - 3rem), 22rem)" }}
           >
             <div className="rounded-[12px] p-4 lg:p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
               <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>

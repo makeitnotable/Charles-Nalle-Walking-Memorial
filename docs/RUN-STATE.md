@@ -19,7 +19,24 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 6 = PASS** (`docs/v7/juror-pass6.md`, build df0ee6c; Sheet A
+**Juror pass 7 = FAIL** (`docs/v7/juror-pass7.md`, build c202f20; Sheet A phone
+9/8/9/9, tablet 9/8/9/9, desktop 9/7/9/9; one P1 = on desktop / tablet-landscape
+the museum's inspect view opened cropped when the painting was clicked from
+the page top (stage half under the header; `Back` below the fold; wheel
+captured) → `approach()` now scrolls the stage flush first (all classes,
+past-the-end too); verified stage top 0 / Back visible / painting inside at
+1440·1024·768·1920 from both positions (`docs/v7/qa/j7fix/`). Also fixed:
+desktop map wheel is cooperative (P2-1, DECISIONS), M9 peeks 17/19 px (Sheet B
+"Not met" → Met), 1024×768 painting 442 px wide (P3-8), 1858 pill backdrop
+(P3-3), map index title fits at 360 (P3-6). Left as documented residuals /
+human queue: phone one-finger map pan (P2-2 → Wil), 844×390 head (P3-1), 1920
+overview stack (P3-2), labels under Stop/Continue mid-flight (P3-4), embed
+fly-in (P3-7). Regression: walk 8/8 · museum 5/5 · states (see log).
+Next: commit → push → verify live → **juror pass 8** (fresh) → if PASS →
+**juror pass 9** (fresh, identical build) → REVIEW-GUIDE §3 → memory → push.
+The count restarted (P1 fix).
+
+(Earlier) **Juror pass 6 = PASS** (`docs/v7/juror-pass6.md`, build df0ee6c; Sheet A
 phone 9/9/9/9, tablet 9/9/9/9, desktop 9/9/9/9; ZERO P0/P1; Sheet B all Met;
 retell = the Museum). Its three P2s + one P3 fixed (P2/P3 fixes may land between
 the two passes): the mini-player now shows whenever the main control is
@@ -246,6 +263,27 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
   background mode: overlapping runs (or a plain `&` chain outliving its
   shell) had their Chromium GPU/network helpers SIGTERMed mid-run (exit 15),
   which read as "Target closed" crashes. Not a site issue.
+
+- Juror pass 7 (P2): the /map wheel is COOPERATIVE on fine pointers only
+  (`cooperativeGestures: matchMedia("(pointer: fine)")` + `setCooperativeGestures`
+  on change): a plain wheel over the full-viewport map scrolls the page (the
+  copy, spot index and footer under it were unreachable by mouse — the
+  guardrail's "no scroll-jacking"), ⌘/Ctrl + wheel zooms, drag/double-click/the
+  walk unchanged; the notice is our hint chip (Caslon Text meta, house ground,
+  centred, lingers 1.4 s) not Mapbox's black veil. Touch is untouched (one
+  finger explores, bottom lane scrolls; Wil's M8 answer) — the juror's phone P2
+  (one-finger swipe pans) would need two-finger cooperative panning and is
+  Wil's call (REVIEW-GUIDE §5). Revert: drop the two options + the `.mapboxgl-*-blocker` CSS.
+- Juror pass 7 (M9): walk-card neighbours scale about the edge NEAREST the
+  active card (`transform-origin: left/right bottom` written with the scale in
+  `detailsChanged`) so the layout peek (16.8 px @360 · 19.2 @390) is what the
+  eye gets; about their own centre the .92 scale hid 12 px of it (5–7 px read).
+- Juror pass 7 (P1): `approach()` brings the sticky stage flush with the
+  viewport before composing (from the page top the hall peeks under the
+  header; past the rail's end the stage has unpinned) — smooth, instant under
+  reduced motion. The desktop card width is ONE formula in CSS and the
+  composition (`clamp(13rem, 30vw − inset − 24px − 3rem, 22rem)`), the −3rem
+  giving the painting ~2× the width at 1024×768 (P3-8).
 
 ## STANDING NOTES
 - Dev server: `astro dev` on :4321 (background); production preview on :4322

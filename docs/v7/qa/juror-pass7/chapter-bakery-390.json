@@ -1,0 +1,370 @@
+{
+  "log": {
+    "arrivalMenu": {
+      "x": 298,
+      "y": 20,
+      "width": 72,
+      "height": 72,
+      "top": 20,
+      "right": 370,
+      "bottom": 92,
+      "left": 298
+    },
+    "menuAfterScrollDown": {
+      "y": 34,
+      "opacity": "1",
+      "visible": true,
+      "transform": "none"
+    },
+    "menuAfterScrollUp": {
+      "y": 20,
+      "opacity": "1",
+      "visible": true,
+      "transform": "none"
+    },
+    "audio1": [
+      {
+        "paused": false,
+        "t": 2.297561,
+        "src": "ch1-bakery.mp3"
+      }
+    ],
+    "buttonsWhilePlaying": [
+      {
+        "label": "Open menu",
+        "rect": [
+          298,
+          20,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Pause narration: Holeur’s Fashionable Bakery",
+        "rect": [
+          20,
+          534,
+          56,
+          56
+        ]
+      },
+      {
+        "label": "Pause narration: Holeur’s Fashionable Bakery",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "nParas": 8,
+    "tapSeek": {
+      "before": 2.86748,
+      "after": 3.576588
+    },
+    "fixedAtTopWhilePlaying": [
+      {
+        "tag": "div",
+        "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000]",
+        "text": "Home01Bakery02Commissioner’s Office03Gilbert Home04Ferry Lan",
+        "rect": [
+          298,
+          20,
+          72,
+          72
+        ],
+        "pos": "fixed"
+      },
+      {
+        "tag": "nav",
+        "cls": "walk-rail walk-rail-static",
+        "text": "Progress along the walk",
+        "rect": [
+          0,
+          0,
+          390,
+          3
+        ],
+        "pos": "fixed"
+      },
+      {
+        "tag": "div",
+        "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]",
+        "text": "Spot 0100:04 / 01:41",
+        "rect": [
+          20,
+          762,
+          161,
+          62
+        ],
+        "pos": "fixed"
+      }
+    ],
+    "btnsAtTopWhilePlaying": [
+      {
+        "label": "Open menu",
+        "rect": [
+          298,
+          20,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Pause narration: Holeur’s Fashionable Bakery",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "fixedMidWhilePlaying": [
+      {
+        "tag": "nav",
+        "cls": "walk-rail walk-rail-static",
+        "text": "Progress along the walk",
+        "rect": [
+          0,
+          0,
+          390,
+          3
+        ],
+        "pos": "fixed"
+      },
+      {
+        "tag": "div",
+        "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]",
+        "text": "00:05",
+        "rect": [
+          20,
+          762,
+          114,
+          62
+        ],
+        "pos": "fixed"
+      }
+    ],
+    "btnsMidWhilePlaying": [
+      {
+        "label": "Open menu",
+        "rect": [
+          300,
+          34,
+          68,
+          68
+        ]
+      },
+      {
+        "label": "Pause narration: Holeur’s Fashionable Bakery",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "menuOpenBtns": [
+      {
+        "label": "Open menu",
+        "rect": [
+          300,
+          34,
+          68,
+          68
+        ]
+      },
+      {
+        "label": "Pause narration: Holeur’s Fashionable Bakery",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "moral": {
+      "heading": "NOT ALL LAWSARE MORAL",
+      "hColor": "rgb(246, 243, 238)",
+      "bodies": [
+        {
+          "t": "(03)",
+          "color": "rgb(255, 151, 112)",
+          "cls": "t-spine lg:hidden"
+        },
+        {
+          "t": "The moral",
+          "color": "rgb(255, 151, 112)",
+          "cls": "t-meta mt-3 lg:hidden"
+        },
+        {
+          "t": "Laws like the Fugitive Slave Act demonst",
+          "color": "rgb(246, 243, 238)",
+          "cls": "t-prose reveal mt-12 text-neutral-12 is-"
+        },
+        {
+          "t": "The artist's study",
+          "color": "rgb(255, 151, 112)",
+          "cls": "t-meta"
+        },
+        {
+          "t": "The study is almost solid ink. Priest wo",
+          "color": "rgb(246, 243, 238)",
+          "cls": "t-prose mt-4 text-neutral-12"
+        },
+        {
+          "t": "Mark Priest · Nalle Series",
+          "color": "rgb(246, 243, 238)",
+          "cls": "t-meta-body mt-4 text-neutral-12/80"
+        },
+        {
+          "t": "Know the law you are under",
+          "color": "rgb(246, 243, 238)",
+          "cls": "t-title-sm"
+        },
+        {
+          "t": "Educate yourself on unjust laws, vote ag",
+          "color": "rgb(246, 243, 238)",
+          "cls": "t-prose mt-4 text-neutral-12"
+        }
+      ]
+    },
+    "fixedAtOnward": [
+      {
+        "tag": "nav",
+        "cls": "walk-rail walk-rail-static",
+        "text": "Progress along the walk",
+        "rect": [
+          0,
+          0,
+          390,
+          3
+        ],
+        "pos": "fixed"
+      },
+      {
+        "tag": "div",
+        "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]",
+        "text": "00:40",
+        "rect": [
+          20,
+          770,
+          54,
+          54
+        ],
+        "pos": "fixed"
+      }
+    ],
+    "audioAtOnward": [
+      {
+        "paused": false,
+        "t": 40.857128
+      }
+    ],
+    "fixedAtFooter": [
+      {
+        "tag": "nav",
+        "cls": "walk-rail walk-rail-static",
+        "text": "Progress along the walk",
+        "rect": [
+          0,
+          0,
+          390,
+          3
+        ],
+        "pos": "fixed"
+      },
+      {
+        "tag": "div",
+        "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]",
+        "text": "00:41",
+        "rect": [
+          20,
+          770,
+          54,
+          54
+        ],
+        "pos": "fixed"
+      }
+    ],
+    "footerLinks": [
+      {
+        "t": "Notable",
+        "rect": [
+          81,
+          342,
+          52,
+          29
+        ]
+      },
+      {
+        "t": "The people of this day",
+        "rect": [
+          20,
+          404,
+          216,
+          26
+        ]
+      },
+      {
+        "t": "The paintings",
+        "rect": [
+          20,
+          443,
+          142,
+          26
+        ]
+      },
+      {
+        "t": "About the memorial",
+        "rect": [
+          20,
+          482,
+          198,
+          26
+        ]
+      },
+      {
+        "t": "Map",
+        "rect": [
+          20,
+          521,
+          57,
+          26
+        ]
+      },
+      {
+        "t": "Share",
+        "rect": [
+          20,
+          579,
+          119,
+          38
+        ]
+      }
+    ],
+    "footerCovered": [],
+    "pauseBtnCount": 2,
+    "audioAfterPause": [
+      true
+    ],
+    "continueHref": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+    "nextUrl": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery"
+  },
+  "errs": [
+    {
+      "tag": "bakery-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "bakery-390",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24149.vector.pbf?sku=101oMGPg7eIG8&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    }
+  ]
+}
