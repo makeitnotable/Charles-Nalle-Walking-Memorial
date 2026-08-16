@@ -43,3 +43,9 @@ docs/v7/qa/**/*.jpg
 docs/v7/qa/**/*.jpeg
 docs/v7/qa/**/*.webm
 !docs/v7/qa/before-after/**
+
+# Large regenerable QA JSON (the .md findings + summary.json are the artefact)
+docs/v7/qa/**/lighthouse-*.json
+docs/v7/qa/**/rag.json
+docs/v7/qa/uxwalk-*/*.json
+docs/v7/qa/uxwalk-*/*.log

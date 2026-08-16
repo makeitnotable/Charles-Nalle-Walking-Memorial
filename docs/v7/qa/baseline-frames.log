@@ -1,0 +1,29 @@
+▶ map-card-390
+  DEFECT  click→covered 657ms · nav 957ms · B covered 1026ms · hold 438ms · reveal 567ms · uncovered B samples 1 (rAF 1) · frames 98 (flagged 3) · reflow B 0px
+▶ continue-390
+  DEFECT  click→covered 601ms · nav 851ms · B covered 964ms · hold 428ms · reveal 567ms · uncovered B samples 2 (rAF 2) · frames 128 (flagged 4) · reflow B 0px
+▶ home-door-390
+  DEFECT  click→covered 630ms · nav 869ms · B covered 934ms · hold 508ms · reveal 482ms · uncovered B samples 1 (rAF 1) · frames 92 (flagged 3) · reflow B 0px
+▶ map-card-1440
+  DEFECT  click→covered 692ms · nav 1056ms · B covered 1171ms · hold 430ms · reveal 567ms · uncovered B samples 2 (rAF 2) · frames 94 (flagged 4) · reflow B 0px
+▶ continue-1440
+  DEFECT  click→covered 631ms · nav 852ms · B covered 916ms · hold 458ms · reveal 555ms · uncovered B samples 1 (rAF 1) · frames 128 (flagged 3) · reflow B 0px
+▶ home-door-1440
+  DEFECT  click→covered 634ms · nav 862ms · B covered 897ms · hold 602ms · reveal 477ms · uncovered B samples 1 (rAF 1) · frames 51 (flagged 2) · reflow B 0px
+# Curtain frame capture — X1 acceptance
+
+Base http://localhost:4321 · CPU throttle 4× · 2026-08-16T01:07:16.160Z
+Criterion: no uncovered frame of page B before the hold, no wordmark reflow, one continuous reveal.
+Times are ms relative to the click. "js" = rAF-tied page samples on page B before the panel covered it; "img" = screencast frames between the last covered page-A sample and the reveal onset whose thumbnail differs from a covered reference frame (mean |Δpx| > threshold, see frames.json).
+
+| case | vp | click→covered ms | hold ms | reveal ms | uncovered page-B frames | text reflow | verdict |
+|---|---|---|---|---|---|---|---|
+| map-card | 390 | 657 | 438 | 567 | js 1 (957) · img 3 (958,975,1002) ≈73ms | 0px | DEFECT |
+| continue | 390 | 601 | 428 | 567 | js 2 (851,915) · img 4 (854,874,906,920) ≈84ms | 0px | DEFECT |
+| home-door | 390 | 630 | 508 | 482 | js 1 (869) · img 3 (832,843,873) ≈57ms | 0px | DEFECT |
+| map-card | 1440 | 692 | 430 | 567 | js 2 (1056,1122) · img 4 (1079,1084,1114,1134) ≈68ms | 0px | DEFECT |
+| continue | 1440 | 631 | 458 | 555 | js 1 (852) · img 3 (876,884,908) ≈39ms | 0px | DEFECT |
+| home-door | 1440 | 634 | 602 | 477 | js 1 (862) · img 2 (834,871) ≈58ms | 0px | DEFECT |
+
+Frames: `frames/<case>-<vp>/f<NNN>-<tMs>.jpg` (mNN = negative t). Full samples and per-frame luminance in frames.json.
+

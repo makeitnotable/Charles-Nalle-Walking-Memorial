@@ -1,0 +1,1954 @@
+[
+ {
+  "vp": "390",
+  "width": 390,
+  "height": 844,
+  "findings": [
+   "U1 rail pitch is 0 (want ≈ −6° to −8°)",
+   "U2 camera.far 60 (end wall beyond far/fog)",
+   "U10 \"SKIP ↓\" sits in the corner-menu lane",
+   "U10 Skip pill top=68 (inset 20)",
+   "U10 Skip pill on the right (menu lane) — want top-left",
+   "U6 visible 'Bring it to life' button (should be an Easter egg + sr-only toggle)",
+   "U6 'Esc/Back returns…' chip still shown",
+   "U8 every canvas is 1.5 (aspects not real; portrait work distorted)"
+  ],
+  "errors": [],
+  "rest": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.00003332345971563981,
+    "railIdx": 0,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19776068910385255,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19776066350710902,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "calls": 71,
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 11.8
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844
+    },
+    "controls": [
+     {
+      "text": "SKIP ↓",
+      "rect": {
+       "x": 299,
+       "y": 68,
+       "w": 71,
+       "h": 28
+      }
+     },
+     {
+      "text": "Approach “Holeur’s Fashionable Bakery”",
+      "rect": {
+       "x": 39,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office”",
+      "rect": {
+       "x": 71,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office — Part 2",
+      "rect": {
+       "x": 103,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Uri Gilbert Home”",
+      "rect": {
+       "x": 135,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 167,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 199,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 231,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop”",
+      "rect": {
+       "x": 263,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 295,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 327,
+       "y": 795,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 300,
+       "y": 34,
+       "w": 68,
+       "h": 68
+      }
+     }
+    ],
+    "card": null,
+    "chip": "SCROLL TO WALK · TAP A WORK",
+    "menu": {
+     "x": 300,
+     "y": 34,
+     "w": 68,
+     "h": 68
+    },
+    "inset": 20
+   },
+   "rect0": {
+    "left": 348.92702899710093,
+    "right": 429.9730950329915,
+    "top": 304.7683039965553,
+    "bottom": 508.6495144373287,
+    "behind": false
+   }
+  },
+  "rail_mid": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.5000333234597156,
+    "railIdx": 4,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.40187393183793,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.40223933649289,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 12.1
+   }
+  },
+  "rail_end": {
+   "state": {
+    "mode": "rail",
+    "railT": 1,
+    "railIdx": 9,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.99961664153341,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -67,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 15
+   }
+  },
+  "approach": {
+   "state": {
+    "mode": "approach",
+    "railT": 0.00003332345971563981,
+    "railIdx": 0,
+    "approached": 3,
+    "cur": {
+     "x": 3.112175215056142,
+     "y": 1.4000001346424842,
+     "z": -27.99997505226864,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 3.1121780085986583,
+     "y": 1.4,
+     "z": -28,
+     "yaw": 1.5707963267948966,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 1.5707949168221016,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "rect": {
+    "left": 34.1707841842218,
+    "right": 355.8328021404836,
+    "top": 282.61308556892914,
+    "bottom": 497.0545145959049,
+    "behind": false
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844
+    },
+    "controls": [
+     {
+      "text": "BRING IT TO LIFE",
+      "rect": {
+       "x": 45,
+       "y": 697,
+       "w": 179,
+       "h": 38
+      }
+     },
+     {
+      "text": "BACK TO THE HALL",
+      "rect": {
+       "x": 45,
+       "y": 747,
+       "w": 195,
+       "h": 38
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 298,
+       "y": 20,
+       "w": 72,
+       "h": 72
+      }
+     }
+    ],
+    "card": {
+     "x": 20,
+     "y": 557,
+     "w": 350,
+     "h": 253
+    },
+    "chip": "BACK RETURNS TO THE HALL",
+    "menu": {
+     "x": 298,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "inset": 20
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.6
+   },
+   "relRect": {
+    "cx": 0.5,
+    "cy": 0.462,
+    "w": 0.825,
+    "h": 0.254
+   },
+   "overlapsCard": false
+  },
+  "alive": 3,
+  "afterEsc": "rail",
+  "aspects": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5
+  ]
+ },
+ {
+  "vp": "land",
+  "width": 844,
+  "height": 390,
+  "findings": [
+   "U1 rail pitch is 0 (want ≈ −6° to −8°)",
+   "U2 camera.far 60 (end wall beyond far/fog)",
+   "U10 \"SKIP THE HALL\" sits in the corner-menu lane",
+   "U10 Skip pill top=24 (inset 20)",
+   "U10 Skip pill on the right (menu lane) — want top-left",
+   "U6 painting centre x=0.69 (want 0.5 ± 0.03)",
+   "U6/U7 painting rect overlaps the card/sheet",
+   "U6 visible 'Bring it to life' button (should be an Easter egg + sr-only toggle)",
+   "U6 'Esc/Back returns…' chip still shown",
+   "U8 every canvas is 1.5 (aspects not real; portrait work distorted)"
+  ],
+  "errors": [],
+  "rest": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.00011217948717948718,
+    "railIdx": 0,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19246162335590855,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19246153846153846,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "calls": 73,
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 12.9
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 844,
+     "h": 390
+    },
+    "controls": [
+     {
+      "text": "SKIP THE HALL",
+      "rect": {
+       "x": 679,
+       "y": 24,
+       "w": 145,
+       "h": 32
+      }
+     },
+     {
+      "text": "Approach “Holeur’s Fashionable Bakery”",
+      "rect": {
+       "x": 296,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office”",
+      "rect": {
+       "x": 328,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office — Part 2",
+      "rect": {
+       "x": 360,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Uri Gilbert Home”",
+      "rect": {
+       "x": 392,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 424,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 456,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 488,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop”",
+      "rect": {
+       "x": 520,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 552,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 584,
+       "y": 350,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 754,
+       "y": 34,
+       "w": 68,
+       "h": 68
+      }
+     }
+    ],
+    "card": null,
+    "chip": "THE MUSEUM · SCROLL TO WALK · TAP A PAINTING",
+    "menu": {
+     "x": 754,
+     "y": 34,
+     "w": 68,
+     "h": 68
+    },
+    "inset": 20
+   },
+   "rect0": {
+    "left": 555.7554008072485,
+    "right": 626.2462068865768,
+    "top": 123.93097188515482,
+    "bottom": 247.52928165010294,
+    "behind": false
+   }
+  },
+  "rail_mid": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.5001121794871795,
+    "railIdx": 4,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.40717190038423,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.40753846153846,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.6
+   }
+  },
+  "rail_end": {
+   "state": {
+    "mode": "rail",
+    "railT": 1,
+    "railIdx": 9,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.99961524577964,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -67,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 14.1
+   }
+  },
+  "approach": {
+   "state": {
+    "mode": "approach",
+    "railT": 0.00011217948717948718,
+    "railIdx": 0,
+    "approached": 3,
+    "cur": {
+     "x": -0.40024519901019034,
+     "y": 1.5999999554019229,
+     "z": -26.673590953798055,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": -0.4002455560138327,
+     "y": 1.5999999999999999,
+     "z": -26.673614557485525,
+     "yaw": 1.5707963267948966,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 1.5707949257049865,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "rect": {
+    "left": 400.97623611228306,
+    "right": 764.300047836801,
+    "top": 61.78108201614495,
+    "bottom": 303.99728671190223,
+    "behind": false
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 844,
+     "h": 390
+    },
+    "controls": [
+     {
+      "text": "BRING IT TO LIFE",
+      "rect": {
+       "x": 45,
+       "y": 303,
+       "w": 179,
+       "h": 38
+      }
+     },
+     {
+      "text": "BACK TO THE HALL",
+      "rect": {
+       "x": 236,
+       "y": 303,
+       "w": 195,
+       "h": 38
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 752,
+       "y": 20,
+       "w": 72,
+       "h": 72
+      }
+     }
+    ],
+    "card": {
+     "x": 20,
+     "y": 163,
+     "w": 471,
+     "h": 203
+    },
+    "chip": "BACK RETURNS TO THE HALL",
+    "menu": {
+     "x": 752,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "inset": 20
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.2,
+    "max": 13.3
+   },
+   "relRect": {
+    "cx": 0.69,
+    "cy": 0.469,
+    "w": 0.43,
+    "h": 0.621
+   },
+   "overlapsCard": true
+  },
+  "alive": 3,
+  "afterEsc": "rail",
+  "aspects": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5
+  ]
+ },
+ {
+  "vp": "768",
+  "width": 768,
+  "height": 1024,
+  "findings": [
+   "U1 rail pitch is 0 (want ≈ −6° to −8°)",
+   "U2 camera.far 60 (end wall beyond far/fog)",
+   "U10 Skip pill top=24 (inset 40)",
+   "U10 Skip pill on the right (menu lane) — want top-left",
+   "U6 visible 'Bring it to life' button (should be an Easter egg + sr-only toggle)",
+   "U6 'Esc/Back returns…' chip still shown",
+   "U8 every canvas is 1.5 (aspects not real; portrait work distorted)"
+  ],
+  "errors": [],
+  "rest": {
+   "state": {
+    "mode": "rail",
+    "railT": 0,
+    "railIdx": 0,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.20000000001304608,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.2,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "calls": 73,
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.8
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 768,
+     "h": 1024
+    },
+    "controls": [
+     {
+      "text": "SKIP THE HALL",
+      "rect": {
+       "x": 583,
+       "y": 24,
+       "w": 145,
+       "h": 32
+      }
+     },
+     {
+      "text": "Approach “Holeur’s Fashionable Bakery”",
+      "rect": {
+       "x": 258,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office”",
+      "rect": {
+       "x": 290,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office — Part 2",
+      "rect": {
+       "x": 322,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Uri Gilbert Home”",
+      "rect": {
+       "x": 354,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 386,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 418,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 450,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop”",
+      "rect": {
+       "x": 482,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 514,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 546,
+       "y": 969,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 658,
+       "y": 54,
+       "w": 68,
+       "h": 68
+      }
+     }
+    ],
+    "card": null,
+    "chip": "THE MUSEUM · SCROLL TO WALK · TAP A PAINTING",
+    "menu": {
+     "x": 658,
+     "y": 54,
+     "w": 68,
+     "h": 68
+    },
+    "inset": 40
+   },
+   "rect0": {
+    "left": 570.706998536007,
+    "right": 668.9738398707475,
+    "top": 369.9627873204514,
+    "bottom": 617.228591980536,
+    "behind": false
+   }
+  },
+  "rail_mid": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.49998626708984373,
+    "railIdx": 4,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.398695225941744,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.3990771484375,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 15.9
+   }
+  },
+  "rail_end": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.9999862670898437,
+    "railIdx": 9,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.99871174378254,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.9990771484375,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 14.2
+   }
+  },
+  "approach": {
+   "state": {
+    "mode": "approach",
+    "railT": 0,
+    "railIdx": 0,
+    "approached": 3,
+    "cur": {
+     "x": 1.0882603610110506,
+     "y": 1.4000001338788153,
+     "z": -27.999975192689966,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 1.0882613323119692,
+     "y": 1.4,
+     "z": -28,
+     "yaw": 1.5707963267948966,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 1.570794924819222,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 72,
+    "far": 60,
+    "portrait": true,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "rect": {
+    "left": 72.48607883335096,
+    "right": 695.5218629708911,
+    "top": 242.15831235432398,
+    "bottom": 657.5157591996432,
+    "behind": false
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 768,
+     "h": 1024
+    },
+    "controls": [
+     {
+      "text": "BRING IT TO LIFE",
+      "rect": {
+       "x": 65,
+       "y": 920,
+       "w": 179,
+       "h": 38
+      }
+     },
+     {
+      "text": "BACK TO THE HALL",
+      "rect": {
+       "x": 256,
+       "y": 920,
+       "w": 195,
+       "h": 38
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 656,
+       "y": 40,
+       "w": 72,
+       "h": 72
+      }
+     }
+    ],
+    "card": {
+     "x": 40,
+     "y": 778,
+     "w": 471,
+     "h": 205
+    },
+    "chip": "ESC OR BACK RETURNS TO THE HALL",
+    "menu": {
+     "x": 656,
+     "y": 40,
+     "w": 72,
+     "h": 72
+    },
+    "inset": 40
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.1
+   },
+   "relRect": {
+    "cx": 0.5,
+    "cy": 0.439,
+    "w": 0.811,
+    "h": 0.406
+   },
+   "overlapsCard": false
+  },
+  "alive": 3,
+  "afterEsc": "rail",
+  "aspects": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5
+  ]
+ },
+ {
+  "vp": "1024",
+  "width": 1024,
+  "height": 768,
+  "findings": [
+   "U1 rail pitch is 0 (want ≈ −6° to −8°)",
+   "U2 camera.far 60 (end wall beyond far/fog)",
+   "U10 Skip pill top=24 (inset 40)",
+   "U10 Skip pill on the right (menu lane) — want top-left",
+   "U6 painting centre x=0.69 (want 0.5 ± 0.03)",
+   "U6/U7 painting rect overlaps the card/sheet",
+   "U6 visible 'Bring it to life' button (should be an Easter egg + sr-only toggle)",
+   "U6 'Esc/Back returns…' chip still shown",
+   "U8 every canvas is 1.5 (aspects not real; portrait work distorted)"
+  ],
+  "errors": [],
+  "rest": {
+   "state": {
+    "mode": "rail",
+    "railT": 0,
+    "railIdx": 0,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.20000000001562093,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.2,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "calls": 73,
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.8
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 1024,
+     "h": 768
+    },
+    "controls": [
+     {
+      "text": "SKIP THE HALL",
+      "rect": {
+       "x": 839,
+       "y": 24,
+       "w": 145,
+       "h": 32
+      }
+     },
+     {
+      "text": "Approach “Holeur’s Fashionable Bakery”",
+      "rect": {
+       "x": 386,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office”",
+      "rect": {
+       "x": 418,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office — Part 2",
+      "rect": {
+       "x": 450,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Uri Gilbert Home”",
+      "rect": {
+       "x": 482,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 514,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 546,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 578,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop”",
+      "rect": {
+       "x": 610,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 642,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 674,
+       "y": 721,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 914,
+       "y": 54,
+       "w": 68,
+       "h": 68
+      }
+     }
+    ],
+    "card": null,
+    "chip": "THE MUSEUM · SCROLL TO WALK · TAP A PAINTING",
+    "menu": {
+     "x": 914,
+     "y": 54,
+     "w": 68,
+     "h": 68
+    },
+    "inset": 40
+   },
+   "rect0": {
+    "left": 775.167021513801,
+    "right": 913.6759802052753,
+    "top": 244.53064890739287,
+    "bottom": 487.6023464597531,
+    "behind": false
+   }
+  },
+  "rail_mid": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.4999613444010417,
+    "railIdx": 4,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.39701923157414,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.39740234375,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13
+   }
+  },
+  "rail_end": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.9999613444010417,
+    "railIdx": 9,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.99701725989232,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.99740234375,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 11.6
+   }
+  },
+  "approach": {
+   "state": {
+    "mode": "approach",
+    "railT": 0,
+    "railIdx": 0,
+    "approached": 3,
+    "cur": {
+     "x": 0.7491067986882991,
+     "y": 1.5999999565701553,
+     "z": -26.85997686740101,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0.7491074493607042,
+     "y": 1.5999999999999999,
+     "z": -26.86,
+     "yaw": 1.5707963267948966,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 1.5707949624060835,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "rect": {
+    "left": 450.48721531976094,
+    "right": 963.1183625851785,
+    "top": 196.3319465775909,
+    "bottom": 538.0863483980249,
+    "behind": false
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 1024,
+     "h": 768
+    },
+    "controls": [
+     {
+      "text": "BRING IT TO LIFE",
+      "rect": {
+       "x": 65,
+       "y": 675,
+       "w": 179,
+       "h": 38
+      }
+     },
+     {
+      "text": "BACK TO THE HALL",
+      "rect": {
+       "x": 256,
+       "y": 675,
+       "w": 195,
+       "h": 38
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 912,
+       "y": 40,
+       "w": 72,
+       "h": 72
+      }
+     }
+    ],
+    "card": {
+     "x": 40,
+     "y": 532,
+     "w": 471,
+     "h": 205
+    },
+    "chip": "ESC OR BACK RETURNS TO THE HALL",
+    "menu": {
+     "x": 912,
+     "y": 40,
+     "w": 72,
+     "h": 72
+    },
+    "inset": 40
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 12
+   },
+   "relRect": {
+    "cx": 0.69,
+    "cy": 0.478,
+    "w": 0.501,
+    "h": 0.445
+   },
+   "overlapsCard": true
+  },
+  "alive": 3,
+  "afterEsc": "rail",
+  "aspects": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5
+  ]
+ },
+ {
+  "vp": "1440",
+  "width": 1440,
+  "height": 900,
+  "findings": [
+   "U1 rail pitch is 0 (want ≈ −6° to −8°)",
+   "U2 camera.far 60 (end wall beyond far/fog)",
+   "U10 Skip pill top=24 (inset 56)",
+   "U10 Skip pill on the right (menu lane) — want top-left",
+   "U6 painting centre x=0.69 (want 0.5 ± 0.03)",
+   "U6 visible 'Bring it to life' button (should be an Easter egg + sr-only toggle)",
+   "U6 'Esc/Back returns…' chip still shown",
+   "U8 every canvas is 1.5 (aspects not real; portrait work distorted)"
+  ],
+  "errors": [],
+  "rest": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.00002951388888888889,
+    "railIdx": 0,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19801668889954024,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": 0.19801666666666667,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "calls": 73,
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 15.6
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 1440,
+     "h": 900
+    },
+    "controls": [
+     {
+      "text": "SKIP THE HALL",
+      "rect": {
+       "x": 1229,
+       "y": 24,
+       "w": 155,
+       "h": 34
+      }
+     },
+     {
+      "text": "Approach “Holeur’s Fashionable Bakery”",
+      "rect": {
+       "x": 596,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office”",
+      "rect": {
+       "x": 628,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Commissioner’s Office — Part 2",
+      "rect": {
+       "x": 660,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Uri Gilbert Home”",
+      "rect": {
+       "x": 692,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 724,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 756,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Washington Street Ferry Landin",
+      "rect": {
+       "x": 788,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop”",
+      "rect": {
+       "x": 820,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 852,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Approach “Peter Baltimore’s Barbershop —",
+      "rect": {
+       "x": 884,
+       "y": 849,
+       "w": 24,
+       "h": 24
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 1314,
+       "y": 70,
+       "w": 68,
+       "h": 68
+      }
+     }
+    ],
+    "card": null,
+    "chip": "THE MUSEUM · SCROLL TO WALK · TAP A PAINTING",
+    "menu": {
+     "x": 1314,
+     "y": 70,
+     "w": 68,
+     "h": 68
+    },
+    "inset": 56
+   },
+   "rect0": {
+    "left": 1028.4691748533555,
+    "right": 1190.8778827768826,
+    "top": 286.1544432092542,
+    "bottom": 571.1032376279426,
+    "behind": false
+   }
+  },
+  "rail_mid": {
+   "state": {
+    "mode": "rail",
+    "railT": 0.5000295138888889,
+    "railIdx": 4,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.40161584434481,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -33.401983333333334,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 14
+   }
+  },
+  "rail_end": {
+   "state": {
+    "mode": "rail",
+    "railT": 1,
+    "railIdx": 9,
+    "approached": null,
+    "cur": {
+     "x": 0,
+     "y": 1.55,
+     "z": -66.9996221708205,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0,
+     "y": 1.55,
+     "z": -67,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 0,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 12.9
+   }
+  },
+  "approach": {
+   "state": {
+    "mode": "approach",
+    "railT": 0.00002951388888888889,
+    "railIdx": 0,
+    "approached": 3,
+    "cur": {
+     "x": 0.07258947638684035,
+     "y": 1.5999999554019229,
+     "z": -26.859976236691413,
+     "yaw": 0,
+     "pitch": 0
+    },
+    "target": {
+     "x": 0.07258954113391924,
+     "y": 1.5999999999999999,
+     "z": -26.86,
+     "yaw": 1.5707963267948966,
+     "pitch": 0
+    },
+    "look": {
+     "yaw": 1.5707949257049865,
+     "pitch": 0,
+     "dragYaw": 0,
+     "dragPitch": 0
+    },
+    "alive": -1,
+    "fov": 58,
+    "far": 60,
+    "portrait": false,
+    "running": true,
+    "works": 10,
+    "spacing": 7
+   },
+   "rect": {
+    "left": 633.4766577586021,
+    "right": 1354.541838464639,
+    "top": 185.60913347908468,
+    "bottom": 666.3197803909575,
+    "behind": false
+   },
+   "ui": {
+    "stage": {
+     "x": 0,
+     "y": 0,
+     "w": 1440,
+     "h": 900
+    },
+    "controls": [
+     {
+      "text": "BRING IT TO LIFE",
+      "rect": {
+       "x": 161,
+       "y": 801,
+       "w": 179,
+       "h": 38
+      }
+     },
+     {
+      "text": "BACK TO THE HALL",
+      "rect": {
+       "x": 352,
+       "y": 801,
+       "w": 195,
+       "h": 38
+      }
+     },
+     {
+      "text": "Open menu",
+      "rect": {
+       "x": 1312,
+       "y": 56,
+       "w": 72,
+       "h": 72
+      }
+     }
+    ],
+    "card": {
+     "x": 136,
+     "y": 653,
+     "w": 471,
+     "h": 211
+    },
+    "chip": "ESC OR BACK RETURNS TO THE HALL",
+    "menu": {
+     "x": 1312,
+     "y": 56,
+     "w": 72,
+     "h": 72
+    },
+    "inset": 56
+   },
+   "fps": {
+    "long": 0,
+    "avg": 8.3,
+    "max": 13.5
+   },
+   "relRect": {
+    "cx": 0.69,
+    "cy": 0.473,
+    "w": 0.501,
+    "h": 0.534
+   },
+   "overlapsCard": false
+  },
+  "alive": 3,
+  "afterEsc": "rail",
+  "aspects": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5
+  ]
+ }
+]

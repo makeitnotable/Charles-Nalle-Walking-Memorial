@@ -88,6 +88,16 @@ async function visit(page, route, label, wait = settle(route)) {
    forcing it in lets axe score contrast on the words a reader will see. */
 const forceReveals = (page) =>
   page.evaluate(() => {
+    /* Zero every transition/animation first — otherwise axe samples the
+       1.6s reveal fade mid-flight and reports the composited half-opacity
+       colours (a phantom `.btn-solid` "serious" on every chapter). Staggered
+       `--i` children of a `.reveal` are keyframe-animated, so both go. */
+    if (!document.getElementById("qa-still")) {
+      const st = document.createElement("style");
+      st.id = "qa-still";
+      st.textContent = "*,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important;animation-duration:0s!important;animation-delay:0s!important}";
+      document.head.appendChild(st);
+    }
     for (const el of document.querySelectorAll(".reveal,.reveal-quote,.lines,.wipe,.home-seq")) {
       el.classList.add("is-in");
       el.style.opacity = "1";

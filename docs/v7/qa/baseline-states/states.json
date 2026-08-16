@@ -1,0 +1,632 @@
+[
+ {
+  "state": "mansion-390-01-rest",
+  "note": "chapter at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-02-menu-open",
+  "note": "menu open at top",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-03-player-inview",
+  "note": "narration object in view",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-04-mini-player",
+  "note": "audio playing, mini-player latched",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-05-mini-plus-menu",
+  "note": "THE COMBINED STATE: audio playing + menu open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-08-foot",
+  "note": "chapter foot / onward",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-09-cta-focus",
+  "note": "primary CTA focus ring",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-10-cta-hover",
+  "note": "primary CTA hover",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-390-01-rest",
+  "note": "map at rest",
+  "floatCount": 6,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-390-02-menu-open",
+  "note": "map + menu open",
+  "floatCount": 8,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-390-05-index",
+  "note": "map index below the fold",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-390-01-rest",
+  "note": "gallery at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-390-02-dialog",
+  "note": "painting dialog open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "home-390-01-rest",
+  "note": "home at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-390-01-rest",
+  "note": "/people at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-390-02-menu",
+  "note": "/people + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-390-01-rest",
+  "note": "/about at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-390-02-menu",
+  "note": "/about + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-01-rest",
+  "note": "chapter at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-02-menu-open",
+  "note": "menu open at top",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-03-player-inview",
+  "note": "narration object in view",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-04-mini-player",
+  "note": "audio playing, mini-player latched",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-05-mini-plus-menu",
+  "note": "THE COMBINED STATE: audio playing + menu open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-08-foot",
+  "note": "chapter foot / onward",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-09-cta-focus",
+  "note": "primary CTA focus ring",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-land-10-cta-hover",
+  "note": "primary CTA hover",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-land-01-rest",
+  "note": "map at rest",
+  "floatCount": 4,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-land-02-menu-open",
+  "note": "map + menu open",
+  "floatCount": 6,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-land-05-index",
+  "note": "map index below the fold",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-land-01-rest",
+  "note": "gallery at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-land-02-dialog",
+  "note": "painting dialog open",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "home-land-01-rest",
+  "note": "home at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-land-01-rest",
+  "note": "/people at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-land-02-menu",
+  "note": "/people + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-land-01-rest",
+  "note": "/about at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-land-02-menu",
+  "note": "/about + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-01-rest",
+  "note": "chapter at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-02-menu-open",
+  "note": "menu open at top",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-03-player-inview",
+  "note": "narration object in view",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-04-mini-player",
+  "note": "audio playing, mini-player latched",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-05-mini-plus-menu",
+  "note": "THE COMBINED STATE: audio playing + menu open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-08-foot",
+  "note": "chapter foot / onward",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-09-cta-focus",
+  "note": "primary CTA focus ring",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-768-10-cta-hover",
+  "note": "primary CTA hover",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-768-01-rest",
+  "note": "map at rest",
+  "floatCount": 12,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-768-02-menu-open",
+  "note": "map + menu open",
+  "floatCount": 14,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-768-05-index",
+  "note": "map index below the fold",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-768-01-rest",
+  "note": "gallery at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-768-02-dialog",
+  "note": "painting dialog open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "home-768-01-rest",
+  "note": "home at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-768-01-rest",
+  "note": "/people at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-768-02-menu",
+  "note": "/people + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-768-01-rest",
+  "note": "/about at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-768-02-menu",
+  "note": "/about + menu open",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-01-rest",
+  "note": "chapter at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-02-menu-open",
+  "note": "menu open at top",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-03-player-inview",
+  "note": "narration object in view",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-04-mini-player",
+  "note": "audio playing, mini-player latched",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-05-mini-plus-menu",
+  "note": "THE COMBINED STATE: audio playing + menu open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-08-foot",
+  "note": "chapter foot / onward",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-09-cta-focus",
+  "note": "primary CTA focus ring",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1024-10-cta-hover",
+  "note": "primary CTA hover",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1024-01-rest",
+  "note": "map at rest",
+  "floatCount": 12,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1024-02-menu-open",
+  "note": "map + menu open",
+  "floatCount": 14,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1024-05-index",
+  "note": "map index below the fold",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-1024-01-rest",
+  "note": "gallery at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-1024-02-dialog",
+  "note": "painting dialog open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "home-1024-01-rest",
+  "note": "home at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-1024-01-rest",
+  "note": "/people at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-1024-02-menu",
+  "note": "/people + menu open",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-1024-01-rest",
+  "note": "/about at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-1024-02-menu",
+  "note": "/about + menu open",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-01-rest",
+  "note": "chapter at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-02-menu-open",
+  "note": "menu open at top",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-03-player-inview",
+  "note": "narration object in view",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-04-mini-player",
+  "note": "audio playing, mini-player latched",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-05-mini-plus-menu",
+  "note": "THE COMBINED STATE: audio playing + menu open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-08-foot",
+  "note": "chapter foot / onward",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-09-cta-focus",
+  "note": "primary CTA focus ring",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-1440-10-cta-hover",
+  "note": "primary CTA hover",
+  "floatCount": 2,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1440-01-rest",
+  "note": "map at rest",
+  "floatCount": 12,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1440-02-menu-open",
+  "note": "map + menu open",
+  "floatCount": 14,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "map-1440-05-index",
+  "note": "map index below the fold",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-1440-01-rest",
+  "note": "gallery at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "paintings-1440-02-dialog",
+  "note": "painting dialog open",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "home-1440-01-rest",
+  "note": "home at rest",
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-1440-01-rest",
+  "note": "/people at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "people-1440-02-menu",
+  "note": "/people + menu open",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-1440-01-rest",
+  "note": "/about at rest",
+  "floatCount": 1,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "about-1440-02-menu",
+  "note": "/about + menu open",
+  "floatCount": 3,
+  "hits": [],
+  "unscrimmedPanel": false
+ }
+]

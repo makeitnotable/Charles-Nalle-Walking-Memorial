@@ -1,0 +1,7 @@
+✗ 390 — calls 71 fps-long 0 · 8 finding(s): U1 rail pitch is 0 (want ≈ −6° to −8°) | U2 camera.far 60 (end wall beyond far/fog) | U10 "SKIP ↓" sits in the corner-menu lane | U10 Skip pill top=68 (inset 20)
+✗ land — calls 73 fps-long 0 · 10 finding(s): U1 rail pitch is 0 (want ≈ −6° to −8°) | U2 camera.far 60 (end wall beyond far/fog) | U10 "SKIP THE HALL" sits in the corner-menu lane | U10 Skip pill top=24 (inset 20)
+✗ 768 — calls 73 fps-long 0 · 7 finding(s): U1 rail pitch is 0 (want ≈ −6° to −8°) | U2 camera.far 60 (end wall beyond far/fog) | U10 Skip pill top=24 (inset 40) | U10 Skip pill on the right (menu lane) — want top-left
+✗ 1024 — calls 73 fps-long 0 · 9 finding(s): U1 rail pitch is 0 (want ≈ −6° to −8°) | U2 camera.far 60 (end wall beyond far/fog) | U10 Skip pill top=24 (inset 40) | U10 Skip pill on the right (menu lane) — want top-left
+✗ 1440 — calls 73 fps-long 0 · 8 finding(s): U1 rail pitch is 0 (want ≈ −6° to −8°) | U2 camera.far 60 (end wall beyond far/fog) | U10 Skip pill top=24 (inset 56) | U10 Skip pill on the right (menu lane) — want top-left
+
+museum → docs/v7/qa/baseline-museum/museum.md (42 findings)

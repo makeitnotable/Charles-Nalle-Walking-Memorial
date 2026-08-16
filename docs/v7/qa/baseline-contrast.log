@@ -1,0 +1,35 @@
+✗ / @ 390 — 3 fails (0 style · 3 pixel) / 10 checked / 0 unmeasured · 1 steps
+✗ /bakery @ 390 — 2 fails (0 style · 2 pixel) / 57 checked / 0 unmeasured · 14 steps
+✗ /commissioners-office @ 390 — 4 fails (0 style · 4 pixel) / 88 checked / 0 unmeasured · 24 steps
+✗ /mansion @ 390 — 2 fails (0 style · 2 pixel) / 59 checked / 0 unmeasured · 15 steps
+✗ /ferry @ 390 — 1 fails (0 style · 1 pixel) / 58 checked / 0 unmeasured · 16 steps
+✗ /barbershop @ 390 — 2 fails (0 style · 2 pixel) / 58 checked / 0 unmeasured · 15 steps
+✓ /map @ 390 — 0 fails (0 style · 0 pixel) / 55 checked / 0 unmeasured · 5 steps
+✓ /people @ 390 — 0 fails (0 style · 0 pixel) / 88 checked / 0 unmeasured · 12 steps
+✓ /paintings @ 390 — 0 fails (0 style · 0 pixel) / 44 checked / 0 unmeasured · 24 steps
+✓ /about @ 390 — 0 fails (0 style · 0 pixel) / 52 checked / 0 unmeasured · 14 steps
+✓ /404 @ 390 — 0 fails (0 style · 0 pixel) / 15 checked / 0 unmeasured · 2 steps
+✗ / @ 768 — 2 fails (0 style · 2 pixel) / 10 checked / 0 unmeasured · 1 steps
+✗ /bakery @ 768 — 1 fails (0 style · 1 pixel) / 57 checked / 0 unmeasured · 11 steps
+✗ /commissioners-office @ 768 — 3 fails (0 style · 3 pixel) / 88 checked / 0 unmeasured · 18 steps
+✗ /mansion @ 768 — 2 fails (0 style · 2 pixel) / 59 checked / 0 unmeasured · 11 steps
+✗ /ferry @ 768 — 3 fails (0 style · 3 pixel) / 58 checked / 0 unmeasured · 13 steps
+✗ /barbershop @ 768 — 1 fails (0 style · 1 pixel) / 58 checked / 0 unmeasured · 12 steps
+✓ /map @ 768 — 0 fails (0 style · 0 pixel) / 60 checked / 0 unmeasured · 4 steps
+✓ /people @ 768 — 0 fails (0 style · 0 pixel) / 88 checked / 0 unmeasured · 8 steps
+✓ /paintings @ 768 — 0 fails (0 style · 0 pixel) / 45 checked / 0 unmeasured · 19 steps
+✓ /about @ 768 — 0 fails (0 style · 0 pixel) / 52 checked / 0 unmeasured · 10 steps
+✓ /404 @ 768 — 0 fails (0 style · 0 pixel) / 15 checked / 0 unmeasured · 2 steps
+✗ / @ 1440 — 2 fails (0 style · 2 pixel) / 10 checked / 0 unmeasured · 1 steps
+✗ /bakery @ 1440 — 26 fails (0 style · 26 pixel) / 81 checked / 0 unmeasured · 12 steps
+✗ /commissioners-office @ 1440 — 64 fails (0 style · 64 pixel) / 148 checked / 0 unmeasured · 20 steps
+✗ /mansion @ 1440 — 26 fails (0 style · 26 pixel) / 83 checked / 0 unmeasured · 13 steps
+✗ /ferry @ 1440 — 27 fails (0 style · 27 pixel) / 82 checked / 0 unmeasured · 14 steps
+✗ /barbershop @ 1440 — 26 fails (0 style · 26 pixel) / 82 checked / 0 unmeasured · 14 steps
+✓ /map @ 1440 — 0 fails (0 style · 0 pixel) / 59 checked / 0 unmeasured · 4 steps
+✓ /people @ 1440 — 0 fails (0 style · 0 pixel) / 88 checked / 0 unmeasured · 8 steps
+✓ /paintings @ 1440 — 0 fails (0 style · 0 pixel) / 45 checked / 0 unmeasured · 21 steps
+✓ /about @ 1440 — 0 fails (0 style · 0 pixel) / 52 checked / 0 unmeasured · 10 steps
+✓ /404 @ 1440 — 0 fails (0 style · 0 pixel) / 15 checked / 0 unmeasured · 2 steps
+
+contrast → docs/v7/qa/baseline-contrast.md (+ .json)  197 failures (0 style · 197 pixel), 0 unmeasured
