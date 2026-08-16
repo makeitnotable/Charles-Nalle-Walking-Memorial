@@ -975,6 +975,8 @@ h3 {
      Never set the `background` shorthand on this element — it resets the clip. */
   background-clip: content-box;
   background-color: transparent;
+  /* the played fraction (AudioStory sets --pct) */
+  background-image: linear-gradient(to right, var(--color-primary-9) var(--pct, 0%), var(--color-primary-6) var(--pct, 0%));
   border-radius: 0;
   outline-offset: 2px;
   cursor: pointer;

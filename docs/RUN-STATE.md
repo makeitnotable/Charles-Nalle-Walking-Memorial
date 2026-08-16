@@ -148,6 +148,15 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 - `text-wrap`: always the `text-wrap-style` LONGHAND on rules that may land on
   `white-space: nowrap` / `.truncate` elements — the shorthand resets the mode.
 
+- V7-010 ROOT CAUSE (found in the final shots log): React's style-hydration
+  diff flagged the scrub track's `backgroundImage` gradient with `var()`
+  (`+ backgroundImage` / `- background-image`, identical values) — a React 19
+  false positive on `var()` gradients in style objects. The played fraction now
+  rides a `--pct` custom property and the gradient lives in CSS.
+- The Chromium "GPU process exited unexpectedly: exit_code=15" crashes line up
+  EXACTLY with a foreground tool call hitting its 600 s timeout: the harness's
+  timeout sweep SIGTERMs the session's Chromium helpers. Never let a foreground
+  command time out while an instrument runs — poll with short calls.
 - Instruments must run ONE Playwright process at a time and via the harness's
   background mode: overlapping runs (or a plain `&` chain outliving its
   shell) had their Chromium GPU/network helpers SIGTERMed mid-run (exit 15),

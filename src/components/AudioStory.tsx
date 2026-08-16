@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ICONS } from "./icons";
 
 /**
@@ -398,9 +398,11 @@ export default function AudioStory({
           onChange={(e) => seekTo(Number(e.target.value))}
           aria-label="Narration position"
           className="cnwm-scrub mt-4 w-full"
-          style={{
-            backgroundImage: `linear-gradient(to right, var(--color-primary-9) ${pct}%, var(--color-primary-6) ${pct}%)`,
-          }}
+          /* v7 V7-010: the played fraction rides a custom property; a `var()`
+             gradient in the style object tripped React's style-hydration diff
+             (server `background-image` vs client `backgroundImage`) — the
+             intermittent console error on chapters. */
+          style={{ "--pct": `${pct}%` } as CSSProperties}
         />
       </div>
 
