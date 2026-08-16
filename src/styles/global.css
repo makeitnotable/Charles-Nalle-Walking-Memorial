@@ -589,6 +589,16 @@ h3 {
 .embed-map-shell {
   box-shadow: 0 24px 64px -24px rgba(16, 10, 6, 0.7);
 }
+/* v7 C2: the moral section's prose is CREAM like its heading (Wil: "white
+   like the heading"). The `.t-prose` role is unlayered, so a Tailwind
+   `text-neutral-12` utility never won — this rule does. */
+.moral .t-prose,
+.moral .t-meta-body {
+  color: var(--color-neutral-12);
+}
+.moral .t-meta-body {
+  opacity: 0.85;
+}
 /* v7 C2: the moral ground drifts (gsap scrub); it is oversized so no edge
    ever shows and promoted so the scrub costs no layout. */
 .moral-ground {

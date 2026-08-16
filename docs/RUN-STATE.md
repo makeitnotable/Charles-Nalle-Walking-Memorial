@@ -19,7 +19,17 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 2 = FAIL** (`docs/v7/juror-pass2.md`; Sheet A phone 7/8/9/9,
+**Juror pass 3 = FAIL on Sheet B only** (`docs/v7/juror-pass3.md`; Sheet A
+9/8/10/9 phone, 9/9/10/9 tablet, 9/9/10/9 desktop; ZERO P0/P1; all
+instrument bars met; retell = the Museum on a phone). Two P2s, fixed:
+C2 body colour (the unlayered `.t-prose` role beat the `text-neutral-12`
+utility → `.moral .t-prose { color: neutral-12 }`; verified rgb(246,243,238))
+and the phone pill that hid through Onward+footer while playing (it now
+shrinks to the round play/pause button while the CTA row is on screen; never
+hidden). Next: push → verify live → **juror pass 4** (fresh) → if PASS →
+**juror pass 5** (fresh, identical build) → REVIEW-GUIDE §3 → memory → push.
+
+(Earlier) **Juror pass 2 = FAIL** (`docs/v7/juror-pass2.md`; Sheet A phone 7/8/9/9,
 tablet 8/8/9/9, desktop 9/9/9/9; retell = the Museum; both juror-1 P1s and
 most P2s confirmed fixed). P1 (fixed): the phone map index clipped titles —
 my `nbsp()` glue on the names; index now shows the authored `name.card`

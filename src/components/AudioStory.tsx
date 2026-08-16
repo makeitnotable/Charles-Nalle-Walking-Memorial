@@ -428,15 +428,18 @@ export default function AudioStory({
       {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}
       {miniLatched && (
         <div
-          className={`fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999] ${ctaInView ? "max-sm:pointer-events-none max-sm:opacity-0" : ""}`}
+          className="fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]"
           style={{
-            opacity: mainVisible ? 0 : undefined,
-            pointerEvents: mainVisible ? "none" : undefined,
+            opacity: mainVisible ? 0 : 1,
+            pointerEvents: mainVisible ? "none" : "auto",
             transition: "opacity var(--dur-fast) var(--ease)",
           }}
         >
+          {/* Phones: while the Onward CTA row is on screen the pill shrinks to the
+              round play/pause button so it never covers a centred CTA — and it
+              never disappears while narration plays (juror pass 3). */}
           <div
-            className={`flex items-center gap-3 rounded-full py-2 pl-2 ${collapsed ? "pr-4" : "pr-5"}`}
+            className={`flex items-center gap-3 rounded-full py-2 pl-2 ${collapsed ? "pr-4" : "pr-5"} ${ctaInView ? "max-sm:gap-0 max-sm:p-1 max-sm:pr-1" : ""}`}
             style={{
               background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)",
               backdropFilter: "blur(8px)",
@@ -445,7 +448,7 @@ export default function AudioStory({
             }}
           >
             {playButton(true)}
-            <div className="min-w-0">
+            <div className={`min-w-0 ${ctaInView ? "max-sm:hidden" : ""}`}>
               {!collapsed && <p className="t-meta truncate">{spot ?? label}</p>}
               <p
                 className={`t-meta-body truncate ${collapsed ? "" : "mt-0.5"}`}
