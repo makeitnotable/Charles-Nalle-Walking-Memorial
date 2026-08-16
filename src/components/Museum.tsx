@@ -1201,7 +1201,7 @@ export default function Museum({ works, slotId }: Props) {
             className="absolute z-20 -translate-y-1/2"
             style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px), 22rem)" }}
           >
-            <div className="rounded-[12px] p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
+            <div className="rounded-[12px] p-4 lg:p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
               <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
               <p className="t-title-sm mt-3">{plaque.title}</p>
               {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
@@ -1211,7 +1211,8 @@ export default function Museum({ works, slotId }: Props) {
                 </figure>
               )}
               <div className="mt-5">
-                <button ref={backRef} type="button" className="btn-sm btn-ghost" onClick={() => api.current?.approach(null)}>
+                {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
+                <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
                   Back to the hall
                 </button>
               </div>
