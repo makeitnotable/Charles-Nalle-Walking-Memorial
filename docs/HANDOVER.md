@@ -162,10 +162,23 @@ npm run build    # produce the publishable files
 npm run check    # type-check
 ```
 
-Quality instruments live in `scripts/` and are documented in `docs/`:
-`perf.mjs` (Lighthouse), `probe.mjs` (rendered-pixel measurements),
-`states.mjs` (interaction states and collisions), `contrast.mjs`,
+Quality instruments live in `scripts/` and are documented in `docs/`
+(`docs/PLAN.md` Part B, `docs/v7/REVIEW-GUIDE.md` §6). All take
+`--base URL` and default to the dev server on :4321:
+`perf.mjs` (Lighthouse — run against the PRODUCTION build: `npm run build`
+→ `astro preview --port 4322` → `--base http://localhost:4322`),
+`probe.mjs` (rendered-pixel measurements), `states.mjs` (interaction states
+incl. the map's walk/lens and the museum's modes; collisions), `contrast.mjs`
+(WCAG by computed style AND by pixel sampling for text over imagery),
+`rag.mjs` (runts, glyph-ink clips, visible em dashes), `a11y.mjs` (axe +
+keyboard walk + reduced motion + 200 % zoom), `frames.mjs` (curtain frame
+capture), `walk-check.mjs` (map/walk behaviour via `window.__troyMap`),
+`museum-check.mjs` (via `window.__museum`), `audio-check.mjs` (narration
+players), `shots.mjs` / `census.mjs` / `arrival.mjs`,
+`build-favicon.mjs` (the CN mark and icon set), `build-og.mjs`,
+`serve-dist.mjs` (a GitHub-Pages-like static server for 404 checks),
 `build-route.mjs` (regenerates the walking route from Mapbox Directions).
+Run one instrument at a time (they each drive their own Chromium).
 
 ---
 
@@ -270,6 +283,26 @@ Stated plainly so nobody inherits a surprise.
 ---
 
 ## 10 · Changelog
+
+**15–16 August 2026 — v7 "The Last Ten Percent" (Wil's page-by-page review)**
+
+- Layout craft: zero runts / clipped letterforms / visible em dashes at nine
+  viewports (Kathy's prose changed by punctuation only — `docs/CONTENT-STATUS.md`);
+  chapter rhythm unified; drop caps; moral sections re-lit; footer redesigned.
+- Accessibility: WCAG AA contrast measured by pixel over imagery (0 failures);
+  axe 0/0/0 across every route and state; keyboard paths for the map walk and
+  the museum; the corner menu first in the tab order and marking the page.
+- The page transition ("the Crossing") no longer flashes the next page before
+  the curtain covers it (curtain markup first in `<body>` + an inline head script).
+- Map: pitched, label-fitted overview at every viewport; the auto-walk pauses on
+  any drag (`Continue` / `Walk again`); the 1858 plate opens on its lower panel
+  in a near-full-bleed viewer; phone controls on one row; the page below the
+  map is reachable by touch; Mapbox attribution added to the chapter embeds.
+- The Museum: true painting aspects (the portrait Narrative II hangs tall), a
+  shorter pitched hall with an entry wall and a threshold, 360° look, centred
+  approach with the card left and the study right, tap/zoom brings a painting
+  to life, phone peek-sheet, ≤ 80 draw calls at 60 fps.
+- A real favicon (the CN mark in Libre Caslon Display, full icon set + manifest).
 
 **7 August 2026 — content restoration and map optimisation**
 

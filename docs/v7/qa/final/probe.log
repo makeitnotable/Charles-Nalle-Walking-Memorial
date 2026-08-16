@@ -46,5 +46,12 @@
 ✓ /bakery @ 1440  type:5 max:88px  float:5 collide:0  repeat:0  err:0
 ✓ /commissioners-office @ 1440  type:7 max:88px  float:7 collide:0  repeat:0  err:0
 ✓ /mansion @ 1440  type:5 max:88px  float:5 collide:0  repeat:0  err:0
-✓ /ferry @ 1440  type:5 max:88px  float:5 collide:0  repeat:0  err:1
+✓ /ferry @ 1440  type:5 max:88px  float:5 collide:0  repeat:0  err:0
 ✓ /barbershop @ 1440  type:5 max:88px  float:5 collide:0  repeat:0  err:0
+✓ /map @ 1440  type:0 max:0px  float:2 collide:0  repeat:0  err:0
+✓ /people @ 1440  type:16 max:88px  float:4 collide:0  repeat:0  err:0
+✓ /paintings @ 1440  type:1 max:88px  float:2 collide:0  repeat:0  err:0
+✓ /about @ 1440  type:1 max:88px  float:8 collide:0  repeat:0  err:0
+✓ /404 @ 1440  type:1 max:56px  float:1 collide:0  repeat:0  err:1
+
+probe → docs/v7/qa/final/probe/probe.md

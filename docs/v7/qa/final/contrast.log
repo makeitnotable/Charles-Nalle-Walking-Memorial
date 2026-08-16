@@ -16,7 +16,7 @@
 ✓ /ferry @ 768 — 0 fails (0 style · 0 pixel) / 58 checked / 0 unmeasured · 10 steps
 ✓ /barbershop @ 768 — 0 fails (0 style · 0 pixel) / 58 checked / 0 unmeasured · 10 steps
 ✓ /map @ 768 — 0 fails (0 style · 0 pixel) / 60 checked / 0 unmeasured · 3 steps
-✓ /people @ 768 — 0 fails (0 style · 0 pixel) / 66 checked / 0 unmeasured · 3 steps
+✓ /people @ 768 — 0 fails (0 style · 0 pixel) / 66 checked / 18 unmeasured · 8 steps
 ✓ /paintings @ 768 — 0 fails (0 style · 0 pixel) / 44 checked / 0 unmeasured · 1 steps
 ✓ /about @ 768 — 0 fails (0 style · 0 pixel) / 55 checked / 0 unmeasured · 3 steps
 ✓ /404 @ 768 — 0 fails (0 style · 0 pixel) / 15 checked / 0 unmeasured · 2 steps
@@ -28,8 +28,3 @@
 ✓ /barbershop @ 1440 — 0 fails (0 style · 0 pixel) / 82 checked / 0 unmeasured · 11 steps
 ✓ /map @ 1440 — 0 fails (0 style · 0 pixel) / 60 checked / 0 unmeasured · 3 steps
 ✓ /people @ 1440 — 0 fails (0 style · 0 pixel) / 66 checked / 0 unmeasured · 3 steps
-✓ /paintings @ 1440 — 0 fails (0 style · 0 pixel) / 44 checked / 0 unmeasured · 1 steps
-✓ /about @ 1440 — 0 fails (0 style · 0 pixel) / 55 checked / 0 unmeasured · 3 steps
-✓ /404 @ 1440 — 0 fails (0 style · 0 pixel) / 15 checked / 0 unmeasured · 2 steps
-
-contrast → docs/v7/qa/final/contrast.md (+ .json)  0 failures (0 style · 0 pixel), 0 unmeasured

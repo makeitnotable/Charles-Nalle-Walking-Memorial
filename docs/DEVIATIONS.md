@@ -50,3 +50,13 @@ passes (WebGL, motion-ok, no save-data). Every other route ships zero extra
 bytes; incapable visitors get the 2-D grid and never fetch it. Zero hosting
 cost. Perf exception documented like /map (target ≥80 desktop / ≥70 mobile,
 a11y 100).
+
+
+## v7 · `opentype.js`, `png-to-ico` (devDependencies) and `sharp` at build time
+
+`scripts/build-favicon.mjs` reads Libre Caslon Display's WOFF with
+`opentype.js` and rasters the icon set with `sharp` / `png-to-ico`; the outputs
+are committed under `public/`, so neither runs in CI. `src/pages/paintings.astro`
+reads image dimensions with `sharp` at BUILD time (true painting aspects for
+the museum and the grid) — `sharp` was already a devDependency (`build-media`).
+No runtime cost; the constitution's zero-ongoing-cost requirement is unchanged.
