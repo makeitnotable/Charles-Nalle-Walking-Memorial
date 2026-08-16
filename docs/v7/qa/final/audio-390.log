@@ -1,0 +1,22 @@
+✓ /bakery
+  player 1: plays t=2.4 · highlight 1 · only one playing
+    seek→¶3: t=49.8 active=2 ✓
+    minis at Onward: ["00:50"] (collapsed ✓)
+✓ /commissioners-office
+  player 1: plays t=2.5 · highlight 1 · only one playing
+    seek→¶3: t=47.2 active=2 ✓
+  player 2: plays t=2.5 · highlight 2 · only one playing
+    seek→¶3: t=57.3 active=2 ✓
+    minis at Onward: ["00:57"] (collapsed ✓)
+✓ /mansion
+  player 1: plays t=2.5 · highlight 1 · only one playing
+    seek→¶3: t=56 active=2 ✓
+    minis at Onward: ["00:56"] (collapsed ✓)
+✓ /ferry
+  player 1: plays t=2.5 · highlight 1 · only one playing
+    seek→¶3: t=72.6 active=2 ✓
+    minis at Onward: ["01:13"] (collapsed ✓)
+✓ /barbershop
+  player 1: plays t=2.5 · highlight 1 · only one playing
+    seek→¶3: t=97.2 active=2 ✓
+    minis at Onward: ["01:37"] (collapsed ✓)

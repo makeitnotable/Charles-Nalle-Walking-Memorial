@@ -133,6 +133,10 @@ const MEASURE = () => {
   // clip-path. Returns which axes it clips (overflow-x:clip alone is x-only).
   const clipper = (el) => {
     for (let n = el.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+      /* A map is a VIEWPORT: markers at its edge are geography scrolling out
+         of view, not clipped type (the label-fit camera and the walk-check
+         own where they sit). */
+      if (n.classList.contains("mapboxgl-map")) return null;
       const cs = getComputedStyle(n);
       const ox = /hidden|clip/.test(cs.overflowX), oy = /hidden|clip/.test(cs.overflowY);
       const cp = cs.clipPath && cs.clipPath !== "none";
