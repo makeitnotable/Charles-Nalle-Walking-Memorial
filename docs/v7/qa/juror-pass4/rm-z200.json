@@ -1,0 +1,167 @@
+{
+  "/@p390": {
+    "invisible": [],
+    "log": []
+  },
+  "/ferry@p390": {
+    "invisible": [],
+    "log": []
+  },
+  "/map@p390": {
+    "invisible": [],
+    "log": [],
+    "walkBtns": [
+      "BACK",
+      "STOP THE WALK"
+    ]
+  },
+  "/paintings@p390": {
+    "invisible": [],
+    "log": [],
+    "canvas": false,
+    "slotH": 844,
+    "museumText": "MARK PRIEST · NALLE SERIES",
+    "gridTiles": 10
+  },
+  "/@d1440": {
+    "invisible": [],
+    "log": []
+  },
+  "/ferry@d1440": {
+    "invisible": [],
+    "log": []
+  },
+  "/map@d1440": {
+    "invisible": [],
+    "log": [],
+    "walkBtns": [
+      "BACK TO MAP",
+      "STOP THE WALK"
+    ]
+  },
+  "/paintings@d1440": {
+    "invisible": [],
+    "log": [],
+    "canvas": false,
+    "slotH": 900,
+    "museumText": "MARK PRIEST · NALLE SERIES",
+    "gridTiles": 10
+  },
+  "z200 /": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      }
+    ]
+  },
+  "z200 /bakery": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      },
+      {
+        "tag": "div",
+        "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+        "text": "SPOT 01\n\n00:02 / 01:41",
+        "x": 20,
+        "y": 368,
+        "w": 161,
+        "h": 62
+      }
+    ]
+  },
+  "z200 /map": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      },
+      {
+        "tag": "div",
+        "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+        "text": "",
+        "x": 628,
+        "y": 358,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "tag": "div",
+        "cls": "fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+",
+        "text": "SPOT\n\n1\n\nHoleur’s\nFashionable Bakery\n\nSP",
+        "x": 0,
+        "y": 174,
+        "w": 720,
+        "h": 276
+      }
+    ]
+  },
+  "z200 /paintings": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      }
+    ]
+  },
+  "z200 /people": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      }
+    ]
+  },
+  "z200 /about": {
+    "hs": false,
+    "log": [],
+    "fl": [
+      {
+        "tag": "div",
+        "cls": "curtain-panel",
+        "text": "",
+        "x": 0,
+        "y": 450,
+        "w": 720,
+        "h": 450
+      }
+    ]
+  }
+}

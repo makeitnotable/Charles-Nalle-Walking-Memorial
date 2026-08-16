@@ -1,0 +1,424 @@
+{
+  "route": "/commissioners-office",
+  "vpk": "t1024",
+  "steps": [
+    {
+      "name": "arrival",
+      "burger": {
+        "x": 912,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      },
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 912,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        }
+      ]
+    },
+    {
+      "name": "burger-scroll",
+      "afterDown": {
+        "x": 914,
+        "y": 54,
+        "w": 68,
+        "h": 68,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "none"
+      },
+      "afterUp": {
+        "x": 912,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "players",
+      "nPlays": 2,
+      "labels": [
+        "Play narration: Commissioner’s Office, Pt 1",
+        "Play narration: Commissioner’s Office, Pt 2"
+      ]
+    },
+    {
+      "name": "play",
+      "audioState": [
+        {
+          "src": "ch2-commissioners-office-pt1.mp3",
+          "paused": false,
+          "t": 2.272674,
+          "dur": 80.509375,
+          "ready": 4
+        },
+        {
+          "src": "ch2-commissioners-office-pt2.mp3",
+          "paused": true,
+          "t": 0,
+          "dur": 139.2065,
+          "ready": 4
+        }
+      ],
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Commissioner’s Office, Pt 1",
+          "x": 40,
+          "y": 628,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "label": "Pause narration: Commissioner’s Office, Pt 1",
+          "x": 49,
+          "y": 675,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "name": "tap-paragraph",
+      "before": 2.318676,
+      "after": {
+        "t": 47.171919,
+        "paused": false,
+        "active": 7
+      },
+      "nP": 4
+    },
+    {
+      "name": "pause-visible-sweep",
+      "docH": 11943,
+      "misses": [],
+      "playing": true
+    },
+    {
+      "name": "history-floating",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 912,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:05",
+          "x": 40,
+          "y": 666,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "moral-colors",
+      "morals": [
+        {
+          "id": "moral-0",
+          "heading": "WHEN NOT CHALLENGED INJUSTICE THRIVES",
+          "hColor": "rgb(246, 243, 238)",
+          "body": [
+            {
+              "t": "(03)",
+              "color": "rgb(255, 151, 112)",
+              "fs": "28px"
+            },
+            {
+              "t": "The moral · Pt 1",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "In 1860, the bells of Second Street Pres",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "THE ARTIST'S STUDY",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "Everything in the study runs on one diag",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "Mark Priest · Nalle Series",
+              "color": "rgb(246, 243, 238)",
+              "fs": "14px"
+            },
+            {
+              "t": "SAY SOMETHING FIRST",
+              "color": "rgb(246, 243, 238)",
+              "fs": "28px"
+            },
+            {
+              "t": "Challenge injustice by supporting grassr",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            }
+          ],
+          "cap": {
+            "t": "THE ARTIST'S STUDY\n\nEverything in the study runs on one diag",
+            "color": "rgb(254, 217, 204)"
+          }
+        },
+        {
+          "id": "moral-1",
+          "heading": "FREEDOM ISN’T FREE",
+          "hColor": "rgb(246, 243, 238)",
+          "body": [
+            {
+              "t": "(05)",
+              "color": "rgb(255, 151, 112)",
+              "fs": "28px"
+            },
+            {
+              "t": "The moral · Pt 2",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "Charles Nalle’s freedom was protected by",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "THE ARTIST'S STUDY",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "The brawl is worked nearly black at the ",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "Mark Priest · Nalle Series",
+              "color": "rgb(246, 243, 238)",
+              "fs": "14px"
+            },
+            {
+              "t": "WHAT FREEDOM COSTS TO KEEP",
+              "color": "rgb(246, 243, 238)",
+              "fs": "28px"
+            },
+            {
+              "t": "Stand up for your freedom and others by ",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            }
+          ],
+          "cap": {
+            "t": "THE ARTIST'S STUDY\n\nThe brawl is worked nearly black at the ",
+            "color": "rgb(254, 217, 204)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "moral-floating",
+      "id": "moral-0",
+      "fl": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:07",
+          "x": 40,
+          "y": 666,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "moral-floating",
+      "id": "moral-1",
+      "fl": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:08",
+          "x": 40,
+          "y": 666,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "onward",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 912,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:12",
+          "x": 40,
+          "y": 666,
+          "w": 114,
+          "h": 62
+        }
+      ],
+      "contRect": {
+        "x": 430.125,
+        "y": 519.765625,
+        "width": 186.84375,
+        "height": 48
+      }
+    },
+    {
+      "name": "footer",
+      "nFixed": 3,
+      "hits": [],
+      "footerText": "Charles Nalle Walking Memorial Made by Notable THE PEOPLE OF THIS DAY THE PAINTINGS ABOUT THE MEMORIAL MAP SHARE Walking routes and directions are suggestions only. Explore at your own pace, discretion, and risk."
+    },
+    {
+      "name": "burger-before-menu",
+      "rect": {
+        "x": 912,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "menu-open",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 768,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 768
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 614,
+          "y": 40,
+          "w": 370,
+          "h": 662
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:14",
+          "x": 40,
+          "y": 666,
+          "w": 114,
+          "h": 62
+        }
+      ],
+      "expanded": "true"
+    },
+    {
+      "name": "menu-closed",
+      "expanded": "false",
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Commissioner’s Office, Pt 1",
+          "x": 49,
+          "y": 675,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    }
+  ],
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+  ]
+}

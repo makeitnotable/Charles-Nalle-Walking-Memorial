@@ -276,6 +276,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   useEffect(() => {
     if (lensSeen) requestAnimationFrame(() => lensReset());
   }, [lensSeen, lensReset]);
+  // Opening the lens hands keyboard focus to the viewer (arrows/+/−/0 work at
+  // once); closing it returns focus to the door that opened it.
+  useEffect(() => {
+    if (lens) requestAnimationFrame(() => lensBoxRef.current?.focus({ preventScroll: true }));
+    else document.querySelector<HTMLButtonElement>("button.link-meta")?.blur();
+  }, [lens]);
 
   const lensCenterOffset = (e: { clientX: number; clientY: number }) => {
     const r = lensBoxRef.current?.getBoundingClientRect();
@@ -621,6 +627,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const focusStop = useCallback(
     (idx: number) => {
       pauseWalk();
+      if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
       setFocused(true);
       setActiveIdx(idx);
       setHintOpen(false);
@@ -1053,9 +1060,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }, [activeIdx, focused, sliderInstance]);
 
   // ——— The walk (v7 M4) — an abortable loop keyed on tourRun ———
+  /** The map shell is 100dvh at the top of the page; entering the walk or a
+   *  stop from a scrolled page would leave the fixed controls off-screen. */
+  const bringShellIntoView = () => {
+    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
+  };
   const runTour = async (from: number) => {
     const map = mapRef.current;
     if (!map) return;
+    bringShellIntoView();
     const run = ++tourRun.current;
     setWalk("walking");
     setFocused(true);

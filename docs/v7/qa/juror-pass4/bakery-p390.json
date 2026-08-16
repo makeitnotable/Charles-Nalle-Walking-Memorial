@@ -1,0 +1,489 @@
+{
+  "route": "/bakery",
+  "vpk": "p390",
+  "steps": [
+    {
+      "name": "arrival",
+      "burger": {
+        "x": 298,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      },
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 844,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 298,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        }
+      ]
+    },
+    {
+      "name": "burger-scroll",
+      "afterDown": {
+        "x": 300,
+        "y": 34,
+        "w": 68,
+        "h": 68,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "none"
+      },
+      "afterUp": {
+        "x": 298,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "players",
+      "nPlays": 1,
+      "labels": [
+        "Play narration: Holeur’s Fashionable Bakery"
+      ]
+    },
+    {
+      "name": "play",
+      "audioState": [
+        {
+          "src": "ch1-bakery.mp3",
+          "paused": false,
+          "t": 2.282751,
+          "dur": 100.728125,
+          "ready": 4
+        }
+      ],
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 20,
+          "y": 737,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "name": "tap-paragraph",
+      "before": 2.353801,
+      "after": {
+        "t": 49.769147,
+        "paused": false,
+        "active": 7
+      },
+      "nP": 3
+    },
+    {
+      "name": "pause-visible-sweep",
+      "docH": 8661,
+      "misses": [],
+      "playing": true
+    },
+    {
+      "name": "history-floating",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 844,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 298,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:02",
+          "x": 20,
+          "y": 762,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "moral-colors",
+      "morals": [
+        {
+          "id": "moral",
+          "heading": "NOT ALL LAWS ARE MORAL",
+          "hColor": "rgb(246, 243, 238)",
+          "body": [
+            {
+              "t": "(03)",
+              "color": "rgb(255, 151, 112)",
+              "fs": "26px"
+            },
+            {
+              "t": "THE MORAL",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "Laws like the Fugitive Slave Act demonst",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            },
+            {
+              "t": "THE ARTIST'S STUDY",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "The study is almost solid ink. Priest wo",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            },
+            {
+              "t": "Mark Priest · Nalle Series",
+              "color": "rgb(246, 243, 238)",
+              "fs": "14px"
+            },
+            {
+              "t": "KNOW THE LAW YOU ARE UNDER",
+              "color": "rgb(246, 243, 238)",
+              "fs": "26px"
+            },
+            {
+              "t": "Educate yourself on unjust laws, vote ag",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            }
+          ],
+          "cap": {
+            "t": "THE ARTIST'S STUDY\n\nThe study is almost solid ink. Priest wo",
+            "color": "rgb(254, 217, 204)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "moral-floating",
+      "id": "moral",
+      "fl": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 844,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:04",
+          "x": 20,
+          "y": 762,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "onward",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 844,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 298,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "",
+          "x": 20,
+          "y": 770,
+          "w": 54,
+          "h": 54
+        }
+      ],
+      "contRect": {
+        "x": 101.578125,
+        "y": 950.203125,
+        "width": 186.84375,
+        "height": 48
+      }
+    },
+    {
+      "name": "footer",
+      "nFixed": 3,
+      "hits": [],
+      "footerText": "Charles Nalle Walking Memorial Made by Notable THE PEOPLE OF THIS DAY THE PAINTINGS ABOUT THE MEMORIAL MAP SHARE Walking routes and directions are suggestions only. Explore at your own pace, discretion, and risk."
+    },
+    {
+      "name": "burger-before-menu",
+      "rect": {
+        "x": 298,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "menu-open",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 844,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 48,
+          "y": 20,
+          "w": 322,
+          "h": 648
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "",
+          "x": 20,
+          "y": 770,
+          "w": 54,
+          "h": 54
+        }
+      ],
+      "expanded": "true"
+    },
+    {
+      "name": "menu-closed",
+      "expanded": "false",
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 25,
+          "y": 775,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "name": "continue-curtain",
+      "frames": [
+        {
+          "t": 153,
+          "url": "bakery",
+          "cover": {
+            "top": 805,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0"
+          }
+        },
+        {
+          "t": 278,
+          "url": "bakery",
+          "cover": {
+            "top": 669,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0"
+          }
+        },
+        {
+          "t": 402,
+          "url": "bakery",
+          "cover": {
+            "top": 143,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0.5781"
+          }
+        },
+        {
+          "t": 526,
+          "url": "bakery",
+          "cover": {
+            "top": 28,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0.9546"
+          }
+        },
+        {
+          "t": 649,
+          "url": "bakery",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 773,
+          "url": "bakery",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 900,
+          "url": "bakery",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 1044,
+          "url": "commissioners-office",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 1167,
+          "url": "commissioners-office",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 1290,
+          "url": "commissioners-office",
+          "cover": {
+            "top": 0,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "1"
+          }
+        },
+        {
+          "t": 1415,
+          "url": "commissioners-office",
+          "cover": {
+            "top": -327,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0.8962"
+          }
+        },
+        {
+          "t": 1538,
+          "url": "commissioners-office",
+          "cover": {
+            "top": -593,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0"
+          }
+        },
+        {
+          "t": 1661,
+          "url": "commissioners-office",
+          "cover": {
+            "top": -728,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0"
+          }
+        },
+        {
+          "t": 1786,
+          "url": "commissioners-office",
+          "cover": {
+            "top": -802,
+            "h": 844,
+            "txt": "APRIL 27, 1860 COMMISSIONER’S OFFICE",
+            "op": "0"
+          }
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office"
+    }
+  ],
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24149.vector.pbf?sku=101BmsKKCMDeX&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+  ]
+}

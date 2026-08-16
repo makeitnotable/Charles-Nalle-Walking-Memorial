@@ -1,0 +1,225 @@
+{
+  "vpk": "t768",
+  "pages": {
+    "/people": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/people",
+        "title": "The People · Charles Nalle Walking Memorial",
+        "h1": "ONE / DAY. / A / WHOLE / CITY’S / CAST.",
+        "hScroll": false,
+        "docH": 5463,
+        "headings": [
+          "H1 ONE DAY. A WHOLE CITY’S CAST.",
+          "H1 ONE DAY. A WHOLECITY’S CAST.",
+          "H2 THE RESCUERS",
+          "H3 CHARLES NALLE",
+          "H3 HARRIET TUBMAN",
+          "H3 PETER BALTIMORE",
+          "H3 MARTIN I. TOWNSEND",
+          "H3 URI GILBERT",
+          "H3 WILLIAM HENRY",
+          "H3 CAPTAIN HAWK",
+          "H3 BILLY LOREMAN",
+          "H3 GEORGE HOLEUR",
+          "H2 THE HUNTERS",
+          "H3 BLUCHER HANSBROUGH",
+          "H3 HORATIO F. AVERILL",
+          "H3 HENRY “JACK” WALE",
+          "H3 DEPUTY U.S. MARSHAL HOLMES",
+          "H3 THOMAS PARR",
+          "H2 STAND WHERE THEY STOOD"
+        ],
+        "ctas": [
+          "WALK THE STORY"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": [],
+      "menuFloat": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 358,
+          "y": 40,
+          "w": 370,
+          "h": 662
+        }
+      ]
+    },
+    "/about": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/about",
+        "title": "About · Charles Nalle Walking Memorial",
+        "h1": "ABOUT / THE / PROJECT",
+        "hScroll": false,
+        "docH": 7781,
+        "headings": [
+          "H1 ABOUT THE PROJECT",
+          "H2 HOW THE TOUR WORKS",
+          "H2 CHARLES NALLE",
+          "H2 MARK PRIEST",
+          "H2 SCOTT CHRISTIANSON",
+          "H2 TWO AND A HALF MILES. ONE DAY IN 1860."
+        ],
+        "ctas": [
+          "WALK THE STORY"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": [],
+      "menuFloat": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 358,
+          "y": 40,
+          "w": 370,
+          "h": 662
+        }
+      ]
+    },
+    "/404": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/404",
+        "title": "Page not found · Charles Nalle Walking Memorial",
+        "h1": "THIS / PAGE / ISN’T / PART / OF / THE / MEMORIAL",
+        "hScroll": false,
+        "docH": 1299,
+        "headings": [
+          "H1 THIS PAGE ISN’T PART OF THE MEMORIAL"
+        ],
+        "ctas": [
+          "START AT THE BEGINNING",
+          "OPEN THE MAP"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": []
+    },
+    "/bakery/": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/bakery",
+        "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+        "h1": "HOLEUR’S / FASHIONABLE / BAKERY",
+        "hScroll": false,
+        "docH": 7956,
+        "headings": [
+          "H1 HOLEUR’S FASHIONABLE BAKERY",
+          "H2 CAPTURED WITH BREAD IN HAND",
+          "H2 HISTORICAL CONTEXT",
+          "H2 NOT ALL LAWS ARE MORAL",
+          "H2 WHERE TO NEXT"
+        ],
+        "ctas": [
+          "CONTINUE",
+          "GET DIRECTIONS"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": [
+        "[http 404] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery/",
+        "[error] Failed to load resource: the server responded with a status of 404 ()",
+        "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+      ],
+      "after": {
+        "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery",
+        "h1": "HOLEUR’S FASHIONABLE BAKERY"
+      }
+    },
+    "/mansion": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/mansion",
+        "title": "Uri Gilbert Home · Charles Nalle Walking Memorial",
+        "h1": "URI / GILBERT / HOME",
+        "hScroll": false,
+        "docH": 8578,
+        "headings": [
+          "H1 URI GILBERT HOME",
+          "H2 HOW IT BEGAN",
+          "H2 HISTORICAL CONTEXT",
+          "H2 THE INVISIBLE MATTER AS MUCH AS THE VISIBLE",
+          "H2 WHERE TO NEXT"
+        ],
+        "ctas": [
+          "CONTINUE",
+          "GET DIRECTIONS"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": [
+        "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch3-mansion.mp3 net::ERR_ABORTED",
+        "[warning] WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost"
+      ]
+    },
+    "/ferry": {
+      "info": {
+        "url": "/Charles-Nalle-Walking-Memorial/ferry",
+        "title": "Washington Street Ferry Landing · Charles Nalle Walking Memorial",
+        "h1": "WASHINGTON / STREET / FERRY / LANDING",
+        "hScroll": false,
+        "docH": 9661,
+        "headings": [
+          "H1 WASHINGTON STREET FERRY LANDING",
+          "H2 RIVER ESCAPE",
+          "H2 HISTORICAL CONTEXT",
+          "H2 AUTHORITARIANISM IS PERSISTENT",
+          "H2 WHERE TO NEXT"
+        ],
+        "ctas": [
+          "CONTINUE",
+          "GET DIRECTIONS"
+        ],
+        "emdash": 0,
+        "spotLinks": 0
+      },
+      "log": [
+        "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch4-ferry.mp3 net::ERR_ABORTED",
+        "[error] Error: Failed to initialize WebGL\n    at Map._setupPainter (https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/mapbox-gl.DcAbW0Ja.js:3291:232734)\n    at new Map (https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/mapbox-gl.DcAbW0Ja.js:3291:207879)\n    at https:/",
+        "[pageerror] Error: Failed to initialize WebGL."
+      ]
+    }
+  }
+}

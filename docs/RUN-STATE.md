@@ -19,7 +19,19 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 3 = FAIL on Sheet B only** (`docs/v7/juror-pass3.md`; Sheet A
+**Juror pass 4 = FAIL** (`docs/v7/juror-pass4.md`; Sheet A phone 9/8/9/9,
+tablet 7/8/9/9, desktop 9/9/9/9; one P1 = the museum rail chip under the
+`Skip the hall` pill at 640–830 px (my tablet copy tier was too wide) → the
+chip now lives in the free lane right of the pill below lg with the short
+copy; measured clear at 390/640/720/768/830/1024. P2s fixed: entering the
+walk/focus from a scrolled page scrolls the shell into view; the sheet layout
+reserves the dot rail so the tall portrait clears it at 768; chapter footer
+lane 8rem so the pill never touches the disclaimer at 1440; lens takes
+keyboard focus on open. Next: push → verify live → **juror pass 5** (fresh) →
+if PASS → **juror pass 6** (fresh, identical build) → REVIEW-GUIDE §3 →
+memory → push.
+
+(Earlier) **Juror pass 3 = FAIL on Sheet B only** (`docs/v7/juror-pass3.md`; Sheet A
 9/8/10/9 phone, 9/9/10/9 tablet, 9/9/10/9 desktop; ZERO P0/P1; all
 instrument bars met; retell = the Museum on a phone). Two P2s, fixed:
 C2 body colour (the unlayered `.t-prose` role beat the `text-neutral-12`

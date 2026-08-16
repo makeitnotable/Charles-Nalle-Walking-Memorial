@@ -563,8 +563,9 @@ export default function Museum({ works, slotId }: Props) {
         const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
         if (isPortraitUI) {
           const sheetH = sheetRef.current?.getBoundingClientRect().height ?? 110;
-          const top = inset + 56; // chip row + Back
-          return { F: 0.86, V: Math.max(0.3, 1 - (sheetH + 16) / H - top / H), cx: 0.5, cy: 0.5 - (sheetH / H) / 2 + top / H / 2 };
+          const top = inset + 56; // Back row
+          const bottom = sheetH + 12 + 36 + 12; // sheet + the dot rail riding above it
+          return { F: 0.86, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
         }
         // desktop / landscape: card left ~30%, painting centred, sketch right
         const cardFrac = Math.min(0.34, (Math.min(0.3 * W, 22 * 16) + inset + 24) / W);
@@ -1121,7 +1122,10 @@ export default function Museum({ works, slotId }: Props) {
         {/* Wayfinding chip (rail) → Face forward (looked away). Top-centre; the
             top-right lane belongs to the corner menu on this page. */}
         {ready && !inApproach && (
-          <div className="pointer-events-none absolute inset-x-0 z-10 flex justify-center" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))" }}>
+          <div
+            className="pointer-events-none absolute z-10 flex justify-center max-lg:left-[calc(var(--ui-inset)+196px)] max-lg:right-[calc(var(--ui-inset)+88px)] lg:inset-x-0"
+            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))" }}
+          >
             {lookedAway ? (
               <button
                 type="button"
@@ -1134,7 +1138,7 @@ export default function Museum({ works, slotId }: Props) {
             ) : (
               <p className="t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
                 <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
-                <span className="hidden sm:inline lg:hidden">Scroll to walk · drag to look · tap a painting</span>
+                <span className="hidden sm:inline lg:hidden">Scroll to walk · tap a painting</span>
                 <span className="sm:hidden">Scroll to walk</span>
               </p>
             )}
