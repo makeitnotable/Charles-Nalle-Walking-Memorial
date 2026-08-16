@@ -214,9 +214,10 @@
   --dur-slow: 1600ms; /* reveals, wipes, quote settle — the cinematic tier */
 
   /* Documented exceptions (named so greps find them) */
-  --ease-pop: cubic-bezier(0.34, 1, 0.36, 1.06); /* corner-menu bloom only */
-  --ease-circ-in-out: cubic-bezier(0.85, 0, 0.15, 1); /* curtain set-piece only */
-  --dur-curtain: 600ms; /* curtain set-piece only */
+  /* The curtain set-piece: gsap "circ.inOut"/"circ.out" at --dur-curtain
+     (curtain.ts reads the token). The CSS mirror of that ease and the old
+     `--ease-pop` were never consumed and are gone (v7 G7). */
+  --dur-curtain: 600ms;
 }
 
 /* Both desktop steps are gated on HEIGHT as well as width. A phone held
@@ -1186,6 +1187,16 @@ a.walk-seg:hover {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
+}
+/* v7 X1 — page B arrives covered (set by the inline head script before first
+   paint); the module's exit half takes over from this exact state. */
+.curtain-covered .curtain-panel {
+  transform: none;
+  pointer-events: auto;
+  will-change: transform;
+}
+.curtain-covered .curtain-text {
+  opacity: 1;
 }
 
 /* Narration sync highlight — a wash, not a block. `box-decoration-break: clone`

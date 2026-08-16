@@ -2,6 +2,10 @@
 import "../styles/global.css";
 import { withBase } from "../lib/url";
 import Menu from "../components/Menu.astro";
+// v7 X1: the two curtain faces are preloaded so the wordmark/date lockup
+// never reflows under the cover (Vite hashes the URLs — import them).
+import caslonDisplayWoff2 from "@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2?url";
+import caslonTextWoff2 from "@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -53,6 +57,29 @@ const canonical = new URL(
     <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
     <meta name="theme-color" content="#1d1411" />
     <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={caslonDisplayWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={caslonTextWoff2} crossorigin />
+    <script is:inline>
+      /* v7 X1 — the Crossing's second half must be on screen BEFORE first
+         paint. Page A sets `cnwm-curtain` in sessionStorage as it covers; this
+         parser-blocking script reads it and paints the panel covered (CSS
+         `.curtain-covered`) so page B never shows an uncovered frame before
+         the deferred module runs the hold + reveal. Reduced motion never
+         covers. Fail-open: if the module never runs, uncover at 3 s. */
+      (function () {
+        try {
+          if (
+            sessionStorage.getItem("cnwm-curtain") &&
+            !matchMedia("(prefers-reduced-motion: reduce)").matches
+          ) {
+            document.documentElement.classList.add("curtain-covered");
+            setTimeout(function () {
+              document.documentElement.classList.remove("curtain-covered");
+            }, 3000);
+          }
+        } catch (e) {}
+      })();
+    </script>
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     {
       preloadImages.map((p) => (
@@ -75,13 +102,11 @@ const canonical = new URL(
     </script>
     <a href="#main" class="skip-link" data-no-curtain>Skip to content</a>
 
-    <main id="main">
-      <slot />
-    </main>
-
-    {!noMenu && <Menu position={menuPosition} />}
-
-    <!-- Curtain transition (signature #1) -->
+    <!-- Curtain transition (signature #1). v7 X1: FIRST in <body> — position:
+         fixed cares nothing for order, but the parser paints <main> before it
+         reaches the end of the document, so a panel declared last let page B's
+         hero flash for a frame or two under 4× CPU. Here it exists before any
+         content paints; the head script has already set `.curtain-covered`. -->
     <div id="curtain-panel" class="curtain-panel" aria-hidden="true"></div>
     <div id="curtain-text" class="curtain-text" aria-hidden="true">
       <div id="curtain-text-content" class="flex flex-col">
@@ -89,6 +114,35 @@ const canonical = new URL(
         <p class="t-wordmark self-end" style="margin-top:-0.06em">Nalle</p>
       </div>
     </div>
+    <script is:inline>
+      /* v7 X1 — write the covered label synchronously, right after its
+         element exists, so the first painted frame already carries the
+         destination (same markup as curtain.ts setLabel). */
+      (function () {
+        try {
+          if (!document.documentElement.classList.contains("curtain-covered")) return;
+          var c = document.getElementById("curtain-text-content");
+          var label = sessionStorage.getItem("cnwm-curtain-label") || "";
+          var withDate = !!sessionStorage.getItem("cnwm-curtain-date");
+          if (!c || !label) return;
+          var esc = function (t) {
+            return t.replace(/[&<>"]/g, function (ch) {
+              return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch];
+            });
+          };
+          c.innerHTML = withDate
+            ? '<p class="t-crossing text-center">April 27, 1860</p><p class="t-meta text-center" style="margin-top:1.25rem">' + esc(label) + "</p>"
+            : '<p class="t-wordmark text-center">' + esc(label) + "</p>";
+        } catch (e) {}
+      })();
+    </script>
+
+
+    <main id="main">
+      <slot />
+    </main>
+
+    {!noMenu && <Menu position={menuPosition} />}
 
     <script>
       import { initCurtain } from "../lib/curtain";

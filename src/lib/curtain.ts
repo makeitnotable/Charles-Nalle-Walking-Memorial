@@ -23,6 +23,17 @@ function reducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+/** The set-piece duration lives in CSS (`--dur-curtain`, v7 G7). */
+function curtainDur(): number {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--dur-curtain").trim();
+  const ms = raw.endsWith("ms") ? parseFloat(raw) : raw.endsWith("s") ? parseFloat(raw) * 1000 : NaN;
+  return Number.isFinite(ms) && ms > 0 ? ms / 1000 : 0.6;
+}
+
+/** v7 X1: the curtain announces itself so live islands (the map's camera and
+ *  route-draw, the museum's render loop and video) go quiet under the cover. */
+export const CURTAIN_COVER_EVENT = "cnwm:curtain-cover";
+
 function els() {
   const panel = document.getElementById("curtain-panel");
   const text = document.getElementById("curtain-text");
@@ -58,17 +69,20 @@ export function playCover(
     return;
   }
   const { panel, text, content } = e;
+  document.dispatchEvent(new CustomEvent(CURTAIN_COVER_EVENT));
   setLabel(content, label, withDate);
   panel.style.pointerEvents = "auto";
+  panel.style.willChange = "transform";
   sessionStorage.setItem(FLAG, "1");
   sessionStorage.setItem(LABEL, label ?? "");
   sessionStorage.setItem(DATE, withDate ? "1" : "");
 
+  const dur = curtainDur();
   gsap.set(panel, { y: "100%" });
   gsap.set(text, { opacity: 0 });
   gsap
     .timeline()
-    .to(panel, { y: "0%", duration: 0.6, ease: "circ.inOut" })
+    .to(panel, { y: "0%", duration: dur, ease: "circ.inOut" })
     .to(text, { opacity: 1, duration: 0.3, ease: "power2.out" }, "-=0.3")
     // brief settle so the wordmark reads before the load begins
     .to({}, { duration: 0.15, onComplete: go });
@@ -88,6 +102,7 @@ export function playCover(
         onComplete: () => {
           panel.style.pointerEvents = "none";
           gsap.set(panel, { y: "100%" });
+          requestAnimationFrame(() => (panel.style.willChange = ""));
         },
       });
     }
@@ -105,12 +120,21 @@ function playExit() {
   sessionStorage.removeItem(LABEL);
   sessionStorage.removeItem(DATE);
 
-  if (reducedMotion()) return;
+  if (reducedMotion()) {
+    document.documentElement.classList.remove("curtain-covered");
+    return;
+  }
 
+  /* v7 X1: the inline head script already painted the panel covered and the
+     label written (`.curtain-covered`); take the same state over as inline
+     styles, then release the class so nothing fights the tween. */
   setLabel(content, label, withDate);
   panel.style.pointerEvents = "auto";
+  panel.style.willChange = "transform";
   gsap.set(panel, { y: "0%" });
   gsap.set(text, { opacity: 1 });
+  document.documentElement.classList.remove("curtain-covered");
+  const dur = curtainDur();
   gsap
     .timeline()
     // hold: the second half of legacy's 1.0s pause (first half absorbed by the load)
@@ -120,11 +144,12 @@ function playExit() {
       panel,
       {
         y: "-100%",
-        duration: 0.6,
+        duration: dur,
         ease: "circ.out",
         onComplete: () => {
           panel.style.pointerEvents = "none";
           gsap.set(panel, { y: "100%" });
+          requestAnimationFrame(() => (panel.style.willChange = ""));
         },
       },
       "<",
@@ -134,6 +159,8 @@ function playExit() {
   window.setTimeout(() => {
     if (panel.style.pointerEvents === "auto") {
       panel.style.pointerEvents = "none";
+      panel.style.willChange = "";
+      document.documentElement.classList.remove("curtain-covered");
       gsap.set(panel, { y: "100%" });
       gsap.set(text, { opacity: 0 });
     }
@@ -156,16 +183,21 @@ export function initCurtain() {
   // Exit half (page B)
   if (sessionStorage.getItem(FLAG)) {
     playExit();
+  } else {
+    // A stale `.curtain-covered` (flag consumed elsewhere) must never linger.
+    document.documentElement.classList.remove("curtain-covered");
   }
 
   // bfcache restore: make sure the panel is parked
   window.addEventListener("pageshow", (ev) => {
     if ((ev as PageTransitionEvent).persisted) {
       const e = els();
+      document.documentElement.classList.remove("curtain-covered");
       if (e) {
         gsap.set(e.panel, { y: "100%" });
         gsap.set(e.text, { opacity: 0 });
         e.panel.style.pointerEvents = "none";
+        e.panel.style.willChange = "";
       }
     }
   });

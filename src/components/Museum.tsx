@@ -656,6 +656,14 @@ export default function Museum({ works, slotId }: Props) {
         if (!document.hidden) running = true;
       };
       document.addEventListener("visibilitychange", onVis);
+      /* v7 X1: under the curtain (and on pagehide) the hall stands still —
+         no render loop, no video decode — so page A stays quiet until it goes. */
+      const onCover = () => {
+        running = false;
+        videoEls.forEach((v) => v && v.pause());
+      };
+      document.addEventListener("cnwm:curtain-cover", onCover);
+      window.addEventListener("pagehide", onCover);
 
       const onResize = () => {
         renderer.setSize(stage.clientWidth, stage.clientHeight);
@@ -746,6 +754,8 @@ export default function Museum({ works, slotId }: Props) {
           window.removeEventListener("pointerup", up);
           window.removeEventListener("resize", onResize);
           document.removeEventListener("visibilitychange", onVis);
+          document.removeEventListener("cnwm:curtain-cover", onCover);
+          window.removeEventListener("pagehide", onCover);
           io.disconnect();
           turnOff();
           renderer.dispose();

@@ -338,6 +338,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const [arrivalStop, setArrivalStop] = useState<Stop | null>(null);
   const tourAbort = useRef(false);
   const flyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** v7 X1: set once the curtain starts covering — every camera/route
+   *  animation checks it and stands down so page A is still under the cover. */
+  const leavingRef = useRef(false);
   const focusedRef = useRef(false);
   focusedRef.current = focused;
   const touringRef = useRef(false);
@@ -636,6 +639,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       if (!reduced) {
         let i = 1;
         const draw = () => {
+          if (leavingRef.current) return;
           i += 5;
           (map.getSource("route") as MapboxGL.GeoJSONSource).setData({
             type: "Feature",
@@ -845,6 +849,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       true,
     );
   };
+
+  /* ——— v7 X1: go quiet under the curtain ——— */
+  useEffect(() => {
+    const onCover = () => {
+      leavingRef.current = true;
+      tourAbort.current = true;
+      if (flyTimeout.current) clearTimeout(flyTimeout.current);
+      mapRef.current?.stop();
+    };
+    document.addEventListener("cnwm:curtain-cover", onCover);
+    return () => document.removeEventListener("cnwm:curtain-cover", onCover);
+  }, []);
 
   /* ——— v7 debug hook (`scripts/walk-check.mjs`) ———
    * A static site: exposing the map instance and a state snapshot on `window`

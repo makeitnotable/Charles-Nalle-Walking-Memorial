@@ -19,13 +19,10 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-X1 curtain (inline head script + `.curtain-covered` CSS, font preloads,
-will-change, page-B text tween, `cnwm:curtain-cover` event + map/museum
-listeners, wire `--ease-circ-in-out`/`--dur-curtain` G7) → `frames.mjs` clean
-at 390/1440 → commit. Then G3 spine labels (V7-004) + G6 mini-player inset +
-N1 X-spin + N2 scroll-hide (V7-048) + Menu before main (V7-081) +
-aria-current (V7-089) + G-L3 trailing slash → commit. Then I1–I4 favicon →
-commit. Push. Remaining rag runts (13) are page-owned: map index/pill P5,
+G3 spine labels (V7-004) + G6 mini-player inset + N1 X-spin + N2 scroll-hide
+(V7-048) + Menu before main (V7-081) + aria-current (V7-089) + G-L3 trailing
+slash → re-run contrast (chapters @1440) + a11y (/mansion) + shots → commit.
+Then I1–I4 favicon → commit. Push. Remaining rag runts (13) are page-owned: map index/pill P5,
 People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 
 ## DONE (item → commit → evidence)
@@ -35,7 +32,8 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 | P0 instruments wired: `rag/a11y/frames/walk-check/museum-check.mjs`, `__troyMap` + `__museum` hooks, shots 9 vps, perf all routes, npm scripts, gitignore | cb64ecc | smoke runs in scratchpad; hooks verified live |
 | P0 `contrast.mjs` pixel mode + 768 + JSON | 7b7a986 | `docs/v7/qa/baseline-contrast.md` |
 | P0 baseline (all instruments) + P1 AUDIT (98 findings, hand UX walks phone/desk, footer references) | 432fc82 | `docs/v7/AUDIT.md`, `docs/v7/qa/baseline-*`, `docs/v7/uxwalk-*.md`, `docs/v7/footer-references.md` |
-| P2 G2 `.line-box` ink room (V7-001: 212 clips → 0) + G1 text-wrap roles / word-spacing / `hyphens: manual` / `nbsp()` helper (V7-002: 549 runt rows → 13 page-owned) + `rag.mjs` ink probe + authored split + short-line rule | (this commit) | `docs/v7/qa/p2/rag-after-g1g2.md` |
+| P2 G2 `.line-box` ink room (V7-001: 212 clips → 0) + G1 text-wrap roles / word-spacing / `hyphens: manual` / `nbsp()` helper (V7-002: 549 runt rows → 13 page-owned) + `rag.mjs` ink probe + authored split + short-line rule | 211e458 | `docs/v7/qa/p2/rag-after-g1g2.md` |
+| P2 X1 curtain: head `is:inline` sets `.curtain-covered` before first paint, curtain markup FIRST in `<body>` (the real root cause — `<main>` painted before the end-of-body panel was parsed), label written inline, Caslon Display/Text 400 preloads, `will-change`, `--dur-curtain` read by curtain.ts (G7; dead `--ease-pop`/`--ease-circ-in-out` removed), `cnwm:curtain-cover` event + TroyMap/Museum listeners (M12) | (this commit) | `docs/v7/qa/p2/frames-x1/frames.md` — 6/6 CLEAN at 4× CPU (was 6/6 DEFECT) |
 
 ## DECISIONS (run-time, logged here; plan edits only for Wil decisions)
 - Baseline evidence lives in `docs/v7/qa/`; PNGs are gitignored (same rule as
