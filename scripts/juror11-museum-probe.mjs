@@ -1,0 +1,21 @@
+import { launch, ctx, VPS, shot, goto, watchConsole, log, sleep } from "./juror11-lib.mjs";
+const vpKey = process.argv[2] || "d1440";
+const vp = VPS[vpKey];
+const browser = await launch();
+const c = await ctx(browser, vp);
+const page = await c.newPage();
+const errs = watchConsole(page, `museum-${vpKey}`);
+await goto(page, "/paintings", 5000);
+const info = await page.evaluate(() => {
+  const m = window.__museum;
+  const keys = m ? Object.keys(m) : null;
+  const st = m?.state ? (typeof m.state === "function" ? m.state() : m.state) : null;
+  const vis = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return r.width > 0 && cs.visibility !== "hidden" && parseFloat(cs.opacity) > 0.05 && r.bottom > 0 && r.top < innerHeight; };
+  const floating = [...document.querySelectorAll("button, a, [role=status], .chip, [class*=chip], [class*=pill]")].filter(vis).map((e) => { const r = e.getBoundingClientRect(); return { t: (e.getAttribute("aria-label") || e.textContent || "").trim().replace(/\s+/g, " ").slice(0, 50), r: [Math.round(r.x), Math.round(r.y), Math.round(r.width), Math.round(r.height)], lines: Math.round(r.height / (parseFloat(getComputedStyle(e).lineHeight) || 16)) }; });
+  const canvas = document.querySelector("canvas")?.getBoundingClientRect().toJSON();
+  return { keys, st: st && JSON.stringify(st).slice(0, 400), floating, canvas, sh: document.documentElement.scrollHeight, h1: document.querySelector("h1")?.textContent.trim() };
+});
+log(JSON.stringify(info, null, 1));
+await shot(page, `museum-${vpKey}-00-top`);
+log("errs:", errs);
+await browser.close();

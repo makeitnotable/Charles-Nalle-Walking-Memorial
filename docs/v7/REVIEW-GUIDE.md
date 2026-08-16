@@ -56,7 +56,7 @@ gitignored; the `.md/.json` findings are committed.
 ## 2 · Instrument bars on the final build
 
 See `docs/v7/qa/final/` and the DONE table in `docs/RUN-STATE.md`
-(a11y 0/0/0 across 51 runs · states 0/132 · census one ladder ×5 · perf on the
+(a11y 0/0/0 across 51 runs · states 0/135 · walk 8/8 · museum 5/5 · rag 0/0/0 · census one ladder ×5 · perf on the
 production build: home 97 · chapters 98–99 · map 64 · paintings 89–90 ·
 people/about 99).
 
@@ -81,13 +81,21 @@ identical build end the run; only P2/P3 fixes may land between them. Reports:
 | 8 | 29e69f4 | 9·9·9·9 / 8·9·9·9 / 9·9·9·9 | 0 | FAIL on Sheet B only — the plaque title runted `· NARRATIVE / II` in the 13rem card at 1024×768 (now an authored two-line lockup: name, then variant) and a walk-state race (`Back` ~3.5 s after `Continue` left the stop lit; the strip's settle now no-ops when unfocused). P3s: scripted focus only after keyboard input, lens caption two lines on phones, 1858 pill/people roles `nowrap`, bakery player title two lines at 390. |
 | 9 | 480f715 | 8·7·9·8 / 8·8·9·9 / 9·9·9·9 | 1 P1 | FAIL — my own regression: `nowrap` on the People roles (a juror-8 P3 fix) let the widest role widen the grid column past a 360/390 lane and clip every note → replaced by a separator-aware wrap pattern (segments whole, the dot vanishes at a wrap; used for the plaque eyebrow too). P3s: ☰ kept in the museum's approach mode; phone approach margins. Count restarted. |
 | 10 | f1dbbb3 | 9·9·9·9 / 8·9·9·9 / 9·9·10·9 | 0 | **PASS** — two P2s fixed between passes: the desktop overview hint chip (now in the doors' row, below the label-fit box) and one single-segment People role that had become unbreakable; ☰ present in the museum's inspect mode from any rail position. |
-| 11 | {{PASS11_BUILD}} | {{PASS11_SHEET}} | {{PASS11_P01}} | {{PASS11_VERDICT}} |
+| 11 | d12373d | 9·8.5·9·9 / 9·9·9·9 / 9·9·9.5·9 | 0 | **PASS** — the second consecutive clean pass (only P2/P3 fixes landed between 10 and 11, as the protocol allows). Its one P2 — the desktop ⌘-wheel notice landing in the pill lane once the map is part-scrolled — was moved into the doors' row from 1280 up after the pass (P2 class, instrument-verified; below the label-fit box like the hint), with the apple-touch-icon's alpha channel dropped. |
 
 Retell moment, every pass: the Museum (the walk down the hall, `Face forward`,
 the approach that centres the painting with the plaque left and the study
 right, and the tap that brings the crowd to life).
 
-{{PASS_NOTES}}
+**Gate: met.** Passes 10 and 11 are the two consecutive clean passes (Sheet A
+≥ 8 on every axis at every class, zero P0/P1, Sheet B all Met/N-A, instrument
+bars met, live = HEAD each time). Eleven passes in all; every P0/P1 the jurors
+found was real and is fixed; the P2/P3s they left are in §4 or were taken.
+Two things the loop taught that are worth keeping (also in `docs/RUN-STATE.md`
+DECISIONS): measure an element against its LANE, not against itself (my
+`nowrap` regression at pass 9 hid behind `documentElement.scrollWidth`); and
+world-anchored map pills make every fixed slot a collision at some viewport,
+so transient chips belong in the doors' row below the label-fit box.
 
 ## 4 · Residual P2/P3 (nothing here blocks anything)
 
@@ -104,6 +112,20 @@ right, and the tap that brings the crowd to life).
   Landing label, hint chip and doors sit within ~10 px of each other; a
   world-anchored stop label can pass under `Stop the walk`/`Continue`
   mid-flight; the Where-to-next embed flies in for 2.6 s (v4 arrival, kept).
+- Jurors 10–11 P3s, all left as craft notes: the walk's pace (~3.4 s per stop,
+  ~15 s for five — reads as a fly-over; a drag pauses it) — a tempo decision,
+  yours; the latched mini-player pill parks over the hero H1's last line if a
+  listener scrolls back to the very top while playing (390); the About closer
+  balances as `TWO AND A HALF / MILES. ONE DAY IN 1860.` (an authored `<br>`
+  after `MILES.` would read better — a copy-lockup call); the People H1 is the
+  three-line variant at 1024×768 (two lines from 1280); the museum plaque at
+  1024×768 / 200 % zoom sets its eyebrow on three lines and long titles one word
+  per line in the 13rem card (readable, clunky); the phone overview's transient
+  hint chip touches stop chip `4`'s rim at 390 for a few seconds; the ⌘-wheel
+  notice at 1024–1279 keeps the centred slot (no pill-free lane wide enough
+  there); the Where-to-next embed flies to its pin for ~2 s after entering view
+  (v4 arrival, kept); one ~40 ms wordmark-less dark frame at the document swap
+  under 4× CPU (the panel is continuous; no page-B pixel shows).
 - Landscape phones (844×390): the map overview cannot hold five stops in a
   222 px safe band at a legible zoom — it holds the 15.25 floor and pans
   (v6 decision, kept).

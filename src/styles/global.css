@@ -989,6 +989,19 @@ h3 {
 .mapboxgl-touch-pan-blocker-show {
   transition: opacity 100ms var(--ease) 0s !important;
 }
+/* Juror pass 11: once the page has scrolled, the map's vertical centre is the
+   pill lane. From 1280 up the notice takes the hint chip's slot in the doors'
+   row — below the label-fit safe box, right of the (i), left of the doors —
+   which no stop pill can occupy; the first wheel dismisses the hint, so the
+   two never share it. */
+@media (min-width: 1280px) {
+  .mapboxgl-scroll-zoom-blocker {
+    top: auto !important;
+    bottom: calc(var(--ui-inset) + 16px) !important;
+    left: calc(var(--ui-inset) + 36px) !important;
+    transform: none !important;
+  }
+}
 /* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
    and the geolocate button at 14px — two controls four pixels out of line with
    each other and with everything else on the page. The inset belongs to the
