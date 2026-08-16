@@ -340,7 +340,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
       <section class="shell beat" id={`scene-${i}`} aria-label={scene.label}>
         <div class="sec-head"></div>
         <div class="editorial mt-8">
-          <ChapterSpine sections={sections} current={`scene-${i}`} />
+          <ChapterSpine sections={sections} current={`scene-${i}`} primary={i === 0} />
 
           <div>
             <h2 class="t-title lines"><Lines text={scene.label} /></h2>

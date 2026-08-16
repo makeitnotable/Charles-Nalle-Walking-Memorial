@@ -138,11 +138,13 @@ const canonical = new URL(
     </script>
 
 
+    {/* v7 V7-081: the menu is rendered BEFORE <main> so it is the first real
+        tab stop (it is visually first); position:fixed makes DOM order free. */}
+    {!noMenu && <Menu position={menuPosition} />}
+
     <main id="main">
       <slot />
     </main>
-
-    {!noMenu && <Menu position={menuPosition} />}
 
     <script>
       import { initCurtain } from "../lib/curtain";

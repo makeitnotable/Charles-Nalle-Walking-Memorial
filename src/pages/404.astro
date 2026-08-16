@@ -9,9 +9,26 @@ import { withBase } from "../lib/url";
 ---
 
 <Base
-  title="Page not found — Charles Nalle Walking Memorial"
+  title="Page not found · Charles Nalle Walking Memorial"
   description="That page isn’t part of the memorial. Return to the walk or the story."
 >
+  <script is:inline>
+    /* v7 G-L3: GH Pages serves /bakery.html at /bakery and 404s /bakery/.
+       Typed or pasted URLs with a trailing slash are the commonest way to land
+       here — strip it and try again once (the flag stops a loop if the target
+       really is missing). */
+    (function () {
+      try {
+        var p = location.pathname;
+        if (p.length > 1 && p.endsWith("/") && sessionStorage.getItem("cnwm-404-retry") !== p) {
+          sessionStorage.setItem("cnwm-404-retry", p);
+          location.replace(p.replace(/\/+$/, "") + location.search + location.hash);
+        } else {
+          sessionStorage.removeItem("cnwm-404-retry");
+        }
+      } catch (e) {}
+    })();
+  </script>
   <section class="shell flex min-h-[78dvh] flex-col justify-center pt-28">
     <p class="t-meta">Off the route</p>
     {/* A sentence, not a name — display is reserved for the places. This was

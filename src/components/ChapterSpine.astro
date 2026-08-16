@@ -18,12 +18,22 @@ interface Sec {
 interface Props {
   sections: Sec[];
   current: string;
+  /** Only the FIRST spine on a page is a landmark; later copies are the same
+   *  four links repeated per section — visual wayfinding, so they are `inert`
+   *  (v7 V7-008 landmark-unique + V7-081 tab-order noise). */
+  primary?: boolean;
 }
-const { sections, current } = Astro.props;
+const { sections, current, primary = false } = Astro.props;
 const pad2 = (n: number) => String(n).padStart(2, "0");
 ---
 
-<nav class="rail" aria-label="Sections in this chapter">
+<nav
+  class="rail"
+  aria-label={primary ? "Sections in this chapter" : undefined}
+  aria-hidden={primary ? undefined : "true"}
+  inert={primary ? undefined : true}
+  role={primary ? undefined : "presentation"}
+>
   {/* Below lg the spine collapses to the one label you are actually in. */}
   <p class="t-spine lg:hidden">({pad2(sections.findIndex((s) => s.key === current) + 1)})</p>
   <p class="t-meta mt-3 lg:hidden">{sections.find((s) => s.key === current)?.rail}</p>
@@ -41,13 +51,13 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
             >
               <span
                 class="t-spine-sm transition-colors"
-                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.62"}`}
+                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.72"}`}
               >
                 ({pad2(i + 1)})
               </span>
               <span
                 class="t-meta transition-colors group-hover:opacity-100"
-                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.62"}`}
+                style={`transition-duration: var(--dur-fast); ${active ? "" : "opacity:.72"}`}
               >
                 {s.rail}
               </span>

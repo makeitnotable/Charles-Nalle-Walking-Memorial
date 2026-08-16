@@ -1151,6 +1151,13 @@ a.walk-seg:hover {
   }
 }
 
+/* v7 V7-089: the page you are on reads in the accent — no dot, no icon. */
+.cnwm-menu-list a[aria-current="page"] .t-title-sm,
+.cnwm-menu-list a[aria-current="page"].t-meta,
+.cnwm-menu-list a[aria-current="page"].link-meta {
+  color: var(--color-primary-9);
+}
+
 /* The panel can never be taller than the window — at 844×390 it measured 358px
    in a 390px viewport and covered the entire map stage plus its controls. */
 .cnwm-menu-panel {

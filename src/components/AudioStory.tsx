@@ -378,7 +378,7 @@ export default function AudioStory({
       {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}
       {miniLatched && (
         <div
-          className="fixed bottom-4 left-4 z-[999]"
+          className="fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]"
           style={{
             opacity: mainVisible ? 0 : 1,
             pointerEvents: mainVisible ? "none" : "auto",

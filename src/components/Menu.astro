@@ -13,6 +13,13 @@ interface Props {
   position?: "top-right" | "bottom-right";
 }
 const { position = "top-right" } = Astro.props;
+/* v7 V7-089: mark the current page (aria-current + a quiet colour). File-format
+   builds report `/base/bakery.html` — normalise like Base.astro's canonical. */
+const here = Astro.url.pathname.replace(/index\.html$/, "").replace(/\.html$/, "").replace(/\/$/, "");
+const isHere = (slug: string) => {
+  const target = withBase(slug).replace(/\/$/, "");
+  return here === target || (slug === "" && (here === "" || here === withBase("").replace(/\/$/, "")));
+};
 
 /* Generated from the content collection — the v3 hardcoded list had already
  * drifted to "Mansion" and "Ferry" while the map said something else. There is
@@ -84,6 +91,7 @@ const notchClass =
         href={withBase("")}
         class="t-meta transition-colors hover:text-neutral-12"
         data-curtain-label="Home"
+        aria-current={isHere("") ? "page" : undefined}
         style="transition-duration: var(--dur-fast)">Home</a
       >
 
@@ -95,6 +103,7 @@ const notchClass =
               class="group flex items-baseline gap-4"
               data-curtain-label={c.name}
               data-curtain-date
+              aria-current={isHere(c.slug) ? "page" : undefined}
             >
               <span class="t-meta w-8 shrink-0">{c.order}</span>
               <span
@@ -109,10 +118,10 @@ const notchClass =
       </ul>
 
       <ul class="rule-top mt-8 space-y-4 pt-8">
-        <li><a href={withBase("map")} class="link-meta t-meta" data-curtain-label="Map">Map<Icon name="arrow" size="sm" /></a></li>
-        <li><a href={withBase("people")} class="link-meta t-meta" data-curtain-label="The People">The people<Icon name="arrow" size="sm" /></a></li>
-        <li><a href={withBase("paintings")} class="link-meta t-meta" data-curtain-label="The Paintings">The paintings<Icon name="arrow" size="sm" /></a></li>
-        <li><a href={withBase("about")} class="link-meta t-meta" data-curtain-label="About">About<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("map")} class="link-meta t-meta" data-curtain-label="Map" aria-current={isHere("map") ? "page" : undefined}>Map<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("people")} class="link-meta t-meta" data-curtain-label="The People" aria-current={isHere("people") ? "page" : undefined}>The people<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("paintings")} class="link-meta t-meta" data-curtain-label="The Paintings" aria-current={isHere("paintings") ? "page" : undefined}>The paintings<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("about")} class="link-meta t-meta" data-curtain-label="About" aria-current={isHere("about") ? "page" : undefined}>About<Icon name="arrow" size="sm" /></a></li>
       </ul>
     </div>
     {position === "bottom-right" && (
@@ -155,8 +164,20 @@ const notchClass =
       (panel.querySelector("a, button") as HTMLElement | null)?.focus();
     };
 
-    const close = () => {
+    /* v7 N1: the X turns as it goes — a quarter turn over --dur-fast on the
+       house curve, then the panel folds. Reduced motion: no turn. */
+    const spinX = (btn: HTMLElement | null) => {
+      const icon = btn?.querySelector("svg");
+      if (!icon || reduced) return;
+      gsap.fromTo(
+        icon,
+        { rotation: 0, transformOrigin: "50% 50%" },
+        { rotation: 90, duration: 0.3, ease: "expo.out", overwrite: true },
+      );
+    };
+    const close = (from?: HTMLElement | null) => {
       burger.setAttribute("aria-expanded", "false");
+      spinX(from ?? null);
       const done = () => {
         panel.classList.add("hidden");
         if (scrim) scrim.hidden = true;
@@ -188,7 +209,7 @@ const notchClass =
     };
 
     burger.addEventListener("click", open);
-    closeBtns.forEach((b) => b.addEventListener("click", close));
+    closeBtns.forEach((b) => b.addEventListener("click", () => close(b)));
     scrim?.addEventListener("click", () => {
       if (!panel.classList.contains("hidden")) close();
     });
@@ -207,6 +228,12 @@ const notchClass =
     const menus = Array.from(document.querySelectorAll<HTMLElement>(".cnwm-menu"));
     if (!menus.length) return;
     let last = window.scrollY;
+    /* v7 N2: touch scrolling fires many small scroll events (5–15px each), so
+       the old "one event moved 24px" test never fired on a phone and the
+       burger rode over the art all page long. Travel is now ACCUMULATED per
+       direction; a change of direction resets the other counter. */
+    let down = 0;
+    let up = 0;
     const set = (hidden: boolean) => {
       for (const m of menus) {
         const open = m.querySelector(".cnwm-menu-panel")?.classList.contains("hidden") === false;
@@ -217,12 +244,20 @@ const notchClass =
       "scroll",
       () => {
         const y = window.scrollY;
-        // Reading forward hides it and KEEPS it hidden — no idle restore, or it
-        // reappears on top of the paragraph you stopped at. Any upward scroll,
-        // or returning near the top, brings it straight back.
-        if (y > last + 24 && y > 240) set(true);
-        else if (y < last - 24 || y <= 240) set(false);
+        const dy = y - last;
         last = y;
+        if (dy > 0) {
+          down += dy;
+          up = 0;
+        } else if (dy < 0) {
+          up += -dy;
+          down = 0;
+        }
+        // Reading forward hides it and KEEPS it hidden — no idle restore, or it
+        // reappears on top of the paragraph you stopped at. Any upward scroll
+        // (24px of it), or returning near the top, brings it straight back.
+        if (down > 24 && y > 240) set(true);
+        else if (up > 24 || y <= 240) set(false);
       },
       { passive: true },
     );
