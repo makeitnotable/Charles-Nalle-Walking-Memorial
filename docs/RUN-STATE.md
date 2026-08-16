@@ -19,7 +19,22 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 5 = FAIL** (`docs/v7/juror-pass5.md`; Sheet A phone 8/9/9/9,
+**Juror pass 6 = PASS** (`docs/v7/juror-pass6.md`, build df0ee6c; Sheet A
+phone 9/9/9/9, tablet 9/9/9/9, desktop 9/9/9/9; ZERO P0/P1; Sheet B all Met;
+retell = the Museum). Its three P2s + one P3 fixed (P2/P3 fixes may land between
+the two passes): the mini-player now shows whenever the main control is
+off-screen above OR below (Ch2 Part 2 → scroll up), the museum composition fits
+the frame at every aspect (portrait Narrative II no longer clipped by the card at
+1024×768), the desktop card keeps a 13rem floor at 200 % zoom (720×450) and its
+`Back to the hall` button goes full-width inside narrow cards, the `· KEY`
+separator travels with the subtitle → **c586a93 + c202f20**, pushed, live
+verified (Museum bundle carries `clamp(13rem` and `lg:w-auto`). **Juror pass 7
+running** (fresh agent, build c202f20, `docs/v7/juror-pass7.md`). If PASS →
+REVIEW-GUIDE §3 (fill `{{JUROR}}`) → RUN-STATE "RUN COMPLETE" → memory → push.
+If FAIL with P0/P1 → fix → push → verify live → two fresh passes again; if only
+P2/P3 → fix, push, juror pass 8.
+
+(Earlier) **Juror pass 5 = FAIL** (`docs/v7/juror-pass5.md`; Sheet A phone 8/9/9/9,
 tablet 8/9/9/9, desktop 9/9/9/9; one P1 = the phone museum chip wrapped to
 three lines in the lane I made for tablets → phones now get the chip on its
 own row under the Skip pill (full width, centred, `nowrap`); tablets keep the
