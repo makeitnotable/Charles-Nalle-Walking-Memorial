@@ -7,6 +7,8 @@ interface Props {
   alt: string;
   sizes?: string;
   class?: string;
+  /** Inline style forwarded to the <img> (v7: real aspect-ratio tiles). */
+  style?: string;
   loading?: "lazy" | "eager";
   /** Srcset ladder. Thumbnail slots should pass a small one — see lib/media.ts. */
   widths?: number[];
@@ -18,6 +20,7 @@ const {
   alt,
   sizes = "(min-width: 768px) 42rem, 100vw",
   class: className,
+  style,
   loading = "lazy",
   widths,
 } = Astro.props;
@@ -34,5 +37,6 @@ const p = picture(slug, imageKey, widths);
     loading={loading}
     decoding="async"
     class={className}
+    style={style}
   />
 </picture>

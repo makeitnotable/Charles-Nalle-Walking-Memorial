@@ -55,3 +55,21 @@ CLS measured 0.000 on home, 0.003 on the chapter path, 0.001 on the map
 (`docs/v4/qa/p6-perf/summary.json`). Nothing scroll-jacks: the page scrolls
 natively everywhere, and the only pinned behaviour is the sticky section rail,
 which uses `position: sticky` rather than a scroll handler.
+
+## v7 additions (2026-08-16) — documented exceptions
+
+- **The Museum (`Museum.tsx`)** — camera dolly and look are critically-damped
+  lerps (τ ≈ 0.22 s dolly / 0.16 s look), not the house `--dur`/`--ease`
+  tokens: a scroll-driven camera must track the scroll continuously; look
+  inertia decays with τ 0.18 s. Approach mode is a modality: the composition
+  (distance, fov up to 84°, vertical placement) is recomputed every frame
+  through the same lerp, so a sheet drag or a zoom recomposes without a cut.
+  Rail pitch −0.10 rad (−0.08 portrait) is a fixed pose, not motion.
+- **Moral-section parallax (`[chapter].astro`)** — the theme's ground image
+  drifts ±6 % against scroll (gsap ScrollTrigger, `scrub: true`, `ease: none`);
+  the image is oversized (scale 1.14) so no edge shows. Off under reduced
+  motion. Meaningful: the ground moves like the story under it (Wil, 8/15:
+  parallax on the moral background yes, on archival images no).
+- **Menu close-X quarter turn** — 300 ms `expo.out` on click, then the panel
+  folds; no turn under reduced motion. `--dur-curtain` is now read by
+  `curtain.ts`; the unused `--ease-pop` / `--ease-circ-in-out` tokens are gone.

@@ -222,7 +222,8 @@ const COLLIDE = () => {
   };
 };
 
-const browser = await chromium.launch();
+// v7: GL flags so the museum mounts under headless Chromium
+const browser = await chromium.launch({ args: ["--use-gl=angle", "--autoplay-policy=no-user-gesture-required"] });
 const log = [];
 const shot = async (page, name) => {
   await page.screenshot({ path: join(outdir, `${name}.png`) });
@@ -396,6 +397,30 @@ for (const vp of VPS) {
     // ─── PAINTINGS: the dialog ───
     await go("/paintings");
     await record(page, `paintings-${vp.name}-01-rest`, "gallery at rest");
+
+    // ─── v7 MUSEUM states (corner menu forced visible: it is the top-right lane owner) ───
+    const hasMuseum = await page.waitForFunction(() => Boolean(window.__museum), null, { timeout: 15000 }).then(() => true).catch(() => false);
+    if (hasMuseum) {
+      const forceMenu = () => page.evaluate(() => { const m = document.querySelector(".cnwm-menu"); if (m) { m.dataset.hidden = "false"; m.dataset.walk = "false"; } });
+      const toStage = () => page.evaluate(() => { const c = document.querySelector("canvas"); const wrap = c.closest(".relative"); const r = wrap.getBoundingClientRect(); window.scrollTo({ top: Math.round(scrollY + r.top), behavior: "instant" }); });
+      await toStage(); await page.waitForTimeout(2200); await forceMenu();
+      await record(page, `museum-${vp.name}-01-rail-rest`, "MUSEUM rail at rest (chip, Skip top-left, dots, menu)");
+      await page.evaluate(() => window.__museum.setLook(0.9, 0)); await page.waitForTimeout(900); await forceMenu();
+      await record(page, `museum-${vp.name}-02-looked-away`, "MUSEUM looked away: Face forward");
+      await page.evaluate(() => window.__museum.recenter());
+      await page.evaluate(() => window.__museum.approach(3)); await page.waitForTimeout(2200); await forceMenu();
+      await record(page, `museum-${vp.name}-03-approach`, "MUSEUM approach: card/sheet + painting + Back");
+      if (await page.locator(".museum-sheet").count()) {
+        await page.evaluate(() => window.__museum.setSheet("full")); await page.waitForTimeout(900); await forceMenu();
+        await record(page, `museum-${vp.name}-04-sheet-full`, "MUSEUM approach: sheet expanded");
+        await page.evaluate(() => window.__museum.setSheet("peek"));
+      }
+      await page.evaluate(() => window.__museum.turnOn(3)); await page.waitForTimeout(1200); await forceMenu();
+      await record(page, `museum-${vp.name}-05-alive`, "MUSEUM approach: the painting alive");
+      await page.evaluate(() => window.__museum.approach(null)); await page.waitForTimeout(800);
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.waitForTimeout(600);
+    }
     const tile = page.locator("button, [role='button']").filter({ hasNotText: /menu/i }).nth(1);
     if (await tile.count()) {
       await tile.click({ timeout: 4000 }).catch(() => {});
@@ -433,9 +458,9 @@ for (const vp of VPS) {
     console.error(`  ✗ ${vp.name}: ${e.message.split("\n")[0]}`);
     log.push({ state: `FAILURE@${vp.name}`, note: e.message.split("\n")[0], hits: [] });
   }
-  await ctx.close();
+  await ctx.close().catch(() => {});
 }
-await browser.close();
+await browser.close().catch(() => {});
 
 writeFileSync(join(outdir, "states.json"), JSON.stringify(log, null, 1));
 

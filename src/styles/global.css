@@ -1323,6 +1323,32 @@ a.walk-seg:hover {
   }
 }
 
+/* v7 U6/U7 — the museum's approach chrome. The invisible Easter-egg toggle
+   sits over the projected painting: transparent until focused, when the
+   house ring shows the keyboard user exactly what it covers. */
+.museum-alive-toggle {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.museum-alive-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 4px;
+}
+.museum-sheet {
+  background: color-mix(in srgb, var(--color-primary-2) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--color-primary-7);
+  border-radius: 16px 16px 0 0;
+  will-change: transform;
+}
+.museum-sheet-head {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,
    Safari), a floated fallback elsewhere; Caslon Display in the ink, kerned
    in a hair. Works through the inline span the transcript renders into and

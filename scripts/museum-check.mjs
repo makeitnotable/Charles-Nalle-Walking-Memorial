@@ -66,13 +66,17 @@ const UI = () => {
     })
     .map((el) => ({ text: (el.getAttribute("aria-label") || el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 40), rect: rectOf(el) }))
     .filter((c) => c.rect.x >= 0 && c.rect.y >= -2); // drop the off-screen a11y skip link
-  // the plaque / card: the box holding "Back to the hall"
-  const back = [...document.querySelectorAll("button")].find((b) => /back to the hall/i.test(b.innerText));
+  // the plaque: the phone sheet, else the desktop card holding "Back to the hall"
   let card = null;
-  if (back) {
-    let n = back.parentElement;
-    while (n && n !== document.body && !(n.getBoundingClientRect().width > 120 && getComputedStyle(n).backgroundColor !== "rgba(0, 0, 0, 0)")) n = n.parentElement;
-    if (n && n !== document.body) card = rectOf(n);
+  const sheet = document.querySelector(".museum-sheet");
+  if (sheet && vis(sheet)) card = rectOf(sheet);
+  else {
+    const back = [...document.querySelectorAll("button")].find((b) => /back to the hall/i.test(b.innerText));
+    if (back) {
+      let n = back.parentElement;
+      while (n && n !== document.body && !(n.getBoundingClientRect().width > 120 && n.getBoundingClientRect().height < innerHeight * 0.9 && getComputedStyle(n).backgroundColor !== "rgba(0, 0, 0, 0)")) n = n.parentElement;
+      if (n && n !== document.body) card = rectOf(n);
+    }
   }
   const chip = [...document.querySelectorAll("p")].filter(vis).map((e) => (e.innerText || "").trim().replace(/\s+/g, " ")).find((t) => t && t.length < 90 && /scroll to walk|returns to the hall|Face forward|drag to look/i.test(t)) || null;
   const menu = document.querySelector(".cnwm-menu-burger");

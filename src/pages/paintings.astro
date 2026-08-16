@@ -14,6 +14,25 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { fitChars } from "../lib/text";
 import Museum from "../components/Museum";
+import sharp from "sharp";
+import { readFile } from "node:fs/promises";
+
+/* v7 U8: every canvas hangs at its TRUE aspect — read once at build from the
+   1440 asset (six are 16:9, three 3:2, Barbershop Narrative II is a 2:3
+   portrait); the study's aspect likewise. Module-level cache; fallback 1.5. */
+const aspectCache = new Map<string, number>();
+const aspectOf = async (rel: string, fallback: number) => {
+  if (aspectCache.has(rel)) return aspectCache.get(rel)!;
+  let a = fallback;
+  try {
+    const m = await sharp(await readFile(new URL(`../../public/${rel}`, import.meta.url))).metadata();
+    if (m.width && m.height) a = +(m.width / m.height).toFixed(4);
+  } catch {
+    /* keep the fallback */
+  }
+  aspectCache.set(rel, a);
+  return a;
+};
 const PAINTINGS_HEADING = "THE NALLE<br />SERIES";
 
 const chapters = (await getCollection("chapters")).sort(
@@ -43,7 +62,7 @@ const works = chapters.flatMap((entry) =>
       slug: entry.id,
       key,
       title: KEY_TITLES[key]
-        ? `${entry.data.name.canonical} — ${KEY_TITLES[key]}`
+        ? `${entry.data.name.canonical} · ${KEY_TITLES[key]}`
         : entry.data.name.canonical,
       chapterLabel: entry.data.chapterLabel,
       order: entry.data.order,
@@ -58,7 +77,9 @@ const works = chapters.flatMap((entry) =>
 
 /** The museum's copy of the catalogue — texture URLs + the study beside the
  * chapter's main canvas. Every asset already exists in the media pipeline. */
-const museumWorks = works.map((w) => {
+const aspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/${w.key}-1440.jpg`, 1.5)));
+const sketchAspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/sketch-800.webp`, 1.25)));
+const museumWorks = works.map((w, wi) => {
   const entry = chapters.find((e) => e.id === w.slug)!;
   const hasSketch = w.key === "horizontal" && entry.data.media.images.includes("sketch");
   /* The plaque speaks a line from the day — the scene's APPROVED quote
@@ -75,7 +96,8 @@ const museumWorks = works.map((w) => {
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
     video: w.video,
     sketch: hasSketch ? withBase(`media/${w.slug}/sketch-800.webp`) : null,
-    aspect: 1.5,
+    aspect: aspects[wi],
+    sketchAspect: hasSketch ? sketchAspects[wi] : null,
     line: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.text : null,
     lineBy: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.attribution : null,
   };
@@ -83,7 +105,7 @@ const museumWorks = works.map((w) => {
 ---
 
 <Base
-  title="The Paintings — Charles Nalle Walking Memorial"
+  title="The Paintings · Charles Nalle Walking Memorial"
   description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
   preloadImages={[
     { href: withBase("media/commissioners-office/horizontal-pt2-800.webp"), type: "image/webp", media: "(max-width: 767px)" },
@@ -114,7 +136,7 @@ const museumWorks = works.map((w) => {
         <source type="image/avif" srcset={withBase("media/commissioners-office/horizontal-pt2-1440.avif")} />
         <img
           src={withBase("media/commissioners-office/horizontal-pt2-1440.jpg")}
-          alt="“Commissioner's Office — Part 2”, the crowd of one thousand outside — painting by Mark Priest"
+          alt="“Commissioner’s Office · Part 2”, the crowd of one thousand outside, painting by Mark Priest"
           class="h-full w-full object-cover"
           loading="eager"
           fetchpriority="high"
@@ -133,9 +155,13 @@ const museumWorks = works.map((w) => {
   <section class="shell sec pb-8">
     <p class="t-prose reveal">
       Painter <strong>Mark Priest</strong> spent years reconstructing the rescue
-      of Charles Nalle — walking Troy's streets, reading the accounts, and
+      of Charles Nalle: walking Troy’s streets, reading the accounts, and
       painting the day scene by scene. Select any work to view it closely, or
-      follow it into its chapter.
+      follow it into its&nbsp;chapter.
+    </p>
+    {/* v7 V7-090: under reduced motion the hall never mounts — say so, once. */}
+    <p class="t-meta-body mt-4 hidden motion-reduce:block">
+      The three-dimensional hall opens when your device allows motion; every work is here below.
     </p>
 
     <div class="beat grid gap-x-8 gap-y-16 sm:grid-cols-2">
@@ -147,15 +173,16 @@ const museumWorks = works.map((w) => {
               class="painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] text-left"
               data-full={work.full}
               data-video={work.video}
-              data-title={`${work.title} — Mark Priest`}
+              data-title={`${work.title}, Mark Priest`}
               aria-label={`View “${work.title}” closely`}
             >
               <Picture
                 slug={work.slug}
                 imageKey={work.key}
-                alt={`“${work.title}” — painting by Mark Priest`}
+                alt={`“${work.title}”, painting by Mark Priest`}
                 sizes="(min-width: 640px) 34rem, 100vw"
-                class="aspect-[3/2] w-full object-cover transition-transform group-hover:scale-[1.06]"
+                class="museum-tile w-full object-cover transition-transform group-hover:scale-[1.06] group-active:scale-[0.98]"
+                style={`aspect-ratio: ${aspects[works.indexOf(work)]}`}
               />
             </button>
             {/* The fixed micro-grid: 16 → eyebrow → 12 → title → 12 → credit. */}
@@ -166,7 +193,7 @@ const museumWorks = works.map((w) => {
                 data-curtain-date
                 class="link-meta t-meta"
               >
-                Spot {work.order}
+                Spot {String(work.order).padStart(2, "0")}
                 <Icon name="arrow" size="sm" />
               </a>
               <span class="t-title-sm mt-3 block">{work.title}</span>
