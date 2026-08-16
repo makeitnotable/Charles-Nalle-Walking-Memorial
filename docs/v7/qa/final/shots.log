@@ -6,9 +6,9 @@
 ✓ bakery @ 360
 ✓ map @ 360
 ✓ people @ 360
-✗ paintings @ 360: page.goto: Target page, context or browser has been closed
-✗ about @ 360: page.goto: Target page, context or browser has been closed
-✗ 404 @ 360: page.goto: Target page, context or browser has been closed
+✓ paintings @ 360
+✓ about @ 360
+✓ 404 @ 360
 console errors @ 360:
   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
@@ -36,10 +36,8 @@ It can also happen if the client has a browser extension installed which messes 
           onChange={function onChange}
           aria-label="Narration position"
           className="cnwm-scrub mt-4 w-full"
-          style={{
-+           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
--           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-          }}
++         style={{--pct:"0%"}}
+-         style={{--pct:"0%"}}
         >
       ...
 
@@ -69,43 +67,8 @@ It can also happen if the client has a browser extension installed which messes 
           onChange={function onChange}
           aria-label="Narration position"
           className="cnwm-scrub mt-4 w-full"
-          style={{
-+           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
--           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-          }}
-        >
-      ...
-
-  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
-    <div>
-      <audio>
-      <div className="rule-top p..." style={{opacity:1, ...}}>
-        <div>
-        <input
-          type="range"
-          min={0}
-          max={81}
-          step={1}
-          value={0}
-          onChange={function onChange}
-          aria-label="Narration position"
-          className="cnwm-scrub mt-4 w-full"
-          style={{
-+           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
--           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-          }}
++         style={{--pct:"0%"}}
+-         style={{--pct:"0%"}}
         >
       ...
 
@@ -135,10 +98,8 @@ It can also happen if the client has a browser extension installed which messes 
           onChange={function onChange}
           aria-label="Narration position"
           className="cnwm-scrub mt-4 w-full"
-          style={{
-+           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
--           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-          }}
++         style={{--pct:"0%"}}
+-         style={{--pct:"0%"}}
         >
       ...
 
@@ -168,10 +129,52 @@ It can also happen if the client has a browser extension installed which messes 
           onChange={function onChange}
           aria-label="Narration position"
           className="cnwm-scrub mt-4 w-full"
-          style={{
-+           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
--           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-          }}
++         style={{--pct:"0%"}}
+-         style={{--pct:"0%"}}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 390
+✓ mansion @ 390
+✓ commissioners-office @ 390
+✗ barbershop @ 390: page.waitForTimeout: Target page, context or browser has been closed
+✗ ferry @ 390: page.goto: Target page, context or browser has been closed
+✗ bakery @ 390: page.goto: Target page, context or browser has been closed
+✗ map @ 390: page.goto: Target page, context or browser has been closed
+✗ people @ 390: page.goto: Target page, context or browser has been closed
+✗ paintings @ 390: page.goto: Target page, context or browser has been closed
+✗ about @ 390: page.goto: Target page, context or browser has been closed
+✗ 404 @ 390: page.goto: Target page, context or browser has been closed
+console errors @ 390:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
++         style={{--pct:"0%"}}
+-         style={{--pct:"0%"}}
         >
       ...
 
@@ -182,317 +185,156 @@ node:internal/modules/run_main:107
 browserContext.close: Target page, context or browser has been closed
 Browser logs:
 
-[pid=47565][err] 
-[pid=47565][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=47565][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=47565][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=47565][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=47565][err] - Invalid HTML tag nesting.
-[pid=47565][err] 
-[pid=47565][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=47565][err] 
-[pid=47565][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=47565][err] 
-[pid=47565][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
-[pid=47565][err]     <div>
-[pid=47565][err]       <audio>
-[pid=47565][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=47565][err]         <div>
-[pid=47565][err]         <input
-[pid=47565][err]           type="range"
-[pid=47565][err]           min={0}
-[pid=47565][err]           max={139}
-[pid=47565][err]           step={1}
-[pid=47565][err]           value={0}
-[pid=47565][err]           onChange={function onChange}
-[pid=47565][err]           aria-label="Narration position"
-[pid=47565][err]           className="cnwm-scrub mt-4 w-full"
-[pid=47565][err]           style={{
-[pid=47565][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err]           }}
-[pid=47565][err]         >
-[pid=47565][err]       ...
-[pid=47565][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=47565][err] [0815/225030.000393:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=47565][err] 
-[pid=47565][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=47565][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=47565][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=47565][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=47565][err] - Invalid HTML tag nesting.
-[pid=47565][err] 
-[pid=47565][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=47565][err] 
-[pid=47565][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=47565][err] 
-[pid=47565][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
-[pid=47565][err]     <div>
-[pid=47565][err]       <audio>
-[pid=47565][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=47565][err]         <div>
-[pid=47565][err]         <input
-[pid=47565][err]           type="range"
-[pid=47565][err]           min={0}
-[pid=47565][err]           max={81}
-[pid=47565][err]           step={1}
-[pid=47565][err]           value={0}
-[pid=47565][err]           onChange={function onChange}
-[pid=47565][err]           aria-label="Narration position"
-[pid=47565][err]           className="cnwm-scrub mt-4 w-full"
-[pid=47565][err]           style={{
-[pid=47565][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err]           }}
-[pid=47565][err]         >
-[pid=47565][err]       ...
-[pid=47565][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=47565][err] [0815/225030.976708:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225030.985584:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225035.650786:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=47565][err] [0815/225035.653549:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=47565][err] 
-[pid=47565][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=47565][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=47565][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=47565][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=47565][err] - Invalid HTML tag nesting.
-[pid=47565][err] 
-[pid=47565][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=47565][err] 
-[pid=47565][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=47565][err] 
-[pid=47565][err]   <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" spot="Spot 05" subtitle="Peter Balt..." ...>
-[pid=47565][err]     <div>
-[pid=47565][err]       <audio>
-[pid=47565][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=47565][err]         <div>
-[pid=47565][err]         <input
-[pid=47565][err]           type="range"
-[pid=47565][err]           min={0}
-[pid=47565][err]           max={114}
-[pid=47565][err]           step={1}
-[pid=47565][err]           value={0}
-[pid=47565][err]           onChange={function onChange}
-[pid=47565][err]           aria-label="Narration position"
-[pid=47565][err]           className="cnwm-scrub mt-4 w-full"
-[pid=47565][err]           style={{
-[pid=47565][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err]           }}
-[pid=47565][err]         >
-[pid=47565][err]       ...
-[pid=47565][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=47565][err] [0815/225051.976241:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225051.984616:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225051.999457:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=47565][err] [0815/225109.279202:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225109.287782:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225113.925937:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=47565][err] [0815/225113.928270:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=47565][err] 
-[pid=47565][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=47565][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=47565][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=47565][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=47565][err] - Invalid HTML tag nesting.
-[pid=47565][err] 
-[pid=47565][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=47565][err] 
-[pid=47565][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=47565][err] 
-[pid=47565][err]   <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" spot="Spot 01" subtitle="Holeur’s F..." ...>
-[pid=47565][err]     <div>
-[pid=47565][err]       <audio>
-[pid=47565][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=47565][err]         <div>
-[pid=47565][err]         <input
-[pid=47565][err]           type="range"
-[pid=47565][err]           min={0}
-[pid=47565][err]           max={101}
-[pid=47565][err]           step={1}
-[pid=47565][err]           value={0}
-[pid=47565][err]           onChange={function onChange}
-[pid=47565][err]           aria-label="Narration position"
-[pid=47565][err]           className="cnwm-scrub mt-4 w-full"
-[pid=47565][err]           style={{
-[pid=47565][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=47565][err]           }}
-[pid=47565][err]         >
-[pid=47565][err]       ...
-[pid=47565][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=47565][err] [0815/225126.155906:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225126.157693:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225126.172055:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=47565][err] [0815/225141.838615:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225141.842093:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225153.723826:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=47565][err] [0815/225153.736294:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=47565][err] [0815/225153.741987:ERROR:content/browser/network_service_instance_impl.cc:618] Network service crashed or was terminated, restarting service.
-[pid=47565][err] [0815/225153.750695:ERROR:content/browser/gpu/gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=15
-[pid=47565][err] [0815/225153.750722:WARNING:content/browser/gpu/gpu_process_host.cc:1479] The GPU process has crashed 1 time(s)
-    at async file:///Users/thebayniac/Documents/(A)%20Documents/(A)%20WBM%20Enterprises/(B)%20Notable/(B)%20Clients/Charles%20Nalle/cnwm-v2/scripts/shots.mjs:100:3 {
-  log: []
-}
-
-node:internal/modules/run_main:107
-    triggerUncaughtException(
-    ^
-
-browserContext.close: Target page, context or browser has been closed
-Browser logs:
-
-[pid=46627][err] [0815/225022.338757:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=46627][err] [0815/225022.354830:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=46627][err] [0815/225022.412284:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=46627][err] [0815/225042.427953:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=46627][err] [0815/225042.441334:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=46627][err] [0815/225047.242367:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=46627][err] [0815/225047.250607:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=46627][err] 
-[pid=46627][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=46627][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=46627][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=46627][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=46627][err] - Invalid HTML tag nesting.
-[pid=46627][err] 
-[pid=46627][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=46627][err] 
-[pid=46627][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=46627][err] 
-[pid=46627][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
-[pid=46627][err]     <div>
-[pid=46627][err]       <audio>
-[pid=46627][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=46627][err]         <div>
-[pid=46627][err]         <input
-[pid=46627][err]           type="range"
-[pid=46627][err]           min={0}
-[pid=46627][err]           max={81}
-[pid=46627][err]           step={1}
-[pid=46627][err]           value={0}
-[pid=46627][err]           onChange={function onChange}
-[pid=46627][err]           aria-label="Narration position"
-[pid=46627][err]           className="cnwm-scrub mt-4 w-full"
-[pid=46627][err]           style={{
-[pid=46627][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err]           }}
-[pid=46627][err]         >
-[pid=46627][err]       ...
-[pid=46627][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=46627][err] [0815/225049.915360:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=46627][err] 
-[pid=46627][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=46627][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=46627][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=46627][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=46627][err] - Invalid HTML tag nesting.
-[pid=46627][err] 
-[pid=46627][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=46627][err] 
-[pid=46627][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=46627][err] 
-[pid=46627][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
-[pid=46627][err]     <div>
-[pid=46627][err]       <audio>
-[pid=46627][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=46627][err]         <div>
-[pid=46627][err]         <input
-[pid=46627][err]           type="range"
-[pid=46627][err]           min={0}
-[pid=46627][err]           max={139}
-[pid=46627][err]           step={1}
-[pid=46627][err]           value={0}
-[pid=46627][err]           onChange={function onChange}
-[pid=46627][err]           aria-label="Narration position"
-[pid=46627][err]           className="cnwm-scrub mt-4 w-full"
-[pid=46627][err]           style={{
-[pid=46627][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err]           }}
-[pid=46627][err]         >
-[pid=46627][err]       ...
-[pid=46627][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=46627][err] [0815/225101.686588:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=46627][err] [0815/225101.695807:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=46627][err] [0815/225106.442251:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=46627][err] [0815/225106.445164:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=46627][err] 
-[pid=46627][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=46627][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=46627][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=46627][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=46627][err] - Invalid HTML tag nesting.
-[pid=46627][err] 
-[pid=46627][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=46627][err] 
-[pid=46627][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=46627][err] 
-[pid=46627][err]   <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" spot="Spot 05" subtitle="Peter Balt..." ...>
-[pid=46627][err]     <div>
-[pid=46627][err]       <audio>
-[pid=46627][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=46627][err]         <div>
-[pid=46627][err]         <input
-[pid=46627][err]           type="range"
-[pid=46627][err]           min={0}
-[pid=46627][err]           max={114}
-[pid=46627][err]           step={1}
-[pid=46627][err]           value={0}
-[pid=46627][err]           onChange={function onChange}
-[pid=46627][err]           aria-label="Narration position"
-[pid=46627][err]           className="cnwm-scrub mt-4 w-full"
-[pid=46627][err]           style={{
-[pid=46627][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err]           }}
-[pid=46627][err]         >
-[pid=46627][err]       ...
-[pid=46627][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=46627][err] [0815/225120.938444:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=46627][err] [0815/225120.946974:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=46627][err] [0815/225120.965619:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=46627][err] [0815/225138.556653:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
-[pid=46627][err] [0815/225138.572404:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
-[pid=46627][err] [0815/225143.359166:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
-[pid=46627][err] [0815/225143.361541:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-[pid=46627][err] 
-[pid=46627][err] - A server/client branch `if (typeof window !== 'undefined')`.
-[pid=46627][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-[pid=46627][err] - Date formatting in a user's locale which doesn't match the server.
-[pid=46627][err] - External changing data without sending a snapshot of it along with the HTML.
-[pid=46627][err] - Invalid HTML tag nesting.
-[pid=46627][err] 
-[pid=46627][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-[pid=46627][err] 
-[pid=46627][err] %s%s https://react.dev/link/hydration-mismatch 
-[pid=46627][err] 
-[pid=46627][err]   <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" spot="Spot 01" subtitle="Holeur’s F..." ...>
-[pid=46627][err]     <div>
-[pid=46627][err]       <audio>
-[pid=46627][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
-[pid=46627][err]         <div>
-[pid=46627][err]         <input
-[pid=46627][err]           type="range"
-[pid=46627][err]           min={0}
-[pid=46627][err]           max={101}
-[pid=46627][err]           step={1}
-[pid=46627][err]           value={0}
-[pid=46627][err]           onChange={function onChange}
-[pid=46627][err]           aria-label="Narration position"
-[pid=46627][err]           className="cnwm-scrub mt-4 w-full"
-[pid=46627][err]           style={{
-[pid=46627][err] +           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err] -           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
-[pid=46627][err]           }}
-[pid=46627][err]         >
-[pid=46627][err]       ...
-[pid=46627][err] ", source: http://localhost:4321/@vite/client (529)
-[pid=46627][err] [0815/225153.743175:ERROR:content/browser/network_service_instance_impl.cc:618] Network service crashed or was terminated, restarting service.
-[pid=46627][err] [0815/225153.757950:ERROR:content/browser/gpu/gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=15
-[pid=46627][err] [0815/225153.757975:WARNING:content/browser/gpu/gpu_process_host.cc:1479] The GPU process has crashed 1 time(s)
+[pid=49605][err] 
+[pid=49605][err] %s%s https://react.dev/link/hydration-mismatch 
+[pid=49605][err] 
+[pid=49605][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
+[pid=49605][err]     <div>
+[pid=49605][err]       <audio>
+[pid=49605][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
+[pid=49605][err]         <div>
+[pid=49605][err]         <input
+[pid=49605][err]           type="range"
+[pid=49605][err]           min={0}
+[pid=49605][err]           max={139}
+[pid=49605][err]           step={1}
+[pid=49605][err]           value={0}
+[pid=49605][err]           onChange={function onChange}
+[pid=49605][err]           aria-label="Narration position"
+[pid=49605][err]           className="cnwm-scrub mt-4 w-full"
+[pid=49605][err] +         style={{--pct:"0%"}}
+[pid=49605][err] -         style={{--pct:"0%"}}
+[pid=49605][err]         >
+[pid=49605][err]       ...
+[pid=49605][err] ", source: http://localhost:4321/@vite/client (529)
+[pid=49605][err] [0815/230844.808921:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/230844.818397:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/230849.482876:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/230849.486352:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[pid=49605][err] 
+[pid=49605][err] - A server/client branch `if (typeof window !== 'undefined')`.
+[pid=49605][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[pid=49605][err] - Date formatting in a user's locale which doesn't match the server.
+[pid=49605][err] - External changing data without sending a snapshot of it along with the HTML.
+[pid=49605][err] - Invalid HTML tag nesting.
+[pid=49605][err] 
+[pid=49605][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[pid=49605][err] 
+[pid=49605][err] %s%s https://react.dev/link/hydration-mismatch 
+[pid=49605][err] 
+[pid=49605][err]   <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" spot="Spot 05" subtitle="Peter Balt..." ...>
+[pid=49605][err]     <div>
+[pid=49605][err]       <audio>
+[pid=49605][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
+[pid=49605][err]         <div>
+[pid=49605][err]         <input
+[pid=49605][err]           type="range"
+[pid=49605][err]           min={0}
+[pid=49605][err]           max={114}
+[pid=49605][err]           step={1}
+[pid=49605][err]           value={0}
+[pid=49605][err]           onChange={function onChange}
+[pid=49605][err]           aria-label="Narration position"
+[pid=49605][err]           className="cnwm-scrub mt-4 w-full"
+[pid=49605][err] +         style={{--pct:"0%"}}
+[pid=49605][err] -         style={{--pct:"0%"}}
+[pid=49605][err]         >
+[pid=49605][err]       ...
+[pid=49605][err] ", source: http://localhost:4321/@vite/client (529)
+[pid=49605][err] [0815/230901.970801:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/230901.980055:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/230901.995402:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/230923.171326:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/230923.181763:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/230927.849752:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/230927.852389:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[pid=49605][err] 
+[pid=49605][err] - A server/client branch `if (typeof window !== 'undefined')`.
+[pid=49605][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[pid=49605][err] - Date formatting in a user's locale which doesn't match the server.
+[pid=49605][err] - External changing data without sending a snapshot of it along with the HTML.
+[pid=49605][err] - Invalid HTML tag nesting.
+[pid=49605][err] 
+[pid=49605][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[pid=49605][err] 
+[pid=49605][err] %s%s https://react.dev/link/hydration-mismatch 
+[pid=49605][err] 
+[pid=49605][err]   <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" spot="Spot 01" subtitle="Holeur’s F..." ...>
+[pid=49605][err]     <div>
+[pid=49605][err]       <audio>
+[pid=49605][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
+[pid=49605][err]         <div>
+[pid=49605][err]         <input
+[pid=49605][err]           type="range"
+[pid=49605][err]           min={0}
+[pid=49605][err]           max={101}
+[pid=49605][err]           step={1}
+[pid=49605][err]           value={0}
+[pid=49605][err]           onChange={function onChange}
+[pid=49605][err]           aria-label="Narration position"
+[pid=49605][err]           className="cnwm-scrub mt-4 w-full"
+[pid=49605][err] +         style={{--pct:"0%"}}
+[pid=49605][err] -         style={{--pct:"0%"}}
+[pid=49605][err]         >
+[pid=49605][err]       ...
+[pid=49605][err] ", source: http://localhost:4321/@vite/client (529)
+[pid=49605][err] [0815/230941.896568:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/230941.899294:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/230941.906645:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/230957.590552:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/230957.598541:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231009.490210:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231009.496140:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231009.504287:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/231023.013919:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231023.023364:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231035.548398:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231035.551506:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231040.167074:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231040.170626:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231044.830551:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231044.844916:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231044.907399:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/231107.206607:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231107.216980:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231107.233905:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/231114.574163:INFO:CONSOLE:529] "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[pid=49605][err] 
+[pid=49605][err] - A server/client branch `if (typeof window !== 'undefined')`.
+[pid=49605][err] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[pid=49605][err] - Date formatting in a user's locale which doesn't match the server.
+[pid=49605][err] - External changing data without sending a snapshot of it along with the HTML.
+[pid=49605][err] - Invalid HTML tag nesting.
+[pid=49605][err] 
+[pid=49605][err] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[pid=49605][err] 
+[pid=49605][err] %s%s https://react.dev/link/hydration-mismatch 
+[pid=49605][err] 
+[pid=49605][err]   <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." spot="Spot 02 · ..." ...>
+[pid=49605][err]     <div>
+[pid=49605][err]       <audio>
+[pid=49605][err]       <div className="rule-top p..." style={{opacity:1, ...}}>
+[pid=49605][err]         <div>
+[pid=49605][err]         <input
+[pid=49605][err]           type="range"
+[pid=49605][err]           min={0}
+[pid=49605][err]           max={139}
+[pid=49605][err]           step={1}
+[pid=49605][err]           value={0}
+[pid=49605][err]           onChange={function onChange}
+[pid=49605][err]           aria-label="Narration position"
+[pid=49605][err]           className="cnwm-scrub mt-4 w-full"
+[pid=49605][err] +         style={{--pct:"0%"}}
+[pid=49605][err] -         style={{--pct:"0%"}}
+[pid=49605][err]         >
+[pid=49605][err]       ...
+[pid=49605][err] ", source: http://localhost:4321/@vite/client (529)
+[pid=49605][err] [0815/231125.333999:INFO:CONSOLE:1589] "[vite] connecting...", source: http://localhost:4321/@vite/client (1589)
+[pid=49605][err] [0815/231125.345757:INFO:CONSOLE:1698] "[vite] connected.", source: http://localhost:4321/@vite/client (1698)
+[pid=49605][err] [0815/231125.362919:INFO:CONSOLE:14390] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:4321/node_modules/.vite/deps/client-m63b53Vu.js?v=41409f16 (14390)
+[pid=49605][err] [0815/231127.710030:ERROR:content/browser/network_service_instance_impl.cc:618] Network service crashed or was terminated, restarting service.
+[pid=49605][err] [0815/231127.715012:ERROR:content/browser/gpu/gpu_process_host.cc:1035] GPU process exited unexpectedly: exit_code=15
+[pid=49605][err] [0815/231127.715037:WARNING:content/browser/gpu/gpu_process_host.cc:1479] The GPU process has crashed 1 time(s)
     at async file:///Users/thebayniac/Documents/(A)%20Documents/(A)%20WBM%20Enterprises/(B)%20Notable/(B)%20Clients/Charles%20Nalle/cnwm-v2/scripts/shots.mjs:100:3 {
   log: []
 }

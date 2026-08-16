@@ -107,19 +107,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 729,
+      "y": 748,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 761,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -241,11 +231,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 16.41,
-    "bearing": 8.4,
+    "zoom": 16.4,
+    "bearing": 7.1,
     "center": [
-     -73.69216934429869,
-     42.728557025659484
+     -73.69206398156246,
+     42.728155946819356
     ]
    },
    "inset": 20,
@@ -259,66 +249,65 @@
     {
      "text": "1",
      "rect": {
-      "x": 352,
-      "y": 738,
+      "x": 304,
+      "y": 667,
       "w": 24,
       "h": 24
      },
-     "cx": 364,
-     "cy": 750
+     "cx": 316,
+     "cy": 679
     },
     {
      "text": "COMMISSIONER’S OFFICE 2",
      "rect": {
-      "x": -5,
-      "y": 186,
+      "x": -13,
+      "y": 156,
       "w": 191,
       "h": 25
      },
-     "cx": 90.5,
-     "cy": 198.5
+     "cx": 82.5,
+     "cy": 168.5
     },
     {
      "text": "3",
      "rect": {
-      "x": 90,
-      "y": 1272,
+      "x": 33,
+      "y": 1127,
       "w": 24,
       "h": 24
      },
-     "cx": 102,
-     "cy": 1284
+     "cx": 45,
+     "cy": 1139
     },
     {
      "text": "4",
      "rect": {
-      "x": 33554416,
-      "y": 33554416,
+      "x": -25122,
+      "y": 42455,
       "w": 24,
       "h": 24
      },
-     "cx": 33554428,
-     "cy": 33554428
+     "cx": -25110,
+     "cy": 42467
     },
     {
      "text": "5",
      "rect": {
-      "x": 50,
-      "y": 190,
+      "x": 45,
+      "y": 161,
       "w": 24,
       "h": 24
      },
-     "cx": 62,
-     "cy": 202
+     "cx": 57,
+     "cy": 173
     }
    ],
    "labelsOutsideSafe": [
-    "1",
     "COMMISSIONER’S OFFICE 2",
     "3",
     "4"
    ],
-   "minMarkerSep": 29,
+   "minMarkerSep": 26,
    "controls": [
     {
      "text": "Open menu",
@@ -335,19 +324,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 729,
+      "y": 748,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 761,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -541,49 +520,49 @@
    "after": [
     {
      "walking": false,
-     "pos": 1.202,
+     "pos": 1.208,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.322,
+     "pos": 1.327,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.397,
+     "pos": 1.401,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.45,
+     "pos": 1.458,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.502,
+     "pos": 1.504,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.557,
+     "pos": 1.56,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.589,
+     "pos": 1.592,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.615,
+     "pos": 1.614,
      "idx": 1,
      "moving": false
     },
@@ -595,7 +574,7 @@
     },
     {
      "walking": false,
-     "pos": 1.654,
+     "pos": 1.662,
      "idx": 1,
      "moving": false
     },
@@ -607,7 +586,7 @@
     },
     {
      "walking": false,
-     "pos": 1.687,
+     "pos": 1.688,
      "idx": 1,
      "moving": false
     },
@@ -619,25 +598,25 @@
     },
     {
      "walking": false,
-     "pos": 1.705,
+     "pos": 1.706,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.715,
+     "pos": 1.712,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.72,
+     "pos": 1.717,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.724,
+     "pos": 1.722,
      "idx": 1,
      "moving": false
     },
@@ -649,19 +628,19 @@
     },
     {
      "walking": false,
-     "pos": 1.732,
+     "pos": 1.731,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.735,
+     "pos": 1.734,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.737,
+     "pos": 1.736,
      "idx": 1,
      "moving": false
     },
@@ -673,13 +652,13 @@
     },
     {
      "walking": false,
-     "pos": 1.74,
+     "pos": 1.739,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.741,
+     "pos": 1.74,
      "idx": 1,
      "moving": false
     },
@@ -703,30 +682,30 @@
     1.096,
     1.123,
     1.151,
-    1.202,
-    1.322,
-    1.397,
-    1.45,
-    1.502,
-    1.557,
-    1.589,
-    1.615,
+    1.208,
+    1.327,
+    1.401,
+    1.458,
+    1.504,
+    1.56,
+    1.592,
+    1.614,
     1.637,
-    1.654,
+    1.662,
     1.676,
-    1.687,
+    1.688,
     1.697,
-    1.705,
-    1.715,
-    1.72,
-    1.724,
+    1.706,
+    1.712,
+    1.717,
+    1.722,
     1.728,
-    1.732,
-    1.735,
-    1.737,
+    1.731,
+    1.734,
+    1.736,
     1.738,
+    1.739,
     1.74,
-    1.741,
     1.742
    ],
    "longTasks": [],
@@ -735,6 +714,32 @@
    "buttonAfter": "CONTINUE"
   },
   "swipes": [
+   {
+    "activeIdx": 2,
+    "center": [
+     -73.69337530000001,
+     42.72431819999997
+    ],
+    "stopCoords": [
+     -73.6933753,
+     42.7243182
+    ],
+    "moving": false,
+    "distM": 0
+   },
+   {
+    "activeIdx": 2,
+    "center": [
+     -73.69337530000001,
+     42.72431820000003
+    ],
+    "stopCoords": [
+     -73.6933753,
+     42.7243182
+    ],
+    "moving": true,
+    "distM": 0
+   },
    {
     "activeIdx": 3,
     "center": [
@@ -747,32 +752,6 @@
     ],
     "moving": false,
     "distM": 0
-   },
-   {
-    "activeIdx": 4,
-    "center": [
-     -73.69289300000003,
-     42.730818
-    ],
-    "stopCoords": [
-     -73.692893,
-     42.730818
-    ],
-    "moving": false,
-    "distM": 0
-   },
-   {
-    "activeIdx": 4,
-    "center": [
-     -73.69289300000003,
-     42.730818
-    ],
-    "stopCoords": [
-     -73.692893,
-     42.730818
-    ],
-    "moving": false,
-    "distM": 0
    }
   ]
  },
@@ -780,7 +759,9 @@
   "vp": "390",
   "width": 390,
   "height": 844,
-  "findings": [],
+  "findings": [
+   "M5 2 long task(s) during the drag: 59,56ms"
+  ],
   "errors": [],
   "overview": {
    "state": {
@@ -884,19 +865,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 773,
+      "y": 792,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 805,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -1018,11 +989,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 17.25,
-    "bearing": 16.5,
+    "zoom": 17.42,
+    "bearing": 17.6,
     "center": [
-     -73.69259835971297,
-     42.73019010951205
+     -73.6926243130647,
+     42.730288901785855
     ]
    },
    "inset": 20,
@@ -1036,24 +1007,24 @@
     {
      "text": "1",
      "rect": {
-      "x": 1847,
-      "y": 2553,
+      "x": 2881,
+      "y": 3725,
       "w": 24,
       "h": 24
      },
-     "cx": 1859,
-     "cy": 2565
+     "cx": 2893,
+     "cy": 3737
     },
     {
      "text": "COMMISSIONER’S OFFICE 2",
      "rect": {
-      "x": 66,
-      "y": 336,
+      "x": 76,
+      "y": 350,
       "w": 191,
       "h": 25
      },
-     "cx": 161.5,
-     "cy": 348.5
+     "cx": 171.5,
+     "cy": 362.5
     },
     {
      "text": "3",
@@ -1080,13 +1051,13 @@
     {
      "text": "5",
      "rect": {
-      "x": 77,
-      "y": 311,
+      "x": 74,
+      "y": 317,
       "w": 24,
       "h": 24
      },
-     "cx": 89,
-     "cy": 323
+     "cx": 86,
+     "cy": 329
     }
    ],
    "labelsOutsideSafe": [
@@ -1111,19 +1082,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 773,
+      "y": 792,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 805,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -1323,7 +1284,7 @@
     },
     {
      "walking": false,
-     "pos": 1.31,
+     "pos": 1.305,
      "idx": 1,
      "moving": false
     },
@@ -1341,37 +1302,37 @@
     },
     {
      "walking": false,
-     "pos": 1.51,
+     "pos": 1.485,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.548,
+     "pos": 1.53,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.58,
+     "pos": 1.579,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.606,
+     "pos": 1.605,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.638,
+     "pos": 1.628,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.655,
+     "pos": 1.653,
      "idx": 1,
      "moving": false
     },
@@ -1383,13 +1344,13 @@
     },
     {
      "walking": false,
-     "pos": 1.685,
+     "pos": 1.681,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 1.695,
+     "pos": 1.69,
      "idx": 1,
      "moving": false
     },
@@ -1413,7 +1374,7 @@
     },
     {
      "walking": false,
-     "pos": 1.719,
+     "pos": 1.718,
      "idx": 1,
      "moving": false
     },
@@ -1480,22 +1441,22 @@
     1.102,
     1.127,
     1.179,
-    1.31,
+    1.305,
     1.381,
     1.44,
-    1.51,
-    1.548,
-    1.58,
-    1.606,
-    1.638,
-    1.655,
+    1.485,
+    1.53,
+    1.579,
+    1.605,
+    1.628,
+    1.653,
     1.669,
-    1.685,
-    1.695,
+    1.681,
+    1.69,
     1.702,
     1.709,
     1.714,
-    1.719,
+    1.718,
     1.724,
     1.727,
     1.729,
@@ -1505,7 +1466,10 @@
     1.736,
     1.737
    ],
-   "longTasks": [],
+   "longTasks": [
+    59,
+    56
+   ],
    "maxReversal": 0,
    "moved": 0.866,
    "buttonAfter": "CONTINUE"
@@ -1556,9 +1520,7 @@
   "vp": "430",
   "width": 430,
   "height": 932,
-  "findings": [
-   "M5 1 long task(s) during the drag: 100ms"
-  ],
+  "findings": [],
   "errors": [],
   "overview": {
    "state": {
@@ -1662,19 +1624,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 861,
+      "y": 880,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 893,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -1796,11 +1748,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 16.66,
-    "bearing": 10.3,
+    "zoom": 16.62,
+    "bearing": 9.6,
     "center": [
-     -73.69229328262196,
-     42.72902881189816
+     -73.6922493006864,
+     42.72886138974391
     ]
    },
    "inset": 20,
@@ -1814,35 +1766,35 @@
     {
      "text": "1",
      "rect": {
-      "x": 507,
-      "y": 980,
+      "x": 468,
+      "y": 927,
       "w": 24,
       "h": 24
      },
-     "cx": 519,
-     "cy": 992
+     "cx": 480,
+     "cy": 939
     },
     {
      "text": "COMMISSIONER’S OFFICE 2",
      "rect": {
-      "x": 29,
-      "y": 267,
+      "x": 24,
+      "y": 253,
       "w": 191,
       "h": 25
      },
-     "cx": 124.5,
-     "cy": 279.5
+     "cx": 119.5,
+     "cy": 265.5
     },
     {
      "text": "3",
      "rect": {
-      "x": 226,
-      "y": 1751,
+      "x": 182,
+      "y": 1616,
       "w": 24,
       "h": 24
      },
-     "cx": 238,
-     "cy": 1763
+     "cx": 194,
+     "cy": 1628
     },
     {
      "text": "4",
@@ -1858,13 +1810,13 @@
     {
      "text": "5",
      "rect": {
-      "x": 76,
-      "y": 263,
+      "x": 73,
+      "y": 251,
       "w": 24,
       "h": 24
      },
-     "cx": 88,
-     "cy": 275
+     "cx": 85,
+     "cy": 263
     }
    ],
    "labelsOutsideSafe": [
@@ -1872,7 +1824,7 @@
     "3",
     "4"
    ],
-   "minMarkerSep": 37,
+   "minMarkerSep": 35,
    "controls": [
     {
      "text": "Open menu",
@@ -1889,19 +1841,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 861,
+      "y": 880,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 893,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -2101,7 +2043,7 @@
     },
     {
      "walking": false,
-     "pos": 0.989,
+     "pos": 1.004,
      "idx": 1,
      "moving": false
     },
@@ -2119,13 +2061,13 @@
     },
     {
      "walking": false,
-     "pos": 0.913,
+     "pos": 0.921,
      "idx": 1,
      "moving": false
     },
     {
      "walking": false,
-     "pos": 0.899,
+     "pos": 0.906,
      "idx": 1,
      "moving": false
     },
@@ -2137,7 +2079,7 @@
     },
     {
      "walking": false,
-     "pos": 0.877,
+     "pos": 0.873,
      "idx": 1,
      "moving": false
     },
@@ -2149,7 +2091,7 @@
     },
     {
      "walking": false,
-     "pos": 0.858,
+     "pos": 0.859,
      "idx": 1,
      "moving": false
     },
@@ -2167,7 +2109,7 @@
     },
     {
      "walking": false,
-     "pos": 0.843,
+     "pos": 0.844,
      "idx": 1,
      "moving": false
     },
@@ -2221,12 +2163,6 @@
     },
     {
      "walking": false,
-     "pos": 0.829,
-     "idx": 1,
-     "moving": false
-    },
-    {
-     "walking": false,
      "pos": 0.828,
      "idx": 1,
      "moving": false
@@ -2234,6 +2170,12 @@
     {
      "walking": false,
      "pos": 0.828,
+     "idx": 1,
+     "moving": false
+    },
+    {
+     "walking": false,
+     "pos": 0.827,
      "idx": 1,
      "moving": false
     },
@@ -2258,18 +2200,18 @@
     1.035,
     1.058,
     1.038,
-    0.989,
+    1.004,
     0.962,
     0.94,
-    0.913,
-    0.899,
+    0.921,
+    0.906,
     0.887,
-    0.877,
+    0.873,
     0.865,
-    0.858,
+    0.859,
     0.853,
     0.849,
-    0.843,
+    0.844,
     0.84,
     0.838,
     0.835,
@@ -2278,14 +2220,12 @@
     0.831,
     0.83,
     0.829,
-    0.829,
     0.828,
     0.828,
+    0.827,
     0.827
    ],
-   "longTasks": [
-    100
-   ],
+   "longTasks": [],
    "maxReversal": 0,
    "moved": 0.232,
    "buttonAfter": "CONTINUE"
@@ -2318,14 +2258,14 @@
     "distM": 0
    },
    {
-    "activeIdx": 3,
+    "activeIdx": 4,
     "center": [
-     -73.698778,
-     42.71927099999999
+     -73.69289300000003,
+     42.730818
     ],
     "stopCoords": [
-     -73.698778,
-     42.719271
+     -73.692893,
+     42.730818
     ],
     "moving": false,
     "distM": 0
@@ -2445,19 +2385,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 319,
+      "y": 338,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 351,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -2580,11 +2510,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 16.75,
-    "bearing": 12.7,
+    "zoom": 16.46,
+    "bearing": 7.1,
     "center": [
-     -73.69245092456276,
-     42.72962888985748
+     -73.69206020655349,
+     42.72814157664243
     ]
    },
    "inset": 20,
@@ -2598,35 +2528,35 @@
     {
      "text": "1",
      "rect": {
-      "x": 3251,
-      "y": 4390,
+      "x": 609,
+      "y": 454,
       "w": 24,
       "h": 24
      },
-     "cx": 3263,
-     "cy": 4402
+     "cx": 621,
+     "cy": 466
     },
     {
      "text": "COMMISSIONER’S OFFICE 2",
      "rect": {
-      "x": 268,
-      "y": -76,
+      "x": 242,
+      "y": -161,
       "w": 191,
       "h": 25
      },
-     "cx": 363.5,
-     "cy": -63.5
+     "cx": 337.5,
+     "cy": -148.5
     },
     {
      "text": "3",
      "rect": {
-      "x": 33554416,
-      "y": 33554276,
+      "x": -242,
+      "y": 3540,
       "w": 24,
       "h": 24
      },
-     "cx": 33554428,
-     "cy": 33554288
+     "cx": -230,
+     "cy": 3552
     },
     {
      "text": "4",
@@ -2642,13 +2572,13 @@
     {
      "text": "5",
      "rect": {
-      "x": 315,
-      "y": -76,
+      "x": 306,
+      "y": -148,
       "w": 24,
       "h": 24
      },
-     "cx": 327,
-     "cy": -64
+     "cx": 318,
+     "cy": -136
     }
    ],
    "labelsOutsideSafe": [
@@ -2658,7 +2588,7 @@
     "4",
     "5"
    ],
-   "minMarkerSep": 0,
+   "minMarkerSep": 23,
    "controls": [
     {
      "text": "Open menu",
@@ -2675,19 +2605,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 20,
-      "y": 180,
+      "y": 199,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 16,
-      "y": 212,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -2906,19 +2826,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 40,
-      "y": 933,
+      "y": 952,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 36,
-      "y": 965,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -3040,11 +2950,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 17.08,
-    "bearing": 0.7,
+    "zoom": 16.72,
+    "bearing": 5.6,
     "center": [
-     -73.69168042986894,
-     42.726695878661644
+     -73.69195645955517,
+     42.72774664572091
     ]
    },
    "inset": 40,
@@ -3058,66 +2968,64 @@
     {
      "text": "1 BAKERY",
      "rect": {
-      "x": 439,
-      "y": 658,
+      "x": 523,
+      "y": 811,
       "w": 103,
       "h": 40
      },
-     "cx": 490.5,
-     "cy": 678
+     "cx": 574.5,
+     "cy": 831
     },
     {
      "text": "2 COMMISSIONER’S OFFICE",
      "rect": {
-      "x": 237,
-      "y": -2,
+      "x": 246,
+      "y": 158,
       "w": 226,
       "h": 40
      },
-     "cx": 350,
-     "cy": 18
+     "cx": 359,
+     "cy": 178
     },
     {
      "text": "3 GILBERT HOME",
      "rect": {
-      "x": -242,
-      "y": 1157,
+      "x": 1,
+      "y": 1300,
       "w": 155,
       "h": 40
      },
-     "cx": -164.5,
-     "cy": 1177
+     "cx": 78.5,
+     "cy": 1320
     },
     {
      "text": "4 FERRY LANDING",
      "rect": {
-      "x": -44326,
-      "y": 44046,
+      "x": -8712,
+      "y": 13358,
       "w": 161,
       "h": 40
      },
-     "cx": -44245.5,
-     "cy": 44066
+     "cx": -8631.5,
+     "cy": 13378
     },
     {
      "text": "5 BARBERSHOP",
      "rect": {
-      "x": 102,
-      "y": -53,
+      "x": 108,
+      "y": 107,
       "w": 118,
       "h": 84
      },
-     "cx": 161,
-     "cy": -11
+     "cx": 167,
+     "cy": 149
     }
    ],
    "labelsOutsideSafe": [
-    "2 COMMISSIONER’S OFFICE",
     "3 GILBERT HOME",
-    "4 FERRY LANDING",
-    "5 BARBERSHOP"
+    "4 FERRY LANDING"
    ],
-   "minMarkerSep": 191,
+   "minMarkerSep": 194,
    "controls": [
     {
      "text": "Open menu",
@@ -3134,19 +3042,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 40,
-      "y": 933,
+      "y": 952,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 36,
-      "y": 965,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -3173,17 +3071,17 @@
      "text": "Focus Spot 01: Holeur’s Fashionable Bake",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": -258,
-      "y": 732,
+      "x": -268,
+      "y": 733,
       "w": 417,
-      "h": 156
+      "h": 155
      }
     },
     {
      "text": "Enter Spot 02: Commissioner’s Office",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 185,
+      "x": 175,
       "y": 731,
       "w": 421,
       "h": 157
@@ -3193,7 +3091,7 @@
      "text": "Focus Spot 03: Uri Gilbert Home",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 639,
+      "x": 629,
       "y": 738,
       "w": 401,
       "h": 150
@@ -3203,7 +3101,7 @@
      "text": "Focus Spot 04: Washington Street Ferry L",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 1087,
+      "x": 1077,
       "y": 741,
       "w": 394,
       "h": 147
@@ -3213,7 +3111,7 @@
      "text": "Focus Spot 05: Peter Baltimore’s Barbers",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 1532,
+      "x": 1522,
       "y": 741,
       "w": 394,
       "h": 147
@@ -3230,13 +3128,13 @@
     {
      "text": "Commissioner’s Office",
      "lines": 2,
-     "width": 232,
+     "width": 233,
      "crossesArrow": false
     },
     {
      "text": "Uri Gilbert Home",
      "lines": 1,
-     "width": 221,
+     "width": 222,
      "crossesArrow": false
     },
     {
@@ -3365,19 +3263,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 40,
-      "y": 677,
+      "y": 696,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 36,
-      "y": 709,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -3502,8 +3390,8 @@
     "zoom": 16.69,
     "bearing": 7.4,
     "center": [
-     -73.69208804727413,
-     42.72824755674077
+     -73.692089442439,
+     42.728252867651975
     ]
    },
    "inset": 40,
@@ -3517,13 +3405,13 @@
     {
      "text": "1 BAKERY",
      "rect": {
-      "x": 725,
-      "y": 805,
+      "x": 726,
+      "y": 806,
       "w": 103,
       "h": 40
      },
-     "cx": 776.5,
-     "cy": 825
+     "cx": 777.5,
+     "cy": 826
     },
     {
      "text": "2 COMMISSIONER’S OFFICE",
@@ -3539,13 +3427,13 @@
     {
      "text": "3 GILBERT HOME",
      "rect": {
-      "x": 171,
-      "y": 1577,
+      "x": 172,
+      "y": 1580,
       "w": 155,
       "h": 40
      },
-     "cx": 248.5,
-     "cy": 1597
+     "cx": 249.5,
+     "cy": 1600
     },
     {
      "text": "4 FERRY LANDING",
@@ -3561,12 +3449,12 @@
     {
      "text": "5 BARBERSHOP",
      "rect": {
-      "x": 252,
+      "x": 253,
       "y": 45,
       "w": 118,
       "h": 84
      },
-     "cx": 311,
+     "cx": 312,
      "cy": 87
     }
    ],
@@ -3577,7 +3465,7 @@
     "4 FERRY LANDING",
     "5 BARBERSHOP"
    ],
-   "minMarkerSep": 195,
+   "minMarkerSep": 194,
    "controls": [
     {
      "text": "Open menu",
@@ -3594,19 +3482,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 40,
-      "y": 677,
+      "y": 696,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 36,
-      "y": 709,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -3633,9 +3511,9 @@
      "text": "Focus Spot 01: Holeur’s Fashionable Bake",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": -270,
+      "x": -268,
       "y": 444,
-      "w": 503,
+      "w": 504,
       "h": 188
      }
     },
@@ -3643,7 +3521,7 @@
      "text": "Enter Spot 02: Commissioner’s Office",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 260,
+      "x": 263,
       "y": 444,
       "w": 504,
       "h": 188
@@ -3653,7 +3531,7 @@
      "text": "Focus Spot 03: Uri Gilbert Home",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 801,
+      "x": 804,
       "y": 452,
       "w": 483,
       "h": 180
@@ -3663,7 +3541,7 @@
      "text": "Focus Spot 04: Washington Street Ferry L",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 1336,
+      "x": 1339,
       "y": 455,
       "w": 473,
       "h": 177
@@ -3673,7 +3551,7 @@
      "text": "Focus Spot 05: Peter Baltimore’s Barbers",
      "cls": "mx-auto.flex.h-[128px]",
      "rect": {
-      "x": 1867,
+      "x": 1870,
       "y": 455,
       "w": 473,
       "h": 177
@@ -3825,19 +3703,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 56,
-      "y": 793,
+      "y": 812,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 52,
-      "y": 825,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -3959,11 +3827,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 17.1,
-    "bearing": 10.6,
+    "zoom": 17.07,
+    "bearing": 9.6,
     "center": [
-     -73.6922848139717,
-     42.728996575068294
+     -73.69222464060942,
+     42.72876751820519
     ]
    },
    "inset": 56,
@@ -3977,35 +3845,35 @@
     {
      "text": "1 BAKERY",
      "rect": {
-      "x": 1234,
-      "y": 1323,
+      "x": 1140,
+      "y": 1200,
       "w": 108,
       "h": 40
      },
-     "cx": 1288,
-     "cy": 1343
+     "cx": 1194,
+     "cy": 1220
     },
     {
      "text": "2 COMMISSIONER’S OFFICE",
      "rect": {
-      "x": 582,
-      "y": 180,
+      "x": 575,
+      "y": 157,
       "w": 241,
       "h": 40
      },
-     "cx": 702.5,
-     "cy": 200
+     "cx": 695.5,
+     "cy": 177
     },
     {
      "text": "3 GILBERT HOME",
      "rect": {
-      "x": 631,
-      "y": 3440,
+      "x": 490,
+      "y": 2865,
       "w": 164,
       "h": 40
      },
-     "cx": 713,
-     "cy": 3460
+     "cx": 572,
+     "cy": 2885
     },
     {
      "text": "4 FERRY LANDING",
@@ -4021,21 +3889,22 @@
     {
      "text": "5 BARBERSHOP",
      "rect": {
-      "x": 434,
-      "y": 119,
+      "x": 431,
+      "y": 97,
       "w": 118,
       "h": 84
      },
-     "cx": 493,
-     "cy": 161
+     "cx": 490,
+     "cy": 139
     }
    ],
    "labelsOutsideSafe": [
     "1 BAKERY",
     "3 GILBERT HOME",
-    "4 FERRY LANDING"
+    "4 FERRY LANDING",
+    "5 BARBERSHOP"
    ],
-   "minMarkerSep": 213,
+   "minMarkerSep": 209,
    "controls": [
     {
      "text": "Open menu",
@@ -4052,19 +3921,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 56,
-      "y": 793,
+      "y": 812,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 52,
-      "y": 825,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -4283,19 +4142,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 56,
-      "y": 973,
+      "y": 992,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 52,
-      "y": 1005,
-      "w": 88,
-      "h": 23
      }
     },
     {
@@ -4417,11 +4266,11 @@
    },
    "camera": {
     "pitch": 48,
-    "zoom": 17.39,
-    "bearing": 13,
+    "zoom": 17.36,
+    "bearing": 12.1,
     "center": [
-     -73.69239182052473,
-     42.72940390580112
+     -73.69234577965551,
+     42.729228647133965
     ]
    },
    "inset": 56,
@@ -4435,35 +4284,35 @@
     {
      "text": "1 BAKERY",
      "rect": {
-      "x": 1832,
-      "y": 1861,
+      "x": 1697,
+      "y": 1705,
       "w": 108,
       "h": 40
      },
-     "cx": 1886,
-     "cy": 1881
+     "cx": 1751,
+     "cy": 1725
     },
     {
      "text": "2 COMMISSIONER’S OFFICE",
      "rect": {
-      "x": 820,
-      "y": 290,
+      "x": 810,
+      "y": 265,
       "w": 241,
       "h": 40
      },
-     "cx": 940.5,
-     "cy": 310
+     "cx": 930.5,
+     "cy": 285
     },
     {
      "text": "3 GILBERT HOME",
      "rect": {
-      "x": 1474,
-      "y": 5808,
+      "x": 1163,
+      "y": 4741,
       "w": 164,
       "h": 40
      },
-     "cx": 1556,
-     "cy": 5828
+     "cx": 1245,
+     "cy": 4761
     },
     {
      "text": "4 FERRY LANDING",
@@ -4479,13 +4328,13 @@
     {
      "text": "5 BARBERSHOP",
      "rect": {
-      "x": 654,
-      "y": 215,
+      "x": 648,
+      "y": 193,
       "w": 118,
       "h": 84
      },
-     "cx": 713,
-     "cy": 257
+     "cx": 707,
+     "cy": 235
     }
    ],
    "labelsOutsideSafe": [
@@ -4493,7 +4342,7 @@
     "3 GILBERT HOME",
     "4 FERRY LANDING"
    ],
-   "minMarkerSep": 234,
+   "minMarkerSep": 229,
    "controls": [
     {
      "text": "Open menu",
@@ -4510,19 +4359,9 @@
      "cls": "mapboxgl-ctrl-attrib-button",
      "rect": {
       "x": 56,
-      "y": 973,
+      "y": 992,
       "w": 24,
       "h": 24
-     }
-    },
-    {
-     "text": "Mapbox homepage",
-     "cls": "mapboxgl-ctrl-logo",
-     "rect": {
-      "x": 52,
-      "y": 1005,
-      "w": 88,
-      "h": 23
      }
     },
     {
