@@ -7,7 +7,11 @@
   },
   "chapterLabel": "Chapter 1",
   "sketchNote": "The study is almost solid ink. Priest worked the doorway of the bakery over and over until the shop sign reads through the crosshatching and the men in it are barely separable — a body being taken in a place where everyone could see it.",
-  "heroFocus": 30,
+  "heroFocus": {
+    "landscape": 24,
+    "portrait": 24,
+    "portraitX": 100
+  },
   "plaque": true,
   "map": {
     "coordinates": [

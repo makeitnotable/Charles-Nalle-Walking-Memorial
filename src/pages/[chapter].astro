@@ -33,6 +33,7 @@ import Lines from "../components/Lines.astro";
 import ChapterSpine from "../components/ChapterSpine.astro";
 import WalkProgress from "../components/WalkProgress.astro";
 import { withBase } from "../lib/url";
+import { fitChars, nbsp } from "../lib/text";
 
 export async function getStaticPaths() {
   const chapters = await getCollection("chapters");
@@ -119,38 +120,64 @@ const interlude =
            Wil, pending Kathy's word vs. her 1845 map). */
         kind: "archival" as const,
         key: "troy-1858",
-        alt: "Map of Troy, New York in 1858 — downtown Troy, the Hudson, and West Troy",
-        credit: "Troy, New York · 1858 · Library of Congress",
+        alt: "Map of Troy, New York in 1858: downtown Troy, the Hudson, and West Troy",
+        short: null,
+        rest: "Troy, New York · 1858 · Library of Congress",
       }
     : {
         kind: "archival" as const,
         key: "historical",
-        alt: `Archival photograph — ${c.name.canonical}`,
-        credit: `${c.name.canonical} · archival record`,
+        alt: `Archival photograph, ${c.name.canonical}`,
+        short: `${c.name.canonical} · `,
+        rest: "archival record",
       };
 /** Chapter 2 keeps its archival film in the history section; the rest moved it. */
 const historyKeepsArchival = slug === "commissioners-office";
 
 /**
- * The editorial spine, built from the data so the numbering can never drift
- * from what actually renders (chapter 2 has two scenes and therefore two
- * listening sections).
+ * THE RENDER ORDER (v7 C9, locked decision 6). One-scene chapters read
+ * story → interlude → history → moral → onward. Chapter 2, the twin
+ * template, interleaves so each part is followed by its own theme:
+ * Part 1 → interlude → History → Moral 1 → Part-2 hero → Part 2 → Moral 2 →
+ * Onward. The spine (`sections`) is pushed in the SAME order, so the
+ * numerals (01…06) and the collapsed mobile spine agree with scroll order.
  */
+type Block =
+  | { type: "scene"; i: number }
+  | { type: "interlude" }
+  | { type: "history" }
+  | { type: "moral"; i: number };
+const blocks: Block[] = [];
+c.scenes.forEach((_, i) => {
+  blocks.push({ type: "scene", i });
+  if (i === 0) {
+    blocks.push({ type: "interlude" });
+    blocks.push({ type: "history" });
+  }
+  if (morals[i]) blocks.push({ type: "moral", i });
+});
+// morals beyond the scene count (never today) still render, after the last scene
+morals.forEach((_, i) => {
+  if (i >= c.scenes.length) blocks.push({ type: "moral", i });
+});
+
 type Sec = { key: string; rail: string; sceneIndex?: number };
 const sections: Sec[] = [];
-c.scenes.forEach((_, i) => {
-  sections.push({
-    key: `scene-${i}`,
-    rail: c.scenes.length > 1 ? `Listen · Pt ${i + 1}` : "Listen",
-    sceneIndex: i,
-  });
-});
-sections.push({ key: "history", rail: "History" });
-morals.forEach((m) => sections.push({ key: m.key, rail: m.rail }));
+for (const b of blocks) {
+  if (b.type === "scene")
+    sections.push({
+      key: `scene-${b.i}`,
+      rail: c.scenes.length > 1 ? `Listen · Pt ${b.i + 1}` : "Listen",
+      sceneIndex: b.i,
+    });
+  else if (b.type === "history") sections.push({ key: "history", rail: "History" });
+  else if (b.type === "moral") sections.push({ key: morals[b.i].key, rail: morals[b.i].rail });
+}
 sections.push({ key: "onward", rail: "Onward" });
 
-/** Longest authored line in a display string — drives the fit-clamp. */
-const longestLine = (t: string) => Math.max(...t.split("\n").map((l) => l.trim().length));
+/* Part headings ("Part 1\nTubman Creates a Crowd") are authored two lines —
+   the first line is the kicker on the Part-2 painting hero. */
+const partKicker = (label: string) => label.split("\n")[0].trim();
 
 /* The hero's first paint is its poster, so the poster IS the LCP. It is
  * rendered as a real responsive <img> beneath the film (a <video poster>
@@ -160,11 +187,17 @@ const longestLine = (t: string) => Math.max(...t.split("\n").map((l) => l.trim()
 const hKey = c.scenes[0].reveal?.video ?? "reveal-horizontal";
 const vKey = c.scenes[0].reveal?.videoVertical ?? "reveal-vertical";
 const poster = (key: string, ext: string) => withBase(`media/${slug}/${key}-poster-800.${ext}`);
-const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
+const heroAlt = `“${c.name.canonical}”, painting by Mark Priest`;
+/* v7 C7: one focus per orientation; the portrait <video> finally gets the same
+   object-position as its poster (it had none). */
+const focus =
+  typeof c.heroFocus === "number"
+    ? { landscape: c.heroFocus, portrait: c.heroFocus, portraitX: 50 }
+    : { portraitX: 50, ...c.heroFocus };
 ---
 
 <Base
-  title={`${c.name.canonical} — Charles Nalle Walking Memorial`}
+  title={`${c.name.canonical} · Charles Nalle Walking Memorial`}
   description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
   preloadImages={[
     { href: withBase(`media/${slug}/${vKey}-poster-480.avif`), type: "image/avif", media: "(max-width: 480px)" },
@@ -209,8 +242,8 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           src={withBase(`media/${slug}/${hKey}-poster.jpg`)}
           alt={heroAlt}
           fetchpriority="high"
-          class="absolute inset-0 h-full w-full object-cover"
-          style={`object-position: center ${c.heroFocus}%`}
+          class="hero-still absolute inset-0 h-full w-full object-cover"
+          style={`--focus-l: ${focus.landscape}%; --focus-p: ${focus.portrait}%; --focus-px: ${focus.portraitX}%`}
         />
       </picture>
 
@@ -218,7 +251,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           motion or on a thin pipe, where the painting simply stays still. */}
       <video
         class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
-        style={`object-position: center ${c.heroFocus}%`}
+        style={`object-position: center ${focus.landscape}%`}
         data-src={withBase(`media/${slug}/${hKey}.mp4`)}
         data-reduce-static
         preload="none"
@@ -228,6 +261,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         aria-hidden="true"></video>
       <video
         class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+        style={`object-position: ${focus.portraitX}% ${focus.portrait}%`}
         data-src={withBase(`media/${slug}/${vKey}.mp4`)}
         data-reduce-static
         preload="none"
@@ -244,7 +278,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
         the lockup carries a soft text-shadow as the second lock. */}
     <div
       class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to top, rgba(29,20,17,.94) 0%, rgba(29,20,17,.72) 24%, rgba(29,20,17,.3) 46%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+      style="background: linear-gradient(to top, rgba(29,20,17,.95) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
       aria-hidden="true"
     >
     </div>
@@ -263,7 +297,7 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
               on JavaScript (E7). The lockup rises with the page instead. */}
           <h1
             class="t-display mt-[max(2vh,16px)] whitespace-pre-line"
-            style={`--fit-chars: ${longestLine(c.name.display)}`}
+            style={fitChars(c.name.display)}
           >
             {c.name.display}
           </h1>
@@ -272,275 +306,275 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
     </div>
   </header>
 
-  {/* ══════ THE STORY — one section per scene. A scene after the first that
-      carries its own painting opens with its own full-bleed hero (item 26:
-      the twin template — Ch2's Pt 2 is a chapter within the chapter). ══════ */}
+  {/* ══════ THE BODY — rendered from `blocks` (see the frontmatter) ══════ */}
   {
-    c.scenes.map((scene, i) => (
+    blocks.map((b) => (
       <>
-      {i > 0 && scene.reveal && (
-        <section
-          class="relative h-[82dvh] overflow-hidden bg-neutral-2"
-          aria-label={`${scene.label} — painting`}
-        >
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              type="image/avif"
-              srcset={withBase(`media/${slug}/${scene.reveal.videoVertical}-poster-800.avif`)}
+        {/* ── A scene: after the first, one carrying its own painting opens
+            with its own full-bleed hero (item 26: the twin template — Ch2's
+            Pt 2 is a chapter within the chapter). ── */}
+        {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
+          <section
+            class="relative h-[82dvh] overflow-hidden bg-neutral-2"
+            id={`hero-${b.i + 1}`}
+            aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
+          >
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                type="image/avif"
+                srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}-poster-800.avif`)}
+              />
+              <source
+                media="(max-width: 767px)"
+                type="image/webp"
+                srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}-poster-800.webp`)}
+              />
+              <source type="image/avif" srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster-800.avif`)} />
+              <source type="image/webp" srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster-800.webp`)} />
+              <img
+                src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster.jpg`)}
+                alt={`“${c.name.canonical}”, ${partKicker(c.scenes[b.i].label)}, painting by Mark Priest`}
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
+            <video
+              class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+              data-src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}.mp4`)}
+              data-reduce-static
+              preload="none"
+              loop
+              muted
+              playsinline
+              aria-hidden="true"
             />
-            <source
-              media="(max-width: 767px)"
-              type="image/webp"
-              srcset={withBase(`media/${slug}/${scene.reveal.videoVertical}-poster-800.webp`)}
+            <video
+              class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+              data-src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}.mp4`)}
+              data-reduce-static
+              preload="none"
+              loop
+              muted
+              playsinline
+              aria-hidden="true"
             />
-            <source type="image/avif" srcset={withBase(`media/${slug}/${scene.reveal.video}-poster-800.avif`)} />
-            <source type="image/webp" srcset={withBase(`media/${slug}/${scene.reveal.video}-poster-800.webp`)} />
-            <img
-              src={withBase(`media/${slug}/${scene.reveal.video}-poster.jpg`)}
-              alt={`“${c.name.canonical}” — ${scene.label}, painting by Mark Priest`}
-              loading="lazy"
-              decoding="async"
-              class="absolute inset-0 h-full w-full object-cover"
+            <div
+              class="pointer-events-none absolute inset-0"
+              style="background: linear-gradient(to top, rgba(29,20,17,.95) 0%, rgba(29,20,17,.8) 24%, rgba(29,20,17,.36) 44%, transparent 60%), linear-gradient(to bottom, rgba(29,20,17,.6), transparent 16%)"
+              aria-hidden="true"
             />
-          </picture>
-          <video
-            class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
-            data-src={withBase(`media/${slug}/${scene.reveal.video}.mp4`)}
-            data-reduce-static
-            preload="none"
-            loop
-            muted
-            playsinline
-            aria-hidden="true"
-          />
-          <video
-            class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
-            data-src={withBase(`media/${slug}/${scene.reveal.videoVertical}.mp4`)}
-            data-reduce-static
-            preload="none"
-            loop
-            muted
-            playsinline
-            aria-hidden="true"
-          />
-          <div
-            class="pointer-events-none absolute inset-0"
-            style="background: linear-gradient(to top, rgba(29,20,17,.92) 0%, rgba(29,20,17,.5) 20%, transparent 40%), linear-gradient(to bottom, rgba(29,20,17,.6), transparent 16%)"
-            aria-hidden="true"
-          />
-          <div class="absolute inset-x-0 bottom-0">
-            <div class="shell pb-[max(5dvh,32px)]">
-              <p class="t-meta">Spot {pad2(c.order)} · continued</p>
-              <p class="t-title mt-4">{scene.label.split("—")[0].trim()}</p>
+            <div class="absolute inset-x-0 bottom-0">
+              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 14px rgba(16,10,6,.85), 0 0 3px rgba(16,10,6,.7)">
+                <p class="t-meta">Spot {pad2(c.order)} · continued</p>
+                <p class="t-title mt-4">{partKicker(c.scenes[b.i].label)}</p>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
-      <section class="shell beat" id={`scene-${i}`} aria-label={scene.label}>
-        <div class="sec-head"></div>
-        <div class="editorial mt-8">
-          <ChapterSpine sections={sections} current={`scene-${i}`} primary={i === 0} />
+          </section>
+        )}
+        {b.type === "scene" && (
+          <section class="shell beat" id={`scene-${b.i}`} aria-label={c.scenes[b.i].label.replace("\n", ": ")}>
+            <div class="sec-head"></div>
+            <div class="editorial mt-8">
+              <ChapterSpine sections={sections} current={`scene-${b.i}`} primary={b.i === 0} />
 
-          <div>
-            <h2 class="t-title lines"><Lines text={scene.label} /></h2>
+              <div>
+                <h2 class="t-title lines"><Lines text={c.scenes[b.i].label} /></h2>
 
-            {scene.quote && (
-              <figure class="reveal-quote beat">
-                <blockquote class="t-quote is-hung">“{scene.quote.text}”</blockquote>
-                <figcaption class="t-meta mt-6">— {scene.quote.attribution}</figcaption>
-              </figure>
-            )}
+                {/* v7 C6: the opening quote is the heading's companion — one
+                    block-gap, not a whole beat, between them. */}
+                {c.scenes[b.i].quote && (
+                  <figure class="reveal-quote quote-after-heading">
+                    <blockquote class="t-quote is-hung">“{c.scenes[b.i].quote!.text}”</blockquote>
+                    {/* v7 C11: the attribution stands alone; the dash is gone. */}
+                    <figcaption class="t-meta mt-6">{nbsp(c.scenes[b.i].quote!.attribution)}</figcaption>
+                  </figure>
+                )}
+              </div>
+            </div>
 
-          </div>
-        </div>
+            <div class="beat">
+              <AudioStory
+                client:visible={{ rootMargin: "600px" }}
+                slug={slug}
+                audioSrc={withBase(c.scenes[b.i].audio.file)}
+                label={c.scenes[b.i].audio.label}
+                spot={`Spot ${pad2(c.order)}${c.scenes.length > 1 ? ` · Pt ${b.i + 1}` : ""}`}
+                subtitle={c.name.canonical}
+                duration={c.scenes[b.i].audio.duration}
+                timings={c.scenes[b.i].audio.timings}
+                paragraphs={c.scenes[b.i].paragraphs}
+              />
+            </div>
+          </section>
+        )}
 
-        <div class="beat">
-          <AudioStory
-            client:visible
-            slug={slug}
-            audioSrc={withBase(scene.audio.file)}
-            label={scene.audio.label}
-            subtitle={c.name.canonical}
-            duration={scene.audio.duration}
-            timings={scene.audio.timings}
-            paragraphs={scene.paragraphs}
-          />
-        </div>
-      </section>
+        {/* ── The interlude — full-bleed, zero chrome. v6 juror pass 2, P0:
+            the clip-path used to sit on THIS section — the element the
+            IntersectionObserver watches — and Chromium computes intersection
+            against the target's own clip, so a fully-clipped section never
+            intersects and `is-in` never fired. The section is observed
+            un-clipped; the CHILD carries the wipe. ── */}
+        {b.type === "interlude" && (
+          <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
+            <div class="wipe-clip">
+              <img
+                class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
+                src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
+                srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
+                sizes="100vw"
+                alt={interlude.alt}
+                loading="lazy"
+              />
+              {/* Juror pass 1 P2: the heavy 20/80 gradient + lazy image read as
+                  a dead band at real scrolling pace — the fades breathe at the
+                  edges. */}
+              <div
+                class="pointer-events-none absolute inset-0"
+                style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
+              />
+              {/* v7 C4: the credit sits on a chip (the map chip's ground) so
+                  it measures ≥ 4.5:1 on any photograph — pixel-checked by
+                  contrast.mjs. Phones drop the place name (it is the page). */}
+              <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)]">
+                {interlude.short && <span class="hidden sm:inline">{interlude.short}</span>}
+                {interlude.rest}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* ── Historical context ── */}
+        {b.type === "history" && (
+          <section id="history" aria-labelledby="history-heading">
+            <div class="ground-cream py-24 md:py-32">
+              <div class="shell">
+                <div class="sec-head"></div>
+                <div class="editorial mt-8">
+                  <ChapterSpine sections={sections} current="history" />
+
+                  <div>
+                    <h2 id="history-heading" class="t-title lines"><Lines text={"Historical\ncontext"} /></h2>
+
+                    {/* Only chapter 2 still carries the archival film here — for
+                        every other chapter it IS the interlude directly above. */}
+                    {historyKeepsArchival && hasHistoricalVideo && (
+                      <div class="reveal artifact mt-12">
+                        <video
+                          class="lazy-video h-auto w-full"
+                          data-src={withBase(`media/${slug}/historical.mp4`)}
+                          data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
+                          data-reduce-static
+                          preload="none"
+                          loop
+                          muted
+                          playsinline
+                          aria-label={`Archival film, ${c.name.canonical}`}
+                        />
+                      </div>
+                    )}
+
+                    {/* Facts on a fixed numeral column — the orange chips are gone.
+                        v7 V7-054: a narrower gutter on phones keeps the measure. */}
+                    <dl class="reveal mt-12 space-y-8">
+                      {c.historicalContext.map((point, index) => (
+                        <div class="grid grid-cols-[2.5rem_1fr] items-baseline sm:grid-cols-[3.5rem_1fr]">
+                          <dt class="t-meta">({index + 1})</dt>
+                          <dd class="t-prose">{nbsp(point)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+
+                    {c.portal.history.length > 0 && (
+                      <div class="reveal mt-16 space-y-6">
+                        {c.portal.history.map((para) => (
+                          <p class="t-prose">{nbsp(para)}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── The moral — full-bleed, one artifact each. v7 C2: the body is
+            cream like the heading, the scrim's middle band is deep enough to
+            measure ≥ 4.5:1 by pixel, and the ground image drifts on scroll
+            (parallax, scrub, ±6%, reduced motion off). ── */}
+        {b.type === "moral" && (
+          <section class="beat relative moral" id={morals[b.i].key} aria-labelledby={`${morals[b.i].key}-heading`}>
+            <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+              <img
+                src={withBase(`media/${slug}/${morals[b.i].ground}-1440.jpg`)}
+                alt=""
+                class="moral-ground h-full w-full object-cover"
+                style="object-position: center 25%"
+                loading="lazy"
+                data-parallax
+              />
+              <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.86) 26%, rgba(29,20,17,.86) 74%, #1d1411)" />
+            </div>
+
+            <div class="shell relative z-10 pt-32 pb-16 md:pt-40 md:pb-16">
+              <div class="sec-head"></div>
+              <div class="editorial mt-8">
+                <ChapterSpine sections={sections} current={morals[b.i].key} />
+                <div>
+                  <h2
+                    id={`${morals[b.i].key}-heading`}
+                    class="t-display lines"
+                    style={fitChars(morals[b.i].title)}
+                  >
+                    <Lines text={morals[b.i].title} />
+                  </h2>
+                  <p class="t-prose reveal mt-12 text-neutral-12">{nbsp(morals[b.i].message)}</p>
+
+                  {/* Item 18: the sketch hangs HERE, in the theme section, per the
+                      Figma placement. It is the viewport's one framed artifact.
+                      v7 C3: sketch and caption share a centre line. */}
+                  {morals[b.i].sketchKey && (
+                    <figure class="reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-center">
+                      <div class="artifact border border-primary-7">
+                        <img
+                          src={withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.jpg`)}
+                          srcset={`${withBase(`media/${slug}/${morals[b.i].sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.webp`)} 1440w`}
+                          sizes="(min-width: 768px) 420px, 100vw"
+                          alt={`Study for “${c.name.canonical}”, Mark Priest`}
+                          loading="lazy"
+                          decoding="async"
+                          class="h-auto w-full"
+                        />
+                      </div>
+                      <figcaption class="mt-8 max-w-[44ch] md:mt-0">
+                        <p class="t-meta">The artist's study</p>
+                        {morals[b.i].note && <p class="t-prose mt-4 text-neutral-12">{morals[b.i].note}</p>}
+                        <p class="t-meta-body mt-4 text-neutral-12/80">Mark Priest · Nalle Series</p>
+                      </figcaption>
+                    </figure>
+                  )}
+
+                  {/* Mid-register voice (E4 juror): the call to action stops
+                      whispering — its title is a title, not a breadcrumb. */}
+                  <div class="reveal rule-top mt-16 max-w-[52ch] pt-8">
+                    <p class="t-title-sm">{morals[b.i].callToAction.title}</p>
+                    <p class="t-prose mt-4 text-neutral-12">{nbsp(morals[b.i].callToAction.content)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
       </>
     ))
   }
 
-  {/* ══════ The interlude — full-bleed, zero chrome ══════ */}
-  {/* v6 juror pass 2, P0: the clip-path used to sit on THIS section — the
-      element the IntersectionObserver watches — and Chromium computes
-      intersection against the target's own clip, so a fully-clipped section
-      never intersects and `is-in` never fired: a permanent black band in
-      every chapter. The section is observed un-clipped; the CHILD carries
-      the wipe. */}
-  <section
-    class="painting-interlude wipe relative overflow-hidden"
-    aria-label={interlude.alt}
-  >
-    <div class="wipe-clip">
-      <img
-        class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
-        src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
-        srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
-        sizes="100vw"
-        alt={interlude.alt}
-        loading="lazy"
-      />
-      {/* Juror pass 1 P2: the heavy 20/80 gradient + lazy image read as a
-          dead band at real scrolling pace — the fades breathe at the edges. */}
-      <div
-        class="pointer-events-none absolute inset-0"
-        style="background: linear-gradient(to bottom, var(--color-primary-2), transparent 12%, transparent 88%, var(--color-primary-2))"
-      >
-      </div>
-      {/* Left-clamped: with only `right`, a long credit ran past the left
-          edge at 390 and lost its first glyph (juror pass 3 P1). */}
-      <p class="t-meta absolute right-[var(--gutter)] bottom-8 left-[var(--gutter)] text-right">
-        {interlude.credit}
-      </p>
-    </div>
-  </section>
-
-  {/* ══════ HISTORICAL CONTEXT ══════ */}
-  <section id="history" aria-labelledby="history-heading">
-   <div class="ground-cream py-24 md:py-32">
-    <div class="shell">
-    <div class="sec-head"></div>
-        <div class="editorial mt-8">
-      <ChapterSpine sections={sections} current="history" />
-
-      <div>
-        <h2 id="history-heading" class="t-title lines"><Lines text={"Historical\ncontext"} /></h2>
-
-        {/* Only chapter 2 still carries the archival film here — for every other
-            chapter it IS the interlude directly above, and showing it twice was
-            the same defect in a different slot. */}
-        {
-          historyKeepsArchival && hasHistoricalVideo && (
-            <div class="reveal artifact mt-12">
-              <video
-                class="lazy-video h-auto w-full"
-                data-src={withBase(`media/${slug}/historical.mp4`)}
-                data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
-                data-reduce-static
-                preload="none"
-                loop
-                muted
-                playsinline
-                aria-label={`Archival film — ${c.name.canonical}`}
-              />
-            </div>
-          )
-        }
-
-        {/* Facts on a fixed numeral column — the orange chips are gone. */}
-        <dl class="reveal mt-12 space-y-8">
-          {
-            c.historicalContext.map((point, index) => (
-              <div class="grid grid-cols-[3.5rem_1fr] items-baseline">
-                <dt class="t-meta">({index + 1})</dt>
-                <dd class="t-prose">{point}</dd>
-              </div>
-            ))
-          }
-        </dl>
-
-        {
-          c.portal.history.length > 0 && (
-            <div class="reveal mt-16 space-y-6">
-              {c.portal.history.map((p) => (
-                <p class="t-prose">{p}</p>
-              ))}
-            </div>
-          )
-        }
-      </div>
-    </div>
-    </div>
-   </div>
-  </section>
-
-  {/* ══════ THE MORAL(S) — full-bleed, one artifact each ══════ */}
-  {
-    morals.map((m) => (
-      <section class="beat relative" id={m.key} aria-labelledby={`${m.key}-heading`}>
-        <div class="absolute inset-0" aria-hidden="true">
-          <img
-            src={withBase(`media/${slug}/${m.ground}-1440.jpg`)}
-            alt=""
-            class="h-full w-full object-cover"
-            style="object-position: center 25%"
-            loading="lazy"
-          />
-          {/* .78 mid — barbershop's light sketch ground left the spine labels
-              near-invisible at .72 (juror pass 1 P2). */}
-          <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.78) 30%, rgba(29,20,17,.78) 70%, #1d1411)" />
-        </div>
-
-        <div class="shell relative z-10 py-32 md:py-40">
-          <div class="sec-head"></div>
-        <div class="editorial mt-8">
-            <ChapterSpine sections={sections} current={m.key} />
-            <div>
-              <h2
-                id={`${m.key}-heading`}
-                class="t-display lines"
-                style={`--fit-chars: ${longestLine(m.title)}`}
-              >
-                <Lines text={m.title} />
-              </h2>
-              <p class="t-prose reveal mt-12">{m.message}</p>
-
-              {/* Item 18: the sketch hangs HERE, in the theme section, per the
-                  Figma placement — the press-and-hold is retired and "the
-                  sketch comes alive" now belongs to the museum. It is the
-                  viewport's one framed artifact. Each scene hangs its OWN
-                  study, so Ch2 Pt 2 gets `sketch-pt2` rather than a second
-                  copy of Pt 1's drawing. */}
-              {
-                m.sketchKey && (
-                  <figure class="reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-end">
-                    <div class="artifact border border-primary-7">
-                      <img
-                        src={withBase(`media/${slug}/${m.sketchKey}-1440.jpg`)}
-                        srcset={`${withBase(`media/${slug}/${m.sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${m.sketchKey}-1440.webp`)} 1440w`}
-                        sizes="(min-width: 768px) 420px, 100vw"
-                        alt={`Study for “${c.name.canonical}” — Mark Priest`}
-                        loading="lazy"
-                        decoding="async"
-                        class="h-auto w-full"
-                      />
-                    </div>
-                    <figcaption class="mt-8 max-w-[44ch] md:mt-0">
-                      <p class="t-meta">The artist's study</p>
-                      {m.note && <p class="t-prose mt-4">{m.note}</p>}
-                      <p class="t-meta-body mt-4">Mark Priest · Nalle Series</p>
-                    </figcaption>
-                  </figure>
-                )
-              }
-
-              {/* Mid-register voice (E4 juror): the call to action stops
-                  whispering — its title is a title, not a breadcrumb. */}
-              <div class="reveal rule-top mt-16 max-w-[52ch] pt-8">
-                <p class="t-title-sm">{m.callToAction.title}</p>
-                <p class="t-prose mt-4">{m.callToAction.content}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    ))
-  }
-
   {/* ══════ ONWARD ══════ */}
-  <section class="shell void" id="onward" aria-label="Continue the walk">
+  {/* v7 C6: Onward follows the moral at one section gap, not a whole void —
+      the reader must never think the page ended. */}
+  <section class="shell sec" id="onward" aria-label="Continue the walk">
     <div class="sec-head"></div>
         <div class="editorial mt-8">
       <ChapterSpine sections={sections} current="onward" />
@@ -565,12 +599,14 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
           )
         }
 
-        {/* GA&C banner discipline: four elements, nothing else. */}
-        <div class="reveal mt-12">
-          <p class="t-meta">Next — Spot {pad2(nextEntry?.data.order ?? 1)}</p>
+        {/* GA&C banner discipline: four elements, nothing else. v7 C5: the
+            lockup and both CTAs sit centred under the map — one primary orange
+            (Continue); the map's chip is quiet, the mini-player collapses. */}
+        <div class="reveal onward-lockup mt-12">
+          <p class="t-meta">Next · Spot {pad2(nextEntry?.data.order ?? 1)}</p>
           <p class="t-title-sm mt-4">{nextName?.canonical}</p>
           <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
-          <div class="mt-10 flex flex-wrap items-center gap-4">
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button
               variant="solid"
               icon="arrow"
@@ -606,8 +642,33 @@ const heroAlt = `“${c.name.canonical}” — painting by Mark Priest`;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    /* v7 V7-022: a deep link (#scene-1, #history) can drift as lazy media and
+       the narration islands take their height — re-land on the hash once the
+       page has settled. */
+    if (location.hash) {
+      const land = () => document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant", block: "start" });
+      window.addEventListener("load", () => setTimeout(land, 60), { once: true });
+    }
+
     if (!reduced) {
       gsap.registerPlugin(ScrollTrigger);
+
+      /* v7 C2 — the moral's ground drifts against the reader (±6% travel,
+         scrubbed, the image oversized so no edge ever shows). Meaningful:
+         the theme's ground moves like the story under it. Documented as a
+         motion exception in docs/v4/MOTION.md. */
+      document.querySelectorAll<HTMLElement>("img[data-parallax]").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -6, scale: 1.14 },
+          {
+            yPercent: 6,
+            scale: 1.14,
+            ease: "none",
+            scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      });
 
       // The hero lockup withdraws and leaves the painting alone on the screen.
       // That is the whole move, and it is the one the page is about.

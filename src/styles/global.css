@@ -555,6 +555,42 @@ h3 {
 .beat {
   margin-top: var(--space-beat);
 }
+/* v7 C6: the opening quote is the part heading's companion — two block gaps,
+   not a beat (Wil: "RIVER ESCAPE → quote too far"). */
+.quote-after-heading {
+  margin-top: calc(var(--space-block) * 2);
+}
+@media (min-width: 1200px) {
+  .quote-after-heading {
+    margin-top: var(--sp-5);
+  }
+}
+/* v7 C4: the archival credit rides on a chip so it reads on any photograph. */
+.interlude-credit {
+  max-width: calc(100% - 2 * var(--gutter));
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary-2) 84%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary-7) 70%, transparent);
+  backdrop-filter: blur(6px);
+  text-align: right;
+}
+/* v7 C5: the Onward lockup and its two CTAs sit centred under the framed map. */
+.onward-lockup {
+  text-align: center;
+}
+.onward-lockup .t-meta-body {
+  margin-inline: auto;
+  max-width: 44ch;
+}
+.embed-map-shell {
+  box-shadow: 0 24px 64px -24px rgba(16, 10, 6, 0.7);
+}
+/* v7 C2: the moral ground drifts (gsap scrub); it is oversized so no edge
+   ever shows and promoted so the scrub costs no layout. */
+.moral-ground {
+  will-change: transform;
+}
 .block-gap {
   margin-top: var(--space-block);
 }
@@ -907,6 +943,12 @@ h3 {
 .mapboxgl-ctrl-logo {
   opacity: 0.55;
 }
+/* The Where-to-next embed is a small framed artifact: its controls sit at a
+   card inset, not the page's --ui-inset (v7 C5/V7-045). */
+.embed-map-shell .mapboxgl-ctrl-bottom-left,
+.embed-map-shell .mapboxgl-ctrl-bottom-right {
+  padding: 8px;
+}
 
 /* Narration scrub slider — thin track, real 24px hit area (the track paints
  * via background clipped to the content box; the padding is tappable) */
@@ -915,6 +957,11 @@ h3 {
   appearance: none;
   height: 24px;
   padding-block: 11px;
+  /* v7 V7-056: a thumb-sized hit area on touch screens (44px), same 2px track. */
+  @media (pointer: coarse) {
+    height: 44px;
+    padding-block: 21px;
+  }
   /* The track paints into the 2px content box; the 24px padding stays tappable.
      Never set the `background` shorthand on this element — it resets the clip. */
   background-clip: content-box;
@@ -1038,6 +1085,9 @@ h3 {
   display: block;
   padding: 0 0.12em 0.22em;
   margin: 0 -0.12em -0.22em;
+  /* An authored line that still has to wrap on a phone wraps balanced
+     ("TUBMAN CREATES / A CROWD", never "…CREATES A / CROWD"). */
+  text-wrap: balance;
 }
 
 /* The wipe's clipping child is also its positioning context, so the scrim
@@ -1207,6 +1257,39 @@ a.walk-seg:hover {
 }
 .curtain-covered .curtain-text {
   opacity: 1;
+}
+
+/* v7 C7 — the hero still reads the portrait focus below md and the landscape
+   focus at md+ (the <picture> swaps the source at the same breakpoint). */
+.hero-still {
+  object-position: var(--focus-px, 50%) var(--focus-p, 50%);
+}
+@media (min-width: 768px) {
+  .hero-still {
+    object-position: center var(--focus-l, 50%);
+  }
+}
+
+/* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,
+   Safari), a floated fallback elsewhere; Caslon Display in the ink, kerned
+   in a hair. Works through the inline span the transcript renders into and
+   leaves the `narration-active` wash and tap-to-seek untouched. */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+  margin-right: 0.12em;
+}
+@supports not (initial-letter: 3) {
+  .drop-cap::first-letter {
+    float: left;
+    font-size: 3.1em;
+    line-height: 0.82;
+    padding-top: 0.08em;
+    margin-right: 0.1em;
+  }
 }
 
 /* Narration sync highlight — a wash, not a block. `box-decoration-break: clone`

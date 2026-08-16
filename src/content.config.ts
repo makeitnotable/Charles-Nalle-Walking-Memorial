@@ -84,7 +84,22 @@ const chapters = defineCollection({
      * height — at the default 50% that cut ran through the faces of the
      * principal figures. Read off each canvas, not guessed.
      */
-    heroFocus: z.number().min(0).max(100).default(50),
+    heroFocus: z
+      .union([
+        z.number().min(0).max(100),
+        /* v7 C7: portrait phones crop a different painting than desktops
+           (2.84:1 band vs 9:19.5), so each orientation reads its own focus. */
+        z.object({
+          landscape: z.number().min(0).max(100),
+          /** Vertical focus of the portrait poster (tablets crop it vertically). */
+          portrait: z.number().min(0).max(100),
+          /** Horizontal focus of the portrait poster (phones show its full
+           *  height and crop the sides — this is what clears a face from the
+           *  top-right burger). Default centre. */
+          portraitX: z.number().min(0).max(100).optional(),
+        }),
+      ])
+      .default(50),
     plaque: z.boolean(),
     map: z.object({
       // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)

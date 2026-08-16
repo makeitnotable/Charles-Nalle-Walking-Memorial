@@ -25,6 +25,7 @@
     "qa:frames": "node scripts/frames.mjs",
     "qa:walk": "node scripts/walk-check.mjs",
     "qa:museum": "node scripts/museum-check.mjs",
+    "qa:audio": "node scripts/audio-check.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },

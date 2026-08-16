@@ -28,8 +28,10 @@ type Item =
 interface Props {
   slug: string;
   audioSrc: string;
-  /** e.g. "Chapter 1" */
+  /** Audio file label, e.g. "Chapter 1 | Pt. 1" (data; not shown as-is) */
   label: string;
+  /** What visitors read: "Spot 01" / "Spot 02 · Pt 1" (v7 V7-014 vocabulary) */
+  spot?: string;
   /** e.g. "Holeur's Fashionable Bakery" */
   subtitle: string;
   duration?: number;
@@ -45,10 +47,16 @@ function base(path: string): string {
 
 /** Minimal **bold** renderer (content is first-party, not user input). */
 function toHtml(p: string): string {
-  return p
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  return (
+    p
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      /* v7 G1: glue the last two words so a long final word ("representation.")
+         never sits alone on the last line. Whitespace only — the words, and so
+         the narration timings, are untouched. */
+      .replace(/ (\S+)\s*$/, "\u00a0$1")
+  );
 }
 
 function fmt(s: number): string {
@@ -77,6 +85,7 @@ export default function AudioStory({
   slug,
   audioSrc,
   label,
+  spot,
   subtitle,
   duration = 0,
   timings,
@@ -101,6 +110,13 @@ export default function AudioStory({
   const [active, setActive] = useState(-1);
   const [miniLatched, setMiniLatched] = useState(false);
   const [mainVisible, setMainVisible] = useState(true);
+  /* v7 C5: once the transcript has scrolled away (the reader is in the moral /
+     Onward), the mini-player collapses to a small pill — one orange less. */
+  const [collapsed, setCollapsed] = useState(false);
+  const transcriptRef = useRef<HTMLDivElement>(null);
+  /* v7 C9: two islands on one page (Ch2) — only the most recently played one
+     keeps its mini-player, and starting one pauses the other. */
+  const idRef = useRef(`${slug}-${audioSrc}`);
   /* Buffering on cellular: the control pulses and a live region says why the
      street went quiet. Cleared the moment playback resumes. */
   const [buffering, setBuffering] = useState(false);
@@ -146,16 +162,35 @@ export default function AudioStory({
       const b = mainBtnRef.current;
       if (!b) return;
       setMainVisible(b.getBoundingClientRect().top >= 0);
+      const t = transcriptRef.current;
+      if (t) setCollapsed(t.getBoundingClientRect().bottom < 0);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // One narration at a time (v7 C9): another island's play pauses this one
+  // and takes the mini-player lane.
+  useEffect(() => {
+    const onOther = (e: Event) => {
+      const who = (e as CustomEvent<string>).detail;
+      if (who === idRef.current) return;
+      const a = audioRef.current;
+      if (a && !a.paused) a.pause();
+      setPlaying(false);
+      setMiniLatched(false);
+    };
+    document.addEventListener("cnwm:audio-play", onOther);
+    return () => document.removeEventListener("cnwm:audio-play", onOther);
+  }, []);
+  const announcePlay = () => document.dispatchEvent(new CustomEvent("cnwm:audio-play", { detail: idRef.current }));
+
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
     if (a.paused) {
+      announcePlay();
       a.play()
         .then(() => {
           setPlaying(true);
@@ -180,6 +215,7 @@ export default function AudioStory({
     seekTo(timings[timingIndex].start + 0.01);
     const a = audioRef.current;
     if (a && a.paused) {
+      announcePlay();
       a.play()
         .then(() => {
           setPlaying(true);
@@ -317,14 +353,15 @@ export default function AudioStory({
       );
     }
     const isActive = item.timingIndex === active;
-    /* The enlarged first-word device is cut (E4 juror: "half-committed —
-       commit harder or cut"). The transcript opens plainly. */
+    /* v7 C1: the first paragraph of each part opens on a storybook drop cap
+       (::first-letter, CSS) — the enlarged first WORD device of v5 was cut as
+       half-committed; a proper three-line initial commits. */
     return (
       <p
         key={`p-${globalIndex}`}
         data-timing={item.timingIndex}
         onClick={() => seekParagraph(item.timingIndex)}
-        className={`t-prose cursor-pointer ${isActive ? "narration-active" : ""}`}
+        className={`t-prose cursor-pointer ${globalIndex === 0 ? "drop-cap" : ""} ${isActive ? "narration-active" : ""}`}
         title="Tap to hear this passage"
       >
         <span dangerouslySetInnerHTML={{ __html: item.html }} />
@@ -347,7 +384,7 @@ export default function AudioStory({
             <p className="t-meta">{buffering && playing ? "Buffering…" : playing ? "Now playing" : "Listen"}</p>
             <p className="t-meta-body mt-1 truncate">
               {subtitle}
-              {label.includes("Pt") ? ` · ${label.split("|").pop()?.trim()}` : ""}
+              {spot && spot.includes("Pt") ? ` · ${spot.split("·").pop()?.trim()}` : ""}
             </p>
           </div>
           {timeReadout}
@@ -368,9 +405,9 @@ export default function AudioStory({
       </div>
 
       {/* ——— The transcript: one serif column on the cream register ——— */}
-      <div className="ground-cream bleed mt-12 py-16 md:py-24">
+      <div ref={transcriptRef} className="ground-cream bleed mt-12 py-16 md:py-24">
         <div className="mx-auto w-full max-w-[var(--shell)] px-[var(--gutter)]">
-          {timings && <p className="t-meta mb-8">Tap any paragraph to hear it read aloud</p>}
+          {timings && <p className="t-meta mb-8">Tap or click a paragraph to hear it read aloud</p>}
           <div className="flex flex-col gap-y-8">{items.map((it, i) => renderItem(it, i))}</div>
         </div>
       </div>
@@ -386,21 +423,22 @@ export default function AudioStory({
           }}
         >
           <div
-            className="flex items-center gap-3 rounded-full py-2 pr-5 pl-2"
+            className={`flex items-center gap-3 rounded-full py-2 pl-2 ${collapsed ? "pr-4" : "pr-5"}`}
             style={{
               background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)",
               backdropFilter: "blur(8px)",
               border: "1px solid var(--color-primary-7)",
+              transition: "padding var(--dur-fast) var(--ease)",
             }}
           >
             {playButton(true)}
             <div className="min-w-0">
-              <p className="t-meta truncate">{label}</p>
+              {!collapsed && <p className="t-meta truncate">{spot ?? label}</p>}
               <p
-                className="t-meta-body mt-0.5 truncate"
+                className={`t-meta-body truncate ${collapsed ? "" : "mt-0.5"}`}
                 style={{ fontVariantNumeric: "tabular-nums", fontSize: "12px" }}
               >
-                {fmt(time)} / {fmt(total)}
+                {collapsed ? fmt(time) : `${fmt(time)} / ${fmt(total)}`}
               </p>
             </div>
           </div>

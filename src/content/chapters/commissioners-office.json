@@ -14,7 +14,7 @@
       -73.6926623,
       42.7304335
     ],
-    "address": "5 State Street — Mutual Bank Building"
+    "address": "5 State Street · Mutual Bank Building"
   },
   "palette": {
     "surface": "#16121c",
@@ -61,7 +61,7 @@
   },
   "scenes": [
     {
-      "label": "Part 1 — Tubman Creates a Crowd",
+      "label": "Part 1\nTubman Creates a Crowd",
       "audio": {
         "label": "Chapter 2 | Pt. 1",
         "subtitle": "Commissioner’s Office",
@@ -104,7 +104,7 @@
       }
     },
     {
-      "label": "Part 2 — The Mob",
+      "label": "Part 2\nThe Mob",
       "sketchNote": "The brawl is worked nearly black at the center of the sheet, while the street behind it thins to bare paper and a few onlookers. A single club raised at the top marks the heart of the struggle — every figure in the drawing turns toward it.",
       "audio": {
         "label": "Chapter 2 | Pt. 2",

@@ -7,7 +7,11 @@
   },
   "chapterLabel": "Chapter 5",
   "sketchNote": "The crowd fills the sheet edge to edge and moves as one mass to the left. Priest drew the pavement in the same weight as the people, so the street itself seems to be leaning toward the shop.",
-  "heroFocus": 62,
+  "heroFocus": {
+    "landscape": 44,
+    "portrait": 40,
+    "portraitX": 100
+  },
   "plaque": true,
   "map": {
     "coordinates": [
@@ -84,8 +88,8 @@
       "paragraphs": [
         "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice’s office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice’s office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Corporation Hall Building grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
         "@media:narrative1",
-        "@media:narrative2",
         "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house near Schenectady and beyond, Charles ultimately crossed safely into Canada, where he found refuge in St. Catharines, Ontario, at a safe house owned by Harriet Tubman. It was there that word reached him: through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts, the people of Troy had raised the ransom money. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
+        "@media:narrative2",
         "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero—a testament to courage, community, and the unrelenting fight for freedom."
       ],
       "reveal": {

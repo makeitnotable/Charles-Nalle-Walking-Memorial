@@ -43,16 +43,18 @@ function markerEl(label: string, order: number, href?: string): HTMLElement {
     root.style.display = "block";
     root.style.textDecoration = "none";
   }
+  /* v7 C5: a QUIET pill — dark ground, cream label, the numeral the only
+     orange — so the section's one primary orange is the Continue button. */
   root.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="display:flex;align-items:center;justify-content:center;padding:9px;border-radius:30px;background:#F26835;color:#1D1411;border:1px solid #F26835;font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
-        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px">
+      <div style="display:flex;align-items:center;justify-content:center;padding:8px 12px 8px 8px;border-radius:30px;background:color-mix(in srgb, var(--color-primary-2) 88%, transparent);color:var(--color-neutral-12);border:1px solid var(--color-primary-7);backdrop-filter:blur(6px);font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:8px;background:var(--color-primary-9);width:20px;height:20px">
           <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:700">${order}</p>
         </div>
         <p style="font-size:${font}px;line-height:18px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${label}</p>
       </div>
-      <div style="width:2px;height:26px;background:#F26835"></div>
-      <div style="width:8px;height:8px;border-radius:9999px;background:#F26835"></div>
+      <div style="width:2px;height:26px;background:var(--color-primary-9)"></div>
+      <div style="width:8px;height:8px;border-radius:9999px;background:var(--color-primary-9)"></div>
     </div>`;
   return root;
 }
@@ -74,8 +76,11 @@ export default function EmbedMap({ coordinates, label, order, pitch, bearing, zo
       pitch: reduced ? 0 : pitch,
       bearing: reduced ? 0 : bearing,
       interactive: false,
+      /* v7 V7-045: Mapbox + OSM attribution is a licence requirement — the
+         compact (i) control, bottom-right, styled by the same rules as /map. */
       attributionControl: false,
     });
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-right");
     mapRef.current = map;
     map.on("load", () => map.resize());
     const ro = new ResizeObserver(() => map.resize());

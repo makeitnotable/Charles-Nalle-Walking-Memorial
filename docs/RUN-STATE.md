@@ -19,7 +19,14 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Phase 3 = DONE** (H1–H6, F1; shots/rag/contrast clean on `/`; home 97).
+P4 chunk 2: G5 em-dash sweep in the chapter JSON prose (punctuation-only,
+every edit in `docs/CONTENT-STATUS.md`), `mansion` subtitle note,
+`WalkProgress` sr-only dash, `paintings.astro` alts (P7 owns the rest of that
+page), styleguide specimens; a DOM-based visible-em-dash sweep added to
+`rag.mjs`; then the P4 gate (a11y chapters zero serious, arrival unchanged,
+shots) → commit → push → Phase 5.
+
+(Previous) **Phase 3 = DONE** (H1–H6, F1; shots/rag/contrast clean on `/`; home 97).
 **Phase 4 — Chapter template** next: C1 drop cap · C2 moral contrast + parallax
 · C3 study centred · C4 interlude chip · C5 Where-to-next declutter +
 mini-player collapse (+ V7-045 embed attribution) · C6 rhythm · C7 hero mobile
@@ -50,7 +57,8 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 | P2 G3 spine inactive labels .62→.72 (4.01→4.99:1, V7-004; axe serious 0) · spine = one landmark, later copies `inert` (V7-008/081) · G6 mini-player on `--ui-inset` · N1 close-X quarter-turn · N2 scroll-hide travel accumulator (V7-048: fired on ~no phone before) · Menu before `<main>` (first tab stop) · `aria-current=page` in the menu (V7-089) · G-L3 trailing-slash retry on 404 · 404 title `·` | bb56620 | a11y /mansion 0/0/0 across 6 runs; contrast chapters@1440 spine rows gone |
 | P2 I1–I4: CN monogram (Libre Caslon Display outlines → paths, 3 candidates a/b/c on `/styleguide#mark`, **a · interlock ships**), full set (svg/16/32/48/ico×3/apple-touch/192/512) + relative-URL `site.webmanifest`, head wiring via `withBase()`, og:image width/height/alt + twitter:image, `build-og.mjs` ported to Caslon (+ the mark) → new `public/og.png`; `scripts/serve-dist.mjs` (GH-Pages-like server: trailing-slash retry verified `/bakery/`→`/bakery`, `/nope/`→404 no loop) | 5bb93a0 | `public/favicon-candidates/sheet.png`; all 10 icon URLs 200 |
 | P3 H1–H6 home: film/still art-directed per orientation (`object-position 50% 43/46%` on landscape frames) + the lockup starts below the chin (eyebrow ≈ 42% portrait / 32–33% landscape) so the whole head sits above `Troy, New York…` with headroom at 360/390/430/768/1024/1280/1440/1920 · H2 description 16px cream, 60ch ≥1200 = exactly 3 lines at 1440/1920 (4 @768, 5 @390) · H3 `Walk the story` · H4 phone CTA pinned to the frame bottom on the 16px inset, full-width, 48px · H5 scrim ramp from 22% + eyebrow ink halo → contrast 0 failures (desc 14:1, eyebrow ≥ 4.76 p10) · title/meta `·` no em dash · landscape phone keeps the centred layout | 435b90d | `docs/v7/qa/p3/contrast-home.md` |
-| P3 F1 footer: 3-col grid (Caslon Display wordmark ONE line + `Made by Notable` · vertical nav list with the arrow idiom · Share right on chapters), `rule-top` disclaimer row (`nbsp` on `and risk.`, 62ch, `--ink-quiet` full opacity), phones stack in one column (no wrapped labels, no lone MAP cell), 3rem/2rem/1.5rem/2.5rem rhythm; chapters keep the `pb-28` lane (C10) | (this commit) | `docs/v7/qa/p3/rag-footer.md` (footer rows gone; remaining runts are P4/P6-owned) |
+| P3 F1 footer: 3-col grid (Caslon Display wordmark ONE line + `Made by Notable` · vertical nav list with the arrow idiom · Share right on chapters), `rule-top` disclaimer row (`nbsp` on `and risk.`, 62ch, `--ink-quiet` full opacity), phones stack in one column (no wrapped labels, no lone MAP cell), 3rem/2rem/1.5rem/2.5rem rhythm; chapters keep the `pb-28` lane (C10) | 0483cf5 | `docs/v7/qa/p3/rag-footer.md` |
+| P4 chunk 1 — C9 Ch2 ordered render list (`blocks`; ids hero→scene-0→history→moral-0→hero-2→scene-1→moral-1→onward; spine follows; twin players: one at a time via `cnwm:audio-play`) · C6 rhythm (heading→quote 48/64; Onward `void`→`sec`, moral `pb-16` → ladder `…128, 200, 200` on all five) · C1 drop cap (`initial-letter` + float fallback) · C2 moral: cream body, scrim .86, parallax ±6% scrub (RM off) · C3 study `items-center` · C4 credit chip (phones drop the name) · C5 quiet embed pill + shadow + centred CTAs + mini-player collapse to a time pill + compact Mapbox attribution (V7-045) · C7 `heroFocus {landscape, portrait, portraitX}` (portrait `<video>` finally positioned; bakery face clear of the ☰) · C8 barbershop T→I→T→I→T, focus 44 · C11 `Next · Spot 02`, attribution/alt dashes, `Part 1\nTubman…` labels, ch2 address `·` · C12 `fitChars()` used, dup `longestLine` gone · V7-022 hash re-land · V7-054 phone gutter · V7-056 44px scrub · V7-082 `client:visible rootMargin 600px` · V7-083 hint copy · nbsp glue on prose/dd/moral · `scripts/audio-check.mjs` (`qa:audio`) | (this commit) | `docs/v7/qa/p4/{contrast-chapters,census}.md`; audio-check 5/5 ✓; contrast chapters 0; rag chapters 0/0; census ladder identical ×5 |
 
 ## DECISIONS (run-time, logged here; plan edits only for Wil decisions)
 - Baseline evidence lives in `docs/v7/qa/`; PNGs are gitignored (same rule as
