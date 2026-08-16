@@ -1,0 +1,49 @@
+barbershop@p390 burger at top: 1/visible/none/y=20
+barbershop@p390 burger after 900px down: 1/visible/none/y=34
+barbershop@p390 burger after 60px up: 1/visible/none/y=20
+barbershop@p390 after play 3.5s: {"t":3.290975,"paused":false,"hl":"Pushing their way through the gathering "}
+barbershop@p390 after tapping para 3: {"t":97.468391,"paused":false} (paras=3)
+barbershop@p390 fixed elements after scroll: div.curtain-panel 0,844 390x844 "" | nav.walk-rail.walk-rail-static 0,0 390x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 20,762 114x62 "01:38"
+barbershop@p390 fixed at Onward: div 0,844 390x844 "" | nav 0,0 390x3 "Progress along the walk" | div 20,762 114x62 "01:43"
+barbershop@p390 footer: {"footerTop":280,"h":564,"fixed":["div 0,844 390x844","div 20,762 114x62"],"links":["Notable@81,358","The people of this day@20,420","The paintings@20,459","About the memorial@20,498","Map@20,537","Share@20,595"]}
+barbershop@p390 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery
+barbershop@p360 burger at top: 1/visible/none/y=20
+barbershop@p360 burger after 900px down: 1/visible/none/y=34
+barbershop@p360 burger after 60px up: 1/visible/none/y=20
+barbershop@p360 after play 3.5s: {"t":3.399881,"paused":false,"hl":"Pushing their way through the gathering "}
+barbershop@p360 after tapping para 3: {"t":97.454097,"paused":false} (paras=3)
+barbershop@p360 fixed elements after scroll: div.curtain-panel 0,800 360x800 "" | nav.walk-rail.walk-rail-static 0,0 360x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 20,718 114x62 "01:38"
+barbershop@p360 fixed at Onward: div 0,800 360x800 "" | nav 0,0 360x3 "Progress along the walk" | div 20,718 114x62 "01:43"
+barbershop@p360 footer: {"footerTop":215,"h":584,"fixed":["div 0,800 360x800","div 20,718 114x62"],"links":["Notable@81,292","The people of this day@20,354","The paintings@20,394","About the memorial@20,433","Map@20,472","Share@20,530"]}
+barbershop@p360 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery
+barbershop@t768 burger at top: 1/visible/none/y=40
+barbershop@t768 burger after 900px down: 1/visible/none/y=54
+barbershop@t768 burger after 60px up: 1/visible/none/y=40
+barbershop@t768 after play 3.5s: {"t":3.396875,"paused":false,"hl":"Pushing their way through the gathering "}
+barbershop@t768 after tapping para 3: {"t":97.451095,"paused":false} (paras=3)
+barbershop@t768 fixed elements after scroll: div.curtain-panel 0,1024 768x1024 "" | nav.walk-rail.walk-rail-static 0,0 768x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 40,922 114x62 "01:38"
+barbershop@t768 fixed at Onward: div 0,1024 768x1024 "" | nav 0,0 768x3 "Progress along the walk" | div 40,922 114x62 "01:44"
+barbershop@t768 footer: {"footerTop":604,"h":420,"fixed":["div 0,1024 768x1024","div 40,922 114x62"],"links":["Notable@101,686","The people of this day@356,655","The paintings@356,709","About the memorial@356,748","Map@356,787","Share@609,653"]}
+barbershop@t768 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery
+barbershop@d1440 burger at top: 1/visible/none/y=56
+barbershop@d1440 burger after 900px down: 1/visible/none/y=70
+barbershop@d1440 burger after 60px up: 1/visible/none/y=56
+barbershop@d1440 after play 3.5s: {"t":3.393262,"paused":false,"hl":"Pushing their way through the gathering "}
+barbershop@d1440 after tapping para 3: {"t":97.462324,"paused":false} (paras=3)
+barbershop@d1440 fixed elements after scroll: div.curtain-panel 0,900 1440x900 "" | nav.walk-rail.walk-rail-static 0,0 1440x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 56,782 114x62 "01:38"
+barbershop@d1440 fixed at Onward: div 0,900 1440x900 "" | nav 0,0 1440x3 "Progress along the walk" | div 56,782 114x62 "01:43"
+barbershop@d1440 footer: {"footerTop":493,"h":406,"fixed":["div 0,900 1440x900","div 56,782 114x62"],"links":["Notable@201,579","The people of this day@724,543","The paintings@724,582","About the memorial@724,621","Map@724,660","Share@1185,542"]}
+barbershop@d1440 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery
+
+CONSOLE:
+[barbershop-p390] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED
+[barbershop-p390] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED
+[barbershop-p360] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED
+[barbershop-p360] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED
+[barbershop-t768] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED
+[barbershop-t768] reqfail: https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24151.vector.pbf?sku=1016hvmMOquIc&access_token=pk.eyJ1Ijo net::ERR_ABORTED
+[barbershop-t768] reqfail: https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19353/24150.vector.pbf?sku=1016hvmMOquIc&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED
+[barbershop-t768] reqfail: https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24150.vector.pbf?sku=1016hvmMOquIc&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED
+[barbershop-t768] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED
+[barbershop-d1440] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED
+[barbershop-d1440] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED

@@ -1,5 +1,5 @@
 ✓ 360 — pitch 48 zoom 14.9 · 0 finding(s)
-✗ 390 — pitch 52 zoom 15 · 1 finding(s): M5 2 long task(s) during the drag: 59,56ms
+✓ 390 — pitch 52 zoom 15 · 0 finding(s)
 ✓ 430 — pitch 52 zoom 15.15 · 0 finding(s)
 ✓ land — pitch 33 zoom 15.25 · 0 finding(s)
 ✓ 768 — pitch 52 zoom 14.81 · 0 finding(s)
@@ -7,4 +7,4 @@
 ✓ 1440 — pitch 52 zoom 15.03 · 0 finding(s)
 ✓ 1920 — pitch 52 zoom 15.37 · 0 finding(s)
 
-walk → docs/v7/qa/final/walk/walk.md (1 findings)
+walk → docs/v7/qa/final/walk/walk.md (0 findings)

@@ -222,8 +222,11 @@ const COLLIDE = () => {
   };
 };
 
-// v7: GL flags so the museum mounts under headless Chromium
-const browser = await chromium.launch({ args: ["--use-gl=angle", "--autoplay-policy=no-user-gesture-required"] });
+// v7: GL flags so the museum mounts under headless Chromium. One BROWSER PER
+// VIEWPORT — the museum's WebGL context churn took the shared browser's GPU
+// process down between viewports on long runs.
+const launch = () => chromium.launch({ args: ["--use-gl=angle", "--autoplay-policy=no-user-gesture-required"] });
+let browser = await launch();
 const log = [];
 const shot = async (page, name) => {
   await page.screenshot({ path: join(outdir, `${name}.png`) });
@@ -238,6 +241,7 @@ const record = async (page, name, note) => {
 };
 
 for (const vp of VPS) {
+  if (!browser.isConnected()) browser = await launch();
   const ctx = await browser.newContext({
     viewport: { width: vp.width, height: vp.height },
     deviceScaleFactor: 1,
@@ -459,6 +463,8 @@ for (const vp of VPS) {
     log.push({ state: `FAILURE@${vp.name}`, note: e.message.split("\n")[0], hits: [] });
   }
   await ctx.close().catch(() => {});
+  await browser.close().catch(() => {});
+  browser = await launch();
 }
 await browser.close().catch(() => {});
 

@@ -207,8 +207,12 @@ const MEASURE = () => {
     // roles at < 50%. A balanced two-line name ("MARTIN I. / TOWNSEND",
     // ratio ≈ 1) is not a runt — `text-wrap: balance` did its job.
     const ratio0 = widest ? (last.right - last.left) / widest : 1;
+    // A short name (≤ 20 chars) that has to wrap once has no better break —
+    // "URI GILBERT / HOME" is not a runt, it is a two-line name.
+    const shortName = lines.length === 2 && txt(el).length <= 20;
     const runt =
       lines.length >= 2 &&
+      !shortName &&
       (((last.words.length === 1 || lastText.length <= 3) && ratio0 < 0.6) ||
         (isDisplay && last.words.length === 2 && ratio0 < 0.5));
     // .lines headings: each authored line sits in its own overflow-hidden box —

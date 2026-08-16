@@ -430,6 +430,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   // The fixed carousel belongs to the map: when the map shell scrolls away
   // (reading the index below), the cards step aside.
   const [shellVisible, setShellVisible] = useState(true);
+  const shellVisibleRef = useRef(true);
+  shellVisibleRef.current = shellVisible;
   useEffect(() => {
     const el = container.current;
     if (!el) return;
@@ -554,6 +556,17 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  /** v7 (juror 2): in focused/walk mode the stop is lifted so it — and its
+   *  label pill — sit above the card strip: half the strip's height (card +
+   *  its bottom padding) at every viewport, phones and landscape included. */
+  const cardLift = (): [number, number] => {
+    const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+    const w = window.innerWidth;
+    const strip = w < 640 ? 128 + inset + 80 : w < 1024 ? 160 + inset + 96 : 192 + inset + 96;
+    // never so far that the active name plate meets the top edge (landscape phones)
+    return [0, -Math.round(Math.min(strip / 2, window.innerHeight / 2 - 100))];
+  };
+
   const flyToStop = useCallback(
     (idx: number) => {
       const map = mapRef.current;
@@ -563,9 +576,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          erased every other stop. 17.75 keeps the neighbouring blocks — a
          walking tour needs to see where a stop sits in the walk. P1-7: on a
          short viewport the camera lifts the stop above the card strip. */
-      const lift: [number, number] = window.innerHeight < 560 ? [0, -64] : [0, 0];
+      const lift = cardLift();
       if (reduced) {
-        map.jumpTo({ center: stop.coordinates, zoom: 17.75 });
+        map.easeTo({ center: stop.coordinates, zoom: 17.75, offset: lift, duration: 0 });
       } else {
         map.flyTo({
           center: stop.coordinates,
@@ -589,8 +602,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       const map = mapRef.current;
       const stop = stops[idx];
       if (!map || !stop) return;
-      const lift: [number, number] = window.innerHeight < 560 ? [0, -64] : [0, 0];
-      if (reduced) map.jumpTo({ center: stop.coordinates, zoom: 17.75 });
+      const lift = cardLift();
+      if (reduced) map.easeTo({ center: stop.coordinates, zoom: 17.75, offset: lift, duration: 0 });
       else map.easeTo({ center: stop.coordinates, zoom: 17.75, duration: 1100, easing: expoOut, offset: lift, essential: true });
       setMarkers(stop.label);
     },
@@ -724,6 +737,34 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          eased apart along their joining line (≤ 6px each — a leader's worth,
          the dot stays on its block). Reset once the walk zooms in. */
       const chipNudge = () => {
+        const msAll = markersRef.current;
+        /* While a stop is focused the card strip owns the bottom of the map:
+           any marker whose point falls under it fades (a label under a card is
+           useless, and it read as a collision — juror pass 2). */
+        if (focusedRef.current && shellVisibleRef.current) {
+          const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+          const w = window.innerWidth;
+          const strip = w < 640 ? 128 + inset + 80 : w < 1024 ? 160 + inset + 96 : 192 + inset + 96;
+          const limit = window.innerHeight - strip - 8;
+          const narrowNow = w < 640 || window.innerHeight < 560;
+          msAll.forEach(({ marker, stop }) => {
+            const el = marker.getElement();
+            const pt = map.project(stop.coordinates);
+            // the LABEL's bottom edge: a chip's 12px radius, or the pill on its leader
+            const [, dy] = stop.pinOffset ?? [0, -46];
+            const labelBottom = pt.y + (narrowNow ? 12 : Math.max(12, dy + 20));
+            const under = labelBottom > limit && stop.label !== activeLabelRef.current;
+            el.style.opacity = under ? "0" : "";
+            el.style.pointerEvents = under ? "none" : "";
+            el.style.transition = "opacity var(--dur-fast) var(--ease)";
+          });
+        } else {
+          msAll.forEach(({ marker }) => {
+            const el = marker.getElement();
+            el.style.opacity = "";
+            el.style.pointerEvents = "";
+          });
+        }
         if (!(window.innerWidth < 640 || window.innerHeight < 560)) return;
         const ms = markersRef.current;
         const pts = ms.map(({ stop }) => map.project(stop.coordinates));
@@ -1024,7 +1065,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       setActiveIdx(i);
       setMarkers(stops[i].label);
       if (reduced) {
-        map.jumpTo({ center: stops[i].coordinates, zoom: 17.5 });
+        map.easeTo({ center: stops[i].coordinates, zoom: 17.5, offset: cardLift(), duration: 0 });
         await sleep(2500); // v7 V7-038: a gentler cadence for the cuts
       } else {
         map.flyTo({
@@ -1033,6 +1074,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           pitch: 48,
           bearing: ((stops[i].order * 25) % 60) - 30,
           duration: 2600,
+          offset: cardLift(),
           essential: false,
         });
         await sleep(3400);
@@ -1217,7 +1259,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             </div>
           )}
           <figcaption className="t-meta mt-3 text-center">
-            Troy, New&nbsp;York&nbsp;·&nbsp;1858&nbsp;·&nbsp;Library of&nbsp;Congress
+            Troy, New&nbsp;York · 1858 · Library&nbsp;of&nbsp;Congress
           </figcaption>
           <p className="t-meta-body mt-1 text-center opacity-80">
             <span className="hidden sm:inline">Drag to explore · pinch or scroll to zoom</span>

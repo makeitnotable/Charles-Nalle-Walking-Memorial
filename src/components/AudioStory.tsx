@@ -113,6 +113,9 @@ export default function AudioStory({
   /* v7 C5: once the transcript has scrolled away (the reader is in the moral /
      Onward), the mini-player collapses to a small pill — one orange less. */
   const [collapsed, setCollapsed] = useState(false);
+  /* Phones: while the Onward CTA row is on screen the pill steps aside — the
+     one place its lane meets a primary control (juror pass 2, P2). */
+  const [ctaInView, setCtaInView] = useState(false);
   const transcriptRef = useRef<HTMLDivElement>(null);
   /* v7 C9: two islands on one page (Ch2) — only the most recently played one
      keeps its mini-player, and starting one pauses the other. */
@@ -168,6 +171,14 @@ export default function AudioStory({
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const row = document.querySelector("#onward .onward-lockup");
+    if (!row) return;
+    const io = new IntersectionObserver(([e]) => setCtaInView(e.isIntersecting), { threshold: 0 });
+    io.observe(row);
+    return () => io.disconnect();
   }, []);
 
   // One narration at a time (v7 C9): another island's play pauses this one
@@ -417,10 +428,10 @@ export default function AudioStory({
       {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}
       {miniLatched && (
         <div
-          className="fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]"
+          className={`fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999] ${ctaInView ? "max-sm:pointer-events-none max-sm:opacity-0" : ""}`}
           style={{
-            opacity: mainVisible ? 0 : 1,
-            pointerEvents: mainVisible ? "none" : "auto",
+            opacity: mainVisible ? 0 : undefined,
+            pointerEvents: mainVisible ? "none" : undefined,
             transition: "opacity var(--dur-fast) var(--ease)",
           }}
         >

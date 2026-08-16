@@ -19,7 +19,22 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 1 = FAIL** (`docs/v7/juror-pass1.md`; Sheet A 8/7/9/9 phone,
+**Juror pass 2 = FAIL** (`docs/v7/juror-pass2.md`; Sheet A phone 7/8/9/9,
+tablet 8/8/9/9, desktop 9/9/9/9; retell = the Museum; both juror-1 P1s and
+most P2s confirmed fixed). P1 (fixed): the phone map index clipped titles —
+my `nbsp()` glue on the names; index now shows the authored `name.card`
+lines, never glued. Landscape/short-viewport walk overlap (fixed): the
+followed stop is LIFTED half a strip above the cards at every viewport
+(`cardLift`, capped for landscape phones); markers whose label falls under
+the strip fade while focused. P2s (fixed): lens + interlude captions keep
+`Library of Congress` together; the phone pill steps aside while the Onward
+CTA row is on screen; rag exempts ≤20-char two-line names; walk-check M9 in
+screen space. Gates after: walk-check 8/8, states 0/127 (browser per
+viewport), museum 5/5, audio 5/5 ×2, rag /map,/ch2 0. Next: push → verify
+live → **juror pass 3** (fresh) → if PASS → **juror pass 4** (fresh, same
+build) → REVIEW-GUIDE §3 → memory → push.
+
+(Earlier) **Juror pass 1 = FAIL** (`docs/v7/juror-pass1.md`; Sheet A 8/7/9/9 phone,
 8/7/9/9 tablet, 8/9/9/9 desktop; retell = the Museum). P1s, both fixed:
 (1) U8 aspects fell back to 1.5 in the PRODUCTION build (module-relative
 `import.meta.url` path under `astro build`) → resolved from `process.cwd()`;

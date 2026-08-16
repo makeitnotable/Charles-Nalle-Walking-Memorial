@@ -1,0 +1,26 @@
+bakery@p390 burger at top: 1/visible/none/y=20
+bakery@p390 burger after 900px down: 1/visible/none/y=34
+bakery@p390 burger after 60px up: 1/visible/none/y=20
+bakery@p390 after play 3.5s: {"t":3.290668,"paused":false,"hl":"As the sun rose on the morning of April "}
+bakery@p390 after tapping para 3: {"t":50.049907,"paused":false} (paras=3)
+bakery@p390 fixed elements after scroll: div.curtain-panel 0,844 390x844 "" | nav.walk-rail.walk-rail-static 0,0 390x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 20,762 114x62 "00:50"
+bakery@p390 fixed at Onward: div 0,844 390x844 "" | nav 0,0 390x3 "Progress along the walk" | div 20,762 114x62 "00:56"
+bakery@p390 footer: {"footerTop":280,"h":564,"fixed":["div 0,844 390x844","div 20,762 114x62"],"links":["Notable@81,358","The people of this day@20,420","The paintings@20,459","About the memorial@20,498","Map@20,537","Share@20,595"]}
+bakery@p390 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office
+bakery@d1440 burger at top: 1/visible/none/y=56
+bakery@d1440 burger after 900px down: 1/visible/none/y=70
+bakery@d1440 burger after 60px up: 1/visible/none/y=56
+bakery@d1440 after play 3.5s: {"t":3.393367,"paused":false,"hl":"As the sun rose on the morning of April "}
+bakery@d1440 after tapping para 3: {"t":50.062824,"paused":false} (paras=3)
+bakery@d1440 fixed elements after scroll: div.curtain-panel 0,900 1440x900 "" | nav.walk-rail.walk-rail-static 0,0 1440x3 "Progress along the walk" | div.fixed.bottom-[var(--ui-inset)] 56,782 114x62 "00:50"
+bakery@d1440 fixed at Onward: div 0,900 1440x900 "" | nav 0,0 1440x3 "Progress along the walk" | div 56,782 114x62 "00:56"
+bakery@d1440 footer: {"footerTop":494,"h":406,"fixed":["div 0,900 1440x900","div 56,782 114x62"],"links":["Notable@201,580","The people of this day@724,544","The paintings@724,583","About the memorial@724,622","Map@724,660","Share@1185,543"]}
+bakery@d1440 after Continue url=https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office
+
+CONSOLE:
+[bakery-p390] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED
+[bakery-p390] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED
+[bakery-p390] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED
+[bakery-d1440] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED
+[bakery-d1440] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED
+[bakery-d1440] reqfail: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED

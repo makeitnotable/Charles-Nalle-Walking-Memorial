@@ -76,8 +76,11 @@ for (const route of ROUTES) {
       .filter((e) => getComputedStyle(e).opacity !== "0")
       .map((e) => e.innerText.replace(/\s+/g, " ").trim()),
   );
-  notes.push(`  minis at Onward: ${JSON.stringify(mini)} ${mini.length === 1 && !/\//.test(mini[0]) ? "(collapsed ✓)" : mini.length === 1 ? "(NOT collapsed)" : "(count ≠ 1)"}`);
-  if (mini.length !== 1 || /\//.test(mini[0])) fails++;
+  /* Phones: the collapsed pill steps aside while the Onward CTA row is on
+     screen (juror pass 2) — 0 visible pills at Onward is the correct state there. */
+  const okMini = (mini.length === 1 && !/\//.test(mini[0])) || (VP.width < 640 && mini.length === 0);
+  notes.push(`  minis at Onward: ${JSON.stringify(mini)} ${okMini ? (mini.length ? "(collapsed ✓)" : "(stepped aside for the CTAs ✓)") : mini.length === 1 ? "(NOT collapsed)" : "(count ≠ 1)"}`);
+  if (!okMini) fails++;
   console.log(`${errors.length || notes.some((x) => /DID NOT|TWO|✗|NOT/.test(x)) ? "✗" : "✓"} ${route}\n  ` + notes.join("\n  "));
   if (errors.length) console.log("  console: " + errors.map((e) => e.replace(/\n/g, " ⏎ ").slice(0, 700)).join("\n  console: "));
   if (errors.length) fails++;

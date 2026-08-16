@@ -1,0 +1,103 @@
+/@p390 docH=844 overflowX=0
+/@p390 NO burger
+/bakery@p390 docH=8371 overflowX=0
+/bakery@p390 menu open ok=true
+/commissioners-office@p390 docH=14126 overflowX=0
+/commissioners-office@p390 menu open ok=true
+/mansion@p390 docH=9345 overflowX=0
+/mansion@p390 menu open ok=true
+/ferry@p390 docH=9301 overflowX=0
+/ferry@p390 menu open ok=true
+/barbershop@p390 docH=8543 overflowX=0
+/barbershop@p390 menu open ok=true
+/map@p390 docH=3025 overflowX=0
+/map@p390 menu open ok=true
+/people@p390 docH=6918 overflowX=0
+/people@p390 menu open ok=true
+/paintings@p390 docH=14124 overflowX=0
+/paintings@p390 menu open ok=true
+/about@p390 docH=8964 overflowX=0
+/about@p390 menu open ok=true
+/404@p390 docH=1208 overflowX=0
+/404@p390 menu open ok=true
+/@t768 docH=1024 overflowX=0
+/@t768 NO burger
+/bakery@t768 docH=7956 overflowX=0
+/bakery@t768 menu open ok=true
+/commissioners-office@t768 docH=13142 overflowX=0
+/commissioners-office@t768 menu open ok=true
+/mansion@t768 docH=8578 overflowX=0
+/mansion@t768 menu open ok=true
+/ferry@t768 docH=8745 overflowX=0
+/ferry@t768 menu open ok=true
+/barbershop@t768 docH=8230 overflowX=0
+/barbershop@t768 menu open ok=true
+/map@t768 docH=3036 overflowX=0
+/map@t768 menu open ok=true
+/people@t768 docH=5463 overflowX=0
+/people@t768 menu open ok=true
+/paintings@t768 docH=13858 overflowX=0
+/paintings@t768 menu open ok=true
+/about@t768 docH=7781 overflowX=0
+/about@t768 menu open ok=true
+/404@t768 docH=1299 overflowX=0
+/404@t768 menu open ok=true
+/@d1440 docH=900 overflowX=0
+/@d1440 NO burger
+/bakery@d1440 docH=7671 overflowX=0
+/bakery@d1440 menu open ok=true
+/commissioners-office@d1440 docH=12699 overflowX=0
+/commissioners-office@d1440 menu open ok=true
+/mansion@d1440 docH=8304 overflowX=0
+/mansion@d1440 menu open ok=true
+/ferry@d1440 docH=8377 overflowX=0
+/ferry@d1440 menu open ok=true
+/barbershop@d1440 docH=7959 overflowX=0
+/barbershop@d1440 menu open ok=true
+/map@d1440 docH=2952 overflowX=0
+/map@d1440 menu open ok=true
+/people@d1440 docH=5230 overflowX=0
+/people@d1440 menu open ok=true
+/paintings@d1440 docH=13596 overflowX=0
+/paintings@d1440 menu open ok=true
+/about@d1440 docH=7144 overflowX=0
+/about@d1440 menu open ok=true
+/404@d1440 docH=1236 overflowX=0
+/404@d1440 menu open ok=true
+trailing slash /bakery/ → https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery title=Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial
+/nope → https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/nope title=Page not found · Charles Nalle Walking Memorial h1=This page isn’tpart of the memorial
+rm /@p390 hidden text blocks: 0 
+rm /ferry@p390 hidden text blocks: 0 
+rm continue → https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/barbershop
+rm /map@p390 hidden text blocks: 0 
+rm /paintings@p390 hidden text blocks: 0 
+rm /paintings@p390 museum slot: {"top":318,"h":844,"canvas":false}
+rm /@d1440 hidden text blocks: 0 
+rm /ferry@d1440 hidden text blocks: 0 
+rm continue → https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/barbershop
+rm /map@d1440 hidden text blocks: 0 
+rm /paintings@d1440 hidden text blocks: 0 
+rm /paintings@d1440 museum slot: {"top":407,"h":900,"canvas":false}
+zoom200 / overflowX=0 docH=450
+zoom200 /bakery overflowX=0 docH=6224
+zoom200 /commissioners-office overflowX=0 docH=10412
+zoom200 /mansion overflowX=0 docH=6826
+zoom200 /ferry overflowX=0 docH=7265
+zoom200 /barbershop overflowX=0 docH=6813
+zoom200 /map overflowX=0 docH=2396
+zoom200 /people overflowX=0 docH=5739
+zoom200 /paintings overflowX=0 docH=7978
+zoom200 /about overflowX=0 docH=7008
+zoom200 /404 overflowX=0 docH=1016
+
+CONSOLE:
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload
+[sweep-p390] warning: The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded 

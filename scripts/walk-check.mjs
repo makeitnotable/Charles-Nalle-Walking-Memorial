@@ -271,11 +271,18 @@ for (const vp of VPS) {
               const h = window.__troyMap;
               const st = h.state;
               const stop = h.stops[st.activeIdx];
-              return { activeIdx: st.activeIdx, center: h.map.getCenter().toArray(), stopCoords: stop?.coordinates ?? null, moving: h.map.isMoving() };
+              const pt = stop ? h.map.project(stop.coordinates) : null;
+              /* The followed stop is LIFTED above the card strip (offset), so
+                 the test is screen-space: the stop's projected point sits on
+                 the vertical centre line, above the strip. */
+              return { activeIdx: st.activeIdx, center: h.map.getCenter().toArray(), stopCoords: stop?.coordinates ?? null, moving: h.map.isMoving(), pt: pt ? { x: Math.round(pt.x), y: Math.round(pt.y) } : null };
             });
             r.distM = r.stopCoords ? Math.round(metres(r.center, r.stopCoords)) : null;
             rec.swipes.push(r);
-            if (r.distM !== null && r.distM > 40) rec.findings.push(`M9 after swipe ${k + 1} map centre is ${r.distM} m from stop ${r.activeIdx + 1}`);
+            const strip = await page.locator(".keen-slider").first().boundingBox().catch(() => null);
+            const okX = r.pt && Math.abs(r.pt.x - vp.width / 2) <= 40;
+            const okY = r.pt && r.pt.y > 40 && (!strip || r.pt.y < strip.y - 8) && r.pt.y <= vp.height / 2 + 40;
+            if (!(okX && okY)) rec.findings.push(`M9 after swipe ${k + 1} stop ${r.activeIdx + 1} projects at ${JSON.stringify(r.pt)} (want centred above the cards)`);
           }
         }
         await page.screenshot({ path: join(outdir, `walk-after-swipes-${vp.name}.png`) });
