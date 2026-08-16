@@ -164,7 +164,11 @@ export default function AudioStory({
     const onScroll = () => {
       const b = mainBtnRef.current;
       if (!b) return;
-      setMainVisible(b.getBoundingClientRect().top >= 0);
+      /* "Visible" = the main control intersects the viewport; a reader above
+         a playing Part 2 (Ch2) or scrolled back up needs the pill just as
+         much as one below it (juror pass 6). */
+      const r = b.getBoundingClientRect();
+      setMainVisible(r.bottom > 0 && r.top < window.innerHeight);
       const t = transcriptRef.current;
       if (t) setCollapsed(t.getBoundingClientRect().bottom < 0);
     };

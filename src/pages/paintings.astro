@@ -67,7 +67,7 @@ const works = chapters.flatMap((entry) =>
       slug: entry.id,
       key,
       title: KEY_TITLES[key]
-        ? `${entry.data.name.canonical} · ${KEY_TITLES[key]}`
+        ? `${entry.data.name.canonical} ·\u00a0${KEY_TITLES[key]}`
         : entry.data.name.canonical,
       chapterLabel: entry.data.chapterLabel,
       order: entry.data.order,

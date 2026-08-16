@@ -1,0 +1,1101 @@
+{
+ "p390": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 11,
+   "y": 11,
+   "w": 368,
+   "h": 822,
+   "op": "50% 50%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 50%",
+   "src": "ing-Memorial/media/site/home-bg-800.avif"
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 81,
+    "y": 376,
+    "w": 228,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 146,
+    "y": 420,
+    "w": 163,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 73,
+    "y": 356,
+    "w": 244,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 81,
+    "y": 406,
+    "w": 228,
+    "h": 92,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 81,
+    "y": 406,
+    "w": 228,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 146,
+    "y": 450,
+    "w": 163,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 144,
+    "y": 532,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 217,
+    "y": 532,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 26,
+    "y": 581,
+    "w": 338,
+    "h": 124,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 26,
+    "y": 770,
+    "w": 338,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "p360": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 11,
+   "y": 11,
+   "w": 338,
+   "h": 778,
+   "op": "50% 50%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 50%",
+   "src": "ing-Memorial/media/site/home-bg-800.avif"
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 66,
+    "y": 354,
+    "w": 228,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 131,
+    "y": 398,
+    "w": 163,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 58,
+    "y": 338,
+    "w": 244,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 66,
+    "y": 378,
+    "w": 228,
+    "h": 92,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 66,
+    "y": 378,
+    "w": 228,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 131,
+    "y": 422,
+    "w": 163,
+    "h": 48,
+    "fs": "54px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 129,
+    "y": 494,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 202,
+    "y": 494,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 26,
+    "y": 534,
+    "w": 308,
+    "h": 149,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 26,
+    "y": 726,
+    "w": 308,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "t768": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 21,
+   "y": 21,
+   "w": 726,
+   "h": 982,
+   "op": "50% 50%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 50%",
+   "src": ""
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 206,
+    "y": 440,
+    "w": 356,
+    "h": 74,
+    "fs": "84.48px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 308,
+    "y": 509,
+    "w": 254,
+    "h": 74,
+    "fs": "84.48px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 262,
+    "y": 440,
+    "w": 244,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 206,
+    "y": 497,
+    "w": 356,
+    "h": 144,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 206,
+    "y": 497,
+    "w": 356,
+    "h": 74,
+    "fs": "84.48px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 308,
+    "y": 566,
+    "w": 254,
+    "h": 74,
+    "fs": "84.48px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 333,
+    "y": 682,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 406,
+    "y": 682,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 148,
+    "y": 739,
+    "w": 471,
+    "h": 99,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 259,
+    "y": 879,
+    "w": 250,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "t1024": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 21,
+   "y": 21,
+   "w": 982,
+   "h": 726,
+   "op": "50% 42%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 42%",
+   "src": ""
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 274,
+    "y": 288,
+    "w": 475,
+    "h": 99,
+    "fs": "112.64px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 410,
+    "y": 381,
+    "w": 339,
+    "h": 99,
+    "fs": "112.64px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 390,
+    "y": 250,
+    "w": 244,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 274,
+    "y": 290,
+    "w": 475,
+    "h": 191,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 274,
+    "y": 290,
+    "w": 475,
+    "h": 99,
+    "fs": "112.64px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 410,
+    "y": 382,
+    "w": 339,
+    "h": 99,
+    "fs": "112.64px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 461,
+    "y": 504,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 534,
+    "y": 504,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 276,
+    "y": 543,
+    "w": 471,
+    "h": 99,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 387,
+    "y": 666,
+    "w": 250,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "d1440": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 21,
+   "y": 21,
+   "w": 1398,
+   "h": 858,
+   "op": "50% 39%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 39%",
+   "src": ""
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 450,
+    "y": 341,
+    "w": 540,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 604,
+    "y": 446,
+    "w": 385,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 588,
+    "y": 308,
+    "w": 264,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 450,
+    "y": 362,
+    "w": 540,
+    "h": 218,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 450,
+    "y": 362,
+    "w": 540,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 604,
+    "y": 467,
+    "w": 385,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 666,
+    "y": 615,
+    "w": 31,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 742,
+    "y": 615,
+    "w": 32,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 413,
+    "y": 669,
+    "w": 614,
+    "h": 74,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 595,
+    "y": 779,
+    "w": 250,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "d1920": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 21,
+   "y": 21,
+   "w": 1878,
+   "h": 1038,
+   "op": "50% 39%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 39%",
+   "src": ""
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 690,
+    "y": 431,
+    "w": 540,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 844,
+    "y": 536,
+    "w": 385,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 828,
+    "y": 366,
+    "w": 264,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 690,
+    "y": 426,
+    "w": 540,
+    "h": 218,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 690,
+    "y": 426,
+    "w": 540,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 844,
+    "y": 531,
+    "w": 385,
+    "h": 113,
+    "fs": "128px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 906,
+    "y": 687,
+    "w": 31,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 982,
+    "y": 687,
+    "w": 32,
+    "h": 18,
+    "fs": "13px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 653,
+    "y": 748,
+    "w": 614,
+    "h": 74,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 835,
+    "y": 865,
+    "w": 250,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ },
+ "land844": {
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "video": {
+   "x": 21,
+   "y": 21,
+   "w": 802,
+   "h": 348,
+   "op": "50% 50%",
+   "src": "e-Walking-Memorial/media/site/splash.mp4",
+   "paused": false
+  },
+  "img": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "op": "50% 50%",
+   "src": ""
+  },
+  "texts": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "fs": "16px",
+    "color": "rgb(29, 20, 17)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "CHARLES",
+    "x": 266,
+    "y": 132,
+    "w": 312,
+    "h": 65,
+    "fs": "74.1px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "NALLE",
+    "x": 355,
+    "y": 193,
+    "w": 223,
+    "h": 65,
+    "fs": "74.1px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "TROY, NEW YORK · APRIL 27, 1860",
+    "x": 300,
+    "y": 34,
+    "w": 244,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "H1",
+    "t": "CHARLES NALLE",
+    "x": 266,
+    "y": 61,
+    "w": 312,
+    "h": 126,
+    "fs": "16px",
+    "color": "rgb(254, 217, 204)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "CHARLES",
+    "x": 266,
+    "y": 61,
+    "w": 312,
+    "h": 65,
+    "fs": "74.1px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "SPAN",
+    "t": "NALLE",
+    "x": 355,
+    "y": 121,
+    "w": 223,
+    "h": 65,
+    "fs": "74.1px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1821",
+    "x": 371,
+    "y": 197,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "1875",
+    "x": 444,
+    "y": 197,
+    "w": 29,
+    "h": 16,
+    "fs": "12px",
+    "color": "rgb(255, 151, 112)",
+    "op": "1"
+   },
+   {
+    "tag": "P",
+    "t": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from the men who ",
+    "x": 94,
+    "y": 223,
+    "w": 655,
+    "h": 74,
+    "fs": "16px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "WALK THE STORY",
+    "x": 297,
+    "y": 308,
+    "w": 250,
+    "h": 48,
+    "fs": "15px",
+    "color": "rgb(160, 46, 0)",
+    "op": "1"
+   }
+  ],
+  "links": [
+   "icon /Charles-Nalle-Walking-Memorial/favicon.svg",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-32.png",
+   "icon /Charles-Nalle-Walking-Memorial/favicon-16.png",
+   "shortcut icon /Charles-Nalle-Walking-Memorial/favicon.ico",
+   "apple-touch-icon /Charles-Nalle-Walking-Memorial/apple-touch-icon.png",
+   "manifest /Charles-Nalle-Walking-Memorial/site.webmanifest"
+  ],
+  "floating": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ }
+}

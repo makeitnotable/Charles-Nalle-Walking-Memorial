@@ -1,0 +1,757 @@
+{
+ "/": {
+  "route": "/",
+  "burgers": 0,
+  "note": "no burger"
+ },
+ "/bakery": {
+  "route": "/bakery",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "(01) LISTEN",
+    "(02) HISTORY",
+    "(03) THE MORAL",
+    "(04) ONWARD"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.957111, 0.289722, -0.289722, 0.957111, 0, 0)|none",
+   "matrix(0.87391, 0.486088, -0.486088, 0.87391, 0, 0)|none",
+   "matrix(0.761619, 0.648026, -0.648026, 0.761619, 0, 0)|none",
+   "matrix(0.660449, 0.750871, -0.750871, 0.660449, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": true
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/commissioners-office": {
+  "route": "/commissioners-office",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "(01) LISTEN · PT 1",
+    "(02) HISTORY",
+    "(03) THE MORAL · PT 1",
+    "(04) LISTEN · PT 2"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.938971, 0.343996, -0.343996, 0.938971, 0, 0)|none",
+   "matrix(0.837556, 0.546352, -0.546352, 0.837556, 0, 0)|none",
+   "matrix(0.736047, 0.67693, -0.67693, 0.736047, 0, 0)|none",
+   "matrix(0.635935, 0.771742, -0.771742, 0.635935, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": true
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/mansion": {
+  "route": "/mansion",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "(01) LISTEN",
+    "(02) HISTORY",
+    "(03) THE MORAL",
+    "(04) ONWARD"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.979495, 0.201469, -0.201469, 0.979495, 0, 0)|none",
+   "matrix(0.908076, 0.418806, -0.418806, 0.908076, 0, 0)|none",
+   "matrix(0.79989, 0.600147, -0.600147, 0.79989, 0, 0)|none",
+   "matrix(0.69794, 0.716156, -0.716156, 0.69794, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": true
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/ferry": {
+  "route": "/ferry",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "(01) LISTEN",
+    "(02) HISTORY",
+    "(03) THE MORAL",
+    "(04) ONWARD"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.957111, 0.289722, -0.289722, 0.957111, 0, 0)|none",
+   "matrix(0.861988, 0.506929, -0.506929, 0.861988, 0, 0)|none",
+   "matrix(0.761619, 0.648026, -0.648026, 0.761619, 0, 0)|none",
+   "matrix(0.648137, 0.761524, -0.761524, 0.648137, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": true
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/barbershop": {
+  "route": "/barbershop",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "(01) LISTEN",
+    "(02) HISTORY",
+    "(03) THE MORAL",
+    "(04) ONWARD"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.929113, 0.369797, -0.369797, 0.929113, 0, 0)|none",
+   "matrix(0.825108, 0.564976, -0.564976, 0.825108, 0, 0)|none",
+   "matrix(0.723297, 0.690537, -0.690537, 0.723297, 0, 0)|none",
+   "matrix(0.623848, 0.781546, -0.781546, 0.623848, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": true
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/map": {
+  "route": "/map",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 772,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 772,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 786,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 772,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 770,
+    "w": 368,
+    "h": 73
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "THE PEOPLE OF THIS DAY",
+    "THE PAINTINGS",
+    "ABOUT THE MEMORIAL"
+   ],
+   "focus": "HOME"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.948323, 0.317308, -0.317308, 0.948323, 0, 0)|none",
+   "matrix(0.861988, 0.506929, -0.506929, 0.861988, 0, 0)|none",
+   "matrix(0.748827, 0.662765, -0.662765, 0.748827, 0, 0)|none",
+   "matrix(0.648137, 0.761524, -0.761524, 0.648137, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": "no panel found"
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/people": {
+  "route": "/people",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "THE PAINTINGS",
+    "ABOUT THE MEMORIAL",
+    "MAP"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(0.957111, 0.289722, -0.289722, 0.957111, 0, 0)|none",
+   "matrix(0.87391, 0.486088, -0.486088, 0.87391, 0, 0)|none",
+   "matrix(0.774407, 0.632688, -0.632688, 0.774407, 0, 0)|none",
+   "matrix(0.660449, 0.750871, -0.750871, 0.660449, 0, 0)|none",
+   "matrix(0.565351, 0.82485, -0.82485, 0.565351, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": "no panel found"
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/paintings": {
+  "route": "/paintings",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "THE PEOPLE OF THIS DAY",
+    "ABOUT THE MEMORIAL",
+    "MAP"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(1, 0, 0, 1, 0, 0)|none",
+   "matrix(0.938971, 0.343996, -0.343996, 0.938971, 0, 0)|none",
+   "matrix(0.849859, 0.527011, -0.527011, 0.849859, 0, 0)|none",
+   "matrix(0.736047, 0.67693, -0.67693, 0.736047, 0, 0)|none",
+   "matrix(0.635935, 0.771742, -0.771742, 0.635935, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": "no panel found"
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/about": {
+  "route": "/about",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "atTop": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "afterDown": {
+   "op": 0,
+   "x": 1314,
+   "y": 70,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "none",
+   "inView": true
+  },
+  "afterUp": {
+   "op": 1,
+   "x": 1312,
+   "y": 56,
+   "tf": "none",
+   "vis": "visible",
+   "pe": "auto",
+   "inView": true
+  },
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "THE PEOPLE OF THIS DAY",
+    "THE PAINTINGS",
+    "MAP"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(0.965277, 0.261227, -0.261227, 0.965277, 0, 0)|none",
+   "matrix(0.885591, 0.464466, -0.464466, 0.885591, 0, 0)|none",
+   "matrix(0.774407, 0.632688, -0.632688, 0.774407, 0, 0)|none",
+   "matrix(0.672859, 0.739771, -0.739771, 0.672859, 0, 0)|none",
+   "matrix(0.576775, 0.816903, -0.816903, 0.576775, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": "no panel found"
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ },
+ "/404": {
+  "route": "/404",
+  "burgers": 1,
+  "burgerBox": {
+   "x": 1312,
+   "y": 56,
+   "width": 72,
+   "height": 72
+  },
+  "scroll": "page not scrollable",
+  "open": {
+   "close": {
+    "t": "Close menu",
+    "x": 1015,
+    "y": 57,
+    "w": 368,
+    "h": 57
+   },
+   "links": [
+    "HOME",
+    "01 BAKERY",
+    "02 COMMISSIONER’S OFFICE",
+    "03 GILBERT HOME",
+    "04 FERRY LANDING",
+    "05 BARBERSHOP",
+    "MAP",
+    "THE PEOPLE",
+    "THE PAINTINGS",
+    "ABOUT",
+    "THE PEOPLE OF THIS DAY",
+    "THE PAINTINGS",
+    "ABOUT THE MEMORIAL",
+    "MAP"
+   ],
+   "focus": "Close menu"
+  },
+  "closeSpin": [
+   "none|none",
+   "matrix(0.972761, 0.231811, -0.231811, 0.972761, 0, 0)|none",
+   "matrix(0.896992, 0.442046, -0.442046, 0.896992, 0, 0)|none",
+   "matrix(0.79989, 0.600147, -0.600147, 0.79989, 0, 0)|none",
+   "matrix(0.69794, 0.716156, -0.716156, 0.69794, 0, 0)|none",
+   "matrix(0.588341, 0.808613, -0.808613, 0.588341, 0, 0)|none"
+  ],
+  "afterClose": {
+   "focus": "Open menu",
+   "panelHidden": "no panel found"
+  },
+  "escClosed": "false",
+  "errors": [],
+  "failed": []
+ }
+}

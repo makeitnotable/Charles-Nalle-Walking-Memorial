@@ -568,15 +568,18 @@ export default function Museum({ works, slotId }: Props) {
           return { F: 0.86, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
         }
         // desktop / landscape: card left ~30%, painting centred, sketch right
-        const cardFrac = Math.min(0.34, (Math.min(0.3 * W, 22 * 16) + inset + 24) / W);
-        return { F: 1 - 2 * cardFrac, V: 0.72, cx: 0.5, cy: 0.5 };
+        const cardW = Math.max(13 * 16, Math.min(0.3 * W, 22 * 16));
+        const cardFrac = Math.min(0.4, (cardW + inset + 24) / W);
+        return { F: Math.max(0.2, 1 - 2 * cardFrac), V: 0.72, cx: 0.5, cy: 0.5 };
       };
       const compose = (i: number) => {
         const p = placements[i];
         const L = layout();
         const vfov = (BASE_FOV * Math.PI) / 180;
         const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
-        let d = Math.max(p.w / (2 * Math.tan(hfov / 2) * L.F), p.h / (2 * Math.tan(vfov / 2) * L.V));
+        // fit the framed work (canvas + 0.15m of moulding each side), not the bare canvas
+        const fw = p.w + 0.34, fh = p.h + 0.34;
+        let d = Math.max(fw / (2 * Math.tan(hfov / 2) * L.F), fh / (2 * Math.tan(vfov / 2) * L.V));
         const dMax = 2 * CH - 0.15;
         let fov = BASE_FOV;
         if (d > dMax) {
@@ -1196,7 +1199,7 @@ export default function Museum({ works, slotId }: Props) {
         {plaque && !portraitUI && (
           <div
             className="absolute z-20 -translate-y-1/2"
-            style={{ left: "var(--ui-inset)", top: "50%", width: "min(calc(30vw - var(--ui-inset) - 24px), 22rem)" }}
+            style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px), 22rem)" }}
           >
             <div className="rounded-[12px] p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
               <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
