@@ -1,0 +1,614 @@
+{
+ "p390": {
+  "info": {
+   "eyebrow": {
+    "x": 73,
+    "y": 356,
+    "w": 244,
+    "h": 16
+   },
+   "eyebrowText": "Troy, New York · April 27, 1860",
+   "cta": {
+    "x": 26,
+    "y": 770,
+    "w": 338,
+    "h": 48
+   },
+   "ctaText": "Walk the story",
+   "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+   "video": {
+    "pos": "50% 50%",
+    "src": "splash.mp4",
+    "playing": true,
+    "w": 480,
+    "h": 720,
+    "r": {
+     "x": 11,
+     "y": 11,
+     "w": 368,
+     "h": 822
+    }
+   },
+   "img": {
+    "pos": "50% 50%",
+    "src": "home-bg-800.avif",
+    "r": {
+     "x": 0,
+     "y": 0,
+     "w": 0,
+     "h": 0
+    }
+   },
+   "ps": [
+    {
+     "t": "CHARLES",
+     "lines": 1,
+     "fs": "54px",
+     "color": "rgb(246, 243, 238)",
+     "w": 228,
+     "y": 376
+    },
+    {
+     "t": "NALLE",
+     "lines": 1,
+     "fs": "54px",
+     "color": "rgb(246, 243, 238)",
+     "w": 163,
+     "y": 420
+    },
+    {
+     "t": "TROY, NEW YORK · APRIL 27, 1860",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 244,
+     "y": 356
+    },
+    {
+     "t": "1821",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 532
+    },
+    {
+     "t": "1875",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 532
+    },
+    {
+     "t": "On April 27, 1860, the people of Troy, New York, t",
+     "lines": 1,
+     "fs": "16px",
+     "color": "rgb(246, 243, 238)",
+     "w": 338,
+     "y": 581
+    }
+   ],
+   "title": "Charles Nalle Walking Memorial · Troy, NY",
+   "hScroll": false,
+   "docH": 844
+  },
+  "loadMs": 2255,
+  "burgerCount": 0,
+  "links": [
+   "Skip to content -> #main",
+   "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+   ]
+  },
+  "arrive_bakery": {
+   "a": {
+    "h1": "HOLEUR’S\nFASHIONABLE\nBAKERY",
+    "h1r": {
+     "x": 20,
+     "y": 676,
+     "w": 350,
+     "h": 126
+    },
+    "video": {
+     "pos": "50% 24%",
+     "src": "",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0
+     }
+    },
+    "img": {
+     "pos": "100% 24%",
+     "src": "reveal-vertical-poster-480.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844
+     }
+    },
+    "burger": {
+     "x": 298,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 2446,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  },
+  "arrive_barbershop": {
+   "a": {
+    "h1": "PETER\nBALTIMORE’S\nBARBERSHOP",
+    "h1r": {
+     "x": 20,
+     "y": 676,
+     "w": 350,
+     "h": 126
+    },
+    "video": {
+     "pos": "50% 44%",
+     "src": "",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0
+     }
+    },
+    "img": {
+     "pos": "100% 40%",
+     "src": "reveal-vertical-poster-480.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844
+     }
+    },
+    "burger": {
+     "x": 298,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 2434,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  }
+ },
+ "p360": {
+  "info": {
+   "eyebrow": {
+    "x": 58,
+    "y": 338,
+    "w": 244,
+    "h": 16
+   },
+   "eyebrowText": "Troy, New York · April 27, 1860",
+   "cta": {
+    "x": 26,
+    "y": 726,
+    "w": 308,
+    "h": 48
+   },
+   "ctaText": "Walk the story",
+   "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+   "video": {
+    "pos": "50% 50%",
+    "src": "splash.mp4",
+    "playing": true,
+    "w": 480,
+    "h": 720,
+    "r": {
+     "x": 11,
+     "y": 11,
+     "w": 338,
+     "h": 778
+    }
+   },
+   "img": {
+    "pos": "50% 50%",
+    "src": "home-bg-800.avif",
+    "r": {
+     "x": 0,
+     "y": 0,
+     "w": 0,
+     "h": 0
+    }
+   },
+   "ps": [
+    {
+     "t": "CHARLES",
+     "lines": 1,
+     "fs": "54px",
+     "color": "rgb(246, 243, 238)",
+     "w": 228,
+     "y": 354
+    },
+    {
+     "t": "NALLE",
+     "lines": 1,
+     "fs": "54px",
+     "color": "rgb(246, 243, 238)",
+     "w": 163,
+     "y": 398
+    },
+    {
+     "t": "TROY, NEW YORK · APRIL 27, 1860",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 244,
+     "y": 338
+    },
+    {
+     "t": "1821",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 494
+    },
+    {
+     "t": "1875",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 494
+    },
+    {
+     "t": "On April 27, 1860, the people of Troy, New York, t",
+     "lines": 1,
+     "fs": "16px",
+     "color": "rgb(246, 243, 238)",
+     "w": 308,
+     "y": 534
+    }
+   ],
+   "title": "Charles Nalle Walking Memorial · Troy, NY",
+   "hScroll": false,
+   "docH": 800
+  },
+  "loadMs": 2041,
+  "burgerCount": 0,
+  "links": [
+   "Skip to content -> #main",
+   "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+   ]
+  },
+  "arrive_bakery": {
+   "a": {
+    "h1": "HOLEUR’S\nFASHIONABLE\nBAKERY",
+    "h1r": {
+     "x": 20,
+     "y": 645,
+     "w": 320,
+     "h": 115
+    },
+    "video": {
+     "pos": "50% 24%",
+     "src": "",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0
+     }
+    },
+    "img": {
+     "pos": "100% 24%",
+     "src": "reveal-vertical-poster-480.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 360,
+      "h": 800
+     }
+    },
+    "burger": {
+     "x": 268,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 1964,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  },
+  "arrive_barbershop": {
+   "a": {
+    "h1": "PETER\nBALTIMORE’S\nBARBERSHOP",
+    "h1r": {
+     "x": 20,
+     "y": 645,
+     "w": 320,
+     "h": 115
+    },
+    "video": {
+     "pos": "50% 44%",
+     "src": "",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0
+     }
+    },
+    "img": {
+     "pos": "100% 40%",
+     "src": "reveal-vertical-poster-480.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 360,
+      "h": 800
+     }
+    },
+    "burger": {
+     "x": 268,
+     "y": 20,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 1946,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  }
+ },
+ "t768": {
+  "info": {
+   "eyebrow": {
+    "x": 262,
+    "y": 440,
+    "w": 244,
+    "h": 16
+   },
+   "eyebrowText": "Troy, New York · April 27, 1860",
+   "cta": {
+    "x": 259,
+    "y": 879,
+    "w": 250,
+    "h": 48
+   },
+   "ctaText": "Walk the story",
+   "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+   "video": {
+    "pos": "50% 50%",
+    "src": "splash.mp4",
+    "playing": true,
+    "w": 480,
+    "h": 720,
+    "r": {
+     "x": 21,
+     "y": 21,
+     "w": 726,
+     "h": 982
+    }
+   },
+   "img": {
+    "pos": "50% 50%",
+    "src": "",
+    "r": {
+     "x": 0,
+     "y": 0,
+     "w": 0,
+     "h": 0
+    }
+   },
+   "ps": [
+    {
+     "t": "CHARLES",
+     "lines": 1,
+     "fs": "84.48px",
+     "color": "rgb(246, 243, 238)",
+     "w": 356,
+     "y": 440
+    },
+    {
+     "t": "NALLE",
+     "lines": 1,
+     "fs": "84.48px",
+     "color": "rgb(246, 243, 238)",
+     "w": 254,
+     "y": 509
+    },
+    {
+     "t": "TROY, NEW YORK · APRIL 27, 1860",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 244,
+     "y": 440
+    },
+    {
+     "t": "1821",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 682
+    },
+    {
+     "t": "1875",
+     "lines": 1,
+     "fs": "12px",
+     "color": "rgb(255, 151, 112)",
+     "w": 29,
+     "y": 682
+    },
+    {
+     "t": "On April 27, 1860, the people of Troy, New York, t",
+     "lines": 1,
+     "fs": "16px",
+     "color": "rgb(246, 243, 238)",
+     "w": 471,
+     "y": 739
+    }
+   ],
+   "title": "Charles Nalle Walking Memorial · Troy, NY",
+   "hScroll": false,
+   "docH": 1024
+  },
+  "loadMs": 2041,
+  "burgerCount": 0,
+  "links": [
+   "Skip to content -> #main",
+   "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+   ]
+  },
+  "arrive_bakery": {
+   "a": {
+    "h1": "HOLEUR’S\nFASHIONABLE\nBAKERY",
+    "h1r": {
+     "x": 40,
+     "y": 790,
+     "w": 688,
+     "h": 182
+    },
+    "video": {
+     "pos": "50% 24%",
+     "src": "reveal-horizontal.mp4",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+     }
+    },
+    "img": {
+     "pos": "50% 24%",
+     "src": "reveal-horizontal-poster-800.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+     }
+    },
+    "burger": {
+     "x": 656,
+     "y": 40,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 2395,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  },
+  "arrive_barbershop": {
+   "a": {
+    "h1": "PETER\nBALTIMORE’S\nBARBERSHOP",
+    "h1r": {
+     "x": 40,
+     "y": 790,
+     "w": 688,
+     "h": 182
+    },
+    "video": {
+     "pos": "50% 44%",
+     "src": "reveal-horizontal.mp4",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+     }
+    },
+    "img": {
+     "pos": "50% 44%",
+     "src": "reveal-horizontal-poster-800.avif",
+     "r": {
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+     }
+    },
+    "burger": {
+     "x": 656,
+     "y": 40,
+     "w": 72,
+     "h": 72
+    },
+    "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+    "hScroll": false
+   },
+   "loadMs": 2456,
+   "log": {
+    "errors": [],
+    "warnings": [],
+    "failed": [
+     "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    ]
+   }
+  }
+ }
+}

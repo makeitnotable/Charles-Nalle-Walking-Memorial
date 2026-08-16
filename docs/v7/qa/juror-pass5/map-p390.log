@@ -1,0 +1,1974 @@
+{
+ "p390": {
+  "overview": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 298,
+     "y": 752,
+     "w": 72,
+     "h": 72
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Take the walk",
+     "x": 68,
+     "y": 764,
+     "w": 207,
+     "h": 48
+    },
+    {
+     "l": "See Troy in 1858",
+     "x": 210,
+     "y": 20,
+     "w": 160,
+     "h": 44
+    },
+    {
+     "l": "Enter Spot 01: Holeur’s Fashionable Bake",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": 383,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 03: Uri Gilbert Home",
+     "x": 723,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 04: Washington Street Ferry L",
+     "x": 1063,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 1402,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    }
+   ],
+   "markers": [
+    {
+     "t": "Spot 1: Holeur’s Fashionable Bakery",
+     "x": 327,
+     "y": 312,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 2: Commissioner’s Office",
+     "x": 233,
+     "y": 201,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 3: Uri Gilbert Home",
+     "x": 275,
+     "y": 378,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 4: Washington Street Ferry Landing ",
+     "x": 62,
+     "y": 635,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 5: Peter Baltimore’s Barbershop",
+     "x": 221,
+     "y": 193,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    }
+   ],
+   "floating": [
+    {
+     "t": "curtain-panel",
+     "tag": "DIV",
+     "x": 0,
+     "y": 844,
+     "w": 390,
+     "h": 844,
+     "pos": "fixed",
+     "z": "9999"
+    },
+    {
+     "t": "cnwm-menu fixed bottom-[var(--ui-inset)]",
+     "tag": "DIV",
+     "x": 298,
+     "y": 752,
+     "w": 72,
+     "h": 72,
+     "pos": "fixed",
+     "z": "1000"
+    },
+    {
+     "t": "1 2 3 4 5",
+     "tag": "DIV",
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Map",
+     "tag": "CANVAS",
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Bakery",
+     "tag": "DIV",
+     "x": 315,
+     "y": 300,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Commissioner’s Office",
+     "tag": "DIV",
+     "x": 225,
+     "y": 192,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Gilbert Home",
+     "tag": "DIV",
+     "x": 263,
+     "y": 366,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Ferry Landing",
+     "tag": "DIV",
+     "x": 50,
+     "y": 623,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Barbershop",
+     "tag": "DIV",
+     "x": 205,
+     "y": 178,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "mapboxgl-ctrl-top-left",
+     "tag": "DIV",
+     "x": 0,
+     "y": 0,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-top-right",
+     "tag": "DIV",
+     "x": 350,
+     "y": 0,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-bottom-right",
+     "tag": "DIV",
+     "x": 350,
+     "y": 804,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-bottom-left",
+     "tag": "DIV",
+     "x": 0,
+     "y": 753,
+     "w": 124,
+     "h": 91,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "Toggle attribution",
+     "tag": "BUTTON",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "APRIL 27, 1860",
+     "tag": "DIV",
+     "x": 20,
+     "y": 20,
+     "w": 135,
+     "h": 32,
+     "pos": "absolute",
+     "z": "20"
+    },
+    {
+     "t": "DRAG TO EXPLORE · TAP A STOP",
+     "tag": "DIV",
+     "x": 60,
+     "y": 636,
+     "w": 271,
+     "h": 32,
+     "pos": "absolute",
+     "z": "20"
+    },
+    {
+     "t": "map-scroll-handle absolute right-0 botto",
+     "tag": "DIV",
+     "x": 0,
+     "y": 740,
+     "w": 390,
+     "h": 104,
+     "pos": "absolute",
+     "z": "10"
+    },
+    {
+     "t": "[object SVGAnimatedString]",
+     "tag": "svg",
+     "x": 183,
+     "y": 828,
+     "w": 12,
+     "h": 12,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "TAKE THE WALK",
+     "tag": "DIV",
+     "x": 68,
+     "y": 764,
+     "w": 207,
+     "h": 48,
+     "pos": "absolute",
+     "z": "20"
+    },
+    {
+     "t": "SEE TROY IN 1858",
+     "tag": "SPAN",
+     "x": 210,
+     "y": 20,
+     "w": 160,
+     "h": 44,
+     "pos": "absolute",
+     "z": "20"
+    }
+   ]
+  },
+  "mapShell": {
+   "x": 0,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "docH": 3115
+  },
+  "index": [
+   "P CHARLES",
+   "P NALLE",
+   "P SPOT",
+   "P 1",
+   "P Holeur’s / Fashionable Bakery",
+   "P SPOT",
+   "P 2",
+   "P Commissioner’s / Office",
+   "P SPOT",
+   "P 3",
+   "P Uri Gilbert Home",
+   "P SPOT",
+   "P 4",
+   "P Washington Street Ferry Landing",
+   "P SPOT",
+   "P 5",
+   "P Peter Baltimore’s Barbershop",
+   "P (01)",
+   "P THE MAP",
+   "H1 FIVE SPOTS / THROUGH TROY",
+   "P The rescue of Charles Nalle unfolded across a few blocks of ",
+   "P 2.5 MILES · ABOUT 45 MINUTES ON FOOT",
+   "LI SPOT 01 / HOLEUR’S / FASHIONABLE BAKERY / 3rd & Division Str",
+   "A SPOT 01 / HOLEUR’S / FASHIONABLE BAKERY / 3rd & Division Str"
+  ],
+  "walkBtnBox": {
+   "x": 68,
+   "y": 624,
+   "w": 207,
+   "h": 48
+  },
+  "afterWalk": {
+   "scrollY": 0,
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Stop the walk",
+     "x": 200,
+     "y": 20,
+     "w": 170,
+     "h": 38
+    },
+    {
+     "l": "Enter Spot 01: Holeur’s Fashionable Bake",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": 383,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 03: Uri Gilbert Home",
+     "x": 723,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 04: Washington Street Ferry L",
+     "x": 1063,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 1402,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    }
+   ],
+   "markers": [
+    {
+     "t": "Spot 1: Holeur’s Fashionable Bakery",
+     "x": 195,
+     "y": 308,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 2: Commissioner’s Office",
+     "x": 106,
+     "y": -211,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 3: Uri Gilbert Home",
+     "x": -787,
+     "y": 960,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 4: Washington Street Ferry Landing ",
+     "x": 33554428,
+     "y": 33554428,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 5: Peter Baltimore’s Barbershop",
+     "x": 84,
+     "y": -233,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    }
+   ],
+   "floating": [
+    {
+     "t": "curtain-panel",
+     "tag": "DIV",
+     "x": 0,
+     "y": 844,
+     "w": 390,
+     "h": 844,
+     "pos": "fixed",
+     "z": "9999"
+    },
+    {
+     "t": "BAKERY 1 2 3 4 5",
+     "tag": "DIV",
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Map",
+     "tag": "CANVAS",
+     "x": 0,
+     "y": 0,
+     "w": 390,
+     "h": 844,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "BAKERY",
+     "tag": "DIV",
+     "x": 158,
+     "y": 265,
+     "w": 75,
+     "h": 25,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Bakery",
+     "tag": "DIV",
+     "x": 183,
+     "y": 296,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "mapboxgl-ctrl-top-left",
+     "tag": "DIV",
+     "x": 0,
+     "y": 0,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-top-right",
+     "tag": "DIV",
+     "x": 350,
+     "y": 0,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-bottom-right",
+     "tag": "DIV",
+     "x": 350,
+     "y": 804,
+     "w": 40,
+     "h": 40,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "mapboxgl-ctrl-bottom-left",
+     "tag": "DIV",
+     "x": 0,
+     "y": 753,
+     "w": 124,
+     "h": 91,
+     "pos": "absolute",
+     "z": "2"
+    },
+    {
+     "t": "Toggle attribution",
+     "tag": "BUTTON",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24,
+     "pos": "absolute",
+     "z": "auto"
+    },
+    {
+     "t": "Back to map",
+     "tag": "BUTTON",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38,
+     "pos": "absolute",
+     "z": "30"
+    },
+    {
+     "t": "Stop the walk",
+     "tag": "BUTTON",
+     "x": 200,
+     "y": 20,
+     "w": 170,
+     "h": 38,
+     "pos": "absolute",
+     "z": "30"
+    },
+    {
+     "t": "SPOT 1 Holeur’s Fashionable Bakery SPOT ",
+     "tag": "DIV",
+     "x": 0,
+     "y": 616,
+     "w": 390,
+     "h": 228,
+     "pos": "fixed",
+     "z": "10"
+    }
+   ]
+  },
+  "walkMid": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Stop the walk",
+     "x": 200,
+     "y": 20,
+     "w": 170,
+     "h": 38
+    },
+    {
+     "l": "Focus Spot 01: Holeur’s Fashionable Bake",
+     "x": -634,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": -297,
+     "y": 624,
+     "w": 307,
+     "h": 120
+    },
+    {
+     "l": "Enter Spot 03: Uri Gilbert Home",
+     "x": 33,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 04: Washington Street Ferry L",
+     "x": 384,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 724,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    }
+   ],
+   "markers": [
+    {
+     "t": "Spot 1: Holeur’s Fashionable Bakery",
+     "x": 472,
+     "y": 661,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 2: Commissioner’s Office",
+     "x": 184,
+     "y": 216,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 3: Uri Gilbert Home",
+     "x": 282,
+     "y": 1068,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 4: Washington Street Ferry Landing ",
+     "x": -4115,
+     "y": 10091,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 5: Peter Baltimore’s Barbershop",
+     "x": 155,
+     "y": 191,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    }
+   ]
+  },
+  "cards": [
+   {
+    "t": "SPOT /  / 1 /  / Holeur’s / Fashionable Bakery /  ",
+    "x": 0,
+    "y": 616,
+    "w": 390,
+    "h": 128,
+    "op": "1",
+    "tf": "none",
+    "titleLines": null
+   },
+   {
+    "t": "SPOT /  / 1 /  / Holeur’s / Fashionable Bakery",
+    "x": -647,
+    "y": 616,
+    "w": 328,
+    "h": 128,
+    "op": "1",
+    "tf": "matrix(1, 0, 0, 1, -647, 0)",
+    "titleLines": null
+   },
+   {
+    "t": "SPOT /  / 2 /  / Commissioner’s / Office",
+    "x": -307,
+    "y": 616,
+    "w": 328,
+    "h": 128,
+    "op": "1",
+    "tf": "matrix(1, 0, 0, 1, -635, 0)",
+    "titleLines": null
+   },
+   {
+    "t": "SPOT /  / 3 /  / Uri Gilbert Home",
+    "x": 32,
+    "y": 616,
+    "w": 328,
+    "h": 128,
+    "op": "1",
+    "tf": "matrix(1, 0, 0, 1, -623, 0)",
+    "titleLines": null
+   },
+   {
+    "t": "SPOT /  / 4 /  / Washington Street Ferry Landing",
+    "x": 372,
+    "y": 616,
+    "w": 328,
+    "h": 128,
+    "op": "1",
+    "tf": "matrix(1, 0, 0, 1, -611, 0)",
+    "titleLines": null
+   },
+   {
+    "t": "SPOT /  / 5 /  / Peter Baltimore’s Barbershop",
+    "x": 711,
+    "y": 616,
+    "w": 328,
+    "h": 128,
+    "op": "1",
+    "tf": "matrix(1, 0, 0, 1, -599, 0)",
+    "titleLines": null
+   }
+  ],
+  "strip": {
+   "x": 0,
+   "y": 616,
+   "w": 390,
+   "h": 128
+  },
+  "dragSamples": [
+   {
+    "t": 0,
+    "x": -647
+   },
+   {
+    "t": 5,
+    "x": -647
+   },
+   {
+    "t": 15,
+    "x": -647
+   },
+   {
+    "t": 25,
+    "x": -647
+   },
+   {
+    "t": 31,
+    "x": -647
+   },
+   {
+    "t": 39,
+    "x": -647
+   },
+   {
+    "t": 47,
+    "x": -647
+   },
+   {
+    "t": 56,
+    "x": -647
+   },
+   {
+    "t": 64,
+    "x": -647
+   },
+   {
+    "t": 73,
+    "x": -647
+   },
+   {
+    "t": 81,
+    "x": -647
+   },
+   {
+    "t": 89,
+    "x": -647
+   },
+   {
+    "t": 97,
+    "x": -647
+   },
+   {
+    "t": 106,
+    "x": -647
+   },
+   {
+    "t": 114,
+    "x": -660
+   },
+   {
+    "t": 122,
+    "x": -660
+   },
+   {
+    "t": 131,
+    "x": -660
+   },
+   {
+    "t": 139,
+    "x": -660
+   },
+   {
+    "t": 147,
+    "x": -672
+   },
+   {
+    "t": 156,
+    "x": -672
+   },
+   {
+    "t": 164,
+    "x": -672
+   },
+   {
+    "t": 173,
+    "x": -672
+   },
+   {
+    "t": 181,
+    "x": -685
+   },
+   {
+    "t": 189,
+    "x": -685
+   },
+   {
+    "t": 197,
+    "x": -685
+   },
+   {
+    "t": 206,
+    "x": -685
+   },
+   {
+    "t": 214,
+    "x": -697
+   },
+   {
+    "t": 222,
+    "x": -697
+   },
+   {
+    "t": 231,
+    "x": -697
+   },
+   {
+    "t": 239,
+    "x": -697
+   },
+   {
+    "t": 247,
+    "x": -710
+   },
+   {
+    "t": 256,
+    "x": -710
+   },
+   {
+    "t": 264,
+    "x": -710
+   },
+   {
+    "t": 273,
+    "x": -710
+   },
+   {
+    "t": 281,
+    "x": -722
+   },
+   {
+    "t": 288,
+    "x": -722
+   },
+   {
+    "t": 296,
+    "x": -722
+   },
+   {
+    "t": 306,
+    "x": -722
+   },
+   {
+    "t": 314,
+    "x": -735
+   },
+   {
+    "t": 322,
+    "x": -735
+   },
+   {
+    "t": 330,
+    "x": -735
+   },
+   {
+    "t": 336,
+    "x": -735
+   },
+   {
+    "t": 344,
+    "x": -747
+   },
+   {
+    "t": 354,
+    "x": -747
+   },
+   {
+    "t": 361,
+    "x": -747
+   },
+   {
+    "t": 372,
+    "x": -747
+   },
+   {
+    "t": 377,
+    "x": -760
+   },
+   {
+    "t": 386,
+    "x": -760
+   },
+   {
+    "t": 394,
+    "x": -760
+   },
+   {
+    "t": 402,
+    "x": -760
+   },
+   {
+    "t": 411,
+    "x": -773
+   },
+   {
+    "t": 419,
+    "x": -773
+   },
+   {
+    "t": 427,
+    "x": -773
+   },
+   {
+    "t": 436,
+    "x": -773
+   },
+   {
+    "t": 444,
+    "x": -785
+   },
+   {
+    "t": 452,
+    "x": -785
+   },
+   {
+    "t": 461,
+    "x": -785
+   },
+   {
+    "t": 469,
+    "x": -785
+   },
+   {
+    "t": 477,
+    "x": -798
+   },
+   {
+    "t": 486,
+    "x": -798
+   },
+   {
+    "t": 496,
+    "x": -798
+   },
+   {
+    "t": 503,
+    "x": -798
+   },
+   {
+    "t": 513,
+    "x": -798
+   },
+   {
+    "t": 519,
+    "x": -786
+   },
+   {
+    "t": 527,
+    "x": -774
+   },
+   {
+    "t": 536,
+    "x": -763
+   },
+   {
+    "t": 544,
+    "x": -753
+   },
+   {
+    "t": 552,
+    "x": -744
+   },
+   {
+    "t": 561,
+    "x": -736
+   },
+   {
+    "t": 569,
+    "x": -729
+   },
+   {
+    "t": 577,
+    "x": -722
+   },
+   {
+    "t": 586,
+    "x": -716
+   },
+   {
+    "t": 594,
+    "x": -710
+   },
+   {
+    "t": 602,
+    "x": -705
+   },
+   {
+    "t": 611,
+    "x": -700
+   },
+   {
+    "t": 619,
+    "x": -695
+   },
+   {
+    "t": 626,
+    "x": -691
+   },
+   {
+    "t": 636,
+    "x": -688
+   },
+   {
+    "t": 644,
+    "x": -684
+   },
+   {
+    "t": 652,
+    "x": -681
+   },
+   {
+    "t": 661,
+    "x": -678
+   },
+   {
+    "t": 669,
+    "x": -676
+   },
+   {
+    "t": 677,
+    "x": -673
+   },
+   {
+    "t": 686,
+    "x": -671
+   },
+   {
+    "t": 694,
+    "x": -669
+   },
+   {
+    "t": 702,
+    "x": -667
+   },
+   {
+    "t": 711,
+    "x": -666
+   },
+   {
+    "t": 719,
+    "x": -664
+   },
+   {
+    "t": 727,
+    "x": -663
+   },
+   {
+    "t": 736,
+    "x": -662
+   },
+   {
+    "t": 744,
+    "x": -660
+   },
+   {
+    "t": 752,
+    "x": -659
+   },
+   {
+    "t": 761,
+    "x": -658
+   },
+   {
+    "t": 769,
+    "x": -658
+   },
+   {
+    "t": 777,
+    "x": -657
+   },
+   {
+    "t": 786,
+    "x": -656
+   },
+   {
+    "t": 794,
+    "x": -655
+   },
+   {
+    "t": 802,
+    "x": -655
+   },
+   {
+    "t": 811,
+    "x": -654
+   },
+   {
+    "t": 819,
+    "x": -654
+   },
+   {
+    "t": 827,
+    "x": -653
+   },
+   {
+    "t": 836,
+    "x": -653
+   },
+   {
+    "t": 844,
+    "x": -652
+   },
+   {
+    "t": 852,
+    "x": -652
+   },
+   {
+    "t": 861,
+    "x": -652
+   },
+   {
+    "t": 869,
+    "x": -651
+   },
+   {
+    "t": 877,
+    "x": -651
+   },
+   {
+    "t": 886,
+    "x": -651
+   },
+   {
+    "t": 894,
+    "x": -651
+   },
+   {
+    "t": 902,
+    "x": -650
+   },
+   {
+    "t": 911,
+    "x": -650
+   },
+   {
+    "t": 918,
+    "x": -650
+   },
+   {
+    "t": 928,
+    "x": -650
+   },
+   {
+    "t": 936,
+    "x": -650
+   },
+   {
+    "t": 944,
+    "x": -649
+   },
+   {
+    "t": 952,
+    "x": -649
+   },
+   {
+    "t": 961,
+    "x": -649
+   },
+   {
+    "t": 969,
+    "x": -649
+   },
+   {
+    "t": 978,
+    "x": -649
+   },
+   {
+    "t": 986,
+    "x": -649
+   },
+   {
+    "t": 994,
+    "x": -649
+   },
+   {
+    "t": 1004,
+    "x": -649
+   },
+   {
+    "t": 1011,
+    "x": -649
+   },
+   {
+    "t": 1019,
+    "x": -649
+   },
+   {
+    "t": 1027,
+    "x": -649
+   },
+   {
+    "t": 1036,
+    "x": -649
+   },
+   {
+    "t": 1044,
+    "x": -648
+   },
+   {
+    "t": 1053,
+    "x": -648
+   },
+   {
+    "t": 1061,
+    "x": -648
+   },
+   {
+    "t": 1069,
+    "x": -648
+   },
+   {
+    "t": 1077,
+    "x": -648
+   },
+   {
+    "t": 1086,
+    "x": -648
+   },
+   {
+    "t": 1094,
+    "x": -648
+   },
+   {
+    "t": 1103,
+    "x": -648
+   },
+   {
+    "t": 1111,
+    "x": -648
+   },
+   {
+    "t": 1120,
+    "x": -648
+   },
+   {
+    "t": 1127,
+    "x": -648
+   },
+   {
+    "t": 1136,
+    "x": -648
+   },
+   {
+    "t": 1144,
+    "x": -648
+   },
+   {
+    "t": 1152,
+    "x": -648
+   },
+   {
+    "t": 1161,
+    "x": -648
+   },
+   {
+    "t": 1169,
+    "x": -648
+   },
+   {
+    "t": 1185,
+    "x": -648
+   },
+   {
+    "t": 1194,
+    "x": -648
+   },
+   {
+    "t": 1202,
+    "x": -648
+   },
+   {
+    "t": 1211,
+    "x": -648
+   },
+   {
+    "t": 1219,
+    "x": -648
+   },
+   {
+    "t": 1227,
+    "x": -648
+   },
+   {
+    "t": 1236,
+    "x": -648
+   },
+   {
+    "t": 1244,
+    "x": -648
+   },
+   {
+    "t": 1252,
+    "x": -648
+   },
+   {
+    "t": 1261,
+    "x": -648
+   },
+   {
+    "t": 1269,
+    "x": -648
+   },
+   {
+    "t": 1277,
+    "x": -648
+   },
+   {
+    "t": 1286,
+    "x": -648
+   },
+   {
+    "t": 1294,
+    "x": -648
+   },
+   {
+    "t": 1302,
+    "x": -648
+   },
+   {
+    "t": 1311,
+    "x": -648
+   },
+   {
+    "t": 1319,
+    "x": -648
+   },
+   {
+    "t": 1327,
+    "x": -648
+   },
+   {
+    "t": 1336,
+    "x": -648
+   },
+   {
+    "t": 1344,
+    "x": -648
+   },
+   {
+    "t": 1352,
+    "x": -648
+   },
+   {
+    "t": 1361,
+    "x": -648
+   },
+   {
+    "t": 1369,
+    "x": -648
+   },
+   {
+    "t": 1376,
+    "x": -648
+   },
+   {
+    "t": 1386,
+    "x": -648
+   },
+   {
+    "t": 1394,
+    "x": -648
+   },
+   {
+    "t": 1402,
+    "x": -648
+   },
+   {
+    "t": 1411,
+    "x": -648
+   },
+   {
+    "t": 1419,
+    "x": -648
+   },
+   {
+    "t": 1428,
+    "x": -648
+   },
+   {
+    "t": 1435,
+    "x": -648
+   },
+   {
+    "t": 1444,
+    "x": -648
+   },
+   {
+    "t": 1452,
+    "x": -648
+   },
+   {
+    "t": 1461,
+    "x": -648
+   },
+   {
+    "t": 1469,
+    "x": -648
+   },
+   {
+    "t": 1477,
+    "x": -648
+   },
+   {
+    "t": 1486,
+    "x": -648
+   },
+   {
+    "t": 1494,
+    "x": -648
+   },
+   {
+    "t": 1502,
+    "x": -648
+   },
+   {
+    "t": 1511,
+    "x": -648
+   },
+   {
+    "t": 1519,
+    "x": -648
+   },
+   {
+    "t": 1527,
+    "x": -648
+   },
+   {
+    "t": 1536,
+    "x": -648
+   },
+   {
+    "t": 1544,
+    "x": -648
+   },
+   {
+    "t": 1552,
+    "x": -648
+   },
+   {
+    "t": 1561,
+    "x": -648
+   },
+   {
+    "t": 1569,
+    "x": -648
+   },
+   {
+    "t": 1577,
+    "x": -648
+   },
+   {
+    "t": 1586,
+    "x": -648
+   },
+   {
+    "t": 1594,
+    "x": -648
+   }
+  ],
+  "dragReversals": 1,
+  "afterDrag": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Continue the walk",
+     "x": 244,
+     "y": 20,
+     "w": 126,
+     "h": 38
+    },
+    {
+     "l": "Focus Spot 01: Holeur’s Fashionable Bake",
+     "x": -635,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": -298,
+     "y": 624,
+     "w": 307,
+     "h": 120
+    },
+    {
+     "l": "Enter Spot 03: Uri Gilbert Home",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 04: Washington Street Ferry L",
+     "x": 383,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 723,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    }
+   ],
+   "markers": [
+    {
+     "t": "Spot 1: Holeur’s Fashionable Bakery",
+     "x": 486,
+     "y": -7,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 2: Commissioner’s Office",
+     "x": 140,
+     "y": -287,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 3: Uri Gilbert Home",
+     "x": 195,
+     "y": 308,
+     "w": 0,
+     "h": 0,
+     "inView": true
+    },
+    {
+     "t": "Spot 4: Washington Street Ferry Landing ",
+     "x": 33554428,
+     "y": 33554428,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    },
+    {
+     "t": "Spot 5: Peter Baltimore’s Barbershop",
+     "x": 108,
+     "y": -301,
+     "w": 0,
+     "h": 0,
+     "inView": false
+    }
+   ]
+  },
+  "stayedPaused": {
+   "a1": -648,
+   "a2": -648,
+   "same": true
+  },
+  "continueVisible": true,
+  "afterContinue": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Stop the walk",
+     "x": 200,
+     "y": 20,
+     "w": 170,
+     "h": 38
+    },
+    {
+     "l": "Focus Spot 01: Holeur’s Fashionable Bake",
+     "x": -808,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": -468,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 03: Uri Gilbert Home",
+     "x": -137,
+     "y": 620,
+     "w": 318,
+     "h": 124
+    },
+    {
+     "l": "Enter Spot 04: Washington Street Ferry L",
+     "x": 204,
+     "y": 621,
+     "w": 314,
+     "h": 123
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 550,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    }
+   ]
+  },
+  "afterStop": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Continue the walk",
+     "x": 244,
+     "y": 20,
+     "w": 126,
+     "h": 38
+    },
+    {
+     "l": "Focus Spot 01: Holeur’s Fashionable Bake",
+     "x": -975,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": -635,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 03: Uri Gilbert Home",
+     "x": -298,
+     "y": 624,
+     "w": 307,
+     "h": 120
+    },
+    {
+     "l": "Enter Spot 04: Washington Street Ferry L",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 383,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    }
+   ]
+  },
+  "afterBack": {
+   "controls": [
+    {
+     "l": "Skip to content",
+     "x": -999,
+     "y": 0,
+     "w": 148,
+     "h": 40
+    },
+    {
+     "l": "Open menu",
+     "x": 298,
+     "y": 752,
+     "w": 72,
+     "h": 72
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Take the walk",
+     "x": 68,
+     "y": 764,
+     "w": 207,
+     "h": 48
+    },
+    {
+     "l": "See Troy in 1858",
+     "x": 210,
+     "y": 20,
+     "w": 160,
+     "h": 44
+    },
+    {
+     "l": "Focus Spot 01: Holeur’s Fashionable Bake",
+     "x": -975,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 02: Commissioner’s Office",
+     "x": -635,
+     "y": 626,
+     "w": 301,
+     "h": 118
+    },
+    {
+     "l": "Focus Spot 03: Uri Gilbert Home",
+     "x": -298,
+     "y": 624,
+     "w": 307,
+     "h": 120
+    },
+    {
+     "l": "Enter Spot 04: Washington Street Ferry L",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    },
+    {
+     "l": "Focus Spot 05: Peter Baltimore’s Barbers",
+     "x": 383,
+     "y": 626,
+     "w": 303,
+     "h": 118
+    }
+   ],
+   "scrollY": 0
+  },
+  "burgerBox": {
+   "x": 298,
+   "y": 752,
+   "w": 72,
+   "h": 72
+  },
+  "menuOpen": [
+   "Open menu=true"
+  ],
+  "lensBtn": null,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ }
+}

@@ -1,0 +1,149 @@
+{
+ "f1": {
+  "l": "Approach “Holeur’s Fashionable Bakery”",
+  "ring": "2px",
+  "y": 816,
+  "sy": 457
+ },
+ "s1": {
+  "mode": "approach",
+  "approached": 0,
+  "yaw": -1.57,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "f2": {
+  "l": "Back to the hall",
+  "ring": "2px",
+  "y": 551,
+  "sy": 785
+ },
+ "s2": {
+  "mode": "approach",
+  "approached": 1,
+  "yaw": 1.57,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "s3": {
+  "mode": "approach",
+  "approached": 2,
+  "yaw": -1.57,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "tabInApproach": [
+  {
+   "l": "Approach “Holeur’s Fashionable Bakery”",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  },
+  {
+   "l": "Approach “Commissioner’s Office”",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  },
+  {
+   "l": "Approach “Commissioner’s Office · Part 2”",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  },
+  {
+   "l": "Approach “Uri Gilbert Home”",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  },
+  {
+   "l": "Approach “Washington Street Ferry Landing”",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  },
+  {
+   "l": "Approach “Washington Street Ferry Landing · ",
+   "ring": "2px",
+   "y": 816,
+   "sy": 785
+  }
+ ],
+ "pb": {
+  "l": "Bring the painting to life",
+  "ring": "2px",
+  "y": 287,
+  "sy": 785
+ },
+ "sAlive": {
+  "mode": "approach",
+  "approached": 2,
+  "yaw": -1.57,
+  "alive": 2,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "sRest": {
+  "mode": "approach",
+  "approached": 2,
+  "yaw": -1.57,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "sEsc": {
+  "mode": "rail",
+  "approached": null,
+  "yaw": 0,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "fEsc": {
+  "l": "Approach “Commissioner’s Office · Part 2”",
+  "ring": "2px",
+  "y": 816,
+  "sy": 785
+ },
+ "sLook": {
+  "mode": "rail",
+  "approached": null,
+  "yaw": 0.35,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "sLookBack": {
+  "mode": "rail",
+  "approached": null,
+  "yaw": 0,
+  "alive": -1,
+  "railT": 0.05,
+  "sy": 785
+ },
+ "sDown": {
+  "mode": "rail",
+  "approached": null,
+  "yaw": 0,
+  "alive": -1,
+  "railT": 0.1,
+  "sy": 1190
+ },
+ "sPgDn": {
+  "mode": "rail",
+  "approached": null,
+  "yaw": 0,
+  "alive": -1,
+  "railT": 0.2,
+  "sy": 2050
+ },
+ "log": {
+  "errors": [],
+  "warnings": [],
+  "failed": []
+ }
+}

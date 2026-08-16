@@ -1,0 +1,703 @@
+{
+ "p390": {
+  "docH": 14142,
+  "sections": [
+   "hero@0",
+   "scene-0@916",
+   "history@3384",
+   "moral-0@5858",
+   "moral-0-heading@6138",
+   "hero-2@7282",
+   "scene-1@8046",
+   "moral-1@10978",
+   "moral-1-heading@11257",
+   "onward@12572"
+  ],
+  "playButtons": [
+   {
+    "label": "Play narration: Commissioner’s Office, Pt 1",
+    "x": 20,
+    "y": 1456,
+    "w": 56,
+    "h": 56,
+    "top": 1456
+   },
+   {
+    "label": "Play narration: Commissioner’s Office, Pt 2",
+    "x": 20,
+    "y": 8552,
+    "w": 56,
+    "h": 56,
+    "top": 8552
+   }
+  ],
+  "audio1": [
+   {
+    "src": "ch2-commissioners-office-pt1.mp3",
+    "paused": false,
+    "t": 2.220564,
+    "dur": 80.509375
+   },
+   {
+    "src": "ch2-commissioners-office-pt2.mp3",
+    "paused": true,
+    "t": 0,
+    "dur": 139.2065
+   }
+  ],
+  "firstPara": {
+   "text": "It’s hard to imagine that the hands of M",
+   "fl": {
+    "fs": "19px",
+    "ff": "\"Libre Caslon Display\", \"Libre",
+    "float": "none",
+    "color": "rgb(29, 20, 17)"
+   },
+   "fs": "19px",
+   "color": "rgb(42, 29, 24)",
+   "lines": 7
+  },
+  "paras": [
+   {
+    "t": "It’s hard to imagine that the ",
+    "top": 1754,
+    "h": 236,
+    "x": 15,
+    "w": 360
+   },
+   {
+    "t": "In the commissioner’s office o",
+    "top": 2022,
+    "h": 333,
+    "x": 20,
+    "w": 350
+   },
+   {
+    "t": "Outside, the city of Troy was ",
+    "top": 2386,
+    "h": 67,
+    "x": 20,
+    "w": 350
+   },
+   {
+    "t": "The bells of Second Street Pre",
+    "top": 2485,
+    "h": 399,
+    "x": 20,
+    "w": 350
+   },
+   {
+    "t": "In 1847, Frederick Douglass, J",
+    "top": 3972,
+    "h": 233,
+    "x": 60,
+    "w": 310
+   },
+   {
+    "t": "Despite having a $40,000 (arou",
+    "top": 4237,
+    "h": 333,
+    "x": 60,
+    "w": 310
+   }
+  ],
+  "audioAfterTap": [
+   {
+    "paused": false,
+    "t": 47.469257
+   },
+   {
+    "paused": true,
+    "t": 0
+   }
+  ],
+  "activePara": "Outside, the city of Troy was waking up.",
+  "scrollSteps": [
+   {
+    "y": 1995,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 48
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 20,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 3126,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 50
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 4256,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 51
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 5387,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 52
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 6517,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 53
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 7648,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 55
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 8779,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 56
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 9909,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 57
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 11040,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 58
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 12170,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 29,
+      "y": 771,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 60
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 13301,
+    "pauses": [
+     {
+      "l": "Pause narration: Commissioner’",
+      "x": 25,
+      "y": 775,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 61
+     },
+     {
+      "paused": true,
+      "t": 0
+     }
+    ],
+    "burger": {
+     "y": 34,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   }
+  ],
+  "burgerAfterUp": {
+   "y": 20,
+   "op": "1",
+   "tf": "none",
+   "vis": "visible"
+  },
+  "foot": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 844,
+    "w": 390,
+    "h": 844,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "fixed bottom-[var(--ui-inset)] left-[var",
+    "tag": "DIV",
+    "x": 20,
+    "y": 770,
+    "w": 54,
+    "h": 54,
+    "pos": "fixed",
+    "z": "999"
+   }
+  ],
+  "footerLinks": [
+   {
+    "t": "Notable",
+    "href": "https://makeitnotable.com",
+    "y": 341,
+    "h": 29,
+    "covered": null
+   },
+   {
+    "t": "The people of this day",
+    "href": "/Charles-Nalle-Walking-Memorial/people",
+    "y": 404,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "The paintings",
+    "href": "/Charles-Nalle-Walking-Memorial/paintings",
+    "y": 443,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "About the memorial",
+    "href": "/Charles-Nalle-Walking-Memorial/about",
+    "y": 482,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Map",
+    "href": "/Charles-Nalle-Walking-Memorial/map",
+    "y": 521,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Share",
+    "href": null,
+    "y": 579,
+    "h": 38,
+    "covered": null
+   }
+  ],
+  "continueBtn": {
+   "t": "Continue",
+   "href": "/Charles-Nalle-Walking-Memorial/mansion",
+   "x": 102,
+   "y": 13971,
+   "w": 187,
+   "h": 48
+  },
+  "footerText": [
+   {
+    "t": "Charles Nalle Walking Memorial",
+    "lines": 1,
+    "fs": "18.495px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "t": "Walking routes and directions are suggestions only. Explore ",
+    "lines": 1,
+    "fs": "14px",
+    "color": "rgb(183, 179, 171)",
+    "op": "1"
+   }
+  ],
+  "moral": [
+   {
+    "h": "WHEN NOT CHALLENGED INJUSTICE THRIVES",
+    "hColor": "rgb(246, 243, 238)",
+    "body": "(03)",
+    "bodyColor": "rgb(255, 151, 112)",
+    "capColor": "rgb(255, 151, 112)",
+    "cap": "THE MORAL · PT 1",
+    "top": 5945,
+    "h_": 1700,
+    "img": {
+     "pos": "50% 25%",
+     "tf": "matrix(1.14, 0, 0, 1.14, 0, 102.014)"
+    }
+   },
+   {
+    "h": "FREEDOM ISN’T FREE",
+    "hColor": "rgb(246, 243, 238)",
+    "body": "(05)",
+    "bodyColor": "rgb(255, 151, 112)",
+    "capColor": "rgb(255, 151, 112)",
+    "cap": "THE MORAL · PT 2",
+    "top": 11340,
+    "h_": 1753,
+    "img": {
+     "pos": "50% 25%",
+     "tf": "matrix(1.14, 0, 0, 1.14, 0, 105.15)"
+    }
+   }
+  ],
+  "moralParallax": {
+   "t1": "matrix(1.14, 0, 0, 1.14, 0, -18.2622)",
+   "t2": "matrix(1.14, 0, 0, 1.14, 0, 8.7256)"
+  },
+  "interlude": [
+   {
+    "cap": "THE ARTIST'S STUDY\n\nEverything in the study runs on one diag",
+    "color": "rgb(254, 217, 204)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "top": 6759,
+    "h": 546
+   },
+   {
+    "cap": "THE ARTIST'S STUDY\n\nThe brawl is worked nearly black at the ",
+    "color": "rgb(254, 217, 204)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "top": 12068,
+    "h": 622
+   }
+  ],
+  "onwardFloating": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 844,
+    "w": 390,
+    "h": 844,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "fixed bottom-[var(--ui-inset)] left-[var",
+    "tag": "DIV",
+    "x": 20,
+    "y": 770,
+    "w": 54,
+    "h": 54,
+    "pos": "fixed",
+    "z": "999"
+   },
+   {
+    "t": "3 GILBERT HOME",
+    "tag": "DIV",
+    "x": 20,
+    "y": 307,
+    "w": 350,
+    "h": 300,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Map",
+    "tag": "CANVAS",
+    "x": 20,
+    "y": 307,
+    "w": 350,
+    "h": 300,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Continue to Gilbert Home",
+    "tag": "A",
+    "x": 116,
+    "y": 439,
+    "w": 158,
+    "h": 72,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-left",
+    "tag": "DIV",
+    "x": 20,
+    "y": 307,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-right",
+    "tag": "DIV",
+    "x": 330,
+    "y": 307,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-right",
+    "tag": "DIV",
+    "x": 330,
+    "y": 567,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "Toggle attribution",
+    "tag": "BUTTON",
+    "x": 338,
+    "y": 575,
+    "w": 24,
+    "h": 24,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-left",
+    "tag": "DIV",
+    "x": 20,
+    "y": 572,
+    "w": 100,
+    "h": 35,
+    "pos": "absolute",
+    "z": "2"
+   }
+  ],
+  "menuOpen": {
+   "expanded": [
+    "Open menu=true"
+   ],
+   "links": [
+    "Skip to content",
+    "Home",
+    "01Bakery",
+    "02Commissioner’s Office",
+    "03Gilbert Home",
+    "04Ferry Landing",
+    "05Barbershop",
+    "Map",
+    "The people",
+    "The paintings",
+    "About"
+   ]
+  },
+  "menuClosed": [
+   "Open menu=false"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+   ]
+  }
+ }
+}

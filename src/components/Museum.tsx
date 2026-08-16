@@ -1123,8 +1123,7 @@ export default function Museum({ works, slotId }: Props) {
             top-right lane belongs to the corner menu on this page. */}
         {ready && !inApproach && (
           <div
-            className="pointer-events-none absolute z-10 flex justify-center max-lg:left-[calc(var(--ui-inset)+196px)] max-lg:right-[calc(var(--ui-inset)+88px)] lg:inset-x-0"
-            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))" }}
+            className="pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:top-[calc(var(--ui-inset)+env(safe-area-inset-top)+52px)] sm:top-[calc(var(--ui-inset)+env(safe-area-inset-top))] sm:max-lg:left-[calc(var(--ui-inset)+196px)] sm:max-lg:right-[calc(var(--ui-inset)+88px)] lg:inset-x-0"
           >
             {lookedAway ? (
               <button

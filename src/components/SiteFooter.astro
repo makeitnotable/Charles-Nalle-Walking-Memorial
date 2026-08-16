@@ -103,9 +103,13 @@ const links = [
   }
   @media (min-width: 768px) {
     .footer-grid {
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto;
+      /* the nav column never narrows below its longest label + arrow */
+      grid-template-columns: minmax(0, 1.3fr) minmax(15rem, 1fr) auto;
       align-items: start;
       gap: 2.5rem;
+    }
+    .footer-nav a {
+      white-space: nowrap;
     }
     .footer-share {
       justify-self: end;

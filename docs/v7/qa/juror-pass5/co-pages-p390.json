@@ -1,0 +1,264 @@
+{
+ "plays": [
+  {
+   "l": "Play narration: Commissioner’s Office, Pt 1",
+   "top": 1456,
+   "x": 48,
+   "h": 56
+  },
+  {
+   "l": "Play narration: Commissioner’s Office, Pt 2",
+   "top": 8552,
+   "x": 48,
+   "h": 56
+  }
+ ],
+ "afterPlay1": {
+  "audio": [
+   {
+    "paused": false,
+    "t": 2
+   },
+   {
+    "paused": true,
+    "t": 0
+   }
+  ]
+ },
+ "hero2Minis": [
+  {
+   "l": "Pause narration: Commissioner’s Office, Pt 1",
+   "x": 29,
+   "y": 771,
+   "w": 44,
+   "h": 44,
+   "fixed": true
+  }
+ ],
+ "pt2Minis": [
+  {
+   "l": "Pause narration: Commissioner’s Office, Pt 1",
+   "x": 29,
+   "y": 771,
+   "w": 44,
+   "h": 44,
+   "fixed": true
+  },
+  {
+   "l": "Play narration: Commissioner’s Office, Pt 2",
+   "x": 20,
+   "y": 701,
+   "w": 56,
+   "h": 56,
+   "fixed": false
+  }
+ ],
+ "afterPlay2": {
+  "audio": [
+   {
+    "paused": false,
+    "t": 8
+   },
+   {
+    "paused": true,
+    "t": 0
+   }
+  ],
+  "minis": [
+   {
+    "l": "Pause narration: Commissioner’s Office, Pt 1",
+    "x": 29,
+    "y": 771,
+    "w": 44,
+    "h": 44,
+    "fixed": true
+   },
+   {
+    "l": "Play narration: Commissioner’s Office, Pt 2",
+    "x": 20,
+    "y": 701,
+    "w": 56,
+    "h": 56,
+    "fixed": false
+   }
+  ]
+ },
+ "pt2Scrolled": {
+  "minis": [
+   {
+    "l": "Pause narration: Commissioner’s Office, Pt 1",
+    "x": 29,
+    "y": 771,
+    "w": 44,
+    "h": 44,
+    "fixed": true
+   }
+  ],
+  "floating": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 844,
+    "w": 390,
+    "h": 844,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "00:09",
+    "tag": "DIV",
+    "x": 20,
+    "y": 762,
+    "w": 114,
+    "h": 62,
+    "pos": "fixed",
+    "z": "999"
+   }
+  ]
+ },
+ "backToPt1": {
+  "minis": [
+   {
+    "l": "Pause narration: Commissioner’s Office, Pt 1",
+    "x": 29,
+    "y": 771,
+    "w": 44,
+    "h": 44,
+    "fixed": true
+   }
+  ],
+  "audio": [
+   {
+    "paused": false,
+    "t": 12
+   },
+   {
+    "paused": true,
+    "t": 0
+   }
+  ]
+ },
+ "tapPt2": {
+  "audio": [
+   {
+    "paused": true,
+    "t": 14
+   },
+   {
+    "paused": false,
+    "t": 37
+   }
+  ],
+  "minis": [
+   {
+    "l": "Pause narration: Commissioner’s Office, Pt 2",
+    "x": 29,
+    "y": 771,
+    "w": 44,
+    "h": 44,
+    "fixed": true
+   }
+  ],
+  "active": "It’s hard to imagine that the hands of M"
+ },
+ "log": {
+  "errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "warnings": [],
+  "failed": [
+   "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+   "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+   "404 https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope"
+  ]
+ },
+ "/people": {
+  "H": 6918,
+  "log": {
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "warnings": [],
+   "failed": [
+    "404 https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope"
+   ]
+  },
+  "title": "The People · Charles Nalle Walking Memorial",
+  "h1": [
+   "ONE DAY. / A WHOLE / CITY’S CAST."
+  ],
+  "hScroll": false,
+  "links": [
+   "Walk the story -> /Charles-Nalle-Walking-Memorial/map",
+   "Notable -> https://makeitnotable.com",
+   "The paintings -> /Charles-Nalle-Walking-Memorial/paintings",
+   "About the memorial -> /Charles-Nalle-Walking-Memorial/about",
+   "Map -> /Charles-Nalle-Walking-Memorial/map"
+  ]
+ },
+ "peopleCards": [
+  "THE MAN AT THE CENTER | CHARLES NALLE",
+  "THE VOICE IN THE CROWD | HARRIET TUBMAN",
+  "BARBER · UNDERGROUND RAILROAD | PETER BALTIMORE"
+ ],
+ "/about": {
+  "H": 8964,
+  "log": {
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "warnings": [],
+   "failed": [
+    "404 https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope"
+   ]
+  },
+  "title": "About · Charles Nalle Walking Memorial",
+  "h1": [
+   "ABOUT THE PROJECT"
+  ],
+  "hScroll": false,
+  "links": [
+   "Walk the story -> /Charles-Nalle-Walking-Memorial/map",
+   "Notable -> https://makeitnotable.com",
+   "The people of this day -> /Charles-Nalle-Walking-Memorial/people",
+   "The paintings -> /Charles-Nalle-Walking-Memorial/paintings",
+   "Map -> /Charles-Nalle-Walking-Memorial/map"
+  ]
+ },
+ "aboutSections": [
+  " (01) @322",
+  " (02) @1773",
+  " (03) @2943",
+  " (04) @4957",
+  " (05) @6092",
+  " (06) @7095",
+  " (07) @7849"
+ ],
+ "/404-nope": {
+  "H": 1208,
+  "log": {
+   "errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "warnings": [],
+   "failed": [
+    "404 https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope"
+   ]
+  },
+  "title": "Page not found · Charles Nalle Walking Memorial",
+  "h1": [
+   "THIS PAGE ISN’T / PART OF THE MEMORIAL"
+  ],
+  "hScroll": false,
+  "links": [
+   "Start at the beginning -> /Charles-Nalle-Walking-Memorial/",
+   "Open the map -> /Charles-Nalle-Walking-Memorial/map",
+   "Notable -> https://makeitnotable.com",
+   "The people of this day -> /Charles-Nalle-Walking-Memorial/people",
+   "The paintings -> /Charles-Nalle-Walking-Memorial/paintings",
+   "About the memorial -> /Charles-Nalle-Walking-Memorial/about",
+   "Map -> /Charles-Nalle-Walking-Memorial/map"
+  ]
+ }
+}

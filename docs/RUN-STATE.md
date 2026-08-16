@@ -19,7 +19,16 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 4 = FAIL** (`docs/v7/juror-pass4.md`; Sheet A phone 9/8/9/9,
+**Juror pass 5 = FAIL** (`docs/v7/juror-pass5.md`; Sheet A phone 8/9/9/9,
+tablet 8/9/9/9, desktop 9/9/9/9; one P1 = the phone museum chip wrapped to
+three lines in the lane I made for tablets → phones now get the chip on its
+own row under the Skip pill (full width, centred, `nowrap`); tablets keep the
+lane right of Skip; measured clean at 360/390/640/720/768/1024. P2 fixed:
+chapter footer nav column ≥ 15rem + `nowrap` labels at 768 (with Share).
+Next: push → verify live → **juror pass 6** (fresh) → if PASS → **juror pass
+7** (fresh, identical build) → REVIEW-GUIDE §3 → memory → push.
+
+(Earlier) **Juror pass 4 = FAIL** (`docs/v7/juror-pass4.md`; Sheet A phone 9/8/9/9,
 tablet 7/8/9/9, desktop 9/9/9/9; one P1 = the museum rail chip under the
 `Skip the hall` pill at 640–830 px (my tablet copy tier was too wide) → the
 chip now lives in the free lane right of the pill below lg with the short

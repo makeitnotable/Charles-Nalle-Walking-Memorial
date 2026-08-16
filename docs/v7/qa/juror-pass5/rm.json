@@ -1,0 +1,113 @@
+{
+ "p390": {
+  "/": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "/ferry": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "ferryMidHidden": [],
+  "/map": {
+   "hidden": [],
+   "canvas": true,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "/paintings": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 10
+  },
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch4-ferry.mp3 net::ERR_ABORTED"
+   ]
+  }
+ },
+ "d1440": {
+  "/": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "/ferry": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "ferryMidHidden": [],
+  "/map": {
+   "hidden": [],
+   "canvas": true,
+   "museumRunning": null,
+   "grid": 0
+  },
+  "/paintings": {
+   "hidden": [],
+   "canvas": false,
+   "museumRunning": null,
+   "grid": 10
+  },
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch4-ferry.mp3 net::ERR_ABORTED"
+   ]
+  }
+ },
+ "menuSpin": {
+  "closeBox": {
+   "x": 49.203125,
+   "y": 21,
+   "width": 319.796875,
+   "height": 57
+  },
+  "distinctTransforms": 36,
+  "first": [
+   "none|none",
+   "matrix(0.948323, 0.317308, -0.317308, 0.948323, 0, 0)|none",
+   "matrix(0.885591, 0.464466, -0.464466, 0.885591, 0, 0)|none"
+  ],
+  "last": [
+   "matrix(0.000129154, 1, -1, 0.000129154, 0, 0)|none",
+   "matrix(5.58505e-05, 1, -1, 5.58505e-05, 0, 0)|none"
+  ],
+  "closedAfter": [
+   "false"
+  ]
+ },
+ "walkCadence": [
+  {
+   "t": 403,
+   "active": "01"
+  },
+  {
+   "t": 3655,
+   "active": "02"
+  },
+  {
+   "t": 6901,
+   "active": "03"
+  },
+  {
+   "t": 10155,
+   "active": "04"
+  },
+  {
+   "t": 13818,
+   "active": "05"
+  }
+ ]
+}

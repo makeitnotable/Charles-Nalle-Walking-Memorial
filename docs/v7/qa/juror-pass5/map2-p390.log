@@ -1,0 +1,637 @@
+{
+ "p390": {
+  "hintAt12s": [
+   {
+    "t": "Drag to explore · pinch or scroll to zoom",
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "op": "1",
+    "pop": "0.8"
+   },
+   {
+    "t": "Drag to explore · pinch to zoom",
+    "x": 90,
+    "y": 73,
+    "w": 210,
+    "h": 18,
+    "op": "1",
+    "pop": "0.8"
+   }
+  ],
+  "burgerInWalk": {
+   "rect": {
+    "x": 300,
+    "y": 766,
+    "w": 68,
+    "h": 68
+   },
+   "chain": [
+    {
+     "tag": "BUTTON",
+     "cls": "cnwm-menu-burger flex h-[72px] w-[72px] ",
+     "op": "1",
+     "tf": "none",
+     "vis": "visible",
+     "disp": "flex",
+     "pe": "none"
+    },
+    {
+     "tag": "DIV",
+     "cls": "cnwm-menu fixed bottom-[var(--ui-inset)]",
+     "op": "0",
+     "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+     "vis": "visible",
+     "disp": "block",
+     "pe": "none"
+    }
+   ],
+   "hit": "DIV.fixed right-0 bottom-0 left-0 "
+  },
+  "flick": {
+   "before": 31,
+   "samples": [
+    {
+     "t": 0,
+     "x": 31
+    },
+    {
+     "t": 41,
+     "x": 31
+    },
+    {
+     "t": 84,
+     "x": 0
+    },
+    {
+     "t": 125,
+     "x": -32
+    },
+    {
+     "t": 167,
+     "x": -64
+    },
+    {
+     "t": 210,
+     "x": -96
+    },
+    {
+     "t": 247,
+     "x": -127
+    },
+    {
+     "t": 289,
+     "x": -159
+    },
+    {
+     "t": 331,
+     "x": -191
+    },
+    {
+     "t": 373,
+     "x": -233
+    },
+    {
+     "t": 414,
+     "x": -260
+    },
+    {
+     "t": 456,
+     "x": -277
+    },
+    {
+     "t": 497,
+     "x": -288
+    },
+    {
+     "t": 539,
+     "x": -296
+    },
+    {
+     "t": 581,
+     "x": -300
+    },
+    {
+     "t": 622,
+     "x": -303
+    },
+    {
+     "t": 663,
+     "x": -305
+    },
+    {
+     "t": 706,
+     "x": -306
+    },
+    {
+     "t": 747,
+     "x": -307
+    },
+    {
+     "t": 788,
+     "x": -308
+    },
+    {
+     "t": 831,
+     "x": -308
+    },
+    {
+     "t": 873,
+     "x": -308
+    },
+    {
+     "t": 914,
+     "x": -308
+    },
+    {
+     "t": 957,
+     "x": -308
+    },
+    {
+     "t": 1005,
+     "x": -308
+    },
+    {
+     "t": 1039,
+     "x": -308
+    },
+    {
+     "t": 1081,
+     "x": -308
+    },
+    {
+     "t": 1122,
+     "x": -308
+    },
+    {
+     "t": 1164,
+     "x": -308
+    },
+    {
+     "t": 1206,
+     "x": -308
+    },
+    {
+     "t": 1247,
+     "x": -308
+    },
+    {
+     "t": 1289,
+     "x": -308
+    },
+    {
+     "t": 1331,
+     "x": -308
+    },
+    {
+     "t": 1372,
+     "x": -308
+    },
+    {
+     "t": 1414,
+     "x": -308
+    },
+    {
+     "t": 1456,
+     "x": -308
+    },
+    {
+     "t": 1497,
+     "x": -308
+    }
+   ],
+   "after": -308,
+   "controls": [
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Continue the walk",
+     "x": 244,
+     "y": 20,
+     "w": 126,
+     "h": 38
+    }
+   ],
+   "advanced": 1,
+   "markersAfter": [
+    {
+     "t": "Spot 1: Holeur’s Fashionable B",
+     "x": 14725,
+     "y": 84567
+    },
+    {
+     "t": "Spot 2: Commissioner’s Office",
+     "x": 195,
+     "y": 308
+    },
+    {
+     "t": "Spot 3: Uri Gilbert Home",
+     "x": 33554428,
+     "y": 33554428
+    },
+    {
+     "t": "Spot 4: Washington Street Ferr",
+     "x": 33554428,
+     "y": 33554428
+    },
+    {
+     "t": "Spot 5: Peter Baltimore’s Barb",
+     "x": 147,
+     "y": 224
+    }
+   ]
+  },
+  "nudge": {
+   "before": -308,
+   "after": -308,
+   "markerBefore": [
+    14725,
+    84567
+   ],
+   "markerAfter": [
+    14725,
+    84567
+   ]
+  },
+  "tapNext": {
+   "active": -648,
+   "controls": [
+    {
+     "l": "Back to map",
+     "x": 20,
+     "y": 20,
+     "w": 109,
+     "h": 38
+    },
+    {
+     "l": "Continue the walk",
+     "x": 244,
+     "y": 20,
+     "w": 126,
+     "h": 38
+    }
+   ]
+  },
+  "endControls": [
+   {
+    "l": "Back to map",
+    "x": 20,
+    "y": 20,
+    "w": 109,
+    "h": 38
+   },
+   {
+    "l": "Walk again from the first spot",
+    "x": 229,
+    "y": 20,
+    "w": 141,
+    "h": 38
+   }
+  ],
+  "afterBack": [
+   {
+    "l": "Open menu",
+    "x": 298,
+    "y": 752,
+    "w": 72,
+    "h": 72
+   },
+   {
+    "l": "Take the walk",
+    "x": 68,
+    "y": 764,
+    "w": 207,
+    "h": 48
+   },
+   {
+    "l": "See Troy in 1858",
+    "x": 210,
+    "y": 20,
+    "w": 160,
+    "h": 44
+   }
+  ],
+  "lensBtn": {
+   "x": 210,
+   "y": 20,
+   "w": 160,
+   "h": 44
+  },
+  "lens": {
+   "controls": [
+    {
+     "l": "Open menu",
+     "x": 300,
+     "y": 766,
+     "w": 68,
+     "h": 68
+    },
+    {
+     "l": "Toggle attribution",
+     "x": 20,
+     "y": 773,
+     "w": 24,
+     "h": 24
+    },
+    {
+     "l": "Mapbox homepage",
+     "x": 16,
+     "y": 805,
+     "w": 88,
+     "h": 23
+    },
+    {
+     "l": "Zoom in",
+     "x": 330,
+     "y": 32,
+     "w": 32,
+     "h": 32
+    },
+    {
+     "l": "Zoom out",
+     "x": 330,
+     "y": 68,
+     "w": 32,
+     "h": 32
+    },
+    {
+     "l": "Reset view",
+     "x": 330,
+     "y": 104,
+     "w": 32,
+     "h": 32
+    },
+    {
+     "l": "Back to today",
+     "x": 110,
+     "y": 780,
+     "w": 169,
+     "h": 44
+    },
+    {
+     "l": "Focus Spot 04: Washington Street Ferry L",
+     "x": -298,
+     "y": 624,
+     "w": 307,
+     "h": 120
+    },
+    {
+     "l": "Enter Spot 05: Peter Baltimore’s Barbers",
+     "x": 32,
+     "y": 617,
+     "w": 325,
+     "h": 127
+    }
+   ],
+   "texts": [
+    {
+     "t": "Charles",
+     "lines": 1,
+     "w": 228,
+     "y": 376,
+     "fs": "54px"
+    },
+    {
+     "t": "Troy, New York · 1858 · Library of Congress",
+     "lines": 1,
+     "w": 350,
+     "y": 711,
+     "fs": "12px"
+    },
+    {
+     "t": "Drag to explore · pinch to zoom",
+     "lines": 1,
+     "w": 210,
+     "y": 748,
+     "fs": "14px"
+    },
+    {
+     "t": "Holeur’s\nFashionable Bakery",
+     "lines": 1,
+     "w": 154,
+     "y": 677,
+     "fs": "18px"
+    },
+    {
+     "t": "Commissioner’s\nOffice",
+     "lines": 1,
+     "w": 154,
+     "y": 677,
+     "fs": "18px"
+    },
+    {
+     "t": "Uri Gilbert Home",
+     "lines": 1,
+     "w": 154,
+     "y": 695,
+     "fs": "18px"
+    },
+    {
+     "t": "Washington Street Ferry Landing",
+     "lines": 1,
+     "w": 157,
+     "y": 675,
+     "fs": "18px"
+    },
+    {
+     "t": "Peter Baltimore’s Barbershop",
+     "lines": 1,
+     "w": 167,
+     "y": 671,
+     "fs": "18px"
+    }
+   ],
+   "imgs": [
+    {
+     "src": "troy-1858-full-4096.avif",
+     "x": -611,
+     "y": -651,
+     "w": 1612,
+     "h": 1350,
+     "nat": "4096x3431",
+     "tf": "matrix(4.60474, 0, 0, 4.60474, -175, -484.086)"
+    },
+    {
+     "src": "square-400.avif",
+     "x": -1312,
+     "y": 628,
+     "w": 118,
+     "h": 118,
+     "nat": "400x400",
+     "tf": "none"
+    },
+    {
+     "src": "square-400.avif",
+     "x": -972,
+     "y": 628,
+     "w": 118,
+     "h": 118,
+     "nat": "400x400",
+     "tf": "none"
+    },
+    {
+     "src": "square-400.avif",
+     "x": -633,
+     "y": 628,
+     "w": 118,
+     "h": 118,
+     "nat": "400x400",
+     "tf": "none"
+    },
+    {
+     "src": "square-400.avif",
+     "x": -296,
+     "y": 626,
+     "w": 120,
+     "h": 120,
+     "nat": "400x400",
+     "tf": "none"
+    },
+    {
+     "src": "square-400.avif",
+     "x": 34,
+     "y": 619,
+     "w": 127,
+     "h": 127,
+     "nat": "400x400",
+     "tf": "none"
+    }
+   ],
+   "chip": [
+    {
+     "x": 0,
+     "y": 0,
+     "w": 0,
+     "vis": false
+    },
+    {
+     "x": 20,
+     "y": 1264,
+     "w": 350,
+     "vis": false
+    }
+   ]
+  },
+  "lensViewer": {
+   "x": 20,
+   "y": 24,
+   "w": 350,
+   "h": 675,
+   "areaPct": 72
+  },
+  "lensPan": {
+   "t0": "matrix(4.60474, 0, 0, 4.60474, -175, -484.086)",
+   "t1": "matrix(4.60474, 0, 0, 4.60474, -295, -484.086)",
+   "moved": true
+  },
+  "lensReset": {
+   "t2": "matrix(4.60474, 0, 0, 4.60474, -175, -484.086)",
+   "backToInitial": true
+  },
+  "backToday": {
+   "x": 110,
+   "y": 780,
+   "w": 169,
+   "h": 44
+  },
+  "afterBackToday": [
+   {
+    "l": "Open menu",
+    "x": 298,
+    "y": 752,
+    "w": 72,
+    "h": 72
+   },
+   {
+    "l": "Take the walk",
+    "x": 68,
+    "y": 764,
+    "w": 207,
+    "h": 48
+   },
+   {
+    "l": "See Troy in 1858",
+    "x": 210,
+    "y": 20,
+    "w": 160,
+    "h": 44
+   }
+  ],
+  "burgerScrolledDown": {
+   "rect": {
+    "x": 300,
+    "y": 766,
+    "w": 68,
+    "h": 68
+   },
+   "chain": [
+    {
+     "tag": "BUTTON",
+     "cls": "cnwm-menu-burger flex h-[72px] w-[72px] ",
+     "op": "1",
+     "tf": "none",
+     "vis": "visible",
+     "disp": "flex",
+     "pe": "none"
+    },
+    {
+     "tag": "DIV",
+     "cls": "cnwm-menu fixed bottom-[var(--ui-inset)]",
+     "op": "0",
+     "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+     "vis": "visible",
+     "disp": "block",
+     "pe": "none"
+    }
+   ],
+   "hit": "The five spots"
+  },
+  "burgerScrolledUp": {
+   "rect": {
+    "x": 298,
+    "y": 752,
+    "w": 72,
+    "h": 72
+   },
+   "chain": [
+    {
+     "tag": "BUTTON",
+     "cls": "cnwm-menu-burger flex h-[72px] w-[72px] ",
+     "op": "1",
+     "tf": "none",
+     "vis": "visible",
+     "disp": "flex",
+     "pe": "auto"
+    },
+    {
+     "tag": "DIV",
+     "cls": "cnwm-menu fixed bottom-[var(--ui-inset)]",
+     "op": "1",
+     "tf": "none",
+     "vis": "visible",
+     "disp": "block",
+     "pe": "auto"
+    }
+   ],
+   "hit": "SPAN.cnwm-bar block h-0.5 w-8 round"
+  },
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  }
+ }
+}

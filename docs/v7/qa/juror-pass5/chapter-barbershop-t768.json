@@ -1,0 +1,687 @@
+{
+ "t768": {
+  "docH": 9360,
+  "sections": [
+   "hero@0",
+   "scene-0@1120",
+   "history@4932",
+   "moral@6254",
+   "moral-heading@6568",
+   "onward@7849"
+  ],
+  "playButtons": [
+   {
+    "label": "Play narration: Peter Baltimore’s Barbershop",
+    "x": 40,
+    "y": 1654,
+    "w": 56,
+    "h": 56,
+    "top": 1654
+   }
+  ],
+  "audio1": [
+   {
+    "src": "ch5-barbershop.mp3",
+    "paused": false,
+    "t": 2.294797,
+    "dur": 114.128938
+   }
+  ],
+  "firstPara": {
+   "text": "Pushing their way through the gathering ",
+   "fl": {
+    "fs": "20px",
+    "ff": "\"Libre Caslon Display\", \"Libre",
+    "float": "none",
+    "color": "rgb(29, 20, 17)"
+   },
+   "fs": "20px",
+   "color": "rgb(42, 29, 24)",
+   "lines": 9
+  },
+  "paras": [
+   {
+    "t": "Pushing their way through the ",
+    "top": 1968,
+    "h": 318,
+    "x": 35,
+    "w": 691
+   },
+   {
+    "t": "Across his body, Charles could",
+    "top": 2889,
+    "h": 350,
+    "x": 40,
+    "w": 688
+   },
+   {
+    "t": "Almost a month later on May 25",
+    "top": 4038,
+    "h": 105,
+    "x": 40,
+    "w": 688
+   },
+   {
+    "t": "Peter Baltimore’s younger son,",
+    "top": 5381,
+    "h": 140,
+    "x": 96,
+    "w": 632
+   },
+   {
+    "t": "Peter Baltimore’s barbershop w",
+    "top": 5553,
+    "h": 105,
+    "x": 96,
+    "w": 632
+   },
+   {
+    "t": "After Charles Nalle’s escape, ",
+    "top": 5690,
+    "h": 140,
+    "x": 96,
+    "w": 632
+   }
+  ],
+  "audioAfterTap": [
+   {
+    "paused": false,
+    "t": 97.467358
+   }
+  ],
+  "activePara": "Almost a month later on May 25, 1860, Ch",
+  "scrollSteps": [
+   {
+    "y": 1256,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 40,
+      "y": 398,
+      "w": 56,
+      "h": 56
+     },
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 99
+     }
+    ],
+    "burger": {
+     "y": 40,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 1968,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 100
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 2680,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 102
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 3391,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 103
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 4103,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 104
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 4815,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 105
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 5527,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 106
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 6239,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 108
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 6950,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 109
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 7662,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 110
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 8374,
+    "pauses": [
+     {
+      "l": "Pause narration: Peter Baltimo",
+      "x": 49,
+      "y": 931,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 111
+     }
+    ],
+    "burger": {
+     "y": 54,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   }
+  ],
+  "burgerAfterUp": {
+   "y": 40,
+   "op": "1",
+   "tf": "none",
+   "vis": "visible"
+  },
+  "foot": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 1024,
+    "w": 768,
+    "h": 1024,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "01:53",
+    "tag": "DIV",
+    "x": 40,
+    "y": 922,
+    "w": 114,
+    "h": 62,
+    "pos": "fixed",
+    "z": "999"
+   },
+   {
+    "t": "1 BAKERY",
+    "tag": "DIV",
+    "x": 40,
+    "y": -193,
+    "w": 688,
+    "h": 380,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Map",
+    "tag": "CANVAS",
+    "x": 40,
+    "y": -193,
+    "w": 688,
+    "h": 380,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Continue to Bakery",
+    "tag": "A",
+    "x": 331,
+    "y": -21,
+    "w": 106,
+    "h": 72,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-right",
+    "tag": "DIV",
+    "x": 688,
+    "y": 147,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "Toggle attribution",
+    "tag": "BUTTON",
+    "x": 696,
+    "y": 155,
+    "w": 24,
+    "h": 24,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-left",
+    "tag": "DIV",
+    "x": 40,
+    "y": 152,
+    "w": 100,
+    "h": 35,
+    "pos": "absolute",
+    "z": "2"
+   }
+  ],
+  "footerLinks": [
+   {
+    "t": "Notable",
+    "href": "https://makeitnotable.com",
+    "y": 670,
+    "h": 29,
+    "covered": null
+   },
+   {
+    "t": "The people of this day",
+    "href": "/Charles-Nalle-Walking-Memorial/people",
+    "y": 639,
+    "h": 40,
+    "covered": null
+   },
+   {
+    "t": "The paintings",
+    "href": "/Charles-Nalle-Walking-Memorial/paintings",
+    "y": 693,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "About the memorial",
+    "href": "/Charles-Nalle-Walking-Memorial/about",
+    "y": 732,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Map",
+    "href": "/Charles-Nalle-Walking-Memorial/map",
+    "y": 771,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Share",
+    "href": null,
+    "y": 637,
+    "h": 38,
+    "covered": null
+   }
+  ],
+  "continueBtn": {
+   "t": "Continue",
+   "href": "/Charles-Nalle-Walking-Memorial/bakery",
+   "x": 160,
+   "y": 8746,
+   "w": 187,
+   "h": 48
+  },
+  "footerText": [
+   {
+    "t": "Charles Nalle Walking Memorial",
+    "lines": 1,
+    "fs": "22.464px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "t": "Walking routes and directions are suggestions only. Explore ",
+    "lines": 1,
+    "fs": "14px",
+    "color": "rgb(183, 179, 171)",
+    "op": "1"
+   }
+  ],
+  "moral": [
+   {
+    "h": "WE ARE RESPONSIBLE FOR JUSTICE",
+    "hColor": "rgb(246, 243, 238)",
+    "body": "(03)",
+    "bodyColor": "rgb(255, 151, 112)",
+    "capColor": "rgb(255, 151, 112)",
+    "cap": "THE MORAL",
+    "top": 6293,
+    "h_": 1427,
+    "img": {
+     "pos": "50% 25%",
+     "tf": "matrix(1.14, 0, 0, 1.14, 0, 85.6172)"
+    }
+   }
+  ],
+  "moralParallax": {
+   "t1": "matrix(1.14, 0, 0, 1.14, 0, -11.3528)",
+   "t2": "matrix(1.14, 0, 0, 1.14, 0, 9.60625)"
+  },
+  "interlude": [
+   {
+    "cap": "THE ARTIST'S STUDY\n\nThe crowd fills the sheet edge to edge a",
+    "color": "rgb(254, 217, 204)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "top": 6983,
+    "h": 384
+   }
+  ],
+  "onwardFloating": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 1024,
+    "w": 768,
+    "h": 1024,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "01:54",
+    "tag": "DIV",
+    "x": 40,
+    "y": 922,
+    "w": 114,
+    "h": 62,
+    "pos": "fixed",
+    "z": "999"
+   },
+   {
+    "t": "1 BAKERY",
+    "tag": "DIV",
+    "x": 40,
+    "y": 334,
+    "w": 688,
+    "h": 380,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Map",
+    "tag": "CANVAS",
+    "x": 40,
+    "y": 334,
+    "w": 688,
+    "h": 380,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Continue to Bakery",
+    "tag": "A",
+    "x": 331,
+    "y": 506,
+    "w": 106,
+    "h": 72,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-left",
+    "tag": "DIV",
+    "x": 40,
+    "y": 334,
+    "w": 80,
+    "h": 80,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-right",
+    "tag": "DIV",
+    "x": 648,
+    "y": 334,
+    "w": 80,
+    "h": 80,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-right",
+    "tag": "DIV",
+    "x": 688,
+    "y": 674,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "Toggle attribution",
+    "tag": "BUTTON",
+    "x": 696,
+    "y": 682,
+    "w": 24,
+    "h": 24,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-left",
+    "tag": "DIV",
+    "x": 40,
+    "y": 679,
+    "w": 100,
+    "h": 35,
+    "pos": "absolute",
+    "z": "2"
+   }
+  ],
+  "menuOpen": {
+   "expanded": [
+    "Open menu=true"
+   ],
+   "links": [
+    "Skip to content",
+    "Home",
+    "01Bakery",
+    "02Commissioner’s Office",
+    "03Gilbert Home",
+    "04Ferry Landing",
+    "05Barbershop",
+    "Map",
+    "The people",
+    "The paintings",
+    "About"
+   ]
+  },
+  "menuClosed": [
+   "Open menu=false"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24150.vector.pbf?sku=101TKzvzLqNlK&access_token=pk.eyJ1Ijo net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24149.vector.pbf?sku=101TKzvzLqNlK&access_token=pk.eyJ1Ijo net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24149.vector.pbf?sku=101TKzvzLqNlK&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24151.vector.pbf?sku=101TKzvzLqNlK&access_token=pk.eyJ1Ijo net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19353/24150.vector.pbf?sku=101TKzvzLqNlK&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+   ]
+  }
+ }
+}

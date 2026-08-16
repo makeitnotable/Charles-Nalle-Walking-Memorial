@@ -1,0 +1,22 @@
+{
+ "/barbershop": {
+  "H": 9360,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24151.vector.pbf?sku=101HHE0NwpapM&access_token=pk.eyJ1Ijo net::ERR_ABORTED",
+    "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19353/24150.vector.pbf?sku=101HHE0NwpapM&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+   ]
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 PETER / BALTIMORE’S / BARBERSHOP",
+   "H2 FREEDOM IS BOUGHT",
+   "H2 HISTORICAL / CONTEXT",
+   "H2 WE ARE / RESPONSIBLE / FOR JUSTICE",
+   "H2 WHERE / TO NEXT"
+  ]
+ }
+}
