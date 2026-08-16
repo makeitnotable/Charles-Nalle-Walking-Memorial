@@ -7,6 +7,7 @@
  * Internal page — not linked from nav, no menu.
  */
 import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
 import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
 import { ICONS } from "../components/icons";
@@ -228,5 +229,32 @@ const ramps: Record<string, string[]> = {
         </div>
       ))
     }
+  </section>
+
+  {/* ——— THE MARK (v7 I1) ——— */}
+  <section class="shell sec pb-24" id="mark">
+    <div class="rule-top pt-6"><p class="t-meta">(08) The mark — CN in Libre Caslon Display, three interlocks (juror picks; "a" ships)</p></div>
+    <p class="t-meta-body mt-4 max-w-[64ch]">
+      Rendered as paths (no font dependency), 16 px shown at 8× nearest-neighbour and 1×, 32 px at 4× and 1×, 180 px at 1×.
+      Built by <code>scripts/build-favicon.mjs</code>; the shipped set is favicon.svg / -16 / -32 / -48 / .ico / apple-touch-icon / icon-192 / icon-512 + site.webmanifest.
+    </p>
+    <div class="mt-8 grid gap-10 md:grid-cols-3">
+      {
+        ["a", "b", "c"].map((k) => (
+          <div>
+            <p class="t-meta mb-3">
+              {k === "a" ? "a · interlock (ships)" : k === "b" ? "b · cameo" : "c · step"}
+            </p>
+            <div class="flex items-end gap-4">
+              <img src={withBase(`favicon-candidates/${k}-16.png`)} width="128" height="128" style="image-rendering: pixelated" alt={`candidate ${k} at 16px, 8×`} />
+              <img src={withBase(`favicon-candidates/${k}-16.png`)} width="16" height="16" alt={`candidate ${k} at 16px`} />
+              <img src={withBase(`favicon-candidates/${k}-32.png`)} width="128" height="128" style="image-rendering: pixelated" alt={`candidate ${k} at 32px, 4×`} />
+              <img src={withBase(`favicon-candidates/${k}-32.png`)} width="32" height="32" alt={`candidate ${k} at 32px`} />
+            </div>
+            <img class="mt-4" src={withBase(`favicon-candidates/${k}-180.png`)} width="180" height="180" alt={`candidate ${k} at 180px`} />
+          </div>
+        ))
+      }
+    </div>
   </section>
 </Base>

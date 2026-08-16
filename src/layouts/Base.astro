@@ -54,7 +54,15 @@ const canonical = new URL(
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
+    {/* v7 I3: the CN mark — SVG first, PNG for older tabs, the multi-size ICO
+        for legacy fetches, the home-screen icon, and the manifest (relative
+        URLs inside, so the GH Pages base path just works). */}
     <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase("favicon-32.png")} />
+    <link rel="icon" type="image/png" sizes="16x16" href={withBase("favicon-16.png")} />
+    <link rel="shortcut icon" href={withBase("favicon.ico")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase("apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("site.webmanifest")} />
     <meta name="theme-color" content="#1d1411" />
     <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={caslonDisplayWoff2} crossorigin />
@@ -92,7 +100,11 @@ const canonical = new URL(
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(withBase("og.png"), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Charles Nalle Walking Memorial — Troy, New York, April 27, 1860" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL(withBase("og.png"), Astro.site)} />
   </head>
   <body class="min-h-dvh">
     <script is:inline>

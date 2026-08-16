@@ -49,10 +49,12 @@
     "@emnapi/runtime": "^1.11.3",
     "@types/node": "^26.1.2",
     "@types/three": "^0.185.3",
+    "chrome-launcher": "^1.2.0",
     "lighthouse": "^13.4.1",
+    "opentype.js": "^2.0.0",
     "playwright": "^1.62.1",
+    "png-to-ico": "^3.0.2",
     "sharp": "^0.35.3",
-    "typescript": "^6.0.3",
-    "chrome-launcher": "^1.2.0"
+    "typescript": "^6.0.3"
   }
 }

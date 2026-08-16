@@ -19,13 +19,14 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-I1–I4 favicon: `scripts/build-favicon.mjs` (opentype.js → CN monogram paths,
-3 candidates on `/styleguide`), full icon set + `site.webmanifest`
-(base-path-correct), `Base.astro` head wiring via `withBase()`, delete the fake
-`public/favicon.ico`, `og:image` width/height/alt, port `build-og.mjs` to
-Caslon → commit → push. Then verify the trailing-slash retry on the preview
-build (:4322 → `/bakery/`), run the P2 gate (frames ✓, contrast P2 rows ✓, rag
-clips ✓, favicon URLs 200) and move to Phase 3 (Home + footer). Remaining rag runts (13) are page-owned: map index/pill P5,
+**Phase 2 gate = PASSED** (frames 6/6 CLEAN · contrast P2 rows 0 · rag ink
+clips 0 · favicon URLs 200 · a11y serious 0 on /mansion). Verify the live
+deploy of bb56620+ (curl + Actions), then **Phase 3 — Home + footer**: H1 hero
+focus per orientation (video + picture) · H2 description 3 lines ≥1200 · H3
+`Walk the story` · H4 mobile CTA pinned to the frame bottom · H5 description
+contrast (pixel ≥ 4.5) · H6 choreography check · F1 footer redesign per
+`docs/v7/AUDIT.md §4` (+ V7-058/059/092/096) → shots 9 vps, rag, contrast,
+Lighthouse home ≥ 98 (production build) → commit → push. Remaining rag runts (13) are page-owned: map index/pill P5,
 People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 
 ## DONE (item → commit → evidence)
@@ -37,7 +38,8 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
 | P0 baseline (all instruments) + P1 AUDIT (98 findings, hand UX walks phone/desk, footer references) | 432fc82 | `docs/v7/AUDIT.md`, `docs/v7/qa/baseline-*`, `docs/v7/uxwalk-*.md`, `docs/v7/footer-references.md` |
 | P2 G2 `.line-box` ink room (V7-001: 212 clips → 0) + G1 text-wrap roles / word-spacing / `hyphens: manual` / `nbsp()` helper (V7-002: 549 runt rows → 13 page-owned) + `rag.mjs` ink probe + authored split + short-line rule | 211e458 | `docs/v7/qa/p2/rag-after-g1g2.md` |
 | P2 X1 curtain: head `is:inline` sets `.curtain-covered` before first paint, curtain markup FIRST in `<body>` (the real root cause — `<main>` painted before the end-of-body panel was parsed), label written inline, Caslon Display/Text 400 preloads, `will-change`, `--dur-curtain` read by curtain.ts (G7; dead `--ease-pop`/`--ease-circ-in-out` removed), `cnwm:curtain-cover` event + TroyMap/Museum listeners (M12) | 2d5b2de | `docs/v7/qa/p2/frames-x1/frames.md` — 6/6 CLEAN at 4× CPU (was 6/6 DEFECT) |
-| P2 G3 spine inactive labels .62→.72 (4.01→4.99:1, V7-004; axe serious 0) · spine = one landmark, later copies `inert` (V7-008/081) · G6 mini-player on `--ui-inset` · N1 close-X quarter-turn · N2 scroll-hide travel accumulator (V7-048: fired on ~no phone before) · Menu before `<main>` (first tab stop) · `aria-current=page` in the menu (V7-089) · G-L3 trailing-slash retry on 404 · 404 title `·` | (this commit) | a11y /mansion 0/0/0 across 6 runs; contrast chapters@1440 spine rows gone |
+| P2 G3 spine inactive labels .62→.72 (4.01→4.99:1, V7-004; axe serious 0) · spine = one landmark, later copies `inert` (V7-008/081) · G6 mini-player on `--ui-inset` · N1 close-X quarter-turn · N2 scroll-hide travel accumulator (V7-048: fired on ~no phone before) · Menu before `<main>` (first tab stop) · `aria-current=page` in the menu (V7-089) · G-L3 trailing-slash retry on 404 · 404 title `·` | bb56620 | a11y /mansion 0/0/0 across 6 runs; contrast chapters@1440 spine rows gone |
+| P2 I1–I4: CN monogram (Libre Caslon Display outlines → paths, 3 candidates a/b/c on `/styleguide#mark`, **a · interlock ships**), full set (svg/16/32/48/ico×3/apple-touch/192/512) + relative-URL `site.webmanifest`, head wiring via `withBase()`, og:image width/height/alt + twitter:image, `build-og.mjs` ported to Caslon (+ the mark) → new `public/og.png`; `scripts/serve-dist.mjs` (GH-Pages-like server: trailing-slash retry verified `/bakery/`→`/bakery`, `/nope/`→404 no loop) | (this commit) | `public/favicon-candidates/sheet.png`; all 10 icon URLs 200 |
 
 ## DECISIONS (run-time, logged here; plan edits only for Wil decisions)
 - Baseline evidence lives in `docs/v7/qa/`; PNGs are gitignored (same rule as
