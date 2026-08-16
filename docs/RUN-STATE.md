@@ -19,7 +19,26 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 7 = FAIL** (`docs/v7/juror-pass7.md`, build c202f20; Sheet A phone
+**Juror pass 8 = FAIL on Sheet B only** (`docs/v7/juror-pass8.md`, build 29e69f4;
+Sheet A phone 9/9/9/9, tablet 8/9/9/9, desktop 9/9/9/9; ZERO P0/P1; all
+instrument bars met; juror-7 P1 + P2-1 + four P3s confirmed fixed). Two P2s,
+fixed: (1) museum plaque titles runted `· NARRATIVE / II` in the 13rem card at
+1024×768 (and `Part / 2` at 844×390) → the plaque is an authored two-line
+lockup (name, then variant on its own line; `KEY_TITLES` numerals glued for
+every other context) — verified 5 lines/no runt at 1024×768; (2) walk-state
+race — a step's programmatic `moveToIdx` was still in flight when `Back` landed
+~3.5 s after `Continue`, and its `animationEnded`/`slideChanged` relit the stop
+(pill over the 1858 plate) → `settle()`/`slideChanged` no-op when the strip is
+not focused — verified 0 active markers after the exact repro. P3s fixed:
+scripted focus (Back / dot) only after keyboard input; lens caption two
+authored lines on phones; 1858 pill `nowrap` (720×450); people roles
+`nowrap`; bakery player title two lines at 390 (no ellipsis). Regression: walk
+8/8 · rag 0/0/0. Next: commit → push → verify live → **juror pass 9** (fresh)
+→ if PASS → **juror pass 10** (fresh, identical build) → REVIEW-GUIDE §3 →
+memory → push. (Pass 8 was not clean, so — as after pass 3 — the next two must
+both PASS.)
+
+(Earlier) **Juror pass 7 = FAIL** (`docs/v7/juror-pass7.md`, build c202f20; Sheet A phone
 9/8/9/9, tablet 9/8/9/9, desktop 9/7/9/9; one P1 = on desktop / tablet-landscape
 the museum's inspect view opened cropped when the painting was clicked from
 the page top (stage half under the header; `Back` below the fold; wheel

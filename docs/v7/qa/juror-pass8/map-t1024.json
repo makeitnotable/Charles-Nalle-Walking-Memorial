@@ -1,0 +1,294 @@
+{
+  "overview": {
+    "floating": [
+      {
+        "t": "Home01Bakery02Commissioner’s Office03Gil",
+        "x": 912,
+        "y": 656,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 40,
+        "y": 677,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "markers": [
+      {
+        "t": "1 Bakery",
+        "x": 633,
+        "y": 338
+      },
+      {
+        "t": "2 Commissioner’s Office",
+        "x": 550,
+        "y": 233
+      },
+      {
+        "t": "3 Gilbert Home",
+        "x": 587,
+        "y": 400
+      },
+      {
+        "t": "4 Ferry Landing",
+        "x": 403,
+        "y": 638
+      },
+      {
+        "t": "5 Barbershop",
+        "x": 539,
+        "y": 225
+      }
+    ],
+    "pitch": null
+  },
+  "afterWheel": {
+    "scrollY": 600,
+    "notice": []
+  },
+  "afterCtrlWheel": {
+    "scrollY": 0
+  },
+  "walkStart": {
+    "scrollY": 0,
+    "floating": [
+      {
+        "t": "Home01Bakery02Commissioner’s Office03Gil",
+        "x": 912,
+        "y": 656,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 40,
+        "y": 677,
+        "w": 24,
+        "h": 24
+      },
+      {
+        "t": "Back to map",
+        "x": 40,
+        "y": 40,
+        "w": 175,
+        "h": 38
+      },
+      {
+        "t": "Stop the walk",
+        "x": 814,
+        "y": 40,
+        "w": 170,
+        "h": 38
+      }
+    ]
+  },
+  "walkMid": {
+    "floating": [
+      {
+        "t": "Home01Bakery02Commissioner’s Office03Gil",
+        "x": 912,
+        "y": 656,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 40,
+        "y": 677,
+        "w": 24,
+        "h": 24
+      },
+      {
+        "t": "Back to map",
+        "x": 40,
+        "y": 40,
+        "w": 175,
+        "h": 38
+      },
+      {
+        "t": "Stop the walk",
+        "x": 814,
+        "y": 40,
+        "w": 170,
+        "h": 38
+      }
+    ],
+    "cards": [
+      {
+        "x": -276,
+        "r": 239,
+        "y": 440,
+        "w": 515,
+        "h": 192
+      },
+      {
+        "x": 255,
+        "r": 769,
+        "y": 440,
+        "w": 515,
+        "h": 192
+      },
+      {
+        "x": 785,
+        "r": 1300,
+        "y": 440,
+        "w": 515,
+        "h": 192
+      },
+      {
+        "x": 1316,
+        "r": 1830,
+        "y": 440,
+        "w": 515,
+        "h": 192
+      },
+      {
+        "x": 1846,
+        "r": 2361,
+        "y": 440,
+        "w": 515,
+        "h": 192
+      }
+    ],
+    "markers": [
+      {
+        "t": "1 Bakery",
+        "x": 9170,
+        "y": 8374,
+        "w": 0,
+        "h": 0
+      },
+      {
+        "t": "2 Commissioner’s Office",
+        "x": 512,
+        "y": 220,
+        "w": 0,
+        "h": 0
+      },
+      {
+        "t": "3 Gilbert Home",
+        "x": 33554428,
+        "y": 33554428,
+        "w": 0,
+        "h": 0
+      },
+      {
+        "t": "4 Ferry Landing",
+        "x": 33554428,
+        "y": 33554428,
+        "w": 0,
+        "h": 0
+      },
+      {
+        "t": "5 Barbershop",
+        "x": 411,
+        "y": 161,
+        "w": 0,
+        "h": 0
+      }
+    ]
+  },
+  "drag": {
+    "samples": [
+      -666,
+      -678,
+      -699,
+      -716,
+      -737,
+      -749,
+      -758,
+      -766,
+      -775,
+      -780,
+      -785,
+      -788,
+      -792,
+      -794,
+      -796,
+      -799,
+      -800,
+      -801,
+      -802,
+      -803,
+      -803,
+      -804,
+      -804,
+      -805,
+      -805
+    ],
+    "btn": [
+      "Continue"
+    ]
+  },
+  "continued": [
+    "Stop the walk"
+  ],
+  "stopped": [
+    "Continue"
+  ],
+  "lens": {
+    "floating": [
+      {
+        "t": "Home01Bakery02Commissioner’s Office03Gil",
+        "x": 912,
+        "y": 656,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 40,
+        "y": 677,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "viewer": {
+      "x": 40,
+      "y": 44,
+      "w": 0,
+      "h": 0,
+      "areaPct": 0
+    }
+  },
+  "lensWheelScrollY": 0,
+  "marker": {
+    "floating": [
+      {
+        "t": "Home01Bakery02Commissioner’s Office03Gil",
+        "x": 912,
+        "y": 656,
+        "w": 72,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 40,
+        "y": 677,
+        "w": 24,
+        "h": 24
+      },
+      {
+        "t": "Back to map",
+        "x": 40,
+        "y": 40,
+        "w": 175,
+        "h": 38
+      },
+      {
+        "t": "Continue the walk",
+        "x": 858,
+        "y": 40,
+        "w": 126,
+        "h": 38
+      }
+    ]
+  },
+  "log": [
+    "[reqfail] https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft/iconset.pbf?access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+  ]
+}

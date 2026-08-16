@@ -100,7 +100,8 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
                       })()}
                     </div>
                     <div>
-                      <p class="t-meta">{nbsp(person.role)}</p>
+                      {/* short authored roles never break at ` · ` or a hyphen (juror pass 8) */}
+                      <p class="t-meta whitespace-nowrap">{nbsp(person.role)}</p>
                       <h3 class="t-title-sm mt-3">
                         {person.name}
                       </h3>

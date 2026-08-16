@@ -41,6 +41,10 @@ export interface Work {
   slug: string;
   key: string;
   title: string;
+  /** Plaque lockup: the place name, then the variant (`Narrative II`, `Part 2`)
+   *  on its own line — never a separator opening or a numeral closing a line. */
+  name: string;
+  variant: string | null;
   order: number;
   tex1440: string;
   tex800: string;
@@ -1065,12 +1069,27 @@ export default function Museum({ works, slotId }: Props) {
   // of the work you were looking at.
   const dotRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const returnIdx = useRef<number | null>(null);
+  /* Juror pass 8 P3: after a pointer/touch approach the scripted focus made
+     `Back to the hall` (and, on return, the dot) wear a keyboard focus ring.
+     Focus is moved only when the last input was the keyboard — mouse and touch
+     keep their modality; Esc still works from anywhere. */
+  const keyboardInput = useRef(false);
+  useEffect(() => {
+    const onKey = () => (keyboardInput.current = true);
+    const onPointer = () => (keyboardInput.current = false);
+    window.addEventListener("keydown", onKey, true);
+    window.addEventListener("pointerdown", onPointer, true);
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("pointerdown", onPointer, true);
+    };
+  }, []);
   useEffect(() => {
     if (approached !== null) {
       returnIdx.current = approached;
-      setTimeout(() => backRef.current?.focus({ preventScroll: true }), 50);
+      if (keyboardInput.current) setTimeout(() => backRef.current?.focus({ preventScroll: true }), 50);
     } else if (returnIdx.current !== null) {
-      dotRefs.current[returnIdx.current]?.focus({ preventScroll: true });
+      if (keyboardInput.current) dotRefs.current[returnIdx.current]?.focus({ preventScroll: true });
       returnIdx.current = null;
     }
   }, [approached]);
@@ -1219,7 +1238,15 @@ export default function Museum({ works, slotId }: Props) {
           >
             <div className="rounded-[12px] p-4 lg:p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
               <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-3">{plaque.title}</p>
+              <p className="t-title-sm mt-3">
+                {plaque.name}
+                {plaque.variant && (
+                  <>
+                    <br />
+                    {plaque.variant}
+                  </>
+                )}
+              </p>
               {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
                 <figure className="mt-4">
                   <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
@@ -1264,7 +1291,15 @@ export default function Museum({ works, slotId }: Props) {
             >
               <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-primary-7" aria-hidden="true" />
               <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-2">{plaque.title}</p>
+              <p className="t-title-sm mt-2">
+                {plaque.name}
+                {plaque.variant && (
+                  <>
+                    <br />
+                    {plaque.variant}
+                  </>
+                )}
+              </p>
             </div>
             {sheet === "full" && (
               <div className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]" style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - 118px)" }}>

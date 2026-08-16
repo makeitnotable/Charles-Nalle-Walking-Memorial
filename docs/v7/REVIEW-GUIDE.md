@@ -67,7 +67,7 @@ reading before scoring, live URL, six viewports (390/360 · 768/1024 ·
 1440/1920) plus 844×390 and 720×450 (200 % zoom) spot checks, real touch via
 CDP, screencasts at 4× CPU for the curtain. Two consecutive clean passes on the
 identical build end the run; only P2/P3 fixes may land between them. Reports:
-`docs/v7/juror-pass1.md` … `juror-pass9.md`; their scripts `scripts/juror*-*.mjs`.
+`docs/v7/juror-pass1.md` … `juror-pass10.md`; their scripts `scripts/juror*-*.mjs`.
 
 | pass | build | Sheet A (design·usability·creativity·content) phone / tablet / desktop | P0/P1 | verdict → what changed |
 |---|---|---|---|---|
@@ -78,8 +78,9 @@ identical build end the run; only P2/P3 fixes may land between them. Reports:
 | 5 | 9fd4401 | 8·9·9·9 / 8·9·9·9 / 9·9·9·9 | 1 P1 | FAIL — the phone chip wrapped to three lines in the tablet lane → phones get their own row under Skip, `nowrap`; P2: chapter footer nav ≥ 15rem + `nowrap`. |
 | 6 | df0ee6c | 9·8·9.5·9.5 / 8.5·8.5·9.5·9.5 / 9.5·9·9.5·9.5 | 0 | **PASS** — three P2s fixed between passes (mini-player when the main control is off-screen above; museum composition fits the frame; 13rem card floor at 200 % zoom + full-width button) → c586a93, c202f20. |
 | 7 | c202f20 | 9·8·9·9 / 9·8·9·9 / 9·7·9·9 | 1 P1 | FAIL — clicking a painting from the page top (desktop / tablet-landscape) opened the inspect view cropped, `Back` below the fold, wheel captured → `approach()` scrolls the sticky stage flush first. Also: desktop map wheel is cooperative (plain wheel scrolls the page, ⌘/Ctrl+wheel zooms), M9 peeks 17/19 px, 1024×768 painting 2× wider, 1858 pill backdrop, index title fits at 360. Count restarted. |
-| 8 | {{PASS8_BUILD}} | {{PASS8_SHEET}} | {{PASS8_P01}} | {{PASS8_VERDICT}} |
+| 8 | 29e69f4 | 9·9·9·9 / 8·9·9·9 / 9·9·9·9 | 0 | FAIL on Sheet B only — the plaque title runted `· NARRATIVE / II` in the 13rem card at 1024×768 (now an authored two-line lockup: name, then variant) and a walk-state race (`Back` ~3.5 s after `Continue` left the stop lit; the strip's settle now no-ops when unfocused). P3s: scripted focus only after keyboard input, lens caption two lines on phones, 1858 pill/people roles `nowrap`, bakery player title two lines at 390. |
 | 9 | {{PASS9_BUILD}} | {{PASS9_SHEET}} | {{PASS9_P01}} | {{PASS9_VERDICT}} |
+| 10 | {{PASS10_BUILD}} | {{PASS10_SHEET}} | {{PASS10_P01}} | {{PASS10_VERDICT}} |
 
 Retell moment, every pass: the Museum (the walk down the hall, `Face forward`,
 the approach that centres the painting with the plaque left and the study

@@ -1,0 +1,560 @@
+{
+  "steps": {
+    "overview": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "markers": [
+        {
+          "t": "1\n        \n        Bakery",
+          "x": 514,
+          "y": 463,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "2\n        \n        Commissione",
+          "x": 425,
+          "y": 346,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "3\n        \n        Gilbert Hom",
+          "x": 463,
+          "y": 529,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "4\n        \n        Ferry Landi",
+          "x": 275,
+          "y": 767,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "5\n        \n        Barbershop",
+          "x": 414,
+          "y": 338,
+          "w": 0,
+          "h": 0
+        }
+      ]
+    },
+    "index": {
+      "scrollY": 2039,
+      "items": [
+        {
+          "tag": "LI",
+          "txt": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 03Uri Gilbert Home189 Second Street",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 03Uri Gilbert Home189 Second Street",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "x": 40,
+          "w": 688,
+          "right": 728,
+          "sw": 688,
+          "cw": 688
+        }
+      ]
+    },
+    "indexTitles": [
+      {
+        "txt": "Holeur’s Fashionable Bakery",
+        "boxL": 184,
+        "boxR": 672,
+        "inkL": 184,
+        "inkR": 473,
+        "lines": 3
+      },
+      {
+        "txt": "Commissioner’s Office",
+        "boxL": 184,
+        "boxR": 672,
+        "inkL": 184,
+        "inkR": 409,
+        "lines": 3
+      },
+      {
+        "txt": "Uri Gilbert Home",
+        "boxL": 184,
+        "boxR": 672,
+        "inkL": 184,
+        "inkR": 432,
+        "lines": 1
+      },
+      {
+        "txt": "Washington Street Ferry Landing",
+        "boxL": 184,
+        "boxR": 672,
+        "inkL": 184,
+        "inkR": 474,
+        "lines": 2
+      },
+      {
+        "txt": "Peter Baltimore’s Barbershop",
+        "boxL": 184,
+        "boxR": 672,
+        "inkL": 184,
+        "inkR": 622,
+        "lines": 1
+      }
+    ],
+    "walkBtn": {
+      "x": 194.625,
+      "y": 804,
+      "width": 206.703125,
+      "height": 48
+    },
+    "walkStart": {
+      "scrollY": 0,
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 40,
+          "y": 40,
+          "w": 175,
+          "h": 38
+        },
+        {
+          "t": "Stop the walk",
+          "x": 558,
+          "y": 40,
+          "w": 170,
+          "h": 38
+        }
+      ]
+    },
+    "walkMid": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 40,
+          "y": 40,
+          "w": 175,
+          "h": 38
+        },
+        {
+          "t": "Stop the walk",
+          "x": 558,
+          "y": 40,
+          "w": 170,
+          "h": 38
+        }
+      ],
+      "markers": [
+        {
+          "t": "1\n        \n        Bakery",
+          "x": 3587,
+          "y": 3560,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "2\n        \n        Commissione",
+          "x": 384,
+          "y": 364,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "3\n        \n        Gilbert Hom",
+          "x": 33554428,
+          "y": 33554428,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "4\n        \n        Ferry Landi",
+          "x": 33554428,
+          "y": 33554428,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "5\n        \n        Barbershop",
+          "x": 276,
+          "y": 296,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        }
+      ],
+      "cards": [
+        {
+          "x": 0,
+          "r": 768,
+          "y": 728,
+          "w": 768,
+          "h": 160,
+          "t": "Spot1Holeur’s\nFashionable Bake"
+        },
+        {
+          "x": -275,
+          "r": 154,
+          "y": 728,
+          "w": 429,
+          "h": 160,
+          "t": "Spot1Holeur’s\nFashionable Bake"
+        },
+        {
+          "x": 170,
+          "r": 599,
+          "y": 728,
+          "w": 429,
+          "h": 160,
+          "t": "Spot2Commissioner’s\nOffice"
+        },
+        {
+          "x": 615,
+          "r": 1043,
+          "y": 728,
+          "w": 429,
+          "h": 160,
+          "t": "Spot3Uri Gilbert Home"
+        },
+        {
+          "x": 1059,
+          "r": 1488,
+          "y": 728,
+          "w": 429,
+          "h": 160,
+          "t": "Spot4Washington Street Ferry L"
+        },
+        {
+          "x": 1504,
+          "r": 1933,
+          "y": 728,
+          "w": 429,
+          "h": 160,
+          "t": "Spot5Peter Baltimore’s Barbers"
+        }
+      ]
+    },
+    "drag": {
+      "btnTextBefore": [
+        "Stop the walk"
+      ],
+      "samples": [
+        -895,
+        -880,
+        -854,
+        -823,
+        -806,
+        -792,
+        -780,
+        -766,
+        -759,
+        -752,
+        -747,
+        -741,
+        -737,
+        -734,
+        -731,
+        -729,
+        -728,
+        -727,
+        -725,
+        -724,
+        -723,
+        -723,
+        -722,
+        -722,
+        -721
+      ],
+      "btnTextAfter": [
+        "Continue"
+      ],
+      "cards": [
+        {
+          "x": -720,
+          "r": -291,
+          "w": 429
+        },
+        {
+          "x": -275,
+          "r": 154,
+          "w": 429
+        },
+        {
+          "x": 170,
+          "r": 598,
+          "w": 429
+        },
+        {
+          "x": 614,
+          "r": 1043,
+          "w": 429
+        },
+        {
+          "x": 1059,
+          "r": 1488,
+          "w": 429
+        }
+      ]
+    },
+    "continued": [
+      "Stop the walk"
+    ],
+    "afterBack": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        }
+      ]
+    },
+    "lensBtn": {
+      "x": 413.328125,
+      "y": 926,
+      "width": 160.046875,
+      "height": 44
+    },
+    "lens": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "caption": [
+        {
+          "txt": "Drag to explore · pinch or scroll to zoomDrag to explore · pinch to zoom",
+          "lines": 2,
+          "w": 268
+        },
+        {
+          "txt": "Drag to explore · pinch or scroll to zoom",
+          "lines": 1,
+          "w": 268
+        },
+        {
+          "txt": "Drag to explore · pinch to zoom",
+          "lines": 0,
+          "w": 0
+        }
+      ]
+    },
+    "markerTapped": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 656,
+          "y": 912,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 40,
+          "y": 933,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 40,
+          "y": 40,
+          "w": 175,
+          "h": 38
+        },
+        {
+          "t": "Continue the walk",
+          "x": 602,
+          "y": 40,
+          "w": 126,
+          "h": 38
+        }
+      ],
+      "btns": [
+        "1\n        \n        Bakery",
+        "2\n        \n        Commissioner’s Office",
+        "3\n        \n        Gilbert Home",
+        "4\n        \n        Ferry Landing",
+        "5\n        \n        Barbershop",
+        "+",
+        "−",
+        "⟲",
+        "Back to map",
+        "Continue"
+      ]
+    }
+  },
+  "log": [
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/15/9676/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/15/9676/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/15/9676/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/15/9675/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/15/9675/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/15/9675/12071.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19353/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24150.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19352/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19352/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24150.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24149.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/15/9676/12076.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24146.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24152.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19352/24152.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24151.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19352/24152.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19351/24152.vector.pbf?sku=101MCqXaqmf8a&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+  ]
+}

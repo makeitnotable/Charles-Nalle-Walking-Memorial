@@ -397,7 +397,8 @@ export default function AudioStory({
           {playButton()}
           <div className="min-w-0 flex-1">
             <p className="t-meta">{buffering && playing ? "Buffering…" : playing ? "Now playing" : "Listen"}</p>
-            <p className="t-meta-body mt-1 truncate">
+            {/* phones: two lines rather than `Holeur’s Fashionable B…` (juror pass 8) */}
+            <p className="t-meta-body mt-1 max-sm:line-clamp-2 sm:truncate">
               {subtitle}
               {spot && spot.includes("Pt") ? ` · ${spot.split("·").pop()?.trim()}` : ""}
             </p>

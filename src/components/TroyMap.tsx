@@ -993,6 +993,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     (idx: number) => {
       if (settleTimer.current) clearTimeout(settleTimer.current);
       settleTimer.current = null;
+      /* Juror pass 8 P2: a walk step's programmatic `moveToIdx` is still in
+         flight (650 ms) when `Back` lands ~3.5 s after `Continue`; its
+         animationEnded/slideChanged arrive AFTER the overview reset and relit
+         the stop (whose pill then floated over the 1858 plate). The strip is
+         hidden when not focused — its events mean nothing then. */
+      if (!focusedRef.current) return;
       setActiveIdx(idx);
       if (focusedRef.current && walkRef.current !== "walking") followCamera(idx);
       else setMarkers(stops[idx]?.label ?? null);
@@ -1042,6 +1048,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       settleTimer.current = setTimeout(() => settle(sl.track.details.rel), 800);
     },
     slideChanged: (sl) => {
+      if (!focusedRef.current) return; // see settle()
       const idx = sl.track.details.rel;
       setMarkers(stops[idx]?.label ?? null);
     },
@@ -1295,7 +1302,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             </div>
           )}
           <figcaption className="t-meta mt-3 text-center">
-            Troy, New&nbsp;York · 1858 · Library&nbsp;of&nbsp;Congress
+            {/* phones: two authored lines (juror pass 8: the middle `·` dangled at a line end) */}
+            Troy, New&nbsp;York&nbsp;·&nbsp;1858
+            <span className="hidden sm:inline">&nbsp;·&nbsp;</span>
+            <br className="sm:hidden" />
+            Library&nbsp;of&nbsp;Congress
           </figcaption>
           <p className="t-meta-body mt-1 text-center opacity-80">
             <span className="hidden sm:inline">Drag to explore · pinch or scroll to zoom</span>
@@ -1438,7 +1449,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                   setLensSeen(true);
                   setLens(true);
                 }}
-                className="link-meta t-meta rounded-full px-4 py-3"
+                className="link-meta t-meta rounded-full px-4 py-3 whitespace-nowrap"
                 style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(6px)", minHeight: 44 }}
               >
                 See Troy in 1858
@@ -1452,7 +1463,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                 setLensSeen(true);
                 setLens(true);
               }}
-              className="link-meta t-meta rounded-full px-4 py-3"
+              className="link-meta t-meta rounded-full px-4 py-3 whitespace-nowrap"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
             >
               See Troy in 1858

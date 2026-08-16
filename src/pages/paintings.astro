@@ -47,9 +47,9 @@ const chapters = (await getCollection("chapters")).sort(
 /** Painting keys per chapter, in gallery order, with human titles. */
 const KEY_TITLES: Record<string, string> = {
   horizontal: "",
-  "horizontal-pt2": "Part 2",
-  narrative1: "Narrative I",
-  narrative2: "Narrative II",
+  "horizontal-pt2": "Part\u00a02",
+  narrative1: "Narrative\u00a0I",
+  narrative2: "Narrative\u00a0II",
 };
 /** Animated variant per painting key (elevation G2: the dialog plays the
  * painting alive where Mark Priest's animation exists). */
@@ -96,6 +96,10 @@ const museumWorks = works.map((w, wi) => {
     slug: w.slug,
     key: w.key,
     title: w.title,
+    /* The plaque sets the variant on its own line (juror pass 8: `· NARRATIVE /
+       II` runted in the narrow 1024×768 card) — an authored two-line lockup. */
+    name: entry.data.name.canonical,
+    variant: KEY_TITLES[w.key] || null,
     order: w.order,
     tex1440: withBase(`media/${w.slug}/${w.key}-1440.jpg`),
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),

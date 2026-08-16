@@ -1,0 +1,144 @@
+{
+  "/people": {
+    "title": "The People · Charles Nalle Walking Memorial",
+    "log": [],
+    "h1": {
+      "txt": "ONE DAY.A WHOLECITY’S CAST.",
+      "lines": 0
+    },
+    "copy": {
+      "theirStory": true,
+      "standWhere": true,
+      "walkTheStory": 1,
+      "streetsWaiting": false,
+      "twoAndHalf": false,
+      "fortyFive": false,
+      "spotLinks": 0,
+      "emDash": 1,
+      "afterword": false,
+      "rails": [
+        "(01)",
+        "(02)",
+        "(03)"
+      ]
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.736047, 0.67693, -0.67693, 0.736047, 0, 0)",
+      "matrix(0.377745, 0.925909, -0.925909, 0.377745, 0, 0)",
+      "matrix(0.173634, 0.98481, -0.98481, 0.173634, 0, 0)",
+      "matrix(0.070533, 0.997509, -0.997509, 0.070533, 0, 0)",
+      "matrix(0.0259763, 0.999663, -0.999663, 0.0259763, 0, 0)",
+      "matrix(0.00610861, 0.999981, -0.999981, 0.00610861, 0, 0)",
+      "matrix(0.0015516, 0.999999, -0.999999, 0.0015516, 0, 0)",
+      "matrix(0.000326377, 1, -1, 0.000326377, 0, 0)",
+      "none",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "/about": {
+    "title": "About · Charles Nalle Walking Memorial",
+    "log": [],
+    "h1": {
+      "txt": "About the Project",
+      "lines": 1
+    },
+    "copy": {
+      "theirStory": false,
+      "standWhere": false,
+      "walkTheStory": 1,
+      "streetsWaiting": true,
+      "twoAndHalf": true,
+      "fortyFive": true,
+      "spotLinks": 0,
+      "emDash": 1,
+      "afterword": true,
+      "rails": [
+        "(01)",
+        "(02)",
+        "(03)",
+        "(04)",
+        "(05)",
+        "(06)",
+        "(07)"
+      ]
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.774407, 0.632688, -0.632688, 0.774407, 0, 0)",
+      "matrix(0.403587, 0.914941, -0.914941, 0.403587, 0, 0)",
+      "matrix(0.157064, 0.987588, -0.987588, 0.157064, 0, 0)",
+      "matrix(0.0767329, 0.997052, -0.997052, 0.0767329, 0, 0)",
+      "matrix(0.0286143, 0.999591, -0.999591, 0.0286143, 0, 0)",
+      "matrix(0.00921695, 0.999958, -0.999958, 0.00921695, 0, 0)",
+      "matrix(0.00245742, 0.999997, -0.999997, 0.00245742, 0, 0)",
+      "matrix(0.000577704, 1, -1, 0.000577704, 0, 0)",
+      "matrix(5.58505e-05, 1, -1, 5.58505e-05, 0, 0)",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "/404-nope": {
+    "title": "Page not found · Charles Nalle Walking Memorial",
+    "log": [
+      "[http 404] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope",
+      "[error] /404-nope Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "h1": {
+      "txt": "This page isn’tpart of the memorial",
+      "lines": 2
+    },
+    "copy": {
+      "theirStory": false,
+      "standWhere": false,
+      "walkTheStory": 0,
+      "streetsWaiting": false,
+      "twoAndHalf": false,
+      "fortyFive": false,
+      "spotLinks": 0,
+      "emDash": 2,
+      "afterword": false,
+      "rails": []
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.68536, 0.728205, -0.728205, 0.68536, 0, 0)",
+      "matrix(0.345418, 0.938449, -0.938449, 0.345418, 0, 0)",
+      "matrix(0.157064, 0.987588, -0.987588, 0.157064, 0, 0)",
+      "matrix(0.0629403, 0.998017, -0.998017, 0.0629403, 0, 0)",
+      "matrix(0.022792, 0.99974, -0.99974, 0.022792, 0, 0)",
+      "matrix(0.00737919, 0.999973, -0.999973, 0.00737919, 0, 0)",
+      "matrix(0.00183783, 0.999998, -0.999998, 0.00183783, 0, 0)",
+      "matrix(0.000404916, 1, -1, 0.000404916, 0, 0)",
+      "matrix(6.45772e-05, 1, -1, 6.45772e-05, 0, 0)",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "console": {
+    "/": [],
+    "/bakery": [],
+    "/commissioners-office": [],
+    "/mansion": [],
+    "/ferry": [],
+    "/barbershop": [],
+    "/map": [],
+    "/people": [],
+    "/paintings": [],
+    "/about": [],
+    "/404-nope": [
+      "[http 404] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope",
+      "[error] /404-nope Failed to load resource: the server responded with a status of 404 ()"
+    ]
+  }
+}

@@ -1,0 +1,469 @@
+{
+  "steps": {
+    "overview": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 298,
+          "y": 752,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 20,
+          "y": 773,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "markers": [
+        {
+          "t": "1",
+          "x": 327,
+          "y": 312,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "2",
+          "x": 233,
+          "y": 201,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "3",
+          "x": 275,
+          "y": 378,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "4",
+          "x": 62,
+          "y": 635,
+          "w": 0,
+          "h": 0
+        },
+        {
+          "t": "5",
+          "x": 221,
+          "y": 193,
+          "w": 0,
+          "h": 0
+        }
+      ]
+    },
+    "index": {
+      "scrollY": 2195,
+      "items": [
+        {
+          "tag": "LI",
+          "txt": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 03Uri Gilbert Home189 Second Street",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 03Uri Gilbert Home189 Second Street",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "LI",
+          "txt": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        },
+        {
+          "tag": "A",
+          "txt": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "x": 20,
+          "w": 350,
+          "right": 370,
+          "sw": 350,
+          "cw": 350
+        }
+      ]
+    },
+    "indexTitles": [
+      {
+        "txt": "Holeur’s Fashionable Bakery",
+        "boxL": 108,
+        "boxR": 330,
+        "inkL": 108,
+        "inkR": 264,
+        "lines": 4
+      },
+      {
+        "txt": "Commissioner’s Office",
+        "boxL": 108,
+        "boxR": 330,
+        "inkL": 108,
+        "inkR": 302,
+        "lines": 3
+      },
+      {
+        "txt": "Uri Gilbert Home",
+        "boxL": 108,
+        "boxR": 330,
+        "inkL": 108,
+        "inkR": 322,
+        "lines": 1
+      },
+      {
+        "txt": "Washington Street Ferry Landing",
+        "boxL": 108,
+        "boxR": 330,
+        "inkL": 108,
+        "inkR": 286,
+        "lines": 3
+      },
+      {
+        "txt": "Peter Baltimore’s Barbershop",
+        "boxL": 108,
+        "boxR": 330,
+        "inkL": 108,
+        "inkR": 255,
+        "lines": 3
+      }
+    ],
+    "walkBtn": {
+      "x": 67.6484375,
+      "y": 644,
+      "width": 206.703125,
+      "height": 48
+    },
+    "walkStart": {
+      "scrollY": 0,
+      "floating": [
+        {
+          "t": "Toggle attribution",
+          "x": 20,
+          "y": 773,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 20,
+          "y": 20,
+          "w": 109,
+          "h": 38
+        },
+        {
+          "t": "Stop the walk",
+          "x": 200,
+          "y": 20,
+          "w": 170,
+          "h": 38
+        }
+      ]
+    },
+    "walkMid": {
+      "floating": [
+        {
+          "t": "Toggle attribution",
+          "x": 20,
+          "y": 773,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 20,
+          "y": 20,
+          "w": 109,
+          "h": 38
+        },
+        {
+          "t": "Stop the walk",
+          "x": 200,
+          "y": 20,
+          "w": 170,
+          "h": 38
+        }
+      ],
+      "markers": [
+        {
+          "t": "1",
+          "x": 7428,
+          "y": 7596,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "Commissioner’s Office\n        ",
+          "x": 194,
+          "y": 307,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "3",
+          "x": 33554428,
+          "y": 33554428,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "4",
+          "x": 33554428,
+          "y": 33554428,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        },
+        {
+          "t": "5",
+          "x": 87,
+          "y": 240,
+          "w": 0,
+          "h": 0,
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-center"
+        }
+      ],
+      "cards": [
+        {
+          "x": 0,
+          "r": 390,
+          "y": 616,
+          "w": 390,
+          "h": 128,
+          "t": "Spot1Holeur’s\nFashionable Bake"
+        },
+        {
+          "x": -308,
+          "r": 20,
+          "y": 616,
+          "w": 328,
+          "h": 128,
+          "t": "Spot1Holeur’s\nFashionable Bake"
+        },
+        {
+          "x": 32,
+          "r": 359,
+          "y": 616,
+          "w": 328,
+          "h": 128,
+          "t": "Spot2Commissioner’s\nOffice"
+        },
+        {
+          "x": 371,
+          "r": 699,
+          "y": 616,
+          "w": 328,
+          "h": 128,
+          "t": "Spot3Uri Gilbert Home"
+        },
+        {
+          "x": 711,
+          "r": 1038,
+          "y": 616,
+          "w": 328,
+          "h": 128,
+          "t": "Spot4Washington Street Ferry L"
+        },
+        {
+          "x": 1050,
+          "r": 1378,
+          "y": 616,
+          "w": 328,
+          "h": 128,
+          "t": "Spot5Peter Baltimore’s Barbers"
+        }
+      ]
+    },
+    "drag": {
+      "btnTextBefore": [
+        "Stop the walk"
+      ],
+      "samples": [
+        -578,
+        -584,
+        -599,
+        -607,
+        -613,
+        -621,
+        -626,
+        -629,
+        -634,
+        -636,
+        -638,
+        -640,
+        -641,
+        -643,
+        -644,
+        -644,
+        -645,
+        -646,
+        -646,
+        -646,
+        -647,
+        -647,
+        -647,
+        -647,
+        -647
+      ],
+      "btnTextAfter": [
+        "Continue"
+      ],
+      "cards": [
+        {
+          "x": -648,
+          "r": -320,
+          "w": 328
+        },
+        {
+          "x": -308,
+          "r": 19,
+          "w": 328
+        },
+        {
+          "x": 31,
+          "r": 359,
+          "w": 328
+        },
+        {
+          "x": 371,
+          "r": 698,
+          "w": 328
+        },
+        {
+          "x": 710,
+          "r": 1038,
+          "w": 328
+        }
+      ]
+    },
+    "continued": [
+      "Stop the walk"
+    ],
+    "afterBack": {
+      "floating": [
+        {
+          "t": "Home01Bakery02Commissioner’s Office03Gil",
+          "x": 298,
+          "y": 752,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "t": "Toggle attribution",
+          "x": 20,
+          "y": 773,
+          "w": 24,
+          "h": 24
+        }
+      ]
+    },
+    "lensBtn": null,
+    "markerTapped": {
+      "floating": [
+        {
+          "t": "Toggle attribution",
+          "x": 20,
+          "y": 773,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "t": "Back to map",
+          "x": 20,
+          "y": 20,
+          "w": 109,
+          "h": 38
+        },
+        {
+          "t": "Continue the walk",
+          "x": 244,
+          "y": 20,
+          "w": 126,
+          "h": 38
+        }
+      ],
+      "btns": [
+        "1",
+        "2",
+        "Gilbert Home\n         \n      \n        3",
+        "4",
+        "5",
+        "Back to map",
+        "Continue"
+      ]
+    }
+  },
+  "log": [
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24147.vector.pbf?sku=101CQb1EUEbU0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24147.vector.pbf?sku=101CQb1EUEbU0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24151.vector.pbf?sku=101CQb1EUEbU0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+    "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24150.vector.pbf?sku=101CQb1EUEbU0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "freshMarkersAbove": [
+    {
+      "t": "1",
+      "inside": false,
+      "z": "auto"
+    },
+    {
+      "t": "2",
+      "inside": false,
+      "z": "auto"
+    },
+    {
+      "t": "3",
+      "inside": false,
+      "z": "auto"
+    },
+    {
+      "t": "4",
+      "inside": false,
+      "z": "auto"
+    },
+    {
+      "t": "5",
+      "inside": false,
+      "z": "auto"
+    }
+  ],
+  "caption": [],
+  "viewer": {
+    "img": {
+      "x": -611,
+      "y": -651,
+      "w": 1612,
+      "h": 1350
+    },
+    "viewer": {
+      "x": 20,
+      "y": 24,
+      "w": 350,
+      "h": 675
+    },
+    "vw": 390,
+    "vh": 844,
+    "areaPct": 72
+  },
+  "afterWalkMarkersAbove": [
+    {
+      "t": "1",
+      "inside": false,
+      "z": "auto",
+      "x": 327,
+      "y": 312
+    },
+    {
+      "t": "2",
+      "inside": false,
+      "z": "auto",
+      "x": 233,
+      "y": 201
+    },
+    {
+      "t": "3",
+      "inside": false,
+      "z": "auto",
+      "x": 275,
+      "y": 378
+    },
+    {
+      "t": "4",
+      "inside": false,
+      "z": "auto",
+      "x": 62,
+      "y": 635
+    },
+    {
+      "t": "5",
+      "inside": false,
+      "z": "auto",
+      "x": 221,
+      "y": 193
+    }
+  ],
+  "log": []
+}

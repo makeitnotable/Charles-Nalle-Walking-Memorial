@@ -1,0 +1,77 @@
+{
+  "rm-home-p390": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 0,
+    "stageH": null,
+    "navMs": 76
+  },
+  "rm-bakery-p390": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 0,
+    "stageH": null,
+    "midHidden": []
+  },
+  "rm-map-p390": {
+    "hiddenAtTop": [],
+    "canvas": true,
+    "grid": 0,
+    "stageH": 844
+  },
+  "rm-paintings-p390": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 10,
+    "stageH": null
+  },
+  "rm-log-p390": [],
+  "rm-home-d1440": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 0,
+    "stageH": null,
+    "navMs": 75
+  },
+  "rm-bakery-d1440": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 0,
+    "stageH": null,
+    "midHidden": []
+  },
+  "rm-map-d1440": {
+    "hiddenAtTop": [],
+    "canvas": true,
+    "grid": 0,
+    "stageH": 900
+  },
+  "rm-paintings-d1440": {
+    "hiddenAtTop": [],
+    "canvas": false,
+    "grid": 10,
+    "stageH": null
+  },
+  "rm-log-d1440": [],
+  "z200-home": {
+    "overflowX": false,
+    "sw": 720
+  },
+  "z200-bakery": {
+    "overflowX": false,
+    "sw": 720
+  },
+  "z200-map": {
+    "overflowX": false,
+    "sw": 720
+  },
+  "z200-people": {
+    "overflowX": false,
+    "sw": 720
+  },
+  "z200-about": {
+    "overflowX": false,
+    "sw": 720
+  },
+  "z200log": []
+}

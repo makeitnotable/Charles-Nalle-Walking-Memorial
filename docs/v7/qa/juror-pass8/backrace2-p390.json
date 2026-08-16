@@ -1,0 +1,88 @@
+[
+  {
+    "delay": 1000,
+    "paused": [
+      "Continue"
+    ],
+    "before": [
+      "1",
+      "2",
+      "Gilbert Home 3",
+      "4",
+      "5"
+    ],
+    "after": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 2000,
+    "paused": [
+      "Continue"
+    ],
+    "before": [
+      "1",
+      "2",
+      "Gilbert Home 3",
+      "4",
+      "5"
+    ],
+    "after": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 3500,
+    "paused": [
+      "Continue"
+    ],
+    "before": [
+      "1",
+      "2",
+      "3",
+      "Ferry Landing 4",
+      "5"
+    ],
+    "after": [
+      "1",
+      "2",
+      "3",
+      "Ferry Landing 4",
+      "5"
+    ],
+    "stray": [
+      "Ferry Landing 4"
+    ]
+  },
+  {
+    "delay": 5000,
+    "paused": [
+      "Continue"
+    ],
+    "before": [
+      "1",
+      "2",
+      "3",
+      "Ferry Landing 4",
+      "5"
+    ],
+    "after": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "stray": []
+  }
+]

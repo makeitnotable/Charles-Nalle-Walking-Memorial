@@ -1,0 +1,97 @@
+[
+  {
+    "delay": 1500,
+    "before": [
+      "Bakery 1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "moving": null,
+    "after": [
+      "1 undefined",
+      "2 undefined",
+      "3 undefined",
+      "4 undefined",
+      "5 undefined"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 3000,
+    "before": [
+      "Bakery 1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "moving": null,
+    "after": [
+      "1 undefined",
+      "2 undefined",
+      "3 undefined",
+      "4 undefined",
+      "5 undefined"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 4500,
+    "before": [
+      "1",
+      "Commissioner’s Office 2",
+      "3",
+      "4",
+      "5"
+    ],
+    "moving": null,
+    "after": [
+      "1 undefined",
+      "2 undefined",
+      "3 undefined",
+      "4 undefined",
+      "5 undefined"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 6000,
+    "before": [
+      "1",
+      "Commissioner’s Office 2",
+      "3",
+      "4",
+      "5"
+    ],
+    "moving": null,
+    "after": [
+      "1 undefined",
+      "2 undefined",
+      "3 undefined",
+      "4 undefined",
+      "5 undefined"
+    ],
+    "stray": []
+  },
+  {
+    "delay": 7500,
+    "before": [
+      "1",
+      "2",
+      "Gilbert Home 3",
+      "4",
+      "5"
+    ],
+    "moving": null,
+    "after": [
+      "1 undefined",
+      "2 undefined",
+      "3 undefined",
+      "4 undefined",
+      "5 undefined"
+    ],
+    "stray": []
+  }
+]

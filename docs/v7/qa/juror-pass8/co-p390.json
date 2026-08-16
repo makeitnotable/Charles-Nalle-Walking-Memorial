@@ -1,0 +1,177 @@
+{
+  "steps": [
+    {
+      "label": "part2 playing",
+      "scrollY": 8318,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": false,
+          "t": 2.8,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 20,
+          "y": 594
+        }
+      ]
+    },
+    {
+      "label": "scrolled up to part1 player while part2 plays",
+      "scrollY": 1126,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": false,
+          "t": 4,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Play narration: Commissioner’s",
+          "onscreen": true,
+          "x": 20,
+          "y": 330
+        },
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 29,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "label": "part1 prose, part2 playing",
+      "scrollY": 1592,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": false,
+          "t": 5.5,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 29,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "label": "pressed part1 play",
+      "scrollY": 1062,
+      "audios": [
+        {
+          "paused": false,
+          "t": 1.9,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": true,
+          "t": 6.2,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 20,
+          "y": 394
+        }
+      ]
+    },
+    {
+      "label": "at moral 1",
+      "scrollY": 11183,
+      "audios": [
+        {
+          "paused": false,
+          "t": 3.3,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": true,
+          "t": 6.2,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 29,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "label": "onward",
+      "scrollY": 13224,
+      "audios": [
+        {
+          "paused": false,
+          "t": 6.4,
+          "src": "ch2-commissioners-office-pt1.mp3"
+        },
+        {
+          "paused": true,
+          "t": 6.2,
+          "src": "ch2-commissioners-office-pt2.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Commissioner’",
+          "onscreen": true,
+          "x": 25,
+          "y": 775
+        }
+      ]
+    }
+  ],
+  "order": [
+    "hero-media",
+    "hero-lockup",
+    "scene-0",
+    "history",
+    "moral-0",
+    "hero-2",
+    "scene-1",
+    "moral-1",
+    "onward"
+  ],
+  "spine": [
+    "(01)Listen · Pt 1",
+    "(02)History",
+    "(03)The moral · Pt 1",
+    "(04)Listen · Pt 2",
+    "(05)The moral · Pt 2",
+    "(06)Onward"
+  ],
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+  ]
+}

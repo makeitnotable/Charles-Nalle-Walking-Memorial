@@ -1,0 +1,304 @@
+{
+  "/bakery": {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    ],
+    "moral0": {
+      "text": "NOT ALL LAWSARE MORAL",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "Laws like the Fugitive Slave Act demonst",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden"
+      ]
+    },
+    "embed": {
+      "hasMap": true,
+      "markers": [
+        {
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-bottom",
+          "txt": "2\n        \n        Commissione",
+          "r": {
+            "x": 269.28125,
+            "y": 464.96875,
+            "width": 229.4375,
+            "height": 72,
+            "top": 464.96875,
+            "right": 498.71875,
+            "bottom": 536.96875,
+            "left": 269.28125
+          }
+        }
+      ]
+    },
+    "footerFloating": [
+      {
+        "t": "Continue to Commissioner’s Office",
+        "x": 269,
+        "y": -3,
+        "w": 229,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 696,
+        "y": 173,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "audio": [
+      {
+        "paused": false,
+        "t": 4.163917
+      }
+    ]
+  },
+  "/commissioners-office": {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24149.vector.pbf?sku=101mLBnTzbkLV&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    ],
+    "moral0": {
+      "text": "WHEN NOTCHALLENGEDINJUSTICETHRIVES",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "In 1860, the bells of Second Street Pres",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden",
+        "hidden",
+        "hidden"
+      ]
+    },
+    "moral1": {
+      "text": "FREEDOMISN’T FREE",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "Charles Nalle’s freedom was protected by",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden"
+      ]
+    },
+    "embed": {
+      "hasMap": true,
+      "markers": [
+        {
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-bottom",
+          "txt": "3\n        \n        Gilbert Hom",
+          "r": {
+            "x": 304.8125,
+            "y": 464.984375,
+            "width": 158.375,
+            "height": 72,
+            "top": 464.984375,
+            "right": 463.1875,
+            "bottom": 536.984375,
+            "left": 304.8125
+          }
+        }
+      ]
+    },
+    "footerFloating": [
+      {
+        "t": "Continue to Gilbert Home",
+        "x": 305,
+        "y": -6,
+        "w": 158,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 696,
+        "y": 170,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "audio": [
+      {
+        "paused": false,
+        "t": 4.52627
+      },
+      {
+        "paused": true,
+        "t": 0
+      }
+    ]
+  },
+  "/mansion": {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch3-mansion.mp3 net::ERR_ABORTED"
+    ],
+    "moral0": {
+      "text": "THE INVISIBLEMATTER AS MUCHAS THE VISIBLE",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "Despite Charles becoming “invisible” in ",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden",
+        "hidden"
+      ]
+    },
+    "embed": {
+      "hasMap": true,
+      "markers": [
+        {
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-bottom",
+          "txt": "4\n        \n        Ferry Landi",
+          "r": {
+            "x": 301.8828125,
+            "y": 465.390625,
+            "width": 164.234375,
+            "height": 72,
+            "top": 465.390625,
+            "right": 466.1171875,
+            "bottom": 537.390625,
+            "left": 301.8828125
+          }
+        }
+      ]
+    },
+    "footerFloating": [
+      {
+        "t": "Continue to Ferry Landing",
+        "x": 302,
+        "y": -5,
+        "w": 164,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 696,
+        "y": 171,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "audio": [
+      {
+        "paused": false,
+        "t": 4.378721
+      }
+    ]
+  },
+  "/ferry": {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch4-ferry.mp3 net::ERR_ABORTED"
+    ],
+    "moral0": {
+      "text": "AUTHORITARIANISMIS PERSISTENT",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "Marshal Holmes and the slave catchers re",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden"
+      ]
+    },
+    "embed": {
+      "hasMap": true,
+      "markers": [
+        {
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-bottom",
+          "txt": "5\n        \n        Barbershop",
+          "r": {
+            "x": 312.1640625,
+            "y": 465.375,
+            "width": 143.671875,
+            "height": 72,
+            "top": 465.375,
+            "right": 455.8359375,
+            "bottom": 537.375,
+            "left": 312.1640625
+          }
+        }
+      ]
+    },
+    "footerFloating": [
+      {
+        "t": "Continue to Barbershop",
+        "x": 312,
+        "y": -5,
+        "w": 144,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 696,
+        "y": 171,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "audio": [
+      {
+        "paused": false,
+        "t": 4.436958
+      }
+    ]
+  },
+  "/barbershop": {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19353/24151.vector.pbf?sku=101DXPc2KgjBV&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19353/24150.vector.pbf?sku=101DXPc2KgjBV&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    ],
+    "moral0": {
+      "text": "WE ARERESPONSIBLEFOR JUSTICE",
+      "hColor": "rgb(246, 243, 238)",
+      "bColor": "rgb(246, 243, 238)",
+      "bodySample": "The collective effort of the Troy commun",
+      "lineBoxOverflow": [
+        "hidden",
+        "hidden",
+        "hidden"
+      ]
+    },
+    "embed": {
+      "hasMap": true,
+      "markers": [
+        {
+          "cls": "mapboxgl-marker mapboxgl-marker-anchor-bottom",
+          "txt": "1\n        \n        Bakery",
+          "r": {
+            "x": 331.046875,
+            "y": 465.5,
+            "width": 105.90625,
+            "height": 72,
+            "top": 465.5,
+            "right": 436.953125,
+            "bottom": 537.5,
+            "left": 331.046875
+          }
+        }
+      ]
+    },
+    "footerFloating": [
+      {
+        "t": "Continue to Bakery",
+        "x": 331,
+        "y": -5,
+        "w": 106,
+        "h": 72
+      },
+      {
+        "t": "Toggle attribution",
+        "x": 696,
+        "y": 171,
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "audio": [
+      {
+        "paused": false,
+        "t": 4.429421
+      }
+    ]
+  }
+}
