@@ -6,39 +6,37 @@
  * Google Arts & Culture micro-grid with the image slot empty (portraits are
  * still an undelivered asset; see docs/v4/REVIEW-GUIDE.md).
  */
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { rescuers, hunters, type Person } from "../data/people";
-import { fitChars } from "../lib/text";
-const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE CITY’S CAST.";
+import { fitChars, nbsp } from "../lib/text";
+/* v7 P4: authored breaks per breakpoint — Wil reads it as ONE DAY. A WHOLE /
+   CITY’S CAST. at desktop; phones take three lines and never leave CAST. alone. */
+const PEOPLE_HEADING_LG = "ONE DAY. A WHOLE<br />CITY’S CAST.";
+const PEOPLE_HEADING_SM = "ONE DAY.<br />A WHOLE<br />CITY’S CAST.";
 
-const chapters = await getCollection("chapters");
-const shortFor = (slug: string) =>
-  chapters.find((c) => c.id === slug)?.data.name.short ?? slug;
-const orderFor = (slug: string) => chapters.find((c) => c.id === slug)?.data.order ?? 0;
 
 const groups: { heading: string; blurb: string; people: Person[] }[] = [
   {
     heading: "The rescuers",
     blurb:
-      "Black and white, famous and unrecorded — the people of Troy who decided, in a single afternoon, that the law was wrong.",
+      "Black and white, famous and unrecorded: the people of Troy who decided, in a single afternoon, that the law was wrong.",
     people: rescuers,
   },
   {
     heading: "The hunters",
     blurb:
-      "The men who put a free man in chains — lawfully, under the Fugitive Slave Act of 1850.",
+      "The men who put a free man in chains, lawfully, under the Fugitive Slave Act of 1850.",
     people: hunters,
   },
 ];
 ---
 
 <Base
-  title="The People — Charles Nalle Walking Memorial"
-  description="The rescuers and the hunters of April 27, 1860: Peter Baltimore, Martin Townsend, Uri Gilbert, Harriet Tubman — and the men who tried to drag Charles Nalle back into slavery."
+  title="The People · Charles Nalle Walking Memorial"
+  description="The rescuers and the hunters of April 27, 1860: Peter Baltimore, Martin Townsend, Uri Gilbert, Harriet Tubman, and the men who tried to drag Charles Nalle back into slavery."
 >
   {/* Two columns, because one left-aligned headline left the entire right half
       of the fold empty and dropped a 220px hole between itself and what came
@@ -46,18 +44,25 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
       over a heading that says the same thing, under a nav link that says it a
       third time. */}
   <header class="shell page-open">
-    <div class="grid gap-10 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-16">
-      <h1 class="t-display lines" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
-      <div class="lg:pb-3">
-        <p class="t-prose">
-          Fourteen of them are named here. The <em>New York Times</em> counted
-          the crowd outside the commissioner’s office at some one thousand
-          persons.
-        </p>
-        <p class="t-meta-body mt-6">
-          Every name stood on pavement you can still walk. Follow any of them
-          into the chapter where their part of the day is told.
-        </p>
+    {/* v7 P4: below 1280 the two-column fold (H1 left, intro right, three
+        authored lines). From 1280 the H1 reads ONE DAY. A WHOLE / CITY'S CAST.
+        (Wil) across the full shell — the only width that holds 88px Caslon —
+        and the intro tucks under its short second line, in the right column. */}
+    <div class="grid gap-10 lg:grid-cols-[8fr_4fr] lg:items-end lg:gap-16 xl:grid-cols-1 xl:gap-12">
+      <h1 class="t-display lines xl:hidden" style={fitChars(PEOPLE_HEADING_SM)} set:html={PEOPLE_HEADING_SM} />
+      <h1 class="t-display lines hidden xl:block" style={fitChars(PEOPLE_HEADING_LG)} set:html={PEOPLE_HEADING_LG} />
+      <div class="lg:pb-3 xl:grid xl:grid-cols-[8fr_4fr] xl:gap-16 xl:pb-0">
+        <div class="xl:col-start-2">
+          <p class="t-prose">
+            Fourteen of them are named here. The <em>New York Times</em> counted
+            the crowd outside the commissioner’s office at some one thousand
+            persons.
+          </p>
+          <p class="t-meta-body mt-6">
+            Every name stood on pavement you can still walk. Their parts of the
+            day are told in the chapters, spot by&nbsp;spot.
+          </p>
+        </div>
       </div>
     </div>
   </header>
@@ -95,26 +100,16 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
                       })()}
                     </div>
                     <div>
-                      <p class="t-meta">{person.role}</p>
+                      <p class="t-meta">{nbsp(person.role)}</p>
                       <h3 class="t-title-sm mt-3">
                         {person.name}
                       </h3>
                     </div>
                   </div>
-                  <p class="t-prose mt-5">{person.note}</p>
-                  <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-                    {person.chapters.map((slug) => (
-                      <a
-                        href={withBase(slug)}
-                        data-curtain-label={shortFor(slug)}
-                        data-curtain-date
-                        class="link-meta t-meta"
-                      >
-                        Spot {orderFor(slug)} · {shortFor(slug)}
-                        <Icon name="arrow" size="sm" />
-                      </a>
-                    ))}
-                  </p>
+                  {/* v7 P1 (Wil): the spot links under every person are gone —
+                      monogram, role, name and note stand alone; `chapters` stays
+                      in the data. */}
+                  <p class="t-prose mt-5">{nbsp(person.note)}</p>
                 </article>
               ))}
             </div>
@@ -133,11 +128,11 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
         <p class="t-meta mt-3">Onward</p>
       </div>
       <div>
-        <p class="t-meta">Their streets are still here</p>
-        <h2 class="t-title reveal mt-4">Walk the route</h2>
+        <p class="t-meta">Their story lives on</p>
+        <h2 class="t-title reveal mt-4">Stand where they stood</h2>
         <div class="mt-10">
           <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid">
-            Walk the five spots
+            Walk the story
             <Icon name="arrow" />
           </a>
         </div>

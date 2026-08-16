@@ -399,3 +399,15 @@ Locked decision 2 (Wil, 2026-08-15): em dashes leave the site everywhere. Inside
 | mansion | `portal.history[0]` | …Uri Gilbert — mayor of Troy, and a manufacturer of coaches and railway cars — built… | …Uri Gilbert, mayor of Troy, and a manufacturer of coaches and railway cars, built… |
 
 Also (UI, not locked prose): ch2 scene labels `Part 1 — Tubman Creates a Crowd` → `Part 1\nTubman Creates a Crowd` (two authored lines), `Part 2 — The Mob` → `Part 2\nThe Mob`; ch2 address `5 State Street — Mutual Bank Building` → `5 State Street · Mutual Bank Building`; barbershop story media order T→I→T→I→T (Wil); the mansion audio subtitle shown in the player is `Uri Gilbert Home` (canonical) — the JSON `audio.label` data field is not displayed.
+
+### v7 P6 — People page notes (Kathy-confirmed cast notes, punctuation only)
+
+| field | before | after |
+|---|---|---|
+| Charles Nalle · note | …while fetching bread — and freed the same day… | …while fetching bread, and freed the same day… |
+| Uri Gilbert · note | …not his past — Charles lived above the stables… | …not his past. Charles lived above the stables… |
+| George Holeur · note | …site of Charles’s capture — in front of the whole city. | …site of Charles’s capture, in front of the whole city. |
+| Blucher Hansbrough · note | Charles’s half-brother — and the man who claimed… | Charles’s half-brother, and the man who claimed… |
+| Horatio F. Averill · note | …his wife, Kitty — and sold it to Virginia… | …his wife, Kitty, and sold it to Virginia… |
+
+UI copy on /people (not Kathy's): group blurbs lose their dashes (`unrecorded: the people…`, `in chains, lawfully,`), the spot links under each person are removed (Wil), closer = `Their story lives on` / `Stand where they stood` / `Walk the story`. /about: closing quote becomes section (06) Afterword at one section gap, attribution without the dash; section (07) closer copy = `Two and a half miles. One day in 1860.` + the informative sentence with distance/minutes computed from `route.json`; `On the sidewalk` kicker now rendered.

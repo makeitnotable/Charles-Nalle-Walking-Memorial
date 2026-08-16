@@ -11,6 +11,13 @@ import Icon from "../components/Icon.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { about } from "../data/about";
 import { withBase } from "../lib/url";
+import { nbsp } from "../lib/text";
+import route from "../data/route.json";
+
+/* v7 A2: the walk's size, computed exactly as map.astro does — never hardcoded. */
+const MILES = (route.distanceMeters / 1609.34).toFixed(1);
+const MINUTES = Math.round(route.durationSeconds / 60 / 5) * 5;
+const milesWords = MILES === "2.5" ? "Two and a half miles" : `${MILES} miles`;
 
 const people = [
   { ...about.charles, image: "about-charles" },
@@ -20,7 +27,7 @@ const people = [
 ---
 
 <Base
-  title="About — Charles Nalle Walking Memorial"
+  title="About · Charles Nalle Walking Memorial"
   description="About the Charles Nalle Walking Memorial: the people behind the project, the paintings of Mark Priest, and the scholarship of Scott Christianson."
 >
   <header class="shell page-open">
@@ -53,7 +60,7 @@ const people = [
         <div class="editorial mt-8">
       <div class="rail">
         <p class="t-spine">(02)</p>
-        <p class="t-meta mt-3">How it works</p>
+        <p class="t-meta mt-3">{about.howItWorks.kicker}</p>
       </div>
       <div>
         <h2 id="how-heading" class="t-title reveal">{about.howItWorks.header}</h2>
@@ -63,11 +70,11 @@ const people = [
               <li class="grid grid-cols-[3.5rem_1fr] items-baseline">
                 <span class="t-meta">({i + 1})</span>
                 <div class="t-prose">
-                  {step.title}
+                  {nbsp(step.title)}
                   {"bullets" in step && step.bullets && (
                     <ul class="mt-3 list-disc space-y-1 pl-6 opacity-90">
                       {step.bullets.map((b) => (
-                        <li>{b}</li>
+                        <li>{nbsp(b)}</li>
                       ))}
                     </ul>
                   )}
@@ -117,17 +124,25 @@ const people = [
     ))
   }
 
-  <section class="void">
-    <div class="shell">
-      <figure class="reveal-quote mx-auto max-w-[46rem]">
+  {/* v7 A1: the closing quote is a numbered section at one section gap, not a
+      void after the portraits (Wil: too much space); the attribution stands
+      without its dash. */}
+  <section class="shell sec" aria-label="Afterword">
+    <div class="sec-head"></div>
+    <div class="editorial mt-8">
+      <div class="rail">
+        <p class="t-spine">({String(people.length + 3).padStart(2, "0")})</p>
+        <p class="t-meta mt-3">Afterword</p>
+      </div>
+      <figure class="reveal-quote max-w-[46rem]">
         <blockquote
-          class="t-quote is-hung"
+          class="t-quote t-quote-long is-hung"
           style="--fs-quote: clamp(22px, 2.2vw, 30px); max-width: none"
         >
-          “{about.closingQuote.text}”
+          “{nbsp(about.closingQuote.text)}”
         </blockquote>
         <figcaption class="t-meta mt-10">
-          — {about.closingQuote.attribution}, {about.closingQuote.source}
+          {about.closingQuote.attribution}, {nbsp(about.closingQuote.source)}
         </figcaption>
       </figure>
     </div>
@@ -138,15 +153,20 @@ const people = [
     <div class="sec-head"></div>
         <div class="editorial mt-8">
       <div class="rail">
-        <p class="t-spine">({String(people.length + 3).padStart(2, "0")})</p>
+        <p class="t-spine">({String(people.length + 4).padStart(2, "0")})</p>
         <p class="t-meta mt-3">Onward</p>
       </div>
       <div>
         <p class="t-meta">The streets are waiting</p>
-        <h2 class="t-title reveal mt-4">Walk the route</h2>
+        <h2 class="t-title reveal mt-4">{milesWords}. One day in&nbsp;1860.</h2>
+        <p class="t-prose reveal mt-8 max-w-[52ch]">
+          Four bronze plaques mark the route through downtown Troy; the fifth
+          spot, the Ferry Landing, is remembered here on the website. Start at
+          any plaque, or begin from the map. About {MINUTES === 45 ? "forty-five" : MINUTES} minutes on&nbsp;foot.
+        </p>
         <div class="mt-10">
           <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid">
-            Walk the five spots
+            Walk the story
             <Icon name="arrow" />
           </a>
         </div>

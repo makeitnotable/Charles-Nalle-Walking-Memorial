@@ -16,7 +16,7 @@ export const rescuers: Person[] = [
   {
     name: "Charles Nalle",
     role: "The man at the center",
-    note: "A coachman for the Gilbert family who had escaped slavery in Culpeper County, Virginia. Seized under the Fugitive Slave Act while fetching bread — and freed the same day by the people of Troy.",
+    note: "A coachman for the Gilbert family who had escaped slavery in Culpeper County, Virginia. Seized under the Fugitive Slave Act while fetching bread, and freed the same day by the people of Troy.",
     chapters: ["bakery", "commissioners-office", "mansion", "ferry", "barbershop"],
   },
   {
@@ -45,7 +45,7 @@ export const rescuers: Person[] = [
   {
     name: "Uri Gilbert",
     role: "Industrialist · Charles’s employer",
-    note: "Railcar magnate and later mayor of Troy. Hired Charles as coachman on his skills, not his past — Charles lived above the stables behind the Gilbert mansion on Second Street.",
+    note: "Railcar magnate and later mayor of Troy. Hired Charles as coachman on his skills, not his past. Charles lived above the stables behind the Gilbert mansion on Second Street.",
     chapters: ["mansion"],
   },
   {
@@ -69,7 +69,7 @@ export const rescuers: Person[] = [
   {
     name: "George Holeur",
     role: "The baker",
-    note: "The thirty-four-year-old French baker whose shop at 3rd and Division was the site of Charles’s capture — in front of the whole city.",
+    note: "The thirty-four-year-old French baker whose shop at 3rd and Division was the site of Charles’s capture, in front of the whole city.",
     chapters: ["bakery"],
   },
 ];
@@ -78,13 +78,13 @@ export const hunters: Person[] = [
   {
     name: "Blucher Hansbrough",
     role: "The claimant",
-    note: "Charles’s half-brother — and the man who claimed to own him. Hired slave catchers under the Fugitive Slave Act, then raised his price out of spite as Troy raised the money.",
+    note: "Charles’s half-brother, and the man who claimed to own him. Hired slave catchers under the Fugitive Slave Act, then raised his price out of spite as Troy raised the money.",
     chapters: ["bakery", "commissioners-office"],
   },
   {
     name: "Horatio F. Averill",
     role: "The betrayer",
-    note: "The lawyer who learned Charles’s secret while helping him write letters to his wife, Kitty — and sold it to Virginia for the reward.",
+    note: "The lawyer who learned Charles’s secret while helping him write letters to his wife, Kitty, and sold it to Virginia for the reward.",
     chapters: ["commissioners-office"],
   },
   {
