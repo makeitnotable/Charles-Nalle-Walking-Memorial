@@ -303,6 +303,13 @@ Stated plainly so nobody inherits a surprise.
   approach with the card left and the study right, tap/zoom brings a painting
   to life, phone peek-sheet, ≤ 80 draw calls at 60 fps.
 - A real favicon (the CN mark in Libre Caslon Display, full icon set + manifest).
+- Juror loop (Part E): fresh-eyed passes on the live build until two consecutive
+  clean ones — the fixes they earned: the museum's inspect view brings its stage
+  fully into frame first (from the page top it opened cropped), the desktop map
+  scrolls the page on a plain wheel and zooms on ⌘/Ctrl + wheel (a full-viewport
+  map had swallowed the wheel), walk-card neighbours peek ≥ 16 px, the phone
+  peek-sheet answers touch, the mini-player is on screen whenever its main
+  control is not. Reports: `docs/v7/juror-pass*.md`.
 
 **7 August 2026 — content restoration and map optimisation**
 
