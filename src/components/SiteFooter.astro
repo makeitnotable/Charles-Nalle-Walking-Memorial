@@ -85,7 +85,7 @@ const links = [
       Clyne's 8/7 email (general no-responsibility form) plus the call's
       routes-are-suggestions intent. On chapters the row keeps the bottom-left
       lane clear for the narration mini-player (C10). */}
-  <div class:list={["shell footer-meta rule-top", audio ? "pb-28" : ""]}>
+  <div class="shell footer-meta rule-top" data-audio={audio ? "true" : undefined}>
     <p class="t-meta-body footer-disclaimer">
       Walking routes and directions are suggestions only. Explore at your own pace,
       discretion, and&nbsp;risk.
@@ -126,6 +126,11 @@ const links = [
     margin-top: 0;
     padding-top: 1.5rem;
     padding-bottom: 2.5rem;
+  }
+  /* Chapters keep the bottom-left lane clear for the narration pill (C10);
+     the scoped rule used to out-cascade the `pb-28` utility. */
+  .footer-meta[data-audio] {
+    padding-bottom: 7rem;
   }
   .footer-disclaimer {
     max-width: 62ch;

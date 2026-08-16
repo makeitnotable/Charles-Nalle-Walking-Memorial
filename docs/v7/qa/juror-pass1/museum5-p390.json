@@ -1,0 +1,40 @@
+{
+  "start": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "hdrH": 124,
+    "label": "Expand the plaque"
+  },
+  "afterPwTap": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "hdrH": 124,
+    "label": "Expand the plaque"
+  },
+  "afterEnter": {
+    "sheet": "full",
+    "hdrTop": 647,
+    "hdrH": 124,
+    "label": "Collapse the plaque"
+  },
+  "afterEnter2": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "hdrH": 124,
+    "label": "Expand the plaque"
+  },
+  "afterMouseDrag": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "hdrH": 124,
+    "label": "Expand the plaque"
+  },
+  "afterCdpDrag": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "hdrH": 124,
+    "label": "Expand the plaque",
+    "evs": "pointerdown:touch,touchstart,touchmove,touchmove,touchmove,touchmove,touchmove,touchmove,touchmove,touchmove,touchmove,touchmove … n=19"
+  },
+  "log": []
+}

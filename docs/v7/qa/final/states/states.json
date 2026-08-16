@@ -30,28 +30,35 @@
  {
   "state": "mansion-390-05-mini-plus-menu",
   "note": "THE COMBINED STATE: audio playing + menu open",
-  "floatCount": 1,
+  "floatCount": 0,
+  "hits": [],
+  "unscrimmedPanel": false
+ },
+ {
+  "state": "mansion-390-11-mini-collapsed",
+  "note": "mini-player COLLAPSED at Onward (one orange: Continue)",
+  "floatCount": 0,
   "hits": [],
   "unscrimmedPanel": false
  },
  {
   "state": "mansion-390-08-foot",
   "note": "chapter foot / onward",
-  "floatCount": 1,
+  "floatCount": 0,
   "hits": [],
   "unscrimmedPanel": false
  },
  {
   "state": "mansion-390-09-cta-focus",
   "note": "primary CTA focus ring",
-  "floatCount": 1,
+  "floatCount": 0,
   "hits": [],
   "unscrimmedPanel": false
  },
  {
   "state": "mansion-390-10-cta-hover",
   "note": "primary CTA hover",
-  "floatCount": 1,
+  "floatCount": 0,
   "hits": [],
   "unscrimmedPanel": false
  },
@@ -556,188 +563,6 @@
   "state": "about-768-02-menu",
   "note": "/about + menu open",
   "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-01-rest",
-  "note": "chapter at rest",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-02-menu-open",
-  "note": "menu open at top",
-  "floatCount": 3,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-03-player-inview",
-  "note": "narration object in view",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-04-mini-player",
-  "note": "audio playing, mini-player latched",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-05-mini-plus-menu",
-  "note": "THE COMBINED STATE: audio playing + menu open",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-08-foot",
-  "note": "chapter foot / onward",
-  "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-09-cta-focus",
-  "note": "primary CTA focus ring",
-  "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "mansion-1024-10-cta-hover",
-  "note": "primary CTA hover",
-  "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-01-rest",
-  "note": "map at rest",
-  "floatCount": 12,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-02-menu-open",
-  "note": "map + menu open",
-  "floatCount": 14,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-05-index",
-  "note": "map index below the fold",
-  "floatCount": 3,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-06-walk",
-  "note": "WALK MODE: Back top-left, Stop the walk top-right, cards",
-  "floatCount": 6,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-07-walk-paused",
-  "note": "walk PAUSED by a drag: button reads Continue",
-  "floatCount": 8,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-08-walk-plus-menu",
-  "note": "walk + menu (phones: ☰ retreats while focused)",
-  "floatCount": 10,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "map-1024-09-lens-open",
-  "note": "1858 LENS open: only Back to today",
-  "floatCount": 12,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "paintings-1024-01-rest",
-  "note": "gallery at rest",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "museum-1024-01-rail-rest",
-  "note": "MUSEUM rail at rest (chip, Skip top-left, dots, menu)",
-  "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "museum-1024-02-looked-away",
-  "note": "MUSEUM looked away: Face forward",
-  "floatCount": 2,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "museum-1024-03-approach",
-  "note": "MUSEUM approach: card/sheet + painting + Back",
-  "floatCount": 3,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "museum-1024-05-alive",
-  "note": "MUSEUM approach: the painting alive",
-  "floatCount": 3,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "paintings-1024-02-dialog",
-  "note": "painting dialog open",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "home-1024-01-rest",
-  "note": "home at rest",
-  "floatCount": 0,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "people-1024-01-rest",
-  "note": "/people at rest",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "people-1024-02-menu",
-  "note": "/people + menu open",
-  "floatCount": 3,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "about-1024-01-rest",
-  "note": "/about at rest",
-  "floatCount": 1,
-  "hits": [],
-  "unscrimmedPanel": false
- },
- {
-  "state": "about-1024-02-menu",
-  "note": "/about + menu open",
-  "floatCount": 3,
   "hits": [],
   "unscrimmedPanel": false
  },

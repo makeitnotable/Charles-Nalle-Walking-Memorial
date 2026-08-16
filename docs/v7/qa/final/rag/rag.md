@@ -1,6 +1,6 @@
 # Rag & clip sweep — http://localhost:4321
 
-**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 5 authored-lockup rows listed separately — 504 blocks over 11 route × viewport passes.
+**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 5 authored-lockup rows listed separately — 502 blocks over 11 route × viewport passes.
 
 ## Runts
 
@@ -15,8 +15,8 @@ None.
 
 | route | vp | selector | text | lines | last line |
 |---|---|---|---|---|---|
-| /bakery | land | `h1.t-display.whitespace-pre-line` | "HOLEUR’S FASHIONABLE BAKERY" | 3 | "BAKERY" |
 | /commissioners-office | land | `h1.t-display.whitespace-pre-line` | "COMMISSIONER’S OFFICE" | 2 | "OFFICE" |
+| /mansion | land | `h1.t-display.whitespace-pre-line` | "URI GILBERT HOME" | 2 | "HOME" |
 | /paintings | land | `h1.t-display.lines` | "THE NALLE SERIES" | 2 | "SERIES" |
 | /about | land | `li.grid.grid-cols-[3.5rem_1fr].items-baseline` | "(1) Start at the Memorial Plaque" | 2 | "(1)" |
 | /about | land | `li.grid.grid-cols-[3.5rem_1fr].items-baseline` | "(4) Use the map to begin the tour." | 2 | "(4)" |

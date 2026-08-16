@@ -16,6 +16,7 @@ import { fitChars } from "../lib/text";
 import Museum from "../components/Museum";
 import sharp from "sharp";
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 /* v7 U8: every canvas hangs at its TRUE aspect — read once at build from the
    1440 asset (six are 16:9, three 3:2, Barbershop Narrative II is a 2:3
@@ -25,7 +26,11 @@ const aspectOf = async (rel: string, fallback: number) => {
   if (aspectCache.has(rel)) return aspectCache.get(rel)!;
   let a = fallback;
   try {
-    const m = await sharp(await readFile(new URL(`../../public/${rel}`, import.meta.url))).metadata();
+    /* Resolved from the PROJECT ROOT (process.cwd() during `astro build`), never
+       import.meta.url — under the production build the page module lives in a
+       temp chunk and a module-relative path silently fell back to 1.5 (juror
+       pass 1, P1). */
+    const m = await sharp(await readFile(join(process.cwd(), "public", rel))).metadata();
     if (m.width && m.height) a = +(m.width / m.height).toFixed(4);
   } catch {
     /* keep the fallback */

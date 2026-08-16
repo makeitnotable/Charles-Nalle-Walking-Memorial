@@ -1,0 +1,460 @@
+{
+  "steps": [
+    {
+      "s": "overview",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Take the walk @323,668 207x48",
+        "See Troy in 1858 @541,670 160x44",
+        "Enter Spot 01: Holeur’s Fashionable Bakery @260,444 504x188",
+        "Focus Spot 02: Commissioner’s Office @801,452 483x180",
+        "Focus Spot 03: Uri Gilbert Home @1337,455 473x177",
+        "Focus Spot 04: Washington Street Ferry Landi @1867,455 473x177",
+        "Focus Spot 05: Peter Baltimore’s Barbershop @2398,455 473x177"
+      ],
+      "chip": "April 27, 1860",
+      "map": {
+        "center": [
+          -73.69515,
+          42.72504
+        ],
+        "zoom": 14.72,
+        "pitch": 52,
+        "moving": false,
+        "state": {
+          "focused": false,
+          "walk": "idle",
+          "touring": false,
+          "activeIdx": 0,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 01: Holeur’s Fashionable Bakery",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "walk started +2.5s",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Back to map @40,40 182x38",
+        "Stop the walk @814,40 170x38",
+        "Enter Spot 01: Holeur’s Fashionable Bakery @260,444 504x188",
+        "Focus Spot 02: Commissioner’s Office @801,452 483x180",
+        "Focus Spot 03: Uri Gilbert Home @1337,455 473x177",
+        "Focus Spot 04: Washington Street Ferry Landi @1867,455 473x177",
+        "Focus Spot 05: Peter Baltimore’s Barbershop @2398,455 473x177"
+      ],
+      "map": {
+        "center": [
+          -73.69153,
+          42.72611
+        ],
+        "zoom": 17.8,
+        "pitch": 48,
+        "moving": true,
+        "state": {
+          "focused": true,
+          "walk": "walking",
+          "touring": true,
+          "activeIdx": 0,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 01: Holeur’s Fashionable Bakery",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "immediately after drag",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Back to map @40,40 182x38",
+        "Continue the walk @858,40 126x38",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-2099,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1569,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-1038,455 473x177",
+        "Focus Spot 04: Washington Street Ferry Landi @-518,448 493x184",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @2,440 514x192"
+      ],
+      "map": {
+        "center": [
+          -73.69344,
+          42.72975
+        ],
+        "zoom": 16.09,
+        "pitch": 48,
+        "moving": false,
+        "state": {
+          "focused": true,
+          "walk": "paused",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "after drag +1s",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Back to map @40,40 182x38",
+        "Continue the walk @858,40 126x38",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-1846,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1316,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-790,452 482x180",
+        "Focus Spot 04: Washington Street Ferry Landi @-270,444 503x188",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @260,444 504x188"
+      ],
+      "map": {
+        "center": [
+          -73.69289,
+          42.73082
+        ],
+        "zoom": 17.74,
+        "pitch": 48,
+        "moving": true,
+        "state": {
+          "focused": true,
+          "walk": "paused",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "after Continue",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Back to map @40,40 182x38",
+        "Walk again from the first spot @843,40 141x38",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-1846,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1316,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-790,452 482x180",
+        "Focus Spot 04: Washington Street Ferry Landi @-270,444 503x188",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @260,444 504x188"
+      ],
+      "map": {
+        "center": [
+          -73.69289,
+          42.73082
+        ],
+        "zoom": 17.75,
+        "pitch": 48,
+        "moving": false,
+        "state": {
+          "focused": true,
+          "walk": "done",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "after Back",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Take the walk @323,668 207x48",
+        "See Troy in 1858 @541,670 160x44",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-1846,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1316,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-790,452 482x180",
+        "Focus Spot 04: Washington Street Ferry Landi @-270,444 503x188",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @260,444 504x188"
+      ],
+      "chip": "April 27, 1860",
+      "map": {
+        "center": [
+          -73.69515,
+          42.72504
+        ],
+        "zoom": 14.72,
+        "pitch": 52,
+        "moving": false,
+        "state": {
+          "focused": false,
+          "walk": "idle",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=false data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "lens open",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Zoom in @944,52 32x32",
+        "Zoom out @944,88 32x32",
+        "Reset view @944,124 32x32",
+        "Back to today @427,684 169x44",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-1846,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1316,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-790,452 482x180",
+        "Focus Spot 04: Washington Street Ferry Landi @-270,444 503x188",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @260,444 504x188"
+      ],
+      "map": {
+        "center": [
+          -73.69515,
+          42.72504
+        ],
+        "zoom": 14.72,
+        "pitch": 52,
+        "moving": false,
+        "state": {
+          "focused": false,
+          "walk": "idle",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": true,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true data-hidden=false",
+      "burgerOp": "1"
+    },
+    {
+      "s": "after Back to today",
+      "btns": [
+        "Open menu @912,656 72x72",
+        "Toggle attribution @40,677 24x24",
+        "Zoom in @944,52 32x32",
+        "Zoom out @944,88 32x32",
+        "Reset view @944,124 32x32",
+        "Take the walk @323,668 207x48",
+        "See Troy in 1858 @541,670 160x44",
+        "Focus Spot 01: Holeur’s Fashionable Bakery @-1846,455 473x177",
+        "Focus Spot 02: Commissioner’s Office @-1316,455 473x177",
+        "Focus Spot 03: Uri Gilbert Home @-790,452 482x180",
+        "Focus Spot 04: Washington Street Ferry Landi @-270,444 503x188",
+        "Enter Spot 05: Peter Baltimore’s Barbershop @260,444 504x188"
+      ],
+      "chip": "April 27, 1860",
+      "map": {
+        "center": [
+          -73.69515,
+          42.72504
+        ],
+        "zoom": 14.72,
+        "pitch": 52,
+        "moving": false,
+        "state": {
+          "focused": false,
+          "walk": "idle",
+          "touring": false,
+          "activeIdx": 4,
+          "dragging": false,
+          "leaving": false,
+          "lens": false,
+          "hasToken": true
+        },
+        "keys": [
+          "map",
+          "slider",
+          "state",
+          "stops"
+        ]
+      },
+      "active": "Enter Spot 05: Peter Baltimore’s Barbershop",
+      "burgerAttrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=false data-hidden=false",
+      "burgerOp": "1"
+    }
+  ],
+  "autoCycle": [
+    "Enter Spot 01",
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 04",
+    "Enter Spot 04",
+    "Enter Spot 04",
+    "Enter Spot 04",
+    "Enter Spot 05",
+    "Enter Spot 05"
+  ],
+  "dragSamples": {
+    "before": -1846,
+    "samples": [
+      -2099,
+      -2038,
+      -1993,
+      -1959,
+      -1932,
+      -1912,
+      -1897,
+      -1889,
+      -1882,
+      -1876,
+      -1869,
+      -1865,
+      -1862,
+      -1860,
+      -1857,
+      -1855,
+      -1853,
+      -1852,
+      -1851,
+      -1850,
+      -1849,
+      -1849,
+      -1848,
+      -1848,
+      -1848,
+      -1847
+    ]
+  },
+  "pausedWatch": [
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05"
+  ],
+  "hasContinue": 1,
+  "afterContinue": [
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05",
+    "Enter Spot 05"
+  ],
+  "hasBack": 1,
+  "lensImg": {
+    "img": [
+      -174,
+      -531,
+      1373,
+      1150
+    ],
+    "viewer": [
+      40,
+      44,
+      944,
+      575
+    ],
+    "natural": [
+      4096,
+      3431
+    ],
+    "src": "troy-1858-full-4096.avif",
+    "transform": "matrix(1.45434, 0, 0, 1.45434, -472, -682.867)"
+  },
+  "lensAfter": {
+    "img": [
+      -1206,
+      -1496,
+      2821,
+      2363
+    ],
+    "transform": "matrix(2.98784, 0, 0, 2.98784, -780.165, -1041.47)"
+  },
+  "lensReset": [
+    -174,
+    -531,
+    1373,
+    1150
+  ],
+  "hasBackToToday": 1,
+  "log": []
+}

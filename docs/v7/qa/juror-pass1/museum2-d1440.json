@@ -1,0 +1,87 @@
+{
+  "probe": [
+    "{\"left\":401.80666270728665,\"right\":490.00547724090325,\"top\":285.0369969407725,\"bottom\":478.8764856462936,\"behind\":true}",
+    "{\"left\":1125.6433261523239,\"right\":1513.6296065191596,\"top\":160.25976605044326,\"bottom\":634.4027708042123,\"behind\":true}",
+    "{\"left\":-1252.5821104399722,\"right\":2547.7670744077523,\"top\":-280.45100589833567,\"bottom\":978.1089293016969,\"behind\":tru",
+    "{\"left\":-49.11270605267912,\"right\":320.85987873544724,\"top\":95.4522977532157,\"bottom\":559.3118880900813,\"behind\":false}",
+    "{\"left\":947.8892947722555,\"right\":1034.1779768406657,\"top\":256.9889359312982,\"bottom\":449.0894433227702,\"behind\":false}",
+    "{\"left\":522.5907599750597,\"right\":560.5308479946873,\"top\":298.4507720548777,\"bottom\":419.5943380713961,\"behind\":false}",
+    "{\"left\":842.6464904062086,\"right\":863.9195001963541,\"top\":317.443722458766,\"bottom\":405.9111912013922,\"behind\":false}",
+    "{\"left\":606.763034368981,\"right\":620.3609398559977,\"top\":328.33836990204185,\"bottom\":398.01283244815687,\"behind\":false}",
+    "{\"left\":803.9001173326125,\"right\":813.3380159034884,\"top\":335.4040196224481,\"bottom\":392.8709648438431,\"behind\":false}",
+    "{\"left\":640.6126035152386,\"right\":647.5448645074479,\"top\":340.357556947036,\"bottom\":389.2569744712769,\"behind\":false}"
+  ],
+  "target": {
+    "i": 3,
+    "x": 250.1452046671423,
+    "y": 337.70728155044753,
+    "w": 247.59126097878095,
+    "h": 359.90489765584636
+  },
+  "afterClick": {
+    "mode": "approach",
+    "railIdx": 2,
+    "approached": 3,
+    "alive": -1,
+    "zoom": 1,
+    "sheet": "peek",
+    "yaw": 1.57
+  },
+  "paintingBtn": {
+    "x": 720,
+    "y": 450,
+    "w": 582,
+    "h": 388,
+    "label": "Bring the painting to life",
+    "cx": 0.5,
+    "cy": 0.5
+  },
+  "afterTap": {
+    "mode": "approach",
+    "railIdx": 2,
+    "approached": 3,
+    "alive": 3,
+    "zoom": 1,
+    "sheet": "peek",
+    "yaw": 1.57,
+    "video": 0,
+    "label": "Let the painting rest"
+  },
+  "afterTap2": {
+    "mode": "approach",
+    "railIdx": 2,
+    "approached": 3,
+    "alive": -1,
+    "zoom": 1,
+    "sheet": "peek",
+    "yaw": 1.57
+  },
+  "afterWheelIn": {
+    "mode": "approach",
+    "railIdx": 2,
+    "approached": 3,
+    "alive": 3,
+    "zoom": 2.4,
+    "sheet": "peek",
+    "yaw": 1.57
+  },
+  "afterWheelOut": {
+    "mode": "approach",
+    "railIdx": 2,
+    "approached": 3,
+    "alive": -1,
+    "zoom": 1,
+    "sheet": "peek",
+    "yaw": 1.57
+  },
+  "afterEsc": {
+    "mode": "rail",
+    "railIdx": 2,
+    "approached": null,
+    "alive": -1,
+    "zoom": 1,
+    "sheet": "peek",
+    "yaw": 0
+  },
+  "log": []
+}

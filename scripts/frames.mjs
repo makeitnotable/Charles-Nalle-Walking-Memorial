@@ -86,7 +86,7 @@ const CASES = [
     path: "/map",
     prep: async (page) => {
       await page.waitForTimeout(9000);
-      const card = '.keen-slider__slide [role="button"][aria-label^="Enter Chapter"]';
+      const card = '.keen-slider__slide [role="button"][aria-label^="Enter Spot"]';
       // The carousel is opacity-0 until a stop is focused (TroyMap.tsx: the
       // marker click → focusStop → carousel visible with that card active).
       const visible = await page.evaluate((sel) => {

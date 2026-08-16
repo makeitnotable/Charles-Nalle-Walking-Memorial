@@ -1217,7 +1217,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             </div>
           )}
           <figcaption className="t-meta mt-3 text-center">
-            Troy, New York · 1858 · Library of&nbsp;Congress
+            Troy, New&nbsp;York&nbsp;·&nbsp;1858&nbsp;·&nbsp;Library of&nbsp;Congress
           </figcaption>
           <p className="t-meta-body mt-1 text-center opacity-80">
             <span className="hidden sm:inline">Drag to explore · pinch or scroll to zoom</span>
@@ -1303,7 +1303,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
             <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
           </svg>
-          Back<span className="hidden sm:inline">&nbsp;to map</span>
+          <span>Back<span className="hidden sm:inline"> to map</span></span>
         </button>
       )}
 
@@ -1389,7 +1389,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           moveToIdx reliably. Visibility is opacity/pointer-events only. */}
       {
         <div
-          className="fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+32px)] transition-opacity duration-300 sm:pb-[calc(var(--ui-inset)+96px)]"
+          className="fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+80px)] transition-opacity duration-300 sm:pb-[calc(var(--ui-inset)+96px)]"
           style={{
             opacity: focused && shellVisible ? 1 : 0,
             pointerEvents: focused && shellVisible ? "auto" : "none",

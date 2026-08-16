@@ -1,29 +1,29 @@
 ▶ map-card-390
-  CLEAN  click→covered 655ms · nav 888ms · B covered 888ms · hold 517ms · reveal 585ms · uncovered B samples 0 (rAF 0) · frames 84 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 663ms · nav 946ms · B covered 946ms · hold 528ms · reveal 551ms · uncovered B samples 0 (rAF 0) · frames 88 (flagged 0) · reflow B 0px
 ▶ continue-390
-  CLEAN  click→covered 602ms · nav 813ms · B covered 813ms · hold 565ms · reveal 566ms · uncovered B samples 0 (rAF 0) · frames 128 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 616ms · nav 853ms · B covered 853ms · hold 536ms · reveal 559ms · uncovered B samples 0 (rAF 0) · frames 129 (flagged 0) · reflow B 0px
 ▶ home-door-390
-  CLEAN  click→covered 616ms · nav 850ms · B covered 850ms · hold 543ms · reveal 658ms · uncovered B samples 0 (rAF 0) · frames 91 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 621ms · nav 850ms · B covered 850ms · hold 519ms · reveal 603ms · uncovered B samples 0 (rAF 0) · frames 90 (flagged 0) · reflow B 0px
 ▶ map-card-1440
-  NO-NAV  click→covered nullms · nav -ms · B covered -ms · hold nullms · reveal nullms · uncovered B samples 0 (rAF 0) · frames 36 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 665ms · nav 987ms · B covered 987ms · hold 499ms · reveal 573ms · uncovered B samples 0 (rAF 0) · frames 77 (flagged 0) · reflow B 0px
 ▶ continue-1440
-  CLEAN  click→covered 626ms · nav 823ms · B covered 823ms · hold 576ms · reveal 569ms · uncovered B samples 0 (rAF 0) · frames 131 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 614ms · nav 826ms · B covered 826ms · hold 573ms · reveal 570ms · uncovered B samples 0 (rAF 0) · frames 126 (flagged 0) · reflow B 0px
 ▶ home-door-1440
-  CLEAN  click→covered 640ms · nav 811ms · B covered 811ms · hold 573ms · reveal 556ms · uncovered B samples 0 (rAF 0) · frames 50 (flagged 0) · reflow B 0px
+  CLEAN  click→covered 629ms · nav 845ms · B covered 845ms · hold 527ms · reveal 519ms · uncovered B samples 0 (rAF 0) · frames 47 (flagged 0) · reflow B 0px
 # Curtain frame capture — X1 acceptance
 
-Base http://localhost:4321 · CPU throttle 4× · 2026-08-16T05:07:58.042Z
+Base http://localhost:4321 · CPU throttle 4× · 2026-08-16T05:14:44.349Z
 Criterion: no uncovered frame of page B before the hold, no wordmark reflow, one continuous reveal.
 Times are ms relative to the click. "js" = rAF-tied page samples on page B before the panel covered it; "img" = screencast frames between the last covered page-A sample and the reveal onset whose thumbnail differs from a covered reference frame (mean |Δpx| > threshold, see frames.json).
 
 | case | vp | click→covered ms | hold ms | reveal ms | uncovered page-B frames | text reflow | verdict |
 |---|---|---|---|---|---|---|---|
-| map-card | 390 | 655 | 517 | 585 | js 0 () · img 0 () | 0px | CLEAN |
-| continue | 390 | 602 | 565 | 566 | js 0 () · img 0 () | 0px | CLEAN |
-| home-door | 390 | 616 | 543 | 658 | js 0 () · img 0 () | 0px | CLEAN |
-| map-card | 1440 | — | — | — | js 0 () · img 0 () | 0px | NO-NAV |
-| continue | 1440 | 626 | 576 | 569 | js 0 () · img 0 () | 0px | CLEAN |
-| home-door | 1440 | 640 | 573 | 556 | js 0 () · img 0 () | 0px | CLEAN |
+| map-card | 390 | 663 | 528 | 551 | js 0 () · img 0 () | 0px | CLEAN |
+| continue | 390 | 616 | 536 | 559 | js 0 () · img 0 () | 0px | CLEAN |
+| home-door | 390 | 621 | 519 | 603 | js 0 () · img 0 () | 0px | CLEAN |
+| map-card | 1440 | 665 | 499 | 573 | js 0 () · img 0 () | 0px | CLEAN |
+| continue | 1440 | 614 | 573 | 570 | js 0 () · img 0 () | 0px | CLEAN |
+| home-door | 1440 | 629 | 527 | 519 | js 0 () · img 0 () | 0px | CLEAN |
 
 Frames: `frames/<case>-<vp>/f<NNN>-<tMs>.jpg` (mNN = negative t). Full samples and per-frame luminance in frames.json.
 

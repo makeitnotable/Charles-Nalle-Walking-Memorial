@@ -80,6 +80,8 @@ export default function Museum({ works, slotId }: Props) {
   const [sheet, setSheet] = useState<"peek" | "full">("peek");
   const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
   const [portraitUI, setPortraitUI] = useState(false);
+  /** Measured sheet height — the dot rail rides just above it. */
+  const [sheetH, setSheetH] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -133,6 +135,19 @@ export default function Museum({ works, slotId }: Props) {
       }
     };
   }, [capable, slotId, works.length]);
+
+  // The dot rail follows the sheet's REAL height (peek or full, any content).
+  useEffect(() => {
+    const el = sheetRef.current;
+    if (!el) {
+      setSheetH(0);
+      return;
+    }
+    const ro = new ResizeObserver(() => setSheetH(el.getBoundingClientRect().height));
+    ro.observe(el);
+    setSheetH(el.getBoundingClientRect().height);
+    return () => ro.disconnect();
+  }, [approached, portraitUI, sheet]);
 
   // Layout is live (column vs sheet) while the world stays as built.
   useEffect(() => {
@@ -1045,7 +1060,10 @@ export default function Museum({ works, slotId }: Props) {
   const onSheetDown = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = sheetRef.current;
     if (!el) return;
-    el.setPointerCapture(e.pointerId);
+    /* Capture on the HEADER (the element that owns these handlers) — capturing
+       on the sheet re-targeted every move/up to the sheet, so the header's
+       handlers never saw them and the sheet was dead to touch (juror 1, P1). */
+    e.currentTarget.setPointerCapture(e.pointerId);
     dragState.current = { y0: e.clientY, h0: el.getBoundingClientRect().height, t0: performance.now(), ly: e.clientY, lt: performance.now(), dy: 0 };
     el.style.transition = "none";
   };
@@ -1075,8 +1093,20 @@ export default function Museum({ works, slotId }: Props) {
     const stageH = stageRef.current?.clientHeight ?? 800;
     if (Math.abs(v) > 0.3) setSheet(v < 0 ? "full" : "peek");
     else if (Math.abs(d.dy) > stageH * 0.12) setSheet(d.dy < 0 ? "full" : "peek");
-    else if (Math.abs(d.dy) < 6) setSheet(sheet === "peek" ? "full" : "peek"); // a tap toggles
+    else if (Math.abs(d.dy) < 6) {
+      // a tap toggles (pointer path); the click fallback below is then skipped
+      lastToggle.current = performance.now();
+      setSheet(sheet === "peek" ? "full" : "peek");
+    }
     void e;
+  };
+  /* Some touch stacks deliver a bare `click` for a tap (no pointer pair) —
+     toggle from it too, unless the pointer path just did. */
+  const lastToggle = useRef(0);
+  const onSheetClick = () => {
+    if (performance.now() - lastToggle.current < 500) return;
+    lastToggle.current = performance.now();
+    setSheet(sheet === "peek" ? "full" : "peek");
   };
 
   if (!capable) return null;
@@ -1103,7 +1133,8 @@ export default function Museum({ works, slotId }: Props) {
               </button>
             ) : (
               <p className="t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
-                <span className="hidden sm:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
+                <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
+                <span className="hidden sm:inline lg:hidden">Scroll to walk · drag to look · tap a painting</span>
                 <span className="sm:hidden">Scroll to walk</span>
               </p>
             )}
@@ -1165,7 +1196,7 @@ export default function Museum({ works, slotId }: Props) {
             style={{ left: "var(--ui-inset)", top: "50%", width: "min(calc(30vw - var(--ui-inset) - 24px), 22rem)" }}
           >
             <div className="rounded-[12px] p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
-              <p className="t-meta">Mark Priest · Nalle Series · Spot {pad2(plaque.order)}</p>
+              <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
               <p className="t-title-sm mt-3">{plaque.title}</p>
               {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
                 <figure className="mt-4">
@@ -1196,6 +1227,7 @@ export default function Museum({ works, slotId }: Props) {
               onPointerMove={onSheetMove}
               onPointerUp={onSheetUp}
               onPointerCancel={onSheetUp}
+              onClick={onSheetClick}
               role="button"
               tabIndex={0}
               aria-expanded={sheet === "full"}
@@ -1208,7 +1240,7 @@ export default function Museum({ works, slotId }: Props) {
               }}
             >
               <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-primary-7" aria-hidden="true" />
-              <p className="t-meta">Mark Priest · Nalle Series · Spot {pad2(plaque.order)}</p>
+              <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
               <p className="t-title-sm mt-2">{plaque.title}</p>
             </div>
             {sheet === "full" && (
@@ -1229,7 +1261,7 @@ export default function Museum({ works, slotId }: Props) {
           <nav
             className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center gap-4"
             style={{
-              bottom: plaque && portraitUI ? `calc(${sheet === "full" ? "55dvh" : "132px"} + 12px)` : "calc(var(--ui-inset) + 4px)",
+              bottom: plaque && portraitUI ? `${Math.round(sheetH) + 12}px` : "calc(var(--ui-inset) + 4px)",
               transition: "bottom var(--dur-fast) var(--ease)",
             }}
             aria-label="Works in the hall"

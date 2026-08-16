@@ -1,0 +1,390 @@
+[
+  {
+    "step": "load",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": []
+  },
+  {
+    "step": "btn2 label",
+    "label": "Play narration: Commissioner’s Office"
+  },
+  {
+    "step": "pt2 +700ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 0.51,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:00 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt2 +1400ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 1.22,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:01 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt2 +2100ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 1.92,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:01 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt2 +2800ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 2.63,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:02 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt2 +3500ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 3.34,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:03 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt2 +4200ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.04,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Play narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 200x62 \"Spot 02 · Pt 200:04 / 02:19\""
+    ]
+  },
+  {
+    "step": "pt1 +700ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 0.63,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:00 / 01:21\""
+    ]
+  },
+  {
+    "step": "pt1 +1400ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 1.35,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:01 / 01:21\""
+    ]
+  },
+  {
+    "step": "pt1 +2100ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 2.05,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:02 / 01:21\""
+    ]
+  },
+  {
+    "step": "pt1 +2800ms",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 2.75,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:02 / 01:21\""
+    ]
+  },
+  {
+    "step": "scrolled away",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 4.57,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:04 / 01:21\""
+    ]
+  },
+  {
+    "step": "tapped p3 in pt1",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 47.45,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 198x62 \"Spot 02 · Pt 100:47 / 01:21\""
+    ]
+  },
+  {
+    "step": "onward",
+    "audio": [
+      {
+        "src": "ch2-commissioners-office-pt1.mp3",
+        "t": 49.1,
+        "paused": false,
+        "rs": 4,
+        "ns": 1
+      },
+      {
+        "src": "ch2-commissioners-office-pt2.mp3",
+        "t": 4.92,
+        "paused": true,
+        "rs": 4,
+        "ns": 1
+      }
+    ],
+    "btns": [
+      "Pause narration: Commissioner’s Office",
+      "Pause narration: Commissioner’s Office",
+      "Play narration: Commissioner’s Office"
+    ],
+    "fixed": [
+      "@56,782 114x62 \"00:48\""
+    ]
+  },
+  {
+    "log": [
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+      "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24151.vector.pbf?sku=101qvfmSGKl7J&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19351/24150.vector.pbf?sku=101qvfmSGKl7J&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED",
+      "[reqfail] https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19350/24151.vector.pbf?sku=101qvfmSGKl7J&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    ]
+  }
+]

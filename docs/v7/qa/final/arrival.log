@@ -13,3 +13,15 @@
 ✓ mansion frame @ 2001ms (target 2000)
 ✓ mansion frame @ 3001ms (target 3000)
 ✓ mansion frame @ 5001ms (target 5000)
+✓ ferry frame @ 500ms (target 500)
+✓ ferry frame @ 1533ms (target 1000)
+✓ ferry frame @ 2001ms (target 2000)
+✓ ferry frame @ 3001ms (target 3000)
+✓ ferry frame @ 5000ms (target 5000)
+✓ barbershop frame @ 500ms (target 500)
+✓ barbershop frame @ 1540ms (target 1000)
+✓ barbershop frame @ 2000ms (target 2000)
+✓ barbershop frame @ 3000ms (target 3000)
+✓ barbershop frame @ 5000ms (target 5000)
+
+filmstrips + arrival.md → docs/v7/qa/final/arrival

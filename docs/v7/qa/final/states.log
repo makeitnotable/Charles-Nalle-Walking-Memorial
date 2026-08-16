@@ -4,10 +4,11 @@
   mansion-390-02-menu-open — 3 floating, 0 collisions
   mansion-390-03-player-inview — 0 floating, 0 collisions
   mansion-390-04-mini-player — 1 floating, 0 collisions
-  mansion-390-05-mini-plus-menu — 1 floating, 0 collisions
-  mansion-390-08-foot — 1 floating, 0 collisions
-  mansion-390-09-cta-focus — 1 floating, 0 collisions
-  mansion-390-10-cta-hover — 1 floating, 0 collisions
+  mansion-390-05-mini-plus-menu — 0 floating, 0 collisions
+  mansion-390-11-mini-collapsed — 0 floating, 0 collisions
+  mansion-390-08-foot — 0 floating, 0 collisions
+  mansion-390-09-cta-focus — 0 floating, 0 collisions
+  mansion-390-10-cta-hover — 0 floating, 0 collisions
   map-390-01-rest — 8 floating, 0 collisions
   map-390-02-menu-open — 10 floating, 0 collisions
   map-390-05-index — 2 floating, 0 collisions
@@ -85,34 +86,6 @@
   about-768-01-rest — 0 floating, 0 collisions
   about-768-02-menu — 2 floating, 0 collisions
 
-── 1024 (1024×768)
-  mansion-1024-01-rest — 1 floating, 0 collisions
-  mansion-1024-02-menu-open — 3 floating, 0 collisions
-  mansion-1024-03-player-inview — 1 floating, 0 collisions
-  mansion-1024-04-mini-player — 1 floating, 0 collisions
-  mansion-1024-05-mini-plus-menu — 1 floating, 0 collisions
-  mansion-1024-08-foot — 2 floating, 0 collisions
-  mansion-1024-09-cta-focus — 2 floating, 0 collisions
-  mansion-1024-10-cta-hover — 2 floating, 0 collisions
-  map-1024-01-rest — 12 floating, 0 collisions
-  map-1024-02-menu-open — 14 floating, 0 collisions
-  map-1024-05-index — 3 floating, 0 collisions
-  map-1024-06-walk — 6 floating, 0 collisions
-  map-1024-07-walk-paused — 8 floating, 0 collisions
-  map-1024-08-walk-plus-menu — 10 floating, 0 collisions
-  map-1024-09-lens-open — 12 floating, 0 collisions
-  paintings-1024-01-rest — 1 floating, 0 collisions
-  museum-1024-01-rail-rest — 2 floating, 0 collisions
-  museum-1024-02-looked-away — 2 floating, 0 collisions
-  museum-1024-03-approach — 3 floating, 0 collisions
-  museum-1024-05-alive — 3 floating, 0 collisions
-  paintings-1024-02-dialog — 1 floating, 0 collisions
-  home-1024-01-rest — 0 floating, 0 collisions
-  people-1024-01-rest — 1 floating, 0 collisions
-  people-1024-02-menu — 3 floating, 0 collisions
-  about-1024-01-rest — 1 floating, 0 collisions
-  about-1024-02-menu — 3 floating, 0 collisions
-
 ── 1440 (1440×900)
   mansion-1440-01-rest — 1 floating, 0 collisions
   mansion-1440-02-menu-open — 3 floating, 0 collisions
@@ -141,4 +114,4 @@
   about-1440-01-rest — 1 floating, 0 collisions
   about-1440-02-menu — 3 floating, 0 collisions
 
-states → docs/v7/qa/final/states/states.md — 0/132 states have collisions
+states → docs/v7/qa/final/states/states.md — 0/107 states have collisions

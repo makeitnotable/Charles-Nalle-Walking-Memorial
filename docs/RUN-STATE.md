@@ -19,7 +19,22 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-Phase 8 in flight: final evidence regenerated (above); live = HEAD site
+**Juror pass 1 = FAIL** (`docs/v7/juror-pass1.md`; Sheet A 8/7/9/9 phone,
+8/7/9/9 tablet, 8/9/9/9 desktop; retell = the Museum). P1s, both fixed:
+(1) U8 aspects fell back to 1.5 in the PRODUCTION build (module-relative
+`import.meta.url` path under `astro build`) → resolved from `process.cwd()`;
+verified in `dist/paintings.html` (0.6667 / 1.5 / 1.7778); (2) the phone
+peek-sheet was dead to touch (pointer capture set on the sheet, handlers on the
+header) → capture on the header + click fallback; tap/tap/drag verified by CDP
+touch. P2s fixed: dot rail rides the measured sheet height; chip copy tiers so
+it never meets the Skip pill; footer lane (`pb-28` had lost to the scoped
+rule → `data-audio`); phone card strip raised past the stacked (i)+logo; hero
+headroom (39 % / 42 %). P3s: play labels per part, `Back to map` spacing,
+lens caption + museum eyebrow dots glued, og:image:alt. Next: states/a11y
+re-run → commit → push → verify live aspects → juror pass 2 (fresh) → if PASS
+→ juror pass 3 (fresh) on the same build → REVIEW-GUIDE §3 → memory → push.
+
+(Earlier) Phase 8 in flight: final evidence regenerated (above); live = HEAD site
 output verified by curl markers (`--pct`, P5/P6/P7 strings); **juror pass 1
 launched** on the live build (fresh agent, `docs/v7/JUROR-PROMPT.md`) →
 report at `docs/v7/juror-pass1.md`. If PASS → juror pass 2 (different fresh

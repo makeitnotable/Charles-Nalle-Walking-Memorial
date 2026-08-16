@@ -300,7 +300,7 @@ export default function AudioStory({
     <button
       ref={mini ? undefined : mainBtnRef}
       onClick={toggle}
-      aria-label={playing ? `Pause narration: ${subtitle}` : `Play narration: ${subtitle}`}
+      aria-label={`${playing ? "Pause" : "Play"} narration: ${subtitle}${spot && spot.includes("Pt") ? `, ${spot.split("·").pop()?.trim()}` : ""}`}
       className={`flex shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors ${
         mini ? "h-11 w-11" : "h-14 w-14"
       } ${

@@ -1,0 +1,102 @@
+{
+  "arrival": {},
+  "read": {},
+  "ch2": {
+    "p390": {
+      "order": [
+        "hero",
+        "scene-0",
+        "history",
+        "moral-0",
+        "hero-2",
+        "scene-1",
+        "moral-1",
+        "onward"
+      ],
+      "spine": [
+        "Skip to content",
+        "(01)Listen · Pt 1",
+        "(02)History",
+        "(03)The moral · Pt 1",
+        "(04)Listen · Pt 2",
+        "(05)The moral · Pt 2"
+      ],
+      "sections": [
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-hero.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-scene-0.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-history.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-moral-0.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-hero-2.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-scene-1.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-moral-1.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-onward.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-p390-footer.png"
+      ],
+      "players": 2,
+      "audio": [
+        {
+          "t": 3.539498,
+          "paused": true
+        },
+        {
+          "t": 0,
+          "paused": true
+        }
+      ],
+      "fixed": [
+        "DIV @300,34 68x68 \"Home01Bakery02Commissioner’s Office03Gil\"",
+        "NAV @0,0 390x3 \"\"",
+        "DIV @20,762 114x62 \"00:03\""
+      ],
+      "log": []
+    },
+    "d1440": {
+      "order": [
+        "hero",
+        "scene-0",
+        "history",
+        "moral-0",
+        "hero-2",
+        "scene-1",
+        "moral-1",
+        "onward"
+      ],
+      "spine": [
+        "Skip to content",
+        "(01)Listen · Pt 1",
+        "(02)History",
+        "(03)The moral · Pt 1",
+        "(04)Listen · Pt 2",
+        "(05)The moral · Pt 2"
+      ],
+      "sections": [
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-hero.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-scene-0.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-history.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-moral-0.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-hero-2.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-scene-1.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-moral-1.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-onward.png",
+        "/Users/thebayniac/Documents/(A) Documents/(A) WBM Enterprises/(B) Notable/(B) Clients/Charles Nalle/cnwm-v2/docs/v7/qa/juror-pass1/ch2-d1440-footer.png"
+      ],
+      "players": 2,
+      "audio": [
+        {
+          "t": 3.686058,
+          "paused": true
+        },
+        {
+          "t": 0,
+          "paused": true
+        }
+      ],
+      "fixed": [
+        "DIV @1314,70 68x68 \"Home01Bakery02Commissioner’s Office03Gil\"",
+        "NAV @0,0 1440x3 \"\"",
+        "DIV @56,782 114x62 \"00:03\""
+      ],
+      "log": []
+    }
+  }
+}
