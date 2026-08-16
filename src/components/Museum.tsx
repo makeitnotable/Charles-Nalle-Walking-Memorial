@@ -569,7 +569,8 @@ export default function Museum({ works, slotId }: Props) {
           const sheetH = sheetRef.current?.getBoundingClientRect().height ?? 110;
           const top = inset + 56; // Back row
           const bottom = sheetH + 12 + 36 + 12; // sheet + the dot rail riding above it
-          return { F: 0.86, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
+          // F .82: the moulding stays a finger's width off both screen edges (juror pass 9 P3)
+          return { F: 0.82, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
         }
         // desktop / landscape: card left ~30%, painting centred, sketch right
         // one formula with the card's CSS width (clamp(13rem, 30vw − inset − 24px − 3rem, 22rem));
@@ -771,6 +772,9 @@ export default function Museum({ works, slotId }: Props) {
           if (dy !== 0) {
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
+            /* the scripted scroll is not "reading forward" — keep the corner
+               menu (its scroll-hide would otherwise swallow it; juror pass 9) */
+            window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
           }
         }
         setSheet("peek");
@@ -1237,7 +1241,15 @@ export default function Museum({ works, slotId }: Props) {
             style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px - 3rem), 22rem)" }}
           >
             <div className="rounded-[12px] p-4 lg:p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
-              <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
+              <p className="t-meta sep-list">
+                <span>Mark&nbsp;Priest</span>
+                <span>
+                  <span className="sr-only">· </span>Nalle&nbsp;Series
+                </span>
+                <span>
+                  <span className="sr-only">· </span>Spot&nbsp;{pad2(plaque.order)}
+                </span>
+              </p>
               <p className="t-title-sm mt-3">
                 {plaque.name}
                 {plaque.variant && (
@@ -1290,7 +1302,15 @@ export default function Museum({ works, slotId }: Props) {
               }}
             >
               <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-primary-7" aria-hidden="true" />
-              <p className="t-meta">Mark Priest&nbsp;·&nbsp;Nalle Series&nbsp;·&nbsp;Spot&nbsp;{pad2(plaque.order)}</p>
+              <p className="t-meta sep-list">
+                <span>Mark&nbsp;Priest</span>
+                <span>
+                  <span className="sr-only">· </span>Nalle&nbsp;Series
+                </span>
+                <span>
+                  <span className="sr-only">· </span>Spot&nbsp;{pad2(plaque.order)}
+                </span>
+              </p>
               <p className="t-title-sm mt-2">
                 {plaque.name}
                 {plaque.variant && (

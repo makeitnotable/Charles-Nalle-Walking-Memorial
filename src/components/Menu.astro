@@ -261,5 +261,23 @@ const notchClass =
       },
       { passive: true },
     );
+    /* A scripted scroll (the museum bringing its stage into frame) is not the
+       reader moving on: show the menu and let the NEXT real scroll decide. */
+    window.addEventListener("cnwm:menu-show", () => {
+      down = 0;
+      up = 0;
+      set(false);
+      /* the scripted scroll's own events must not count as reading forward */
+      const until = performance.now() + 1200;
+      const guard = () => {
+        if (performance.now() < until) {
+          down = 0;
+          last = window.scrollY;
+          set(false);
+          requestAnimationFrame(guard);
+        }
+      };
+      requestAnimationFrame(guard);
+    });
   })();
 </script>

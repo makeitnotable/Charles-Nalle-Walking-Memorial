@@ -100,8 +100,15 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
                       })()}
                     </div>
                     <div>
-                      {/* short authored roles never break at ` · ` or a hyphen (juror pass 8) */}
-                      <p class="t-meta whitespace-nowrap">{nbsp(person.role)}</p>
+                      {/* ` · ` roles: segments whole, the dot vanishes at a wrap (juror passes 8–9) */}
+                      <p class="t-meta sep-list">
+                        {person.role.split(" · ").map((seg, i) => (
+                          <span>
+                            {i > 0 && <span class="sr-only">· </span>}
+                            {seg}
+                          </span>
+                        ))}
+                      </p>
                       <h3 class="t-title-sm mt-3">
                         {person.name}
                       </h3>

@@ -1,0 +1,636 @@
+{
+  "home.burger": null,
+  "bakery.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "bakery.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "bakery.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "bakery.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "bakery.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "bakery.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "mansion.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "mansion.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "mansion.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "mansion.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "mansion.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "mansion.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "ferry.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "ferry.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "ferry.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "ferry.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "ferry.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "ferry.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "map.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 912,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "map.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 306,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "map.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 306,
+      "w": 370,
+      "h": 678
+    }
+  ],
+  "map.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 912,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "map.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 912,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "map.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 912,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "people.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "people.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "people.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "people.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "people.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "people.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "paintings.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "paintings.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "paintings.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    },
+    {
+      "tag": "div",
+      "cls": "sticky top-0 h-dvh w-full overflow-hidden bg-primary-2",
+      "t": "The Museum · scroll to walk · drag to look · tap a",
+      "x": 0,
+      "y": 377,
+      "w": 768,
+      "h": 1024
+    }
+  ],
+  "paintings.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "paintings.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "paintings.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "about.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "about.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "about.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "about.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "about.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "about.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "404nope.burger": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "404nope.menuOpen": {
+    "label": "Open menu",
+    "expanded": "true",
+    "x": 358,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "404nope.menuFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu-scrim",
+      "t": "",
+      "x": 0,
+      "y": 0,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 358,
+      "y": 40,
+      "w": 370,
+      "h": 662
+    }
+  ],
+  "404nope.menuClosed": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "404nope.burgerAfterDown": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 658,
+    "y": 54,
+    "op": "0",
+    "vis": "visible",
+    "ptr": "none"
+  },
+  "404nope.burgerAfterUp": {
+    "label": "Open menu",
+    "expanded": "false",
+    "x": 656,
+    "y": 40,
+    "op": "1",
+    "vis": "visible",
+    "ptr": "auto"
+  },
+  "trailingSlash.url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery",
+  "mansion.footerFloating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1024,
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:02",
+      "x": 40,
+      "y": 922,
+      "w": 114,
+      "h": 62
+    }
+  ],
+  "mansion.footerCovered": [],
+  "consoleErrors": [
+    {
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    },
+    {
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery/",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ]
+}

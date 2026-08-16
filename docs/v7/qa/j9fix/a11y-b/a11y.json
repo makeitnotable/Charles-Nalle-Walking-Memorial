@@ -1,0 +1,80 @@
+{
+ "base": "http://localhost:4321",
+ "startedAt": "2026-08-16T17:32:15.559Z",
+ "runs": [
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "walk",
+   "violations": [],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "lens-1858",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "dialog",
+   "violations": [],
+   "passes": 9,
+   "incomplete": 1
+  }
+ ],
+ "keyboard": [],
+ "reducedMotion": [],
+ "zoom": [
+  {
+   "route": "/paintings",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/map",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "div.keen-slider__slide",
+    "div.origin-bottom",
+    "div.mx-auto",
+    "div.h-full",
+    "picture."
+   ]
+  }
+ ],
+ "consoleErrors": [],
+ "finishedAt": "2026-08-16T17:33:15.708Z"
+}

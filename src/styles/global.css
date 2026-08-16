@@ -351,6 +351,36 @@ h3 {
   color: var(--color-neutral-12);
   text-wrap-style: balance;
 }
+/* v7 (juror passes 8–9): ` · `-separated eyebrows and roles. Segments never
+   break inside themselves and the separator VANISHES at a line break — a wrap
+   gives `INDUSTRIALIST` / `CHARLES’S EMPLOYER`, never a dot dangling at a line
+   end or opening the next. Each segment carries its own leading dot in a
+   negative-margin lane; at a line start that lane lies outside the box and
+   `overflow-x: clip` hides it (no scroll container, no vertical clipping). */
+.sep-list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: clip;
+  overflow-y: visible;
+  row-gap: 0.15em;
+}
+/* the lane is the width the old " · " text took (space · space at this tracking) */
+.sep-list > span {
+  position: relative;
+  white-space: nowrap;
+  margin-left: -1.1em;
+  padding-left: 1.1em;
+}
+.sep-list > span:not(:last-child) {
+  padding-right: 1.1em;
+}
+.sep-list > span::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  width: 1.1em;
+  text-align: center;
+}
 /* v7 (juror pass 7 P3): the map index at 360 — "COMMISSIONER'S" (26 px Caslon,
    one unbreakable word) ran 33 px past its column; the title follows the
    phone's width until the ladder size fits (≥ 400 px = 26 px again). */

@@ -19,7 +19,18 @@ trailing slash. Gate: frames.mjs clean; contrast exit 0 (for P2-owned rows);
 rag clip-probe zero; favicon URLs 200 locally.
 
 ## NEXT ACTION
-**Juror pass 8 = FAIL on Sheet B only** (`docs/v7/juror-pass8.md`, build 29e69f4;
+**Juror pass 9 = FAIL** (`docs/v7/juror-pass9.md`, build 480f715; Sheet A phone
+8/7/9/8, tablet 8/8/9/9, desktop 9/9/9/9; ONE P1 = my `nowrap` on People roles
+clipped every note at 360/390 (see DECISIONS) → `.sep-list` pattern; verified
+`body.scrollWidth` = viewport at 360/390/768/1440, wraps by segment, one-line
+roles pixel-identical. Both juror-8 P2s confirmed fixed by juror 9. P3s taken:
+plaque eyebrow by segment, ☰ kept in approach mode, phone approach margins.
+Regression: a11y (people/paintings/map) · museum · rag — see
+`docs/v7/qa/j9fix/*.log`. Next: commit → push → verify live → **juror pass 10**
+(fresh) → if PASS → **juror pass 11** (fresh, identical build) → REVIEW-GUIDE §3
+→ memory → push. The count restarted (P1).
+
+(Earlier) **Juror pass 8 = FAIL on Sheet B only** (`docs/v7/juror-pass8.md`, build 29e69f4;
 Sheet A phone 9/9/9/9, tablet 8/9/9/9, desktop 9/9/9/9; ZERO P0/P1; all
 instrument bars met; juror-7 P1 + P2-1 + four P3s confirmed fixed). Two P2s,
 fixed: (1) museum plaque titles runted `· NARRATIVE / II` in the 13rem card at
@@ -303,6 +314,27 @@ People roles P6, About quote/list P6, footer wordmark@768 P3, mansion prose P4.
   reduced motion. The desktop card width is ONE formula in CSS and the
   composition (`clamp(13rem, 30vw − inset − 24px − 3rem, 22rem)`), the −3rem
   giving the painting ~2× the width at 1024×768 (P3-8).
+
+- Juror pass 9 (P1, MY regression): `whitespace-nowrap` on the People roles
+  (juror-8 P3 "wraps after ·") let the widest role set the grid column's
+  min-content width — 384 px in a 320 px lane, every note clipped at 360/390.
+  Lesson logged: never `nowrap` a grid/flex child without `min-width: 0`
+  semantics; and MEASURE against the lane (`body.scrollWidth` vs
+  `innerWidth`), not the element against itself. Replacement = the
+  `.sep-list` pattern (global.css): ` · ` eyebrows/roles as flex-wrapped
+  segments that never break inside and whose separator lives in a
+  negative-margin lane clipped by `overflow-x: clip` at a line start — a wrap
+  gives `INDUSTRIALIST` / `CHARLES’S EMPLOYER`, one line renders exactly as
+  before; sr-only `· ` keeps the accessible name. Applied to People roles and
+  the museum plaque eyebrow (juror-9 P3-1 `NALLE / SERIES`).
+- Juror pass 9 P3s taken: the museum's approach scroll dispatches
+  `cnwm:menu-show` (Menu resets its travel counters and ignores the scripted
+  scroll for 1.2 s) so the ☰ is there in approach mode; portrait approach
+  F .82 (moulding 14 px off the edges at 390, was ~2). Left: the one-frame
+  3 px strip at the top during the cover tween (the panel slides up; the strip
+  is under it — hit-test and a forced-panel pixel check both confirm; not a
+  layering bug), the hint chip vs stop 4, the 360 walk pill at x=0, the pill
+  over the hero H1 when scrolled back up while playing, 720×450 overview.
 
 ## STANDING NOTES
 - Dev server: `astro dev` on :4321 (background); production preview on :4322
