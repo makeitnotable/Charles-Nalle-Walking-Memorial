@@ -27,8 +27,18 @@ Non-negotiables inherited from the constitution's design baseline:
 - The base path differs per environment (GH Pages serves under
   `/Charles-Nalle-Walking-Memorial`; dev and Vercel previews under `/`) — always build
   URLs with `withBase()` from `src/lib/url.ts`, never hardcode root-relative paths.
-- This code lives on the `v2` branch of `makeitnotable/Charles-Nalle-Walking-Memorial`
-  (the legacy SPA owns `main`/`match-figma-designs` — never push to those branches).
+- **Branches.** The Astro site is this repo's default branch: `main` (renamed
+  from `v2` on 2026-08-16; if the rename has not been applied yet the site is
+  still on `v2` — check `git branch -r`). `.github/workflows/deploy.yml` fires
+  on BOTH names, so the rename is transparent to CI and plain `git push` on the
+  checked-out branch is always correct. The legacy Vite/React SPA is a DIFFERENT
+  application with unrelated git history (no common ancestor, so it can never be
+  merged): `legacy-spa` (frozen, tag `legacy-spa-final`), `match-figma-designs`,
+  `feat/*`, `fix/*`, `test-branch` — never merge, build, deploy, or push to any
+  of them.
+- A fresh clone has no `.env` (gitignored) and `astro dev` never reads
+  `.env.production`, so `npm run dev` seeds one automatically (`predev` →
+  `scripts/ensure-env.mjs`). Without it the map renders with an empty token.
 
 ## Development
 

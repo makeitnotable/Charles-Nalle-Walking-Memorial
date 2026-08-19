@@ -157,7 +157,7 @@ static files served for free.
 
 ```bash
 npm install
-npm run dev      # preview at localhost:4321
+npm run dev      # preview at localhost:4321 (seeds .env from .env.production)
 npm run build    # produce the publishable files
 npm run check    # type-check
 ```
