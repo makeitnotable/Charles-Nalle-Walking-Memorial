@@ -11,6 +11,7 @@
     "build": "astro build && node scripts/check-css.mjs",
     "preview": "astro preview",
     "check": "astro check",
+    "qa:setup": "playwright install chromium",
     "astro": "astro",
     "qa:shots": "node scripts/shots.mjs",
     "qa:probe": "node scripts/probe.mjs",

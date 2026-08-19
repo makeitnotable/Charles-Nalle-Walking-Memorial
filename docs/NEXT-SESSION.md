@@ -44,6 +44,17 @@ npm run check      # type-check (astro check)
 npm run build      # production build + CSS check
 ```
 
+**On a fresh machine or container, install the browser first:**
+
+```bash
+npm run qa:setup   # playwright install chromium — the npm package ships no browser
+```
+
+Without it every instrument fails with "Executable doesn't exist". `qa:perf`
+additionally drives Chrome through `chrome-launcher`; if no system Chrome is
+present, point it at the Playwright build with
+`export CHROME_PATH=$(node -e "console.log(require('playwright').chromium.executablePath())")`.
+
 Quality instruments live in `scripts/` (`npm run qa:*`), all take `--base URL`
 and default to :4321 — `rag` (runts, glyph-ink clips, em dashes), `a11y` (axe +
 keyboard + reduced motion + 200 % zoom), `states` (interaction states and
