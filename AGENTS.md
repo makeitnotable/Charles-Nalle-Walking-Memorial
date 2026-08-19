@@ -27,15 +27,17 @@ Non-negotiables inherited from the constitution's design baseline:
 - The base path differs per environment (GH Pages serves under
   `/Charles-Nalle-Walking-Memorial`; dev and Vercel previews under `/`) — always build
   URLs with `withBase()` from `src/lib/url.ts`, never hardcode root-relative paths.
-- **Branches.** The Astro site is this repo's default branch: `main` (renamed
-  from `v2` on 2026-08-16; if the rename has not been applied yet the site is
-  still on `v2` — check `git branch -r`). `.github/workflows/deploy.yml` fires
-  on BOTH names, so the rename is transparent to CI and plain `git push` on the
-  checked-out branch is always correct. The legacy Vite/React SPA is a DIFFERENT
-  application with unrelated git history (no common ancestor, so it can never be
-  merged): `legacy-spa` (frozen, tag `legacy-spa-final`), `match-figma-designs`,
-  `feat/*`, `fix/*`, `test-branch` — never merge, build, deploy, or push to any
-  of them.
+- **This site is the `v2` branch.** Check out `v2`, work on `v2`, push `v2`
+  (plain `git push`). Every push auto-deploys to GitHub Pages via
+  `.github/workflows/deploy.yml`.
+- **`main` is NOT this site — do not touch it.** It holds a legacy Vite/React
+  SPA: a different application with unrelated git history (no common ancestor,
+  so the two can never be merged). Same for `match-figma-designs`, `feat/*`,
+  `fix/*`, `test-branch`. Never merge, build, deploy, or push to any of them.
+  GitHub Pages now publishes from Actions, so a push to `main` would build the
+  OLD app and replace the live memorial site. (A future cleanup may rename
+  `main` → `legacy-spa` and `v2` → `main`; until then the rule above stands, and
+  the legacy tip is frozen at tag `legacy-spa-final`.)
 - A fresh clone has no `.env` (gitignored) and `astro dev` never reads
   `.env.production`, so `npm run dev` seeds one automatically (`predev` →
   `scripts/ensure-env.mjs`). Without it the map renders with an empty token.
