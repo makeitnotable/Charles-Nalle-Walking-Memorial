@@ -27,8 +27,8 @@ Live: https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/
   build, deploy, or push to them. Pages publishes from Actions, so a push to
   `main` would build the OLD app over the live site. The legacy tip is frozen
   at tag `legacy-spa-final`.
-- The repo's *default* branch is still `main`, so a fresh clone or cloud
-  session lands on the legacy app unless you **select `v2`**.
+- `v2` is the repo's **default branch** (set 2026-08-19), so a fresh clone or
+  cloud session lands here automatically.
 - Every push to the site branch auto-deploys to GitHub Pages via
   `.github/workflows/deploy.yml` (Pages build type = "GitHub Actions"; no
   branch setting governs it). **Live must equal HEAD before any review pass** —
