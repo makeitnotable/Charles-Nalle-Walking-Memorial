@@ -130,6 +130,9 @@ export default function Museum({ works, slotId }: Props) {
   const [ready, setReady] = useState(false);
   const [railIdx, setRailIdx] = useState(0);
   const [lookedAway, setLookedAway] = useState(false);
+  /** v8 V8-327: true once the rail steps through the arch — the hall's chrome
+   *  (chip, Skip, dots) clears out for the walk down. */
+  const [descending, setDescending] = useState(false);
   /** Phone sheet: "peek" (title only) or "full". */
   const [sheet, setSheet] = useState<"peek" | "full">("peek");
   const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -206,7 +209,7 @@ export default function Museum({ works, slotId }: Props) {
     if (!capable || !slotId) return;
     const slot = document.getElementById(slotId);
     if (!slot) return;
-    slot.style.height = `${works.length * 90 + 100}vh`;
+    slot.style.height = `${works.length * 90 + 160}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
     const lead = slot.querySelector<HTMLElement>(":scope > div");
@@ -436,29 +439,105 @@ export default function Museum({ works, slotId }: Props) {
         wall.position.set(CH * -side, CEIL_Y / 2, hallMid);
         scene.add(wall);
       }
-      // End wall with a doorway (U9), the entry wall behind you (U4)
+      // Frame finish: moulding, gilt lip (top face lit), slip, rebate. The
+      // lit top reads through VERTEX colours on a single material — one draw
+      // call per box (a per-face material array costs six).
+      const litBox = (w: number, h: number, d: number, side: string, top: string) => {
+        const g = new THREE.BoxGeometry(w, h, d);
+        const cs = new THREE.Color(side), ct = new THREE.Color(top);
+        const n = g.attributes.position.count;
+        const col = new Float32Array(n * 3);
+        const nrm = g.attributes.normal;
+        for (let i = 0; i < n; i++) {
+          const up = nrm.getY(i) > 0.5;
+          const c = up ? ct : cs;
+          col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+        }
+        g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+        return g;
+      };
+      const vcMat = new THREE.MeshBasicMaterial({ vertexColors: true });
+      /* End wall (U9) — v8 V8-327 (Wil, 00:29:41: the white rectangle should
+         be "a Greek archway… you walk through it and down the steps"). The
+         post-and-lintel doorway is now ONE wall with an arched cutout, so the
+         warm light beyond is shaped by the opening itself: the wall masks the
+         glow plane behind it, and an arch-shaped hole makes an arch of light.
+         Net +3 draw calls (one wall replaces jambs + lintel; archivolt, two
+         pilasters, keystone and landing are new). */
       const endW = CH * 2 + 2;
-      const doorW = 1.6;
-      const doorH = 2.6;
-      for (const sx of [-1, 1]) {
-        const jamb = new THREE.Mesh(new THREE.PlaneGeometry((endW - doorW) / 2, CEIL_Y + 0.2), wallMat);
-        jamb.position.set(sx * (doorW / 2 + (endW - doorW) / 4), CEIL_Y / 2, endZ);
-        scene.add(jamb);
+      const ARCH_W = 1.9;
+      const ARCH_R = ARCH_W / 2;
+      const ARCH_SPRING = 2.0; // where the curve starts; apex at 2.95
+      const archPath = (r: number) => {
+        const p = new THREE.Path();
+        p.moveTo(-r, -0.1);
+        p.lineTo(-r, ARCH_SPRING);
+        p.absarc(0, ARCH_SPRING, r, Math.PI, 0, true);
+        p.lineTo(r, -0.1);
+        p.closePath();
+        return p;
+      };
+      const endShape = new THREE.Shape();
+      endShape.moveTo(-endW / 2, -0.1);
+      endShape.lineTo(endW / 2, -0.1);
+      endShape.lineTo(endW / 2, CEIL_Y + 0.1);
+      endShape.lineTo(-endW / 2, CEIL_Y + 0.1);
+      endShape.closePath();
+      endShape.holes.push(archPath(ARCH_R));
+      const endGeo = new THREE.ShapeGeometry(endShape, 24);
+      /* ShapeGeometry writes UVs in shape units; the plaster texture is set up
+         for a 0–1 plane (as the old jambs were), so remap over the bounds. */
+      endGeo.computeBoundingBox();
+      {
+        const bb = endGeo.boundingBox!;
+        const uv = endGeo.attributes.uv;
+        const pos = endGeo.attributes.position;
+        const sx = 1 / (bb.max.x - bb.min.x);
+        const sy = 1 / (bb.max.y - bb.min.y);
+        for (let i = 0; i < uv.count; i++) uv.setXY(i, (pos.getX(i) - bb.min.x) * sx, (pos.getY(i) - bb.min.y) * sy);
+        uv.needsUpdate = true;
       }
-      const lintel = new THREE.Mesh(new THREE.PlaneGeometry(doorW, CEIL_Y - doorH + 0.2), wallMat);
-      lintel.position.set(0, doorH + (CEIL_Y - doorH) / 2, endZ);
-      scene.add(lintel);
+      const endWall = new THREE.Mesh(endGeo, wallMat);
+      endWall.position.set(0, 0, endZ);
+      scene.add(endWall);
+      // Archivolt: the moulded band around the arch, a hair proud of the wall
+      const archivoltShape = new THREE.Shape(archPath(ARCH_R + 0.15).getPoints(48));
+      archivoltShape.holes.push(archPath(ARCH_R));
+      const archivolt = new THREE.Mesh(new THREE.ShapeGeometry(archivoltShape, 24), mat("#5c4030"));
+      archivolt.position.set(0, 0, endZ + 0.03);
+      scene.add(archivolt);
+      // Pilasters + keystone: enough architecture to read as an order, no more
+      for (const sx of [-1, 1]) {
+        const pil = new THREE.Mesh(litBox(0.24, ARCH_SPRING + 0.12, 0.2, "#4a3226", "#5c4030"), vcMat);
+        pil.position.set(sx * (ARCH_R + 0.15), (ARCH_SPRING + 0.12) / 2 - 0.05, endZ + 0.1);
+        scene.add(pil);
+      }
+      const keystone = new THREE.Mesh(litBox(0.26, 0.36, 0.22, "#4a3226", "#6d4830"), vcMat);
+      keystone.position.set(0, ARCH_SPRING + ARCH_R + 0.06, endZ + 0.11);
+      scene.add(keystone);
       const entry = new THREE.Mesh(new THREE.PlaneGeometry(endW, CEIL_Y + 0.2), wallMat);
       entry.position.set(0, CEIL_Y / 2, ENTRY_Z);
       entry.rotation.y = Math.PI;
       scene.add(entry);
-      // Threshold: three steps descending toward the glow beyond the doorway
-      const stepMat = mat("#1f130d");
+      /* Threshold: three steps down through the arch (0.16 rise / 0.5 run,
+         0.48 m in all) and the landing they arrive at. The v7 steps were
+         0.14 boxes sunk below the floor behind a solid wall — never seen. */
+      // treads a touch lighter than the landing so they read as steps, not
+      // a dark band, when the arch light rakes across them (V8-327)
+      const stepMat = mat("#3a2617");
+      const STEP_RISE = 0.16;
+      const STEP_RUN = 0.5;
+      const stepsTop = endZ - 0.1;
       for (let k = 0; k < 3; k++) {
-        const step = new THREE.Mesh(new THREE.BoxGeometry(doorW + 0.4, 0.14, 0.5), stepMat);
-        step.position.set(0, -0.07 - k * 0.14, endZ - 0.4 - k * 0.5);
+        const step = new THREE.Mesh(new THREE.BoxGeometry(ARCH_W + 0.7, STEP_RISE, STEP_RUN), stepMat);
+        step.position.set(0, -STEP_RISE * (k + 1) + STEP_RISE / 2, stepsTop - STEP_RUN * (k + 0.5));
         scene.add(step);
       }
+      const DESCENT = STEP_RISE * 3; // 0.48
+      const landing = new THREE.Mesh(new THREE.PlaneGeometry(endW, 6), mat("#241609"));
+      landing.rotation.x = -Math.PI / 2;
+      landing.position.set(0, -DESCENT, stepsTop - STEP_RUN * 3 - 3);
+      scene.add(landing);
       // The far-end draw: warm light beyond the doorway
       const drawCanvas = document.createElement("canvas");
       drawCanvas.width = drawCanvas.height = 128;
@@ -470,11 +549,18 @@ export default function Museum({ works, slotId }: Props) {
         g.fillStyle = rg;
         g.fillRect(0, 0, 128, 128);
       }
+      /* v8 V8-327: the glow needs no shape of its own — the arched wall in
+         front of it IS the mask, so what you see down the hall is an arch of
+         light instead of the old white rectangle. It sits far enough beyond
+         the steps that the descent never reaches its plane, and rises to the
+         arch's centre so the opening fills evenly. */
       const drawGlow = new THREE.Mesh(
-        new THREE.PlaneGeometry(4, 3.4),
+        // wide enough to fill the frame once you are THROUGH the arch (at
+        // 3.1 m the 72° lens sees 4.6 m, so 4.4 left dark corners)
+        new THREE.PlaneGeometry(7.4, 5.6),
         new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(drawCanvas), transparent: true, depthWrite: false, fog: false }),
       );
-      drawGlow.position.set(0, 1.2, endZ - 2.2);
+      drawGlow.position.set(0, 1.35, endZ - 3.4);
       scene.add(drawGlow);
 
       // Radial "spotlight pool" sprite, shared by every canvas
@@ -502,24 +588,6 @@ export default function Museum({ works, slotId }: Props) {
       const paintingMats: MeshBasicMaterial[] = [];
       const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
       const loadedFlags: boolean[] = works.map(() => false);
-      // Frame finish: moulding, gilt lip (top face lit), slip, rebate. The
-      // lit top reads through VERTEX colours on a single material — one draw
-      // call per box (a per-face material array costs six).
-      const litBox = (w: number, h: number, d: number, side: string, top: string) => {
-        const g = new THREE.BoxGeometry(w, h, d);
-        const cs = new THREE.Color(side), ct = new THREE.Color(top);
-        const n = g.attributes.position.count;
-        const col = new Float32Array(n * 3);
-        const nrm = g.attributes.normal;
-        for (let i = 0; i < n; i++) {
-          const up = nrm.getY(i) > 0.5;
-          const c = up ? ct : cs;
-          col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
-        }
-        g.setAttribute("color", new THREE.BufferAttribute(col, 3));
-        return g;
-      };
-      const vcMat = new THREE.MeshBasicMaterial({ vertexColors: true });
       const slipMat = mat("#1a100a");
 
       type Placement = { pos: { x: number; y: number; z: number }; side: number; w: number; h: number };
@@ -688,7 +756,33 @@ export default function Museum({ works, slotId }: Props) {
       const cur = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       let target = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       const railPitch = portrait ? RAIL_PITCH_PORTRAIT : RAIL_PITCH;
-      const railZ = () => 0.4 - railT * (works.length * SPACING + OVERRUN - 0.4);
+      /* v8 V8-327: the rail is now a PATH, not a line. It walks the hall as
+         before, then the last stretch carries you through the arch and down
+         the three steps — the split is derived from the two distances, so the
+         walking speed never changes at the hand-off (a fixed 12% made the
+         descent read as a lurch). `railZ()` stays as the z-only accessor the
+         marker-fade code wants. */
+      const WALK_END = 0.4 - (works.length * SPACING + OVERRUN - 0.4);
+      const DESCEND_TO = endZ - 2.0;
+      const WALK_DIST = 0.4 - WALK_END;
+      const DESC_DIST = WALK_END - DESCEND_TO;
+      const T_WALK = WALK_DIST / (WALK_DIST + DESC_DIST);
+      const railPose = (t: number) => {
+        if (t <= T_WALK) {
+          const u = T_WALK > 0 ? t / T_WALK : 0;
+          return { z: 0.4 - u * WALK_DIST, y: EYE, pitch: railPitch, descending: 0 };
+        }
+        const u = (t - T_WALK) / (1 - T_WALK);
+        const e = u * u * (3 - 2 * u); // smoothstep: the step-down settles
+        return {
+          z: WALK_END - u * DESC_DIST,
+          y: EYE - e * DESCENT,
+          // dip the eyes toward the steps, then level out on the landing
+          pitch: railPitch - Math.sin(u * Math.PI) * 0.07,
+          descending: u,
+        };
+      };
+      const railZ = () => railPose(railT).z;
 
       let lastRailIdx = -1;
       const onScroll = () => {
@@ -1226,6 +1320,7 @@ export default function Museum({ works, slotId }: Props) {
       // ——— Frame loop ———
       let lastT = performance.now();
       let lookedFlag = false;
+      let descendingFlag = false;
       let rectTick = 0;
       const tick = () => {
         raf = requestAnimationFrame(tick);
@@ -1238,7 +1333,14 @@ export default function Museum({ works, slotId }: Props) {
         const kLook = 1 - Math.exp(-dt / 0.16);
 
         if (mode === "rail") {
-          target = { x: 0, y: EYE, z: railZ(), yaw: 0, pitch: railPitch };
+          const pose = railPose(railT);
+          target = { x: 0, y: pose.y, z: pose.z, yaw: 0, pitch: pose.pitch };
+          /* the chrome clears out as you step through the arch (V8-327) */
+          const desc = pose.descending > 0.12;
+          if (desc !== descendingFlag) {
+            descendingFlag = desc;
+            setDescending(desc);
+          }
           const idx = Math.min(works.length - 1, Math.max(0, Math.round(-target.z / SPACING)));
           loadWork(idx);
           if (idx + 1 < works.length) loadWork(idx + 1);
@@ -1372,6 +1474,10 @@ export default function Museum({ works, slotId }: Props) {
             fov: camera.fov,
             far: camera.far,
             portrait,
+            /* v8 V8-327: where the walk is on the arch/steps path */
+            descending: railPose(railT).descending,
+            tWalk: T_WALK,
+            endZ,
             running: inView && visible && !covered,
             works: works.length,
             spacing: SPACING,
@@ -1522,7 +1628,7 @@ export default function Museum({ works, slotId }: Props) {
   const inApproach = approached !== null;
 
   return (
-    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
+    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 160}vh` }} className={slotId ? "relative h-full" : "relative"}>
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
@@ -1530,7 +1636,7 @@ export default function Museum({ works, slotId }: Props) {
             it slightly above the screen's middle; desktop keeps the chip
             top-centre while Face forward rides top-RIGHT on Skip's axis and
             inset. */}
-        {ready && !inApproach && (
+        {ready && !inApproach && !descending && (
           <div
             className="pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
@@ -1558,7 +1664,7 @@ export default function Museum({ works, slotId }: Props) {
             )}
           </div>
         )}
-        {ready && !inApproach && lookedAway && (
+        {ready && !inApproach && lookedAway && !descending && (
           <div
             className="absolute z-10 hidden lg:block"
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", right: "var(--ui-inset)" }}
@@ -1575,7 +1681,7 @@ export default function Museum({ works, slotId }: Props) {
         )}
 
         {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
-        {ready && !inApproach && (
+        {ready && !inApproach && !descending && (
           <div className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
             <button
               type="button"
@@ -1762,8 +1868,13 @@ export default function Museum({ works, slotId }: Props) {
               /* first-frame fallback only — tick() then follows the LIVE sheet
                  top every frame while the drawer slides (v8 V8-328) */
               bottom: plaque && portraitUI ? `${Math.round(sheetH) + DOT_GAP}px` : "calc(var(--ui-inset) + 4px)",
-              transition: "bottom var(--dur-fast) var(--ease)",
+              transition: "bottom var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease)",
+              /* V8-327: the dots leave with the rest of the chrome as the
+                 walk steps through the arch and down. */
+              opacity: descending ? 0 : 1,
+              pointerEvents: descending ? "none" : undefined,
             }}
+            aria-hidden={descending || undefined}
             aria-label="Works in the hall"
           >
             <p className="t-meta hidden whitespace-nowrap sm:block" aria-hidden="true">

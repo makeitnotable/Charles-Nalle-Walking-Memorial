@@ -7,28 +7,29 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**P5 batch 1 + P6 committed.** P5 remainder (V8-328/329/325/327) is the
-open front. Environment note: this container blocks
+**P1–P6 COMPLETE.** Every audit item is implemented and committed. P7 is
+the open front: full instrument re-run (rag · contrast · a11y · census ·
+audio · frames · states + production perf), docs/v8/REVIEW-GUIDE.md
+(§2 bars, §3 judgement calls, §4 human queue), run-complete, final push. Environment note: this container blocks
 cdn.playwright.dev — the pre-installed Chromium at /opt/pw-browsers is
 shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
 1194 builds); `npm run qa:setup` is NOT needed here. Dev server :4321 up
 (self-daemonized).
 
 ## CURRENT ITEM
-P5 remainder: V8-325 frames IMPLEMENTED (gating on museum-check p5e),
-then V8-327 arch + stairs → P7 full gate + REVIEW-GUIDE.
+P7 — the closing gate.
 
 ## NEXT ACTION
-Commit V8-325 + the Face-forward duplicate fix when p5e reports, then
-V8-327: arched end wall (ShapeGeometry + archivolt + pilasters +
-keystone + landing, +3 draw calls), arch-shaped glow, steps 0.16/0.5
-descending 0.48m, railZ() → piecewise railPose(railT) with T_WALK from
-the geometry, slot +60vh at BOTH the wrapper and the :1164-area
-fallback, dots/chip/Skip fading while descending.
+Full instrument matrix on dev (rag 9vp × 11 routes · contrast · a11y ·
+census · audio-check · frames · arrival), then the PRODUCTION build on
+:4322 for perf (home 97 · chapters 98–99 · map 64 · paintings ≥80 ·
+people/about 99 are the v7 bars), then finish docs/v8/REVIEW-GUIDE.md
+§2–§4 and push.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| P5 batch 4 — V8-327 arch + stairs (the end wall is ONE ShapeGeometry with an arched cutout — ARCH_W 1.9, spring 2.0, apex 2.95 — plus archivolt, two pilasters and a keystone; the wall masks the glow plane, so the old "white rectangle" becomes an arch of light with no new texture; glow widened to 7.4×5.6 at endZ−3.4 so it fills the frame once you are through; steps rebuilt 0.16 rise / 0.5 run descending 0.48m with treads lighter than the landing; railZ() → piecewise railPose(railT) with T_WALK DERIVED from walk vs descent distance (0.875) so the speed never changes at the hand-off; chip/Skip/Face-forward unmount and the dots fade while descending; slot 90N+100 → 90N+160vh at BOTH sites; hook exposes descending/tWalk/endZ) | (this commit) | arch probe at railT 0/.5/.86/.93/.97/1 × 1440+390: z −49.8 → −58 (past endZ −56), y 1.55 → 1.07 (0.48 exactly), pitch dips −0.219 then settles, dots opacity 1 → 0, Skip gone, 0 page errors; museum-p5f calls 77 (79 land) ≤ 80, no composition/chrome findings; at rail END the fps findings fall to 14/240 (390) — past the arch only 3 objects draw, which independently confirms the fps ceiling is this container's software-GL scene cost |
 | P5 batch 3 — V8-325 frames (the canvas floated 105mm proud of the innermost ring, so obliquely each painting read as a slab with brown flanks: depths are now authored as "how far this face stands into the room" and step in 15mm — moulding 20 / lip 35 / slip 50 / canvas 60, i.e. 10mm proud, a shadow line instead of a wall; in-plane steps widen to 340/180/70mm for a slightly richer profile; the study frame takes the same idiom. FIRST attempt inverted the order (moulding most proud) and the solid boxes occluded every painting — caught by the oblique shot, not by any assertion) + a Face-forward duplicate at ≥1024 (V8-322's `lg:hidden` sat on a `.btn-sm`, whose unlayered `display:inline-flex` beats Tailwind's layered utility — the utility now rides a bare span; only instance in the codebase) | (this commit) | museum-p5e: calls 74 (76 land) ≤80, ZERO composition/chrome findings; frame shots hall/oblique/mid at 1440+390 before vs after; face-forward probe = exactly 1 visible at 390/768/1024/1440, at the authored corner |
 | P5 batch 2 — V8-328 drawer (pill handle deleted; 44×44 X close, visible only when open; DOT_GAP=24/DOTS_H=36 single-sourced across the JSX bottom, tick()'s live follower and layout()'s reserve; ONE continuous sheetPos driven by header drag + axis-locked stage swipe (8px window, 1.2 vertical bias) + a wheel state machine (zoom above the floor → open → close, 160ms latch, idle snap); body always mounted so layout() reads the VISIBLE height and the painting recomposes as the drawer slides; the alive-toggle overlay is `pointer-events:none` so a swipe starting over the painting reaches the stage — keyboard/SR activation unaffected) + V8-329 study on the plaque (new `study`/`studyAspect`/`studyNote` fields — the 5 horizontals take their chapter's drawing, commissioners Part 2 its own `sketch-pt2`, narratives none; thumbnail+label on one line with the note beneath at full card width; card capped to the stage with inner scroll) + instrument fix: museum-check waits for the dolly to SETTLE before the composition assertions | (this commit) | drawer probe 390/768: wheel-open · X-close · swipe-open · hook round-trip all land, dotGap exactly 24 in every state, painting recomposes live (top 278→228), 0 console errors; card heights 682/668/600 at 1024×768 / 1280×800 / 1440×900 (was 973 at 1024×768, overflowing); museum-p5d: calls 74 (76 land) ≤80, cx 0.501 at 768/1024/1440 (0.531 before the settle fix), overlaps card false; a11y /paintings 0/0/0 across 6 runs incl. RM + zoom200 |
 | P6 people+about — V8-301 the three-line H1 at every width (the v7 xl two-line swap deleted; 88px at ≥1280 in the 8fr column, right edge 872<1440) + V8-303 tablet intro break (authored `md:max-lg` br + `{" "}`; natural wraps elsewhere) + V8-304 afterword attribution breaks after "Freeing Charles:" at EVERY width (Wil asked tablet; the one-liner also overran the 46rem figure at 1024–1440 with a mid-subtitle wrap — the audit's noted fallback; data split at the colon, never hardcoded) + V8-305 phones read photo → NAME → prose via grid areas (DOM stays heading-first; 32px above / 28px below the name; ≥640 the v7 name-first layout exact, 48px row gap) + V8-306 book title NBSP-glued at phrase boundaries (punctuation-only) + V8-307 About closer centred below lg (58/58 · 183/183 · 227/227 · 260/260; 1024+ left 0/427+; People closer untouched per Wil "on the about page") | (this commit) | rag people+about 9vps 0/0/0 (+ /about re-run post-V8-304: 0/0/0); a11y 6 runs 0 serious/mod/minor + RM + zoom200 ok; p6-probe2 settled geometry table + shots (scratchpad/p6-shots) |
