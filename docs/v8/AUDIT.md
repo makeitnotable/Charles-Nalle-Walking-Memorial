@@ -5,7 +5,7 @@ full transcript, desktop → tablet → mobile). Build audited: `ece01a0`
 (= v7 RUN COMPLETE, live = HEAD). The transcript is the authority — the
 auto-generated task list garbles several items, two requests were
 **rescinded mid-meeting**, and one request appears only in the transcript
-(V8-141 painting-to-painting). Every finding below carries an ID, the
+(V8-331 painting-to-painting). Every finding below carries an ID, the
 place (file:line at `ece01a0`), what is wrong, the planned fix, and how it
 is verified. Severity: P1 = Wil named it and a visitor would notice ·
 P2 = Wil named it, polish · REV = explicitly rescinded, do NOT do.
