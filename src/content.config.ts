@@ -67,6 +67,10 @@ const chapters = defineCollection({
       /** v7 M6: the map card's authored two-line title ("Holeur’s\nFashionable
        *  Bakery"); falls back to `canonical`. See docs/v4/NAMING-CANON.md. */
       card: z.string().optional(),
+      /** v8 V8-207 (Wil, 00:58:43): the phone map pill's extra-short name
+       *  (Bakery · Commissioner · Mansion · Ferry · Barbershop) — a map
+       *  shorthand only, never the bronze word; falls back to `short`. */
+      pin: z.string().optional(),
     }),
     /**
      * Leader-line vector from the pin to its label, in screen px at the

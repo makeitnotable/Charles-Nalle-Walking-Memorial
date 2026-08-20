@@ -3,7 +3,8 @@
   "name": {
     "canonical": "Washington Street Ferry Landing",
     "display": "WASHINGTON\nSTREET FERRY\nLANDING",
-    "short": "Ferry Landing"
+    "short": "Ferry Landing",
+    "pin": "Ferry"
   },
   "chapterLabel": "Chapter 4",
   "sketchNote": "The whole sheet goes to the scrum: a dozen figures worked into one another over the cobblestones, the buildings behind them barely roughed in. Through the center runs one taut line, hauling Charles forward, and every hand in the drawing is fighting for it.",

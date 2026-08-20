@@ -22,19 +22,20 @@ chromium-1234/chromium_headless_shell-1234 (symlinks to the 1194 builds);
 (self-daemonized).
 
 ## CURRENT ITEM
-P3 — chapters: V8-271 chip inset/labels → V8-272 H1 step → V8-274 study
-tertiary → V8-275/276 moral legibility + ferry ground → V8-277 hook
-centring → V8-278 barbershop focus → V8-204 where-to-next relayout →
-V8-205 ch2 map fade.
+P5 — museum: V8-320 plaque/naming → V8-321/322/323 chrome → V8-324 camera
++ pan → V8-325 frames → V8-330 mobile fit → V8-326 alive-by-default →
+V8-331 painting-to-painting → V8-328 drawer → V8-329 study in card/sheet
+→ V8-327 arch + stairs.
 
 ## NEXT ACTION
-Chapter gate: qa:census (rhythm ladder ×5 — the onward section changed) ·
-qa:a11y chapters · qa:audio · qa:rag chapters → push (3 commits pending)
-→ verify deploy → Phase 4 (map).
+V8-320: paintings.astro per-chapter variant override (barbershop 1/2),
+plaque eyebrow LOCATION 0N, attribution role/bold; then the museum chrome
+batch.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| P4 map — V8-201 strip ON the inset (pb inset; cardLift/fade-limit synced; the (i) lifts above the strip during walk via .troymap-root[data-walk]) + V8-202 .t-card 20/25.5/30 cream + V8-203 four corners (1858 door top-right bordered ALL breakpoints, chip centre-aligned to it 78/78 · 61/62 · 41/42; walk door phone bottom-left on the ☰ axis, desktop centred; phone (i) mounts bottom-right beside the ☰) + V8-206 bearing 16 (pitch 52 held at every vp by the search) + V8-207 phone pins = pills with `name.pin` (schema + 3 JSONs; markerHtml narrow branch; labelRect models the real pill; THE PHONE SEARCH still fit ±12 dot boxes — now fits pill rects, bakery pill was 23px past the edge before) + V8-251 verified equal (40/40) + V8-252 ☰ hidden during walk everywhere (visibility) + V8-261 lens hint deleted + V8-262 caption mt-5 + V8-263 lens opens on downtown (panelFit ×1.3, width floor 1.8, cx .58 cy .74 — Green Island out of frame at 1440 and 390, verified by crop inspection) | (this commit) | map-probe stub runs at 390/768/1440 (bearing/pitch/doors/strip/menu/buttons), pills probe (5 named pills inside the frame), lens shots desk+phone + top-left label crop; attribution position unverifiable under the stub (no attrib strings) — static CSS + live check |
 | P3c V8-277 hook centring (phones: scene h2 + quote centred, hung indent off; kicker + narration left) + V8-278 barbershop up (landscape 100 — the 1440 frame has only 60px of slack so bottom-anchor is the whole lever; NEW heroFocus.portraitScale 1.18 lifts the phone hero about its bottom edge — phones show the vertical poster's full height so object-position can't move it; the lady's face now mid-frame, sills gone) + V8-204 where-to-next (LOCATION NN rides the heading row bottom/right-aligned EXACT 169/169 · 1304/1304; Continue REMOVED; whole-map stretched link = the one door "Continue to X"; embed pill = solid orange active idiom; Get directions centred, still ghost) + V8-205 ch2 plate fades cream (--ground-light both edges; photo interludes keep dark) | (this commit) | pill DOM probe (bg 228,91,39 · ink 29,20,17); onward shots desk/phone; barber hero shots ×2; hook shot 390; ch2 interlude seam shot |
 | P3b V8-275 moral legibility (scrim middle .86→.90; `.moral-ground` blur 2px + scale 1.04 RM-safe; per-moral `groundFocus` map) + V8-276 ferry moral ground = its study drawing (tiers regenerated from sketch-1440.jpg via sharp, 439KB jpg ≈ old 417KB; bakery ground provenance queued for Wil) + hero separator `text-neutral-12` (V7-007's stated fix was never in the markup; the longer LOCATION pushed the orange dot onto lit paint, p10 3.39) + hero lockup halo densified + **instrument fix**: contrast.mjs skips alpha-0 leaves at classify (the audio control fades in on arrival; classifying it at page top froze alpha 0 → p10 1 false failures; v7 dodged it only by hydration timing — proven by A/B: same fails with pt-5 restored, v7 worktree "pass" was vacuous, its hydration 403'd) | (this commit) | contrast 390+1440 × 5 chapters: 0 fails (10 cells); moral shots ×7 both widths |
 | P3a V8-271 chip (md+ bottom = inset/2 — the bottom fade dissolves the plate's edge so the full inset read loose; the wipe's pre-reveal scale(1.04) was polluting measurements — settled gaps now 20/20 phone · 40/20 tablet · 56/28 desktop; ch2 phones read "Troy, New York · 1858", licence tail ≥640; mobile "archival record" kept per Wil 01:01:06) + V8-272 chapter H1 phones step up (global --fit-advance var, hero-scoped 0.64 + 52px phone cap: 34.7→39.1 / 40.5→45.6 / 44.2→49.7 at 390; tablet/desktop capped unchanged) + V8-274 study note → t-meta-body (tertiary) | (this commit) | chip-probe3 one-line ×5 chapters ×3 vps; h1-verify 4 vps ovf 0; rag chapters @360/390 0/0/0; eyeball shots |
@@ -66,6 +67,11 @@ qa:a11y chapters · qa:audio · qa:rag chapters → push (3 commits pending)
 ## BLOCKED / NOTES
 - V8-101 needs the high-res `home-bg.png` (≥2160w) + splash film ≥1080w
   from Wil — in-repo we fix the lying srcset descriptor only.
+- ENV: walk-check/states need the real Mapbox style and cannot run here —
+  Phase-4 verification ran through scripts in scratchpad using a
+  Playwright route-stub style (site untouched); geometry/camera/layout
+  asserted there; tile visuals + attribution positions go to the live
+  check + Wil.
 - ENV: makeitnotable.github.io is ALSO proxy-blocked — the live site
   cannot be curled from this container. Live = HEAD verification is
   substituted by the deploy.yml Actions run for the exact HEAD sha

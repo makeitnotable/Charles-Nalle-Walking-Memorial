@@ -21,6 +21,7 @@ const stops = chapters.map((entry) => ({
   slug: entry.id,
   order: entry.data.order,
   label: entry.data.name.short,
+  pin: entry.data.name.pin,
   canonical: entry.data.name.canonical,
   /* v7 M6: the authored two-line card title where one exists. */
   cardTitle: entry.data.name.card ?? entry.data.name.canonical,

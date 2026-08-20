@@ -38,7 +38,9 @@ const OVERVIEW = {
   center: [-73.6948, 42.7235] as [number, number],
   zoom: 15.25,
   pitch: 33,
-  bearing: 10,
+  /* v8 V8-206 (Wil, 00:11:23): a touch more rotation — 10 read straight-on
+     at the overview pitch. The label-fit search re-validates every chip. */
+  bearing: 16,
 };
 const MAX_BOUNDS: [[number, number], [number, number]] = [
   [-73.73, 42.7],
@@ -84,6 +86,9 @@ export interface Stop {
   slug: string;
   order: number;
   label: string;
+  /** v8 V8-207: the phone pill's extra-short name (Bakery · Commissioner ·
+   *  Mansion · Ferry · Barbershop). Falls back to `label` (= name.short). */
+  pin?: string;
   cardTitle: string;
   address: string;
   coordinates: [number, number];
@@ -123,34 +128,27 @@ function markerHtml(stop: Stop, active: boolean): string {
     typeof window !== "undefined" &&
     (window.innerWidth < 640 || window.innerHeight < 560);
   if (narrow) {
-    /* The chip sits ON the coordinate, with no leader line. pinOffset exists to
-       move a NAME clear of its neighbours at the desktop camera — carried over
-       to chips it did the opposite: stop 3's offset pushes down and stop 4's
-       pushes up, so on a landscape phone the two chips met in the middle and
-       overlapped by 18x11px. Dots blocks apart cannot collide; nudged labels
-       can.
-
-       Two chips DO sit close on a phone — the Commissioner's Office and the
-       Barbershop are 22px apart at the overview camera, because they are one
-       block apart in Troy. That is the map telling the truth, and it is why
-       the chip is 24px with a dark ring rather than 28px: two rings touching
-       read as two adjacent stops, which is what they are. Separating them
-       would make the map less accurate, not more.
-
-       P0-5 (juror pass 1): five anonymous dots was the price of that fix —
-       so the ACTIVE chip carries its name on a pill above it. One name at a
-       time cannot collide with anything; the other four are one tap from
-       being named, and the full index sits directly below the map. */
-    const name = active
-      ? `<div style="position:absolute;left:0;top:-18px;transform:translate(-50%,-100%);padding:5px 10px;border-radius:20px;background:color-mix(in srgb, var(--color-primary-2) 88%, transparent);border:1px solid var(--color-primary-7);white-space:nowrap">
-           <p style="margin:0;font-size:11px;line-height:1.2;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary-11);font-family:var(--font-chrome),serif">${stop.label}</p>
-         </div>`
-      : "";
+    /* v8 V8-207 (Wil, 00:58:43): phones carry the SAME pill idiom as
+       desktop — leader line, numbered chip, name — but with the extra-short
+       `name.pin` (Bakery · Commissioner · Mansion · Ferry · Barbershop) at a
+       smaller scale, and the desktop `pinOffset` nudges scaled to the phone
+       camera. The v7 numbered dots (kept 24px so one-block neighbours read
+       as neighbours) are gone at his direction; the label-fit camera search
+       and the chip nudge below both model the pill's real footprint. */
+    const pinLabel = stop.pin ?? stop.label;
+    const pdx = Math.round((stop.pinOffset?.[0] ?? 0) * 0.62);
+    const pdy = Math.round((stop.pinOffset?.[1] ?? -46) * 0.62) || -34;
     return `
     <div style="position:relative;width:0;height:0;cursor:pointer">
-      ${name}
-      <div aria-label="${stop.label}" style="position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:9999px;background:${s.bg};color:${s.text};border:1.5px solid ${s.border};box-shadow:0 0 0 2px var(--color-primary-2)">
-        <p style="font-size:12px;margin:0;line-height:1;font-weight:700;font-family:var(--font-chrome),serif">${stop.order}</p>
+      <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
+        <line x1="0" y1="0" x2="${pdx}" y2="${pdy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
+      </svg>
+      <div style="position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
+      <div style="position:absolute;left:${pdx}px;top:${pdy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:6px;border-radius:24px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-chrome),serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:16px;height:16px;flex:none">
+          <p style="color:#1D1411;font-size:10px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
+        </div>
+        <p style="font-size:10px;line-height:14px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${pinLabel}</p>
       </div>
     </div>`;
   }
@@ -262,14 +260,23 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const lensZoomBy = useCallback((f: number) => lensZoomAt(f), [lensZoomAt]);
   const lensReset = useCallback(() => {
     /* v7 L1: the lower panel, filled by height (scale 1/(1−y0)) and centred on
-       the river; the clamp in lensApply keeps the whole plate reachable. */
+       the river; the clamp in lensApply keeps the whole plate reachable.
+       v8 V8-263 (Wil, 00:04:26–00:07:27): the opening crop leans in — ×1.3
+       over the panel fit, biased right and toward downtown, so the wide-box
+       bleed into the upper panel (where "Green Island" sits) is gone and the
+       first view is the city, matching his meeting screenshot. Same math at
+       every breakpoint "so it feels similar". */
     const box = lensBoxRef.current;
     const w = box?.clientWidth ?? 0;
     const h = box?.clientHeight ?? 0;
     const imgH0 = w * PLATE;
-    const s0 = Math.max(lensMinScale(), imgH0 ? h / (imgH0 * (LOWER_PANEL.y1 - LOWER_PANEL.y0)) : 1);
-    const panelCy = (LOWER_PANEL.y0 + LOWER_PANEL.y1) / 2;
-    lensView.current = { s: s0, tx: -(LOWER_PANEL.cx - 0.5) * w * s0, ty: -(panelCy - 0.5) * imgH0 * s0 };
+    const panelFit = imgH0 ? h / (imgH0 * (LOWER_PANEL.y1 - LOWER_PANEL.y0)) : 1;
+    /* Wide boxes also hold a width floor (show ≤ ~55% of the plate's width)
+       or a desktop opening still reaches the islands Wil zoomed away from. */
+    const s0 = Math.max(lensMinScale(), panelFit * 1.3, 1.8);
+    const startCx = 0.58; // downtown Troy's grid, right of the plate's centre
+    const startCy = 0.74; // the river band + downtown, low in the lower panel
+    lensView.current = { s: s0, tx: -(startCx - 0.5) * w * s0, ty: -(startCy - 0.5) * imgH0 * s0 };
     lensApply();
   }, [lensApply]);
   // First open lands on the lower panel too (the image mounts on first open).
@@ -476,7 +483,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     // Safe box for LABELS: chip row on top, door/attribution row at the bottom.
     const safe = { x0: inset, y0: inset + 56, x1: w - inset, y1: h - (inset + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
     const labelRect = (pt: { x: number; y: number }, st: Stop) => {
-      if (narrow) return { x0: pt.x - 12, y0: pt.y - 12, x1: pt.x + 12, y1: pt.y + 12, cx: pt.x, cy: pt.y };
+      if (narrow) {
+        /* v8 V8-207: phones carry pills now — model the pill's real box
+           (16px chip + 10px caps at +0.06em ≈ 7.2px/ch) at the scaled leader
+           offset, so the camera search sees what the visitor sees. */
+        const pdx = Math.round((st.pinOffset?.[0] ?? 0) * 0.62);
+        const pdy = Math.round((st.pinOffset?.[1] ?? -46) * 0.62) || -34;
+        const wpxN = 36 + 7.2 * (st.pin ?? st.label).length;
+        const cxN = pt.x + pdx, cyN = pt.y + pdy;
+        return { x0: cxN - wpxN / 2, y0: cyN - 14, x1: cxN + wpxN / 2, y1: cyN + 14, cx: cxN, cy: cyN };
+      }
       const [dx, dy] = st.pinOffset ?? [0, -46];
       const wpx = 26 + 9.4 * st.label.length; // measured: "2 COMMISSIONER'S OFFICE" ≈ 241px
       const cx = pt.x + dx, cy = pt.y + dy;
@@ -499,9 +515,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           let ok = false;
           for (let pass = 0; pass < 3; pass++) {
             map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
-            const pts = stops.map((st) => map.project(st.coordinates));
-            const x0 = Math.min(...pts.map((q) => q.x)) - 12, x1 = Math.max(...pts.map((q) => q.x)) + 12;
-            const y0 = Math.min(...pts.map((q) => q.y)) - 12, y1 = Math.max(...pts.map((q) => q.y)) + 12;
+            /* v8 V8-207: phones carry PILLS now — fit their real rects, not
+               the old ±12 dot boxes. */
+            const rs = stops.map((st) => labelRect(map.project(st.coordinates), st));
+            const x0 = Math.min(...rs.map((r) => r.x0)), x1 = Math.max(...rs.map((r) => r.x1));
+            const y0 = Math.min(...rs.map((r) => r.y0)), y1 = Math.max(...rs.map((r) => r.y1));
             if (x1 - x0 > safe.x1 - safe.x0 || y1 - y0 > safe.y1 - safe.y0) break;
             const shift = { x: (safe.x0 + safe.x1) / 2 - (x0 + x1) / 2, y: (safe.y0 + safe.y1) / 2 - (y0 + y1) / 2 };
             if (Math.abs(shift.x) < 1 && Math.abs(shift.y) < 1) { ok = true; break; }
@@ -511,11 +529,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           }
           if (!ok) continue;
           map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
-          const pts = stops.map((st) => map.project(st.coordinates));
-          const inside = pts.every((q) => q.x - 12 >= safe.x0 && q.y - 12 >= safe.y0 && q.x + 12 <= safe.x1 && q.y + 12 <= safe.y1);
-          let sep = Infinity;
-          for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) sep = Math.min(sep, Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y));
-          if (inside && sep >= 14) {
+          const rs = stops.map((st) => labelRect(map.project(st.coordinates), st));
+          const inside = rs.every((r) => r.x0 >= safe.x0 && r.y0 >= safe.y0 && r.x1 <= safe.x1 && r.y1 <= safe.y1);
+          let apart = true;
+          for (let i = 0; i < rs.length && apart; i++)
+            for (let j = i + 1; j < rs.length; j++) {
+              const a = rs[i], c = rs[j];
+              if (Math.min(a.x1, c.x1) - Math.max(a.x0, c.x0) > 0 && Math.min(a.y1, c.y1) - Math.max(a.y0, c.y0) > 0) { apart = false; break; }
+            }
+          if (inside && apart) {
             chosen = { center, zoom: +zoom.toFixed(2), pitch, bearing: OVERVIEW.bearing };
             break outerN;
           }
@@ -568,7 +590,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const cardLift = (): [number, number] => {
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
     const w = window.innerWidth;
-    const strip = w < 640 ? 128 + inset + 80 : w < 1024 ? 160 + inset + 96 : 192 + inset + 96;
+    const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
     // never so far that the active name plate meets the top edge (landscape phones)
     return [0, -Math.round(Math.min(strip / 2, window.innerHeight / 2 - 100))];
   };
@@ -706,7 +728,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     });
     /* Bottom-LEFT: the menu FAB owns bottom-right on /map (item 10), and a
        licence mark must never sit under chrome (juror pass 1 P2). */
-    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-left");
+    /* v8 V8-203: phones run four corners (chip / 1858 / walk door / ☰) —
+       the (i) moves beside the ☰ in the bottom-right pocket there. */
+    map.addControl(
+      new mapboxgl.AttributionControl({ compact: true }),
+      window.innerWidth < 640 || window.innerHeight < 560 ? "bottom-right" : "bottom-left",
+    );
     mapRef.current = map;
     /* A pointer that changes kind (tablet + trackpad, hybrids) re-decides. */
     const finePointer = window.matchMedia("(pointer: fine)");
@@ -767,7 +794,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         if (focusedRef.current && shellVisibleRef.current) {
           const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
           const w = window.innerWidth;
-          const strip = w < 640 ? 128 + inset + 80 : w < 1024 ? 160 + inset + 96 : 192 + inset + 96;
+          const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
           const limit = window.innerHeight - strip - 8;
           const narrowNow = w < 640 || window.innerHeight < 560;
           msAll.forEach(({ marker, stop }) => {
@@ -1228,7 +1255,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }
 
   return (
-    <div className="relative h-full w-full bg-primary-2">
+    <div className="troymap-root relative h-full w-full bg-primary-2" data-walk={focused && shellVisible ? "true" : "false"}>
       <div ref={container} className="map-canvas absolute inset-0" />
 
       {/* 1858 lens (M7): Barton's "City of Troy, N.Y.: From actual surveys" (1858, LOC
@@ -1301,24 +1328,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               </div>
             </div>
           )}
-          <figcaption className="t-meta mt-3 text-center">
+          <figcaption className="t-meta mt-5 text-center">
             {/* phones: two authored lines (juror pass 8: the middle `·` dangled at a line end) */}
             Troy, New&nbsp;York&nbsp;·&nbsp;1858
             <span className="hidden sm:inline">&nbsp;·&nbsp;</span>
             <br className="sm:hidden" />
             Library&nbsp;of&nbsp;Congress
           </figcaption>
-          <p className="t-meta-body mt-1 text-center opacity-80">
-            <span className="hidden sm:inline">Drag to explore · pinch or scroll to zoom</span>
-            <span className="sm:hidden">Drag to explore · pinch to&nbsp;zoom</span>
-          </p>
+
           {/* v7 L3: the lens's ONE door — Back to today, centred; mounted only
               while the lens is open so it is never a hidden tab stop. */}
           {lens && (
             <button
               type="button"
               onClick={() => setLens(false)}
-              className="btn-sm btn-ghost mt-3"
+              className="btn-sm btn-ghost mt-4"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
             >
               Back to today
@@ -1331,7 +1355,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           the same time as the chapter cards — two name surfaces at once was
           the collision class v5 spent a phase killing. */}
       {!(focused && shellVisible) && !lens && (
-        <div className="pointer-events-none absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 mr-[104px]">
+        <div className="pointer-events-none absolute top-[calc(var(--ui-inset)+5px)] left-[var(--ui-inset)] z-20 mr-[104px]">
           <p
             className="t-meta rounded-full px-4 py-2"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
@@ -1415,10 +1439,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </button>
       )}
 
-      {/* Experience doors (overview only). ≥640: the centred pair. Phones
-          (v7 M8): one bottom row on the ☰'s axis — attribution (i) at the left
-          inset, Take the walk centred in the free lane, ☰ bottom-right — and
-          the 1858 door becomes a top-right pill opposite the date chip. */}
+      {/* Experience doors (overview only). v8 V8-203 (Wil, 00:10:19 +
+          00:57:32): four corners on every breakpoint — the April-27 chip
+          top-left, `See Troy in 1858` top-right (with the secondary border so
+          it reads as a button), `Take the walk` centred at the bottom (phones:
+          left-aligned with the chip's inset, centred on the ☰'s axis), ☰
+          bottom-right; phones tuck the (i) beside the ☰. */}
       {!focused && !lens && (
         <>
           {/* v7 V7-023: the bottom band is a scroll handle on touch screens —
@@ -1439,27 +1465,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
             </svg>
           </div>
-          <div className="absolute z-20 flex items-center justify-center gap-3 max-sm:bottom-[calc(var(--ui-inset)+12px)] max-sm:left-[calc(50%-24px)] max-sm:-translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+12px)] sm:left-1/2 sm:-translate-x-1/2">
+          <div className="absolute z-20 flex items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] max-sm:left-[var(--ui-inset)] sm:bottom-[calc(var(--ui-inset)+12px)] sm:left-1/2 sm:-translate-x-1/2">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
               Take the walk
             </button>
-            {/* `.link-meta` sets display and out-cascades a bare `hidden`
-                utility — the wrapper carries the visibility (≥640 only). */}
-            <span className="hidden sm:inline-flex">
-              <button
-                type="button"
-                onClick={() => {
-                  setLensSeen(true);
-                  setLens(true);
-                }}
-                className="link-meta t-meta rounded-full px-4 py-3 whitespace-nowrap"
-                style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(6px)", minHeight: 44 }}
-              >
-                See Troy in 1858
-              </button>
-            </span>
           </div>
-          <span className="absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-20 inline-flex sm:hidden">
+          <span className="absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-20 inline-flex">
             <button
               type="button"
               onClick={() => {
@@ -1467,7 +1478,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                 setLens(true);
               }}
               className="link-meta t-meta rounded-full px-4 py-3 whitespace-nowrap"
-              style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
+              style={{
+                background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)",
+                backdropFilter: "blur(6px)",
+                border: "1px solid var(--color-primary-7)",
+                minHeight: 44,
+              }}
             >
               See Troy in 1858
             </button>
@@ -1481,7 +1497,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           moveToIdx reliably. Visibility is opacity/pointer-events only. */}
       {
         <div
-          className="fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+80px)] transition-opacity duration-300 sm:pb-[calc(var(--ui-inset)+96px)]"
+          className="fixed right-0 bottom-0 left-0 z-10 pb-[var(--ui-inset)] transition-opacity duration-300"
           style={{
             opacity: focused && shellVisible ? 1 : 0,
             pointerEvents: focused && shellVisible ? "auto" : "none",
