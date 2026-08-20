@@ -641,9 +641,14 @@ h3 {
   opacity: 0.85;
 }
 /* v7 C2: the moral ground drifts (gsap scrub); it is oversized so no edge
-   ever shows and promoted so the scrub costs no layout. */
+   ever shows and promoted so the scrub costs no layout. v8 V8-275 (Wil,
+   00:23:18): a 2px soft-focus quiets the hatching behind the text — the
+   scale keeps the blur's soft edge outside the frame even under reduced
+   motion, where the parallax (and its 1.14 scale) never runs. */
 .moral-ground {
   will-change: transform;
+  filter: blur(2px);
+  transform: scale(1.04);
 }
 .block-gap {
   margin-top: var(--space-block);

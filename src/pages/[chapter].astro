@@ -73,14 +73,29 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
  * Moral N pairs with scene N: the twin template's second half gets its own
  * theme, its own ground, and its own study, exactly like the first.
  */
+/* v8 V8-275: authored ground positions — each drawing's quietest band sits
+   behind the text column (eyeballed per moral at 1440/390). Ferry's ground
+   is the study drawing itself since v8 (V8-276 — Wil, 00:21:34: the
+   background must be the same sketch the study presents; it showed an
+   unrelated skiff drawing). */
+const GROUND_FOCUS: Record<string, string> = {
+  "bakery/moral": "center 25%",
+  "commissioners-office/moral": "center 25%",
+  "commissioners-office/moral-pt2": "center 30%",
+  "mansion/moral": "center 25%",
+  "ferry/moral": "center 35%",
+  "barbershop/moral": "center 25%",
+};
 const morals = c.morals.map((m, i) => {
+  const ground = i === 0 ? "moral" : `moral-pt${i + 1}`;
   const scene = c.scenes[i] ?? c.scenes[0];
   return {
     ...m,
     key: c.morals.length > 1 ? `moral-${i}` : "moral",
     rail: c.morals.length > 1 ? `The moral · Pt ${i + 1}` : "The moral",
     /** Ch2's second theme has its own full-bleed ground; one-moral chapters keep `moral`. */
-    ground: i === 0 ? "moral" : `moral-pt${i + 1}`,
+    ground,
+    groundFocus: GROUND_FOCUS[`${slug}/${ground}`] ?? "center 25%",
     sketchKey: scene.reveal?.sketch ?? null,
     /* Never invent a caption: scene 1 uses the chapter note, a later scene
        uses its own if one has been written. Ch2 Pt 2's is outstanding —
@@ -289,11 +304,11 @@ const focus =
 
     <div class="absolute inset-x-0 bottom-0">
       <div class="shell pb-[max(5dvh,32px)]">
-        <div id="hero-lockup" style="text-shadow: 0 1px 14px rgba(16,10,6,.85), 0 0 3px rgba(16,10,6,.7)">
+        <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
           <p class="t-meta">
-            Location {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
+            Location {pad2(c.order)} of 5<span class="hidden text-neutral-12 sm:inline"> · </span><br
               class="sm:hidden"
             />Troy, NY · April 27, 1860
           </p>
@@ -375,7 +390,7 @@ const focus =
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
-              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 14px rgba(16,10,6,.85), 0 0 3px rgba(16,10,6,.7)">
+              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
                 <p class="t-meta">Location {pad2(c.order)} · continued</p>
                 <p class="t-title mt-4">{partKicker(c.scenes[b.i].label)}</p>
               </div>
@@ -518,7 +533,10 @@ const focus =
         {/* ── The moral — full-bleed, one artifact each. v7 C2: the body is
             cream like the heading, the scrim's middle band is deep enough to
             measure ≥ 4.5:1 by pixel, and the ground image drifts on scroll
-            (parallax, scrub, ±6%, reduced motion off). ── */}
+            (parallax, scrub, ±6%, reduced motion off). v8 V8-275 (Wil,
+            00:23:18): the mix he asked for — the busy hatching sits behind a
+            slightly deeper middle band (.90), a 2px soft-focus on the ground
+            only, and an authored position per moral (`groundFocus`). ── */}
         {b.type === "moral" && (
           <section class="beat relative moral" id={morals[b.i].key} aria-labelledby={`${morals[b.i].key}-heading`}>
             <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -526,11 +544,11 @@ const focus =
                 src={withBase(`media/${slug}/${morals[b.i].ground}-1440.jpg`)}
                 alt=""
                 class="moral-ground h-full w-full object-cover"
-                style="object-position: center 25%"
+                style={`object-position: ${morals[b.i].groundFocus}`}
                 loading="lazy"
                 data-parallax
               />
-              <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.86) 26%, rgba(29,20,17,.86) 74%, #1d1411)" />
+              <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.9) 26%, rgba(29,20,17,.9) 74%, #1d1411)" />
             </div>
 
             <div class="shell relative z-10 pt-32 pb-16 md:pt-40 md:pb-16">

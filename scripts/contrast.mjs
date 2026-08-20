@@ -152,6 +152,13 @@ const CLASSIFY = () => {
     // Effective text alpha = colour alpha × every ancestor's opacity.
     let alpha = fg[3];
     for (let n = el; n; n = n.parentElement) alpha *= +getComputedStyle(n).opacity;
+    /* v8: an ancestor chain at opacity 0 means the leaf is INVISIBLE at
+       classify time — skip it exactly like a leaf with `opacity: 0`. The
+       chapter audio control fades in only when the reader reaches it
+       (mainVisible); classifying it at page top froze alpha 0 into the
+       record and every pixel sample then read ratio 1 — a false failure v7
+       dodged only because its slower classify ran before hydration. */
+    if (alpha === 0) { skipped++; return; }
     let dirty = alpha < fg[3];
     // Nearest painted background walking up (unchanged from the style-only sweep).
     let bg = null, provider = null;
