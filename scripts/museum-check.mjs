@@ -165,6 +165,28 @@ for (const vp of VPS) {
     // ——— Approach ———
     await page.evaluate(() => window.__museum.approach(3));
     await page.waitForTimeout(2200);
+    /* The composition assertions below describe the SETTLED frame, so wait for
+       the dolly to actually arrive instead of trusting a fixed timeout. The
+       damping steps per FRAME (dt clamped at 50ms), so on a software
+       rasterizer — this QA container, an old laptop — 2.2s of wall clock is
+       only ~0.4s of simulated travel and the camera is still moving: that read
+       as an off-centre painting (cx 0.531) when the composition was correct
+       and converged to 0.500. Bounded, so a genuinely stuck camera still
+       fails the assertion rather than hanging the run. */
+    await page
+      .waitForFunction(
+        () => {
+          const s = window.__museum.state;
+          return (
+            Math.abs(s.cur.x - s.target.x) < 0.01 &&
+            Math.abs(s.cur.y - s.target.y) < 0.01 &&
+            Math.abs(s.cur.z - s.target.z) < 0.01
+          );
+        },
+        null,
+        { timeout: 15000, polling: 200 },
+      )
+      .catch(() => {});
     const ap = { state: await page.evaluate(() => window.__museum.state), rect: await page.evaluate(() => window.__museum.paintingRect(3)), ui: await page.evaluate(UI), fps: await page.evaluate(FPS) };
     ap.relRect = rel(ap.rect, ap.ui.stage);
     ap.overlapsCard = overlaps(ap.rect, ap.ui.card);

@@ -1492,6 +1492,12 @@ a.walk-seg:hover {
   border: 0;
   cursor: pointer;
   border-radius: 4px;
+  /* v8 V8-328: it exists for KEYBOARD and screen readers (focus + Enter still
+     fire its click). Pointer users toggle by tapping the painting itself,
+     which the canvas handles — and with the overlay out of the pointer path a
+     swipe that starts over the painting reaches the stage, where it opens the
+     plaque instead of dying on an invisible button. */
+  pointer-events: none;
 }
 .museum-alive-toggle:focus-visible {
   outline: 2px solid var(--color-primary-9);
@@ -1508,6 +1514,39 @@ a.walk-seg:hover {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  /* room for the close button's 44px lane (V8-328) */
+  padding-right: calc(var(--ui-inset) + 44px);
+}
+/* the header is the handle now that the pill is gone — it must show focus */
+.museum-sheet-head:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: -2px;
+  border-radius: 16px 16px 0 0;
+}
+/* v8 V8-328 (Wil, 00:28:32): the drag-handle pill is replaced by a real
+   close control — 44×44, top-right of the header, visible only when the card
+   is open (the peek header is itself the "open" affordance). */
+.museum-sheet-close {
+  position: absolute;
+  top: 8px;
+  right: calc(var(--ui-inset) - 10px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-primary-11);
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.museum-sheet-close:hover {
+  color: var(--color-neutral-12);
+}
+.museum-sheet-close:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 2px;
 }
 
 /* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,
@@ -1586,4 +1625,14 @@ a.walk-seg:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* v8 V8-329: the study thumbnail on the plaque — graphite on paper, set in a
+   thin warm rule so it reads as a drawing pinned beside the label, not as a
+   second painting. */
+.museum-study-img {
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-7) 70%, transparent);
+  object-fit: cover;
+  background: var(--color-primary-3);
 }

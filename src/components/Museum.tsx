@@ -52,6 +52,13 @@ export interface Work {
   tex800: string;
   video: string | null;
   sketch: string | null;
+  /** v8 V8-329: the study as the PLAQUE shows it — a thumbnail in the card
+   *  and the drawer. Separate from `sketch` (which hangs on the wall in 3-D
+   *  beside the main canvas only), so Part 2 can carry its own drawing. */
+  study?: string | null;
+  studyAspect?: number | null;
+  /** The chapter's own sentence about the drawing on screen. */
+  studyNote?: string | null;
   /** True aspect (w/h) of the canvas — build-time from the 1440 asset. */
   aspect: number;
   /** True aspect of the study beside the main canvas. */
@@ -74,6 +81,47 @@ const EYE = 1.55;
 const RAIL_PITCH = -0.15; // rad, down — v8 V8-324 (Wil, 00:26:42): more floor, less ceiling
 const RAIL_PITCH_PORTRAIT = -0.12;
 const ENTRY_Z = 7; // the wall behind you
+/* v8 V8-328 (Wil, 00:28:32): the dot rail's air above the sheet and the
+   rail's own reserved height — ONE source for the JSX `bottom`, the per-frame
+   follower in tick(), and layout()'s composition reserve (the old +12s lived
+   in two files' worth of literals and drifted). */
+const DOT_GAP = 24;
+const DOTS_H = 36;
+
+/**
+ * v8 V8-329 (Wil, 01:13:43-01:16:00): the artist's study, on the plaque.
+ * A quiet row under the quote — a hairline, a small graphite thumbnail and
+ * the chapter's own sentence about the drawing. Painting-first by
+ * construction: it is the last thing in the card, the smallest type on it,
+ * and it never competes for the eye with the canvas on the wall.
+ */
+function Study({ work }: { work: Work }) {
+  if (!work.study) return null;
+  const a = work.studyAspect ?? 1.25;
+  const w = 84;
+  return (
+    <figure className="museum-study mt-5 border-t border-primary-7/60 pt-4">
+      {/* thumbnail and label share a line; the note runs UNDER them at the
+          card's full width — beside an 84px thumbnail in a 208px card it had
+          a ~110px measure and ran to twenty lines (1024×768: card 973px tall
+          in a 768px viewport). */}
+      <div className="flex items-center gap-3">
+        <img
+          src={work.study}
+          width={Math.round(w)}
+          height={Math.round(w / a)}
+          alt={`Pencil study for ${work.name}`}
+          loading="lazy"
+          decoding="async"
+          className="museum-study-img flex-none"
+          style={{ width: `${w}px`, aspectRatio: `${a}` }}
+        />
+        <figcaption className="t-meta min-w-0">Artist study</figcaption>
+      </div>
+      {work.studyNote && <p className="t-meta-body mt-3">{work.studyNote}</p>}
+    </figure>
+  );
+}
 
 export default function Museum({ works, slotId }: Props) {
   const [capable, setCapable] = useState<boolean | null>(null);
@@ -91,6 +139,8 @@ export default function Museum({ works, slotId }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const sheetHeadRef = useRef<HTMLDivElement>(null);
+  const dotsRef = useRef<HTMLElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
   const api = useRef<{
     approach: (i: number | null) => void;
@@ -102,6 +152,37 @@ export default function Museum({ works, slotId }: Props) {
   } | null>(null);
   const sheetRefState = useRef<"peek" | "full">("peek");
   sheetRefState.current = sheet;
+
+  /* ——— v8 V8-328: ONE continuous sheet position, every input drives it ———
+     0 = peek (header only above the fold), 1 = the full card. The element is
+     always fully mounted; translateY hides the body below the stage edge, so
+     layout() can read the LIVE visible height and the painting recomposes
+     while the drawer slides. Shared by the header drag, the stage swipe and
+     the wheel machine (both live inside the three-effect), via refs. */
+  const sheetPosRef = useRef(0);
+  const sheetTravel = () => {
+    const el = sheetRef.current;
+    const head = sheetHeadRef.current;
+    return el && head ? Math.max(1, el.offsetHeight - head.offsetHeight) : 1;
+  };
+  const applySheet = (pos: number, animate: boolean) => {
+    const el = sheetRef.current;
+    if (!el) return;
+    /* a light rubber band past the ends — the hard clamp keeps the header on
+       screen whatever the gesture does */
+    const p = pos > 1 ? 1 + Math.min(0.06, (pos - 1) * 0.25) : pos < 0 ? Math.max(-0.06, pos * 0.25) : pos;
+    sheetPosRef.current = Math.max(0, Math.min(1, pos));
+    el.style.transition = animate ? "transform var(--dur-fast) var(--ease)" : "none";
+    el.style.transform = `translateY(${Math.round((1 - p) * sheetTravel())}px)`;
+  };
+  const snapSheet = (s: "peek" | "full") => {
+    setSheet(s);
+    applySheet(s === "full" ? 1 : 0, true);
+  };
+  const applySheetFn = useRef(applySheet);
+  applySheetFn.current = applySheet;
+  const snapSheetFn = useRef(snapSheet);
+  snapSheetFn.current = snapSheet;
 
   // ——— Capability gate (runs once, before three is even fetched) ———
   useEffect(() => {
@@ -142,18 +223,28 @@ export default function Museum({ works, slotId }: Props) {
     };
   }, [capable, slotId, works.length]);
 
-  // The dot rail follows the sheet's REAL height (peek or full, any content).
+  // The sheet element remounts on approach/orientation — restore the snapped
+  // position imperatively (transform is never in JSX), and keep a measured
+  // height in state as the dot rail's first-frame fallback (tick() then
+  // follows the LIVE visible top every frame — V8-328).
   useEffect(() => {
     const el = sheetRef.current;
     if (!el) {
       setSheetH(0);
       return;
     }
-    const ro = new ResizeObserver(() => setSheetH(el.getBoundingClientRect().height));
+    const sync = () => {
+      applySheetFn.current(sheetRefState.current === "full" ? 1 : 0, false);
+      setSheetH(sheetHeadRef.current?.offsetHeight ?? el.getBoundingClientRect().height);
+    };
+    const ro = new ResizeObserver(sync);
     ro.observe(el);
-    setSheetH(el.getBoundingClientRect().height);
+    sync();
     return () => ro.disconnect();
-  }, [approached, portraitUI, sheet]);
+    /* NOT `sheet`: the body is always mounted now, so the snapped state no
+       longer changes the element's height — and re-running on it would replay
+       the snap without its animation. */
+  }, [approached, portraitUI]);
 
   // Layout is live (column vs sheet) while the world stays as built.
   useEffect(() => {
@@ -604,9 +695,16 @@ export default function Museum({ works, slotId }: Props) {
         const isPortraitUI = W < 1024 && H > W;
         const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
         if (isPortraitUI) {
-          const sheetH = sheetRef.current?.getBoundingClientRect().height ?? 110;
+          /* v8 V8-328: the VISIBLE sheet height — the element is full-size and
+             translated, so rect.height lies; what the composition must clear
+             is the part above the stage's bottom edge. Live per frame: the
+             painting recomposes while the drawer slides. */
+          const sEl = sheetRef.current;
+          const sheetH = sEl
+            ? Math.max(0, stage.getBoundingClientRect().bottom - sEl.getBoundingClientRect().top)
+            : 110;
           const top = inset + 56; // Back row
-          const bottom = sheetH + 12 + 36 + 12; // sheet + the dot rail riding above it
+          const bottom = sheetH + DOT_GAP + DOTS_H + 12; // sheet + the dot rail riding above it
           /* v8 V8-330: F .88 (was .82) — with the fov computed from the
              binding axis below, 6% margins per side still clear the moulding
              and the whole frame fits the phone (juror-9's finger-width note
@@ -668,15 +766,26 @@ export default function Museum({ works, slotId }: Props) {
       let lastTap = 0;
       let moved = 0;
       const dyaws: number[] = [];
+      /* v8 V8-328: on portrait screens in approach, a stage swipe's VERTICAL
+         axis belongs to the plaque — an 8px window decides the axis once per
+         gesture (1.2 vertical bias; vertical touch-look is the price, pinch
+         zoom is untouched). 0 undecided · 1 the sheet · -1 the look. */
+      let sheetSwipe = 0;
+      let swipePos0 = 0;
+      let swipeY0 = 0;
+      let lastMoveT = 0;
+      const svels: number[] = [];
       const down = (e: PointerEvent) => {
         if (e.pointerType === "mouse" && e.button !== 0) return;
         dragging = true;
         px = downX = e.clientX;
         py = downY = e.clientY;
-        downAt = performance.now();
+        downAt = lastMoveT = performance.now();
         moved = 0;
         yawVel = 0;
         dyaws.length = 0;
+        sheetSwipe = 0;
+        svels.length = 0;
         renderer.domElement.style.touchAction = mode === "approach" ? "none" : "pan-y";
       };
       const move = (e: PointerEvent) => {
@@ -684,6 +793,35 @@ export default function Museum({ works, slotId }: Props) {
         const dx = e.clientX - px;
         const dy = e.clientY - py;
         moved += Math.abs(dx) + Math.abs(dy);
+        const now = performance.now();
+        if (mode === "approach" && isPortraitNow() && sheetRef.current) {
+          if (sheetSwipe === 0 && moved >= 8) {
+            const tx = e.clientX - downX;
+            const ty = e.clientY - downY;
+            if (Math.abs(ty) > 1.2 * Math.abs(tx)) {
+              sheetSwipe = 1;
+              swipePos0 = sheetPosRef.current;
+              swipeY0 = e.clientY;
+            } else {
+              sheetSwipe = -1;
+            }
+          }
+          if (sheetSwipe === 1) {
+            const travel = Math.max(1, sheetRef.current.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
+            applySheetFn.current(swipePos0 + (swipeY0 - e.clientY) / travel, false);
+            svels.push((py - e.clientY) / Math.max(1, now - lastMoveT)); // px/ms, up +
+            if (svels.length > 3) svels.shift();
+          } else if (sheetSwipe === -1) {
+            const dyaw = dx * 0.0022; // v8 V8-324: slower rein
+            dragYaw += dyaw;
+            dyaws.push(dyaw);
+            if (dyaws.length > 3) dyaws.shift();
+          }
+          px = e.clientX;
+          py = e.clientY;
+          lastMoveT = now;
+          return;
+        }
         const dyaw = dx * 0.0022; // v8 V8-324 (Wil, 00:30:11): the pan felt harsh — slower rein
         dragYaw += dyaw;
         dragPitch = Math.max(-0.55, Math.min(0.5, dragPitch + dy * 0.0018));
@@ -691,10 +829,19 @@ export default function Museum({ works, slotId }: Props) {
         if (dyaws.length > 3) dyaws.shift();
         px = e.clientX;
         py = e.clientY;
+        lastMoveT = now;
       };
       const up = (e: PointerEvent) => {
         if (!dragging) return;
         dragging = false;
+        if (sheetSwipe === 1) {
+          sheetSwipe = 0;
+          const v = svels.length ? svels.reduce((a, b) => a + b, 0) / svels.length : 0;
+          if (Math.abs(v) > 0.3) snapSheetFn.current(v > 0 ? "full" : "peek");
+          else snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+          return;
+        }
+        sheetSwipe = 0;
         yawVel = dyaws.length ? (dyaws.reduce((a, b) => a + b, 0) / dyaws.length) * 60 : 0; // rad/s
         const dt = performance.now() - downAt;
         const isTap = dt < 300 && moved < 8;
@@ -737,11 +884,66 @@ export default function Museum({ works, slotId }: Props) {
         dragPitch = 0;
         yawVel = 0;
       };
-      // wheel: zoom in approach, page scroll on the rail
+      // wheel: zoom in approach, page scroll on the rail.
+      // v8 V8-328 (Wil, 00:29:34): on portrait screens the wheel is a STATE
+      // MACHINE — above the zoom floor it zooms; at the floor, scrolling on
+      // (deltaY > 0, fingers up) slides the plaque open, and scrolling back
+      // closes it first, then zooms in. A 160ms latch swallows trackpad
+      // momentum at each boundary so one gesture never tunnels through two
+      // states; an idle timer snaps a half-open sheet home.
+      const isPortraitNow = () => stage.clientWidth < 1024 && stage.clientHeight > stage.clientWidth;
+      let wheelLatchUntil = 0;
+      let wheelSnapTimer: number | undefined;
       const onWheel = (e: WheelEvent) => {
         if (mode !== "approach") return;
+        const sEl = sheetRef.current;
+        if (!(isPortraitNow() && sEl)) {
+          /* a card tall enough to scroll (short desktops + a study) owns the
+             wheel over itself — otherwise preventDefault ate the scroll */
+          if (e.target instanceof Element) {
+            const card = e.target.closest(".museum-card");
+            if (card && card.scrollHeight > card.clientHeight + 1) return;
+          }
+          e.preventDefault();
+          setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+          return;
+        }
+        // over the OPEN sheet the body owns the wheel (it scrolls its own text)
+        if (sheetPosRef.current > 0.98 && e.target instanceof Node && sEl.contains(e.target)) return;
         e.preventDefault();
-        setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+        const now = performance.now();
+        if (now < wheelLatchUntil) return;
+        const travel = Math.max(1, sEl.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
+        const pos = sheetPosRef.current;
+        if (e.deltaY > 0) {
+          if (zoom > 1.001) {
+            setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+            if (zoom <= 1.001) wheelLatchUntil = now + 160;
+          } else if (pos < 1) {
+            const p = Math.min(1, pos + e.deltaY / travel);
+            applySheetFn.current(p, false);
+            if (p >= 1) {
+              snapSheetFn.current("full");
+              wheelLatchUntil = now + 160;
+            }
+          }
+        } else if (e.deltaY < 0) {
+          if (pos > 0) {
+            const p = Math.max(0, pos + e.deltaY / travel);
+            applySheetFn.current(p, false);
+            if (p <= 0) {
+              snapSheetFn.current("peek");
+              wheelLatchUntil = now + 160;
+            }
+          } else {
+            setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+          }
+        }
+        if (wheelSnapTimer) clearTimeout(wheelSnapTimer);
+        wheelSnapTimer = window.setTimeout(() => {
+          const p = sheetPosRef.current;
+          if (p > 0.02 && p < 0.98) snapSheetFn.current(p > 0.5 ? "full" : "peek");
+        }, 150);
       };
       stage.addEventListener("wheel", onWheel, { passive: false });
       // pinch in approach
@@ -754,6 +956,8 @@ export default function Museum({ works, slotId }: Props) {
           const [a, b] = [...pinch.values()];
           pinchD = Math.hypot(a.x - b.x, a.y - b.y);
           dragging = false;
+          if (sheetSwipe === 1) snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+          sheetSwipe = 0;
         }
       });
       stage.addEventListener("pointermove", (e) => {
@@ -870,7 +1074,10 @@ export default function Museum({ works, slotId }: Props) {
           paintingMats[i].color.set("#ffffff");
           paintingMats[i].needsUpdate = true;
         };
-        if ("requestVideoFrameCallback" in v) (v as any).requestVideoFrameCallback(() => swapIn());
+        /* lib.dom declares rVFC, so a plain `in` check narrows the else branch
+           to `never` — the runtime check is real (Firefox lacks it). */
+        const rvfc = (v as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number }).requestVideoFrameCallback;
+        if (typeof rvfc === "function") rvfc.call(v, () => swapIn());
         else v.addEventListener("playing", swapIn, { once: true });
         v.play().catch(() => {
           // iOS Low-Power may reject: retry on the next ending gesture
@@ -1049,6 +1256,20 @@ export default function Museum({ works, slotId }: Props) {
         camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
         renderer.render(scene, camera);
 
+        // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer
+        // slides — set here (rAF runs after React's commits, so a 4Hz
+        // paintRect re-render can never clobber a frame the eye sees).
+        if (dotsRef.current) {
+          if (mode === "approach" && approachedIdx !== null && isPortraitNow() && sheetRef.current) {
+            const vis = Math.max(0, stage.getBoundingClientRect().bottom - sheetRef.current.getBoundingClientRect().top);
+            dotsRef.current.style.transition = "none";
+            dotsRef.current.style.bottom = `${Math.round(vis) + DOT_GAP}px`;
+          } else if (dotsRef.current.style.bottom) {
+            dotsRef.current.style.transition = "";
+            dotsRef.current.style.bottom = "";
+          }
+        }
+
         const away = Math.abs(dragYaw) > 0.35;
         if (away !== lookedFlag) {
           lookedFlag = away;
@@ -1149,7 +1370,8 @@ export default function Museum({ works, slotId }: Props) {
           dragYaw = yaw;
           dragPitch = pitch;
         },
-        setSheet: (s: "peek" | "full") => setSheet(s),
+        /* through the snap, so the hook moves the real element (V8-328) */
+        setSheet: (s: "peek" | "full") => snapSheetFn.current(s),
         paintingRect,
         placements,
         get info() {
@@ -1230,48 +1452,40 @@ export default function Museum({ works, slotId }: Props) {
     }
   }, [approached]);
 
-  // ——— Phone sheet drag (pointer capture, rAF-throttled transform, velocity settles) ———
-  const dragState = useRef<{ y0: number; h0: number; t0: number; ly: number; lt: number; dy: number } | null>(null);
+  // ——— Phone sheet drag (header) — v8 V8-328: the header drives the SAME
+  // continuous position as the stage swipe and the wheel; release snaps by
+  // velocity, then by nearest end. ———
+  const dragState = useRef<{ y0: number; p0: number; ly: number; lt: number; moved: number; v: number } | null>(null);
   const onSheetDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    const el = sheetRef.current;
-    if (!el) return;
+    if (!sheetRef.current) return;
     /* Capture on the HEADER (the element that owns these handlers) — capturing
        on the sheet re-targeted every move/up to the sheet, so the header's
        handlers never saw them and the sheet was dead to touch (juror 1, P1). */
     e.currentTarget.setPointerCapture(e.pointerId);
-    dragState.current = { y0: e.clientY, h0: el.getBoundingClientRect().height, t0: performance.now(), ly: e.clientY, lt: performance.now(), dy: 0 };
-    el.style.transition = "none";
+    dragState.current = { y0: e.clientY, p0: sheetPosRef.current, ly: e.clientY, lt: performance.now(), moved: 0, v: 0 };
   };
   const onSheetMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = dragState.current;
-    const el = sheetRef.current;
-    if (!d || !el) return;
-    d.dy = e.clientY - d.y0;
+    if (!d) return;
     const now = performance.now();
+    d.moved = Math.max(d.moved, Math.abs(e.clientY - d.y0));
+    d.v = (d.ly - e.clientY) / Math.max(1, now - d.lt); // px/ms, up +
     d.ly = e.clientY;
     d.lt = now;
-    requestAnimationFrame(() => {
-      if (!dragState.current) return;
-      const shift = sheet === "peek" ? Math.min(0, d.dy) : Math.max(0, d.dy);
-      el.style.transform = `translateY(${shift}px)`;
-    });
+    applySheet(d.p0 + (d.y0 - e.clientY) / sheetTravel(), false);
   };
   const onSheetUp = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = dragState.current;
-    const el = sheetRef.current;
     dragState.current = null;
-    if (!d || !el) return;
-    const dt = Math.max(1, performance.now() - d.t0);
-    const v = d.dy / dt; // px/ms
-    el.style.transition = "transform var(--dur-fast) var(--ease)";
-    el.style.transform = "";
-    const stageH = stageRef.current?.clientHeight ?? 800;
-    if (Math.abs(v) > 0.3) setSheet(v < 0 ? "full" : "peek");
-    else if (Math.abs(d.dy) > stageH * 0.12) setSheet(d.dy < 0 ? "full" : "peek");
-    else if (Math.abs(d.dy) < 6) {
+    if (!d) return;
+    if (d.moved < 6) {
       // a tap toggles (pointer path); the click fallback below is then skipped
       lastToggle.current = performance.now();
-      setSheet(sheet === "peek" ? "full" : "peek");
+      snapSheet(sheet === "peek" ? "full" : "peek");
+    } else if (Math.abs(d.v) > 0.3) {
+      snapSheet(d.v > 0 ? "full" : "peek");
+    } else {
+      snapSheet(sheetPosRef.current > 0.5 ? "full" : "peek");
     }
     void e;
   };
@@ -1281,7 +1495,7 @@ export default function Museum({ works, slotId }: Props) {
   const onSheetClick = () => {
     if (performance.now() - lastToggle.current < 500) return;
     lastToggle.current = performance.now();
-    setSheet(sheet === "peek" ? "full" : "peek");
+    snapSheet(sheet === "peek" ? "full" : "peek");
   };
 
   if (!capable) return null;
@@ -1393,7 +1607,19 @@ export default function Museum({ works, slotId }: Props) {
             className="absolute z-20 -translate-y-1/2"
             style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px - 3rem), 22rem)" }}
           >
-            <div className="rounded-[12px] p-4 lg:p-5" style={{ background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)", backdropFilter: "blur(8px)" }}>
+            {/* v8 V8-329: the card can now carry a study, so it is capped to
+                the stage and scrolls inside rather than running off the top
+                and bottom on short desktops (1024×768). */}
+            <div
+              className="museum-card rounded-[12px] p-4 lg:p-5"
+              style={{
+                background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)",
+                backdropFilter: "blur(8px)",
+                maxHeight: "calc(100dvh - 2 * var(--ui-inset))",
+                overflowY: "auto",
+                overscrollBehavior: "contain",
+              }}
+            >
               {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
                   LOCATION alone — the artist credit lives in the grid and on
                   the About page. */}
@@ -1413,6 +1639,9 @@ export default function Museum({ works, slotId }: Props) {
                   {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
                 </figure>
               )}
+              {plaque.study && !(stageRef.current && stageRef.current.clientHeight < 620) && (
+                <Study work={plaque} />
+              )}
               <div className="mt-5">
                 {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
                 <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
@@ -1423,16 +1652,21 @@ export default function Museum({ works, slotId }: Props) {
           </div>
         )}
 
-        {/* Phone portrait: the peek-sheet (drag or tap the header) */}
+        {/* Phone portrait: the peek-sheet. v8 V8-328 (Wil, 00:28:32): the
+            drag-handle pill is gone — the whole header is the handle, an X
+            closes the open card, and the sheet rides ONE continuous position
+            (header drag, stage swipe, wheel) with the body always mounted so
+            the painting recomposes live above it. */}
         {plaque && portraitUI && (
           <div
             ref={sheetRef}
             className="museum-sheet absolute inset-x-0 bottom-0 z-20"
             data-state={sheet}
-            style={{ maxHeight: sheet === "full" ? "55dvh" : undefined, transition: "transform var(--dur-fast) var(--ease)" }}
+            style={{ maxHeight: "55dvh" }}
           >
             <div
-              className="museum-sheet-head cursor-grab touch-none px-[var(--ui-inset)] pt-3 pb-3"
+              ref={sheetHeadRef}
+              className="museum-sheet-head relative cursor-grab touch-none px-[var(--ui-inset)] pt-4 pb-3"
               onPointerDown={onSheetDown}
               onPointerMove={onSheetMove}
               onPointerUp={onSheetUp}
@@ -1445,11 +1679,10 @@ export default function Museum({ works, slotId }: Props) {
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  setSheet(sheet === "peek" ? "full" : "peek");
+                  snapSheet(sheet === "peek" ? "full" : "peek");
                 }
               }}
             >
-              <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-primary-7" aria-hidden="true" />
               {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
                   LOCATION alone — the artist credit lives in the grid and on
                   the About page. */}
@@ -1463,26 +1696,49 @@ export default function Museum({ works, slotId }: Props) {
                   </>
                 )}
               </p>
+              <button
+                type="button"
+                className="museum-sheet-close"
+                aria-label="Close the plaque"
+                style={{ opacity: sheet === "full" ? 1 : 0, pointerEvents: sheet === "full" ? "auto" : "none" }}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  lastToggle.current = performance.now();
+                  snapSheet("peek");
+                  sheetHeadRef.current?.focus();
+                }}
+              >
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                </svg>
+              </button>
             </div>
-            {sheet === "full" && (
-              <div className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]" style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - 118px)" }}>
-                {plaque.line && (
-                  <figure>
-                    <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
-                    {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
-                  </figure>
-                )}
-              </div>
-            )}
+            <div
+              className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
+              aria-hidden={sheet === "peek"}
+              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - 118px)" }}
+            >
+              {plaque.line && (
+                <figure>
+                  <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
+                  {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
+                </figure>
+              )}
+              {plaque.study && <Study work={plaque} />}
+            </div>
           </div>
         )}
 
         {/* Dot rail — every mode; rides above the sheet on phones */}
         {ready && (
           <nav
+            ref={dotsRef}
             className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center gap-4"
             style={{
-              bottom: plaque && portraitUI ? `${Math.round(sheetH) + 12}px` : "calc(var(--ui-inset) + 4px)",
+              /* first-frame fallback only — tick() then follows the LIVE sheet
+                 top every frame while the drawer slides (v8 V8-328) */
+              bottom: plaque && portraitUI ? `${Math.round(sheetH) + DOT_GAP}px` : "calc(var(--ui-inset) + 4px)",
               transition: "bottom var(--dur-fast) var(--ease)",
             }}
             aria-label="Works in the hall"

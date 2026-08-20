@@ -91,9 +91,24 @@ const works = chapters.flatMap((entry) =>
  * chapter's main canvas. Every asset already exists in the media pipeline. */
 const aspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/${w.key}-1440.jpg`, 1.5)));
 const sketchAspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/sketch-800.webp`, 1.25)));
+/* v8 V8-329 (Wil, 01:13:43): the plaque shows the study too. The main canvas
+   takes its chapter's study; the commissioner's Part 2 has its own drawing on
+   disk. Narrative works have none and simply omit the row. This is the
+   PLAQUE's copy — the hall's `sketch` (which hangs a study on the wall beside
+   the main canvas only) is deliberately left alone. */
+const studyKeyOf = (key: string) =>
+  key === "horizontal" ? "sketch" : key === "horizontal-pt2" ? "sketch-pt2" : null;
+const studyAspects = await Promise.all(
+  works.map((w) => {
+    const k = studyKeyOf(w.key);
+    return k ? aspectOf(`media/${w.slug}/${k}-800.webp`, 1.25) : Promise.resolve(null);
+  }),
+);
 const museumWorks = works.map((w, wi) => {
   const entry = chapters.find((e) => e.id === w.slug)!;
   const hasSketch = w.key === "horizontal" && entry.data.media.images.includes("sketch");
+  const studyKey = studyKeyOf(w.key);
+  const hasStudy = Boolean(studyKey && entry.data.media.images.includes(studyKey));
   /* The plaque speaks a line from the day — the scene's APPROVED quote
      (never invented copy): the main canvas gets scene 1's, Part 2 gets
      scene 2's. */
@@ -112,6 +127,13 @@ const museumWorks = works.map((w, wi) => {
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
     video: w.video,
     sketch: hasSketch ? withBase(`media/${w.slug}/sketch-800.webp`) : null,
+    study: hasStudy ? withBase(`media/${w.slug}/${studyKey}-800.webp`) : null,
+    studyAspect: hasStudy ? studyAspects[wi] : null,
+    /* the chapter's own words about the drawing on screen — scene 2's note
+       where the chapter has one (only Ch2 today), else the chapter's */
+    studyNote: hasStudy
+      ? (w.key === "horizontal-pt2" ? entry.data.scenes[1]?.sketchNote : null) ?? entry.data.sketchNote
+      : null,
     aspect: aspects[wi],
     sketchAspect: hasSketch ? sketchAspects[wi] : null,
     line: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.text : null,
