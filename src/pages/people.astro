@@ -12,10 +12,9 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { withBase } from "../lib/url";
 import { rescuers, hunters, type Person } from "../data/people";
 import { fitChars, nbsp } from "../lib/text";
-/* v7 P4: authored breaks per breakpoint — Wil reads it as ONE DAY. A WHOLE /
-   CITY’S CAST. at desktop; phones take three lines and never leave CAST. alone. */
-const PEOPLE_HEADING_LG = "ONE DAY. A WHOLE<br />CITY’S CAST.";
-const PEOPLE_HEADING_SM = "ONE DAY.<br />A WHOLE<br />CITY’S CAST.";
+/* v8 V8-301 (Wil, 8/19 00:23:44): the three-line lockup at EVERY width — the
+   v7 two-line desktop swap is gone; never leave CAST. alone. */
+const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE<br />CITY’S CAST.";
 
 
 const groups: { heading: string; blurb: string; people: Person[] }[] = [
@@ -44,17 +43,17 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
       over a heading that says the same thing, under a nav link that says it a
       third time. */}
   <header class="shell page-open">
-    {/* v7 P4: below 1280 the two-column fold (H1 left, intro right, three
-        authored lines). From 1280 the H1 reads ONE DAY. A WHOLE / CITY'S CAST.
-        (Wil) across the full shell — the only width that holds 88px Caslon —
-        and the intro tucks under its short second line, in the right column. */}
-    <div class="grid gap-10 lg:grid-cols-[8fr_4fr] lg:items-end lg:gap-16 xl:grid-cols-1 xl:gap-12">
-      <h1 class="t-display lines xl:hidden" style={fitChars(PEOPLE_HEADING_SM)} set:html={PEOPLE_HEADING_SM} />
-      <h1 class="t-display lines hidden xl:block" style={fitChars(PEOPLE_HEADING_LG)} set:html={PEOPLE_HEADING_LG} />
-      <div class="lg:pb-3 xl:grid xl:grid-cols-[8fr_4fr] xl:gap-16 xl:pb-0">
-        <div class="xl:col-start-2">
+    {/* The two-column fold at every desktop width: H1 left, intro right,
+        bottom-aligned (V8-301 dropped the v7 xl full-shell two-line swap). */}
+    <div class="grid gap-10 lg:grid-cols-[8fr_4fr] lg:items-end lg:gap-16">
+      <h1 class="t-display lines" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
+      <div class="lg:pb-3">
+        <div>
+          {/* v8 V8-303 (Wil, 8/19 00:47:11): on tablets the intro runs full
+              shell width, so the second sentence gets its own line. */}
           <p class="t-prose">
-            Fourteen of them are named here. The <em>New York Times</em> counted
+            Fourteen of them are named here.{" "}
+            <br class="hidden md:max-lg:inline" />The <em>New York Times</em> counted
             the crowd outside the commissioner’s office at some one thousand
             persons.
           </p>

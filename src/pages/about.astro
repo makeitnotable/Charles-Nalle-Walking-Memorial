@@ -24,6 +24,14 @@ const people = [
   { ...about.mark, image: "about-mark" },
   { ...about.scott, image: "about-scott" },
 ];
+
+/* v8 V8-304 (Wil, 8/19 00:52:21): the afterword attribution breaks after the
+   book's short title, so the subtitle reads as its own line instead of
+   wrapping mid-phrase. Wil asked on tablet; measured, the one-liner ALSO
+   overruns the 46rem figure at 1024–1440 (an unauthored wrap mid-subtitle),
+   so the break is authored at every width — noted in the review guide.
+   Split here, never hardcoded — the data owns the title. */
+const [QUOTE_BOOK, QUOTE_SUBTITLE] = about.closingQuote.source.split(": ");
 ---
 
 <Base
@@ -96,27 +104,29 @@ const people = [
             <p class="t-spine">({String(i + 3).padStart(2, "0")})</p>
             <p class="t-meta mt-3">{person.kicker}</p>
           </div>
-          <div>
-            <h2 class="t-title reveal">{person.header}</h2>
+          {/* v8 V8-305 (Wil, 8/19 01:18:34): on phones the NAME reads under the
+              photograph with air above and below; from sm the name returns to
+              the top of the block. Grid areas move only the paint — the DOM
+              stays heading-first for screen readers. */}
+          <div class="person-grid">
+            <h2 class="t-title reveal person-name">{person.header}</h2>
             {/* These three files are 250×251 — `-800` and `-1440` are the same
                 bytes under different names, so the old srcset was advertising
                 resolutions that do not exist and the browser was painting a
                 250px thumbnail at 828px CSS. It renders at its real size now,
                 set beside the prose instead of stretched above it. */}
-            <div class="mt-12 flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-12">
-              <img
-                src={withBase(`media/site/${person.image}-800.webp`)}
-                width="250"
-                height="251"
-                alt={person.header}
-                loading="lazy"
-                class="artifact reveal w-[168px] flex-none sm:w-[250px]"
-              />
-              <div class="space-y-6">
-                {person.paragraphs.map((p) => (
-                  <p class="t-prose reveal">{p}</p>
-                ))}
-              </div>
+            <img
+              src={withBase(`media/site/${person.image}-800.webp`)}
+              width="250"
+              height="251"
+              alt={person.header}
+              loading="lazy"
+              class="artifact reveal person-photo w-[168px] sm:w-[250px]"
+            />
+            <div class="person-prose space-y-6">
+              {person.paragraphs.map((p) => (
+                <p class="t-prose reveal">{p}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -142,7 +152,8 @@ const people = [
           “{nbsp(about.closingQuote.text)}”
         </blockquote>
         <figcaption class="t-meta mt-10">
-          {about.closingQuote.attribution}, {nbsp(about.closingQuote.source)}
+          {about.closingQuote.attribution}, {QUOTE_BOOK}:{" "}
+          <br />{nbsp(QUOTE_SUBTITLE)}
         </figcaption>
       </figure>
     </div>
@@ -164,7 +175,9 @@ const people = [
           location, the Ferry Landing, is remembered here on the website. Start at
           any plaque, or begin from the map. About {MINUTES === 45 ? "forty-five" : MINUTES} minutes on&nbsp;foot.
         </p>
-        <div class="mt-10">
+        {/* v8 V8-307 (Wil, 8/19 01:20:08): the closer centres on phones and
+            tablets — About only; the People closer keeps its left seat. */}
+        <div class="mt-10 flex justify-center lg:justify-start">
           <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid btn-icon-end">
             Walk the story
             <Icon name="arrow" />
@@ -175,6 +188,41 @@ const people = [
   </section>
 
   <SiteFooter hide="about" />
+
+  <style>
+    /* V8-305: phones read photo → name → prose; sm+ restores name on top with
+       the photo+prose row under it (the v7 layout, unchanged measurements). */
+    .person-grid {
+      display: grid;
+      grid-template-areas: "photo" "name" "prose";
+    }
+    .person-name {
+      grid-area: name;
+      margin-top: 2rem;
+    }
+    .person-photo {
+      grid-area: photo;
+    }
+    .person-prose {
+      grid-area: prose;
+      margin-top: 1.75rem;
+    }
+    @media (min-width: 640px) {
+      .person-grid {
+        grid-template-areas: "name name" "photo prose";
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 3rem;
+        align-items: start;
+      }
+      .person-name {
+        margin-top: 0;
+      }
+      .person-photo,
+      .person-prose {
+        margin-top: 3rem;
+      }
+    }
+  </style>
 
   <script>
     const io = new IntersectionObserver(

@@ -78,7 +78,9 @@ export const about = {
     kicker: "Author",
     image: "about-page/scott.png",
     paragraphs: [
-      "Scott Christianson was an American author who wrote \"Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War\". Christianson was known for his studies of the history of the Underground Railroad and worked closely with the Troy community and Nalle’s descendants to communicate Charles’s story in the book. Throughout the site you will find snippets from the book that tell the story of Charles’s rescue.",
+      // v8 V8-306 (Wil, 8/19 01:19:39): NBSP glue inside the book title so it
+      // wraps at phrase boundaries, never mid-phrase — punctuation only.
+      "Scott Christianson was an American author who wrote \"Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War\". Christianson was known for his studies of the history of the Underground Railroad and worked closely with the Troy community and Nalle’s descendants to communicate Charles’s story in the book. Throughout the site you will find snippets from the book that tell the story of Charles’s rescue.",
     ],
   } satisfies AboutSection,
 };
