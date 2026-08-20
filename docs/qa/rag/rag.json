@@ -1,6 +1,6 @@
 {
   "base": "http://localhost:4321",
-  "generated": "2026-08-20T02:46:46.374Z",
+  "generated": "2026-08-20T03:16:25.864Z",
   "results": [
     {
       "route": "/",
@@ -112,7 +112,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -629,7 +629,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -644,7 +644,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -764,7 +764,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -783,11 +783,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -1686,7 +1686,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -1701,7 +1701,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -1821,7 +1821,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -1840,11 +1840,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -2383,7 +2383,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -2398,7 +2398,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -2518,7 +2518,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -2537,11 +2537,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -3065,7 +3065,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -3080,7 +3080,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -3200,7 +3200,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -3219,11 +3219,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -3236,6 +3236,36 @@
       "route": "/barbershop",
       "vp": "360",
       "blocks": [
+        {
+          "sel": "p.t-meta",
+          "text": "LOCATION 05 OF 5 TROY, NY · APRIL 27, 18",
+          "fontSize": 12,
+          "lines": 2,
+          "lastWords": 6,
+          "lastText": "Troy, NY · April 27, 1860",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h1.t-display.whitespace-pre-line",
+          "text": "PETER BALTIMORE’S BARBERSHOP",
+          "fontSize": 40.4,
+          "lines": 3,
+          "lastWords": 1,
+          "lastText": "BARBERSHOP",
+          "ratio": 1,
+          "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
         {
           "sel": "p.t-spine",
           "text": "(01)",
@@ -3279,12 +3309,37 @@
           "runt": false,
           "twoWord": false,
           "gate": false,
-          "clip": {
-            "by": ".line-box",
-            "sides": [
-              "\"Freedom Is Bought\": bottom 64.0px"
-            ]
-          }
+          "clip": null
+        },
+        {
+          "sel": "blockquote.t-quote",
+          "text": "“We also must liberate history and memor",
+          "fontSize": 26,
+          "lines": 5,
+          "lastWords": 5,
+          "lastText": "us and inside of us.”",
+          "ratio": 0.87,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "figcaption.t-meta",
+          "text": "CHRISTIANSON",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Christianson",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
         },
         {
           "sel": "p.t-meta",
@@ -3374,13 +3429,127 @@
           "runt": false,
           "twoWord": false,
           "gate": false,
-          "clip": {
-            "by": ".line-box",
-            "sides": [
-              "\"Historical\": bottom 30.0px",
-              "\"context\": bottom 30.0px"
-            ]
-          }
+          "clip": null
+        },
+        {
+          "sel": "dt.t-meta",
+          "text": "(1)",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(1)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "dd.t-prose",
+          "text": "Peter Baltimore’s younger son, Garnet Do",
+          "fontSize": 19,
+          "lines": 7,
+          "lastWords": 4,
+          "lastText": "architect of Prospect Park.",
+          "ratio": 0.87,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "dt.t-meta",
+          "text": "(2)",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(2)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "dd.t-prose",
+          "text": "Peter Baltimore’s barbershop was a part ",
+          "fontSize": 19,
+          "lines": 6,
+          "lastWords": 5,
+          "lastText": "work at the Troy House.",
+          "ratio": 0.8,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "dt.t-meta",
+          "text": "(3)",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(3)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "dd.t-prose",
+          "text": "After Charles Nalle’s escape, radical So",
+          "fontSize": 19,
+          "lines": 8,
+          "lastWords": 4,
+          "lastText": "triggering the Civil War.",
+          "ratio": 0.81,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "The shop was a room where Troy’s aboliti",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 3,
+          "lastText": "center of it.",
+          "ratio": 0.34,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "When Charles was taken, Baltimore joined",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 3,
+          "lastText": "plan was made.",
+          "ratio": 0.44,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
         },
         {
           "sel": "h2#moral-heading.t-display.lines",
@@ -3395,14 +3564,112 @@
           "runt": false,
           "twoWord": false,
           "gate": false,
-          "clip": {
-            "by": ".line-box",
-            "sides": [
-              "\"WE ARE\": bottom 33.0px",
-              "\"RESPONSIBLE\": bottom 34.0px",
-              "\"FOR JUSTICE\": bottom 40.0px"
-            ]
-          }
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose.reveal",
+          "text": "The collective effort of the Troy commun",
+          "fontSize": 19,
+          "lines": 6,
+          "lastWords": 4,
+          "lastText": "social and political injustices.",
+          "ratio": 0.85,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "figcaption.max-w-[44ch]",
+          "text": "THE ARTIST'S STUDY The crowd fills the s",
+          "fontSize": 16,
+          "lines": 8,
+          "lastWords": 5,
+          "lastText": "Mark Priest · Nalle Series",
+          "ratio": 0.53,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE ARTIST'S STUDY",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "The artist's study",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "The crowd fills the sheet edge to edge a",
+          "fontSize": 19,
+          "lines": 6,
+          "lastWords": 3,
+          "lastText": "toward the shop.",
+          "ratio": 0.48,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body",
+          "text": "Mark Priest · Nalle Series",
+          "fontSize": 14,
+          "lines": 1,
+          "lastWords": 5,
+          "lastText": "Mark Priest · Nalle Series",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-title-sm",
+          "text": "YOUR PART OF IT",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "Your part of it",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Get involved in local activism, voluntee",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 3,
+          "lastText": "those in need.",
+          "ratio": 0.44,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
         },
         {
           "sel": "h2.t-title.lines",
@@ -3417,13 +3684,82 @@
           "runt": false,
           "twoWord": false,
           "gate": false,
-          "clip": {
-            "by": ".line-box",
-            "sides": [
-              "\"Where\": bottom 30.0px",
-              "\"to next\": bottom 30.0px"
-            ]
-          }
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "LOCATION 01",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Location 01",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-title-sm",
+          "text": "HOLEUR’S FASHIONABLE BAKERY",
+          "fontSize": 26,
+          "lines": 2,
+          "lastWords": 2,
+          "lastText": "Fashionable Bakery",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body",
+          "text": "3rd & Division Streets (vacant lot today",
+          "fontSize": 14,
+          "lines": 1,
+          "lastWords": 7,
+          "lastText": "3rd & Division Streets (vacant lot today",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.btn.btn-solid.btn-icon-end",
+          "text": "CONTINUE",
+          "fontSize": 15,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Continue",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.btn.btn-ghost.btn-icon-end",
+          "text": "GET DIRECTIONS",
+          "fontSize": 15,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Get directions",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
         },
         {
           "sel": "p.footer-wordmark",
@@ -3531,7 +3867,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -3550,11 +3886,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -4082,11 +4418,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -4955,7 +5291,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -5064,11 +5400,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -5127,7 +5463,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP",
           "fontSize": 13,
           "lines": 1,
@@ -5851,11 +6187,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -6664,7 +7000,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -6773,11 +7109,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -6836,7 +7172,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -6851,7 +7187,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -6975,11 +7311,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 3,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.45,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 1,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -7098,7 +7434,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -7615,7 +7951,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -7630,7 +7966,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -7750,7 +8086,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -7773,7 +8109,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -8672,7 +9008,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -8687,7 +9023,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -8807,7 +9143,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -8830,7 +9166,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -9369,7 +9705,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -9384,7 +9720,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -9504,7 +9840,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -9527,7 +9863,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -10051,7 +10387,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -10066,7 +10402,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -10186,7 +10522,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -10209,7 +10545,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -10718,7 +11054,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -10733,7 +11069,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -10853,7 +11189,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -10876,7 +11212,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -11408,7 +11744,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -12277,7 +12613,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -12390,7 +12726,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -12449,7 +12785,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP",
           "fontSize": 13,
           "lines": 1,
@@ -13177,7 +13513,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -13986,7 +14322,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -14099,7 +14435,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -14158,7 +14494,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -14173,7 +14509,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -14301,7 +14637,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -14420,7 +14756,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -14937,7 +15273,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -14952,7 +15288,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -15072,7 +15408,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -15095,7 +15431,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -15994,7 +16330,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -16009,7 +16345,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -16129,7 +16465,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -16152,7 +16488,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -16691,7 +17027,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -16706,7 +17042,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -16826,7 +17162,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -16849,7 +17185,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -17373,7 +17709,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -17388,7 +17724,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -17508,7 +17844,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -17531,7 +17867,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -18040,7 +18376,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -18055,7 +18391,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -18175,7 +18511,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -18198,7 +18534,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -18730,7 +19066,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -19599,7 +19935,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -19712,7 +20048,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -19771,7 +20107,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP",
           "fontSize": 13,
           "lines": 1,
@@ -20499,7 +20835,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -21308,7 +21644,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -21421,7 +21757,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -21480,7 +21816,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -21495,7 +21831,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -21623,7 +21959,7 @@
           "lastText": "Explore at your own pace, discretion, an",
           "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -21742,7 +22078,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -22259,7 +22595,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -22274,7 +22610,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -22394,7 +22730,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -22413,11 +22749,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -23017,6 +23353,51 @@
         },
         {
           "sel": "p.t-meta",
+          "text": "LISTEN",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Listen",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body.max-sm:line-clamp-2",
+          "text": "Commissioner’s Office · Pt 2",
+          "fontSize": 14,
+          "lines": 1,
+          "lastWords": 5,
+          "lastText": "Commissioner’s Office · Pt 2",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "span.t-meta",
+          "text": "02:19",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "02:19",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
           "text": "TAP OR CLICK A PARAGRAPH TO HEAR IT READ",
           "fontSize": 12,
           "lines": 1,
@@ -23271,7 +23652,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -23286,7 +23667,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -23406,7 +23787,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -23425,11 +23806,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -23968,7 +24349,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -23983,7 +24364,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -24103,7 +24484,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -24122,11 +24503,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -24650,7 +25031,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -24665,7 +25046,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -24785,7 +25166,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -24804,11 +25185,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -25317,7 +25698,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -25332,7 +25713,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -25452,7 +25833,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -25471,11 +25852,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -26003,11 +26384,11 @@
           "text": "Walking routes and directions are sugges",
           "fontSize": 14,
           "lines": 2,
-          "lastWords": 3,
-          "lastText": "discretion, and risk.",
-          "ratio": 0.25,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
           "display": false,
-          "authored": false,
+          "authored": true,
           "runt": false,
           "twoWord": false,
           "gate": false,
@@ -26019,8 +26400,984 @@
     {
       "route": "/people",
       "vp": "land",
-      "blocks": [],
-      "error": "page.evaluate: Execution context was destroyed, most likely because of a navigation."
+      "blocks": [
+        {
+          "sel": "h1.t-display.lines",
+          "text": "ONE DAY. A WHOLE CITY’S CAST.",
+          "fontSize": 46,
+          "lines": 3,
+          "lastWords": 2,
+          "lastText": "CITY’S CAST.",
+          "ratio": 1,
+          "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Fourteen of them are named here. The New",
+          "fontSize": 19,
+          "lines": 3,
+          "lastWords": 2,
+          "lastText": "thousand persons.",
+          "ratio": 0.28,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body",
+          "text": "Every person below stood on the pavement",
+          "fontSize": 14,
+          "lines": 2,
+          "lastWords": 3,
+          "lastText": "location by location.",
+          "ratio": 0.18,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-spine",
+          "text": "(01)",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(01)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE RESCUERS",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The rescuers",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h2.t-title.reveal",
+          "text": "THE RESCUERS",
+          "fontSize": 34,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The rescuers",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose.reveal",
+          "text": "Black and white, famous and unrecorded: ",
+          "fontSize": 19,
+          "lines": 2,
+          "lastWords": 10,
+          "lastText": "decided, in a single afternoon, that the",
+          "ratio": 0.82,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE MAN AT THE CENTER",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 5,
+          "lastText": "The man at the center",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "CHARLES NALLE",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Charles Nalle",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "A coachman for the Gilbert family who ha",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 7,
+          "lastText": "same day by the people of Troy.",
+          "ratio": 0.78,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE VOICE IN THE CROWD",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 5,
+          "lastText": "The voice in the crowd",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "HARRIET TUBMAN",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Harriet Tubman",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "In Troy visiting her cousin when the chu",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 5,
+          "lastText": "don’t let them have him!”",
+          "ratio": 0.62,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.sep-list",
+          "text": "BARBER · UNDERGROUND RAILROAD",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "· Barber Underground Railroad",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "PETER BALTIMORE",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Peter Baltimore",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "A free man of color whose high-class bar",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 6,
+          "lastText": "$1,000 raised to buy Charles’s freedom.",
+          "ratio": 0.96,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "CHIEF CIVIL-RIGHTS ATTORNEY",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Chief civil-rights attorney",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "MARTIN I. TOWNSEND",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Martin I. Townsend",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Rushed to the commissioner’s office to f",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 4,
+          "lastText": "money in five minutes.”",
+          "ratio": 0.56,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.sep-list",
+          "text": "INDUSTRIALIST · CHARLES’S EMPLOYER",
+          "fontSize": 12,
+          "lines": 2,
+          "lastWords": 3,
+          "lastText": "· Charles’s employer",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "URI GILBERT",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Uri Gilbert",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Railcar magnate and later mayor of Troy.",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 2,
+          "lastText": "Second Street.",
+          "ratio": 0.36,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.sep-list",
+          "text": "GROCER · FIRST ALARM",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "· Grocer first alarm",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "WILLIAM HENRY",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "William Henry",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "A Black grocery-store owner who saw the ",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 3,
+          "lastText": "rescue in motion.",
+          "ratio": 0.42,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "VIGILANCE COMMITTEE",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Vigilance Committee",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "CAPTAIN HAWK",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Captain Hawk",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Abolitionist who spread word of the capt",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 2,
+          "lastText": "Bank Building.",
+          "ratio": 0.36,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE WATERMAN",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The waterman",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "BILLY LOREMAN",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Billy Loreman",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Rowed a still-shackled Charles across th",
+          "fontSize": 19,
+          "lines": 3,
+          "lastWords": 7,
+          "lastText": "threatened to open fire from the bank.",
+          "ratio": 0.94,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE BAKER",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The baker",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "GEORGE HOLEUR",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "George Holeur",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "The thirty-four-year-old French baker wh",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 3,
+          "lastText": "the whole city.",
+          "ratio": 0.37,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-spine",
+          "text": "(02)",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(02)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE HUNTERS",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The hunters",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h2.t-title.reveal",
+          "text": "THE HUNTERS",
+          "fontSize": 34,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The hunters",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose.reveal",
+          "text": "The men who put a free man in chains, la",
+          "fontSize": 19,
+          "lines": 2,
+          "lastWords": 4,
+          "lastText": "Slave Act of 1850.",
+          "ratio": 0.26,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE CLAIMANT",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The claimant",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "BLUCHER HANSBROUGH",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Blucher Hansbrough",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Charles’s half-brother, and the man who ",
+          "fontSize": 19,
+          "lines": 5,
+          "lastWords": 3,
+          "lastText": "raised the money.",
+          "ratio": 0.44,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE BETRAYER",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The betrayer",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "HORATIO F. AVERILL",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Horatio F. Averill",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "The lawyer who learned Charles’s secret ",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 3,
+          "lastText": "for the reward.",
+          "ratio": 0.39,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "SLAVE HUNTER",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Slave hunter",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "HENRY “JACK” WALE",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Henry “Jack” Wale",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "A dangerous and infamous slave catcher f",
+          "fontSize": 19,
+          "lines": 3,
+          "lastWords": 3,
+          "lastText": "Charles back south.",
+          "ratio": 0.48,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE BADGE",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The badge",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "DEPUTY U.S. MARSHAL HOLMES",
+          "fontSize": 26,
+          "lines": 2,
+          "lastWords": 2,
+          "lastText": "Marshal Holmes",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Made the arrest lawful: “Charles Nalle, ",
+          "fontSize": 19,
+          "lines": 4,
+          "lastWords": 5,
+          "lastText": "his side. Troy was not.",
+          "ratio": 0.52,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THE ACCOMPLICE",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The accomplice",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h3.t-title-sm",
+          "text": "THOMAS PARR",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "Thomas Parr",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-prose",
+          "text": "Wale’s slave-hunting partner from Culpep",
+          "fontSize": 19,
+          "lines": 3,
+          "lastWords": 5,
+          "lastText": "paperwork at the commissioner’s office.",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-spine",
+          "text": "(03)",
+          "fontSize": 26,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "(03)",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "ONWARD",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Onward",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta",
+          "text": "THEIR STORY LIVES ON",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "Their story lives on",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "h2.t-title.reveal",
+          "text": "STAND WHERE THEY STOOD",
+          "fontSize": 34,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "Stand where they stood",
+          "ratio": 1,
+          "display": true,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.btn.btn-solid.btn-icon-end",
+          "text": "WALK THE STORY",
+          "fontSize": 15,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Walk the story",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.footer-wordmark",
+          "text": "Charles Nalle Walking Memorial",
+          "fontSize": 23.3,
+          "lines": 1,
+          "lastWords": 4,
+          "lastText": "Charles Nalle Walking Memorial",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body",
+          "text": "Made by Notable",
+          "fontSize": 14,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Made by Notable",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.inline-block.py-1.underline",
+          "text": "Notable",
+          "fontSize": 14,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Notable",
+          "ratio": 1,
+          "display": false,
+          "authored": false,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.link-meta.t-meta.py-1",
+          "text": "THE PAINTINGS",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 2,
+          "lastText": "The paintings",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.link-meta.t-meta.py-1",
+          "text": "ABOUT THE MEMORIAL",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "About the memorial",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "a.link-meta.t-meta.py-1",
+          "text": "MAP",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 1,
+          "lastText": "Map",
+          "ratio": 1,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta-body.footer-disclaimer",
+          "text": "Walking routes and directions are sugges",
+          "fontSize": 14,
+          "lines": 2,
+          "lastWords": 8,
+          "lastText": "Explore at your own pace, discretion, an",
+          "ratio": 0.92,
+          "display": false,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        }
+      ],
+      "dashes": []
     },
     {
       "route": "/paintings",
@@ -26072,7 +27429,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -27609,7 +28966,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -27781,7 +29138,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -27796,7 +29153,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -28043,7 +29400,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -28560,7 +29917,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -28575,7 +29932,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -28695,7 +30052,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -29617,7 +30974,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -29632,7 +30989,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -29752,7 +31109,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -30314,7 +31671,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -30329,7 +31686,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -30449,7 +31806,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -30996,7 +32353,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -31011,7 +32368,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -31131,7 +32488,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -31663,7 +33020,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -31678,7 +33035,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -31798,7 +33155,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -33222,7 +34579,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -33394,7 +34751,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -34931,7 +36288,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -35103,7 +36460,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -35118,7 +36475,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -35365,7 +36722,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -36032,7 +37389,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -36047,7 +37404,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -36167,7 +37524,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -37329,7 +38686,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -37344,7 +38701,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -37464,7 +38821,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -38176,7 +39533,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -38191,7 +39548,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -38311,7 +39668,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -39008,7 +40365,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -39023,7 +40380,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -39143,7 +40500,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -39825,7 +41182,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -39840,7 +41197,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -39960,7 +41317,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -41384,7 +42741,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -41556,7 +42913,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -43093,7 +44450,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -43265,7 +44622,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -43280,7 +44637,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -43527,7 +44884,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -44194,7 +45551,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -44209,7 +45566,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -44329,7 +45686,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -45491,7 +46848,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -45506,7 +46863,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -45626,7 +46983,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -46338,7 +47695,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -46353,7 +47710,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -46473,7 +47830,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -47170,7 +48527,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -47185,7 +48542,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -47305,7 +48662,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -47987,7 +49344,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -48002,7 +49359,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -48122,7 +49479,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -49546,7 +50903,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -49718,7 +51075,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -51255,7 +52612,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -51427,7 +52784,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -51442,7 +52799,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -51689,7 +53046,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -52356,7 +53713,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -52371,7 +53728,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -52491,7 +53848,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -53653,7 +55010,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -53668,7 +55025,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -53788,7 +55145,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -54500,7 +55857,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -54515,7 +55872,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -54635,7 +55992,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -55332,7 +56689,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -55347,7 +56704,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -55467,7 +56824,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -56149,7 +57506,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -56164,7 +57521,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -56284,7 +57641,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -57708,7 +59065,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -57880,7 +59237,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -59417,7 +60774,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -59589,7 +60946,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -59604,7 +60961,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,
@@ -59851,7 +61208,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-cta.home-cta",
+          "sel": "a.btn.btn-cta.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -60518,7 +61875,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -60533,7 +61890,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -60653,7 +62010,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -61815,7 +63172,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -61830,7 +63187,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -61950,7 +63307,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -62662,7 +64019,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -62677,7 +64034,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -62797,7 +64154,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -63494,7 +64851,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -63509,7 +64866,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -63629,7 +64986,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -64311,7 +65668,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "CONTINUE",
           "fontSize": 15,
           "lines": 1,
@@ -64326,7 +65683,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "GET DIRECTIONS",
           "fontSize": 15,
           "lines": 1,
@@ -64446,7 +65803,7 @@
           "clip": null
         },
         {
-          "sel": "button#share-btn.btn-sm.btn-ghost",
+          "sel": "button#share-btn.btn-sm.btn-ghost.btn-icon-end",
           "text": "SHARE",
           "fontSize": 13,
           "lines": 1,
@@ -65870,7 +67227,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -66042,7 +67399,7 @@
           "clip": null
         },
         {
-          "sel": "button.btn-sm.btn-ghost",
+          "sel": "button.btn-sm.btn-ghost.btn-icon-end",
           "text": "SKIP THE HALL",
           "fontSize": 13,
           "lines": 1,
@@ -67579,7 +68936,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "WALK THE STORY",
           "fontSize": 15,
           "lines": 1,
@@ -67751,7 +69108,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-solid",
+          "sel": "a.btn.btn-solid.btn-icon-end",
           "text": "START AT THE BEGINNING",
           "fontSize": 15,
           "lines": 1,
@@ -67766,7 +69123,7 @@
           "clip": null
         },
         {
-          "sel": "a.btn.btn-ghost",
+          "sel": "a.btn.btn-ghost.btn-icon-end",
           "text": "OPEN THE MAP",
           "fontSize": 15,
           "lines": 1,

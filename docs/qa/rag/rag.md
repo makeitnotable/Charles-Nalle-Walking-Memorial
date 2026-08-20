@@ -1,6 +1,6 @@
 # Rag & clip sweep — http://localhost:4321
 
-**0 runts (unauthored, the gate) · 0 two-word display runts · 4 ink clips** · 47 authored-lockup rows listed separately · 1 route error(s) — 4479 blocks over 99 route × viewport passes.
+**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 47 authored-lockup rows listed separately — 4571 blocks over 99 route × viewport passes.
 
 ## Runts
 
@@ -67,11 +67,3 @@ None.
 
 | route | vp | selector | text | px | clipped by | overhang |
 |---|---|---|---|---|---|---|
-| /barbershop | 360 | `h2.t-title.lines` | "FREEDOM IS BOUGHT" | 34 | `.line-box` | "Freedom Is Bought": bottom 64.0px |
-| /barbershop | 360 | `h2#history-heading.t-title.lines` | "HISTORICAL CONTEXT" | 34 | `.line-box` | "Historical": bottom 30.0px; "context": bottom 30.0px |
-| /barbershop | 360 | `h2#moral-heading.t-display.lines` | "WE ARE RESPONSIBLE FOR JUSTICE" | 40.4 | `.line-box` | "WE ARE": bottom 33.0px; "RESPONSIBLE": bottom 34.0px; "FOR JUSTICE": bottom 40.0px |
-| /barbershop | 360 | `h2.t-title.lines` | "WHERE TO NEXT" | 34 | `.line-box` | "Where": bottom 30.0px; "to next": bottom 30.0px |
-
-## Errors
-
-- /people @ land: page.evaluate: Execution context was destroyed, most likely because of a navigation.
