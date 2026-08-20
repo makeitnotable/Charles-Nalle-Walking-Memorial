@@ -758,10 +758,12 @@ h3 {
     color var(--dur-fast) var(--ease),
     transform var(--dur-fast) var(--ease);
 }
+/* v8 V8-002 (Wil, 01:20:46): sides in, top/bottom out — the cap-height
+ * row inside a pill needs less inline padding than block to read equal. */
 .btn {
   font-size: var(--fs-btn);
-  min-height: 48px;
-  padding-inline: 28px;
+  min-height: 52px;
+  padding-inline: 22px;
 }
 /* v7: on touch screens every small control still clears the 44px target. */
 @media (pointer: coarse) {
@@ -771,8 +773,25 @@ h3 {
 }
 .btn-sm {
   font-size: 13px;
-  min-height: 38px;
-  padding-inline: 20px;
+  min-height: 40px;
+  padding-inline: 18px;
+}
+/* The arrow glyph carries its own air — trim the padding on ITS side so
+ * label and icon sit optically centred in the pill. Explicit classes, not
+ * `:has(> .icon:first/last-child)`: a lone icon element beside a text-node
+ * label is both first AND last element child, which trimmed both sides.
+ * Button.astro adds these; React islands hand-author them. */
+.btn.btn-icon-end {
+  padding-inline-end: 17px;
+}
+.btn.btn-icon-start {
+  padding-inline-start: 17px;
+}
+.btn-sm.btn-icon-end {
+  padding-inline-end: 14px;
+}
+.btn-sm.btn-icon-start {
+  padding-inline-start: 14px;
 }
 /* Pressed — item 15. One pixel of travel; the expo-out front-loads it. */
 .btn:active,
@@ -1044,6 +1063,18 @@ h3 {
 .embed-map-shell .mapboxgl-ctrl-bottom-left,
 .embed-map-shell .mapboxgl-ctrl-bottom-right {
   padding: 8px;
+}
+
+/* v8 V8-273 (Wil, 00:44:05): the player's hairline→button gap equals the
+ * button→track optical gap below (16px margin + the scrub's transparent
+ * padding: 11px fine / 21px coarse). */
+.player-rule-gap {
+  padding-top: 27px;
+}
+@media (pointer: coarse) {
+  .player-rule-gap {
+    padding-top: 37px;
+  }
 }
 
 /* Narration scrub slider — thin track, real 24px hit area (the track paints

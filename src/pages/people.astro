@@ -58,9 +58,13 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
             the crowd outside the commissioner’s office at some one thousand
             persons.
           </p>
+          {/* v8 V8-302 (Wil, 8/19 00:25:07): his dictated replacement,
+              grammar-normalized ("Their role in the story are told each
+              chapter" → "Their roles… are told in each chapter"). */}
           <p class="t-meta-body mt-6">
-            Every name stood on pavement you can still walk. Their parts of the
-            day are told in the chapters, spot by&nbsp;spot.
+            Every person below stood on the pavement that exists today. Their
+            roles in the story are told in each chapter, location
+            by&nbsp;location.
           </p>
         </div>
       </div>
@@ -155,7 +159,7 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
         <p class="t-meta">Their story lives on</p>
         <h2 class="t-title reveal mt-4">Stand where they stood</h2>
         <div class="mt-10">
-          <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid">
+          <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid btn-icon-end">
             Walk the story
             <Icon name="arrow" />
           </a>

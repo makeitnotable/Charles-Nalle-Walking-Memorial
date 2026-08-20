@@ -50,7 +50,7 @@ const stops = (await getCollection("chapters"))
           aria-current={s.order === current ? "step" : undefined}
         >
           <span class="sr-only">
-            Spot {s.order} of {stops.length}: {s.name}
+            Location {s.order} of {stops.length}: {s.name}
           </span>
         </a>
       ) : (

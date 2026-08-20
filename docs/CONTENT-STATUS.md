@@ -411,3 +411,21 @@ Also (UI, not locked prose): ch2 scene labels `Part 1 — Tubman Creates a Crowd
 | Horatio F. Averill · note | …his wife, Kitty — and sold it to Virginia… | …his wife, Kitty, and sold it to Virginia… |
 
 UI copy on /people (not Kathy's): group blurbs lose their dashes (`unrecorded: the people…`, `in chains, lawfully,`), the spot links under each person are removed (Wil), closer = `Their story lives on` / `Stand where they stood` / `Walk the story`. /about: closing quote becomes section (06) Afterword at one section gap, attribution without the dash; section (07) closer copy = `Two and a half miles. One day in 1860.` + the informative sentence with distance/minutes computed from `route.json`; `On the sidewalk` kicker now rendered.
+
+## 2026-08-20 v8 — Wil's 8/19 review round (client-directed copy edits)
+
+Vocabulary decision (Wil, 00:14:13): **"spot" → "location" everywhere.**
+UI labels swept (walk cards, map index, arrival plate, chapter eyebrows,
+Where-to-next, museum plaques + grid captions, aria labels, styleguide
+specimen). Sentence-level edits, verbatim ledger:
+
+| page | before | after | Wil's words (timestamp) |
+|---|---|---|---|
+| Home hero | Five spots mark where it happened. | Five locations across the city mark where it happened. | "change the last sentence to read five locations across the city mark where it happened" (00:01:26) |
+| /map heading | Five spots / through Troy | Five locations / throughout Troy | "reads five locations throughout Troy" (00:12:32) |
+| /map body | Four spots carry bronze plaques; the Ferry Landing… | Four locations carry bronze plaques; the Ferry Landing… | "four locations carry bronze plaques" (00:13:14) |
+| /map meta description | …five spots from the bakery… | …five locations from the bakery… | (follows the sweep) |
+| /people subtext | Every name stood on pavement you can still walk. Their parts of the day are told in the chapters, spot by spot. | Every person below stood on the pavement that exists today. Their roles in the story are told in each chapter, location by location. | dictated "Every person below stood on the pavement that exists today. Their role in the story are told each chapter location by location" (00:25:07) — grammar normalized ("Their roles… are told in each chapter"); flagged for Wil in the v8 review guide |
+| /about closer | …the fifth spot, the Ferry Landing… | …the fifth location, the Ferry Landing… | sweep (00:14:13) |
+
+None of these touch Kathy's narrative prose or any audio-narrated text.

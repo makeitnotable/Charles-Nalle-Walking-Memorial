@@ -41,10 +41,12 @@ const links = [
   <div class="rule-bleed"></div>
   {/* v7 F1 — the reference pattern on museum/memorial footers (docs/v7/AUDIT.md
       §4): a content grid, ONE full-width hairline, then a small muted meta row.
-      Desktop: wordmark block · nav as a plain vertical list · Share (chapters).
-      Phones stack wordmark → nav → Share → rule → disclaimer, one column, so no
-      link ever wraps mid-label. One element carries weight (the name, in
-      Caslon Display, one line); everything else is one small size. */}
+      v8 V8-351 (Wil, 00:17:49): Share lives LEFT, under the wordmark,
+      bottom-aligned with the nav links; the nav column keeps its internal left
+      alignment but sits right-aligned in the footer. Phones stack wordmark →
+      nav → Share (V8-352: tighter link rhythm, more air after "Made by
+      Notable"). One element carries weight (the name, in Caslon Display, one
+      line); everything else is one small size. */}
   <div class="shell footer-grid">
     <div class="footer-mark">
       <p class="footer-wordmark">Charles Nalle Walking&nbsp;Memorial</p>
@@ -59,7 +61,9 @@ const links = [
     </div>
 
     <nav class="footer-nav" aria-label="Elsewhere on the memorial">
-      <ul class="flex flex-col gap-3">
+      {/* V8-352: rows condensed (py-1 + link-meta's 24px floor keep ≥32px
+          tap rows). */}
+      <ul class="flex flex-col gap-2">
         {
           links.map((l) => (
             <li>
@@ -83,12 +87,13 @@ const links = [
   {/* Disclaimer — requested at the final review (2026-08-07): in the footer
       "so it's available at all times," on every page. Wording per Brian
       Clyne's 8/7 email (general no-responsibility form) plus the call's
-      routes-are-suggestions intent. On chapters the row keeps the bottom-left
+      routes-are-suggestions intent. v8 V8-352 (Wil, 00:41:57 + 01:07:32): two
+      authored lines at every width. On chapters the row keeps the bottom-left
       lane clear for the narration mini-player (C10). */}
   <div class="shell footer-meta rule-top" data-audio={audio ? "true" : undefined}>
     <p class="t-meta-body footer-disclaimer">
-      Walking routes and directions are suggestions only. Explore at your own pace,
-      discretion, and&nbsp;risk.
+      Walking routes and directions are suggestions&nbsp;only.<br />
+      Explore at your own pace, discretion, and&nbsp;risk.
     </p>
   </div>
 </footer>
@@ -97,22 +102,46 @@ const links = [
   .footer-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
+    grid-template-areas: "mark" "nav" "share";
+    /* V8-352: more air between "Made by Notable" and the first page link */
+    gap: 2.5rem;
     padding-top: 3rem;
     padding-bottom: 2rem;
   }
+  .footer-mark {
+    grid-area: mark;
+  }
+  .footer-nav {
+    grid-area: nav;
+  }
+  .footer-share {
+    grid-area: share;
+  }
   @media (min-width: 768px) {
     .footer-grid {
-      /* the nav column never narrows below its longest label + arrow */
-      grid-template-columns: minmax(0, 1.3fr) minmax(15rem, 1fr) auto;
+      /* V8-351: two columns — the mark (+ Share below it) left, the nav
+         right-aligned; the nav spans both rows so Share's bottom lines up
+         with the last link. */
+      grid-template-columns: minmax(0, 1fr) auto;
+      /* row 2 hugs the Share pill so its bottom = the grid bottom = the
+         nav's bottom (the nav spans both rows and is the tallest column) */
+      grid-template-rows: 1fr auto;
+      grid-template-areas: "mark nav" "share nav";
       align-items: start;
       gap: 2.5rem;
+      /* mark + row-gap + Share must not exceed the nav's height, or the 1fr
+         row can't absorb the slack and Share sinks below the last link */
+      row-gap: 1rem;
+    }
+    .footer-nav {
+      justify-self: end;
     }
     .footer-nav a {
       white-space: nowrap;
     }
     .footer-share {
-      justify-self: end;
+      align-self: end;
+      justify-self: start;
     }
   }
   /* The name is the one element that carries weight: Caslon Display, one line,

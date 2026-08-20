@@ -1193,7 +1193,7 @@ export default function Museum({ works, slotId }: Props) {
           <div className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
             <button
               type="button"
-              className="btn-sm btn-ghost"
+              className="btn-sm btn-ghost btn-icon-end"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
               onClick={() => {
                 const r = wrapRef.current?.getBoundingClientRect();
@@ -1249,7 +1249,7 @@ export default function Museum({ works, slotId }: Props) {
                   <span className="sr-only">· </span>Nalle&nbsp;Series
                 </span>
                 <span>
-                  <span className="sr-only">· </span>Spot&nbsp;{pad2(plaque.order)}
+                  <span className="sr-only">· </span>Location&nbsp;{pad2(plaque.order)}
                 </span>
               </p>
               <p className="t-title-sm mt-3">
@@ -1310,7 +1310,7 @@ export default function Museum({ works, slotId }: Props) {
                   <span className="sr-only">· </span>Nalle&nbsp;Series
                 </span>
                 <span>
-                  <span className="sr-only">· </span>Spot&nbsp;{pad2(plaque.order)}
+                  <span className="sr-only">· </span>Location&nbsp;{pad2(plaque.order)}
                 </span>
               </p>
               <p className="t-title-sm mt-2">

@@ -7,25 +7,33 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**P0 — bootstrap.** Audit written (`docs/v8/AUDIT.md`, 40 items V8-001…
-V8-352 + 3 rescinded REV-1..3), v7 docs archived, plan rewritten.
+**P1 — global fabric: DONE, committing.** Implemented, awaiting one clean
+verification run: V8-001 sweep (all templates + 4 prose edits +
+CONTENT-STATUS v8 ledger; V8-102/V8-208/V8-302 copy done inside it) ·
+V8-002 button padding (.btn 52/22, .btn-sm 40/18, icon-side trims via
+:has(); TroyMap safe box 48→52) · V8-273 player gap (`.player-rule-gap`
+27px / 37px coarse) · V8-351/352 footer (grid-areas: Share left under the
+mark bottom-aligned to the nav, nav right; mobile gap 2.5rem, links
+gap-2; disclaimer two authored lines).
 Environment note: this container blocks cdn.playwright.dev — the
 pre-installed Chromium at /opt/pw-browsers is shimmed as
 chromium-1234/chromium_headless_shell-1234 (symlinks to the 1194 builds);
-`npm run qa:setup` is NOT needed here. Dev server :4321 up.
+`npm run qa:setup` is NOT needed here. Dev server :4321 up
+(self-daemonized).
 
 ## CURRENT ITEM
-P1 global fabric next: V8-001 spot→location sweep → V8-002 button optical
-padding → V8-273 player divider gap → V8-351/352 footer.
+P2 — home: V8-102 (done in the sweep) · V8-104 mobile CTA/stack · V8-103
+tablet layout · V8-101 srcset fix + queue.
 
 ## NEXT ACTION
-Implement V8-001 (all template occurrences + 4 prose edits +
-CONTENT-STATUS rows + styleguide specimen), re-run `qa:rag` at the pill
-breakpoints (Location is 4ch longer than Spot), commit.
+Implement V8-104 (index.astro .home-cta hug + bottom margin + stack
+nudges + phone rag pyramid), screenshot 360/390/430, then V8-103 tablet
+step, then V8-101, commit per item.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| P1 V8-001 spot→location sweep (24 template strings, 4 prose edits incl. V8-102 home / V8-208 map / V8-302 people copy; CONTENT-STATUS v8 ledger) + V8-002 button optics (.btn 52/22, .btn-sm 40/18, icon-side trims as explicit btn-icon-start/end classes — :has(> .icon) failed on lone-icon buttons; TroyMap safe box 48→52) + V8-273 player gap (.player-rule-gap 27/37 coarse; measured 28 vs 27 at 1440) + V8-351/352 footer (grid-areas, Share bottom == nav bottom EXACT at 768/1024/1440 via 1fr/auto rows + row-gap 1rem; mobile gap 2.5rem, nav gap-2, disclaimer 2 authored lines) | (this commit) | rag 9vps×11 routes 0/0/0 (two mid-run HMR phantoms re-verified clean individually); a11y 0/0/0 ×14 runs (/,/map,/bakery,/people @390/1440); p1-probe numbers in scratchpad |
 
 ## DECISIONS (run-time)
 - C3 "map gradient" resolved by probe (scratch c3-context-1200.png): the
@@ -52,3 +60,11 @@ breakpoints (Location is 4ch longer than Spot), commit.
 ## BLOCKED / NOTES
 - V8-101 needs the high-res `home-bg.png` (≥2160w) + splash film ≥1080w
   from Wil — in-repo we fix the lying srcset descriptor only.
+- ENV: this container's egress proxy 403-blocks api.mapbox.com — the GL
+  map cannot fetch its style/tiles here (the a11y "console errors" on
+  /map are exactly that fetch). Map geometry work (V8-206/207) will be
+  verified with a Playwright route-stub style (site code untouched);
+  tile visuals verified on the live site page-load markers + by Wil.
+- NEVER edit src/ while an instrument runs — HMR reloads mid-measure
+  produced phantom readings (barbershop@360 clips, people@land destroyed
+  context); both re-verified clean individually.

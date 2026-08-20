@@ -1,6 +1,6 @@
 # Rag & clip sweep — http://localhost:4321
 
-**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 46 authored-lockup rows listed separately — 4640 blocks over 99 route × viewport passes.
+**0 runts (unauthored, the gate) · 0 two-word display runts · 4 ink clips** · 47 authored-lockup rows listed separately · 1 route error(s) — 4479 blocks over 99 route × viewport passes.
 
 ## Runts
 
@@ -32,6 +32,7 @@ None.
 | /map | 430 | `span.t-title-sm.map-index-title.block` | "COMMISSIONER’S OFFICE" | 2 | "Office" |
 | /about | 430 | `li.grid.grid-cols-[3.5rem_1fr].items-baseline` | "(1) Start at the Memorial Plaque" | 2 | "(1)" |
 | /about | 430 | `li.grid.grid-cols-[3.5rem_1fr].items-baseline` | "(4) Use the map to begin the tour." | 2 | "(4)" |
+| /bakery | land | `h1.t-display.whitespace-pre-line` | "HOLEUR’S FASHIONABLE BAKERY" | 3 | "BAKERY" |
 | /commissioners-office | land | `h1.t-display.whitespace-pre-line` | "COMMISSIONER’S OFFICE" | 2 | "OFFICE" |
 | /map | land | `span.t-title-sm.map-index-title.block` | "COMMISSIONER’S OFFICE" | 2 | "Office" |
 | /about | land | `li.grid.grid-cols-[3.5rem_1fr].items-baseline` | "(1) Start at the Memorial Plaque" | 2 | "(1)" |
@@ -66,3 +67,11 @@ None.
 
 | route | vp | selector | text | px | clipped by | overhang |
 |---|---|---|---|---|---|---|
+| /barbershop | 360 | `h2.t-title.lines` | "FREEDOM IS BOUGHT" | 34 | `.line-box` | "Freedom Is Bought": bottom 64.0px |
+| /barbershop | 360 | `h2#history-heading.t-title.lines` | "HISTORICAL CONTEXT" | 34 | `.line-box` | "Historical": bottom 30.0px; "context": bottom 30.0px |
+| /barbershop | 360 | `h2#moral-heading.t-display.lines` | "WE ARE RESPONSIBLE FOR JUSTICE" | 40.4 | `.line-box` | "WE ARE": bottom 33.0px; "RESPONSIBLE": bottom 34.0px; "FOR JUSTICE": bottom 40.0px |
+| /barbershop | 360 | `h2.t-title.lines` | "WHERE TO NEXT" | 34 | `.line-box` | "Where": bottom 30.0px; "to next": bottom 30.0px |
+
+## Errors
+
+- /people @ land: page.evaluate: Execution context was destroyed, most likely because of a navigation.

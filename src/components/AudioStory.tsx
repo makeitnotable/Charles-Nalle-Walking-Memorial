@@ -30,7 +30,7 @@ interface Props {
   audioSrc: string;
   /** Audio file label, e.g. "Chapter 1 | Pt. 1" (data; not shown as-is) */
   label: string;
-  /** What visitors read: "Spot 01" / "Spot 02 · Pt 1" (v7 V7-014 vocabulary) */
+  /** What visitors read: "Location 01" / "Location 02 · Pt 1" (v8 V8-001 vocabulary) */
   spot?: string;
   /** e.g. "Holeur's Fashionable Bakery" */
   subtitle: string;
@@ -388,9 +388,12 @@ export default function AudioStory({
     <div>
       <audio ref={audioRef} src={audioSrc} preload="metadata" />
 
-      {/* ——— The narration object: a hairline, a control, a time. No box. ——— */}
+      {/* ——— The narration object: a hairline, a control, a time. No box.
+          v8 V8-273 (Wil, 00:44:05): the hairline→button gap matches the
+          button→slider optical gap (mt-4 + the scrub's own padding), which
+          is pointer-dependent — `.player-rule-gap` in global.css. ——— */}
       <div
-        className="rule-top pt-5 transition-opacity"
+        className="rule-top player-rule-gap transition-opacity"
         style={{ opacity: mainVisible ? 1 : 0, transitionDuration: "var(--dur-fast)" }}
       >
         <div className="flex items-center gap-5">

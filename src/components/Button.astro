@@ -45,6 +45,8 @@ const {
 const classes = [
   size === "sm" ? "btn-sm" : "btn",
   variant === "solid" ? "btn-solid" : variant === "cta" ? "btn-cta" : "btn-ghost",
+  // v8 V8-002: optical trim on the icon's side (see global.css BUTTONS)
+  icon && (iconLeading ? "btn-icon-start" : "btn-icon-end"),
   cls,
 ];
 const iconSize = size === "sm" ? "sm" : "md";

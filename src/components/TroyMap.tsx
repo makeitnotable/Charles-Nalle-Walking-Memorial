@@ -474,7 +474,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const short = h < 560;
     const narrow = w < 640 || short;
     // Safe box for LABELS: chip row on top, door/attribution row at the bottom.
-    const safe = { x0: inset, y0: inset + 56, x1: w - inset, y1: h - (inset + 12 + 48 + 12) };
+    const safe = { x0: inset, y0: inset + 56, x1: w - inset, y1: h - (inset + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
     const labelRect = (pt: { x: number; y: number }, st: Stop) => {
       if (narrow) return { x0: pt.x - 12, y0: pt.y - 12, x1: pt.x + 12, y1: pt.y + 12, cx: pt.x, cy: pt.y };
       const [dx, dy] = st.pinOffset ?? [0, -46];
@@ -735,7 +735,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         el.innerHTML = markerHtml(stop, false);
         el.setAttribute(
           "aria-label",
-          `Spot ${stop.order}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}${stop.plaque ? "" : " (no plaque, website only)"}`,
+          `Location ${stop.order}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}${stop.plaque ? "" : " (no plaque, website only)"}`,
         );
         el.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -1219,7 +1219,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         <div>
           <p className="t-meta">The interactive map is warming up</p>
           <p className="t-prose mx-auto mt-3 max-w-md">
-            This build is missing its map key. Every spot on the walk is listed
+            This build is missing its map key. Every location on the walk is listed
             below with addresses and links to each chapter.
           </p>
         </div>
@@ -1348,7 +1348,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="rounded-full px-6 py-3 text-center"
             style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
           >
-            <p className="t-meta">Spot {String(arrivalStop.order).padStart(2, "0")} of {stops.length}</p>
+            <p className="t-meta">Location {String(arrivalStop.order).padStart(2, "0")} of {stops.length}</p>
             <p className="t-title-sm mt-2">
               {arrivalStop.canonical ?? arrivalStop.cardTitle}
             </p>
@@ -1383,7 +1383,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           type="button"
           onClick={backToOverview}
           aria-label="Back to map"
-          className="btn-sm btn-ghost absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-30"
+          className="btn-sm btn-ghost btn-icon-start absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-30"
           style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
         >
           <svg
@@ -1407,7 +1407,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           type="button"
           onClick={walk === "walking" ? stopWalk : walk === "done" ? () => runTour(0) : continueWalk}
           aria-label={
-            walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again from the first spot" : "Continue the walk"
+            walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again from the first location" : "Continue the walk"
           }
           className="btn-sm btn-solid absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-30"
         >
@@ -1517,8 +1517,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       tabIndex={focused && isActive ? 0 : -1}
                       aria-label={
                         isActive
-                          ? `Enter Spot ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
-                          : `Focus Spot ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
+                          ? `Enter Location ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
+                          : `Focus Location ${String(stop.order).padStart(2, "0")}: ${stop.canonical ?? stop.cardTitle.replace("\n", " ")}`
                       }
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
@@ -1555,7 +1555,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                       </div>
                       <div className="flex h-full w-2/3 flex-col justify-between p-3">
                         <div className="m-1 flex flex-row items-center justify-between">
-                          <p className="t-meta leading-none">Spot</p>
+                          <p className="t-meta leading-none">Location</p>
                           {/* Dark ink on the orange chip — the cream ink
                               measured 2.75:1 (contrast sweep, P0 baseline). */}
                           <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary-10 sm:h-5 sm:w-5 lg:h-6 lg:w-6">

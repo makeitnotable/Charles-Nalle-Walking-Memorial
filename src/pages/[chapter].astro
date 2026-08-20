@@ -289,7 +289,7 @@ const focus =
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
           <p class="t-meta">
-            Spot {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
+            Location {pad2(c.order)} of 5<span class="hidden sm:inline"> · </span><br
               class="sm:hidden"
             />Troy, NY · April 27, 1860
           </p>
@@ -367,7 +367,7 @@ const focus =
             />
             <div class="absolute inset-x-0 bottom-0">
               <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 14px rgba(16,10,6,.85), 0 0 3px rgba(16,10,6,.7)">
-                <p class="t-meta">Spot {pad2(c.order)} · continued</p>
+                <p class="t-meta">Location {pad2(c.order)} · continued</p>
                 <p class="t-title mt-4">{partKicker(c.scenes[b.i].label)}</p>
               </div>
             </div>
@@ -400,7 +400,7 @@ const focus =
                 slug={slug}
                 audioSrc={withBase(c.scenes[b.i].audio.file)}
                 label={c.scenes[b.i].audio.label}
-                spot={`Spot ${pad2(c.order)}${c.scenes.length > 1 ? ` · Pt ${b.i + 1}` : ""}`}
+                spot={`Location ${pad2(c.order)}${c.scenes.length > 1 ? ` · Pt ${b.i + 1}` : ""}`}
                 subtitle={c.name.canonical}
                 duration={c.scenes[b.i].audio.duration}
                 timings={c.scenes[b.i].audio.timings}
@@ -603,7 +603,7 @@ const focus =
             lockup and both CTAs sit centred under the map — one primary orange
             (Continue); the map's chip is quiet, the mini-player collapses. */}
         <div class="reveal onward-lockup mt-12">
-          <p class="t-meta">Next · Spot {pad2(nextEntry?.data.order ?? 1)}</p>
+          <p class="t-meta">Location {pad2(nextEntry?.data.order ?? 1)}</p>
           <p class="t-title-sm mt-4">{nextName?.canonical}</p>
           <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
           <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
