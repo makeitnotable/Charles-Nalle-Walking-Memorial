@@ -7,34 +7,32 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**P1 — global fabric: DONE, committing.** Implemented, awaiting one clean
-verification run: V8-001 sweep (all templates + 4 prose edits +
-CONTENT-STATUS v8 ledger; V8-102/V8-208/V8-302 copy done inside it) ·
-V8-002 button padding (.btn 52/22, .btn-sm 40/18, icon-side trims via
-:has(); TroyMap safe box 48→52) · V8-273 player gap (`.player-rule-gap`
-27px / 37px coarse) · V8-351/352 footer (grid-areas: Share left under the
-mark bottom-aligned to the nav, nav right; mobile gap 2.5rem, links
-gap-2; disclaimer two authored lines).
-Environment note: this container blocks cdn.playwright.dev — the
-pre-installed Chromium at /opt/pw-browsers is shimmed as
-chromium-1234/chromium_headless_shell-1234 (symlinks to the 1194 builds);
-`npm run qa:setup` is NOT needed here. Dev server :4321 up
+**P5 — museum, batch 1 committed** (V8-320/321/322/323/324/326/330/331).
+P6 people/about implemented in the working tree, awaiting its screenshot
++ rag/a11y pass. Environment note: this container blocks
+cdn.playwright.dev — the pre-installed Chromium at /opt/pw-browsers is
+shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
+1194 builds); `npm run qa:setup` is NOT needed here. Dev server :4321 up
 (self-daemonized).
 
 ## CURRENT ITEM
-P5 — museum: V8-320 plaque/naming → V8-321/322/323 chrome → V8-324 camera
-+ pan → V8-325 frames → V8-330 mobile fit → V8-326 alive-by-default →
-V8-331 painting-to-painting → V8-328 drawer → V8-329 study in card/sheet
-→ V8-327 arch + stairs.
+P5 remainder: V8-328 drawer (X close, DOT_GAP 24 both sites, continuous
+sheetPos: wheel machine + axis-locked swipe, live recompose) → V8-329
+study into card/sheet (5 horizontals + commissioners sketch-pt2) →
+V8-325 frames (canvas recessed to ~0.01m proud of the slip; stepped
+rings; zero new draw calls) → V8-327 arch + stairs. Then P6 verification
+(shots + rag + a11y about) and its commit.
 
 ## NEXT ACTION
-V8-320: paintings.astro per-chapter variant override (barbershop 1/2),
-plaque eyebrow LOCATION 0N, attribution role/bold; then the museum chrome
-batch.
+V8-328: remove the sheet pill handle, add the 44×44 X close, share
+DOT_GAP=24/DOTS_H=36 between Museum.tsx dot-rail `bottom` and layout()'s
+reserve, then the continuous sheet position driven by wheel machine +
+axis-locked stage swipe with layout() reading the LIVE visible height.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| P5 batch 1 — V8-320 plaque (eyebrow = `Location 0N` alone in card + sheet; attribution = quote's role, bold, not italic; barbershop hall pair named "Peter Baltimore's Barbershop 1/2" via per-chapter PLAQUE_VARIANTS — ferry keeps Narrative I/II, grid keeps narratives per Wil 00:34:11; grid caption Location NN) + V8-321 Skip arrow points right (rotate removed) + V8-322/323 chrome (Face-forward: desktop top-right on Skip's axis, phones bottom-centre above the dots; chip: tablets ~44% centred, phones above the dots) + V8-324 camera (RAIL_PITCH −0.15/−0.12; yaw 0.0022, pitch 0.0018, inertia τ 0.12) + V8-330 phone inspect fit (portrait fov cap 92°, F .88, dH/dV split in compose()) + V8-326 alive-by-default (nearest-N window 2/3, pool N+1, input-armed, still-swap on rVFC, per-index stopped[], softGL tier rests the hall under SwiftShader) + V8-331 painting-to-painting (approach-tap on another canvas walks to it) | (this commit) | museum-check p5b: calls 74–76 ≤ 80, pitch −0.12/−0.15 measured, approach cx/cy centred, overlaps false, controls enumerated, land "sheet >55%" finding GONE vs baseline; fps 239/240 >26ms is ENVIRONMENTAL — proven by running the same instrument on a pre-museum 8ef1d5e worktree (:4324): identical 239/240 at every station/vp with v7 pitches (scratchpad/museum-p4base); real-fps check goes to live/RG |
 | P4 map — V8-201 strip ON the inset (pb inset; cardLift/fade-limit synced; the (i) lifts above the strip during walk via .troymap-root[data-walk]) + V8-202 .t-card 20/25.5/30 cream + V8-203 four corners (1858 door top-right bordered ALL breakpoints, chip centre-aligned to it 78/78 · 61/62 · 41/42; walk door phone bottom-left on the ☰ axis, desktop centred; phone (i) mounts bottom-right beside the ☰) + V8-206 bearing 16 (pitch 52 held at every vp by the search) + V8-207 phone pins = pills with `name.pin` (schema + 3 JSONs; markerHtml narrow branch; labelRect models the real pill; THE PHONE SEARCH still fit ±12 dot boxes — now fits pill rects, bakery pill was 23px past the edge before) + V8-251 verified equal (40/40) + V8-252 ☰ hidden during walk everywhere (visibility) + V8-261 lens hint deleted + V8-262 caption mt-5 + V8-263 lens opens on downtown (panelFit ×1.3, width floor 1.8, cx .58 cy .74 — Green Island out of frame at 1440 and 390, verified by crop inspection) | (this commit) | map-probe stub runs at 390/768/1440 (bearing/pitch/doors/strip/menu/buttons), pills probe (5 named pills inside the frame), lens shots desk+phone + top-left label crop; attribution position unverifiable under the stub (no attrib strings) — static CSS + live check |
 | P3c V8-277 hook centring (phones: scene h2 + quote centred, hung indent off; kicker + narration left) + V8-278 barbershop up (landscape 100 — the 1440 frame has only 60px of slack so bottom-anchor is the whole lever; NEW heroFocus.portraitScale 1.18 lifts the phone hero about its bottom edge — phones show the vertical poster's full height so object-position can't move it; the lady's face now mid-frame, sills gone) + V8-204 where-to-next (LOCATION NN rides the heading row bottom/right-aligned EXACT 169/169 · 1304/1304; Continue REMOVED; whole-map stretched link = the one door "Continue to X"; embed pill = solid orange active idiom; Get directions centred, still ghost) + V8-205 ch2 plate fades cream (--ground-light both edges; photo interludes keep dark) | (this commit) | pill DOM probe (bg 228,91,39 · ink 29,20,17); onward shots desk/phone; barber hero shots ×2; hook shot 390; ch2 interlude seam shot |
 | P3b V8-275 moral legibility (scrim middle .86→.90; `.moral-ground` blur 2px + scale 1.04 RM-safe; per-moral `groundFocus` map) + V8-276 ferry moral ground = its study drawing (tiers regenerated from sketch-1440.jpg via sharp, 439KB jpg ≈ old 417KB; bakery ground provenance queued for Wil) + hero separator `text-neutral-12` (V7-007's stated fix was never in the markup; the longer LOCATION pushed the orange dot onto lit paint, p10 3.39) + hero lockup halo densified + **instrument fix**: contrast.mjs skips alpha-0 leaves at classify (the audio control fades in on arrival; classifying it at page top froze alpha 0 → p10 1 false failures; v7 dodged it only by hydration timing — proven by A/B: same fails with pt-5 restored, v7 worktree "pass" was vacuous, its hydration 403'd) | (this commit) | contrast 390+1440 × 5 chapters: 0 fails (10 cells); moral shots ×7 both widths |
@@ -85,3 +83,11 @@ batch.
 - NEVER edit src/ while an instrument runs — HMR reloads mid-measure
   produced phantom readings (barbershop@360 clips, people@land destroyed
   context); both re-verified clean individually.
+- ENV: museum-check's fps assertion is unverifiable in this container —
+  Chromium runs on SwiftShader (software GL), and the PRE-museum commit
+  8ef1d5e measures the identical 239/240 frames >26ms at every station
+  and viewport (worktree probe, scratchpad/museum-p4base/museum.md). All
+  non-fps assertions (draw calls, pitch, composition, controls, overlap)
+  are the working gates here; real frame pacing goes to the live check.
+  (Worktree probes need `server.fs.allow` pointing at the main clone —
+  the symlinked node_modules otherwise 403s and the run is vacuous.)

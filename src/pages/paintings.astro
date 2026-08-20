@@ -51,6 +51,13 @@ const KEY_TITLES: Record<string, string> = {
   narrative1: "Narrative\u00a0I",
   narrative2: "Narrative\u00a0II",
 };
+/* v8 V8-320 (Wil, 00:32:36): the HALL plaque names the barbershop pair
+ * "Peter Baltimore's Barbershop 1 / 2" — the stills grid below keeps its
+ * Narrative numbering at his direction (00:34:11). Per-chapter overrides so
+ * the ferry narratives are untouched. */
+const PLAQUE_VARIANTS: Record<string, Record<string, string>> = {
+  barbershop: { narrative1: "1", narrative2: "2" },
+};
 /** Animated variant per painting key (elevation G2: the dialog plays the
  * painting alive where Mark Priest's animation exists). */
 const KEY_VIDEOS: Record<string, string> = {
@@ -99,7 +106,7 @@ const museumWorks = works.map((w, wi) => {
     /* The plaque sets the variant on its own line (juror pass 8: `· NARRATIVE /
        II` runted in the narrow 1024×768 card) — an authored two-line lockup. */
     name: entry.data.name.canonical,
-    variant: KEY_TITLES[w.key] || null,
+    variant: PLAQUE_VARIANTS[w.slug]?.[w.key] ?? (KEY_TITLES[w.key] || null),
     order: w.order,
     tex1440: withBase(`media/${w.slug}/${w.key}-1440.jpg`),
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
