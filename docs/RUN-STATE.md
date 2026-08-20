@@ -22,17 +22,20 @@ chromium-1234/chromium_headless_shell-1234 (symlinks to the 1194 builds);
 (self-daemonized).
 
 ## CURRENT ITEM
-P2 — home: V8-102 (done in the sweep) · V8-104 mobile CTA/stack · V8-103
-tablet layout · V8-101 srcset fix + queue.
+P3 — chapters: V8-271 chip inset/labels → V8-272 H1 step → V8-274 study
+tertiary → V8-275/276 moral legibility + ferry ground → V8-277 hook
+centring → V8-278 barbershop focus → V8-204 where-to-next relayout →
+V8-205 ch2 map fade.
 
 ## NEXT ACTION
-Implement V8-104 (index.astro .home-cta hug + bottom margin + stack
-nudges + phone rag pyramid), screenshot 360/390/430, then V8-103 tablet
-step, then V8-101, commit per item.
+V8-271: measure the interlude chip's rendered bottom vs right gaps at
+768/1440, equalize; author the ch2 mobile label (drop '· Library of
+Congress' below sm); verify one line at 360/390 on all five chapters.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| P2 V8-104 mobile home (CTA hugs 233px centred, pb 24; head lifted — media scale(1.09) origin bottom, chin 40%→34.6%; 7-line authored pyramid rag 18/29/36/38/31/30/23ch via display-gated `<br class=home-br>` + `{" "}` separators — Astro trims text↔element newlines) + V8-103 tablet (portrait ≥768 gets object-position 50% 37% + pt 36dvh + opened gaps — tablets CROP vertically, aspect 0.75 > source 0.5625, so object-position governs there) + V8-101 (srcset descriptor tells the truth: 1080w; high-res source queued for Wil) | (this commit) | home-shots probe: CTA 233px/gap 34, eyebrow 38% phones / 38% tablet / 34% desktop, 7/4/3 desc lines, 0 overflow at 360/390/430/768/834/1440; paragraph text+breaks verified rendered |
 | P1 V8-001 spot→location sweep (24 template strings, 4 prose edits incl. V8-102 home / V8-208 map / V8-302 people copy; CONTENT-STATUS v8 ledger) + V8-002 button optics (.btn 52/22, .btn-sm 40/18, icon-side trims as explicit btn-icon-start/end classes — :has(> .icon) failed on lone-icon buttons; TroyMap safe box 48→52) + V8-273 player gap (.player-rule-gap 27/37 coarse; measured 28 vs 27 at 1440) + V8-351/352 footer (grid-areas, Share bottom == nav bottom EXACT at 768/1024/1440 via 1fr/auto rows + row-gap 1rem; mobile gap 2.5rem, nav gap-2, disclaimer 2 authored lines) | (this commit) | rag 9vps×11 routes 0/0/0 (two mid-run HMR phantoms re-verified clean individually); a11y 0/0/0 ×14 runs (/,/map,/bakery,/people @390/1440); p1-probe numbers in scratchpad |
 
 ## DECISIONS (run-time)
@@ -60,6 +63,11 @@ step, then V8-101, commit per item.
 ## BLOCKED / NOTES
 - V8-101 needs the high-res `home-bg.png` (≥2160w) + splash film ≥1080w
   from Wil — in-repo we fix the lying srcset descriptor only.
+- ENV: makeitnotable.github.io is ALSO proxy-blocked — the live site
+  cannot be curled from this container. Live = HEAD verification is
+  substituted by the deploy.yml Actions run for the exact HEAD sha
+  concluding success (build + deploy-pages publish that sha); checked
+  after every push via the GitHub MCP.
 - ENV: this container's egress proxy 403-blocks api.mapbox.com — the GL
   map cannot fetch its style/tiles here (the a11y "console errors" on
   /map are exactly that fetch). Map geometry work (V8-206/207) will be

@@ -36,10 +36,14 @@ import { withBase } from "../lib/url";
           loop
           playsinline></video>
         {/* The 800px file was being stretched into a 1344×806 frame at 1440. */}
+        {/* v8 V8-101: the "-1440" file is actually 1080px wide (the source on
+            Wil's machine is 1080; build-media clamps) — the descriptor now
+            tells the truth. The real fix is a ≥2160px home-bg.png + a ≥1080px
+            splash film re-export through scripts/build-media.mjs (queued). */}
         <picture class="contents">
           <source
             type="image/avif"
-            srcset={`${withBase("media/site/home-bg-800.avif")} 800w, ${withBase("media/site/home-bg-1440.avif")} 1440w`}
+            srcset={`${withBase("media/site/home-bg-800.avif")} 800w, ${withBase("media/site/home-bg-1440.avif")} 1080w`}
             sizes="100vw"
           />
           <img
@@ -95,13 +99,27 @@ import { withBase } from "../lib/url";
         {/* v7 H2/H5: measure widened to three lines at ≥1200 (balanced), the
             last two words glued; the role steps up to 16px cream at .92 on a
             deeper film so it measures ≥ 4.5:1 by pixel (contrast.mjs). */}
+        {/* v8 V8-104 (Wil, 00:56:45): on portrait phones the rag is a hand-
+            authored stack — every break on a phrase boundary, widths tapering
+            18/29/36/38/31/30/23 so the centred block reads as one shape. The
+            breaks vanish from 640 up (the balancer holds 4–3 lines there). */}
         <p
           class="home-desc home-seq text-balance"
           style="--seq: 4"
         >
-          On April 27, 1860, the people of Troy, New York, took Charles Nalle
-          back from the men who had come to return him to slavery. Harriet
-          Tubman stood with them. Five locations across the city mark where&nbsp;it&nbsp;happened.
+          On April 27, 1860,{" "}
+          <br class="home-br" />
+          the people of Troy, New York,{" "}
+          <br class="home-br" />
+          took Charles Nalle back from the men{" "}
+          <br class="home-br" />
+          who had come to return him to slavery.{" "}
+          <br class="home-br" />
+          Harriet Tubman stood with them.{" "}
+          <br class="home-br" />
+          Five locations across the city{" "}
+          <br class="home-br" />
+          mark where&nbsp;it&nbsp;happened.
         </p>
 
         {/* v7 H3 (Wil): the story, not the format. */}
@@ -129,13 +147,36 @@ import { withBase } from "../lib/url";
   .home-media {
     object-position: 50% 50%;
   }
-  /* The lockup starts below the chin. Portrait frames show the source's full
-     height (chin ≈ 40% of the frame) → eyebrow at ≈ 41%; landscape frames are
-     positioned so the chin lands at 30–35% → eyebrow at ≈ 32%. */
+  /* v8 V8-104 (Wil, 00:56:45): portrait PHONES show the source's full height
+     (frame aspect < 0.5625), so object-position can't lift the head — the
+     media scales about its bottom edge instead, cropping the source's top and
+     lifting the chin from ≈40% to ≈34.6% of the frame. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-media {
+      transform: scale(1.09);
+      transform-origin: 50% 100%;
+    }
+  }
+  /* The lockup starts below the chin. Portrait phones (chin ≈ 34.6% after
+     the lift) → eyebrow at ≈ 37%; landscape frames are positioned so the
+     chin lands at 30–35% → eyebrow at ≈ 32%. */
   .home-stack {
     justify-content: flex-start;
-    padding-top: clamp(200px, 41dvh, 460px);
+    padding-top: clamp(190px, 37dvh, 420px);
     padding-bottom: 16px;
+  }
+  /* v8 V8-103 (Wil, 00:35:22) — portrait tablets used to fall through every
+     query to the phone rule and clump at the bottom. Their frame is WIDER
+     than the source (0.75 vs 0.5625) so they crop vertically: the head rides
+     up via object-position, and the lockup gets its own beats. */
+  @media (orientation: portrait) and (min-width: 768px) {
+    .home-media {
+      object-position: 50% 37%;
+    }
+    .home-stack {
+      padding-top: clamp(220px, 36dvh, 400px);
+      gap: clamp(20px, 3.4vh, 40px);
+    }
   }
   @media (orientation: landscape) and (min-height: 501px) {
     .home-media {
@@ -164,7 +205,9 @@ import { withBase } from "../lib/url";
   }
   @media (max-height: 700px) and (orientation: portrait) {
     .home-stack {
-      padding-top: clamp(150px, 33dvh, 240px);
+      /* 35dvh (was 33): with the v8 head-lift the chin sits at ≈34.6% —
+         keep the eyebrow under it on 640–700-tall phones. */
+      padding-top: clamp(150px, 35dvh, 250px);
       gap: clamp(14px, 3vh, 24px);
     }
   }
@@ -174,13 +217,22 @@ import { withBase } from "../lib/url";
       gap: 12px;
     }
   }
-  /* v7 H4 — phones: the CTA is pinned to the frame's bottom on the content
-     inset (16px, = the stack's px-4), full-width within it, ≥ 48px tall. */
+  /* v7 H4 → v8 V8-104 (Wil, 00:55:44): the CTA stays pinned to the frame's
+     bottom but HUGS its label (it filled the whole section); the side margin
+     it gave up moves under it. The authored rag breaks live only here. */
+  .home-br {
+    display: none;
+  }
   @media (max-width: 767px) and (orientation: portrait) {
     .home-cta {
       margin-top: auto;
-      width: 100%;
       justify-content: center;
+    }
+    .home-stack {
+      padding-bottom: 24px;
+    }
+    .home-br {
+      display: inline;
     }
   }
   /* The eyebrow crosses the lit part of the film at desktop widths; a soft
