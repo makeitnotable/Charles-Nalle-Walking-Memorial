@@ -329,7 +329,12 @@ h3 {
 .t-display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * 0.72)));
+  /* v8 V8-272: the advance is a variable — 0.72 is the safe global average;
+     a surface that has MEASURED its widest authored line may set a tighter
+     `--fit-advance` (the chapter hero uses 0.64; Caslon caps measure
+     0.52–0.59em there, so 0.64 still leaves ≥ 30px of right-edge air at 390,
+     watched by the rag ink probe). */
+  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * var(--fit-advance, 0.72))));
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   /* v7 G1: negative tracking + zero word-spacing read "FORJUSTICE" at phone

@@ -122,7 +122,10 @@ const interlude =
         key: "troy-1858",
         alt: "Map of Troy, New York in 1858: downtown Troy, the Hudson, and West Troy",
         short: null,
-        rest: "Troy, New York · 1858 · Library\u00a0of\u00a0Congress",
+        rest: "Troy, New\u00a0York · 1858",
+        /* v8 V8-271 (Wil, 01:02:43): phones drop the licence tail so the chip
+           fits the plate on one line; ≥640 keeps the full credit. */
+        tail: " · Library\u00a0of\u00a0Congress",
       }
     : {
         kind: "archival" as const,
@@ -130,6 +133,7 @@ const interlude =
         alt: `Archival photograph, ${c.name.canonical}`,
         short: `${c.name.canonical} · `,
         rest: "archival record",
+        tail: null,
       };
 /** Chapter 2 keeps its archival film in the history section; the rest moved it. */
 const historyKeepsArchival = slug === "commissioners-office";
@@ -295,8 +299,13 @@ const focus =
           </p>
           {/* No .lines mask here — hero legibility at t=1s must not depend
               on JavaScript (E7). The lockup rises with the page instead. */}
+          {/* v8 V8-272 (Wil, 01:01:38): a step up on phones — the hero's widest
+              Caslon lines measure 0.52–0.59em/ch, so the hero alone runs the
+              fit at --fit-advance 0.64 with a 52px phone cap (was 46 via the
+              global 0.72): 34.7→39px on COMMISSIONER'S, 44→50px elsewhere at
+              390, verified no ink past the gutter by the rag probe. */}
           <h1
-            class="t-display mt-[max(2vh,16px)] whitespace-pre-line"
+            class="chapter-hero-h1 t-display mt-[max(2vh,16px)] whitespace-pre-line"
             style={fitChars(c.name.display)}
           >
             {c.name.display}
@@ -436,10 +445,16 @@ const focus =
               />
               {/* v7 C4: the credit sits on a chip (the map chip's ground) so
                   it measures ≥ 4.5:1 on any photograph — pixel-checked by
-                  contrast.mjs. Phones drop the place name (it is the page). */}
-              <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)]">
+                  contrast.mjs. Phones drop the place name (it is the page) and
+                  ch2's licence tail (V8-271). v8 V8-271 (Wil, 00:14:39): from
+                  md the chip rides HALF the inset off the plate's bottom — the
+                  bottom fade dissolves the plate's edge, so the full inset
+                  read looser below than beside; mobile placement approved
+                  as-was (01:01:06). */}
+              <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)] md:bottom-[calc(var(--ui-inset)/2)]">
                 {interlude.short && <span class="hidden sm:inline">{interlude.short}</span>}
                 {interlude.rest}
+                {interlude.tail && <span class="hidden sm:inline">{interlude.tail}</span>}
               </p>
             </div>
           </section>
@@ -550,7 +565,11 @@ const focus =
                       </div>
                       <figcaption class="mt-8 max-w-[44ch] md:mt-0">
                         <p class="t-meta">The artist's study</p>
-                        {morals[b.i].note && <p class="t-prose mt-4 text-neutral-12">{morals[b.i].note}</p>}
+                        {/* v8 V8-274 (Wil, 00:46:09): the study note is the
+                            moral's TERTIARY voice — one step down the ladder
+                            (prose → meta-body); the cream override keeps it
+                            legible on the ground. */}
+                        {morals[b.i].note && <p class="t-meta-body mt-4 text-neutral-12">{morals[b.i].note}</p>}
                         <p class="t-meta-body mt-4 text-neutral-12/80">Mark Priest · Nalle Series</p>
                       </figcaption>
                     </figure>
@@ -727,3 +746,17 @@ const focus =
     });
   </script>
 </Base>
+
+<style>
+  /* v8 V8-272 — see the hero H1 comment. Scoped custom-property overrides;
+     the global .t-display formula consumes them. Desktop/tablet are still
+     capped by their --fs-display tokens, so only phones change. */
+  .chapter-hero-h1 {
+    --fit-advance: 0.64;
+  }
+  @media (max-width: 767px) {
+    .chapter-hero-h1 {
+      --fs-display: 52px;
+    }
+  }
+</style>
