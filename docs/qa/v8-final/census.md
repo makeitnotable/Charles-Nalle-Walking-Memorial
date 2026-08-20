@@ -1,0 +1,103 @@
+# Type + rhythm census — http://localhost:4321
+
+## Distinct rendered type sizes per page
+
+The system declares four roles. More than ~6 rendered sizes on one page
+means the ladder is not being obeyed.
+
+| route | vp | # sizes | sizes (px) |
+|---|---|---|---|
+| / | 390 | 4 | 54, 16, 15, 12 |
+| /bakery | 390 | **12** | 54, 49.7, 40.5, 34, 26, 19, 18.5, 16, 15, 14, 13, 12 |
+| /commissioners-office | 390 | **12** | 54, 46, 39.1, 34, 26, 19, 18.5, 16, 15, 14, 13, 12 |
+| /mansion | 390 | **12** | 54, 49.7, 34.7, 34, 26, 19, 18.5, 16, 15, 14, 13, 12 |
+| /ferry | 390 | **12** | 54, 45.6, 34, 30.4, 26, 19, 18.5, 16, 15, 14, 13, 12 |
+| /map | 390 | **12** | 54, 32.4, 26, 24.2, 20, 19, 18.5, 16, 15, 14, 12, 10 |
+| /people | 390 | **10** | 54, 40.5, 34, 26, 19, 18.5, 16, 15, 14, 12 |
+| /paintings | 390 | **8** | 54, 46, 26, 18.5, 16, 14, 13, 12 |
+| /about | 390 | **11** | 54, 34, 28.6, 26, 22, 19, 18.5, 16, 15, 14, 12 |
+| /404 | 390 | **8** | 54, 34, 19, 18.5, 16, 15, 14, 12 |
+| / | land | 4 | 74.1, 16, 15, 12 |
+| /bakery | land | **11** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 13, 12 |
+| /commissioners-office | land | **11** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 13, 12 |
+| /mansion | land | **11** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 13, 12 |
+| /ferry | land | **11** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 13, 12 |
+| /barbershop | land | **11** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 13, 12 |
+| /map | land | **11** | 74.1, 46, 26, 25.5, 23.3, 19, 16, 15, 14, 12.5, 12 |
+| /people | land | **10** | 74.1, 46, 34, 26, 23.3, 19, 16, 15, 14, 12 |
+| /paintings | land | **8** | 74.1, 46, 26, 23.3, 16, 14, 13, 12 |
+| /about | land | **11** | 74.1, 46, 34, 26, 23.3, 22, 19, 16, 15, 14, 12 |
+| /404 | land | **8** | 74.1, 34, 23.3, 19, 16, 15, 14, 12 |
+| / | 768 | 4 | 84.5, 16, 15, 12 |
+| /bakery | 768 | **12** | 84.5, 64, 46, 32, 28, 22.5, 20, 16, 15, 14, 13, 12 |
+| /commissioners-office | 768 | **12** | 84.5, 64, 46, 32, 28, 22.5, 20, 16, 15, 14, 13, 12 |
+| /mansion | 768 | **12** | 84.5, 64, 46, 32, 28, 22.5, 20, 16, 15, 14, 13, 12 |
+| /ferry | 768 | **13** | 84.5, 64, 59.7, 46, 32, 28, 22.5, 20, 16, 15, 14, 13, 12 |
+| /barbershop | 768 | **12** | 84.5, 64, 46, 32, 28, 22.5, 20, 16, 15, 14, 13, 12 |
+| /map | 768 | **11** | 84.5, 63.7, 28, 25.5, 22.5, 20, 16, 15, 14, 12.5, 12 |
+| /people | 768 | **10** | 84.5, 64, 46, 28, 22.5, 20, 16, 15, 14, 12 |
+| /paintings | 768 | **8** | 84.5, 64, 28, 22.5, 16, 14, 13, 12 |
+| /about | 768 | **11** | 84.5, 56.2, 46, 28, 22.5, 22, 20, 16, 15, 14, 12 |
+| /404 | 768 | **8** | 84.5, 46, 22.5, 20, 16, 15, 14, 12 |
+| / | 1024 | 4 | 112.6, 16, 15, 12 |
+| /bakery | 1024 | **12** | 112.6, 64, 46, 32, 28, 25.2, 20, 16, 15, 14, 13, 12 |
+| /commissioners-office | 1024 | **12** | 112.6, 64, 46, 32, 28, 25.2, 20, 16, 15, 14, 13, 12 |
+| /mansion | 1024 | **12** | 112.6, 64, 46, 32, 28, 25.2, 20, 16, 15, 14, 13, 12 |
+| /ferry | 1024 | **13** | 112.6, 64, 57.3, 46, 32, 28, 25.2, 20, 16, 15, 14, 13, 12 |
+| /barbershop | 1024 | **12** | 112.6, 64, 46, 32, 28, 25.2, 20, 16, 15, 14, 13, 12 |
+| /map | 1024 | **10** | 112.6, 61.1, 30, 28, 25.2, 20, 16, 15, 14, 12 |
+| /people | 1024 | **10** | 112.6, 64, 46, 28, 25.2, 20, 16, 15, 14, 12 |
+| /paintings | 1024 | **8** | 112.6, 64, 28, 25.2, 16, 14, 13, 12 |
+| /about | 1024 | **11** | 112.6, 64, 46, 28, 25.2, 22.5, 20, 16, 15, 14, 12 |
+| /404 | 1024 | **8** | 112.6, 46, 25.2, 20, 16, 15, 14, 12 |
+| / | 1440 | 4 | 128, 16, 15, 13 |
+| /bakery | 1440 | **10** | 128, 88, 56, 38, 30, 26, 21, 16, 15, 13 |
+| /commissioners-office | 1440 | **10** | 128, 88, 56, 38, 30, 26, 21, 16, 15, 13 |
+| /mansion | 1440 | **11** | 128, 88, 82.1, 56, 38, 30, 26, 21, 16, 15, 13 |
+| /ferry | 1440 | **11** | 128, 88, 71.9, 56, 38, 30, 26, 21, 16, 15, 13 |
+| /barbershop | 1440 | **10** | 128, 88, 56, 38, 30, 26, 21, 16, 15, 13 |
+| /map | 1440 | **8** | 128, 76.7, 30, 26, 21, 16, 15, 13 |
+| /people | 1440 | **9** | 128, 88, 56, 30, 26, 21, 16, 15, 13 |
+| /paintings | 1440 | **7** | 128, 88, 30, 26, 16, 15, 13 |
+| /about | 1440 | **9** | 128, 88, 56, 30, 26, 21, 16, 15, 13 |
+| /404 | 1440 | **7** | 128, 56, 26, 21, 16, 15, 13 |
+
+## Size → role map (1440) — a size used by two roles is a collision
+
+- **/** — 128px t-wordmark · 16px (a)+(p) · 15px btn · 13px t-meta  ⚠ 1 size(s) shared by >1 role
+- **/bakery** — 128px t-wordmark · 88px t-display · 56px t-title · 38px t-quote · 30px t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta+t-spine-sm+btn-sm  ⚠ 2 size(s) shared by >1 role
+- **/commissioners-office** — 128px t-wordmark · 88px t-display · 56px t-title · 38px t-quote · 30px t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta+t-spine-sm+btn-sm  ⚠ 2 size(s) shared by >1 role
+- **/mansion** — 128px t-wordmark · 88px t-display · 82.1px t-display · 56px t-title · 38px t-quote · 30px t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta+t-spine-sm+btn-sm  ⚠ 2 size(s) shared by >1 role
+- **/ferry** — 128px t-wordmark · 88px t-display · 71.9px t-display · 56px t-title · 38px t-quote · 30px t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta+t-spine-sm+btn-sm  ⚠ 2 size(s) shared by >1 role
+- **/barbershop** — 128px t-wordmark · 88px t-display · 56px t-title · 38px t-quote · 30px t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta+t-spine-sm+btn-sm  ⚠ 2 size(s) shared by >1 role
+- **/map** — 128px t-wordmark · 76.7px t-display · 30px (p)+t-spine+t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px btn+(p)+t-meta-body · 13px t-meta  ⚠ 2 size(s) shared by >1 role
+- **/people** — 128px t-wordmark · 88px t-display · 56px t-title · 30px t-spine+t-title-sm · 26px (p) · 21px t-prose · 16px (a) · 15px t-meta-body+btn · 13px t-meta  ⚠ 2 size(s) shared by >1 role
+- **/paintings** — 128px t-wordmark · 88px t-display · 30px t-title-sm · 26px (p) · 16px (a) · 15px t-meta-body · 13px t-meta+btn-sm  ⚠ 1 size(s) shared by >1 role
+- **/about** — 128px t-wordmark · 88px t-display · 56px t-title · 30px t-spine+t-quote · 26px (p) · 21px t-prose · 16px (a) · 15px btn+t-meta-body · 13px t-meta  ⚠ 2 size(s) shared by >1 role
+- **/404** — 128px t-wordmark · 56px t-title · 26px (p) · 21px t-prose · 16px (a) · 15px btn+t-meta-body · 13px t-meta  ⚠ 1 size(s) shared by >1 role
+
+## Section gaps — should quantize to 24 / 72–128 / 128–200 / 260–400
+
+**/bakery**: -3, -900, 1028, 0, 0, 128, 200, 200
+**/commissioners-office**: -3, -900, 1028, 0, 0, 128, 0, 128, 128, 200, 200
+**/mansion**: -3, -900, 1028, 0, 0, 128, 200, 200
+**/ferry**: -3, -900, 1028, 0, 0, 128, 200, 200
+**/barbershop**: -3, -900, 1028, 0, 0, 128, 200, 200
+**/map**: -900, 1100, 200
+**/people**: -413, 613, 200, 200, 200
+**/paintings**: -343, 0, 407, 200, 200
+**/about**: -259, 459, 200, 200, 200, 200, 200, 200, 200
+**/404**: 0, 200
+
+## Multi-line headings (rag/widow candidates, 1440)
+
+- **/bakery** — "HOLEUR’S FASHIONABLE BAKERY" (3 lines/3 words) · "CAPTURED WITH BREAD IN HAND" (2 lines/5 words) · "“Charles Nalle, I hereby arrest you in the nam" (3 lines/15 words) · "HISTORICAL CONTEXT" (2 lines/2 words) · "NOT ALL LAWS ARE MORAL" (2 lines/5 words) · "WHERE TO NEXT" (2 lines/3 words)
+- **/commissioners-office** — "COMMISSIONER’S OFFICE" (2 lines/2 words) · "PART 1 TUBMAN CREATES A CROWD" (2 lines/6 words) · "“If we can get him out into the crowd, we can " (3 lines/17 words) · "HISTORICAL CONTEXT" (2 lines/2 words) · "WHEN NOT CHALLENGED INJUSTICE THRIVES" (4 lines/5 words) · "PART 2 THE MOB" (2 lines/4 words) · "“Drag him to the river! Drown him! But don’t l" (2 lines/13 words) · "FREEDOM ISN’T FREE" (2 lines/3 words) · "WHERE TO NEXT" (2 lines/3 words)
+- **/mansion** — "URI GILBERT HOME" (2 lines/3 words) · "HISTORICAL CONTEXT" (2 lines/2 words) · "THE INVISIBLE MATTER AS MUCH AS THE VISIBLE" (3 lines/8 words) · "WHERE TO NEXT" (2 lines/3 words)
+- **/ferry** — "WASHINGTON STREET FERRY LANDING" (3 lines/4 words) · "“The crowd was like a lynch mob in reverse.”" (2 lines/9 words) · "HISTORICAL CONTEXT" (2 lines/2 words) · "AUTHORITARIANISM IS PERSISTENT" (2 lines/3 words) · "WHERE TO NEXT" (2 lines/3 words)
+- **/barbershop** — "PETER BALTIMORE’S BARBERSHOP" (3 lines/3 words) · "“We also must liberate history and memory. Tra" (3 lines/20 words) · "HISTORICAL CONTEXT" (2 lines/2 words) · "WE ARE RESPONSIBLE FOR JUSTICE" (3 lines/5 words) · "WHERE TO NEXT" (2 lines/3 words)
+- **/map** — "FIVE LOCATIONS THROUGHOUT TROY" (2 lines/4 words) · "HOLEUR’S FASHIONABLE BAKERY" (2 lines/3 words) · "COMMISSIONER’S OFFICE" (2 lines/2 words)
+- **/people** — "ONE DAY. A WHOLE CITY’S CAST." (3 lines/6 words) · "MARTIN I. TOWNSEND" (2 lines/3 words) · "BLUCHER HANSBROUGH" (2 lines/2 words) · "DEPUTY U.S. MARSHAL HOLMES" (2 lines/4 words)
+- **/paintings** — "THE NALLE SERIES" (2 lines/3 words) · "WASHINGTON STREET FERRY LANDING · NARRATIVE I" (2 lines/7 words) · "WASHINGTON STREET FERRY LANDING · NARRATIVE II" (2 lines/7 words) · "PETER BALTIMORE’S BARBERSHOP · NARRATIVE I" (2 lines/6 words) · "PETER BALTIMORE’S BARBERSHOP · NARRATIVE II" (2 lines/6 words)
+- **/about** — "“In Troy, many residents continued to regard h" (8 lines/67 words) · "TWO AND A HALF MILES. ONE DAY IN 1860." (2 lines/9 words)
+- **/404** — "THIS PAGE ISN’T PART OF THE MEMORIAL" (2 lines/7 words)

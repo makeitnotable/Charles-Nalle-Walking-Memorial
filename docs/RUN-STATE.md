@@ -7,24 +7,32 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**P1–P6 COMPLETE.** Every audit item is implemented and committed. P7 is
-the open front: full instrument re-run (rag · contrast · a11y · census ·
-audio · frames · states + production perf), docs/v8/REVIEW-GUIDE.md
-(§2 bars, §3 judgement calls, §4 human queue), run-complete, final push. Environment note: this container blocks
+**RUN COMPLETE (P1–P7).** All 40 audit items shipped across 11 commits on
+`v2` (mirrored to `claude/nalle-memorial-polish-kc4uvm`). Final gate:
+rag 0/0/0 over 4,523 blocks × 99 passes · contrast 0 failures · a11y
+0/0/0 over 51 runs · frames CLEAN 4/4 runnable · museum-check 77–79 draw
+calls with no composition findings · census one ladder · audio-check
+clean · Lighthouse a11y 100 everywhere. The four perf routes under their
+v7 bars were proven ENVIRONMENTAL by building the pre-v8 commit and
+measuring it on this machine minutes apart (home 94 vs 93 · commissioners
+96 vs 96 · mansion 96 vs 96 · paintings 64 vs 64, TBT within 0.4%) — this
+container has no GPU. Evidence: docs/qa/v8-final/ + docs/qa/museum-v8/. Environment note: this container blocks
 cdn.playwright.dev — the pre-installed Chromium at /opt/pw-browsers is
 shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
 1194 builds); `npm run qa:setup` is NOT needed here. Dev server :4321 up
 (self-daemonized).
 
 ## CURRENT ITEM
-P7 — the closing gate.
+RUN COMPLETE. Every item in docs/v8/AUDIT.md is implemented, measured and
+pushed; docs/v8/REVIEW-GUIDE.md carries the item-by-item report, the
+instrument bars, the judgement calls and the human queue.
 
 ## NEXT ACTION
-Full instrument matrix on dev (rag 9vp × 11 routes · contrast · a11y ·
-census · audio-check · frames · arrival), then the PRODUCTION build on
-:4322 for perf (home 97 · chapters 98–99 · map 64 · paintings ≥80 ·
-people/about 99 are the v7 bars), then finish docs/v8/REVIEW-GUIDE.md
-§2–§4 and push.
+Nothing outstanding in this run. The open items are Wil's (REVIEW-GUIDE
+§4): the ≥2160px home-bg.png + ≥1080px splash film, the People subtext
+wording, the alive-window feel, the bakery moral's drawing provenance,
+the 1858 crop parity, and a live check of perf + the map curtain (both
+unmeasurable in this container).
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |

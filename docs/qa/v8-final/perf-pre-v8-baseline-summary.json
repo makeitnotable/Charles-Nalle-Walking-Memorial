@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/",
+    "performance": 94,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.56,
+    "cls": 0,
+    "tbt_ms": 206,
+    "transfer_kb": 532
+  },
+  {
+    "route": "/commissioners-office",
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.57,
+    "cls": 0,
+    "tbt_ms": 73,
+    "transfer_kb": 285
+  },
+  {
+    "route": "/mansion",
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.56,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 271
+  },
+  {
+    "route": "/paintings",
+    "performance": 64,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.94,
+    "cls": 0,
+    "tbt_ms": 157343,
+    "transfer_kb": 2186
+  }
+]

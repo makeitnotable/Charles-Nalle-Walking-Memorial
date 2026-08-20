@@ -115,21 +115,91 @@ Every number below was measured after the last change, not carried forward.
 | `rag` — unauthored runts / ink clips / visible em dashes | **0 / 0 / 0** across 4,523 text blocks and 99 route × viewport passes |
 | `contrast` (pixel mode) | **0 failures**, 0 unmeasured |
 | `a11y` (axe, incl. reduced motion + 200 % zoom) | **0 serious/critical · 0 moderate · 0 minor** across 51 runs |
+| `census` (type ladder) | one shared ladder across the five chapters; mansion and ferry carry one extra size each, which is the display fit-clamp shrinking their long names to fit — by design, not a new type role |
+| `audio-check` | plays, highlights, only one player at a time, seek lands on the right paragraph, the mini-player collapses to a time pill at Onward |
+| `frames` (curtain, 4× CPU) | **CLEAN** on all four runnable cases — 0 uncovered frames, 0 px shift. The two map cases cannot run here (Mapbox is blocked in this container), so the map→chapter curtain is the one transition still owed a look on the live site. |
 | `museum-check` | draw calls **77 (79 landscape)** against the 80 budget; composition centred; no chrome findings |
+| Lighthouse, production build | a11y **100 on every route**, CLS ≈ 0 everywhere. Performance: people 100 · about 100 · ferry 98 · bakery 97 · barbershop 97 · commissioners 96 · mansion 96 · map 95 · home 93 · paintings 64 |
 
-*(census / audio / frames / production perf appended below as they land)*
+**About those last numbers.** They are below the v7 bars (home 97, chapters
+98–99, paintings 89), so I checked whether v8 caused it by building the
+**pre-v8 commit** and running the same Lighthouse pass on the same machine
+minutes apart. It scores the same: home 94 vs 93, commissioners 96 vs 96,
+mansion 96 vs 96, paintings 64 vs 64 with blocking time within 0.4 %. The
+gap is this QA container, which has no GPU — every 3-D frame is drawn in
+software, so the museum's trace is dominated by rasterization that a real
+device does on the graphics card. Two things are worth saying plainly:
+
+1. **v8 costs essentially nothing.** The museum now plays films by default
+   and has a new archway, and its score is unchanged against the baseline —
+   the "nothing loads before you touch it" design did its job.
+2. **The real numbers are the live ones.** Please check performance on the
+   deployed site rather than from this table; the v7 measurements (89–90 on
+   the museum) came from hardware with a GPU.
 
 ---
 
 ## 3 · Judgement calls I made
 
-*(filled at the end of the run)*
+Places where your words left room, and I chose. Each is a one-line revert if
+you disagree — the reasoning is in `docs/RUN-STATE.md`.
+
+1. **The "dark gradient over the map" (V8-205).** You said it on the
+   commissioner's page, and there is no gradient on the embed map. What is
+   dark there is the **1858 plate's edge fade**, sitting between two cream
+   sections. I made that fade cream and left the photo interludes dark.
+2. **The afterword break (V8-304)** — you asked for tablet. Measured, the
+   one-line version also overruns at 1024–1440, so I authored the break at
+   every width rather than leave a mid-subtitle wrap on desktop.
+3. **The People subtext (V8-302).** Your dictation was "Their role in the
+   story are told each chapter location by location". I shipped it
+   grammar-normalized: "Their roles in the story are told in each chapter,
+   location by location." Your call on the exact wording.
+4. **"Christianson", not "Christensen".** You said Christensen; every source
+   in the project (and the book) spells it Christianson. I read that as
+   speech-to-text and changed no spelling.
+5. **The barbershop hero (V8-278).** Desktop had only 60 px of slack, so the
+   lift is a bottom anchor. Phones show the poster's full height, where a
+   focal point cannot move anything — so that hero is now scaled 1.18 about
+   its bottom edge. Different mechanism per orientation, same intent.
+6. **Painting names (V8-320).** You named the barbershop pair, so only that
+   pair is renamed in the hall; the ferry keeps Narrative I/II and the stills
+   grid keeps its narrative captions, per what you said at 00:34:11.
+7. **The plaque eyebrow (V8-320).** "Location 01" replaced "Mark Priest ·
+   Nalle Series · …", so the artist's name no longer appears on the inspect
+   card. It still appears in the grid below and on the About page.
+8. **Moral backgrounds (V8-275).** You suggested a mix; I used all three
+   levers gently — per-image focal points, scrim .86 → .90, and a 2 px blur.
+   Taste call, easily dialled either way.
 
 ---
 
 ## 4 · The human queue — things only you can decide
 
-*(filled at the end of the run)*
+1. **The splash source (V8-101).** This is the one item I could not finish.
+   The largest still in the repo is 1080 px wide but was being *advertised*
+   as 1440, so your desktop was upscaling it — that lie is fixed, and the
+   image is now honest rather than sharp. To actually fix it I need from you:
+   `home-bg.png` at **≥ 2160 px wide**, and ideally a re-exported splash film
+   at **≥ 1080 px wide** (the visible layer today is 480 × 720, stretched
+   about 3× on a 1440 screen). `scripts/build-media.mjs` regenerates every
+   tier once those land.
+2. **The People subtext wording** — see §3.3.
+3. **The museum's "alive" feel.** Films play on the nearest works only (three
+   on desktop, two on phones) to protect battery and the performance score.
+   If you want more of the hall moving at once, that is a number I can raise.
+4. **The bakery moral's background drawing.** You caught the ferry using the
+   wrong sketch and it now uses its own. While checking the other four I could
+   not establish where the bakery's background drawing came from — it pairs
+   acceptably, but it is worth your eye.
+5. **The 1858 lens crop.** I matched your screenshot (Green Island out of
+   frame, downtown filling it) and mirrored it on tablet and phone "so it
+   feels similar" — parity by construction, not by your eye yet.
+6. **Live performance and the map curtain.** Both need checking on the
+   deployed site: the numbers in §2 for the reason given there, and the
+   map → chapter transition because Mapbox cannot load in this container.
+7. **The phone map's hint chip** can briefly overlap the Ferry pill while it
+   fades. Minor, and I left it rather than move a pin you approved.
 
 ---
 
