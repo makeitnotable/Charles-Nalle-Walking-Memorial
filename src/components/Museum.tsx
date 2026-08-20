@@ -542,23 +542,38 @@ export default function Museum({ works, slotId }: Props) {
         placements.push({ pos: { x, y: yC, z }, side, w, h });
 
         const rotY = side === 1 ? 0 : Math.PI;
-        const moulding = new THREE.Mesh(litBox(0.11, h + 0.3, w + 0.3, "#80412b", "#95502f"), vcMat);
-        moulding.position.set((CH + 0.03) * side, yC, z);
+        /* v8 V8-325 (Wil, 00:27:58: "a big brown line at the side… they're
+           not in their frames"). The three "rings" are SOLID boxes covering
+           the whole opening, so each one has to stand in front of the one
+           outside it and the canvas in front of them all — otherwise it is
+           simply occluded. That ordering was right; the DISTANCES were not:
+           the canvas floated 105 mm off the slip, so down the hall you read a
+           slab hovering in front of its frame with brown flanks either side.
+           Depths below are authored as "how far this face stands into the
+           room" and step in 15 mm: 20 mm moulding, 35 mm gilt lip, 50 mm
+           slip, canvas 60 mm — 10 mm proud, which reads as a shadow line
+           rather than a wall. In-plane the steps widen too (340/180/70 mm)
+           so the profile is a touch more ornate seen obliquely. Positions and
+           box sizes only: no new meshes, no new draw calls. */
+        const boxX = (depth: number, t: number) => (CH + t / 2 - depth) * side;
+        const planeX = (depth: number) => (CH - depth) * side;
+        const moulding = new THREE.Mesh(litBox(0.11, h + 0.34, w + 0.34, "#80412b", "#95502f"), vcMat);
+        moulding.position.set(boxX(0.02, 0.11), yC, z);
         moulding.rotation.y = rotY;
         scene.add(moulding);
-        const lip = new THREE.Mesh(litBox(0.13, h + 0.16, w + 0.16, "#8f7040", "#ad8950"), vcMat);
-        lip.position.set((CH + 0.03) * side, yC, z);
+        const lip = new THREE.Mesh(litBox(0.13, h + 0.18, w + 0.18, "#8f7040", "#ad8950"), vcMat);
+        lip.position.set(boxX(0.035, 0.13), yC, z);
         lip.rotation.y = rotY;
         scene.add(lip);
         // slip: the dark inner ring (also the shadow behind the canvas edge)
         const slip = new THREE.Mesh(new THREE.BoxGeometry(0.14, h + 0.07, w + 0.07), slipMat);
-        slip.position.set((CH + 0.03) * side, yC, z);
+        slip.position.set(boxX(0.05, 0.14), yC, z);
         slip.rotation.y = rotY;
         scene.add(slip);
 
         const cmat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
         const canvasMesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), cmat);
-        canvasMesh.position.set(x - 0.045 * side, yC, z);
+        canvasMesh.position.set(planeX(0.06), yC, z);
         canvasMesh.rotation.y = (-Math.PI / 2) * side;
         canvasMesh.userData.workIndex = i;
         scene.add(canvasMesh);
@@ -583,13 +598,15 @@ export default function Museum({ works, slotId }: Props) {
           const sh = 0.85;
           const sw = sh * (work.sketchAspect ?? 1.25);
           const sz = z + side * (w / 2 + sw / 2 + 0.6);
+          // same depth idiom as the canvases (V8-325): the drawing stands
+          // 10 mm proud of a frame face 20 mm off the wall
           const sframe = new THREE.Mesh(litBox(0.08, sh + 0.14, sw + 0.14, "#80412b", "#95502f"), vcMat);
-          sframe.position.set((CH + 0.03) * side, 1.55, sz);
+          sframe.position.set(boxX(0.02, 0.08), 1.55, sz);
           sframe.rotation.y = rotY;
           scene.add(sframe);
           const smat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
           const smesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), smat);
-          smesh.position.set((CH - 0.03) * side, 1.55, sz);
+          smesh.position.set(planeX(0.03), 1.55, sz);
           smesh.rotation.y = (-Math.PI / 2) * side;
           scene.add(smesh);
           loader.load(work.sketch, (t) => {
@@ -1518,14 +1535,20 @@ export default function Museum({ works, slotId }: Props) {
             className="pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
             {lookedAway ? (
-              <button
-                type="button"
-                className="btn-sm btn-ghost pointer-events-auto lg:hidden"
-                style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
-                onClick={() => api.current?.recenter()}
-              >
-                Face forward
-              </button>
+              /* the hiding utility rides a bare SPAN: `.btn-sm { display:
+                 inline-flex }` is unlayered CSS and beats Tailwind's layered
+                 `lg:hidden`, so putting it on the button drew a second Face
+                 forward beside the top-right one at ≥1024 (v8 V8-322). */
+              <span className="lg:hidden">
+                <button
+                  type="button"
+                  className="btn-sm btn-ghost pointer-events-auto"
+                  style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+                  onClick={() => api.current?.recenter()}
+                >
+                  Face forward
+                </button>
+              </span>
             ) : (
               <p className="t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
                 <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
