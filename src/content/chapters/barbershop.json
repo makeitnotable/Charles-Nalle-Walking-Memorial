@@ -8,9 +8,10 @@
   "chapterLabel": "Chapter 5",
   "sketchNote": "The crowd fills the sheet edge to edge and moves as one mass to the left. Priest drew the pavement in the same weight as the people, so the street itself seems to be leaning toward the shop.",
   "heroFocus": {
-    "landscape": 44,
-    "portrait": 40,
-    "portraitX": 100
+    "landscape": 100,
+    "portrait": 54,
+    "portraitX": 100,
+    "portraitScale": 1.18
   },
   "plaque": true,
   "map": {

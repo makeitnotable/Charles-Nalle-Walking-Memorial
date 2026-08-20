@@ -100,6 +100,11 @@ const chapters = defineCollection({
            *  height and crop the sides — this is what clears a face from the
            *  top-right burger). Default centre. */
           portraitX: z.number().min(0).max(100).optional(),
+          /** v8 V8-278: phones show the portrait poster's FULL height, so a
+           *  vertical focus can't move it — this scales the hero media about
+           *  its bottom edge (cropping the source's top) to lift the subject.
+           *  Default 1 (no lift). */
+          portraitScale: z.number().min(1).max(1.4).optional(),
         }),
       ])
       .default(50),

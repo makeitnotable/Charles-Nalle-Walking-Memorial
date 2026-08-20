@@ -43,13 +43,14 @@ function markerEl(label: string, order: number, href?: string): HTMLElement {
     root.style.display = "block";
     root.style.textDecoration = "none";
   }
-  /* v7 C5: a QUIET pill — dark ground, cream label, the numeral the only
-     orange — so the section's one primary orange is the Continue button. */
+  /* v8 V8-204 (Wil, 00:16:19): with Continue gone the pill IS the section's
+     one primary orange — the tag runs solid (the /map active-marker idiom:
+     orange ground, dark ink, dark numeral chip). */
   root.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="display:flex;align-items:center;justify-content:center;padding:8px 12px 8px 8px;border-radius:30px;background:color-mix(in srgb, var(--color-primary-2) 88%, transparent);color:var(--color-neutral-12);border:1px solid var(--color-primary-7);backdrop-filter:blur(6px);font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
-        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:8px;background:var(--color-primary-9);width:20px;height:20px">
-          <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:700">${order}</p>
+      <div style="display:flex;align-items:center;justify-content:center;padding:8px 12px 8px 8px;border-radius:30px;background:var(--color-primary-10);color:var(--color-primary-2);border:1px solid var(--color-primary-10);font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:8px;background:var(--color-primary-2);width:20px;height:20px">
+          <p style="color:var(--color-primary-10);font-size:11px;margin:0;line-height:1;font-weight:700">${order}</p>
         </div>
         <p style="font-size:${font}px;line-height:18px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${label}</p>
       </div>
