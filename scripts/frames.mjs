@@ -86,7 +86,7 @@ const CASES = [
     path: "/map",
     prep: async (page) => {
       await page.waitForTimeout(9000);
-      const card = '.keen-slider__slide [role="button"][aria-label^="Enter Spot"]';
+      const card = '.keen-slider__slide [role="button"][aria-label^="Enter Location"]';
       // The carousel is opacity-0 until a stop is focused (TroyMap.tsx: the
       // marker click → focusStop → carousel visible with that card active).
       const visible = await page.evaluate((sel) => {
@@ -95,7 +95,7 @@ const CASES = [
         return !!el && (!wrap || getComputedStyle(wrap).opacity !== "0");
       }, card);
       if (!visible) {
-        const marker = page.locator('button[aria-label^="Spot 1"]').first();
+        const marker = page.locator('button[aria-label^="Location 1"]').first();
         await marker.click({ force: true, timeout: 4000 }).catch(() => marker.evaluate((el) => el.click()));
         await page.waitForTimeout(1500);
       }
@@ -103,15 +103,15 @@ const CASES = [
     },
   },
   {
+    /* v8 V8-204: the Continue BUTTON is gone at Wil's direction — the whole
+       embed map is the door to the next chapter now, so the case clicks the
+       stretched link that covers it (same curtain label and date). */
     id: "continue",
     path: "/bakery",
     prep: async (page) => {
       await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
       await page.waitForTimeout(1500);
-      const cta = (await page.locator("#onward a", { hasText: /^\s*Continue/ }).count())
-        ? "#onward a:has-text('Continue')"
-        : "a.btn-solid:has-text('Continue')";
-      return centre(page, cta);
+      return centre(page, "#onward a[aria-label^='Continue to']");
     },
   },
   {
