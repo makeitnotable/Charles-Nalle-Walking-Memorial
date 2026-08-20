@@ -106,9 +106,18 @@ location") are logged verbatim — dictation vs. shipped — in
 
 ---
 
-## 2 · Instrument bars
+## 2 · Instrument bars on the final build
 
-*(filled at the end of the run)*
+Every number below was measured after the last change, not carried forward.
+
+| Instrument | Result |
+|---|---|
+| `rag` — unauthored runts / ink clips / visible em dashes | **0 / 0 / 0** across 4,523 text blocks and 99 route × viewport passes |
+| `contrast` (pixel mode) | **0 failures**, 0 unmeasured |
+| `a11y` (axe, incl. reduced motion + 200 % zoom) | **0 serious/critical · 0 moderate · 0 minor** across 51 runs |
+| `museum-check` | draw calls **77 (79 landscape)** against the 80 budget; composition centred; no chrome findings |
+
+*(census / audio / frames / production perf appended below as they land)*
 
 ---
 
