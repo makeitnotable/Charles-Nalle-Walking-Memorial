@@ -623,19 +623,6 @@ h3 {
   backdrop-filter: blur(6px);
   text-align: right;
 }
-/* v9 V9-205 (Wil, 8/21): phones read the credit in full — "Troy, New York ·
-   1858 · Library of Congress" on ONE line. It needs 370px and the chip was
-   capped at 351 at 390, so it broke to three. Closing 20px without touching
-   the words: a slightly tighter micro-tracking (still clearly letterspaced),
-   4px off the padding, and a shallower inset. At 375 and below it wraps to
-   two, which Wil allowed explicitly. */
-@media (max-width: 639px) {
-  .interlude-credit {
-    max-width: calc(100% - 1.5 * var(--gutter));
-    padding-inline: 8px;
-    letter-spacing: 0.055em;
-  }
-}
 /* v7 C5: the Onward lockup and its two CTAs sit centred under the framed map. */
 .onward-lockup {
   text-align: center;

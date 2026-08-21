@@ -297,7 +297,7 @@ const focus =
         the lockup carries a soft text-shadow as the second lock. */}
     <div
       class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to top, rgba(29,20,17,.95) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+      style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
       aria-hidden="true"
     >
     </div>
@@ -403,9 +403,10 @@ const focus =
             <div class="editorial mt-8">
               <ChapterSpine sections={sections} current={`scene-${b.i}`} primary={b.i === 0} />
 
-              {/* v8 V8-277 (Wil, 01:05:06): on phones only, the headline and
-                  quote centre; the kicker and the narration object below
-                  keep the left edge. */}
+              {/* v10 V10-04 (Wil, 8/21): heading, quote and attribution are one
+                  block — left-aligned to each other, the block centred in its
+                  column, at EVERY width. The kicker and the narration object
+                  below keep the left edge. */}
               <div class="scene-hook">
                 <h2 class="t-title lines"><Lines text={c.scenes[b.i].label} /></h2>
 
@@ -480,10 +481,9 @@ const focus =
               <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)] md:bottom-[calc(var(--ui-inset)/2)]">
                 {interlude.short && <span class="hidden sm:inline">{interlude.short}</span>}
                 {interlude.rest}
-                {/* v9 V9-205 (Wil, 8/21): phones read the full credit again —
-                    "Troy, New York · 1858 · Library of Congress" on ONE line.
-                    v8 hid the licence tail below sm to guarantee the fit. */}
-                {interlude.tail}
+                {/* Phones drop the licence tail — the chip stays one line.
+                    (v9 restored it on a misreading; SCOPE V10-02.) */}
+                {interlude.tail && <span class="hidden sm:inline">{interlude.tail}</span>}
               </p>
             </div>
           </section>
@@ -635,10 +635,14 @@ const focus =
       <ChapterSpine sections={sections} current="onward" />
 
       <div>
-        {/* v9 V9-201 (Wil, 8/21): the LOCATION NN marker is gone — the
-            number now reads once, as "Chapter N" beneath the map, so the
-            heading keeps its row to itself. */}
-        <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
+        {/* v8 V8-204 (Wil, 00:15:20): the LOCATION NN marker rides the
+            heading row — bottom-aligned with WHERE TO NEXT, right-aligned
+            with the map's edge. (v9 dropped it on an approved answer; v10
+            restores it verbatim at Wil's request — SCOPE V10-01.) */}
+        <div class="flex items-end justify-between gap-6">
+          <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
+          <p class="t-meta pb-1 whitespace-nowrap">Location {pad2(nextEntry?.data.order ?? 1)}</p>
+        </div>
 
         {
           nextEntry && (
@@ -815,19 +819,26 @@ const focus =
   /* v8 V8-277 (Wil, 01:05:06) — phones centre the hook's headline + quote;
      the hung indent comes off (a centred line with a negative indent reads
      lopsided) and the quote's measure centres in the column. */
-  /* v9 V9-204 (Wil, 8/21): the three rows stay LEFT-ALIGNED TO EACH OTHER
-     and the block they form is centred in the column — v8 centred the text
-     itself, which ragged all three lines against nothing. `fit-content` +
-     auto margins centre the block; the text inside never moves. */
-  @media (max-width: 639px) {
-    .scene-hook {
-      width: fit-content;
-      max-width: 100%;
-      margin-inline: auto;
-      text-align: left;
-    }
-    .scene-hook blockquote {
-      text-indent: 0;
-    }
+  /* v10 V10-04 (Wil, 8/21): the three rows stay LEFT-ALIGNED TO EACH OTHER
+     and the block they form is centred in its parent — at EVERY width, not
+     just phones (his choice). `fit-content` + auto margins centre the block;
+     the text inside never moves. */
+  .scene-hook {
+    /* `.editorial > * + *` makes every content child an inline-size query
+       container from 1024 up, and inline-size CONTAINMENT stops the contents
+       contributing to the element's own width — so `fit-content` resolved to
+       zero and the block could not centre. This one block opts out; it holds
+       a `t-title`, never a `t-display`, so nothing inside it needs `100cqw`. */
+    container-type: normal;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    /* from 1024 up the hook is a GRID item in `.editorial`, where auto margins
+       do not win — this centres it inside its column. */
+    justify-self: center;
+    text-align: left;
+  }
+  .scene-hook blockquote {
+    text-indent: 0;
   }
 </style>

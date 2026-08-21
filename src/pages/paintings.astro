@@ -125,6 +125,12 @@ const museumWorks = works.map((w, wi) => {
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
     video: w.video,
     sketch: hasSketch ? withBase(`media/${w.slug}/${studyKey}-800.webp`) : null,
+    /* v10 V10-06 (Wil, 8/21): the card keeps the WRITTEN content about the
+       study — only the duplicate thumbnail was meant to go. Scene 2's note
+       where the chapter has one (Ch2 only), else the chapter's. */
+    studyNote: hasSketch
+      ? (w.key === "horizontal-pt2" ? entry.data.scenes[1]?.sketchNote : null) ?? entry.data.sketchNote
+      : null,
     aspect: aspects[wi],
     sketchAspect: hasSketch ? sketchAspects[wi] : null,
     line: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.text : null,

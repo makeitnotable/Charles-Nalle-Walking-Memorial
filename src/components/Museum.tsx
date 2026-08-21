@@ -52,6 +52,9 @@ export interface Work {
   tex800: string;
   video: string | null;
   sketch: string | null;
+  /** v10 V10-06: the chapter's sentence about the study — TEXT only; the
+   *  drawing itself hangs on the wall, never in the card. */
+  studyNote?: string | null;
   /** True aspect (w/h) of the canvas — build-time from the 1440 asset. */
   aspect: number;
   /** True aspect of the study beside the main canvas. */
@@ -67,10 +70,7 @@ interface Props {
 
 // ——— The hall, in metres ———
 const SPACING = 5; // corridor per canvas (was 7)
-/* v9 V9-104: the rail used to run 1.5 m PAST the last work, which left the
-   closing frame looking down an empty corridor at the end wall. It now stops
-   as the last painting comes alongside, and the light takes over from there. */
-const OVERRUN = 0.4;
+const OVERRUN = 1.5; // the rail passes the last work
 const END_GAP = 6; // last work → end wall
 const CORRIDOR_HALF = 3.4;
 const EYE = 1.55;
@@ -86,6 +86,21 @@ const ENTRY_Z = 7; // the wall behind you
    in two files' worth of literals and drifted). */
 const DOT_GAP = 24;
 const DOTS_H = 36;
+
+/**
+ * v10 V10-06 (Wil, 8/21): "the only things on the card were the previously
+ * existing text and the written content associated with the artist study."
+ * Text only — the drawing is already on the wall beside its painting.
+ */
+function StudyNote({ work }: { work: Work }) {
+  if (!work.studyNote) return null;
+  return (
+    <div className="museum-study mt-5 border-t border-primary-7/60 pt-4">
+      <p className="t-meta">Artist study</p>
+      <p className="t-meta-body mt-2">{work.studyNote}</p>
+    </div>
+  );
+}
 
 export default function Museum({ works, slotId }: Props) {
   const [capable, setCapable] = useState<boolean | null>(null);
@@ -108,8 +123,6 @@ export default function Museum({ works, slotId }: Props) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetHeadRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLElement>(null);
-  /** v9 V9-104: the closing wash — the arch's light taking the whole frame. */
-  const bloomRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
   const api = useRef<{
     approach: (i: number | null) => void;
@@ -175,7 +188,7 @@ export default function Museum({ works, slotId }: Props) {
     if (!capable || !slotId) return;
     const slot = document.getElementById(slotId);
     if (!slot) return;
-    slot.style.height = `${works.length * 90 + 100}vh`;
+    slot.style.height = `${works.length * 90 + 160}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
     const lead = slot.querySelector<HTMLElement>(":scope > div");
@@ -683,7 +696,11 @@ export default function Museum({ works, slotId }: Props) {
              synchronously (the v7 teardown re-fetched and flashed), and never
              clobber a playing film with a late-arriving still. */
           stillTexs[i] = t;
-          if (!videoEls[i]) {
+          /* v10 V10-05: apply it unless a film is genuinely PLAYING. The v8
+             guard tested "has a video element", so a work holding a warm but
+             paused element never took the still it had just fetched. */
+          const playing = videoEls[i] && !videoEls[i]!.paused;
+          if (!playing) {
             paintingMats[i].map = t;
             paintingMats[i].color.set("#ffffff");
             paintingMats[i].needsUpdate = true;
@@ -739,33 +756,44 @@ export default function Museum({ works, slotId }: Props) {
       const cur = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       let target = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       const railPitch = portrait ? RAIL_PITCH_PORTRAIT : RAIL_PITCH;
-      /* v9 V9-104 (Wil, 8/21): the hall ENDS ON THE LAST PAINTING.
-         v8 kept walking 7 m past it, through the arch and down three steps —
-         so the last thing the museum did was march you at a blank end wall
-         with the dots still lit across it ("a weird white wall with a bunch of
-         dots"), then park you staring at a landing. The arch stays as the
-         far-end architecture that gives the corridor its depth and its light,
-         but it is never entered.
+      /* v10 V10-08 (Wil, 8/21: "the old transition we had was better than the
+         new one we created… go back to the old transition and build on it").
+         So: v8's path is back — the rail walks the hall, then the last stretch
+         carries you THROUGH the arch and down the three steps, the split
+         derived from the two distances so walking speed never changes at the
+         hand-off.
 
-         The tail of the scroll is now a TRANSITION rather than travel:
-         `bloom` runs 0→1 over the last stretch, lifting the arch's warm light
-         over the frame while the stage cross-dissolves into the stills grid
-         beneath it, so the paintings below emerge from the light. */
+         Built on, per his spiral-staircase note: the view also TURNS as you
+         descend. A spiral stair rotates the room around you while you drop, so
+         the yaw sweeps through the descent and settles facing the light — a
+         quarter of the turn is spent before the first tread, the rest across
+         the steps. Everything here is a pure function of `railT`, so scrolling
+         back up retraces the same path exactly (V10-09). */
       const WALK_END = 0.4 - (works.length * SPACING + OVERRUN - 0.4);
-      /* The light starts rising well before the walk ends, so the closing
-         stretch is lit rather than a flat corridor — the paintings are on the
-         side walls, so looking FORWARD at the end of the hall can only ever
-         show the far wall; the answer is to make that wall a light you are
-         walking into, early enough that there is never a blank beat. */
-      const T_WALK = 0.78;
+      const DESCEND_TO = endZ - 2.0;
+      const WALK_DIST = 0.4 - WALK_END;
+      const DESC_DIST = WALK_END - DESCEND_TO;
+      const T_WALK = WALK_DIST / (WALK_DIST + DESC_DIST);
+      /* rad. A stair's turn, not a pirouette: at 24° the frame swung onto the
+         pilaster and lost the arch entirely, which read as broken — the point
+         is that the room moves around you while the light stays the subject. */
+      const SPIRAL_YAW = 0.15;
       const railPose = (t: number) => {
-        const u = Math.min(1, T_WALK > 0 ? t / T_WALK : 1);
+        if (t <= T_WALK) {
+          const u = T_WALK > 0 ? t / T_WALK : 0;
+          return { z: 0.4 - u * WALK_DIST, y: EYE, pitch: railPitch, yaw: 0, descending: 0 };
+        }
+        const u = (t - T_WALK) / (1 - T_WALK);
+        const e = u * u * (3 - 2 * u); // smoothstep: the step-down settles
         return {
-          z: 0.4 - u * (0.4 - WALK_END),
-          y: EYE,
-          pitch: railPitch,
-          /* eased so the dissolve starts gently and finishes decisively */
-          bloom: t <= T_WALK ? 0 : Math.min(1, (t - T_WALK) / (1 - T_WALK)),
+          z: WALK_END - u * DESC_DIST,
+          y: EYE - e * DESCENT,
+          // dip the eyes toward the steps, then level out on the landing
+          pitch: railPitch - Math.sin(u * Math.PI) * 0.07,
+          /* the turn: out and back, so you arrive square to the light rather
+             than askew — the rotation is the movement, not the destination */
+          yaw: Math.sin(e * Math.PI) * SPIRAL_YAW,
+          descending: u,
         };
       };
       const railZ = () => railPose(railT).z;
@@ -1133,6 +1161,13 @@ export default function Museum({ works, slotId }: Props) {
       const ensureVideo = (i: number) => {
         const w = works[i];
         if (!w.video) return;
+        /* v10 V10-05: the STILL is requested first, always. Without it a work
+           whose film swapped in before its still arrived had nothing to fall
+           back to — pausing left the material on a paused video texture, and
+           evicting disposed the very texture the material was still using, so
+           the canvas rendered blank. (Never visible in the QA container: its
+           software GL keeps every film off.) */
+        loadWork(i);
         const existing = videoEls[i];
         if (existing) {
           existing.play().catch(() => {});
@@ -1191,18 +1226,33 @@ export default function Museum({ works, slotId }: Props) {
         const v = videoEls[i];
         if (!v) return;
         v.pause();
-        if (stillTexs[i] && paintingMats[i].map !== stillTexs[i]) {
-          paintingMats[i].map = stillTexs[i];
+        /* v10 V10-05: restore the still if we have it; if we do not, the
+           material must not be left showing a stopped film — fall back to the
+           flat canvas colour and let the pending loadWork() paint it. */
+        if (stillTexs[i]) {
+          if (paintingMats[i].map !== stillTexs[i]) {
+            paintingMats[i].map = stillTexs[i];
+            paintingMats[i].needsUpdate = true;
+          }
+        } else if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) {
+          paintingMats[i].map = null;
+          paintingMats[i].color.set("#2f1d14");
           paintingMats[i].needsUpdate = true;
         }
       };
       const teardownVideo = (i: number) => {
         const v = videoEls[i];
         if (!v) return;
-        pauseVideo(i);
+        pauseVideo(i); // leaves the material on the still, or on no map at all
         v.removeAttribute("src");
         v.load();
         videoEls[i] = null;
+        /* v10 V10-05: only ever dispose a texture nothing is drawing with. */
+        if (paintingMats[i].map === videoTexs[i]) {
+          paintingMats[i].map = stillTexs[i] ?? null;
+          if (!stillTexs[i]) paintingMats[i].color.set("#2f1d14");
+          paintingMats[i].needsUpdate = true;
+        }
         videoTexs[i]?.dispose();
         videoTexs[i] = null;
         if (!stillTexs[i]) {
@@ -1307,7 +1357,6 @@ export default function Museum({ works, slotId }: Props) {
       let lastT = performance.now();
       let lookedFlag = false;
       let descendingFlag = false;
-      let bloomVal = -1;
       let rectTick = 0;
       const tick = () => {
         raf = requestAnimationFrame(tick);
@@ -1321,18 +1370,9 @@ export default function Museum({ works, slotId }: Props) {
 
         if (mode === "rail") {
           const pose = railPose(railT);
-          target = { x: 0, y: pose.y, z: pose.z, yaw: 0, pitch: pose.pitch };
-          /* v9 V9-104: the stage dissolves into the grid as the light takes
-             the frame; the chrome leaves at the first hint of it. */
-          const b = pose.bloom;
-          if (b !== bloomVal) {
-            bloomVal = b;
-            /* eased in, so the light arrives as a swell rather than a switch */
-            if (bloomRef.current) bloomRef.current.style.opacity = String(b * b * (3 - 2 * b));
-          }
-          /* chrome stays while there is still hall to read; it leaves once
-             the light has genuinely taken over */
-          const desc = b > 0.35;
+          target = { x: 0, y: pose.y, z: pose.z, yaw: pose.yaw, pitch: pose.pitch };
+          /* the chrome clears out as you step through the arch */
+          const desc = pose.descending > 0.12;
           if (desc !== descendingFlag) {
             descendingFlag = desc;
             setDescending(desc);
@@ -1470,8 +1510,8 @@ export default function Museum({ works, slotId }: Props) {
             fov: camera.fov,
             far: camera.far,
             portrait,
-            /* v9 V9-104: how far the closing dissolve has run */
-            bloom: railPose(railT).bloom,
+            /* how far the closing descent has run */
+            descending: railPose(railT).descending,
             tWalk: T_WALK,
             endZ,
             running: inView && visible && !covered,
@@ -1624,23 +1664,8 @@ export default function Museum({ works, slotId }: Props) {
   const inApproach = approached !== null;
 
   return (
-    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
+    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 160}vh` }} className={slotId ? "relative h-full" : "relative"}>
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
-        {/* v9 V9-104 (Wil, 8/21): the hall's closing wash. The corridor ends
-            on its last painting and the arch's warm light rises to take the
-            frame; its edges are the page's own ground, so when the stage
-            releases, the stills section scrolls up out of the light with no
-            seam. Painted, never animated by JS beyond one opacity write. */}
-        <div
-          ref={bloomRef}
-          className="pointer-events-none absolute inset-0 z-[5]"
-          aria-hidden="true"
-          style={{
-            opacity: 0,
-            background:
-              "radial-gradient(58% 46% at 50% 44%, rgba(255,206,150,0.92), rgba(120,74,40,0.72) 46%, var(--color-primary-2) 82%)",
-          }}
-        />
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
             phones set the pair just above the indicator dots; tablets centre
@@ -1779,6 +1804,7 @@ export default function Museum({ works, slotId }: Props) {
                   {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
                 </figure>
               )}
+              {!(stageRef.current && stageRef.current.clientHeight < 620) && <StudyNote work={plaque} />}
               <div className="mt-5">
                 {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
                 <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
@@ -1828,7 +1854,8 @@ export default function Museum({ works, slotId }: Props) {
                 type="button"
                 className="museum-sheet-close"
                 aria-label="Close the plaque"
-                style={{ opacity: sheet === "full" ? 1 : 0, pointerEvents: sheet === "full" ? "auto" : "none" }}
+                /* v10 V10-07 (Wil, 8/21): "present at all times, not just
+                   something that appears when the user starts to scroll down." */
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1866,6 +1893,7 @@ export default function Museum({ works, slotId }: Props) {
                   {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
                 </figure>
               )}
+              <StudyNote work={plaque} />
             </div>
           </div>
         )}
