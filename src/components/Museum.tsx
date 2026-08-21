@@ -52,13 +52,6 @@ export interface Work {
   tex800: string;
   video: string | null;
   sketch: string | null;
-  /** v8 V8-329: the study as the PLAQUE shows it — a thumbnail in the card
-   *  and the drawer. Separate from `sketch` (which hangs on the wall in 3-D
-   *  beside the main canvas only), so Part 2 can carry its own drawing. */
-  study?: string | null;
-  studyAspect?: number | null;
-  /** The chapter's own sentence about the drawing on screen. */
-  studyNote?: string | null;
   /** True aspect (w/h) of the canvas — build-time from the 1440 asset. */
   aspect: number;
   /** True aspect of the study beside the main canvas. */
@@ -74,12 +67,18 @@ interface Props {
 
 // ——— The hall, in metres ———
 const SPACING = 5; // corridor per canvas (was 7)
-const OVERRUN = 1.5; // the rail passes the last work
+/* v9 V9-104: the rail used to run 1.5 m PAST the last work, which left the
+   closing frame looking down an empty corridor at the end wall. It now stops
+   as the last painting comes alongside, and the light takes over from there. */
+const OVERRUN = 0.4;
 const END_GAP = 6; // last work → end wall
 const CORRIDOR_HALF = 3.4;
 const EYE = 1.55;
-const RAIL_PITCH = -0.15; // rad, down — v8 V8-324 (Wil, 00:26:42): more floor, less ceiling
-const RAIL_PITCH_PORTRAIT = -0.12;
+/* rad, down. v8 V8-324 (Wil, 00:26:42) took it to −0.15/−0.12; v9 V9-101
+   (Wil, 8/21) asks for "slightly more down, just a little bit" — one more
+   step, still shallow enough that the cornice reads at the top of the frame. */
+const RAIL_PITCH = -0.19;
+const RAIL_PITCH_PORTRAIT = -0.155;
 const ENTRY_Z = 7; // the wall behind you
 /* v8 V8-328 (Wil, 00:28:32): the dot rail's air above the sheet and the
    rail's own reserved height — ONE source for the JSX `bottom`, the per-frame
@@ -87,41 +86,6 @@ const ENTRY_Z = 7; // the wall behind you
    in two files' worth of literals and drifted). */
 const DOT_GAP = 24;
 const DOTS_H = 36;
-
-/**
- * v8 V8-329 (Wil, 01:13:43-01:16:00): the artist's study, on the plaque.
- * A quiet row under the quote — a hairline, a small graphite thumbnail and
- * the chapter's own sentence about the drawing. Painting-first by
- * construction: it is the last thing in the card, the smallest type on it,
- * and it never competes for the eye with the canvas on the wall.
- */
-function Study({ work }: { work: Work }) {
-  if (!work.study) return null;
-  const a = work.studyAspect ?? 1.25;
-  const w = 84;
-  return (
-    <figure className="museum-study mt-5 border-t border-primary-7/60 pt-4">
-      {/* thumbnail and label share a line; the note runs UNDER them at the
-          card's full width — beside an 84px thumbnail in a 208px card it had
-          a ~110px measure and ran to twenty lines (1024×768: card 973px tall
-          in a 768px viewport). */}
-      <div className="flex items-center gap-3">
-        <img
-          src={work.study}
-          width={Math.round(w)}
-          height={Math.round(w / a)}
-          alt={`Pencil study for ${work.name}`}
-          loading="lazy"
-          decoding="async"
-          className="museum-study-img flex-none"
-          style={{ width: `${w}px`, aspectRatio: `${a}` }}
-        />
-        <figcaption className="t-meta min-w-0">Artist study</figcaption>
-      </div>
-      {work.studyNote && <p className="t-meta-body mt-3">{work.studyNote}</p>}
-    </figure>
-  );
-}
 
 export default function Museum({ works, slotId }: Props) {
   const [capable, setCapable] = useState<boolean | null>(null);
@@ -144,6 +108,8 @@ export default function Museum({ works, slotId }: Props) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetHeadRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLElement>(null);
+  /** v9 V9-104: the closing wash — the arch's light taking the whole frame. */
+  const bloomRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
   const api = useRef<{
     approach: (i: number | null) => void;
@@ -209,7 +175,7 @@ export default function Museum({ works, slotId }: Props) {
     if (!capable || !slotId) return;
     const slot = document.getElementById(slotId);
     if (!slot) return;
-    slot.style.height = `${works.length * 90 + 160}vh`;
+    slot.style.height = `${works.length * 90 + 100}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
     const lead = slot.querySelector<HTMLElement>(":scope > div");
@@ -283,6 +249,7 @@ export default function Museum({ works, slotId }: Props) {
       });
       if (disposed) return;
       const THREE = await import("three");
+      const { mergeGeometries } = await import("three/examples/jsm/utils/BufferGeometryUtils.js");
       if (disposed) return;
       /* The build is chunked across idle callbacks so no single task runs
          long: room → works → loop (Lighthouse TBT stays where v6 left it). */
@@ -528,10 +495,20 @@ export default function Museum({ works, slotId }: Props) {
       const STEP_RISE = 0.16;
       const STEP_RUN = 0.5;
       const stepsTop = endZ - 0.1;
-      for (let k = 0; k < 3; k++) {
-        const step = new THREE.Mesh(new THREE.BoxGeometry(ARCH_W + 0.7, STEP_RISE, STEP_RUN), stepMat);
-        step.position.set(0, -STEP_RISE * (k + 1) + STEP_RISE / 2, stepsTop - STEP_RUN * (k + 0.5));
-        scene.add(step);
+      /* v9: the three treads are ONE mesh. They are background detail beyond an
+         arch nobody walks through now, and merging them returns two draw calls
+         to the budget — which the Part 2 study needed (landscape phones sat at
+         81 of 80 with three separate steps). Geometry, not appearance: the
+         treads are identical to before. */
+      {
+        const stepGeos = [0, 1, 2].map((k) => {
+          const g = new THREE.BoxGeometry(ARCH_W + 0.7, STEP_RISE, STEP_RUN);
+          g.translate(0, -STEP_RISE * (k + 1) + STEP_RISE / 2, stepsTop - STEP_RUN * (k + 0.5));
+          return g;
+        });
+        const merged = mergeGeometries(stepGeos);
+        stepGeos.forEach((g) => g.dispose());
+        scene.add(new THREE.Mesh(merged ?? stepGeos[0], stepMat));
       }
       const DESCENT = STEP_RISE * 3; // 0.48
       const landing = new THREE.Mesh(new THREE.PlaneGeometry(endW, 6), mat("#241609"));
@@ -652,8 +629,11 @@ export default function Museum({ works, slotId }: Props) {
         pool.position.set((CH - 0.02) * side, yC + 0.15, z);
         pool.rotation.y = (-Math.PI / 2) * side;
         scene.add(pool);
-        // floor echo under the five chapter canvases (draw-call budget ≤ 80)
-        if (work.sketch) {
+        /* floor echo under the five chapter canvases (draw-call budget ≤ 80).
+           v9: gated on the KEY, not on `work.sketch` — now that Part 2 hangs a
+           study too, keying off the sketch gave it a floor pool as well and
+           put the hall exactly on the 80-call ceiling. */
+        if (work.key === "horizontal") {
           const fpool = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.3, 1.4), floorPoolMat);
           fpool.rotation.x = -Math.PI / 2;
           fpool.rotation.z = Math.PI / 2;
@@ -661,7 +641,10 @@ export default function Museum({ works, slotId }: Props) {
           scene.add(fpool);
         }
 
-        // The study, hung screen-RIGHT of its painting on BOTH walls
+        /* The study, hung screen-RIGHT of its painting on BOTH walls. v9
+           V9-102 (Wil, 8/21): the drawing belongs beside the painting it was
+           made for, so the Commissioner's Office Part 2 hangs its own now —
+           `sketch` is populated per WORK in paintings.astro, not per chapter. */
         if (work.sketch) {
           const sh = 0.85;
           const sw = sh * (work.sketchAspect ?? 1.25);
@@ -756,30 +739,33 @@ export default function Museum({ works, slotId }: Props) {
       const cur = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       let target = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       const railPitch = portrait ? RAIL_PITCH_PORTRAIT : RAIL_PITCH;
-      /* v8 V8-327: the rail is now a PATH, not a line. It walks the hall as
-         before, then the last stretch carries you through the arch and down
-         the three steps — the split is derived from the two distances, so the
-         walking speed never changes at the hand-off (a fixed 12% made the
-         descent read as a lurch). `railZ()` stays as the z-only accessor the
-         marker-fade code wants. */
+      /* v9 V9-104 (Wil, 8/21): the hall ENDS ON THE LAST PAINTING.
+         v8 kept walking 7 m past it, through the arch and down three steps —
+         so the last thing the museum did was march you at a blank end wall
+         with the dots still lit across it ("a weird white wall with a bunch of
+         dots"), then park you staring at a landing. The arch stays as the
+         far-end architecture that gives the corridor its depth and its light,
+         but it is never entered.
+
+         The tail of the scroll is now a TRANSITION rather than travel:
+         `bloom` runs 0→1 over the last stretch, lifting the arch's warm light
+         over the frame while the stage cross-dissolves into the stills grid
+         beneath it, so the paintings below emerge from the light. */
       const WALK_END = 0.4 - (works.length * SPACING + OVERRUN - 0.4);
-      const DESCEND_TO = endZ - 2.0;
-      const WALK_DIST = 0.4 - WALK_END;
-      const DESC_DIST = WALK_END - DESCEND_TO;
-      const T_WALK = WALK_DIST / (WALK_DIST + DESC_DIST);
+      /* The light starts rising well before the walk ends, so the closing
+         stretch is lit rather than a flat corridor — the paintings are on the
+         side walls, so looking FORWARD at the end of the hall can only ever
+         show the far wall; the answer is to make that wall a light you are
+         walking into, early enough that there is never a blank beat. */
+      const T_WALK = 0.78;
       const railPose = (t: number) => {
-        if (t <= T_WALK) {
-          const u = T_WALK > 0 ? t / T_WALK : 0;
-          return { z: 0.4 - u * WALK_DIST, y: EYE, pitch: railPitch, descending: 0 };
-        }
-        const u = (t - T_WALK) / (1 - T_WALK);
-        const e = u * u * (3 - 2 * u); // smoothstep: the step-down settles
+        const u = Math.min(1, T_WALK > 0 ? t / T_WALK : 1);
         return {
-          z: WALK_END - u * DESC_DIST,
-          y: EYE - e * DESCENT,
-          // dip the eyes toward the steps, then level out on the landing
-          pitch: railPitch - Math.sin(u * Math.PI) * 0.07,
-          descending: u,
+          z: 0.4 - u * (0.4 - WALK_END),
+          y: EYE,
+          pitch: railPitch,
+          /* eased so the dissolve starts gently and finishes decisively */
+          bloom: t <= T_WALK ? 0 : Math.min(1, (t - T_WALK) / (1 - T_WALK)),
         };
       };
       const railZ = () => railPose(railT).z;
@@ -1321,6 +1307,7 @@ export default function Museum({ works, slotId }: Props) {
       let lastT = performance.now();
       let lookedFlag = false;
       let descendingFlag = false;
+      let bloomVal = -1;
       let rectTick = 0;
       const tick = () => {
         raf = requestAnimationFrame(tick);
@@ -1335,8 +1322,17 @@ export default function Museum({ works, slotId }: Props) {
         if (mode === "rail") {
           const pose = railPose(railT);
           target = { x: 0, y: pose.y, z: pose.z, yaw: 0, pitch: pose.pitch };
-          /* the chrome clears out as you step through the arch (V8-327) */
-          const desc = pose.descending > 0.12;
+          /* v9 V9-104: the stage dissolves into the grid as the light takes
+             the frame; the chrome leaves at the first hint of it. */
+          const b = pose.bloom;
+          if (b !== bloomVal) {
+            bloomVal = b;
+            /* eased in, so the light arrives as a swell rather than a switch */
+            if (bloomRef.current) bloomRef.current.style.opacity = String(b * b * (3 - 2 * b));
+          }
+          /* chrome stays while there is still hall to read; it leaves once
+             the light has genuinely taken over */
+          const desc = b > 0.35;
           if (desc !== descendingFlag) {
             descendingFlag = desc;
             setDescending(desc);
@@ -1474,8 +1470,8 @@ export default function Museum({ works, slotId }: Props) {
             fov: camera.fov,
             far: camera.far,
             portrait,
-            /* v8 V8-327: where the walk is on the arch/steps path */
-            descending: railPose(railT).descending,
+            /* v9 V9-104: how far the closing dissolve has run */
+            bloom: railPose(railT).bloom,
             tWalk: T_WALK,
             endZ,
             running: inView && visible && !covered,
@@ -1628,8 +1624,23 @@ export default function Museum({ works, slotId }: Props) {
   const inApproach = approached !== null;
 
   return (
-    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 160}vh` }} className={slotId ? "relative h-full" : "relative"}>
+    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
+        {/* v9 V9-104 (Wil, 8/21): the hall's closing wash. The corridor ends
+            on its last painting and the arch's warm light rises to take the
+            frame; its edges are the page's own ground, so when the stage
+            releases, the stills section scrolls up out of the light with no
+            seam. Painted, never animated by JS beyond one opacity write. */}
+        <div
+          ref={bloomRef}
+          className="pointer-events-none absolute inset-0 z-[5]"
+          aria-hidden="true"
+          style={{
+            opacity: 0,
+            background:
+              "radial-gradient(58% 46% at 50% 44%, rgba(255,206,150,0.92), rgba(120,74,40,0.72) 46%, var(--color-primary-2) 82%)",
+          }}
+        />
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
             phones set the pair just above the indicator dots; tablets centre
@@ -1768,9 +1779,6 @@ export default function Museum({ works, slotId }: Props) {
                   {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
                 </figure>
               )}
-              {plaque.study && !(stageRef.current && stageRef.current.clientHeight < 620) && (
-                <Study work={plaque} />
-              )}
               <div className="mt-5">
                 {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
                 <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
@@ -1795,7 +1803,7 @@ export default function Museum({ works, slotId }: Props) {
           >
             <div
               ref={sheetHeadRef}
-              className="museum-sheet-head relative cursor-grab touch-none px-[var(--ui-inset)] pt-4 pb-3"
+              className="museum-sheet-head cursor-grab touch-none px-[var(--ui-inset)] pt-3 pb-3"
               onPointerDown={onSheetDown}
               onPointerMove={onSheetMove}
               onPointerUp={onSheetUp}
@@ -1812,19 +1820,10 @@ export default function Museum({ works, slotId }: Props) {
                 }
               }}
             >
-              {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
-                  LOCATION alone — the artist credit lives in the grid and on
-                  the About page. */}
-              <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-2">
-                {plaque.name}
-                {plaque.variant && (
-                  <>
-                    <br />
-                    {plaque.variant}
-                  </>
-                )}
-              </p>
+              {/* v9 V9-103 (Wil, 8/21): a real round button, centred above
+                  everything, standing where the v8 drag pill did — not a ghost
+                  glyph in the corner. It closes the card; the header itself
+                  still drags and taps. */}
               <button
                 type="button"
                 className="museum-sheet-close"
@@ -1839,9 +1838,22 @@ export default function Museum({ works, slotId }: Props) {
                 }}
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
                 </svg>
               </button>
+              {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
+                  LOCATION alone — the artist credit lives in the grid and on
+                  the About page. */}
+              <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
+              <p className="t-title-sm mt-2">
+                {plaque.name}
+                {plaque.variant && (
+                  <>
+                    <br />
+                    {plaque.variant}
+                  </>
+                )}
+              </p>
             </div>
             <div
               className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
@@ -1854,7 +1866,6 @@ export default function Museum({ works, slotId }: Props) {
                   {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
                 </figure>
               )}
-              {plaque.study && <Study work={plaque} />}
             </div>
           </div>
         )}

@@ -266,6 +266,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* v9 V9-301: the safe-area strips and any overscroll take the page's own
+     ground rather than the browser's default (which reads as a black bar on
+     iOS). Body sets --ground per section; html holds the base. */
+  background: var(--color-primary-2);
 }
 
 /* The layout viewport must never grow sideways: scaled/panned media (Ken
@@ -619,6 +623,19 @@ h3 {
   backdrop-filter: blur(6px);
   text-align: right;
 }
+/* v9 V9-205 (Wil, 8/21): phones read the credit in full — "Troy, New York ·
+   1858 · Library of Congress" on ONE line. It needs 370px and the chip was
+   capped at 351 at 390, so it broke to three. Closing 20px without touching
+   the words: a slightly tighter micro-tracking (still clearly letterspaced),
+   4px off the padding, and a shallower inset. At 375 and below it wraps to
+   two, which Wil allowed explicitly. */
+@media (max-width: 639px) {
+  .interlude-credit {
+    max-width: calc(100% - 1.5 * var(--gutter));
+    padding-inline: 8px;
+    letter-spacing: 0.055em;
+  }
+}
 /* v7 C5: the Onward lockup and its two CTAs sit centred under the framed map. */
 .onward-lockup {
   text-align: center;
@@ -925,6 +942,10 @@ h3 {
   position: relative;
   height: 100dvh;
   width: 100%;
+  /* v9 V9-301: while the GL canvas is sizing (and as iOS toolbars slide, which
+     changes dvh mid-gesture) the uncovered strip must read as the page, not as
+     the canvas's black. */
+  background: var(--color-primary-2);
 }
 /* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
  * the utility bundle, silently overriding `.absolute` at equal specificity —
@@ -1431,6 +1452,23 @@ a.walk-seg:hover {
   max-height: calc(100dvh - 2 * var(--ui-inset));
   overscroll-behavior: contain;
 }
+/* v9 V9-303 (Wil, 8/21: "a double divider/line below the close icon"). On a
+   short screen the panel scrolls, and the close button scrolled away with the
+   content — as it slid under the panel's top edge its own bottom border came
+   to rest a few pixels beneath the panel's border, reading as two hairlines
+   with no icon between them. Pinning it fixes the doubling and keeps Close
+   reachable from anywhere in the list. It carries the panel's own background,
+   so the list passes cleanly underneath. */
+.cnwm-menu-panel > .cnwm-menu-close:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.cnwm-menu-panel > .cnwm-menu-close:last-child {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
 
 /* The corner menu retreats while the reader is moving forward. */
 .cnwm-menu {
@@ -1514,8 +1552,6 @@ a.walk-seg:hover {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  /* room for the close button's 44px lane (V8-328) */
-  padding-right: calc(var(--ui-inset) + 44px);
 }
 /* the header is the handle now that the pill is gone — it must show focus */
 .museum-sheet-head:focus-visible {
@@ -1523,25 +1559,27 @@ a.walk-seg:hover {
   outline-offset: -2px;
   border-radius: 16px 16px 0 0;
 }
-/* v8 V8-328 (Wil, 00:28:32): the drag-handle pill is replaced by a real
-   close control — 44×44, top-right of the header, visible only when the card
-   is open (the peek header is itself the "open" affordance). */
+/* v9 V9-103 (Wil, 8/21): the close control is a real round button, centred
+   above the card's content where the v8 drag pill sat — solid on the button
+   token, with air above and below so the header breathes. */
 .museum-sheet-close {
-  position: absolute;
-  top: 8px;
-  right: calc(var(--ui-inset) - 10px);
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 0;
+  margin: 4px auto 18px;
+  border: 1px solid var(--color-primary-7);
   border-radius: 999px;
-  background: transparent;
+  background: color-mix(in srgb, var(--color-primary-3) 92%, transparent);
   color: var(--color-primary-11);
   cursor: pointer;
-  transition: opacity var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
 }
 .museum-sheet-close:hover {
+  background: var(--color-primary-5);
   color: var(--color-neutral-12);
 }
 .museum-sheet-close:focus-visible {
