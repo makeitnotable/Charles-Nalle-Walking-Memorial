@@ -59,3 +59,19 @@ memory trick would fix:
 - When a sentence supports two materially different builds, **ask**. One
   message is cheaper than a revert.
 - Every review guide opens with "Changes you did not request", first section.
+
+---
+
+## D · Gates on the finished v10 build
+
+- `rag` — **0 unauthored runts / 0 clips / 0 visible em dashes**, full matrix
+- `contrast` — **0 failures**, 0 unmeasured
+- `a11y` — **0 serious/critical · 0 moderate · 0 minor** across 51 runs,
+  including reduced motion and 200% zoom
+- `museum-check` — draw calls **79 landscape / 77 elsewhere** against the 80
+  budget; no composition or chrome findings
+- production build compiles clean
+- the descent was traced **down and back up**: zero drift in z, y and yaw at
+  every sampled point (V10-09)
+
+Diff audited hunk by hunk against §A before pushing. Every change traced.
