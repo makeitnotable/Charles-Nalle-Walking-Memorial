@@ -49,7 +49,13 @@ function setLabel(content: HTMLElement, label: string | null, withDate = false) 
       `<p class="t-crossing text-center">${DATE_LINE}</p>` +
       `<p class="t-meta text-center" style="margin-top:1.25rem">${label}</p>`;
   } else if (label) {
-    content.innerHTML = `<p class="t-wordmark text-center">${label}</p>`;
+    /* v9 V9-302 (Wil, 8/21): a label may carry authored line breaks — "The\n
+       Paintings" paints as two lines, the same way `name.display` authors the
+       chapter heroes. One <p> per line, all centred. */
+    content.innerHTML = label
+      .split("\n")
+      .map((line) => `<p class="t-wordmark text-center">${line}</p>`)
+      .join("");
   } else {
     content.innerHTML = `
       <p class="t-wordmark">Charles</p>

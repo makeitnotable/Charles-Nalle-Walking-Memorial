@@ -49,7 +49,13 @@ const canonical = new URL(
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* v9 V9-301 (Wil, 8/21: "there shouldn't be a black bar at the bottom or
+        the top"). Without `viewport-fit=cover` iOS insets the page from the
+        safe areas and paints those strips itself, which is what reads as bars
+        above and below a full-bleed page like /map. With it, the page runs
+        edge to edge and `env(safe-area-inset-*)` — already used by --ui-inset
+        consumers — keeps chrome clear of the notch and home indicator. */}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
@@ -144,7 +150,12 @@ const canonical = new URL(
           };
           c.innerHTML = withDate
             ? '<p class="t-crossing text-center">April 27, 1860</p><p class="t-meta text-center" style="margin-top:1.25rem">' + esc(label) + "</p>"
-            : '<p class="t-wordmark text-center">' + esc(label) + "</p>";
+            : label
+                .split("\n")
+                .map(function (line) {
+                  return '<p class="t-wordmark text-center">' + esc(line) + "</p>";
+                })
+                .join("");
         } catch (e) {}
       })();
     </script>

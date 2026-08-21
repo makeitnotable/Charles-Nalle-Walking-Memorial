@@ -274,7 +274,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     /* Wide boxes also hold a width floor (show ≤ ~55% of the plate's width)
        or a desktop opening still reaches the islands Wil zoomed away from. */
     const s0 = Math.max(lensMinScale(), panelFit * 1.3, 1.8);
-    const startCx = 0.58; // downtown Troy's grid, right of the plate's centre
+    /* v9 V9-206 (Wil, 8/21): phones open a little further LEFT — he asked to
+       see more of the plate's left-hand side, which means the view centre
+       moves left, not right. Desktop keeps the crop he approved. */
+    const startCx = window.innerWidth < 640 ? 0.52 : 0.58; // downtown Troy's grid
     const startCy = 0.74; // the river band + downtown, low in the lower panel
     lensView.current = { s: s0, tx: -(startCx - 0.5) * w * s0, ty: -(startCy - 0.5) * imgH0 * s0 };
     lensApply();

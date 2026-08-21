@@ -7,7 +7,11 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**RUN COMPLETE (P1–P7).** All 40 audit items shipped across 11 commits on
+**v9 IN FLIGHT (Wil's 8/21 round).** Plan: the approved v9 plan file. Three
+corrections to v8 (study out of the plaque card, drawer close button, the
+end-of-hall transition) plus eight new items. v8's closing state below.
+
+**v8 — RUN COMPLETE (P1–P7).** All 40 audit items shipped across 11 commits on
 `v2` (mirrored to `claude/nalle-memorial-polish-kc4uvm`). Final gate:
 rag 0/0/0 over 4,523 blocks × 99 passes · contrast 0 failures · a11y
 0/0/0 over 51 runs · frames CLEAN 4/4 runnable · museum-check 77–79 draw

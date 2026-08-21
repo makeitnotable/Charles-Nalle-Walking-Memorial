@@ -460,9 +460,14 @@ const focus =
                   paper between two cream sections, so ITS fades run cream
                   ("the two white sections fading into the map"); the photo
                   interludes keep the dark fade. */}
+              {/* v9 V9-202 (Wil, 8/21): the cream fade he approved on ch2's
+                  1858 plate now runs on EVERY chapter's historical-context
+                  image, both edges — the dark fade underneath was leaving a
+                  dark seam against the cream history section below. Scoped to
+                  this plate; no other image on the page changes. */}
               <div
                 class="pointer-events-none absolute inset-0"
-                style={`background: linear-gradient(to bottom, ${interlude.key === "troy-1858" ? "var(--ground-light)" : "var(--color-primary-2)"}, transparent 12%, transparent 88%, ${interlude.key === "troy-1858" ? "var(--ground-light)" : "var(--color-primary-2)"})`}
+                style="background: linear-gradient(to bottom, var(--ground-light), transparent 12%, transparent 88%, var(--ground-light))"
               />
               {/* v7 C4: the credit sits on a chip (the map chip's ground) so
                   it measures ≥ 4.5:1 on any photograph — pixel-checked by
@@ -475,7 +480,10 @@ const focus =
               <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)] md:bottom-[calc(var(--ui-inset)/2)]">
                 {interlude.short && <span class="hidden sm:inline">{interlude.short}</span>}
                 {interlude.rest}
-                {interlude.tail && <span class="hidden sm:inline">{interlude.tail}</span>}
+                {/* v9 V9-205 (Wil, 8/21): phones read the full credit again —
+                    "Troy, New York · 1858 · Library of Congress" on ONE line.
+                    v8 hid the licence tail below sm to guarantee the fit. */}
+                {interlude.tail}
               </p>
             </div>
           </section>
@@ -587,7 +595,11 @@ const focus =
                           class="h-auto w-full"
                         />
                       </div>
-                      <figcaption class="mt-8 max-w-[44ch] md:mt-0">
+                      {/* v9 V9-203 (Wil, 8/21): where the caption sits UNDER
+                          the sketch (below md), it needs side air so it reads
+                          as centred beneath the drawing rather than running
+                          the full plate width. */}
+                      <figcaption class="mt-8 max-w-[44ch] px-5 sm:px-8 md:mt-0 md:px-0">
                         <p class="t-meta">The artist's study</p>
                         {/* v8 V8-274 (Wil, 00:46:09): the study note is the
                             moral's TERTIARY voice — one step down the ladder
@@ -623,13 +635,10 @@ const focus =
       <ChapterSpine sections={sections} current="onward" />
 
       <div>
-        {/* v8 V8-204 (Wil, 00:15:20): the LOCATION NN marker rides the
-            heading row — bottom-aligned with WHERE TO NEXT, right-aligned
-            with the map's edge. */}
-        <div class="flex items-end justify-between gap-6">
-          <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
-          <p class="t-meta pb-1 whitespace-nowrap">Location {pad2(nextEntry?.data.order ?? 1)}</p>
-        </div>
+        {/* v9 V9-201 (Wil, 8/21): the LOCATION NN marker is gone — the
+            number now reads once, as "Chapter N" beneath the map, so the
+            heading keeps its row to itself. */}
+        <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
 
         {
           nextEntry && (
@@ -637,7 +646,7 @@ const focus =
               <EmbedMap
                 client:visible
                 coordinates={nextEntry.data.map.coordinates as [number, number]}
-                label={nextEntry.data.name.short}
+                label={nextEntry.data.name.canonical}
                 order={nextEntry.data.order}
                 pitch={camera.pitch}
                 bearing={camera.bearing}
@@ -662,8 +671,11 @@ const focus =
             gone — the map/pin is the door; the destination lockup keeps the
             name and address with Get directions centred beneath, still the
             secondary action. */}
+        {/* v9 V9-201 (Wil, 8/21): the pin already names the place in full, so
+            repeating it here said the same thing twice — this line is the
+            DESTINATION's chapter number now, with the address under it. */}
         <div class="reveal onward-lockup mt-12">
-          <p class="t-title-sm">{nextName?.canonical}</p>
+          <p class="t-title-sm">Chapter {nextEntry?.data.order ?? 1}</p>
           <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
           <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
             {
@@ -803,13 +815,19 @@ const focus =
   /* v8 V8-277 (Wil, 01:05:06) — phones centre the hook's headline + quote;
      the hung indent comes off (a centred line with a negative indent reads
      lopsided) and the quote's measure centres in the column. */
+  /* v9 V9-204 (Wil, 8/21): the three rows stay LEFT-ALIGNED TO EACH OTHER
+     and the block they form is centred in the column — v8 centred the text
+     itself, which ragged all three lines against nothing. `fit-content` +
+     auto margins centre the block; the text inside never moves. */
   @media (max-width: 639px) {
     .scene-hook {
-      text-align: center;
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      text-align: left;
     }
     .scene-hook blockquote {
       text-indent: 0;
-      margin-inline: auto;
     }
   }
 </style>

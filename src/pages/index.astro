@@ -153,7 +153,12 @@ import { withBase } from "../lib/url";
      lifting the chin from ≈40% to ≈34.6% of the frame. */
   @media (max-width: 767px) and (orientation: portrait) {
     .home-media {
-      transform: scale(1.09);
+      /* v9 V9-401 (Wil, 8/21): "the image needs to get moved up… the head of
+         Charles Nalle should be visible and positioned just below the top of
+         the page". Scaling about the bottom edge crops the source's top and
+         carries the subject up; 1.09 → 1.2 puts the chin near 30% of the
+         frame, which is what frees the middle band for the lockup. */
+      transform: scale(1.2);
       transform-origin: 50% 100%;
     }
   }
@@ -164,6 +169,17 @@ import { withBase } from "../lib/url";
     justify-content: flex-start;
     padding-top: clamp(190px, 37dvh, 420px);
     padding-bottom: 16px;
+  }
+  /* v9 V9-401: portrait phones were bottom-heavy — the lockup began at 37% and
+     the CTA was pinned to the floor with `margin-top:auto`, so everything sat
+     in the lower half with a dead band above it. The head now sits higher, so
+     the whole lockup starts higher and simply flows: one composed block with
+     air above it and a comfortable margin below the button. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-stack {
+      padding-top: clamp(150px, 30dvh, 320px);
+      padding-bottom: 40px;
+    }
   }
   /* v8 V8-103 (Wil, 00:35:22) — portrait tablets used to fall through every
      query to the phone rule and clump at the bottom. Their frame is WIDER
@@ -225,14 +241,25 @@ import { withBase } from "../lib/url";
   }
   @media (max-width: 767px) and (orientation: portrait) {
     .home-cta {
-      margin-top: auto;
+      /* v9 V9-401: `margin-top: auto` flung it to the frame's floor and left
+         the copy stranded above; it now closes the lockup at one gap, inside
+         the frame's bottom inset. */
       justify-content: center;
-    }
-    .home-stack {
-      padding-bottom: 24px;
     }
     .home-br {
       display: inline;
+    }
+    /* v9 V9-402 (Wil, 8/21: the rag is "literally perfect" on a Pixel 6 and
+       wrong on an iPhone 13 Pro — same markup, same 7 authored breaks). The
+       measure is not the cause: the widest line is 301px inside a 358px
+       column, 19% of headroom. `text-wrap: balance` is: this paragraph carries
+       BOTH hard breaks and balancing, and the two engines disagree about what
+       to do with that combination (Chromium declines to balance past six
+       lines; WebKit balances anyway), so the same source ragged differently
+       per browser. Where the breaks are hand-authored, nothing may second-
+       guess them. */
+    .home-desc {
+      text-wrap-style: auto;
     }
   }
   /* The eyebrow crosses the lit part of the film at desktop widths; a soft
