@@ -403,10 +403,10 @@ const focus =
             <div class="editorial mt-8">
               <ChapterSpine sections={sections} current={`scene-${b.i}`} primary={b.i === 0} />
 
-              {/* v10 V10-04 (Wil, 8/21): heading, quote and attribution are one
-                  block — left-aligned to each other, the block centred in its
-                  column, at EVERY width. The kicker and the narration object
-                  below keep the left edge. */}
+              {/* v10 V10-04/V10-10 (Wil, 8/21): on MOBILE AND TABLET the
+                  heading, quote and attribution are one block — left-aligned
+                  to each other, the block centred in its column. Desktop
+                  (1024+) keeps its original left-set layout. */}
               <div class="scene-hook">
                 <h2 class="t-title lines"><Lines text={c.scenes[b.i].label} /></h2>
 
@@ -823,22 +823,21 @@ const focus =
      and the block they form is centred in its parent — at EVERY width, not
      just phones (his choice). `fit-content` + auto margins centre the block;
      the text inside never moves. */
-  .scene-hook {
-    /* `.editorial > * + *` makes every content child an inline-size query
-       container from 1024 up, and inline-size CONTAINMENT stops the contents
-       contributing to the element's own width — so `fit-content` resolved to
-       zero and the block could not centre. This one block opts out; it holds
-       a `t-title`, never a `t-display`, so nothing inside it needs `100cqw`. */
-    container-type: normal;
-    width: fit-content;
-    max-width: 100%;
-    margin-inline: auto;
-    /* from 1024 up the hook is a GRID item in `.editorial`, where auto margins
-       do not win — this centres it inside its column. */
-    justify-self: center;
-    text-align: left;
-  }
-  .scene-hook blockquote {
-    text-indent: 0;
+  /* v10.1 V10-10 (Wil, 8/21): "this was supposed to only be applied to tablet
+     and mobile, not desktop. Please revert on desktop." 1024 is this site's
+     desktop line — where `.editorial` becomes its two-column grid — so the
+     centred block stops there and desktop keeps the layout it always had.
+     Scoping it below 1024 also retires both workarounds the desktop case
+     needed (a container-type opt-out and `justify-self`). */
+  @media (max-width: 1023px) {
+    .scene-hook {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      text-align: left;
+    }
+    .scene-hook blockquote {
+      text-indent: 0;
+    }
   }
 </style>

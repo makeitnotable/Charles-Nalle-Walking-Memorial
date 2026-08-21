@@ -22,6 +22,8 @@ what actually caused that; it was not context loss.
 | V10-06 | "The text for the artist sketch has been removed from the painting description card… the only things on the card were the previously existing text and the written content associated with the artist study." | Restore the "Artist study" label and the chapter's note to the card; the thumbnail stays gone. |
 | V10-07 | "I would like to see the close icon present at all times, not just something that appears when the user starts to scroll down." | The drawer's close button is always visible. |
 | V10-08 | "the old transition we had was better than the new one we created. let's go back to the old transition and build on it… inspired by the movement that occurs when someone walks down a spiral staircase and the position from which they are viewing a space rotates" | Restore v8's walk-through-the-arch descent, then add a yaw rotation across it. |
+| V10-10 | "I made a mistake on this, this was supposed to only be applied to tablet and mobile, not desktop. Please revert on desktop." | The centred quote block is scoped below 1024 (confirmed line); desktop returns to its original left-set layout. Supersedes V10-04's "all screen sizes". |
+| V10-11 | "Also this is still broken" + screenshot of the CTA outside the frame on iPhone Safari | The home lockup's top air now yields to the content, so the button stays inside the frame at every real phone height. |
 | V10-09 | "the experience of scrolling up does not bring you back into the Hall in a seamless way" | The descent must retrace exactly on up-scroll; tested explicitly. |
 
 ## B · Not requested — mechanical necessities, disclosed

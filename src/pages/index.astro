@@ -262,6 +262,27 @@ import { withBase } from "../lib/url";
       text-wrap-style: auto;
     }
   }
+  /* v10 V10-11 (Wil, 8/21, with a screenshot: the CTA sitting outside the
+     frame on a real iPhone). Every tier above sets the top air as a share of
+     the viewport, and none of them asked whether the LOCKUP still fits. On a
+     phone in Safari — where the browser's own chrome eats ~180px, so 390×844
+     is really 390×664 — 35dvh of head room left 232px for air and only 644px
+     of frame for 469px of content, and the button spilled 18px past the
+     bottom edge.
+
+     The air now yields to the content: it is still ~30dvh, but never more
+     than the room actually left after the lockup has taken what it needs
+     (measured across 360–430 wide and 520–932 tall; the content grows from
+     438px to 539px because the gaps are viewport-relative). At full device
+     heights this changes nothing — 253px at 390×844, as before — and on a
+     real Safari viewport it shrinks just enough that the CTA stays inside
+     the frame. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-stack {
+      padding-top: max(56px, min(30dvh, calc(75dvh - 340px)));
+    }
+  }
+
   /* The eyebrow crosses the lit part of the film at desktop widths; a soft
      ink halo (not a chip) keeps it ≥ 4.5:1 by pixel without a box. */
   .home-stack > .t-meta.home-seq {
