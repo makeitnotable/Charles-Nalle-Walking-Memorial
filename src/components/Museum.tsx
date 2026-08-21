@@ -109,9 +109,6 @@ export default function Museum({ works, slotId }: Props) {
   const [ready, setReady] = useState(false);
   const [railIdx, setRailIdx] = useState(0);
   const [lookedAway, setLookedAway] = useState(false);
-  /** v8 V8-327: true once the rail steps through the arch — the hall's chrome
-   *  (chip, Skip, dots) clears out for the walk down. */
-  const [descending, setDescending] = useState(false);
   /** Phone sheet: "peek" (title only) or "full". */
   const [sheet, setSheet] = useState<"peek" | "full">("peek");
   const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -188,7 +185,7 @@ export default function Museum({ works, slotId }: Props) {
     if (!capable || !slotId) return;
     const slot = document.getElementById(slotId);
     if (!slot) return;
-    slot.style.height = `${works.length * 90 + 160}vh`;
+    slot.style.height = `${works.length * 90 + 100}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
     const lead = slot.querySelector<HTMLElement>(":scope > div");
@@ -756,47 +753,18 @@ export default function Museum({ works, slotId }: Props) {
       const cur = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       let target = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
       const railPitch = portrait ? RAIL_PITCH_PORTRAIT : RAIL_PITCH;
-      /* v10 V10-08 (Wil, 8/21: "the old transition we had was better than the
-         new one we created… go back to the old transition and build on it").
-         So: v8's path is back — the rail walks the hall, then the last stretch
-         carries you THROUGH the arch and down the three steps, the split
-         derived from the two distances so walking speed never changes at the
-         hand-off.
+      /* v10.1 V10-12 (Wil, 8/21): "the motion, animation and transition from
+         the very, very first one, but we keep the arch. Walk to the end,
+         arrive at the arch, then get pushed down into the next section."
 
-         Built on, per his spiral-staircase note: the view also TURNS as you
-         descend. A spiral stair rotates the room around you while you drop, so
-         the yaw sweeps through the descent and settles facing the light — a
-         quarter of the turn is spent before the first tread, the rest across
-         the steps. Everything here is a pure function of `railT`, so scrolling
-         back up retraces the same path exactly (V10-09). */
-      const WALK_END = 0.4 - (works.length * SPACING + OVERRUN - 0.4);
-      const DESCEND_TO = endZ - 2.0;
-      const WALK_DIST = 0.4 - WALK_END;
-      const DESC_DIST = WALK_END - DESCEND_TO;
-      const T_WALK = WALK_DIST / (WALK_DIST + DESC_DIST);
-      /* rad. A stair's turn, not a pirouette: at 24° the frame swung onto the
-         pilaster and lost the arch entirely, which read as broken — the point
-         is that the room moves around you while the light stays the subject. */
-      const SPIRAL_YAW = 0.15;
-      const railPose = (t: number) => {
-        if (t <= T_WALK) {
-          const u = T_WALK > 0 ? t / T_WALK : 0;
-          return { z: 0.4 - u * WALK_DIST, y: EYE, pitch: railPitch, yaw: 0, descending: 0 };
-        }
-        const u = (t - T_WALK) / (1 - T_WALK);
-        const e = u * u * (3 - 2 * u); // smoothstep: the step-down settles
-        return {
-          z: WALK_END - u * DESC_DIST,
-          y: EYE - e * DESCENT,
-          // dip the eyes toward the steps, then level out on the landing
-          pitch: railPitch - Math.sin(u * Math.PI) * 0.07,
-          /* the turn: out and back, so you arrive square to the light rather
-             than askew — the rotation is the movement, not the destination */
-          yaw: Math.sin(e * Math.PI) * SPIRAL_YAW,
-          descending: u,
-        };
-      };
-      const railZ = () => railPose(railT).z;
+         So the ARCHITECTURE stays — the arched end wall, its archivolt,
+         pilasters, keystone and the steps beyond are what give the corridor
+         its depth and its light — but the MOTION is the original again: a
+         straight walk down the hall that stops when it arrives. No walking
+         through the opening, no descent, no turn. Reaching the end of the
+         scroll simply releases the sticky stage, and the stills section comes
+         up from below. */
+      const railZ = () => 0.4 - railT * (works.length * SPACING + OVERRUN - 0.4);
 
       let lastRailIdx = -1;
       const onScroll = () => {
@@ -1356,7 +1324,6 @@ export default function Museum({ works, slotId }: Props) {
       // ——— Frame loop ———
       let lastT = performance.now();
       let lookedFlag = false;
-      let descendingFlag = false;
       let rectTick = 0;
       const tick = () => {
         raf = requestAnimationFrame(tick);
@@ -1369,14 +1336,7 @@ export default function Museum({ works, slotId }: Props) {
         const kLook = 1 - Math.exp(-dt / 0.16);
 
         if (mode === "rail") {
-          const pose = railPose(railT);
-          target = { x: 0, y: pose.y, z: pose.z, yaw: pose.yaw, pitch: pose.pitch };
-          /* the chrome clears out as you step through the arch */
-          const desc = pose.descending > 0.12;
-          if (desc !== descendingFlag) {
-            descendingFlag = desc;
-            setDescending(desc);
-          }
+          target = { x: 0, y: EYE, z: railZ(), yaw: 0, pitch: railPitch };
           const idx = Math.min(works.length - 1, Math.max(0, Math.round(-target.z / SPACING)));
           loadWork(idx);
           if (idx + 1 < works.length) loadWork(idx + 1);
@@ -1510,9 +1470,6 @@ export default function Museum({ works, slotId }: Props) {
             fov: camera.fov,
             far: camera.far,
             portrait,
-            /* how far the closing descent has run */
-            descending: railPose(railT).descending,
-            tWalk: T_WALK,
             endZ,
             running: inView && visible && !covered,
             works: works.length,
@@ -1664,7 +1621,7 @@ export default function Museum({ works, slotId }: Props) {
   const inApproach = approached !== null;
 
   return (
-    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 160}vh` }} className={slotId ? "relative h-full" : "relative"}>
+    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
       <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
@@ -1672,7 +1629,7 @@ export default function Museum({ works, slotId }: Props) {
             it slightly above the screen's middle; desktop keeps the chip
             top-centre while Face forward rides top-RIGHT on Skip's axis and
             inset. */}
-        {ready && !inApproach && !descending && (
+        {ready && !inApproach && (
           <div
             className="pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
@@ -1700,7 +1657,7 @@ export default function Museum({ works, slotId }: Props) {
             )}
           </div>
         )}
-        {ready && !inApproach && lookedAway && !descending && (
+        {ready && !inApproach && lookedAway && (
           <div
             className="absolute z-10 hidden lg:block"
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", right: "var(--ui-inset)" }}
@@ -1717,7 +1674,7 @@ export default function Museum({ works, slotId }: Props) {
         )}
 
         {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
-        {ready && !inApproach && !descending && (
+        {ready && !inApproach && (
           <div className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
             <button
               type="button"
@@ -1910,10 +1867,7 @@ export default function Museum({ works, slotId }: Props) {
               transition: "bottom var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease)",
               /* V8-327: the dots leave with the rest of the chrome as the
                  walk steps through the arch and down. */
-              opacity: descending ? 0 : 1,
-              pointerEvents: descending ? "none" : undefined,
             }}
-            aria-hidden={descending || undefined}
             aria-label="Works in the hall"
           >
             <p className="t-meta hidden whitespace-nowrap sm:block" aria-hidden="true">
