@@ -479,7 +479,7 @@ const focus =
           <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
             <div class="wipe-clip">
               <img
-                class="interlude-img h-[52vh] w-full object-cover md:h-[68vh]"
+                class="interlude-img h-[62vh] w-full object-cover md:h-[80vh]"
                 src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
                 srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
                 sizes="100vw"
@@ -498,8 +498,7 @@ const focus =
                   dark seam against the cream history section below. Scoped to
                   this plate; no other image on the page changes. */}
               <div
-                class="pointer-events-none absolute inset-0"
-                style="background: linear-gradient(to bottom, var(--ground-light), transparent 12%, transparent 88%, var(--ground-light))"
+                class="interlude-fade pointer-events-none absolute inset-0"
               />
               {/* v7 C4: the credit sits on a chip (the map chip's ground) so
                   it measures ≥ 4.5:1 on any photograph — pixel-checked by
@@ -774,6 +773,32 @@ const focus =
             scale: 1.14,
             ease: "none",
             scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      });
+
+      /* v11 item 10 (Wil, 8/22): "there's an opportunity for a subtle scroll
+         effect: as you scroll down into the Historical Context section, the
+         image should ease into frame and grow slightly; as you scroll back up,
+         it should ease out and shrink slightly. Keep it elegant and
+         restrained."
+
+         A scrub, so scrolling back up retraces it exactly rather than replaying
+         an entrance. 1.00 → 1.045 across the approach, with `scrub: 0.6` for
+         the lag that makes it read as easing rather than as a slider.
+
+         Deliberately on the IMG, never the section: a scale on the full-bleed
+         block is what once reported 1584px of width on a 1440 screen (the note
+         below). The image is inside `overflow-hidden`, so growing it cannot
+         widen the document — verified by the rag gate's clip check. */
+      document.querySelectorAll<HTMLElement>(".interlude-img").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { scale: 1 },
+          {
+            scale: 1.045,
+            ease: "none",
+            scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "center center", scrub: 0.6 },
           },
         );
       });

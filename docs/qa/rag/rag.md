@@ -1,6 +1,6 @@
 # Rag & clip sweep — http://localhost:4321
 
-**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 47 authored-lockup rows listed separately — 4520 blocks over 99 route × viewport passes.
+**0 runts (unauthored, the gate) · 0 two-word display runts · 0 ink clips** · 47 authored-lockup rows listed separately — 4496 blocks over 99 route × viewport passes.
 
 ## Runts
 

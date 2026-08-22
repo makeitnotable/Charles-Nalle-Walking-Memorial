@@ -974,6 +974,66 @@ h3 {
  * Layout-critical dimensions must never depend on utility scanning
  * (the island-CSS bug class). Guarded by scripts/check-css.mjs.
  * ════════════════════════════════════════════════════════════════════════ */
+/* v11 item 10 (Wil, 8/22): "soften the transition between the image and the
+   sections above and below it. Right now there's a harsh white line at the top
+   and bottom of the image; add a gentle gradient/feathered fade into the
+   surrounding sections. Extend this blend a bit so we can see a little more of
+   the image while making the transitions … feel smoother."
+
+   The old fade was `transparent 12%` — a LINEAR ramp over an eighth of the
+   plate. Against a light archival photograph whose top and bottom edges are
+   dark masonry, a linear ramp that short reads as a cut, which is the line he
+   is seeing. This is the same distance eased instead: a shaped ramp over 18%
+   at each end, so the plate dissolves into the cream rather than stopping in
+   it. The extra image he asks for comes from the plate itself, which is taller
+   now (52/68vh → 62/80vh), so a longer blend still leaves more picture
+   showing, not less.
+
+   And the ground: the section painted nothing, so until the image decoded the
+   page's dark body showed through the full-bleed band — the black flash. It
+   carries the light ground now, which is also what the plate fades into. */
+.painting-interlude {
+  background: var(--ground-light);
+}
+.interlude-fade {
+  background: linear-gradient(
+    to bottom,
+    var(--ground-light) 0%,
+    color-mix(in srgb, var(--ground-light) 88%, transparent) 3%,
+    color-mix(in srgb, var(--ground-light) 66%, transparent) 6.5%,
+    color-mix(in srgb, var(--ground-light) 40%, transparent) 10.5%,
+    color-mix(in srgb, var(--ground-light) 18%, transparent) 14%,
+    color-mix(in srgb, var(--ground-light) 5%, transparent) 16.5%,
+    transparent 18%,
+    transparent 82%,
+    color-mix(in srgb, var(--ground-light) 5%, transparent) 83.5%,
+    color-mix(in srgb, var(--ground-light) 18%, transparent) 86%,
+    color-mix(in srgb, var(--ground-light) 40%, transparent) 89.5%,
+    color-mix(in srgb, var(--ground-light) 66%, transparent) 93.5%,
+    color-mix(in srgb, var(--ground-light) 88%, transparent) 97%,
+    var(--ground-light) 100%
+  );
+}
+
+/* v11 item 8b (Wil, 8/22): "the `THE MUSEUM • SCROLL TO WALK • DRAG TO LOOK •
+   TAP A PAINTING` chip / tag should be center aligned with the `SKIP THE HALL`
+   button." From 1024 the two share one top inset, but the chip's box is a
+   t-meta line plus 8px of padding while Skip is a .btn-sm — 32px against 40 —
+   so their centres sat 4px apart. The chip row takes the button's height and
+   centres its content inside it. Scoped to the breakpoint where they are
+   actually side by side: below 1024 the chip is mid-screen or bottom-anchored
+   and nothing about its placement changes. */
+@media (min-width: 1024px) {
+  .museum-chip-row {
+    min-height: 40px;
+    align-items: center;
+  }
+}
+@media (min-width: 1024px) and (pointer: coarse) {
+  .museum-chip-row {
+    min-height: 44px;
+  }
+}
 .map-shell {
   position: relative;
   height: 100dvh;
