@@ -1,6 +1,6 @@
 {
  "base": "http://localhost:4321",
- "startedAt": "2026-08-22T00:02:09.242Z",
+ "startedAt": "2026-08-22T06:45:55.682Z",
  "runs": [
   {
    "route": "/",
@@ -55,8 +55,8 @@
    "vp": "390",
    "state": "rest",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/people",
@@ -143,8 +143,8 @@
    "vp": "768",
    "state": "rest",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/people",
@@ -231,8 +231,8 @@
    "vp": "1440",
    "state": "rest",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/people",
@@ -279,24 +279,22 @@
    "vp": "390",
    "state": "menu-open",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/map",
    "vp": "390",
    "state": "walk",
    "violations": [],
-   "passes": 40,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/map",
    "vp": "390",
    "state": "lens-1858",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/paintings",
@@ -304,7 +302,7 @@
    "state": "dialog",
    "violations": [],
    "passes": 11,
-   "incomplete": 1
+   "incomplete": 0
   },
   {
    "route": "/mansion",
@@ -327,24 +325,22 @@
    "vp": "768",
    "state": "menu-open",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/map",
    "vp": "768",
    "state": "walk",
    "violations": [],
-   "passes": 40,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/map",
    "vp": "768",
    "state": "lens-1858",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/paintings",
@@ -375,24 +371,22 @@
    "vp": "1440",
    "state": "menu-open",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "passes": 34,
+   "incomplete": 0
   },
   {
    "route": "/map",
    "vp": "1440",
    "state": "walk",
    "violations": [],
-   "passes": 40,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/map",
    "vp": "1440",
    "state": "lens-1858",
    "violations": [],
-   "passes": 39,
-   "incomplete": 1
+   "note": "state not reached: locator.click: Timeout 5000ms exceeded."
   },
   {
    "route": "/paintings",
@@ -456,7 +450,7 @@
     {
      "n": 1,
      "body": false,
-     "domIndex": 40,
+     "domIndex": 38,
      "tag": "a",
      "id": "",
      "class": "skip-link",
@@ -471,7 +465,7 @@
     {
      "n": 2,
      "body": false,
-     "domIndex": 49,
+     "domIndex": 47,
      "tag": "button",
      "id": "",
      "class": "cnwm-menu-burger.flex.h-[72px]",
@@ -486,67 +480,7 @@
     {
      "n": 3,
      "body": false,
-     "domIndex": 114,
-     "tag": "canvas",
-     "id": "",
-     "class": "mapboxgl-canvas",
-     "ariaLabel": "Map",
-     "text": "",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 4,
-     "body": false,
-     "domIndex": 128,
-     "tag": "a",
-     "id": "",
-     "class": "mapboxgl-ctrl-logo",
-     "ariaLabel": "Mapbox homepage",
-     "text": "",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 0.55,
-     "inViewport": true
-    },
-    {
-     "n": 5,
-     "body": false,
-     "domIndex": 143,
-     "tag": "button",
-     "id": "",
-     "class": "btn.btn-solid",
-     "ariaLabel": "",
-     "text": "TAKE THE WALK",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 6,
-     "body": false,
-     "domIndex": 145,
-     "tag": "button",
-     "id": "",
-     "class": "link-meta.t-meta.rounded-full",
-     "ariaLabel": "",
-     "text": "SEE TROY IN 1858",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 7,
-     "body": false,
-     "domIndex": 256,
+     "domIndex": 123,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -559,9 +493,9 @@
      "inViewport": false
     },
     {
-     "n": 8,
+     "n": 4,
      "body": false,
-     "domIndex": 270,
+     "domIndex": 137,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -574,9 +508,9 @@
      "inViewport": true
     },
     {
-     "n": 9,
+     "n": 5,
      "body": false,
-     "domIndex": 284,
+     "domIndex": 151,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -589,9 +523,9 @@
      "inViewport": true
     },
     {
-     "n": 10,
+     "n": 6,
      "body": false,
-     "domIndex": 298,
+     "domIndex": 165,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -604,9 +538,9 @@
      "inViewport": true
     },
     {
-     "n": 11,
+     "n": 7,
      "body": false,
-     "domIndex": 312,
+     "domIndex": 179,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -619,9 +553,9 @@
      "inViewport": true
     },
     {
-     "n": 12,
+     "n": 8,
      "body": false,
-     "domIndex": 331,
+     "domIndex": 198,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -634,9 +568,9 @@
      "inViewport": true
     },
     {
-     "n": 13,
+     "n": 9,
      "body": false,
-     "domIndex": 335,
+     "domIndex": 202,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -649,9 +583,9 @@
      "inViewport": true
     },
     {
-     "n": 14,
+     "n": 10,
      "body": false,
-     "domIndex": 340,
+     "domIndex": 207,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -664,9 +598,9 @@
      "inViewport": true
     },
     {
-     "n": 15,
+     "n": 11,
      "body": false,
-     "domIndex": 345,
+     "domIndex": 212,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -823,7 +757,7 @@
     {
      "n": 10,
      "body": false,
-     "domIndex": 327,
+     "domIndex": 328,
      "tag": "a",
      "id": "",
      "class": "btn.btn-ghost.btn-icon-end",
@@ -838,7 +772,7 @@
     {
      "n": 11,
      "body": false,
-     "domIndex": 337,
+     "domIndex": 338,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -853,7 +787,7 @@
     {
      "n": 12,
      "body": false,
-     "domIndex": 367,
+     "domIndex": 342,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -868,7 +802,7 @@
     {
      "n": 13,
      "body": false,
-     "domIndex": 372,
+     "domIndex": 347,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -883,7 +817,7 @@
     {
      "n": 14,
      "body": false,
-     "domIndex": 377,
+     "domIndex": 352,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -898,7 +832,7 @@
     {
      "n": 15,
      "body": false,
-     "domIndex": 382,
+     "domIndex": 357,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -913,7 +847,7 @@
     {
      "n": 16,
      "body": false,
-     "domIndex": 387,
+     "domIndex": 362,
      "tag": "button",
      "id": "share-btn",
      "class": "btn-sm.btn-ghost.btn-icon-end",
@@ -990,7 +924,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": true
+     "inViewport": false
     },
     {
      "n": 5,
@@ -1155,7 +1089,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 16,
@@ -1170,7 +1104,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 17,
@@ -1551,7 +1485,7 @@
     {
      "n": 1,
      "body": false,
-     "domIndex": 40,
+     "domIndex": 38,
      "tag": "a",
      "id": "",
      "class": "skip-link",
@@ -1566,7 +1500,7 @@
     {
      "n": 2,
      "body": false,
-     "domIndex": 49,
+     "domIndex": 47,
      "tag": "button",
      "id": "",
      "class": "cnwm-menu-burger.flex.h-[72px]",
@@ -1581,67 +1515,7 @@
     {
      "n": 3,
      "body": false,
-     "domIndex": 114,
-     "tag": "canvas",
-     "id": "",
-     "class": "mapboxgl-canvas",
-     "ariaLabel": "Map",
-     "text": "",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 4,
-     "body": false,
-     "domIndex": 128,
-     "tag": "a",
-     "id": "",
-     "class": "mapboxgl-ctrl-logo",
-     "ariaLabel": "Mapbox homepage",
-     "text": "",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 0.55,
-     "inViewport": true
-    },
-    {
-     "n": 5,
-     "body": false,
-     "domIndex": 143,
-     "tag": "button",
-     "id": "",
-     "class": "btn.btn-solid",
-     "ariaLabel": "",
-     "text": "TAKE THE WALK",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 6,
-     "body": false,
-     "domIndex": 145,
-     "tag": "button",
-     "id": "",
-     "class": "link-meta.t-meta.rounded-full",
-     "ariaLabel": "",
-     "text": "SEE TROY IN 1858",
-     "noRing": false,
-     "outline": "solid 2px rgb(242, 104, 53)",
-     "boxShadow": "none",
-     "opacity": 1,
-     "inViewport": true
-    },
-    {
-     "n": 7,
-     "body": false,
-     "domIndex": 256,
+     "domIndex": 123,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -1654,9 +1528,9 @@
      "inViewport": false
     },
     {
-     "n": 8,
+     "n": 4,
      "body": false,
-     "domIndex": 270,
+     "domIndex": 137,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -1669,9 +1543,9 @@
      "inViewport": true
     },
     {
-     "n": 9,
+     "n": 5,
      "body": false,
-     "domIndex": 284,
+     "domIndex": 151,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -1684,9 +1558,9 @@
      "inViewport": true
     },
     {
-     "n": 10,
+     "n": 6,
      "body": false,
-     "domIndex": 298,
+     "domIndex": 165,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -1699,9 +1573,9 @@
      "inViewport": true
     },
     {
-     "n": 11,
+     "n": 7,
      "body": false,
-     "domIndex": 312,
+     "domIndex": 179,
      "tag": "a",
      "id": "",
      "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
@@ -1714,9 +1588,9 @@
      "inViewport": true
     },
     {
-     "n": 12,
+     "n": 8,
      "body": false,
-     "domIndex": 331,
+     "domIndex": 198,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -1729,9 +1603,9 @@
      "inViewport": true
     },
     {
-     "n": 13,
+     "n": 9,
      "body": false,
-     "domIndex": 335,
+     "domIndex": 202,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1744,9 +1618,9 @@
      "inViewport": true
     },
     {
-     "n": 14,
+     "n": 10,
      "body": false,
-     "domIndex": 340,
+     "domIndex": 207,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1759,9 +1633,9 @@
      "inViewport": true
     },
     {
-     "n": 15,
+     "n": 11,
      "body": false,
-     "domIndex": 345,
+     "domIndex": 212,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1858,7 +1732,7 @@
     {
      "n": 6,
      "body": false,
-     "domIndex": 327,
+     "domIndex": 328,
      "tag": "a",
      "id": "",
      "class": "btn.btn-ghost.btn-icon-end",
@@ -1873,7 +1747,7 @@
     {
      "n": 7,
      "body": false,
-     "domIndex": 337,
+     "domIndex": 338,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -1888,7 +1762,7 @@
     {
      "n": 8,
      "body": false,
-     "domIndex": 341,
+     "domIndex": 342,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1903,7 +1777,7 @@
     {
      "n": 9,
      "body": false,
-     "domIndex": 372,
+     "domIndex": 347,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1918,7 +1792,7 @@
     {
      "n": 10,
      "body": false,
-     "domIndex": 377,
+     "domIndex": 352,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1933,7 +1807,7 @@
     {
      "n": 11,
      "body": false,
-     "domIndex": 382,
+     "domIndex": 357,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1948,7 +1822,7 @@
     {
      "n": 12,
      "body": false,
-     "domIndex": 387,
+     "domIndex": 362,
      "tag": "button",
      "id": "share-btn",
      "class": "btn-sm.btn-ghost.btn-icon-end",
@@ -2235,7 +2109,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 19,
@@ -2250,7 +2124,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 20,
@@ -2265,7 +2139,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 21,
@@ -2583,13 +2457,10 @@
   {
    "route": "/map",
    "vp": "390",
-   "hiddenText": [
-    "div.mapboxgl-touch-pan-blocker \"Use two fingers to move the map\"",
-    "div.mapboxgl-scroll-zoom-blocker \"Hold Ctrl and scroll to zoom the map\""
-   ],
+   "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381576799"
    ]
   },
   {
@@ -2629,8 +2500,8 @@
    "vp": "1440",
    "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381607605"
    ]
   },
   {
@@ -2638,8 +2509,8 @@
    "vp": "1440",
    "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381612096"
    ]
   },
   {
@@ -2647,8 +2518,8 @@
    "vp": "1440",
    "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381616521"
    ]
   },
   {
@@ -2656,8 +2527,8 @@
    "vp": "1440",
    "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381621001"
    ]
   },
   {
@@ -2665,20 +2536,17 @@
    "vp": "1440",
    "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381625413"
    ]
   },
   {
    "route": "/map",
    "vp": "1440",
-   "hiddenText": [
-    "div.mapboxgl-touch-pan-blocker \"Use two fingers to move the map\"",
-    "div.mapboxgl-scroll-zoom-blocker \"Hold Ctrl and scroll to zoom the map\""
-   ],
+   "hiddenText": [],
    "consoleErrors": [
-    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
-    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+    "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)",
+    "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381627088"
    ]
   },
   {
@@ -2722,8 +2590,7 @@
    "innerWidth": 720,
    "overflow": false,
    "wide": [
-    "img.interlude-img",
-    "div.pointer-events-none",
+    "div.interlude-fade",
     "img.moral-ground"
    ]
   },
@@ -2733,8 +2600,7 @@
    "innerWidth": 720,
    "overflow": false,
    "wide": [
-    "img.interlude-img",
-    "div.pointer-events-none",
+    "div.interlude-fade",
     "img.moral-ground",
     "img.moral-ground"
    ]
@@ -2745,8 +2611,7 @@
    "innerWidth": 720,
    "overflow": false,
    "wide": [
-    "img.interlude-img",
-    "div.pointer-events-none",
+    "div.interlude-fade",
     "img.moral-ground"
    ]
   },
@@ -2756,8 +2621,7 @@
    "innerWidth": 720,
    "overflow": false,
    "wide": [
-    "img.interlude-img",
-    "div.pointer-events-none",
+    "div.interlude-fade",
     "img.moral-ground"
    ]
   },
@@ -2770,8 +2634,8 @@
     "div#hero-media.absolute",
     "img.hero-still",
     "video.lazy-video",
-    "img.interlude-img",
-    "div.pointer-events-none"
+    "div.interlude-fade",
+    "img.moral-ground"
    ]
   },
   {
@@ -2779,13 +2643,7 @@
    "scrollWidth": 720,
    "innerWidth": 720,
    "overflow": false,
-   "wide": [
-    "div.keen-slider__slide",
-    "div.origin-bottom",
-    "div.mx-auto",
-    "div.h-full",
-    "picture."
-   ]
+   "wide": []
   },
   {
    "route": "/people",
@@ -2819,11 +2677,11 @@
  "consoleErrors": [
   {
    "where": "/map @390 rest",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @390 rest",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381176462"
   },
   {
    "where": "/404 @390 rest",
@@ -2831,11 +2689,15 @@
   },
   {
    "where": "/map @768 rest",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @768 rest",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381216085"
+  },
+  {
+   "where": "/about @768 rest",
+   "text": "%cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch"
   },
   {
    "where": "/404 @768 rest",
@@ -2843,11 +2705,11 @@
   },
   {
    "where": "/map @1440 rest",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 rest",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381257048"
   },
   {
    "where": "/404 @1440 rest",
@@ -2855,83 +2717,87 @@
   },
   {
    "where": "/map @390 menu-open",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @390 menu-open",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381283905"
   },
   {
    "where": "/map @390 walk",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @390 walk",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381292036"
   },
   {
    "where": "/map @390 lens-1858",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @390 lens-1858",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381303683"
   },
   {
    "where": "/map @768 menu-open",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @768 menu-open",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381330773"
   },
   {
    "where": "/map @768 walk",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @768 walk",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381338922"
   },
   {
    "where": "/map @768 lens-1858",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @768 lens-1858",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381350607"
+  },
+  {
+   "where": "/paintings @768 dialog",
+   "text": "%cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch"
   },
   {
    "where": "/map @1440 menu-open",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 menu-open",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381382799"
   },
   {
    "where": "/map @1440 walk",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 walk",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381390955"
   },
   {
    "where": "/map @1440 lens-1858",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 lens-1858",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381402665"
   },
   {
    "where": "/map @1440 keyboard",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 keyboard",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381431864"
   },
   {
    "where": "/bakery @1440 keyboard",
@@ -2939,39 +2805,39 @@
   },
   {
    "where": "/bakery @1440 keyboard",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/bakery @1440 keyboard",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381450145"
   },
   {
    "where": "/map @390 keyboard",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @390 keyboard",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381506681"
   },
   {
    "where": "/bakery @390 keyboard",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
   },
   {
    "where": "/bakery @390 keyboard",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
-   "where": "/paintings @390 dialog-keyboard",
-   "text": "pageerror: ReferenceError: Cannot access 'stillTexs' before initialization"
-  },
-  {
-   "where": "/map @390 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "where": "/bakery @390 keyboard",
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381521597"
   },
   {
    "where": "/map @390 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
+  },
+  {
+   "where": "/map @390 reduced-motion",
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381576799"
   },
   {
    "where": "/404 @390 reduced-motion",
@@ -2979,51 +2845,51 @@
   },
   {
    "where": "/bakery @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/bakery @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381607605"
   },
   {
    "where": "/commissioners-office @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/commissioners-office @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381612096"
   },
   {
    "where": "/mansion @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/mansion @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381616521"
   },
   {
    "where": "/ferry @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/ferry @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381621001"
   },
   {
    "where": "/barbershop @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/barbershop @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/EmbedMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/EmbedMap.tsx?astro-retry=1787381625413"
   },
   {
    "where": "/map @1440 reduced-motion",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map @1440 reduced-motion",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381627088"
   },
   {
    "where": "/404 @1440 reduced-motion",
@@ -3031,11 +2897,15 @@
   },
   {
    "where": "/map zoom-200",
-   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+   "text": "Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep)"
   },
   {
    "where": "/map zoom-200",
-   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   "text": "[astro-island] Error hydrating /src/components/TroyMap.tsx TypeError: Failed to fetch dynamically imported module: http://localhost:4321/src/components/TroyMap.tsx?astro-retry=1787381665386"
+  },
+  {
+   "where": "/paintings zoom-200",
+   "text": "pageerror: ReferenceError: Cannot access 'stillTexs' before initialization"
   },
   {
    "where": "/about zoom-200",
@@ -3046,5 +2916,5 @@
    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
   }
  ],
- "finishedAt": "2026-08-22T00:10:28.207Z"
+ "finishedAt": "2026-08-22T06:54:40.460Z"
 }
