@@ -26,6 +26,7 @@ what actually caused that; it was not context loss.
 | V10-11 | "Also this is still broken" + screenshot of the CTA outside the frame on iPhone Safari | The home lockup's top air now yields to the content, so the button stays inside the frame at every real phone height. **Superseded by V10-13** — the formula fit by 8px, which is not a margin. |
 | V10-09 | "the experience of scrolling up does not bring you back into the Hall in a seamless way" | The descent must retrace exactly on up-scroll; tested explicitly. |
 | V10-12 | "The the motion, animation and transition from the very, very first one, but we keep the arch. Walk to the end arrive at the arch, then get pushed down into the next section" | The hall's ARCHITECTURE stays — arched end wall, archivolt, pilasters, keystone, landing, steps. The MOTION reverts to the original straight walk: no step-through, no descent, no turn. Arrival is a stop facing the arch; the sticky stage then releases and the stills come up from below. |
+| V10-13 | "Positioning for the map and fix for the homepage now you can see what I can see" (+ the iPhone screenshot of the CTA outside the frame) | The home lockup's top air becomes a shrinkable flex spacer, so it yields to the content instead of predicting it; the bottom inset yields with it. Supersedes V10-11's formula, which fit by 8px. |
 
 ## B · Not requested — mechanical necessities, disclosed
 
@@ -36,6 +37,7 @@ what actually caused that; it was not context loss.
 | `html` + `.map-shell` carry the page ground | Part of the black-bar fix he asked for, but not separately named. | Yes |
 | `.home-desc { text-wrap-style: auto }` | The iPhone/Pixel rag difference — in scope for "the rag should look great" but a specific change he did not name. | Yes |
 | Camera pitch −0.19 (from −0.15) | He asked for "slightly more down"; the exact number is mine. | Yes |
+| Home `gap` moves from a Tailwind utility to `--home-gap` in the stylesheet | The spacer must subtract exactly one gap to keep the air measuring `--home-air`, so the value has to be readable in CSS. Same numbers at every tier — no visual change. | Yes |
 
 ## C · Why v9 drifted, accurately
 

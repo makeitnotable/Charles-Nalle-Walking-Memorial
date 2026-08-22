@@ -75,7 +75,7 @@ import { withBase } from "../lib/url";
           at ~30–40% of the frame at every aspect once the film is positioned),
           and on phones the CTA is pinned to the frame's bottom on the content
           inset. Landscape phones keep the centred in-flow layout. */}
-      <div class="home-stack z-10 flex h-full w-full flex-col items-center gap-[clamp(20px,4vh,44px)] px-4 text-center">
+      <div class="home-stack z-10 flex h-full w-full flex-col items-center px-4 text-center">
         <p class="t-meta home-seq" style="--seq: 0">Troy, New York · April 27, 1860</p>
 
         <h1 class="flex flex-col" aria-label="Charles Nalle">
@@ -165,10 +165,27 @@ import { withBase } from "../lib/url";
   /* The lockup starts below the chin. Portrait phones (chin ≈ 34.6% after
      the lift) → eyebrow at ≈ 37%; landscape frames are positioned so the
      chin lands at 30–35% → eyebrow at ≈ 32%. */
+  /* v10.2 V10-13. The air above the lockup is a SHRINKABLE SPACER, not padding.
+     Every tier below states the air it wants in `--home-air`; the spacer takes
+     that much when the frame has room and gives it back — all the way to zero —
+     when it does not. Its siblings are `min-height: auto`, so none of them can
+     shrink below its own content: the free space is taken from the air first
+     and from the lockup never, which is what makes the CTA overflowing the
+     frame impossible rather than merely unlikely. (V10-11 tried to predict the
+     content height with a formula instead; on Wil's own iPhone that fit by 8px,
+     which is not a margin.) The spacer sheds one `--home-gap`, since the gap
+     now falls above the first item too — so the air still measures --home-air. */
   .home-stack {
     justify-content: flex-start;
-    padding-top: clamp(190px, 37dvh, 420px);
+    --home-air: clamp(190px, 37dvh, 420px);
+    --home-gap: clamp(20px, 4vh, 44px);
+    gap: var(--home-gap);
     padding-bottom: 16px;
+  }
+  .home-stack::before {
+    content: "";
+    flex: 0 1 max(0px, calc(var(--home-air) - var(--home-gap)));
+    min-height: 0;
   }
   /* v9 V9-401: portrait phones were bottom-heavy — the lockup began at 37% and
      the CTA was pinned to the floor with `margin-top:auto`, so everything sat
@@ -177,8 +194,10 @@ import { withBase } from "../lib/url";
      air above it and a comfortable margin below the button. */
   @media (max-width: 767px) and (orientation: portrait) {
     .home-stack {
-      padding-top: clamp(150px, 30dvh, 320px);
-      padding-bottom: 40px;
+      --home-air: clamp(150px, 30dvh, 320px);
+      /* V10-13: the bottom inset yields too, so the last 24px of a short frame
+         is never spent on air the lockup needs. */
+      padding-bottom: clamp(16px, 4dvh, 40px);
     }
   }
   /* v8 V8-103 (Wil, 00:35:22) — portrait tablets used to fall through every
@@ -190,8 +209,8 @@ import { withBase } from "../lib/url";
       object-position: 50% 37%;
     }
     .home-stack {
-      padding-top: clamp(220px, 36dvh, 400px);
-      gap: clamp(20px, 3.4vh, 40px);
+      --home-air: clamp(220px, 36dvh, 400px);
+      --home-gap: clamp(20px, 3.4vh, 40px);
     }
   }
   @media (orientation: landscape) and (min-height: 501px) {
@@ -199,7 +218,7 @@ import { withBase } from "../lib/url";
       object-position: 50% 39%;
     }
     .home-stack {
-      padding-top: clamp(180px, 32dvh, 380px);
+      --home-air: clamp(180px, 32dvh, 380px);
     }
   }
   /* Short landscape frames (laptops at 768–820 tall): the head is placed a
@@ -210,27 +229,27 @@ import { withBase } from "../lib/url";
       object-position: 50% 42%;
     }
     .home-stack {
-      padding-top: clamp(170px, 30dvh, 260px);
-      gap: clamp(16px, 3vh, 32px);
+      --home-air: clamp(170px, 30dvh, 260px);
+      --home-gap: clamp(16px, 3vh, 32px);
     }
   }
   @media (orientation: portrait) and (max-height: 820px) {
     .home-stack {
-      gap: clamp(14px, 3vh, 28px);
+      --home-gap: clamp(14px, 3vh, 28px);
     }
   }
   @media (max-height: 700px) and (orientation: portrait) {
     .home-stack {
       /* 35dvh (was 33): with the v8 head-lift the chin sits at ≈34.6% —
          keep the eyebrow under it on 640–700-tall phones. */
-      padding-top: clamp(150px, 35dvh, 250px);
-      gap: clamp(14px, 3vh, 24px);
+      --home-air: clamp(150px, 35dvh, 250px);
+      --home-gap: clamp(14px, 3vh, 24px);
     }
   }
   @media (max-height: 620px) and (orientation: portrait) {
     .home-stack {
-      padding-top: clamp(100px, 22dvh, 160px);
-      gap: 12px;
+      --home-air: clamp(100px, 22dvh, 160px);
+      --home-gap: 12px;
     }
   }
   /* v7 H4 → v8 V8-104 (Wil, 00:55:44): the CTA stays pinned to the frame's
@@ -262,27 +281,6 @@ import { withBase } from "../lib/url";
       text-wrap-style: auto;
     }
   }
-  /* v10 V10-11 (Wil, 8/21, with a screenshot: the CTA sitting outside the
-     frame on a real iPhone). Every tier above sets the top air as a share of
-     the viewport, and none of them asked whether the LOCKUP still fits. On a
-     phone in Safari — where the browser's own chrome eats ~180px, so 390×844
-     is really 390×664 — 35dvh of head room left 232px for air and only 644px
-     of frame for 469px of content, and the button spilled 18px past the
-     bottom edge.
-
-     The air now yields to the content: it is still ~30dvh, but never more
-     than the room actually left after the lockup has taken what it needs
-     (measured across 360–430 wide and 520–932 tall; the content grows from
-     438px to 539px because the gaps are viewport-relative). At full device
-     heights this changes nothing — 253px at 390×844, as before — and on a
-     real Safari viewport it shrinks just enough that the CTA stays inside
-     the frame. */
-  @media (max-width: 767px) and (orientation: portrait) {
-    .home-stack {
-      padding-top: max(56px, min(30dvh, calc(75dvh - 340px)));
-    }
-  }
-
   /* The eyebrow crosses the lit part of the film at desktop widths; a soft
      ink halo (not a chip) keeps it ≥ 4.5:1 by pixel without a box. */
   .home-stack > .t-meta.home-seq {
@@ -309,7 +307,13 @@ import { withBase } from "../lib/url";
     .home-stack {
       justify-content: center;
       padding-top: 16px;
-      gap: clamp(10px, 2.6vh, 16px);
+      --home-gap: clamp(10px, 2.6vh, 16px);
+    }
+    /* This tier centres the lockup rather than setting air above it, so the
+       spacer has no job here — and a centred spacer would only push the whole
+       group down. */
+    .home-stack::before {
+      display: none;
     }
     .home-desc {
       max-width: 64ch;

@@ -1,0 +1,3050 @@
+{
+ "base": "http://localhost:4321",
+ "startedAt": "2026-08-22T00:02:09.242Z",
+ "runs": [
+  {
+   "route": "/",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/people",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 32,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 31,
+   "incomplete": 0
+  },
+  {
+   "route": "/",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/people",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 32,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 31,
+   "incomplete": 0
+  },
+  {
+   "route": "/",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/people",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 32,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 31,
+   "incomplete": 0
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "walk",
+   "violations": [],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "lens-1858",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "state": "dialog",
+   "violations": [],
+   "passes": 11,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "mini-player",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "walk",
+   "violations": [],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "lens-1858",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "dialog",
+   "violations": [],
+   "passes": 11,
+   "incomplete": 0
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "mini-player",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "menu-open",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "walk",
+   "violations": [],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "lens-1858",
+   "violations": [],
+   "passes": 39,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "state": "dialog",
+   "violations": [],
+   "passes": 11,
+   "incomplete": 0
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "mini-player",
+   "violations": [],
+   "passes": 41,
+   "incomplete": 1
+  }
+ ],
+ "keyboard": [
+  {
+   "route": "/",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 39,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 72,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-cta.btn-icon-end",
+     "ariaLabel": "",
+     "text": "WALK THE STORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 40,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 49,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 114,
+     "tag": "canvas",
+     "id": "",
+     "class": "mapboxgl-canvas",
+     "ariaLabel": "Map",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 128,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-ctrl-logo",
+     "ariaLabel": "Mapbox homepage",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 0.55,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 143,
+     "tag": "button",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "TAKE THE WALK",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 145,
+     "tag": "button",
+     "id": "",
+     "class": "link-meta.t-meta.rounded-full",
+     "ariaLabel": "",
+     "text": "SEE TROY IN 1858",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 256,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 01 HOLEUR’S FASHIONAB",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 270,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 02 COMMISSIONER’S OFF",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 284,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 03 URI GILBERT HOME 1",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 298,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 04 WASHINGTON STREET ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 312,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 05 PETER BALTIMORE’S ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 331,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 335,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 340,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 345,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 45,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 54,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 144,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(01) LISTEN",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 148,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(02) HISTORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 152,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(03) THE MORAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 156,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(04) ONWARD",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 175,
+     "tag": "button",
+     "id": "",
+     "class": "flex.shrink-0.cursor-pointer",
+     "ariaLabel": "Play narration: Holeur’s Fashionable Bakery",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 183,
+     "tag": "input",
+     "id": "",
+     "class": "cnwm-scrub.mt-4.w-full",
+     "ariaLabel": "Narration position",
+     "text": "0",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 322,
+     "tag": "a",
+     "id": "",
+     "class": "absolute.inset-0.z-[5]",
+     "ariaLabel": "Continue to Commissioner’s Office",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 327,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-ghost.btn-icon-end",
+     "ariaLabel": "",
+     "text": "GET DIRECTIONS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 337,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 367,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 372,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 377,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 382,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 387,
+     "tag": "button",
+     "id": "share-btn",
+     "class": "btn-sm.btn-ghost.btn-icon-end",
+     "ariaLabel": "",
+     "text": "SHARE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 40,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 49,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 130,
+     "tag": "button",
+     "id": "",
+     "class": "btn-sm.btn-ghost.btn-icon-end",
+     "ariaLabel": "Skip the hall",
+     "text": "SKIP THE HALL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 140,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Holeur’s Fashionable Bakery”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 143,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 146,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office · Part 2”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 149,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Uri Gilbert Home”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 152,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 155,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing · Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 158,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing · Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 161,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 164,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 167,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 175,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Holeur’s Fashionable Bakery” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 181,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 01",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 188,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 194,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 02",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 201,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office · Part 2” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 207,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 02",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 214,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Uri Gilbert Home” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 220,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 03",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 227,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 23,
+     "body": false,
+     "domIndex": 233,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 24,
+     "body": false,
+     "domIndex": 240,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing · Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 25,
+     "body": false,
+     "domIndex": 246,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 26,
+     "body": false,
+     "domIndex": 253,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing · Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 27,
+     "body": false,
+     "domIndex": 259,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 28,
+     "body": false,
+     "domIndex": 266,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 29,
+     "body": false,
+     "domIndex": 272,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 30,
+     "body": false,
+     "domIndex": 279,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop · Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 31,
+     "body": false,
+     "domIndex": 285,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 32,
+     "body": false,
+     "domIndex": 292,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop · Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 33,
+     "body": false,
+     "domIndex": 298,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 34,
+     "body": false,
+     "domIndex": 319,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 35,
+     "body": false,
+     "domIndex": 323,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 36,
+     "body": false,
+     "domIndex": 328,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 37,
+     "body": false,
+     "domIndex": 333,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "check": "menu-keyboard",
+   "openedOnEnter": true,
+   "focusMovedIntoPanel": true,
+   "closedOnEscape": true,
+   "focusReturnedToBurger": true
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "check": "dialog-keyboard",
+   "openedOnEnter": true,
+   "closedOnEscape": true,
+   "focusReturnedToTile": true
+  },
+  {
+   "route": "/",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 39,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 72,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-cta.btn-icon-end",
+     "ariaLabel": "",
+     "text": "WALK THE STORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 40,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 49,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 114,
+     "tag": "canvas",
+     "id": "",
+     "class": "mapboxgl-canvas",
+     "ariaLabel": "Map",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 128,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-ctrl-logo",
+     "ariaLabel": "Mapbox homepage",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 0.55,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 143,
+     "tag": "button",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "TAKE THE WALK",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 145,
+     "tag": "button",
+     "id": "",
+     "class": "link-meta.t-meta.rounded-full",
+     "ariaLabel": "",
+     "text": "SEE TROY IN 1858",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 256,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 01 HOLEUR’S FASHIONAB",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 270,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 02 COMMISSIONER’S OFF",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 284,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 03 URI GILBERT HOME 1",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 298,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 04 WASHINGTON STREET ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 312,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[4.5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "LOCATION 05 PETER BALTIMORE’S ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 331,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 335,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 340,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 345,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 45,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 54,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 175,
+     "tag": "button",
+     "id": "",
+     "class": "flex.shrink-0.cursor-pointer",
+     "ariaLabel": "Play narration: Holeur’s Fashionable Bakery",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 183,
+     "tag": "input",
+     "id": "",
+     "class": "cnwm-scrub.mt-4.w-full",
+     "ariaLabel": "Narration position",
+     "text": "0",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 322,
+     "tag": "a",
+     "id": "",
+     "class": "absolute.inset-0.z-[5]",
+     "ariaLabel": "Continue to Commissioner’s Office",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 327,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-ghost.btn-icon-end",
+     "ariaLabel": "",
+     "text": "GET DIRECTIONS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 337,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 341,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 372,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 377,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 382,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 387,
+     "tag": "button",
+     "id": "share-btn",
+     "class": "btn-sm.btn-ghost.btn-icon-end",
+     "ariaLabel": "",
+     "text": "SHARE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 40,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 49,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 130,
+     "tag": "button",
+     "id": "",
+     "class": "btn-sm.btn-ghost.btn-icon-end",
+     "ariaLabel": "Skip the hall",
+     "text": "SKIP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 140,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Holeur’s Fashionable Bakery”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 143,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 146,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office · Part 2”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 149,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Uri Gilbert Home”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 152,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 155,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing · Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 158,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing · Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 161,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 164,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 167,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 175,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Holeur’s Fashionable Bakery” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 181,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 01",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 188,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 194,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 02",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 201,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office · Part 2” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 207,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 02",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 214,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Uri Gilbert Home” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 220,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 03",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 227,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 23,
+     "body": false,
+     "domIndex": 233,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 24,
+     "body": false,
+     "domIndex": 240,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing · Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 25,
+     "body": false,
+     "domIndex": 246,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 26,
+     "body": false,
+     "domIndex": 253,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing · Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 27,
+     "body": false,
+     "domIndex": 259,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 04",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 28,
+     "body": false,
+     "domIndex": 266,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 29,
+     "body": false,
+     "domIndex": 272,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 30,
+     "body": false,
+     "domIndex": 279,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop · Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 31,
+     "body": false,
+     "domIndex": 285,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 32,
+     "body": false,
+     "domIndex": 292,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop · Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 33,
+     "body": false,
+     "domIndex": 298,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "LOCATION 05",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 34,
+     "body": false,
+     "domIndex": 319,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 35,
+     "body": false,
+     "domIndex": 323,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 36,
+     "body": false,
+     "domIndex": 328,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 37,
+     "body": false,
+     "domIndex": 333,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "check": "menu-keyboard",
+   "openedOnEnter": true,
+   "focusMovedIntoPanel": true,
+   "closedOnEscape": true,
+   "focusReturnedToBurger": true
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "check": "dialog-keyboard",
+   "openedOnEnter": true,
+   "closedOnEscape": true,
+   "focusReturnedToTile": true
+  }
+ ],
+ "reducedMotion": [
+  {
+   "route": "/",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/ferry",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/barbershop",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "hiddenText": [
+    "div.mapboxgl-touch-pan-blocker \"Use two fingers to move the map\"",
+    "div.mapboxgl-scroll-zoom-blocker \"Hold Ctrl and scroll to zoom the map\""
+   ],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/people",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/about",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/404",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "route": "/",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/ferry",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/barbershop",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "hiddenText": [
+    "div.mapboxgl-touch-pan-blocker \"Use two fingers to move the map\"",
+    "div.mapboxgl-scroll-zoom-blocker \"Hold Ctrl and scroll to zoom the map\""
+   ],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+   ]
+  },
+  {
+   "route": "/people",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/about",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/404",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ ],
+ "zoom": [
+  {
+   "route": "/",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/bakery",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none",
+    "img.moral-ground"
+   ]
+  },
+  {
+   "route": "/commissioners-office",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none",
+    "img.moral-ground",
+    "img.moral-ground"
+   ]
+  },
+  {
+   "route": "/mansion",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none",
+    "img.moral-ground"
+   ]
+  },
+  {
+   "route": "/ferry",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none",
+    "img.moral-ground"
+   ]
+  },
+  {
+   "route": "/barbershop",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "div#hero-media.absolute",
+    "img.hero-still",
+    "video.lazy-video",
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/map",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "div.keen-slider__slide",
+    "div.origin-bottom",
+    "div.mx-auto",
+    "div.h-full",
+    "picture."
+   ]
+  },
+  {
+   "route": "/people",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/paintings",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/about",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/404",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  }
+ ],
+ "consoleErrors": [
+  {
+   "where": "/map @390 rest",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 rest",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/404 @390 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/map @768 rest",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @768 rest",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/404 @768 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/map @1440 rest",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 rest",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/404 @1440 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/map @390 menu-open",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 menu-open",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @390 walk",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 walk",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @390 lens-1858",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 lens-1858",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @768 menu-open",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @768 menu-open",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @768 walk",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @768 walk",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @768 lens-1858",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @768 lens-1858",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @1440 menu-open",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 menu-open",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @1440 walk",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 walk",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @1440 lens-1858",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 lens-1858",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @1440 keyboard",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 keyboard",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/bakery @1440 keyboard",
+   "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
+  },
+  {
+   "where": "/bakery @1440 keyboard",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/bakery @1440 keyboard",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @390 keyboard",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 keyboard",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/bakery @390 keyboard",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/bakery @390 keyboard",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/paintings @390 dialog-keyboard",
+   "text": "pageerror: ReferenceError: Cannot access 'stillTexs' before initialization"
+  },
+  {
+   "where": "/map @390 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @390 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/404 @390 reduced-motion",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/bakery @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/bakery @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/commissioners-office @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/commissioners-office @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/mansion @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/mansion @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/ferry @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/ferry @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/barbershop @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/barbershop @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/map @1440 reduced-motion",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map @1440 reduced-motion",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/404 @1440 reduced-motion",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/map zoom-200",
+   "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  },
+  {
+   "where": "/map zoom-200",
+   "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4321/node_modules/.vite/deps/mapbox-gl.js?v=9f43bc2a:943:1"
+  },
+  {
+   "where": "/about zoom-200",
+   "text": "%cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch"
+  },
+  {
+   "where": "/404 zoom-200",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  }
+ ],
+ "finishedAt": "2026-08-22T00:10:28.207Z"
+}
