@@ -591,8 +591,19 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       chosen = chosen ?? fitOnly;
     } else {
       outer: for (const pitch of PITCHES) {
+        /* v11 item 9 (Wil, 8/22): "I'd like the map on the Map page pushed
+           higher so the ferry pin sits farther from the `TAKE THE WALK`
+           button. All pins should remain visible on every screen size."
+
+           Measured against a stubbed style: at 1440×900 the lowest DOT sat
+           10px above the button (1280 and 1920 the same). The safe box below
+           constrains the label PILLS, but a pill hangs above its dot on a
+           leader line, so the dot itself was never in the fit — the pills were
+           all comfortably inside while the ferry's dot was almost touching the
+           CTA. Reserving more room at the bottom of the fit lifts dot and pill
+           together, which is the whole marker. */
         const cam = map.cameraForBounds(b, {
-          padding: { top: 120, bottom: 140, left: 140, right: 140 },
+          padding: { top: 120, bottom: 240, left: 140, right: 140 },
           bearing: OVERVIEW.bearing,
           pitch,
         } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);

@@ -709,10 +709,21 @@ const focus =
         {/* v9 V9-201 (Wil, 8/21): the pin already names the place in full, so
             repeating it here said the same thing twice — this line is the
             DESTINATION's chapter number now, with the address under it. */}
+        {/* v11 item 2 (Wil, 8/22): "On desktop and tablet (only if space
+            allows) … left-align the chapter label and address under the map so
+            they align with the left edge of the map and with each other. Then
+            right-align the `Get directions` button with the right edge of the
+            map, vertically centered with the chapter label and address."
+
+            The lockup and the map shell are siblings in the same content
+            column, so the column's edges ARE the map's edges — the row needs
+            no measuring. Phones keep the centred stack exactly as it was. */}
         <div class="reveal onward-lockup mt-12">
-          <p class="t-title-sm">Chapter {nextEntry?.data.order ?? 1}</p>
-          <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
-          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div class="onward-dest">
+            <p class="t-title-sm">Chapter {nextEntry?.data.order ?? 1}</p>
+            <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
+          </div>
+          <div class="onward-action mt-10 flex flex-wrap items-center justify-center gap-4">
             {
               nextEntry && (
                 <Button

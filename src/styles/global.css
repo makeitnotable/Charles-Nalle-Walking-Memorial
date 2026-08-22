@@ -631,6 +631,37 @@ h3 {
   margin-inline: auto;
   max-width: 44ch;
 }
+/* v11 item 2 (Wil, 8/22): from tablet up the destination lockup becomes one
+   row the width of the map above it — label and address left-set against the
+   map's left edge, `Get directions` on its right edge, the two vertically
+   centred against each other. The lockup and the map shell are siblings in the
+   same content column, so the column's edges are the map's edges.
+
+   "only if space allows" is the `flex-wrap`: the address column may shrink but
+   never below its own content, so if the pair cannot sit side by side the row
+   wraps back to the stacked, centred arrangement phones keep. */
+@media (min-width: 768px) {
+  .onward-lockup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    text-align: left;
+  }
+  .onward-lockup .onward-dest {
+    flex: 1 1 22ch;
+    min-width: 0;
+  }
+  .onward-lockup .t-meta-body {
+    margin-inline: 0;
+  }
+  .onward-lockup .onward-action {
+    margin-top: 0;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+}
 .embed-map-shell {
   box-shadow: 0 24px 64px -24px rgba(16, 10, 6, 0.7);
 }
