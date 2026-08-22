@@ -7,6 +7,11 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**v11 IN FLIGHT (Wil's 8/22 round — twelve numbered items).** Ten shipped;
+items 7 (official painting titles) and 8a (the Part 1 study) are held on Wil's
+decision, not on work — see `docs/v11/PAINTING-NAMES.md`. Guide:
+`docs/v11/REVIEW-GUIDE.md`. Ledger: `docs/v11/SCOPE.md`.
+
 **v10.2 SHIPPED (Wil's 8/21–8/22 round).** Three items: V10-12 the museum's
 original walk restored with the arch kept · V10-13 the home lockup's air made
 a shrinkable spacer · V10-14 the map's phone overview camera given a reachable
@@ -32,7 +37,13 @@ shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
 (self-daemonized).
 
 ## CURRENT ITEM
-v10.2 implemented, measured and pushed; docs/v10/REVIEW-GUIDE.md written.
+v11: ten of twelve implemented, measured and pushed. Open and Wil's: the two
+painting titles that are not on the artist's series page (mansion and
+barbershop horizontals), the Part 1 study (its drawing is the study for the
+FERRY chapter's painting), and whether to re-frame all ten paintings from the
+masters' 3:2 to replace the site's 16:9 crops.
+
+**v10.2 (previous):** implemented, measured and pushed; docs/v10/REVIEW-GUIDE.md written.
 Open and Wil's: the ten painting titles (his `masters/` filenames carry them —
 "Holeur's Fashionable Bakery", "The Commissioner's Office pt1/pt2", "Uri
 Gilbert's Mansion", "Washington Street Ferry Landing", "Peter Baltimore's
@@ -56,6 +67,7 @@ byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| v11 (Wil 8/22, twelve items) — V11-01 map card focus: keen's `slide.distance` is the LEFT EDGE as a fraction of the container, not distance-from-centre, so a centred card reported 0.321 at 1440 and never reached scale 1 (focused card was 3% larger than its neighbour, not 8%); now exactly 1.000 vs 0.920 everywhere · V11-02 onward row aligned to the map's edges from 768 (0.0px both sides) · V11-03 scene hook drops a leading `Part N` for scenes AFTER the first (render rule, JSON untouched); hero kicker t-title → t-display · V11-04 next-stop pin copies /map's selected marker (pill 10 → 9 so the chip is visible) · V11-05/06 People curtain and About title break · V11-08b chip centred on Skip's axis (4px → 0.0px at ≥1024) · V11-09 desktop map fit bottom 140 → 240: the safe box constrains PILLS but a pill hangs above its DOT on a leader line, so the ferry dot sat 10px off the CTA; now 60px · V11-10 interlude 52/68vh → 62/80vh, cream ground (no dark flash), 12% linear fade → eased 18% ramp, GSAP scrub 1.000 → 1.045 on the IMG inside overflow-hidden · V11-11 `.sec-head` sp-3 → sp-4/sp-5: rule→content 57 → 73/97/109 against 128/168/200 below (1:3.5 → ~1:1.75) · V11-12 `scripts/refresh-from-masters.mjs` refreshes only where the master's ASPECT matches the site's (upgrade, never re-crop): ferry/historical 1200×800 → 1440×960; 13 skipped because the delivery is 3:2/2:3 and the site serves 16:9/9:16 · V11-07/08a the PDF decoded and every work matched by PICTURE not name — 8 of 10 titles confirmed, 2 absent from the series page; studies: bakery correct, ch2 pt2 correct, ch2 pt1 is `Don't Let Them Have Him!`, the FERRY painting's study | cd9862f + 41b19d8 + 1db245c + 6754456 + 29de25c + 5732ab9 + (this commit) | rag 0 runts / 0 clips / 0 em dashes full matrix · contrast 0 failures 0 unmeasured · geometry probes: onward 0.0px both edges at 5 widths, chip/Skip 0.0px at 4 widths, cards 1.000/0.920 at 3 widths with a sampled cycle, interlude scrollWidth−innerWidth = 0 and `transform: none` under reduced motion, map framing 10 viewports all pills inside · tsc + build clean, 6 island-CSS guards |
 | v10.2 (Wil 8/21–8/22) — V10-12 museum: ARCHITECTURE kept (arched end wall, archivolt, pilasters, keystone, landing, merged steps), MOTION reverted to the original straight walk (railZ linear again; railPose/SPIRAL_YAW/T_WALK/`descending` deleted; chrome ungated; slot back to 90N+100 at both sites) — arrival is a stop 5.3m short of the arch, the sticky release is the transition · V10-13 home: the top air stops being a share-of-viewport padding and becomes a SHRINKABLE FLEX SPACER (`--home-air` per tier, `::before { flex: 0 1 max(0px, air - gap) }`, siblings min-height:auto so the lockup never shrinks); bottom inset yields too; V10-11's `max(56px, min(30dvh, 75dvh-340px))` retired — measured against the dvh in his OWN screenshot (≈655, not the 664 assumed) that formula fit by 8px · V10-14 map: the phone overview search stopped at zoom 14.70 but a 390×673 phone only fits the walk at 14.60, so short phones fell off the search and took the blind OVERVIEW constant (15.25/33) — floor now 14.2 (the desktop branch's own value); the re-centring loop also set `ok` on every pass and the acceptance test never checked centring (both fixed; measured, neither changes an outcome today — they guard the floor) | 530f46e + e56d9e5 + ca0e785 + (this commit) | museum probe both orientations: z linear 0.40→−50.70 (endZ −56), y/yaw/pitch flat at 9 sampled railT, chrome visible at arrival, retrace exact, 0 page errors; museum-check calls 77/79/77/77/77 ≤80, no composition/chrome findings · home matrix 152 viewports: ≥375 wide (the project floor) 96 viewports 460–932 tall = ZERO overflow, min clearance 20.8px, his own 26.4px; 390×844 air 253.2px unchanged; 320-wide <500 tall still overflows ≤2.4px (desc wraps 7→9 lines — type change, his call) · map framing matrix 16 phone viewports under a stubbed style: 13 converged+centred (dx≈0, dy −0.2) vs 4 before; 390×673 15.25/33 fallback → 14.60/52 with all five stops in frame (the old fallback put THREE off-screen) · rag 0/0/0 · a11y 0/0/0 across 51 runs · tsc + build clean, 6 island-CSS guards |
 | v9 (Wil 8/21) — CORRECTIONS to v8: V9-102 study out of the plaque card (it duplicated the wall study) + Part 2 finally hangs its own (wall study chosen per WORK, not per chapter; 6 works not 5) · V9-103 drawer close = real round 44×44 button centred above the content (17/18px air), not a corner ghost · V9-104 the hall ENDS ON THE LAST PAINTING — v8 walked 7m past it to a blank wall then down steps ("a weird white wall with a bunch of dots… stuck scrolling"): descent deleted, arch kept as far-end architecture/light source, tail is a bloom+dissolve whose outer edge is the page ground so the grid scrolls up seamlessly; slot back to 90N+100. NEW: V9-101 pitch −0.19/−0.155 · V9-201 where-to-next (pin = canonical, line beneath = "Chapter N", LOCATION NN marker dropped) · V9-202 cream fade both edges on all 5 historical-context plates (the "pale band on a dark painting" risk I flagged does NOT occur — every plate is a light archival photo) · V9-203 study caption side air · V9-204 hook rows left-aligned in a centred block · V9-205 full 1858 credit one line ≥390 (needed 370px, chip gave 351: tracking .055em + 8px padding + shallower inset; 375/360 wrap, allowed) · V9-206 phone lens opens further left · V9-301 viewport-fit=cover + grounded html/map-shell (the black bars) · V9-302 curtain honours authored breaks → "The / Paintings" · V9-303 menu double-divider REPRODUCED and fixed (close button scrolled away, its border-b resting under the panel border; now sticky) · V9-401 phone home balanced (air above 312→253, below 24→86; head lifted scale 1.2; CTA unpinned) · V9-402 rag: the paragraph had BOTH authored breaks AND text-wrap:balance — engines disagree, hence Pixel-perfect/iPhone-wrong; balancing off where breaks are authored (the measure was NOT the cause: 19% headroom, measured before changing anything) | 8fc9509 + 3957d9f + (this commit) | rag 0/0/0 full matrix · contrast 0 failures · a11y 0/0/0 across 51 runs incl. RM + zoom200 · draw calls 79 land / 77 else ≤80 (Part 2 study hit 81; the 3 step treads merged to ONE mesh returned 2 calls, appearance unchanged) · curtain probe: 2 <p> "The"/"Paintings" · menu bug reproduced then fixed at 390×640 · credit 1 line at 390/412/430, 2 at 375/360 · home probe 5 widths |
 | P5 batch 4 — V8-327 arch + stairs (the end wall is ONE ShapeGeometry with an arched cutout — ARCH_W 1.9, spring 2.0, apex 2.95 — plus archivolt, two pilasters and a keystone; the wall masks the glow plane, so the old "white rectangle" becomes an arch of light with no new texture; glow widened to 7.4×5.6 at endZ−3.4 so it fills the frame once you are through; steps rebuilt 0.16 rise / 0.5 run descending 0.48m with treads lighter than the landing; railZ() → piecewise railPose(railT) with T_WALK DERIVED from walk vs descent distance (0.875) so the speed never changes at the hand-off; chip/Skip/Face-forward unmount and the dots fade while descending; slot 90N+100 → 90N+160vh at BOTH sites; hook exposes descending/tWalk/endZ) | (this commit) | arch probe at railT 0/.5/.86/.93/.97/1 × 1440+390: z −49.8 → −58 (past endZ −56), y 1.55 → 1.07 (0.48 exactly), pitch dips −0.219 then settles, dots opacity 1 → 0, Skip gone, 0 page errors; museum-p5f calls 77 (79 land) ≤ 80, no composition/chrome findings; at rail END the fps findings fall to 14/240 (390) — past the arch only 3 objects draw, which independently confirms the fps ceiling is this container's software-GL scene cost |
@@ -104,6 +116,19 @@ byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
 - INSTRUMENT: the map's overview arrives on a 2s `easeTo`. Sample only once the
   camera is at rest (poll centre/zoom/pitch unchanged for ~6 ticks AND
   `!map.isMoving()`), or every reading is mid-ease.
+- INSTRUMENT: editing an island's source (Museum.tsx / TroyMap.tsx) reliably
+  stales Vite's optimized deps — the island then 504s ("Outdated Optimize Dep")
+  and never hydrates, so `window.__museum` / `__troyMap` never appear and every
+  probe times out looking like a runtime bug. `astro dev stop && astro dev
+  --background` clears it. Hit twice in v11 alone; check this BEFORE debugging
+  the component.
+- ENV: this container's Chromium cannot decode the site's MP4s at all (no
+  proprietary codecs), so video dimensions cannot be read in a browser and
+  films never play. `ffmpeg`/`ffprobe` are not installed either, so the splash
+  cannot be transcoded here.
+- ENV: `poppler-utils` IS installable via apt (`pdftotext`, `pdftoppm`) — that
+  is how Wil's markapriest.org PDF was decoded. `markapriest.org` itself and
+  `carnegiecenter.omeka.net` are both egress-blocked.
 - ENV/INSTRUMENT: `qa:walk` CANNOT run here — api.mapbox.com is proxy-blocked,
   so the style never loads ("Style is not done loading" ×8 viewports). Map
   geometry is verified instead with a Playwright route-stub style: fulfil
