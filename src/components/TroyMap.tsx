@@ -100,6 +100,10 @@ interface Props {
   baseUrl: string;
 }
 
+/** v11 item 1: how much smaller a neighbour card is than the focused one.
+ *  The focused card sits at scale 1; every other card at 1 - CARD_FOCUS. */
+const CARD_FOCUS = 0.08;
+
 /** The pill ladder (approved): label 12→15→18, padding 8→10→12 at md/lg —
  * legacy markers carried real responsive classes; inline styles must ladder
  * by viewport and re-render on resize. */
@@ -1139,20 +1143,42 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     animationEnded: (sl) => settle(sl.track.details.rel),
     detailsChanged: (sl) => {
       /* v7 M9: neighbours scale continuously by distance (0.92 → 1), no
-         allocations — transform writes only. */
+         allocations — transform writes only.
+
+         v11 item 1 (Wil, 8/22): "The chapter card on the map page should always
+         show the center/middle card as slightly larger — wider and taller —
+         than the chapter cards to its left and right… When a new card moves in
+         from the left or right to replace the center/middle card, it should
+         grow slightly as it moves into the center, while the previous
+         center/middle card shrinks down to match the size of the other cards
+         as it moves out."
+
+         The mechanism was here and the arithmetic was wrong. keen's
+         `slide.distance` is the slide's LEFT EDGE as a fraction of the
+         container, not its distance from the centre — so a perfectly centred
+         card reports `(1 - size) / 2`, never 0, and never reached scale 1 or
+         its centre origin. Measured settled: 0.321 at 1440 and 0.080 at 390,
+         which left the focused card 3% larger than its neighbour on a desktop
+         instead of the intended 8% — a gradient, not a focus.
+
+         Subtracting the centred position and normalising by the slide's own
+         size gives a true 0 at the centre and 1 at either neighbour, so the
+         focused card is exactly CARD_FOCUS bigger, and the grow/shrink on
+         cycling is the same continuous function read correctly. */
       const det = sl.track.details;
       if (!det) return;
       det.slides.forEach((sd, i) => {
         const inner = sl.slides[i]?.firstElementChild as HTMLElement | null;
         if (!inner) return;
-        const t = Math.min(1, Math.abs(sd.distance));
-        inner.style.transform = `scale(${(1 - 0.08 * t).toFixed(4)})`;
+        const off = sd.distance - (1 - sd.size) / 2;
+        const t = Math.min(1, sd.size > 0 ? Math.abs(off) / sd.size : 1);
+        inner.style.transform = `scale(${(1 - CARD_FOCUS * t).toFixed(4)})`;
         /* Juror pass 7 (M9): scale about the edge NEAREST the active card, so
            the neighbour recedes away from the centre and the layout peek
            (16.8 px at 360, 19 px at 390) stays fully visible — about its own
            centre the near edge slid 12 px inward and the peek read as 5–7 px.
            Bottoms stay aligned (origin on the bottom edge). */
-        inner.style.transformOrigin = sd.distance > 0.02 ? "left bottom" : sd.distance < -0.02 ? "right bottom" : "center bottom";
+        inner.style.transformOrigin = off > 0.01 ? "left bottom" : off < -0.01 ? "right bottom" : "center bottom";
       });
     },
   });
