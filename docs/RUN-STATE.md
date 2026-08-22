@@ -7,9 +7,14 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**v9 IN FLIGHT (Wil's 8/21 round).** Plan: the approved v9 plan file. Three
-corrections to v8 (study out of the plaque card, drawer close button, the
-end-of-hall transition) plus eight new items. v8's closing state below.
+**v10.2 SHIPPED (Wil's 8/21–8/22 round).** Three items: V10-12 the museum's
+original walk restored with the arch kept · V10-13 the home lockup's air made
+a shrinkable spacer · V10-14 the map's phone overview camera given a reachable
+zoom floor. Guide: `docs/v10/REVIEW-GUIDE.md`. Scope ledger (every change ↔ a
+verbatim quote): `docs/v10/SCOPE.md`.
+
+**v9 — COMPLETE.** Three corrections to v8 plus eight new items. v8's closing
+state below.
 
 **v8 — RUN COMPLETE (P1–P7).** All 40 audit items shipped across 11 commits on
 `v2` (mirrored to `claude/nalle-memorial-polish-kc4uvm`). Final gate:
@@ -27,9 +32,14 @@ shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
 (self-daemonized).
 
 ## CURRENT ITEM
-v9 implemented and pushed; docs/v9/REVIEW-GUIDE.md written. Open: the
-painting titles and the high-res splash source (both Wil's), plus two
-fixes only he can confirm (the iOS black bars, the iPhone home rag).
+v10.2 implemented, measured and pushed; docs/v10/REVIEW-GUIDE.md written.
+Open and Wil's: the ten painting titles (his `masters/` filenames carry them —
+"Holeur's Fashionable Bakery", "The Commissioner's Office pt1/pt2", "Uri
+Gilbert's Mansion", "Washington Street Ferry Landing", "Peter Baltimore's
+Barbershop" — but the site's media keys are still generic and I have NOT
+assumed), the high-res splash source, and one decision: the "Take the walk"
+pill covers the Mapbox wordmark (measured y 721.7 over 715.3–733.0; he did not
+pick it when asked, so it is raised in the guide, not changed).
 
 ## v8 (previous run)
 RUN COMPLETE. Every item in docs/v8/AUDIT.md is implemented, measured and
@@ -37,15 +47,16 @@ pushed; docs/v8/REVIEW-GUIDE.md carries the item-by-item report, the
 instrument bars, the judgement calls and the human queue.
 
 ## NEXT ACTION
-Nothing outstanding in this run. The open items are Wil's (REVIEW-GUIDE
-§4): the ≥2160px home-bg.png + ≥1080px splash film, the People subtext
-wording, the alive-window feel, the bakery moral's drawing provenance,
-the 1858 crop parity, and a live check of perf + the map curtain (both
-unmeasurable in this container).
+Nothing outstanding in this run. Waiting on Wil (REVIEW-GUIDE §3 and §5): the
+Mapbox-attribution decision, the ten painting titles, the high-res splash, and
+a look at the home page on his own phone — both screenshots he sent were
+byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
+830ebe8a… / eb4b848b…), so neither shows it.
 
 ## DONE (item → commit → evidence)
 | item | commit | evidence |
 |---|---|---|
+| v10.2 (Wil 8/21–8/22) — V10-12 museum: ARCHITECTURE kept (arched end wall, archivolt, pilasters, keystone, landing, merged steps), MOTION reverted to the original straight walk (railZ linear again; railPose/SPIRAL_YAW/T_WALK/`descending` deleted; chrome ungated; slot back to 90N+100 at both sites) — arrival is a stop 5.3m short of the arch, the sticky release is the transition · V10-13 home: the top air stops being a share-of-viewport padding and becomes a SHRINKABLE FLEX SPACER (`--home-air` per tier, `::before { flex: 0 1 max(0px, air - gap) }`, siblings min-height:auto so the lockup never shrinks); bottom inset yields too; V10-11's `max(56px, min(30dvh, 75dvh-340px))` retired — measured against the dvh in his OWN screenshot (≈655, not the 664 assumed) that formula fit by 8px · V10-14 map: the phone overview search stopped at zoom 14.70 but a 390×673 phone only fits the walk at 14.60, so short phones fell off the search and took the blind OVERVIEW constant (15.25/33) — floor now 14.2 (the desktop branch's own value); the re-centring loop also set `ok` on every pass and the acceptance test never checked centring (both fixed; measured, neither changes an outcome today — they guard the floor) | 530f46e + e56d9e5 + ca0e785 + (this commit) | museum probe both orientations: z linear 0.40→−50.70 (endZ −56), y/yaw/pitch flat at 9 sampled railT, chrome visible at arrival, retrace exact, 0 page errors; museum-check calls 77/79/77/77/77 ≤80, no composition/chrome findings · home matrix 152 viewports: ≥375 wide (the project floor) 96 viewports 460–932 tall = ZERO overflow, min clearance 20.8px, his own 26.4px; 390×844 air 253.2px unchanged; 320-wide <500 tall still overflows ≤2.4px (desc wraps 7→9 lines — type change, his call) · map framing matrix 16 phone viewports under a stubbed style: 13 converged+centred (dx≈0, dy −0.2) vs 4 before; 390×673 15.25/33 fallback → 14.60/52 with all five stops in frame (the old fallback put THREE off-screen) · rag 0/0/0 · a11y 0/0/0 across 51 runs · tsc + build clean, 6 island-CSS guards |
 | v9 (Wil 8/21) — CORRECTIONS to v8: V9-102 study out of the plaque card (it duplicated the wall study) + Part 2 finally hangs its own (wall study chosen per WORK, not per chapter; 6 works not 5) · V9-103 drawer close = real round 44×44 button centred above the content (17/18px air), not a corner ghost · V9-104 the hall ENDS ON THE LAST PAINTING — v8 walked 7m past it to a blank wall then down steps ("a weird white wall with a bunch of dots… stuck scrolling"): descent deleted, arch kept as far-end architecture/light source, tail is a bloom+dissolve whose outer edge is the page ground so the grid scrolls up seamlessly; slot back to 90N+100. NEW: V9-101 pitch −0.19/−0.155 · V9-201 where-to-next (pin = canonical, line beneath = "Chapter N", LOCATION NN marker dropped) · V9-202 cream fade both edges on all 5 historical-context plates (the "pale band on a dark painting" risk I flagged does NOT occur — every plate is a light archival photo) · V9-203 study caption side air · V9-204 hook rows left-aligned in a centred block · V9-205 full 1858 credit one line ≥390 (needed 370px, chip gave 351: tracking .055em + 8px padding + shallower inset; 375/360 wrap, allowed) · V9-206 phone lens opens further left · V9-301 viewport-fit=cover + grounded html/map-shell (the black bars) · V9-302 curtain honours authored breaks → "The / Paintings" · V9-303 menu double-divider REPRODUCED and fixed (close button scrolled away, its border-b resting under the panel border; now sticky) · V9-401 phone home balanced (air above 312→253, below 24→86; head lifted scale 1.2; CTA unpinned) · V9-402 rag: the paragraph had BOTH authored breaks AND text-wrap:balance — engines disagree, hence Pixel-perfect/iPhone-wrong; balancing off where breaks are authored (the measure was NOT the cause: 19% headroom, measured before changing anything) | 8fc9509 + 3957d9f + (this commit) | rag 0/0/0 full matrix · contrast 0 failures · a11y 0/0/0 across 51 runs incl. RM + zoom200 · draw calls 79 land / 77 else ≤80 (Part 2 study hit 81; the 3 step treads merged to ONE mesh returned 2 calls, appearance unchanged) · curtain probe: 2 <p> "The"/"Paintings" · menu bug reproduced then fixed at 390×640 · credit 1 line at 390/412/430, 2 at 375/360 · home probe 5 widths |
 | P5 batch 4 — V8-327 arch + stairs (the end wall is ONE ShapeGeometry with an arched cutout — ARCH_W 1.9, spring 2.0, apex 2.95 — plus archivolt, two pilasters and a keystone; the wall masks the glow plane, so the old "white rectangle" becomes an arch of light with no new texture; glow widened to 7.4×5.6 at endZ−3.4 so it fills the frame once you are through; steps rebuilt 0.16 rise / 0.5 run descending 0.48m with treads lighter than the landing; railZ() → piecewise railPose(railT) with T_WALK DERIVED from walk vs descent distance (0.875) so the speed never changes at the hand-off; chip/Skip/Face-forward unmount and the dots fade while descending; slot 90N+100 → 90N+160vh at BOTH sites; hook exposes descending/tWalk/endZ) | (this commit) | arch probe at railT 0/.5/.86/.93/.97/1 × 1440+390: z −49.8 → −58 (past endZ −56), y 1.55 → 1.07 (0.48 exactly), pitch dips −0.219 then settles, dots opacity 1 → 0, Skip gone, 0 page errors; museum-p5f calls 77 (79 land) ≤ 80, no composition/chrome findings; at rail END the fps findings fall to 14/240 (390) — past the arch only 3 objects draw, which independently confirms the fps ceiling is this container's software-GL scene cost |
 | P5 batch 3 — V8-325 frames (the canvas floated 105mm proud of the innermost ring, so obliquely each painting read as a slab with brown flanks: depths are now authored as "how far this face stands into the room" and step in 15mm — moulding 20 / lip 35 / slip 50 / canvas 60, i.e. 10mm proud, a shadow line instead of a wall; in-plane steps widen to 340/180/70mm for a slightly richer profile; the study frame takes the same idiom. FIRST attempt inverted the order (moulding most proud) and the solid boxes occluded every painting — caught by the oblique shot, not by any assertion) + a Face-forward duplicate at ≥1024 (V8-322's `lg:hidden` sat on a `.btn-sm`, whose unlayered `display:inline-flex` beats Tailwind's layered utility — the utility now rides a bare span; only instance in the codebase) | (this commit) | museum-p5e: calls 74 (76 land) ≤80, ZERO composition/chrome findings; frame shots hall/oblique/mid at 1440+390 before vs after; face-forward probe = exactly 1 visible at 390/768/1024/1440, at the authored corner |
@@ -80,6 +91,29 @@ unmeasurable in this container).
   Chromium).
 - `scroll-behavior: smooth` is on — instruments scroll with
   `behavior: "instant"`.
+- ENV: **iOS Safari's chrome takes ~190 CSS px**, so `100dvh` on a 390×844
+  iPhone is ≈ **655**, not 844 and not the 664 v10 assumed — measured off Wil's
+  own screenshot (frame 635 tall + the 20px p-2.5 inset). Any home- or map-page
+  measurement run at the device's full height is measuring a viewport that does
+  not exist; the phone matrices must use real dvh values. The map's overview
+  search failing on short phones (V10-14) was this same 190px, one layer down.
+- INSTRUMENT: the home page's entry choreography (`home-rise`, staggered to
+  seq 5) plays once on load. Measuring through it reports phantom 22px offsets —
+  that is `translateY(22px)` mid-flight, not a layout bug. Settle first:
+  `await page.evaluate(() => Promise.all(document.getAnimations().map(a => a.finished.catch(() => {}))))`.
+- INSTRUMENT: the map's overview arrives on a 2s `easeTo`. Sample only once the
+  camera is at rest (poll centre/zoom/pitch unchanged for ~6 ticks AND
+  `!map.isMoving()`), or every reading is mid-ease.
+- ENV/INSTRUMENT: `qa:walk` CANNOT run here — api.mapbox.com is proxy-blocked,
+  so the style never loads ("Style is not done loading" ×8 viewports). Map
+  geometry is verified instead with a Playwright route-stub style: fulfil
+  `**/styles/v1/**` with a minimal `{version:8, sources:{}, layers:[background]}`
+  and 204 everything else on mapbox.com. **Playwright matches routes
+  LAST-registered-first**, so register the catch-all FIRST and the style route
+  LAST or the stub never lands. Under the stub `project`/`unproject`/
+  `cameraForBounds` are all real, which is everything the camera search needs.
+  Do NOT commit a walk.md produced by a blocked run — it replaces good evidence
+  with an environment failure.
 
 ## BLOCKED / NOTES
 - V8-101 needs the high-res `home-bg.png` (≥2160w) + splash film ≥1080w
