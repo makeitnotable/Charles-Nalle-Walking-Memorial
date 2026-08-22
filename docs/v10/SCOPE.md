@@ -27,6 +27,7 @@ what actually caused that; it was not context loss.
 | V10-09 | "the experience of scrolling up does not bring you back into the Hall in a seamless way" | The descent must retrace exactly on up-scroll; tested explicitly. |
 | V10-12 | "The the motion, animation and transition from the very, very first one, but we keep the arch. Walk to the end arrive at the arch, then get pushed down into the next section" | The hall's ARCHITECTURE stays — arched end wall, archivolt, pilasters, keystone, landing, steps. The MOTION reverts to the original straight walk: no step-through, no descent, no turn. Arrival is a stop facing the arch; the sticky stage then releases and the stills come up from below. |
 | V10-13 | "Positioning for the map and fix for the homepage now you can see what I can see" (+ the iPhone screenshot of the CTA outside the frame) | The home lockup's top air becomes a shrinkable flex spacer, so it yields to the content instead of predicting it; the bottom inset yields with it. Supersedes V10-11's formula, which fit by 8px. |
+| V10-14 | "Positioning for the map and fix for the homepage now you can see what I can see" — and, asked which map positioning he meant, he chose **the map's framing** | The phone overview camera's zoom floor drops 14.70 → 14.2 (the desktop branch's own value), so short phones find a real camera instead of falling back to the blind OVERVIEW constant; the search must also converge and land centred before it is accepted. |
 
 ## B · Not requested — mechanical necessities, disclosed
 

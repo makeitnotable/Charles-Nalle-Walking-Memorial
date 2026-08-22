@@ -507,16 +507,51 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       /* Phones: cameraForBounds under pitch is far too conservative (zoom ~14.3
          for a walk that fits at ~15.0), so search directly — the highest zoom
          at which the projected chip box fits the safe box, re-centred through
-         unproject (twice: perspective makes the first shift approximate). */
+         unproject.
+
+         v10.2 V10-14 (Wil, 8/21, choosing "the map's framing" off his iPhone
+         screenshot). Three defects, none of them a tuning value — and it was
+         the third that produced what he photographed:
+
+         1. The re-centring loop set `ok` on EVERY pass, so a camera that never
+            converged was accepted anyway — and under pitch a single shift is
+            non-linear and routinely overshoots, so three passes rarely
+            converged. It now runs to convergence or gives up on that zoom.
+         2. The acceptance test asked only whether the five pills FIT the safe
+            box and missed each other, never whether the group was CENTRED — so
+            the first zoom at which they merely fitted would win, however far
+            off-axis. (Measured, 1 and 2 change no viewport's outcome today:
+            wherever the search succeeds it already converges to within a pixel.
+            They are the guard that keeps 3 honest as the geometry moves.)
+
+         3. The zoom floor. The
+            search stopped at 14.70, but a 390x673 phone — a 390x844 device once
+            Safari's ~190px of chrome is taken — only fits the walk at 14.60,
+            and a 375x667 one at 14.60 too. Those phones therefore fell off the
+            search entirely and took the blind OVERVIEW constant (15.25 / 33
+            degrees, centred on the stops' raw centroid), which is exactly the
+            low-and-left composition in his screenshot. Only viewports 715px and
+            taller ever found a real camera. The floor is now 14.2 — the value
+            the desktop branch below has always used — so every phone finds one.
+            The search still takes the HIGHEST zoom that fits, so a lower floor
+            can only rescue a viewport, never loosen one that already worked.
+
+         A camera that fits but will not centre is still better than the blind
+         OVERVIEW constant, so the best such near-miss is kept as a floor: this
+         can tighten the framing, never lose it. */
+      const CENTRE_TOL = 8; // px — half a pill's leading, below the eye's notice
+      const PASSES = 8;
+      const ZOOM_FLOOR = 14.2;
       const centroid: [number, number] = [
         stops.reduce((a, st) => a + st.coordinates[0], 0) / stops.length,
         stops.reduce((a, st) => a + st.coordinates[1], 0) / stops.length,
       ];
+      let fitOnly: typeof OVERVIEW | null = null;
       outerN: for (const pitch of PITCHES) {
-        for (let zoom = OVERVIEW.zoom; zoom >= 14.7; zoom -= 0.05) {
+        for (let zoom = OVERVIEW.zoom; zoom >= ZOOM_FLOOR; zoom -= 0.05) {
           let center: [number, number] = centroid;
           let ok = false;
-          for (let pass = 0; pass < 3; pass++) {
+          for (let pass = 0; pass < PASSES; pass++) {
             map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
             /* v8 V8-207: phones carry PILLS now — fit their real rects, not
                the old ±12 dot boxes. */
@@ -528,7 +563,6 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             if (Math.abs(shift.x) < 1 && Math.abs(shift.y) < 1) { ok = true; break; }
             const c = map.unproject([w / 2 - shift.x, h / 2 - shift.y]);
             center = [c.lng, c.lat];
-            ok = true;
           }
           if (!ok) continue;
           map.jumpTo({ center, zoom, pitch, bearing: OVERVIEW.bearing });
@@ -541,11 +575,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               if (Math.min(a.x1, c.x1) - Math.max(a.x0, c.x0) > 0 && Math.min(a.y1, c.y1) - Math.max(a.y0, c.y0) > 0) { apart = false; break; }
             }
           if (inside && apart) {
-            chosen = { center, zoom: +zoom.toFixed(2), pitch, bearing: OVERVIEW.bearing };
-            break outerN;
+            const bx = (Math.min(...rs.map((r) => r.x0)) + Math.max(...rs.map((r) => r.x1))) / 2;
+            const by = (Math.min(...rs.map((r) => r.y0)) + Math.max(...rs.map((r) => r.y1))) / 2;
+            const centred =
+              Math.abs(bx - (safe.x0 + safe.x1) / 2) <= CENTRE_TOL && Math.abs(by - (safe.y0 + safe.y1) / 2) <= CENTRE_TOL;
+            const cam = { center, zoom: +zoom.toFixed(2), pitch, bearing: OVERVIEW.bearing };
+            if (!fitOnly) fitOnly = cam;
+            if (centred) {
+              chosen = cam;
+              break outerN;
+            }
           }
         }
       }
+      chosen = chosen ?? fitOnly;
     } else {
       outer: for (const pitch of PITCHES) {
         const cam = map.cameraForBounds(b, {
