@@ -11,7 +11,7 @@ export interface AboutSection {
 
 export const about = {
   project: {
-    header: "About the Project",
+    header: "About\nthe Project",
     kicker: "Overview",
     paragraphs: [
       "The Charles Nalle Walking Memorial website and walking tour, kicked off in the fall of 2022, is the result of a collaborative project between Rensselaer Polytechnic Institute’s Design, Innovation, and Society Studio B students, the City of Troy, and the Hart Cluett Museum.",

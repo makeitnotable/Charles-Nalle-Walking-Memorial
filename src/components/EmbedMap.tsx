@@ -44,13 +44,21 @@ function markerEl(label: string, order: number, href?: string): HTMLElement {
     root.style.textDecoration = "none";
   }
   /* v8 V8-204 (Wil, 00:16:19): with Continue gone the pill IS the section's
-     one primary orange — the tag runs solid (the /map active-marker idiom:
-     orange ground, dark ink, dark numeral chip). */
+     one primary orange — the tag runs solid.
+
+     v11 item 4 (Wil, 8/22): "make the numbered circle to the left of the pin
+     name/label orange, with the number in our brown/black color. Use the same
+     styling we use for a selected map pin on the map page." So this is now a
+     verbatim copy of /map's selected marker rather than an inversion of it:
+     pill on primary-9 (#f26835), chip on primary-10 (#e45b27), numeral on
+     primary-2. The pill has to move 10 → 9 for that to be legible at all — an
+     orange chip on an orange pill of the SAME value is invisible, and the
+     two-tone step is exactly what makes the /map pin read. */
   root.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="display:flex;align-items:center;justify-content:center;padding:8px 12px 8px 8px;border-radius:30px;background:var(--color-primary-10);color:var(--color-primary-2);border:1px solid var(--color-primary-10);font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
-        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:8px;background:var(--color-primary-2);width:20px;height:20px">
-          <p style="color:var(--color-primary-10);font-size:11px;margin:0;line-height:1;font-weight:700">${order}</p>
+      <div style="display:flex;align-items:center;justify-content:center;padding:8px 12px 8px 8px;border-radius:30px;background:var(--color-primary-9);color:var(--color-primary-2);border:1px solid var(--color-primary-9);font-family:var(--font-chrome),serif;font-weight:400;white-space:nowrap">
+        <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:var(--color-primary-10);width:20px;height:20px;flex:none">
+          <p style="color:var(--color-primary-2);font-size:11px;margin:0;line-height:1;font-weight:600">${order}</p>
         </div>
         <p style="font-size:${font}px;line-height:18px;margin:0;letter-spacing:0.06em;text-transform:uppercase">${label}</p>
       </div>

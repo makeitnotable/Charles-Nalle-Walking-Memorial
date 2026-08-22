@@ -198,6 +198,27 @@ sections.push({ key: "onward", rail: "Onward" });
    the first line is the kicker on the Part-2 painting hero. */
 const partKicker = (label: string) => label.split("\n")[0].trim();
 
+/* v11 item 3 (Wil, 8/22): "in the second quote section below the Part 2 hero
+   section, remove `Part 2` so the text above the quote reads `the mob`. The
+   `Part 2` text under the Location 02 label in the hero section can stay."
+
+   The label is Kathy's authored content and stays exactly as written in the
+   JSON — this is a rendering rule, not a copy edit: where a scene label opens
+   with a bare `Part N` line, the SCENE HOOK prints only what follows, while
+   the hero kicker above still takes that first line. One source, two crops.
+
+   Scoped to scenes AFTER the first, which is what he asked for and also the
+   only place it is right: scene 2 is preceded by the Part-2 painting hero,
+   which already says "Part 2" a screen earlier, so the hook repeats it. Scene
+   1 has no such hero above it — the chapter hero carries the chapter's name —
+   so its "Part 1" is the only place that number appears and it stays. */
+const sceneHeading = (label: string, index: number) => {
+  const lines = label.split("\n");
+  return index > 0 && lines.length > 1 && /^Part\s+\d+$/i.test(lines[0].trim())
+    ? lines.slice(1).join("\n")
+    : label;
+};
+
 /* The hero's first paint is its poster, so the poster IS the LCP. It is
  * rendered as a real responsive <img> beneath the film (a <video poster>
  * attribute takes a single URL and cannot be art-directed or served as AVIF).
@@ -392,7 +413,17 @@ const focus =
             <div class="absolute inset-x-0 bottom-0">
               <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
                 <p class="t-meta">Location {pad2(c.order)} · continued</p>
-                <p class="t-title mt-4">{partKicker(c.scenes[b.i].label)}</p>
+                {/* v11 item 3 (Wil, 8/22): "maybe we should size it up to the
+                    next level in our type ramp/scale, figure out what looks
+                    better same size vs bigger and apply it." Rendered both at
+                    1440 and 390: at t-title (56/34) the kicker reads timid
+                    against a full-bleed painting; one rung up at t-display
+                    (88/46) it carries the hero the way the chapter's own H1
+                    does, and nothing collides — the eyebrow above it is meta
+                    and the lockup keeps its bottom inset. Sized up. */}
+                <p class="t-display mt-4" style={fitChars(partKicker(c.scenes[b.i].label))}>
+                  {partKicker(c.scenes[b.i].label)}
+                </p>
               </div>
             </div>
           </section>
@@ -408,7 +439,7 @@ const focus =
                   to each other, the block centred in its column. Desktop
                   (1024+) keeps its original left-set layout. */}
               <div class="scene-hook">
-                <h2 class="t-title lines"><Lines text={c.scenes[b.i].label} /></h2>
+                <h2 class="t-title lines"><Lines text={sceneHeading(c.scenes[b.i].label, b.i)} /></h2>
 
                 {/* v7 C6: the opening quote is the heading's companion — one
                     block-gap, not a whole beat, between them. */}

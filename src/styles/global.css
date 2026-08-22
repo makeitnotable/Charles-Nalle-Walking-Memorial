@@ -680,9 +680,27 @@ h3 {
 }
 
 /* A numbered section: one full-width hairline, then the label/content grid. */
+/* v11 item 11 (Wil, 8/22, redlined screenshot): "the space between the top of
+   the content and the divider line feels too tight. If we increase the top
+   spacing by moving all content below the divider line down slightly — without
+   increasing the space below the content — the section should breathe more."
+
+   Measured before: 57px from the rule to the first line of content against
+   ~200px below it at desktop (128 at base) — a 1:3.5 ratio, which reads as
+   cramped rather than as the intended asymmetry. The rule's own padding is the
+   only lever that moves EVERYTHING below it without touching the section's
+   bottom rhythm, because `.sec` only ever sets `margin-top`. Raised to sp-4 /
+   sp-5, which lands the gap at 73 / 97 / 97–109 against 128 / 168 / 200 — a
+   steady ~1:1.75 at every width. Applies to the chapter sections, About and
+   People alike, all of which share this head. */
 .sec-head {
   border-top: 1px solid var(--hairline);
-  padding-top: var(--sp-3);
+  padding-top: var(--sp-4);
+}
+@media (min-width: 768px) {
+  .sec-head {
+    padding-top: var(--sp-5);
+  }
 }
 
 /* The label-left / content-right editorial grid (museos). Collapses to a

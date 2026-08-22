@@ -12,6 +12,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { about } from "../data/about";
 import { withBase } from "../lib/url";
 import { nbsp } from "../lib/text";
+import Lines from "../components/Lines.astro";
 import route from "../data/route.json";
 
 /* v7 A2: the walk's size, computed exactly as map.astro does — never hardcoded. */
@@ -40,8 +41,12 @@ const [QUOTE_BOOK, QUOTE_SUBTITLE] = about.closingQuote.source.split(": ");
 >
   <header class="shell page-open">
     <p class="t-meta">{about.project.kicker}</p>
+    {/* v11 item 6 (Wil, 8/22): "add a line break to the page title and place
+        `the project` underneath `about`" — the header is authored with the
+        break now, and `Lines` renders each authored line in its own box (the
+        same machinery every other display heading on the site uses). */}
     <h1 class="t-display lines mt-8" style={`--fit-chars: ${Math.max(...about.project.header.split("\n").map((l) => l.trim().length))}`}>
-      {about.project.header}
+      <Lines text={about.project.header} />
     </h1>
   </header>
 
