@@ -1,4 +1,4 @@
-# Contrast sweep — http://localhost:4321
+# Contrast sweep — http://localhost:4331
 
 AA bar: 4.5:1 (3:1 large). Style rows: computed colour over the nearest opaque background. Pixel rows: text hidden, background screenshotted and sampled under each line — ratio shown as **min / p10**; the gate uses p10.
 

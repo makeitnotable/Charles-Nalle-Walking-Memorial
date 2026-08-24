@@ -169,3 +169,41 @@ byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
   are the working gates here; real frame pacing goes to the live check.
   (Worktree probes need `server.fs.allow` pointing at the main clone —
   the symlinked node_modules otherwise 403s and the run is vacuous.)
+
+## v11.2 — mobile chrome (traps worth keeping)
+- ENV/INSTRUMENT: **edge sampling MUST run against `astro preview`, never
+  `astro dev`.** `astro-dev-toolbar` is a fixed element across the bottom of the
+  viewport, so in dev every bottom-edge sample is the toolbar and not the page —
+  it sent the first three passes of the tint work chasing a ground that was not
+  there. `npm run build && npm run preview -- --port 4331`, then
+  `npm run qa:bleed -- --base http://localhost:4331`.
+- INSTRUMENT: **`qa:shots` cannot prove a visual no-op on this site.** Two runs
+  of the SAME build differ in 60 of 155 captures — /paintings is a live three.js
+  hall on SwiftShader, and the reveal/lazy-media pages settle differently run to
+  run. Establish the noise floor first (capture twice, diff those) or the change
+  cannot be separated from a frame. For a CSS declaration, ask the DOM instead:
+  snapshot computed paint, flip the declaration in the SAME page instance,
+  snapshot again — no timing, no frames, no noise.
+- TRAP: comparing computed colours across a toggle catches TRANSITIONS mid-
+  flight and serialises the same colour two ways (`color(srgb …)` against the
+  `oklab(…)` interpolation space). `.walk-seg` read as 3 differences that were
+  not differences. Inject
+  `*,*::before,*::after{transition:none !important;animation:none !important}`
+  first.
+- TRAP: a band's MEAN is not its ground — a row of body text dragged /map's
+  edges 47–86 away from a page that was in fact seamless. Take the MODE of the
+  band, quantised.
+- TRAP: sample edges **4px in**. The walk rail is a 3px hairline pinned to the
+  top of every chapter page; row 0 measures the rail, not the page.
+- TRAP: `getComputedStyle().getPropertyValue("--x")` returns the substituted
+  TOKEN STREAM, not a resolved length. Four islands `parseFloat` `--ui-inset`;
+  the moment it became a `max()` they would have read NaN and fallen back to
+  20px at every width. `@property --ui-inset { syntax: "<length>" }` is what
+  keeps them working.
+- ENV: Chromium reports **no safe-area insets**, so `env(safe-area-inset-*)` is
+  always 0px here. The growth half of the lane is proved by standing a 47px
+  inset in env()'s place with an injected `max()` and watching the anchors
+  follow; the real thing goes to a phone.
+- ENV: mobile browser chrome — its tint, and whether it retracts — **cannot be
+  observed in this container at all**; headless Chromium has no address bar.
+  Every precondition is measured (`qa:bleed`); the chrome itself goes to Wil.

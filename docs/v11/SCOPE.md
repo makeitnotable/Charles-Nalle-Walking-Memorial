@@ -38,3 +38,33 @@ a desktop map screenshot.
 ## C · Open with Wil
 
 Tracked in the review guide; nothing here is decided unilaterally.
+
+---
+
+# v11.2 scope ledger — the mobile chrome round (Wil, 8/24)
+
+Same rule. Round: two sentences, plus one answer to a question I asked.
+
+## A · Requested changes
+
+| ID | Verbatim | Change |
+|---|---|---|
+| V112-01 | "make sure that on mobile regardless of the browser that someone is using or the device they are on iOS or android at the website is always full screen and the browser tool bar, and address bar allow the website to be full bleed or transparent, so that the website and it's feel bleed." + "Every page on the site should be full bleed." + "the browsers address and tool bars should be made the same color as the home screens background" | `theme-color` follows the page. Both viewport edges are read on every scroll; agreement decides the tint, and on disagreement an edge under a painting yields to the clear one, else the ground owning more of the centre line wins. Measured on the production build, 183 screens × 2 bar faces: **57 visible bars → 0**. No new colour: every value is a background this stylesheet already paints. |
+| V112-02 | same sentence — "full bleed **or transparent**" | The one context where a browser allows genuine transparency: `mobile-web-app-capable`, `apple-mobile-web-app-capable` and `apple-mobile-web-app-status-bar-style=black-translucent`. The manifest already asked for `display: standalone` with nothing telling iOS to honour it. Zero effect in a normal tab. |
+| V112-03 | "When scrolling the address bar and the toolbar should disappear when they scroll up they should reappear." | **Measured, and nothing needed changing.** The plan was to move `overflow-x: clip` off the root on the theory that a constrained root scroller was suppressing retraction. It is not: `clip` does not force the other axis to `auto` the way `hidden` does, so `html`'s `overflow-y` computes `visible`, the root IS the scroller, and all ten scrolling routes have runway (400–13320px) and scroll it. 0 of 11 blocked. The edit would have been churn on a hypothesis the numbers had already killed. |
+| V112-04 | "It should remain unchanged and fill the entire viewport above the browsers address and tool bars." (the home page, answering my question) | **Untouched.** `h-dvh` already means exactly the viewport above the bars. It has no runway, so no browser can retract chrome there — that is the cost of the instruction, stated in the review guide rather than worked around. |
+
+## B · Not requested — mechanical necessities, disclosed
+
+| Change | Why | Reversible |
+|---|---|---|
+| `:root { color-scheme: dark }` | Declared nowhere on the site, so the browser was left guessing the page's appearance and dimming the tint it was handed — #100a05 in Wil's photograph against a declared #1d1411. Proved a no-op the strict way (a pixel diff cannot: two runs of the same build differ in 60 of 155 captures): inside one page instance, snapshot the computed paint of every element, flip the declaration, snapshot again. **12 routes · 3880 elements × 16 paint properties · 0 rendered elements change.** | Yes, one line |
+| …and its one real side effect: the desktop scrollbar goes from the OS light track to a dark one | That is what `color-scheme` is for. It matches the page it sits on. Invisible on macOS overlay scrollbars, visible on Windows/Linux. | Yes, same line |
+| `--ui-inset` takes `max(var(--gutter), env(safe-area-inset-*))` | V112-02 hands the page the status bar's pixels; without this the corner menu sits under it. More generally the page has run under the notch since v9 added `viewport-fit=cover` with **nothing** accounting for it — `env()` appeared in one file. Kept as ONE token because that block's whole idea is one lane; per-edge insets would break the alignment that bought. Where insets are 0 the max() **is** `var(--gutter)`, byte for byte — asserted at six widths. | Yes |
+| `@property --ui-inset { syntax: "<length>" }` | Not decoration. TroyMap:485/652/856 and Museum:789 `parseFloat` this token, and an unregistered custom property computes to its token stream — they would have read `"max(40px, 0px, …)"`, got NaN and fallen back to 20px at every width, moving the map's card strip and the museum's sheet on desktop. | Yes, with the line above |
+| `ScrollTrigger.config({ ignoreMobileResize: true })` | Retraction grows `dvh` mid-gesture, and ScrollTrigger's default answer is a full refresh — every start/end re-derived under a moving thumb. Measured across the growth (390×844 → 390×932 at a fixed offset): museum railT drift **0.0000**, chapter lockup scrub monotonic and identical after. | Yes |
+| `scripts/bleed-check.mjs` + `npm run qa:bleed` | The three claims above are only claims without an instrument. It asserts the tint on every screen, the retraction preconditions on every route, and that the lane still resolves to a length and still clears a safe area. | Yes — it is additive, nothing depends on it |
+
+## C · Open with Wil
+
+Carried, plus what only a phone can settle — see the v11.2 review guide.
