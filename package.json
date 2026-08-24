@@ -29,6 +29,7 @@
     "qa:museum": "node scripts/museum-check.mjs",
     "qa:audio": "node scripts/audio-check.mjs",
     "qa:bleed": "node scripts/bleed-check.mjs",
+    "qa:hall": "node scripts/hall-check.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },
