@@ -154,6 +154,10 @@ const notchClass =
       burger.classList.add("hidden");
       panel.classList.remove("hidden");
       if (scrim) scrim.hidden = false;
+      /* v11.3: the scrim dims the whole screen, so the browser's chrome tint
+         (Base.astro's sampler) must re-read the edges — nothing else it
+         listens for fires on a menu toggle. */
+      window.dispatchEvent(new Event("cnwm:chrome"));
       if (!reduced) {
         gsap.fromTo(
           panel,
@@ -181,6 +185,7 @@ const notchClass =
       const done = () => {
         panel.classList.add("hidden");
         if (scrim) scrim.hidden = true;
+        window.dispatchEvent(new Event("cnwm:chrome"));
         burger.classList.remove("hidden");
         if (!reduced) {
           gsap.fromTo(
