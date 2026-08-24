@@ -70,6 +70,21 @@ const canonical = new URL(
     <link rel="apple-touch-icon" sizes="180x180" href={withBase("apple-touch-icon.png")} />
     <link rel="manifest" href={withBase("site.webmanifest")} />
     <meta name="theme-color" content="#1d1411" />
+    {/* v11.2 (Wil, 8/24: "the browser tool bar, and address bar allow the
+        website to be full bleed or transparent"). No web API makes a browser's
+        chrome transparent in a TAB — these two are the one place it is real.
+        `site.webmanifest` already asks for `"display": "standalone"`; iOS needs
+        the capable flag to honour it, and `black-translucent` then hands the
+        page the status bar's pixels instead of reserving them. A memorial
+        opened from a home screen — which is exactly how a QR at a bronze
+        plaque tends to end up — runs edge to edge with no chrome at all. Zero
+        effect in a normal tab. Safe only because --ui-inset now carries
+        env(safe-area-inset-*): without that the corner menu would sit under
+        the status bar the moment this was declared. */}
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Charles Nalle" />
     <script is:inline>
       /* v11.2 (Wil, 8/24): "the browser tool bar, and address bar allow the
          website to be full bleed… Every page on the site should be full bleed."

@@ -759,6 +759,13 @@ const focus =
 
     if (!reduced) {
       gsap.registerPlugin(ScrollTrigger);
+      /* v11.2 (Wil, 8/24): with the chrome retracting on scroll, `dvh` grows
+         mid-gesture and ScrollTrigger's default answer is a full refresh —
+         every start/end re-derived while the reader's thumb is still moving,
+         which is what turns a growing hero into a jump. This option exists for
+         exactly that: ignore the resize a mobile address bar causes, keep
+         honouring a real orientation change. */
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
       /* v7 C2 — the moral's ground drifts against the reader (±6% travel,
          scrubbed, the image oversized so no edge ever shows). Meaningful:
