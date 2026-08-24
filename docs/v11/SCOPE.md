@@ -68,35 +68,3 @@ Same rule. Round: two sentences, plus one answer to a question I asked.
 ## C · Open with Wil
 
 Carried, plus what only a phone can settle — see the v11.2 review guide.
-
----
-
-# v11.3 scope ledger — the seam-and-hall round (Wil, 8/24 afternoon)
-
-Round: five phone screenshots plus two sentences. Timeline fact recorded
-first: the screenshots (12:59–13:08 EDT) predate the v11.2 tint deploy
-(13:58 EDT, run 196) — S2/S3's bars show the build the tint replaced.
-
-## A · Requested changes
-
-| ID | Verbatim | Change |
-|---|---|---|
-| V113-01 | "On every page across the entire site the content should blend seamlessly across every mobile device and the users browser with the the top address bar and bottom toolbar regardless so there is now dark or different colored bar at the top or bottom of the screen." (S1, the chapter hero) | No flat bar colour can match a painting meeting the edge raw, so the page meets the bar halfway: both hero scrims START solid — rgb(29,20,17) held for the hero's first 1%, easing into the existing ramp by 4% — and carry `data-chrome="#1d1411"`, which the tint sampler honours outright. Measured: every hero edge band flat and within Δ1 of the tint at 3 phone widths × 5 chapters (was Δ130–182 against the art). Site-wide, seamless bar faces went 335 → **345 of 366** and art-exempt edges 14 → 4. |
-| V113-02 | same sentence, S3 (menu open) | The tint sampler **composites translucent layers** over the ground beneath (it skipped them; handles rgb() 0-255 and color(srgb) 0-1 serialisations both), and the menu pokes it on open/close. Measured: tint follows the scrim to #150e0a (painted edge #150d0a, Δ1) and restores exactly on close. |
-| V113-03 | S4, the tilted hall ("Here is another bug with the hall") | `dragPitch` is reset only by `recenter()` and the Face-forward test watched yaw alone — one vertical drag tilted the hall ~18° permanently (measured 0 → 0.475 rad, surviving time and scroll). The test now includes \|dragPitch\| > 0.12 (~7°). Pressing Face forward measures back to 0.000. Drag feel untouched. |
-| V113-04 | S4, "SCROLL TO WALK" printed through the dot rail | `tick()` cleared the rail's inline `bottom` to "" with no CSS fallback — bottom resolved to `auto` and the rail fell into static flow after the canvas (measured computed bottom −24px; on an iPhone mid-retraction it lands on the chip). The positioner now always writes an explicit value, and the canvas is out of flow (`position:absolute; inset:0`) so that resting place no longer exists for anything. |
-| V113-05 | (AskUserQuestion, chose "Hall becomes the lead") after S5 showed the header taking 41% of the first screen against the hall's 59% | The title rides OVER the hall on the chapter-hero idiom and withdraws across the first 55% of a viewport; the hall owns 100% of the first screen (measured at five sizes). Reduced motion: static title over the one-viewport fallback painting. |
-
-## B · Not requested — mechanical necessities, disclosed
-
-| Change | Why | Reversible |
-|---|---|---|
-| The hero paintings' top 1% sits under a solid scrim (was 55%) | V113-01: the only way a bar can dissolve into a painting is for the page's own edge to be the bar's colour. It already carried 55% scrim there. | Yes, one gradient stop per hero |
-| The hall's bottom wayfinding (chip below lg, dot rail) is hidden while the title lead covers the first screen, crossfading in as it withdraws | The stage is position:sticky → a stacking context → its z-30 chrome cannot rise above the lead layer and sat half-veiled under the scrim, reading as broken. Yielding is the only clean order; desktop's chip rides the top inset and keeps its instruction. With no script (reduced motion, no JS) the chrome is fully present. | Yes |
-| The museum island addresses its fallback by class (`.museum-fallback`), not ":scope > div" | The slot now carries the title layer; "first div" would have hidden the title instead of the fallback. | Yes |
-| `scripts/hall-check.mjs` + `npm run qa:hall` | Both hall bugs shipped invisible because nothing measured them; the gate asserts the tilt escape, the rail's position (including across a viewport growth), and the lead's geometry. | Yes — additive |
-
-## C · Open with Wil
-
-Carried unchanged (titles, Part-1 study, 3:2 re-frame, Mapbox wordmark, 1858
-plate), plus the five-point phone checklist in the v11.3 review guide.

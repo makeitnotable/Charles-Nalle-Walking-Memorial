@@ -188,9 +188,7 @@ export default function Museum({ works, slotId }: Props) {
     slot.style.height = `${works.length * 90 + 100}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
-    /* v11.3: the slot now also carries the page-title layer, so the fallback
-       is addressed by class, never as "the first div". */
-    const lead = slot.querySelector<HTMLElement>(":scope > .museum-fallback");
+    const lead = slot.querySelector<HTMLElement>(":scope > div");
     if (lead) {
       lead.style.visibility = "hidden";
       lead.setAttribute("aria-hidden", "true");
@@ -274,14 +272,6 @@ export default function Museum({ works, slotId }: Props) {
       stage.appendChild(renderer.domElement);
       renderer.domElement.setAttribute("aria-hidden", "true");
       renderer.domElement.style.display = "block";
-      /* v11.3 (Wil, 8/24 hall screenshot): the canvas must not be in flow. As
-         the stage's only static child, any absolutely-positioned sibling that
-         lost its offsets fell to the flow position AFTER the canvas — one full
-         canvas-height down, which is where the dot rail landed on the chip
-         while the viewport grew mid-retraction. Out of flow, that resting
-         place no longer exists. */
-      renderer.domElement.style.position = "absolute";
-      renderer.domElement.style.inset = "0";
       renderer.domElement.style.touchAction = "pan-y";
 
       const scene = new THREE.Scene();
@@ -1389,24 +1379,13 @@ export default function Museum({ works, slotId }: Props) {
             const vis = Math.max(0, stage.getBoundingClientRect().bottom - sheetRef.current.getBoundingClientRect().top);
             dotsRef.current.style.transition = "none";
             dotsRef.current.style.bottom = `${Math.round(vis) + DOT_GAP}px`;
-          } else {
-            /* v11.3: never clear to "" — there is no CSS fallback, only
-               React's style prop, and clearing erased exactly that. bottom
-               resolved to auto and the rail fell into static flow (measured
-               computed bottom: -24px, clipped below the stage; on an iPhone
-               mid-retraction it landed ON the chip). Always state the resting
-               value instead. */
+          } else if (dotsRef.current.style.bottom) {
             dotsRef.current.style.transition = "";
-            dotsRef.current.style.bottom = "calc(var(--ui-inset) + 4px)";
+            dotsRef.current.style.bottom = "";
           }
         }
 
-        /* v11.3 (Wil, 8/24: the floor filling the screen): dragPitch is its
-           own accumulator, clamped to ±0.5 rad and reset only by recenter() —
-           one vertical thumb-drag tilted the hall ~18° permanently and the
-           escape hatch watched yaw alone, so Face forward never appeared.
-           0.12 rad ≈ 7°: past incidental drift, under a deliberate look. */
-        const away = Math.abs(dragYaw) > 0.35 || Math.abs(dragPitch) > 0.12;
+        const away = Math.abs(dragYaw) > 0.35;
         if (away !== lookedFlag) {
           lookedFlag = away;
           setLookedAway(away);
@@ -1652,7 +1631,7 @@ export default function Museum({ works, slotId }: Props) {
             inset. */}
         {ready && !inApproach && (
           <div
-            className="museum-chip-row pointer-events-none absolute z-30 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
+            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
             {lookedAway ? (
               /* the hiding utility rides a bare SPAN: `.btn-sm { display:

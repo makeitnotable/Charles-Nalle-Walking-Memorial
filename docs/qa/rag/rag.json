@@ -1,6 +1,6 @@
 {
   "base": "http://localhost:4331",
-  "generated": "2026-08-24T20:11:04.800Z",
+  "generated": "2026-08-24T18:11:10.613Z",
   "results": [
     {
       "route": "/",
@@ -1362,51 +1362,6 @@
           "lines": 1,
           "lastWords": 2,
           "lastText": "Harriet Tubman",
-          "ratio": 1,
-          "display": false,
-          "authored": false,
-          "runt": false,
-          "twoWord": false,
-          "gate": false,
-          "clip": null
-        },
-        {
-          "sel": "p.t-meta",
-          "text": "LISTEN",
-          "fontSize": 12,
-          "lines": 1,
-          "lastWords": 1,
-          "lastText": "Listen",
-          "ratio": 1,
-          "display": false,
-          "authored": false,
-          "runt": false,
-          "twoWord": false,
-          "gate": false,
-          "clip": null
-        },
-        {
-          "sel": "p.t-meta-body.max-sm:line-clamp-2",
-          "text": "Commissioner’s Office · Pt 2",
-          "fontSize": 14,
-          "lines": 2,
-          "lastWords": 2,
-          "lastText": "Pt 2",
-          "ratio": 0.16,
-          "display": false,
-          "authored": false,
-          "runt": false,
-          "twoWord": false,
-          "gate": false,
-          "clip": null
-        },
-        {
-          "sel": "span.t-meta",
-          "text": "02:19",
-          "fontSize": 12,
-          "lines": 1,
-          "lastWords": 1,
-          "lastText": "02:19",
           "ratio": 1,
           "display": false,
           "authored": false,
@@ -5358,7 +5313,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 46,
           "lines": 2,
@@ -5366,6 +5321,21 @@
           "lastText": "SERIES",
           "ratio": 0.59,
           "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.inline-block.rounded-full",
+          "text": "SCROLL TO WALK",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Scroll to walk",
+          "ratio": 1,
+          "display": false,
           "authored": true,
           "runt": false,
           "twoWord": false,
@@ -12545,7 +12515,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 46,
           "lines": 2,
@@ -12553,6 +12523,21 @@
           "lastText": "SERIES",
           "ratio": 0.59,
           "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.inline-block.rounded-full",
+          "text": "SCROLL TO WALK",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Scroll to walk",
+          "ratio": 1,
+          "display": false,
           "authored": true,
           "runt": false,
           "twoWord": false,
@@ -19777,7 +19762,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 46,
           "lines": 2,
@@ -19785,6 +19770,21 @@
           "lastText": "SERIES",
           "ratio": 0.59,
           "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.inline-block.rounded-full",
+          "text": "SCROLL TO WALK",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 3,
+          "lastText": "Scroll to walk",
+          "ratio": 1,
+          "display": false,
           "authored": true,
           "runt": false,
           "twoWord": false,
@@ -27009,7 +27009,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 46,
           "lines": 2,
@@ -27017,6 +27017,21 @@
           "lastText": "SERIES",
           "ratio": 0.59,
           "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.inline-block.rounded-full",
+          "text": "SCROLL TO WALK · TAP A PAINTING",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 7,
+          "lastText": "Scroll to walk · tap a painting",
+          "ratio": 1,
+          "display": false,
           "authored": true,
           "runt": false,
           "twoWord": false,
@@ -34241,7 +34256,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 64,
           "lines": 2,
@@ -34249,6 +34264,21 @@
           "lastText": "SERIES",
           "ratio": 0.59,
           "display": true,
+          "authored": true,
+          "runt": false,
+          "twoWord": false,
+          "gate": false,
+          "clip": null
+        },
+        {
+          "sel": "p.t-meta.inline-block.rounded-full",
+          "text": "SCROLL TO WALK · TAP A PAINTING",
+          "fontSize": 12,
+          "lines": 1,
+          "lastWords": 7,
+          "lastText": "Scroll to walk · tap a painting",
+          "ratio": 1,
+          "display": false,
           "authored": true,
           "runt": false,
           "twoWord": false,
@@ -42313,7 +42343,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 64,
           "lines": 2,
@@ -50400,7 +50430,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 88,
           "lines": 2,
@@ -58487,7 +58517,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 88,
           "lines": 2,
@@ -66574,7 +66604,7 @@
           "clip": null
         },
         {
-          "sel": "h1.t-display",
+          "sel": "h1.t-display.lines",
           "text": "THE NALLE SERIES",
           "fontSize": 88,
           "lines": 2,

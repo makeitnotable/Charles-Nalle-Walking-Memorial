@@ -147,23 +147,21 @@ const museumWorks = works.map((w, wi) => {
     { href: withBase("media/commissioners-office/horizontal-pt2-1440.avif"), type: "image/avif", media: "(min-width: 768px)" },
   ]}
 >
+  <header class="shell page-open">
+    <p class="t-meta">The paintings · {works.length} works</p>
+    <h1 class="t-display lines mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
+  </header>
+
   {/* THE MUSEUM (v6 signature). The window is SERVER-rendered at one
       viewport tall — the island expands it after mount, so nothing in view
       ever shifts (Lighthouse caught CLS 0.555 when the wrapper appeared
       client-side). Incapable visitors keep the window as a full-bleed lead
       painting; the grid below is the page either way, and stays the
-      screen-reader surface always.
-
-      v11.3 (Wil, 8/24, on the phone screenshot: chose "Hall becomes the
-      lead"): the page header used to sit ABOVE the hall and took 41% of the
-      first phone screen — the hall got 59%. The title now rides OVER the hall
-      on the chapter-hero idiom (scrim at the base, text-shadow, bottom-left,
-      withdrawn on scroll) and the hall owns the whole first screen. */}
-  <div id="museum-slot" class="relative h-dvh">
+      screen-reader surface always. */}
+  <div id="museum-slot" class="relative mt-16 h-dvh">
     {/* One viewport tall regardless of how far the island expands the slot —
-        the museum's opaque stage paints over it when active. The island hides
-        this by its class, so the title layer below must not be a bare div. */}
-    <div class="museum-fallback absolute inset-x-0 top-0 h-dvh overflow-hidden">
+        the museum's opaque stage paints over it when active. */}
+    <div class="absolute inset-x-0 top-0 h-dvh overflow-hidden">
       <picture>
         <source
           media="(max-width: 767px)"
@@ -186,73 +184,8 @@ const museumWorks = works.map((w, wi) => {
       </div>
       <p class="t-meta absolute bottom-6 left-[var(--gutter)]">Mark Priest · Nalle Series</p>
     </div>
-    {/* The page title over the hall. pointer-events-none — the hall under it
-        is interactive; z-20 sits over the stage's z-10 chrome and under its
-        z-30 rail. ABSOLUTE, not sticky: sticky stays in flow and its 100dvh
-        pushed the island — and the whole hall — one viewport down (measured:
-        canvas top 733 on a 733 screen). Absolute overlays the first viewport
-        and scrolls away like a chapter hero's lockup, with the script below
-        adding the same fade-and-lift. No .lines on the H1: hero legibility
-        must not wait for JavaScript (E7), the chapter heroes' rule. The scrim
-        lives inside the layer so the withdraw takes both. */}
-    <div id="paintings-lead" class="pointer-events-none absolute inset-x-0 top-0 z-20 h-dvh">
-      <div
-        class="absolute inset-x-0 bottom-0 h-[55%]"
-        style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 36%, rgba(29,20,17,.32) 69%, transparent 100%)"
-        aria-hidden="true"
-      >
-      </div>
-      <div class="absolute inset-x-0 bottom-0">
-        <div
-          class="shell paintings-lead-lockup"
-          style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)"
-        >
-          <p class="t-meta">The paintings · {works.length} works</p>
-          <h1 class="t-display mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
-        </div>
-      </div>
-    </div>
     <Museum client:only="react" works={museumWorks} slotId="museum-slot" />
   </div>
-
-  <script>
-    /* v11.3: the lead withdraws the way the chapter hero lockups do — opacity
-       to 0 and a -60px lift across the first 55% of a viewport — but this page
-       carries no GSAP and one effect does not justify it: a rAF-throttled
-       passive listener is the whole machine. Reduced motion: no listener, the
-       title simply scrolls away with the (static, one-viewport) page. */
-    {
-      const lead = document.getElementById("paintings-lead");
-      const slot = document.getElementById("museum-slot");
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (lead && slot && !reduced) {
-        let queued = false;
-        const drive = () => {
-          queued = false;
-          const t = Math.min(1, window.scrollY / (window.innerHeight * 0.55));
-          lead.style.opacity = String(1 - t);
-          lead.style.transform = `translateY(${(-60 * t).toFixed(1)}px)`;
-          lead.style.visibility = t >= 1 ? "hidden" : "";
-          /* the hall's bottom chrome crossfades in as the title leaves —
-             global.css reads this (the sticky stage's stacking context keeps
-             that chrome under this layer, so it must yield, not fight) */
-          slot.style.setProperty("--cnwm-lead", (1 - t).toFixed(3));
-          slot.toggleAttribute("data-lead-covered", t < 0.6);
-        };
-        window.addEventListener(
-          "scroll",
-          () => {
-            if (!queued) {
-              queued = true;
-              requestAnimationFrame(drive);
-            }
-          },
-          { passive: true },
-        );
-        drive();
-      }
-    }
-  </script>
 
   <section class="shell sec pb-8">
     <p class="t-prose reveal">

@@ -207,29 +207,3 @@ byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
 - ENV: mobile browser chrome — its tint, and whether it retracts — **cannot be
   observed in this container at all**; headless Chromium has no address bar.
   Every precondition is measured (`qa:bleed`); the chrome itself goes to Wil.
-
-## v11.3 — the seam-and-hall round (traps worth keeping)
-- TIMELINE: before diagnosing "the fix didn't work" from a user screenshot,
-  compare the screenshot's clock to the deploy's. Wil's five 8/24 screenshots
-  (12:59–13:08 EDT) predate run 196 (13:58 EDT) — they show the build the fix
-  replaced. The Actions run list dates every sha; his phone's clock dates the
-  evidence.
-- LAYOUT: `position: sticky` STAYS IN FLOW. A sticky 100dvh overlay pushed the
-  museum island — and the whole hall — one viewport down (canvas top 733 on a
-  733 screen). Overlays over in-flow siblings are `absolute`.
-- LAYOUT: `position: sticky` also always CREATES A STACKING CONTEXT — the
-  stage's z-30 children can never rise above a later z-20 sibling of the
-  stage, whatever their z-index. Order across a sticky boundary is decided at
-  the boundary.
-- LAYOUT: never clear a JS-positioned element's inline offset to "" unless a
-  CSS fallback exists — with none, `bottom` resolves to `auto` and the element
-  falls into static flow after the last in-flow sibling. Corollary: give a
-  full-bleed canvas `position:absolute; inset:0` so nothing can ever fall
-  "after" it.
-- INSTRUMENT: a lockup whose clearance IS its padding must be collision-tested
-  on the union of its text children — the padded box reaches the screen edge
-  by construction and intersects everything.
-- INSTRUMENT: `npm run qa:hall` (scripts/hall-check.mjs) now gates the tilt
-  escape hatch, the dot rail's position (at rest, walking, in approach, and
-  across a mid-session viewport growth), and the /paintings lead geometry.
-  Needs `astro preview`, same as qa:bleed.

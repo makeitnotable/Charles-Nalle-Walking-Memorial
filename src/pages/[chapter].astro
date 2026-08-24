@@ -255,12 +255,7 @@ const focus =
       which is what the QR filmstrip measures at t=1s. "Scroll to listen" is
       gone (item 25) — the story begins by scrolling, and the page says so by
       being a page. */}
-  {/* v11.3 (Wil, 8/24: "no dark or different colored bar at the top or
-      bottom of the screen"). data-chrome is the value the browser's bars take
-      while this hero fills the screen — matched by construction to the solid
-      start both scrims now carry, so the chrome dissolves into the scrim
-      instead of cutting across the painting. */}
-  <header id="hero" class="relative h-dvh overflow-hidden bg-neutral-2" data-chrome="#1d1411">
+  <header id="hero" class="relative h-dvh overflow-hidden bg-neutral-2">
     <div id="hero-media" class="absolute inset-0" style={`--hero-lift: ${focus.portraitScale}`}>
       {/* The still painting — the LCP, responsive and art-directed. The 480
           tier halves the poster bytes on the QR phone (31KB vs 66KB). */}
@@ -323,7 +318,7 @@ const focus =
         the lockup carries a soft text-shadow as the second lock. */}
     <div
       class="pointer-events-none absolute inset-0"
-      style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgb(29,20,17) 0%, rgb(29,20,17) 1%, rgba(29,20,17,.55) 4%, transparent 18%)"
+      style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
       aria-hidden="true"
     >
     </div>
@@ -366,7 +361,6 @@ const focus =
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
             class="relative h-[82dvh] overflow-hidden bg-neutral-2"
-            data-chrome="#1d1411"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
           >
@@ -413,7 +407,7 @@ const focus =
             />
             <div
               class="pointer-events-none absolute inset-0"
-              style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgb(29,20,17) 1%, rgba(29,20,17,.95) 3%, rgba(29,20,17,.8) 24%, rgba(29,20,17,.36) 44%, transparent 60%), linear-gradient(to bottom, rgb(29,20,17) 0%, rgb(29,20,17) 1%, rgba(29,20,17,.6) 4%, transparent 16%)"
+              style="background: linear-gradient(to top, rgba(29,20,17,.95) 0%, rgba(29,20,17,.8) 24%, rgba(29,20,17,.36) 44%, transparent 60%), linear-gradient(to bottom, rgba(29,20,17,.6), transparent 16%)"
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
