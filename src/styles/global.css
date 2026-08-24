@@ -270,6 +270,14 @@ html {
      ground rather than the browser's default (which reads as a black bar on
      iOS). Body sets --ground per section; html holds the base. */
   background: var(--color-primary-2);
+  /* v11.2 (Wil, 8/24: "Every page on the site should be full bleed"). This was
+     declared NOWHERE, so the browser was left to guess this page's appearance
+     and dimmed the chrome tint it was given — measured #100a05 on his iPhone
+     against a declared #1d1411. Stating it stops the guess. It moves no site
+     colour: every surface here carries an explicit background and there is no
+     `light-dark()` anywhere. It DOES darken the desktop scrollbar, which is
+     disclosed in docs/v11/SCOPE.md §B and is one line to revert. */
+  color-scheme: dark;
 }
 
 /* The layout viewport must never grow sideways: scaled/panned media (Ken
