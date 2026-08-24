@@ -188,7 +188,9 @@ export default function Museum({ works, slotId }: Props) {
     slot.style.height = `${works.length * 90 + 100}vh`;
     /* The server-rendered lead painting (the incapable fallback) sits under
        the opaque stage from now on — hide it from paint and from AT. */
-    const lead = slot.querySelector<HTMLElement>(":scope > div");
+    /* v11.3: the slot now also carries the page-title layer, so the fallback
+       is addressed by class, never as "the first div". */
+    const lead = slot.querySelector<HTMLElement>(":scope > .museum-fallback");
     if (lead) {
       lead.style.visibility = "hidden";
       lead.setAttribute("aria-hidden", "true");
@@ -1650,7 +1652,7 @@ export default function Museum({ works, slotId }: Props) {
             inset. */}
         {ready && !inApproach && (
           <div
-            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
+            className="museum-chip-row pointer-events-none absolute z-30 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
             {lookedAway ? (
               /* the hiding utility rides a bare SPAN: `.btn-sm { display:

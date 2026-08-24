@@ -1,6 +1,6 @@
 {
  "base": "http://localhost:4331",
- "startedAt": "2026-08-24T18:14:48.456Z",
+ "startedAt": "2026-08-24T20:14:43.460Z",
  "runs": [
   {
    "route": "/",
@@ -71,7 +71,7 @@
    "vp": "390",
    "state": "rest",
    "violations": [],
-   "passes": 34,
+   "passes": 33,
    "incomplete": 1
   },
   {
@@ -159,7 +159,7 @@
    "vp": "768",
    "state": "rest",
    "violations": [],
-   "passes": 34,
+   "passes": 33,
    "incomplete": 1
   },
   {
@@ -247,7 +247,7 @@
    "vp": "1440",
    "state": "rest",
    "violations": [],
-   "passes": 34,
+   "passes": 33,
    "incomplete": 1
   },
   {
@@ -304,7 +304,7 @@
    "state": "dialog",
    "violations": [],
    "passes": 11,
-   "incomplete": 1
+   "incomplete": 0
   },
   {
    "route": "/mansion",
@@ -965,7 +965,7 @@
     {
      "n": 3,
      "body": false,
-     "domIndex": 132,
+     "domIndex": 135,
      "tag": "button",
      "id": "",
      "class": "btn-sm.btn-ghost.btn-icon-end",
@@ -980,7 +980,7 @@
     {
      "n": 4,
      "body": false,
-     "domIndex": 142,
+     "domIndex": 145,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -990,12 +990,12 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": false
+     "inViewport": true
     },
     {
      "n": 5,
      "body": false,
-     "domIndex": 145,
+     "domIndex": 148,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1010,7 +1010,7 @@
     {
      "n": 6,
      "body": false,
-     "domIndex": 148,
+     "domIndex": 151,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1025,7 +1025,7 @@
     {
      "n": 7,
      "body": false,
-     "domIndex": 151,
+     "domIndex": 154,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1040,7 +1040,7 @@
     {
      "n": 8,
      "body": false,
-     "domIndex": 154,
+     "domIndex": 157,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1055,7 +1055,7 @@
     {
      "n": 9,
      "body": false,
-     "domIndex": 157,
+     "domIndex": 160,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1070,7 +1070,7 @@
     {
      "n": 10,
      "body": false,
-     "domIndex": 160,
+     "domIndex": 163,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1085,7 +1085,7 @@
     {
      "n": 11,
      "body": false,
-     "domIndex": 163,
+     "domIndex": 166,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1100,7 +1100,7 @@
     {
      "n": 12,
      "body": false,
-     "domIndex": 166,
+     "domIndex": 169,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1115,7 +1115,7 @@
     {
      "n": 13,
      "body": false,
-     "domIndex": 169,
+     "domIndex": 172,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -1130,7 +1130,7 @@
     {
      "n": 14,
      "body": false,
-     "domIndex": 177,
+     "domIndex": 181,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1145,7 +1145,7 @@
     {
      "n": 15,
      "body": false,
-     "domIndex": 183,
+     "domIndex": 187,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1160,7 +1160,7 @@
     {
      "n": 16,
      "body": false,
-     "domIndex": 190,
+     "domIndex": 194,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1175,7 +1175,7 @@
     {
      "n": 17,
      "body": false,
-     "domIndex": 196,
+     "domIndex": 200,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1190,7 +1190,7 @@
     {
      "n": 18,
      "body": false,
-     "domIndex": 203,
+     "domIndex": 207,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1205,7 +1205,7 @@
     {
      "n": 19,
      "body": false,
-     "domIndex": 209,
+     "domIndex": 213,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1220,7 +1220,7 @@
     {
      "n": 20,
      "body": false,
-     "domIndex": 216,
+     "domIndex": 220,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1235,7 +1235,7 @@
     {
      "n": 21,
      "body": false,
-     "domIndex": 222,
+     "domIndex": 226,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1250,7 +1250,7 @@
     {
      "n": 22,
      "body": false,
-     "domIndex": 229,
+     "domIndex": 233,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1265,7 +1265,7 @@
     {
      "n": 23,
      "body": false,
-     "domIndex": 235,
+     "domIndex": 239,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1280,7 +1280,7 @@
     {
      "n": 24,
      "body": false,
-     "domIndex": 242,
+     "domIndex": 246,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1295,7 +1295,7 @@
     {
      "n": 25,
      "body": false,
-     "domIndex": 248,
+     "domIndex": 252,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1310,7 +1310,7 @@
     {
      "n": 26,
      "body": false,
-     "domIndex": 255,
+     "domIndex": 259,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1325,7 +1325,7 @@
     {
      "n": 27,
      "body": false,
-     "domIndex": 261,
+     "domIndex": 265,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1340,7 +1340,7 @@
     {
      "n": 28,
      "body": false,
-     "domIndex": 268,
+     "domIndex": 272,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1355,7 +1355,7 @@
     {
      "n": 29,
      "body": false,
-     "domIndex": 274,
+     "domIndex": 278,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1370,7 +1370,7 @@
     {
      "n": 30,
      "body": false,
-     "domIndex": 281,
+     "domIndex": 285,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1385,7 +1385,7 @@
     {
      "n": 31,
      "body": false,
-     "domIndex": 287,
+     "domIndex": 291,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1400,7 +1400,7 @@
     {
      "n": 32,
      "body": false,
-     "domIndex": 294,
+     "domIndex": 298,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -1415,7 +1415,7 @@
     {
      "n": 33,
      "body": false,
-     "domIndex": 300,
+     "domIndex": 304,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -1430,7 +1430,7 @@
     {
      "n": 34,
      "body": false,
-     "domIndex": 321,
+     "domIndex": 325,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -1445,7 +1445,7 @@
     {
      "n": 35,
      "body": false,
-     "domIndex": 325,
+     "domIndex": 329,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1460,7 +1460,7 @@
     {
      "n": 36,
      "body": false,
-     "domIndex": 330,
+     "domIndex": 334,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1475,7 +1475,7 @@
     {
      "n": 37,
      "body": false,
-     "domIndex": 335,
+     "domIndex": 339,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -1913,7 +1913,7 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": true
+     "inViewport": false
     },
     {
      "n": 10,
@@ -2000,7 +2000,7 @@
     {
      "n": 3,
      "body": false,
-     "domIndex": 132,
+     "domIndex": 135,
      "tag": "button",
      "id": "",
      "class": "btn-sm.btn-ghost.btn-icon-end",
@@ -2015,7 +2015,7 @@
     {
      "n": 4,
      "body": false,
-     "domIndex": 142,
+     "domIndex": 145,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2030,7 +2030,7 @@
     {
      "n": 5,
      "body": false,
-     "domIndex": 145,
+     "domIndex": 148,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2045,7 +2045,7 @@
     {
      "n": 6,
      "body": false,
-     "domIndex": 148,
+     "domIndex": 151,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2060,7 +2060,7 @@
     {
      "n": 7,
      "body": false,
-     "domIndex": 151,
+     "domIndex": 154,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2075,7 +2075,7 @@
     {
      "n": 8,
      "body": false,
-     "domIndex": 154,
+     "domIndex": 157,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2090,7 +2090,7 @@
     {
      "n": 9,
      "body": false,
-     "domIndex": 157,
+     "domIndex": 160,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2105,7 +2105,7 @@
     {
      "n": 10,
      "body": false,
-     "domIndex": 160,
+     "domIndex": 163,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2120,7 +2120,7 @@
     {
      "n": 11,
      "body": false,
-     "domIndex": 163,
+     "domIndex": 166,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2135,7 +2135,7 @@
     {
      "n": 12,
      "body": false,
-     "domIndex": 166,
+     "domIndex": 169,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2150,7 +2150,7 @@
     {
      "n": 13,
      "body": false,
-     "domIndex": 169,
+     "domIndex": 172,
      "tag": "button",
      "id": "",
      "class": "grid.h-6.w-6",
@@ -2165,7 +2165,7 @@
     {
      "n": 14,
      "body": false,
-     "domIndex": 177,
+     "domIndex": 181,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2180,7 +2180,7 @@
     {
      "n": 15,
      "body": false,
-     "domIndex": 183,
+     "domIndex": 187,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2195,7 +2195,7 @@
     {
      "n": 16,
      "body": false,
-     "domIndex": 190,
+     "domIndex": 194,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2210,7 +2210,7 @@
     {
      "n": 17,
      "body": false,
-     "domIndex": 196,
+     "domIndex": 200,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2225,7 +2225,7 @@
     {
      "n": 18,
      "body": false,
-     "domIndex": 203,
+     "domIndex": 207,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2240,7 +2240,7 @@
     {
      "n": 19,
      "body": false,
-     "domIndex": 209,
+     "domIndex": 213,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2250,12 +2250,12 @@
      "outline": "solid 2px rgb(242, 104, 53)",
      "boxShadow": "none",
      "opacity": 1,
-     "inViewport": true
+     "inViewport": false
     },
     {
      "n": 20,
      "body": false,
-     "domIndex": 216,
+     "domIndex": 220,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2270,7 +2270,7 @@
     {
      "n": 21,
      "body": false,
-     "domIndex": 222,
+     "domIndex": 226,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2285,7 +2285,7 @@
     {
      "n": 22,
      "body": false,
-     "domIndex": 229,
+     "domIndex": 233,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2300,7 +2300,7 @@
     {
      "n": 23,
      "body": false,
-     "domIndex": 235,
+     "domIndex": 239,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2315,7 +2315,7 @@
     {
      "n": 24,
      "body": false,
-     "domIndex": 242,
+     "domIndex": 246,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2330,7 +2330,7 @@
     {
      "n": 25,
      "body": false,
-     "domIndex": 248,
+     "domIndex": 252,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2345,7 +2345,7 @@
     {
      "n": 26,
      "body": false,
-     "domIndex": 255,
+     "domIndex": 259,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2360,7 +2360,7 @@
     {
      "n": 27,
      "body": false,
-     "domIndex": 261,
+     "domIndex": 265,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2375,7 +2375,7 @@
     {
      "n": 28,
      "body": false,
-     "domIndex": 268,
+     "domIndex": 272,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2390,7 +2390,7 @@
     {
      "n": 29,
      "body": false,
-     "domIndex": 274,
+     "domIndex": 278,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2405,7 +2405,7 @@
     {
      "n": 30,
      "body": false,
-     "domIndex": 281,
+     "domIndex": 285,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2420,7 +2420,7 @@
     {
      "n": 31,
      "body": false,
-     "domIndex": 287,
+     "domIndex": 291,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2435,7 +2435,7 @@
     {
      "n": 32,
      "body": false,
-     "domIndex": 294,
+     "domIndex": 298,
      "tag": "button",
      "id": "",
      "class": "painting-open.group.block",
@@ -2450,7 +2450,7 @@
     {
      "n": 33,
      "body": false,
-     "domIndex": 300,
+     "domIndex": 304,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta",
@@ -2465,7 +2465,7 @@
     {
      "n": 34,
      "body": false,
-     "domIndex": 321,
+     "domIndex": 325,
      "tag": "a",
      "id": "",
      "class": "inline-block.py-1.underline",
@@ -2480,7 +2480,7 @@
     {
      "n": 35,
      "body": false,
-     "domIndex": 325,
+     "domIndex": 329,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -2495,7 +2495,7 @@
     {
      "n": 36,
      "body": false,
-     "domIndex": 330,
+     "domIndex": 334,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -2510,7 +2510,7 @@
     {
      "n": 37,
      "body": false,
-     "domIndex": 335,
+     "domIndex": 339,
      "tag": "a",
      "id": "",
      "class": "link-meta.t-meta.w-fit",
@@ -2938,10 +2938,6 @@
    "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4331/_astro/mapbox-gl.CUl6-T65.js:1:25028\n    at async htt"
   },
   {
-   "where": "/paintings @390 dialog-keyboard",
-   "text": "pageerror: ReferenceError: Cannot access 'U' before initialization"
-  },
-  {
    "where": "/map @390 reduced-motion",
    "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
   },
@@ -3006,5 +3002,5 @@
    "text": "Error: Failed to fetch https://api.mapbox.com/styles/v1/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft?sdk=js-3.27.0&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw\n    at http://localhost:4331/_astro/mapbox-gl.CUl6-T65.js:1:25028\n    at async htt"
   }
  ],
- "finishedAt": "2026-08-24T18:23:02.738Z"
+ "finishedAt": "2026-08-24T20:22:57.352Z"
 }

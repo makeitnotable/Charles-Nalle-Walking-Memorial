@@ -1042,6 +1042,43 @@ h3 {
     min-height: 44px;
   }
 }
+/* v11.3 — /paintings' title-over-the-hall lockup. The bottom padding is the
+   clearance over the hall's own chrome, measured not guessed: below 640 the
+   wayfinding chip sits at --ui-inset + 44 (32px tall) and the dot rail below
+   it; from 640 the chip leaves the bottom band and only the rail (top edge
+   48px up) remains. The probe asserts a zero-pixel intersection at every
+   width. */
+.paintings-lead-lockup {
+  padding-bottom: calc(var(--ui-inset) + 104px);
+}
+@media (min-width: 640px) {
+  .paintings-lead-lockup {
+    padding-bottom: calc(var(--ui-inset) + 64px);
+  }
+}
+
+/* v11.3 — while the page-title lead covers the hall's first screen, the
+   hall's bottom wayfinding yields to it. The stage is position:sticky, which
+   creates a stacking context, so its z-30 chip and dot rail CANNOT rise above
+   the lead layer — under the lead's scrim they read as broken, half-veiled
+   chrome. The lead's withdraw script drives --cnwm-lead 1→0 on the slot and
+   the chrome crossfades in exactly as the title leaves. Desktop's chip rides
+   the TOP inset, outside the scrim band, so it keeps its instruction. With no
+   script (reduced motion, no JS) the var is unset and the chrome is fully
+   present. */
+#museum-slot nav[aria-label="Works in the hall"] {
+  opacity: calc(1 - var(--cnwm-lead, 0));
+}
+@media (max-width: 1023px) {
+  #museum-slot .museum-chip-row {
+    opacity: calc(1 - var(--cnwm-lead, 0));
+  }
+}
+/* the dots are buttons — invisible must also mean untouchable */
+#museum-slot[data-lead-covered] nav[aria-label="Works in the hall"] {
+  pointer-events: none;
+}
+
 .map-shell {
   position: relative;
   height: 100dvh;
