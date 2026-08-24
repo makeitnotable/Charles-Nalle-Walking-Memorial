@@ -70,6 +70,118 @@ const canonical = new URL(
     <link rel="apple-touch-icon" sizes="180x180" href={withBase("apple-touch-icon.png")} />
     <link rel="manifest" href={withBase("site.webmanifest")} />
     <meta name="theme-color" content="#1d1411" />
+    <script is:inline>
+      /* v11.2 (Wil, 8/24): "the browser tool bar, and address bar allow the
+         website to be full bleed… Every page on the site should be full bleed."
+
+         A browser paints its chrome in ONE colour, and this site has more than
+         one ground — brown (--color-primary-2), the cream reading register
+         (--ground-light) and the hero's near-black. Measured on a 390×844
+         phone, the painted bottom row of the viewport is cream or near-white at
+         four of the sampled scroll depths on a chapter page while the chrome
+         stayed brown: that mismatch IS the black bar.
+
+         So the tint follows the page. The bars sit at the TOP and BOTTOM
+         edges, so only those two grounds can ever match one: a colour that
+         matches the middle of the screen and neither edge is the worst of the
+         three. Both edges are read; when they agree that is the answer, and
+         when they disagree the one that owns more of the centre line wins, so
+         the tint follows the section actually filling the screen and a tie
+         falls to the bottom — where iOS parks its address bar. Nothing here
+         reads a colour this stylesheet does not already paint; there is no new
+         palette value anywhere in it.
+
+         The curtain needs no special case: while it covers, it is the only
+         hit-testable thing on the screen (pointer-events flips to auto), so a
+         page transition tints itself. No JS, or a browser that ignores
+         theme-color: the static meta above stands and nothing regresses. */
+      (function () {
+        var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+        if (!meta || !document.elementFromPoint) return;
+        var last = meta.getAttribute("content"), queued = false;
+
+        function hex(c) {
+          var m = String(c).match(/[\d.]+/g);
+          if (!m || m.length < 3) return null;
+          if (m.length > 3 && Number(m[3]) < 0.999) return null; // not opaque: keep looking
+          return (
+            "#" +
+            m.slice(0, 3)
+              .map(function (n) {
+                return Math.round(Number(n)).toString(16).padStart(2, "0");
+              })
+              .join("")
+          );
+        }
+        var ART = /^(img|video|canvas|svg|picture)$/;
+        /* Returns the flat ground behind a point, and whether a PICTURE is
+           covering it. An edge under a painting cannot be matched by any flat
+           colour, so when only one edge is clear that edge decides the tint. */
+        function groundAt(y) {
+          var el = document.elementFromPoint((window.innerWidth / 2) | 0, y);
+          var art = false;
+          while (el && el !== document.documentElement) {
+            var cs = getComputedStyle(el);
+            if (ART.test(el.tagName.toLowerCase()) || cs.backgroundImage !== "none") art = true;
+            var c = hex(cs.backgroundColor);
+            if (c) return { c: c, art: art };
+            el = el.parentElement;
+          }
+          return { c: hex(getComputedStyle(document.documentElement).backgroundColor), art: art };
+        }
+        function sample() {
+          queued = false;
+          var h = window.innerHeight;
+          if (!h) return;
+          /* 4px in from each edge: the walk rail is a 3px hairline pinned to
+             the top of every chapter page and it is not the page's ground. */
+          var top = groundAt(4), bottom = groundAt(h - 5);
+          var best = (bottom && bottom.c) || (top && top.c);
+          if (top && bottom && top.c && bottom.c && top.c !== bottom.c) {
+            if (top.art !== bottom.art) {
+              /* One edge is under a painting; the clear one is the only bar
+                 face a flat colour can ever meet. */
+              best = top.art ? bottom.c : top.c;
+            } else {
+              /* Two grounds share the screen. Whichever owns more of the centre
+                 line owns the page the visitor is reading; the other is on its
+                 way in or out. Ties keep `bottom`, where iOS parks its bar. */
+              var nTop = 0, nBottom = 0;
+              for (var f = 0.2; f < 0.81; f += 0.2) {
+                var g = groundAt((h * f) | 0);
+                if (!g || !g.c) continue;
+                if (g.c === top.c) nTop++;
+                else if (g.c === bottom.c) nBottom++;
+              }
+              best = nTop > nBottom ? top.c : bottom.c;
+            }
+          }
+          if (best && best !== last) {
+            last = best;
+            meta.setAttribute("content", best);
+          }
+        }
+        function schedule() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(sample);
+        }
+        addEventListener("scroll", schedule, { passive: true });
+        addEventListener("resize", schedule, { passive: true });
+        addEventListener("orientationchange", schedule, { passive: true });
+        addEventListener("pageshow", schedule);
+        addEventListener("load", schedule);
+        if (document.readyState === "loading")
+          addEventListener("DOMContentLoaded", schedule, { once: true });
+        else schedule();
+        /* The curtain covers and uncovers without a scroll, so watch the flag
+           the transition sets rather than waiting for one. */
+        new MutationObserver(schedule).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+      })();
+    </script>
     <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={caslonDisplayWoff2} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={caslonTextWoff2} crossorigin />
