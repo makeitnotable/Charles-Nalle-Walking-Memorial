@@ -1515,8 +1515,40 @@ a.walk-seg:hover {
  *   bottom-right ................. Mapbox attribution
  *
  * No two owners share a lane, so no two can collide. */
+/* v11.2 (Wil, 8/24: "Every page on the site should be full bleed"). The page
+ * has run under the notch and the home indicator since v9 added
+ * `viewport-fit=cover`, and NOTHING accounted for it: `env(safe-area-inset-*)`
+ * appeared in exactly one file, on the museum's top chrome. Full bleed without
+ * the insets means the corner menu, the mini-player and the map's controls sit
+ * under the hardware in landscape, and under the status bar and home indicator
+ * when the memorial is opened from a home screen.
+ *
+ * It stays ONE token, which is this block's whole idea — five opinions became
+ * one lane, and per-edge insets would break the alignment that bought. The lane
+ * simply never gets thinner than the deepest safe area on any edge. Where there
+ * are no insets (every desktop, most Android, and this QA environment) each
+ * env() resolves to 0px and the max() IS `var(--gutter)`: 20 / 40 / 56, exactly
+ * as before, byte for byte.
+ *
+ * `@property` is not decoration here. TroyMap and Museum read this token with
+ * `parseFloat(getComputedStyle(...).getPropertyValue("--ui-inset"))`, and an
+ * unregistered custom property computes to its token stream — they would have
+ * read the literal string "max(40px, 0px, …)", got NaN, and silently fallen
+ * back to 20px at every width. Registered as a <length> it computes to a
+ * resolved length and those four readers keep working. */
+@property --ui-inset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
 :root {
-  --ui-inset: var(--gutter);
+  --ui-inset: max(
+    var(--gutter),
+    env(safe-area-inset-top, 0px),
+    env(safe-area-inset-right, 0px),
+    env(safe-area-inset-bottom, 0px),
+    env(safe-area-inset-left, 0px)
+  );
 }
 
 /* The menu panel is a dialog, not a peer of whatever is behind it. Over the
