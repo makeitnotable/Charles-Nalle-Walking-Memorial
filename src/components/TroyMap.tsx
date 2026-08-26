@@ -563,7 +563,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          can tighten the framing, never lose it. */
       const CENTRE_TOL = 8; // px — half a pill's leading, below the eye's notice
       const PASSES = 8;
-      const ZOOM_FLOOR = 14.2;
+      /* v12 item 16 (Wil, 8/26): "Landscape-phone map framing needs zoom 13.30.
+         Fix it" — the last item of the round, so it accounts for everything
+         above it.
+         A landscape phone is 390px tall: after the top inset and the button
+         lane the safe band is about 218px, and five pills have never fitted in
+         it at 14.2. So this viewport fell off the search exactly the way the
+         portrait phones did before v10.2 lowered the floor for them, and took
+         the same blind OVERVIEW constant — 15.25 / 33 degrees, with three
+         stops off-screen (measured: four of five pills outside the safe box).
+         The floor drops only for SHORT viewports, so portrait phones keep the
+         14.2 they were tuned to and measure byte-identical. As ever the search
+         takes the highest zoom that fits, so a deeper floor can only rescue a
+         viewport, never loosen one that already worked. */
+      const ZOOM_FLOOR = short ? 12.9 : 14.2;
       const centroid: [number, number] = [
         stops.reduce((a, st) => a + st.coordinates[0], 0) / stops.length,
         stops.reduce((a, st) => a + st.coordinates[1], 0) / stops.length,
@@ -650,8 +663,31 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         }
       }
     }
+    /* v12 item 16: a SHORT viewport that still cannot seat five pills without
+       them touching (a 375-tall landscape phone cannot at any zoom — recorded
+       in docs/v10/REVIEW-GUIDE.md, and still true with the floor at 12.9) used
+       to take the blind OVERVIEW constant, which put three of the five stops
+       off the screen entirely. Fitting the bounds instead keeps every stop in
+       frame; the labels may crowd, which walk-check has always accepted on
+       landscape as a pan. Nothing else reaches this branch — every other
+       viewport converges above. */
+    let lastResort: typeof chosen = null;
+    if (!chosen && short) {
+      const fit = map.cameraForBounds(b, {
+        padding: { top: inset + 56, bottom: inset + 76, left: inset + 24, right: inset + 24 },
+        bearing: OVERVIEW.bearing,
+        pitch: PITCHES[PITCHES.length - 1],
+      } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
+      if (fit)
+        lastResort = {
+          center: fit.center as [number, number],
+          zoom: Math.min(fit.zoom as number, OVERVIEW.zoom),
+          pitch: PITCHES[PITCHES.length - 1],
+          bearing: OVERVIEW.bearing,
+        };
+    }
     map.jumpTo(saved);
-    const cam = chosen ?? { ...OVERVIEW, pitch: PITCHES[PITCHES.length - 1] };
+    const cam = chosen ?? lastResort ?? { ...OVERVIEW, pitch: PITCHES[PITCHES.length - 1] };
     camCache.current = { key, cam };
     return cam;
   }, [stops]);

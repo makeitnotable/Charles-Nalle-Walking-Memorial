@@ -26,7 +26,7 @@ Status: `open` → `done` (with the commit) as the round proceeds.
 | V12-15 | Drawer outline stroke (3.13) | done `0bed557` |
 | V12-16 | Drawer close-icon choreography (3.14) | done `0bed557` |
 | V12-17 | Re-frame the paintings to 3:2 — stills only (3.15) | done `54671a6` |
-| V12-18 | Landscape-phone map framing — LAST (3.16) | open |
+| V12-18 | Landscape-phone map framing — LAST (3.16) | done `ba4ee5a` |
 | V12-19 | iOS browser-bar tint follow-through (3.17) | done `c380c05` — needs Wil's device to confirm |
 | V12-20 | Hall bug sweep beyond the fourteen (§5.4) | done `2313c68` — 32/32 via `npm run qa:hall` |
 
