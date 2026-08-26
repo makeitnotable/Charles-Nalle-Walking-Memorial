@@ -41,12 +41,16 @@ B = lowercase "the"):
 | 8 | `barbershop/narrative1` | Rushing the Room |
 | 9 | `barbershop/narrative2` | Martin Felled by Axe |
 
-**One unresolved inconsistency, flagged not guessed:** Wil's direct answer to
-the punctuation question gives "Don't Let Them Have Him" (no "!") and "Nalle
-Crossing the Hudson" (lowercase); the map table in the same message writes
-"Don't Let Them Have Him!" and "Nalle Crossing The Hudson". The direct answer
-wins above because it was the deliberate response to that exact question. It is
-a one-string edit either way — confirm with Wil in passing, do not block.
+**One internal inconsistency in his message — DECIDED 8/26, do not re-ask.**
+His direct answer to the punctuation question gives "Don't Let Them Have Him"
+(no "!") and "Nalle Crossing the Hudson" (lowercase); the map table two
+paragraphs later writes "Don't Let Them Have Him!" and "Nalle Crossing The
+Hudson". The table above follows the **direct answer**, because that was the
+deliberate response to that exact question and the map table reads as a
+copy-paste of the title list I had sent him (its capital "The" is mine).
+Build it that way. Surface both strings in the review guide under "one-word
+corrections" so he can flip either at review time — it is a single JSON edit
+per title, no rebuild of anything.
 
 **Where titles go.** Add a per-work title field to chapter JSON (schema in
 `src/content.config.ts:50-151`; e.g. `media.workTitles: { horizontal: "…" }`)
@@ -85,12 +89,20 @@ label changes:
 | 9 | Rushing the Room | Sketch of Rushing the Room | none | `…/Martin Struck by Deputy Sheriff Morrison (pen, 2008).jpg` (1920²; file name is the series page's mis-caption — the ARTWORK is Rushing the Room, per the artist's burned-in label and Wil's map) |
 | 10 | Martin Felled by Axe | Sketch of Martin Felled by Axe | hangs on ch2 today (`commissioners-office/sketch`, d=11) → **moves** to `barbershop/narrative2` | reuse the existing 1440 tier |
 
-⚠ **`2. Sketch of 1st and State Street Skirmish.jpg` is unusable.** The 759 KB
-file is not pen work — an upscaler has melted it into smeared pseudo-relief,
-no line survives. The companion `… (Upscaled).jpg` is worse: 629 bytes, a
-**1×1 pixel** JPEG. Wil is asked for a clean export (§4.1). Fallback if it does
-not arrive: `masters/Priest Series Page/The Struggle (pen).jpg` (800×659, clean
-pen, same scene) — ship it at 800w rather than hang nothing.
+⚠ **`2. Sketch of 1st and State Street Skirmish.jpg` is unusable — the
+fallback is DECIDED, this does not block.** The 759 KB file is not pen work: an
+upscaler has melted it into smeared pseudo-relief, no line survives. The
+companion `… (Upscaled).jpg` is worse — 629 bytes, a **1×1 pixel** JPEG.
+
+**Build this study from `masters/Priest Series Page/The Struggle (pen).jpg`**
+(800×659, clean pen, same scene) unless a clean export of Wil's #2 has landed
+in `masters/Nalle Drawings/` by the time you reach this item — check the folder
+first, and prefer his file if it is real pen work. The 800px source is not a
+compromise where it matters: the hall serves `sketch-800.webp`
+(`paintings.astro:127`), so at hall size it is native. Only the chapter page's
+1440 tier is affected — cap that srcset at 800w with honest descriptors rather
+than upscaling. Note in the review guide which source was used, so Wil can send
+a better scan later if he wants one.
 
 Resolution rule: **studies are NOT part of the paintings' 3:2 re-frame** — they
 hang at their own aspect, so prefer the fullest artwork over Wil's 3:2 crop,
@@ -359,14 +371,22 @@ page and scroll position in the review guide with the 2-minute checklist.
 Expected behaviour stays v11.2's: the bar takes the colour of the ground that
 touches it.
 
-## 4 · Manual items queued for Wil
+## 4 · Human queue — NOTHING BLOCKS THIS ROUND
 
-1. **A clean export of the 1st and State Street Skirmish drawing** — both files
-   in `masters/Nalle Drawings/` for #2 are unusable (one melted by an upscaler,
-   one a 1×1 pixel stub). Fallback ships *The Struggle* at 800w if it does not
-   arrive.
-2. **iPhone chrome test after the v12 deploy** — protocol in the review guide;
-   report iOS version and the Safari "Allow Website Tinting" state.
+Every earlier manual item is closed. Start and finish the round without waiting
+on Wil for anything.
+
+1. **Post-deploy, human-only:** the iPhone browser-bar check (§3.17). The tint
+   cannot be observed in this container at all, so this is the only way to
+   confirm that item. Put the protocol in the review guide: force-quit Safari,
+   open the live GH Pages URL, and report the bar colour on `/` , on
+   `/commissioners-office` scrolled into the cream Historical Context section,
+   and on `/map`; plus the iOS version and the Safari "Allow Website Tinting"
+   state. Everything else in §3.17 ships on best-known implementation whether or
+   not that report comes back.
+2. **Optional upgrade, any time:** a clean (non-upscaled) export of the
+   1st-and-State-Street drawing dropped into `masters/Nalle Drawings/`. §2 ships
+   without it.
 3. *(Closed 8/26)* High-res home source — not needed; §3.8 is fixed from assets
    already in the repo.
 4. *(Closed 8/26)* 3:2 animation re-exports — not needed; the videos are
