@@ -141,7 +141,12 @@ read; they are in the chapter JSON under `media.works[key].studyNote` and
 
 In `docs/v12/qa/`, same viewport, same build minutes apart:
 
-- `map-1440-*` — pitch 52 → **60**
+- `map-1440-*` — pitch 52 → **60**. Note these two render under a stubbed
+  Mapbox style: `api.mapbox.com` is blocked from this container, so there are
+  no tiles and no buildings in the frame, and what the pair shows is the
+  route's geometry foreshortening. The camera values are the real evidence
+  (52 → 60 at every width from 768 to 1920, all five pills inside the safe
+  box); the tilt itself is best judged on the live site.
 - `lens-1440-*` — the 1858 opening view
 - `hall-390-rest-*` — the chip's new home, the dot rail's offset
 - `hall-390-last-work-*` and `hall-1440-last-work-*` — four items in one frame:
