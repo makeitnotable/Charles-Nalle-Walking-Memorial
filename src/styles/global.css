@@ -1003,24 +1003,43 @@ h3 {
 .painting-interlude {
   background: var(--ground-light);
 }
-.interlude-fade {
-  background: linear-gradient(
+/* v12 item 5 (Wil, 8/26): "there's a harsh white line at the top and bottom of
+   the image — add a gentle gradient/feathered fade into the surrounding
+   sections. Extend this blend slightly so we can see a bit more of the image,
+   while making the transitions into the surrounding sections feel smoother."
+
+   Measured first: the ground above an interlude and below it is the SAME cream
+   on all five chapters at 390 and 1440 (the scene's transcript panel above,
+   #history below), so v9 V9-202's cream-at-both-edges was right and a dark ramp
+   is not the answer — tried, and it drew a 219-unit hard edge across the seam.
+   What Wil is seeing is the overlay itself: painting opaque cream ON TOP of a
+   photograph washes its top and bottom, and where the wash ends there is a
+   perceptible boundary — a "white line" with the picture still visible under it.
+
+   So the image is FEATHERED instead of covered. A mask takes the photograph's
+   own pixels to transparent at each edge, letting the real cream ground show
+   through, and a mask cannot introduce an edge because it introduces no second
+   colour. The ramp is longer than the old overlay's (24% against 18%) and eased
+   in two stages, and the plate is taller, so more of the picture survives the
+   blend than before. */
+.interlude-img {
+  --interlude-feather: linear-gradient(
     to bottom,
-    var(--ground-light) 0%,
-    color-mix(in srgb, var(--ground-light) 88%, transparent) 3%,
-    color-mix(in srgb, var(--ground-light) 66%, transparent) 6.5%,
-    color-mix(in srgb, var(--ground-light) 40%, transparent) 10.5%,
-    color-mix(in srgb, var(--ground-light) 18%, transparent) 14%,
-    color-mix(in srgb, var(--ground-light) 5%, transparent) 16.5%,
-    transparent 18%,
-    transparent 82%,
-    color-mix(in srgb, var(--ground-light) 5%, transparent) 83.5%,
-    color-mix(in srgb, var(--ground-light) 18%, transparent) 86%,
-    color-mix(in srgb, var(--ground-light) 40%, transparent) 89.5%,
-    color-mix(in srgb, var(--ground-light) 66%, transparent) 93.5%,
-    color-mix(in srgb, var(--ground-light) 88%, transparent) 97%,
-    var(--ground-light) 100%
+    transparent 0%,
+    rgba(0, 0, 0, 0.12) 4%,
+    rgba(0, 0, 0, 0.4) 9%,
+    rgba(0, 0, 0, 0.72) 15%,
+    rgba(0, 0, 0, 0.92) 20%,
+    #000 24%,
+    #000 76%,
+    rgba(0, 0, 0, 0.92) 80%,
+    rgba(0, 0, 0, 0.72) 85%,
+    rgba(0, 0, 0, 0.4) 91%,
+    rgba(0, 0, 0, 0.12) 96%,
+    transparent 100%
   );
+  -webkit-mask-image: var(--interlude-feather);
+  mask-image: var(--interlude-feather);
 }
 
 /* v11 item 8b (Wil, 8/22): "the `THE MUSEUM • SCROLL TO WALK • DRAG TO LOOK •

@@ -382,9 +382,16 @@ const focus =
         {/* ── A scene: after the first, one carrying its own painting opens
             with its own full-bleed hero (item 26: the twin template — Ch2's
             Pt 2 is a chapter within the chapter). ── */}
+        {/* v12 item 6 (Wil, 8/26): "the bottom margin/padding on the Moral
+            section for Part 1 is too small and feels unbalanced." It was the
+            only moral on the site with nothing after it: the four one-moral
+            chapters close into `.sec` (128/168/200 of margin), while this hero
+            carried none at all — 288px of air above the moral against 64
+            below. The same section token closes it now, so Part 1 ends the way
+            every other moral ends. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="relative h-[82dvh] overflow-hidden bg-neutral-2"
+            class="sec relative h-[82dvh] overflow-hidden bg-neutral-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
           >
@@ -503,27 +510,18 @@ const focus =
           <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
             <div class="wipe-clip">
               <img
-                class="interlude-img h-[62vh] w-full object-cover md:h-[80vh]"
+                class="interlude-img h-[70vh] w-full object-cover md:h-[88vh]"
                 src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
                 srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
                 sizes="100vw"
                 alt={interlude.alt}
                 loading="lazy"
               />
-              {/* Juror pass 1 P2: the heavy 20/80 gradient + lazy image read as
-                  a dead band at real scrolling pace — the fades breathe at the
-                  edges. v8 V8-205 (Wil, 00:18:56): the 1858 map plate is cream
-                  paper between two cream sections, so ITS fades run cream
-                  ("the two white sections fading into the map"); the photo
-                  interludes keep the dark fade. */}
-              {/* v9 V9-202 (Wil, 8/21): the cream fade he approved on ch2's
-                  1858 plate now runs on EVERY chapter's historical-context
-                  image, both edges — the dark fade underneath was leaving a
-                  dark seam against the cream history section below. Scoped to
-                  this plate; no other image on the page changes. */}
-              <div
-                class="interlude-fade pointer-events-none absolute inset-0"
-              />
+              {/* v12: the cream overlay that used to sit here is gone — the
+                  plate is feathered by a mask on the image itself instead, so
+                  the picture dissolves into the real ground rather than having
+                  cream painted over its top and bottom (global.css
+                  .interlude-img). */}
               {/* v7 C4: the credit sits on a chip (the map chip's ground) so
                   it measures ≥ 4.5:1 on any photograph — pixel-checked by
                   contrast.mjs. Phones drop the place name (it is the page) and
@@ -619,7 +617,16 @@ const focus =
               <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.9) 26%, rgba(29,20,17,.9) 74%, #1d1411)" />
             </div>
 
-            <div class="shell relative z-10 pt-32 pb-16 md:pt-40 md:pb-16">
+            {/* v12 item 9 (Wil, 8/26): on phones "the padding/margin at the top
+                and bottom of the Moral section… is to big" and should feel like
+                the Historical Context section's, "maybe slightly more". That
+                section runs 96/96 on a phone; this one ran 128 of padding above a
+                72px beat margin — 200px of air above the rule, and 64 below
+                the CTA before another 128 of page ground. Both grounds are the
+                same brown, so what the eye measures is the whole run: 136 above
+                now and 168 below, down from 200 and 192, against the History
+                section's 96. Tablet and desktop are unchanged. */}
+            <div class="shell relative z-10 pt-16 pb-10 md:pt-40 md:pb-16">
               <div class="sec-head"></div>
               <div class="editorial mt-8">
                 <ChapterSpine sections={sections} current={morals[b.i].key} />
@@ -823,15 +830,21 @@ const focus =
          below). The image is inside `overflow-hidden`, so growing it cannot
          widen the document — verified by the rag gate's clip check. */
       document.querySelectorAll<HTMLElement>(".interlude-img").forEach((img) => {
-        gsap.fromTo(
-          img,
-          { scale: 1 },
-          {
-            scale: 1.045,
-            ease: "none",
-            scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "center center", scrub: 0.6 },
-          },
-        );
+        /* v12 item 5 (Wil, 8/26): "as you scroll into the Historical Context
+           section, the image should ease into frame and grow slightly; as you
+           scroll back up, it should ease out and shrink slightly. Keep it
+           elegant and restrained."
+           v11 grew it on the way IN and then held, so the move only existed on
+           approach. One timeline across the whole passage now grows it to the
+           section's centre and lets it back down on the way out — which, being
+           scrubbed, is exactly reversed when he scrolls back up. Still on the
+           IMG, never the section: a scale on a full-bleed block once reported
+           1584px of width on a 1440 screen. */
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: 0.6 },
+        });
+        tl.fromTo(img, { scale: 1 }, { scale: 1.055, ease: "sine.inOut", duration: 1 })
+          .to(img, { scale: 1, ease: "sine.inOut", duration: 1 });
       });
 
       // The hero lockup withdraws and leaves the painting alone on the screen.

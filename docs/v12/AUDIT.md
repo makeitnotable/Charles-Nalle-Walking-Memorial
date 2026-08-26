@@ -14,13 +14,13 @@ Status: `open` → `done` (with the commit) as the round proceeds.
 | V12-03 | Map pitch: deeper 3-D on ≥640 (3.1) | done `54671a6` |
 | V12-04 | Chapter-card gaps equal — desktop only (3.2) | done `54671a6` |
 | V12-05 | 1858 lens default view + caption air (3.3) | done `c26a531` |
-| V12-06 | Quote section alignment — VERIFY FIRST (3.4) | open |
-| V12-07 | Historical-context plate: seams, size, scroll (3.5) | open |
-| V12-08 | Ch2 Moral Pt 1 bottom spacing (3.6) | open |
+| V12-06 | Quote section alignment — VERIFY FIRST (3.4) | **no-op — verified** |
+| V12-07 | Historical-context plate: seams, size, scroll (3.5) | done `c47ed3e` |
+| V12-08 | Ch2 Moral Pt 1 bottom spacing (3.6) | done `c47ed3e` |
 | V12-09 | Portrait painting hangs too low (3.7) | done `0bed557` |
 | V12-10 | Home desktop resolution (3.8) | open |
-| V12-11 | Mobile moral top/bottom air (3.9) | open |
-| V12-12 | Ch4 hero focus — Tubman cut off (3.10) | open |
+| V12-11 | Mobile moral top/bottom air (3.9) | done `c47ed3e` |
+| V12-12 | Ch4 hero focus — Tubman cut off (3.10) | done `c47ed3e` |
 | V12-13 | Hall chip to the top on phones (3.11) | done `0bed557` |
 | V12-14 | Dot rail: bottom-anchored, hidden in approach (3.12) | done `0bed557` |
 | V12-15 | Drawer outline stroke (3.13) | done `0bed557` |
