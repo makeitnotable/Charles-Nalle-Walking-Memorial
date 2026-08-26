@@ -7,6 +7,13 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**v13 IN FLIGHT (Wil's 8/26 eleven-item round).** Work order:
+`docs/v13/BRIEF.md`. Ledger: `docs/v13/AUDIT.md`. Executed by group, one at a
+time (one Playwright process per container; never edit `src/` while an
+instrument runs). Closed so far: **G5** (V13-07a media half) and **G4**
+(V13-06, V13-07b, V13-09, V13-11 — four of his numbers). Open: G3 (chapters),
+G2 (hall), G1 (map island).
+
 **v12 COMPLETE (Wil's 8/25–8/26 round — fourteen items + the painting canon +
 a hall sweep).** All twenty ledger items closed; one (V12-19, the iOS browser
 bar) ships on best-known implementation and needs his device to confirm, because
@@ -22,19 +29,42 @@ committed ahead of any code so the executing session starts from disk. No `src/`
 file has been touched for v13.
 
 ## CURRENT ITEM
-Nothing in flight. v12 shipped on `v2` (mirrored to
-`claude/paintings-hall-museum-fixes-qufa6x`). v13 awaits execution.
+G3 (the chapter pages — V13-03, V13-04, V13-08) is next. G5 and G4 are
+committed and pushed on `v2`, mirrored to
+`claude/paintings-hall-museum-fixes-qufa6x`.
 
 ## NEXT ACTION
-Execute `docs/v13/BRIEF.md` — its "Execution model" section carries the
-group/model/effort allocation and the order. Four of the eleven items carry a
-client diagnosis the code contradicts; the brief names each with evidence, so
-**measure before touching anything**.
+G3 → G2 → G1, strictly one at a time. Then `docs/v13/REVIEW-GUIDE.md`.
 
 Still open from v12, and folded into v13-06: Wil's iPhone check on the
 browser-bar tint (protocol in §1 of `docs/v12/REVIEW-GUIDE.md`). Optional,
 whenever he has it: an un-upscaled scan of the 1st-and-State-Street drawing
 (`masters/Nalle Drawings/2. …`), which ships as he supplied it at his direction.
+
+## v13 TRAPS WORTH KEEPING
+- INSTRUMENT: **`qa:contrast` and `qa:rag` default to port 4321.** Run against
+  a preview on any other port and every route returns ERR_CONNECTION_REFUSED
+  while the script still prints "0 failures" — a green that measured nothing.
+  Pass `--base http://localhost:<port>` and check the "0 unmeasured" tally.
+- INSTRUMENT: **`elementFromPoint` cannot see `pointer-events: none`.** Both
+  `.chrome-tint-*` and `.walk-rail` are inert, so a stacking probe built on it
+  reports the section underneath and proves nothing. Sample PIXELS, or set
+  `pointer-events: auto` for the length of the probe.
+- STACKING: the chrome-tint strips' ceiling is **the walk rail (z-900)**, not
+  the scrim. v12 chose z:0 on purpose so the rail's 3px progress stripe paints
+  over the 2px strip. Anything above 900 eats two thirds of the rail — z:950
+  was measured doing exactly that. z:100 clears the map and museum stages
+  (Tailwind z-30, shells z:auto) without reaching the rail.
+- ENV: this container's background shells are killed on turn end (exit 144).
+  Start `astro preview` through the tool's own background mode, not `nohup`
+  or `setsid`, or the port will be dead by the time a probe runs.
+- ENV: Playwright 1.62.1 wants revision **1234**; the image ships **1194**.
+  Shim BOTH `chromium_headless_shell-1234/chrome-headless-shell-linux64/` and
+  `chromium-1234/chrome-linux/`, symlinking every sibling file, not just the
+  binary.
+- MEDIA: the 1858 plate's house quality register is **q52**, calibrated
+  against the shipped 6144 tier (1.95 MB). q62 makes it 44% heavier without
+  making it sharper. avif `effort: 6` measured LARGER than `effort: 4` here.
 
 ## v12 TRAPS WORTH KEEPING
 - CONTENT: **Safari 26 parses `theme-color` and ignores it.** It tints from the
