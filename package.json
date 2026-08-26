@@ -30,6 +30,7 @@
     "qa:hall": "node scripts/hall-stress.mjs",
     "qa:audio": "node scripts/audio-check.mjs",
     "qa:bleed": "node scripts/bleed-check.mjs",
+    "qa:head": "node scripts/head-check.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },
