@@ -1065,11 +1065,29 @@ h3 {
   .museum-chip-row {
     min-height: 40px;
     align-items: center;
+    /* v13 V13-05c (Wil, 8/26): "the desktop chip should be centred with Skip
+       on its left". v11 settled the VERTICAL (measured: the two centres agree
+       to 0.00px at 1024/1280/1440/1920); what still read as off was the
+       HORIZONTAL — the pill centres on the viewport, which ignores the two
+       standing controls in the same band, so at 1024 it sat 24.6px from Skip
+       against 245.6px of empty on the right. `--cnwm-chip-x` is the measured
+       shift that centres it in the band Skip and the corner menu leave, and
+       the scene writes 0 whenever the pill would not fit that band. */
+    transform: translateX(var(--cnwm-chip-x, 0px));
   }
 }
 @media (min-width: 1024px) and (pointer: coarse) {
   .museum-chip-row {
     min-height: 44px;
+  }
+}
+/* v13 V13-10a (Wil, 8/26): "the 'Scroll to Walk' text/tag should disappear
+   once the user starts scrolling." Phones only — the tablet and desktop copy
+   carries the drag/tap instructions too and keeps its v8 behaviour. The scene
+   sets data-walking once the rail passes 1%. */
+@media (max-width: 639px) {
+  .museum-chip-row[data-walking="true"] .museum-chip-pill {
+    display: none;
   }
 }
 .map-shell {
@@ -1769,6 +1787,63 @@ a.walk-seg:hover {
 .museum-alive-toggle:focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: 4px;
+}
+/* v13 V13-05b (Wil, 8/26): the still <-> alive tap switch had no state
+   feedback at all, so a tap that worked was indistinguishable from one that
+   missed. This is the minimum that reads as a switch — the glyph the tap just
+   set, over the work, for ~900ms, then nothing. No persistent chrome, and it
+   never takes the pointer: the stage keeps every swipe. */
+.museum-switch-cue {
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  color: var(--color-primary-11);
+  background: color-mix(in srgb, var(--color-primary-2) 82%, transparent);
+  border: 1px solid var(--color-primary-7);
+  backdrop-filter: blur(6px);
+  animation: museum-switch-cue 900ms var(--ease) both;
+}
+@keyframes museum-switch-cue {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  14% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  72% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+/* reduced motion: it still APPEARS and DISAPPEARS — the information survives —
+   but with no fade and no scale, one hard cut in and one out. */
+@keyframes museum-switch-cue-cut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  99.9% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .museum-switch-cue {
+    animation: museum-switch-cue-cut 900ms step-end both;
+  }
 }
 .museum-sheet {
   background: color-mix(in srgb, var(--color-primary-2) 90%, transparent);

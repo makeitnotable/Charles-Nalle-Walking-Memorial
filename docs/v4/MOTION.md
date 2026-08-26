@@ -88,3 +88,13 @@ which uses `position: sticky` rather than a scroll handler.
   a scale on a full-bleed block once reported 1584px of width on a 1440
   screen. Under `prefers-reduced-motion` the whole block is gated off and the
   plate measures `transform: none`.
+
+- **The hall's still/alive switch cue (`Museum.tsx`)** — v13 V13-05b. A
+  play/pause glyph over the work for 900ms on toggle: `museum-switch-cue`,
+  `var(--ease)`, opacity 0 → 1 → 1 → 0, then nothing. It is feedback, not
+  chrome, and it never takes the pointer (`pointer-events: none`) so the stage
+  keeps every swipe. Under `prefers-reduced-motion` it runs
+  `museum-switch-cue-cut` — the same 900ms, `step-end`, so the glyph appears
+  and disappears without a fade. (Belt and braces: the three.js hall is
+  disabled entirely under reduce and the static fallback renders instead, so
+  the cue never mounts there at all.)

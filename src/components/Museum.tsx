@@ -100,9 +100,22 @@ export default function Museum({ works, slotId }: Props) {
   const [capable, setCapable] = useState<boolean | null>(null);
   const [approached, setApproached] = useState<number | null>(null);
   const [alive, setAlive] = useState<number | null>(null);
+  /* v13 V13-05b (Wil, 8/26): the still <-> alive TAP SWITCH. `stopped[]` is
+     the scene's own truth — a work the visitor switched off stays off, even
+     after leaving approach — so it is mirrored out here for two reasons: the
+     invisible toggle must ANNOUNCE the true state (it used to read `alive`,
+     which is the playback window, not the switch), and the brief cue below
+     must show what the tap just did. */
+  const [stoppedFlags, setStoppedFlags] = useState<boolean[]>([]);
+  const [cue, setCue] = useState<{ on: boolean; k: number } | null>(null);
   const [ready, setReady] = useState(false);
   const [railIdx, setRailIdx] = useState(0);
   const [lookedAway, setLookedAway] = useState(false);
+  /* v13 V13-10a (Wil, 8/26): "Scroll to Walk should disappear once the user
+     starts scrolling." Nothing in the React tree watched the walk — `railT`
+     lives inside the scene closure and `onScroll` only ever published the
+     integer rail index — so the chip stood for the whole hall. */
+  const [walkStarted, setWalkStarted] = useState(false);
   /** Phone sheet: "peek" (title only) or "full". */
   const [sheet, setSheet] = useState<"peek" | "full">("peek");
   const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -124,6 +137,7 @@ export default function Museum({ works, slotId }: Props) {
     turnOff: (i?: number) => void;
     recenter: () => void;
     setZoom: (z: number) => void;
+    chipBand: () => void;
     dispose: () => void;
   } | null>(null);
   const sheetRefState = useRef<"peek" | "full">("peek");
@@ -614,6 +628,8 @@ export default function Museum({ works, slotId }: Props) {
       const loader = new THREE.TextureLoader();
       const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
       const paintingMeshes: Mesh[] = [];
+      /** v13 V13-10e: one group per work — the single handle that re-hangs it. */
+      const workGroups: import("three").Group[] = [];
       const paintingMats: MeshBasicMaterial[] = [];
       const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
       const loadedFlags: boolean[] = works.map(() => false);
@@ -643,9 +659,38 @@ export default function Museum({ works, slotId }: Props) {
           w = maxW;
           h = w / work.aspect;
         }
-        const yC = isPortrait ? (phone ? 1.8 : 1.9) : 1.7;
+        /* v13 V13-10e (Wil, 8/26): "Center it on the wall so that it never
+           appears to be on the ceiling or the floor." The wall runs y ∈ [0,
+           CEIL_Y] and every part of a work centres on yC, so the ruling IS
+           `yC === CEIL_Y / 2` — derived, never authored, which is what makes
+           "never" hold. The old literals (1.8 phone / 1.9 otherwise) knew
+           nothing about the ceiling they hung under: measured, a PORTRAIT
+           TABLET put this frame's top at 3.32 against a 3.2 ceiling — 12cm
+           THROUGH it — while a landscape desktop left it 20cm low and a
+           landscape phone 30cm low.
+           The other nine (landscape works, 2.0 canvas) keep 1.70: measured,
+           their frames run 0.53–2.87 in every orientation, and 1.70 is 15cm
+           above the 1.55 eye — the museum's own hanging line — so nothing
+           there reads high or low. Changing them would move the whole hall,
+           which is not what was asked. */
+        const yC = isPortrait ? CEIL_Y / 2 : 1.7;
         const x = (CH - 0.1) * side;
         placements.push({ pos: { x, y: yC, z }, side, w, h });
+
+        /* v13 V13-10e: the work is now ONE object. Its five meshes hang off a
+           group pinned at (x, yC, z) with y offsets relative to yC, so the
+           whole work re-hangs with a single `group.position.y` write — see
+           `rehang()` by onResize. The floor echo and the study stay in world
+           space on purpose: the echo belongs to the floor, not the work, and
+           the study frames are BAKED into one merged geometry (v12 took the
+           hall from 85 draw calls to the 80 budget that way) and cannot be
+           moved per work without unbaking them. */
+        const group = new THREE.Group();
+        group.position.set(x, yC, z);
+        scene.add(group);
+        workGroups.push(group);
+        /** world X → the group's frame */
+        const gx = (worldX: number) => worldX - x;
 
         const rotY = side === 1 ? 0 : Math.PI;
         /* v8 V8-325 (Wil, 00:27:58: "a big brown line at the side… they're
@@ -664,32 +709,32 @@ export default function Museum({ works, slotId }: Props) {
         const boxX = (depth: number, t: number) => (CH + t / 2 - depth) * side;
         const planeX = (depth: number) => (CH - depth) * side;
         const moulding = new THREE.Mesh(litBox(0.11, h + 0.34, w + 0.34, "#80412b", "#95502f"), vcMat);
-        moulding.position.set(boxX(0.02, 0.11), yC, z);
+        moulding.position.set(gx(boxX(0.02, 0.11)), 0, 0);
         moulding.rotation.y = rotY;
-        scene.add(moulding);
+        group.add(moulding);
         const lip = new THREE.Mesh(litBox(0.13, h + 0.18, w + 0.18, "#8f7040", "#ad8950"), vcMat);
-        lip.position.set(boxX(0.035, 0.13), yC, z);
+        lip.position.set(gx(boxX(0.035, 0.13)), 0, 0);
         lip.rotation.y = rotY;
-        scene.add(lip);
+        group.add(lip);
         // slip: the dark inner ring (also the shadow behind the canvas edge)
         const slip = new THREE.Mesh(new THREE.BoxGeometry(0.14, h + 0.07, w + 0.07), slipMat);
-        slip.position.set(boxX(0.05, 0.14), yC, z);
+        slip.position.set(gx(boxX(0.05, 0.14)), 0, 0);
         slip.rotation.y = rotY;
-        scene.add(slip);
+        group.add(slip);
 
         const cmat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
         const canvasMesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), cmat);
-        canvasMesh.position.set(planeX(0.06), yC, z);
+        canvasMesh.position.set(gx(planeX(0.06)), 0, 0);
         canvasMesh.rotation.y = (-Math.PI / 2) * side;
         canvasMesh.userData.workIndex = i;
-        scene.add(canvasMesh);
+        group.add(canvasMesh);
         paintingMeshes.push(canvasMesh);
         paintingMats.push(cmat);
 
         const pool = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.0, h * 2.0), poolMat);
-        pool.position.set((CH - 0.02) * side, yC + 0.15, z);
+        pool.position.set(gx((CH - 0.02) * side), 0.15, 0);
         pool.rotation.y = (-Math.PI / 2) * side;
-        scene.add(pool);
+        group.add(pool);
         /* floor echo under the five chapter canvases (draw-call budget ≤ 80).
            v9: gated on the KEY, not on `work.sketch` — now that Part 2 hangs a
            study too, keying off the sketch gave it a floor pool as well and
@@ -804,12 +849,25 @@ export default function Museum({ works, slotId }: Props) {
         softGL = false;
       }
       const stopped: boolean[] = works.map(() => softGL);
+      let cueSeq = 0;
       const stillTexs: (import("three").Texture | null)[] = works.map(() => null);
       const videoTexs: (import("three").VideoTexture | null)[] = works.map(() => null);
       let armed = false;
       /* assigned below, referenced by onScroll before then — a pre-declared
          no-op keeps the first synchronous onScroll() out of the TDZ */
       let syncAlive: () => void = () => {};
+      /* v13 V13-10f (Wil, 8/26): "Rushing the Room" left the drawer stuck.
+         Root cause: NOTHING exited approach on scroll — `setApproached(null)`
+         had three call sites (Escape and the two Back buttons) and the
+         IntersectionObserver only stopped the render loop, so the React tree
+         kept the plaque mounted wherever the page went. Forward-declared the
+         way `syncAlive` is, because it has to be callable from `onScroll`
+         (declared long before `approach`). */
+      let checkUnpin: () => void = () => {};
+      /* the approach's own flush-the-stage scroll must not read as the
+         visitor leaving: suppressed until it has settled, and across an
+         orientation change, which is a resize and not a scroll. */
+      let settleUntil = 0;
       let dragYaw = 0;
       let dragPitch = 0;
       let yawVel = 0;
@@ -830,10 +888,22 @@ export default function Museum({ works, slotId }: Props) {
       const railZ = () => 0.4 - railT * (works.length * SPACING + OVERRUN - 0.4);
 
       let lastRailIdx = -1;
+      /* v13 V13-10a: one boolean out of the closure — the walk has begun. Set
+         at 1% of the rail (past a stray pixel of overscroll), cleared only
+         back at a dead stop, so the chip cannot flicker at the threshold. */
+      let walkFlag = false;
       const onScroll = () => {
         const r = wrap.getBoundingClientRect();
         const total = r.height - stage.clientHeight;
         railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+        if (!walkFlag && railT > 0.01) {
+          walkFlag = true;
+          setWalkStarted(true);
+        } else if (walkFlag && railT <= 0.0005) {
+          walkFlag = false;
+          setWalkStarted(false);
+        }
+        checkUnpin();
         const idx = Math.min(works.length - 1, Math.max(0, Math.round(-railZ() / SPACING) - 1));
         if (idx !== lastRailIdx) {
           lastRailIdx = idx;
@@ -1040,9 +1110,26 @@ export default function Museum({ works, slotId }: Props) {
         // a DIFFERENT painting walks straight to it — v8 V8-331 (Wil,
         // 00:32:06: "I should be able to just click on another painting and
         // be taken to that painting without the back to the hall button").
-        if (hit && (hit.object.userData.workIndex as number) === approachedIdx) toggleAlive();
-        else if (hit) approach(hit.object.userData.workIndex as number);
-        else if (dbl) recenter();
+        if (hit && (hit.object.userData.workIndex as number) === approachedIdx) return void toggleAlive();
+        if (hit) return void approach(hit.object.userData.workIndex as number);
+        /* v13 V13-05b (Wil, 8/26): the switch "does nothing" near the edges —
+           `hitPainting` wants an exact raycast hit on the CANVAS plane, so the
+           gilt lip, the slip and the moulding (which read as part of the work)
+           all miss. In approach, anything inside the approached work's
+           projected rect is the work. The pad is the frame itself: the
+           moulding runs canvas + 0.34 on both axes, i.e. 0.17 a side, which is
+           8.5% of the 2.0m canvas — 9% covers it with a fingertip to spare. */
+        if (approachedIdx !== null) {
+          const r = paintingRect(approachedIdx);
+          if (r && !r.behind) {
+            const padX = (r.right - r.left) * 0.09;
+            const padY = (r.bottom - r.top) * 0.09;
+            if (e.clientX >= r.left - padX && e.clientX <= r.right + padX && e.clientY >= r.top - padY && e.clientY <= r.bottom + padY) {
+              return void toggleAlive();
+            }
+          }
+        }
+        if (dbl) recenter();
       };
       const recenter = () => {
         dragYaw = 0;
@@ -1161,6 +1248,10 @@ export default function Museum({ works, slotId }: Props) {
       const toggleAlive = () => {
         if (approachedIdx === null) return;
         stopped[approachedIdx] = !stopped[approachedIdx];
+        /* v13 V13-05b: minimum state feedback — a play/pause glyph over the
+           work for ~900ms. Only where there is something to play: a still work
+           has no switch to report. */
+        if (works[approachedIdx].video) setCue({ on: !stopped[approachedIdx], k: ++cueSeq });
         syncAlive();
       };
 
@@ -1197,6 +1288,7 @@ export default function Museum({ works, slotId }: Props) {
           if (dy !== 0) {
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
+            settleUntil = performance.now() + (reduce ? 120 : 900);
           }
           /* Inspect mode locks the wheel, so the corner menu must be there
              when it opens: the scripted scroll is not "reading forward", and
@@ -1210,6 +1302,22 @@ export default function Museum({ works, slotId }: Props) {
         setApproached(i);
         renderer.domElement.style.touchAction = "none";
         syncAlive();
+      };
+      /* v13 V13-10f: leave approach the moment the sticky stage un-pins. This
+         is index-agnostic on purpose — index 8 is only where you NOTICE it,
+         because the rail's arithmetic leaves it barely any runway (railZ runs
+         +0.4 to −50.7 and work 9 sits at −50, so index 8 holds railT
+         0.840–0.937 and index 9 gets a truncated band). Every work can strand
+         the drawer; the un-pin is the one condition they share. The rail
+         length itself is NOT touched — v9 locked "the hall ends on the last
+         painting". */
+      checkUnpin = () => {
+        if (mode !== "approach") return;
+        if (performance.now() < settleUntil) return;
+        const r = stage.getBoundingClientRect();
+        const H = window.innerHeight;
+        const off = Math.max(r.top, H - r.bottom);
+        if (off > Math.max(24, H * 0.06)) approach(null);
       };
 
       /* ── v8 V8-326: the windowed video lifecycle ─────────────────────── */
@@ -1349,6 +1457,9 @@ export default function Museum({ works, slotId }: Props) {
             .forEach((i) => teardownVideo(i));
         }
         setAlive(approachedIdx !== null && want.has(approachedIdx) ? approachedIdx : null);
+        /* v13 V13-05b: mirror the switch, not the window. Same reference back
+           when nothing changed, so the hall's per-frame sync costs no render. */
+        setStoppedFlags((prev) => (prev.length === stopped.length && prev.every((v, i) => v === stopped[i]) ? prev : [...stopped]));
       };
       /* museum-check / a11y api kept: turnOn(i) wakes a rested work; turnOff()
        * rests the whole hall. */
@@ -1404,6 +1515,20 @@ export default function Museum({ works, slotId }: Props) {
           else if (e.key === "ArrowRight") { approach(Math.min(works.length - 1, (approachedIdx ?? 0) + 1)); e.preventDefault(); }
           else if (e.key === "+" || e.key === "=") { setZoom(zoom * 1.25); e.preventDefault(); }
           else if (e.key === "-" || e.key === "_") { setZoom(zoom / 1.25); e.preventDefault(); }
+          else {
+            /* v13 V13-10f: in approach these used to fall through to the
+               browser and scroll the page away with the drawer still open —
+               the keyboard's version of the same bug. They are handled here
+               instead: swallowed, unless the focus is inside the plaque's own
+               scroll container (where they scroll THAT), or Space is about to
+               activate the control that has focus. Escape and Back are still
+               the way out, so nothing becomes unreachable. */
+            const inScroller = !!(t && t.closest(".museum-sheet-body, .museum-card"));
+            const activatable = !!(t && t.closest('button, a[href], [role="button"]'));
+            const isSpace = e.key === " " || e.key === "Spacebar";
+            const isPage = e.key === "PageUp" || e.key === "PageDown" || e.key === "Home" || e.key === "End" || e.key === "ArrowUp" || e.key === "ArrowDown";
+            if (!inScroller && (isPage || (isSpace && !activatable))) e.preventDefault();
+          }
         }
       };
       window.addEventListener("keydown", onKey);
@@ -1479,6 +1604,10 @@ export default function Museum({ works, slotId }: Props) {
         }
         // the projected painting rect for the invisible focus button (4 Hz)
         if (mode === "approach" && approachedIdx !== null && now - approachedAt > 600 && ++rectTick % 15 === 0) {
+          /* v13 V13-10f: the same 4 Hz beat catches an un-pin that the scroll
+             stream missed (momentum that ends inside the settle window). */
+          checkUnpin();
+          if (mode !== "approach") return;
           const r = paintingRect(approachedIdx);
           if (r && !r.behind) setPaintRect({ x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.right - r.left), h: Math.round(r.bottom - r.top) });
         }
@@ -1535,9 +1664,54 @@ export default function Museum({ works, slotId }: Props) {
            is off the top), fall back to a hair under Skip rather than negative. */
         const mid = archTop > skipBottom ? (skipBottom + archTop) / 2 : skipBottom + 28;
         stage.style.setProperty("--cnwm-chip-y", `${Math.round(mid)}px`);
+        /* v13 V13-05c (Wil, 8/26): "desktop chip centred with Skip on its
+           left". At >=1024 the pill centres on the VIEWPORT, so the top band's
+           two standing controls — Skip on the left, the corner menu on the
+           right — are not accounted for and the pill crowds Skip (measured
+           24.6px of daylight at 1024 against 245.6px on the right). Centre it
+           in the band those two leave instead, as a translate off the viewport
+           centre, and only when the pill actually fits the band — a shift that
+           could not keep the pill clear of both is no shift at all. */
+        const sRect = stage.getBoundingClientRect();
+        const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+        const CHIP_GAP = 12;
+        const skipRight = skipEl ? skipEl.getBoundingClientRect().right - sRect.left : inset + 181;
+        const menuEl = document.querySelector(".cnwm-menu");
+        const menuLeft = menuEl ? menuEl.getBoundingClientRect().left - sRect.left : stage.clientWidth - inset;
+        const lo = skipRight + CHIP_GAP;
+        const hi = menuLeft - CHIP_GAP;
+        const pill = stage.querySelector(".museum-chip-row > *");
+        const pw = pill ? pill.getBoundingClientRect().width : 0;
+        const dx = pw > 0 && hi - lo >= pw ? Math.round((lo + hi) / 2 - stage.clientWidth / 2) : 0;
+        stage.style.setProperty("--cnwm-chip-x", `${dx}px`);
       };
 
+      /* v13 V13-10e: re-hang every work against the room as it stands. The
+         invariant is `yC === CEIL_Y / 2` for the portrait work and the 1.70
+         hanging line for the rest, and this is the ONE write that restores it
+         — the whole reason each work is a group.
+         Today it is a no-op by construction, and deliberately so: the room is
+         built once (this effect's deps are [capable, works]), so CEIL_Y, CH
+         and every wall, ceiling and arch are frozen at the orientation the
+         hall was built in. A flip therefore leaves the visitor inside a room
+         that is still internally consistent — a 3.2m ceiling seen at a
+         landscape fov — and the works stay centred on the walls that are
+         actually there. Re-hanging to the OTHER orientation's ceiling while
+         the ceiling itself did not move would put the work off-centre against
+         the wall the visitor can see, which is the bug, not the fix. When the
+         room becomes live, update CEIL_Y/CH here and this call re-hangs the
+         hall in one line. */
+      const rehang = () => {
+        workGroups.forEach((g, i) => {
+          const p = placements[i];
+          if (p) g.position.y = p.pos.y;
+        });
+      };
       const onResize = () => {
+        /* v13 V13-10f: an orientation flip moves the scroll position under the
+           visitor. That is not them walking away — hold the exit off. */
+        settleUntil = performance.now() + 900;
+        rehang();
         renderer.setSize(stage.clientWidth, stage.clientHeight);
         camera.aspect = stage.clientWidth / stage.clientHeight;
         camera.updateProjectionMatrix();
@@ -1587,6 +1761,11 @@ export default function Museum({ works, slotId }: Props) {
             fov: camera.fov,
             far: camera.far,
             portrait,
+            /* v13 V13-10e: the room's own numbers, so the hall's QA can assert
+               `|yC − ceilY/2| < 0.01` and `frameTop <= ceilY` instead of
+               re-deriving them from the viewport. */
+            ceilY: CEIL_Y,
+            corridorHalf: CH,
             endZ,
             running: inView && visible && !covered,
             works: works.length,
@@ -1620,6 +1799,7 @@ export default function Museum({ works, slotId }: Props) {
         turnOff,
         recenter,
         setZoom,
+        chipBand: setChipBand,
         dispose: () => {
           disposed = true;
           if ((window as any).__museum === hook) delete (window as any).__museum;
@@ -1665,6 +1845,38 @@ export default function Museum({ works, slotId }: Props) {
      Focus is moved only when the last input was the keyboard — mouse and touch
      keep their modality; Esc still works from anywhere. */
   const keyboardInput = useRef(false);
+  /* v13 V13-10c: the drawer body's cap is the sheet's cap minus the REAL
+     header, which changes between peek and full (the close button) and with
+     `--ui-inset`. Measured, not assumed. */
+  useEffect(() => {
+    const head = sheetHeadRef.current;
+    const sheet = sheetRef.current;
+    if (!head || !sheet) return;
+    const publish = () => {
+      const h = head.getBoundingClientRect().height;
+      if (h > 0) sheet.style.setProperty("--cnwm-sheet-head", `${Math.round(h)}px`);
+    };
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(head);
+    return () => ro.disconnect();
+  }, [approached, portraitUI]);
+  /* v13 V13-05b: the switch cue is a flash, not chrome — it clears itself.
+     ~900ms of animation, then the element leaves the tree. */
+  useEffect(() => {
+    if (!cue) return;
+    const t = setTimeout(() => setCue(null), 950);
+    return () => clearTimeout(t);
+  }, [cue]);
+  /* v13 V13-05c: the top band's reserves are the real boxes of Skip and the
+     corner menu, and Skip only exists while the rail chrome is mounted — so
+     the band is re-measured whenever that chrome appears or changes shape,
+     not only on resize. */
+  useEffect(() => {
+    if (!ready) return;
+    const id = requestAnimationFrame(() => api.current?.chipBand());
+    return () => cancelAnimationFrame(id);
+  }, [ready, approached, lookedAway]);
   useEffect(() => {
     const onKey = () => (keyboardInput.current = true);
     const onPointer = () => (keyboardInput.current = false);
@@ -1746,41 +1958,40 @@ export default function Museum({ works, slotId }: Props) {
             it slightly above the screen's middle; desktop keeps the chip
             top-centre while Face forward rides top-RIGHT on Skip's axis and
             inset. */}
-        {ready && !inApproach && (
+        {ready && !inApproach && !lookedAway && (
           <div
             /* v12: phones move the chip from just above the dot rail to the
                band between Skip and the arch (`--cnwm-chip-y`, written by the
                scene each layout); tablet and desktop keep their v8 positions
                exactly. */
+            data-walking={walkStarted ? "true" : undefined}
             className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:top-[var(--cnwm-chip-y,38%)] max-sm:-translate-y-1/2 sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
-            {lookedAway ? (
-              /* the hiding utility rides a bare SPAN: `.btn-sm { display:
-                 inline-flex }` is unlayered CSS and beats Tailwind's layered
-                 `lg:hidden`, so putting it on the button drew a second Face
-                 forward beside the top-right one at ≥1024 (v8 V8-322). */
-              <span className="lg:hidden">
-                <button
-                  type="button"
-                  className="btn-sm btn-ghost pointer-events-auto"
-                  style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
-                  onClick={() => api.current?.recenter()}
-                >
-                  Face forward
-                </button>
-              </span>
-            ) : (
-              <p className="t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
-                <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
-                <span className="hidden sm:inline lg:hidden">Scroll to walk · tap a painting</span>
-                <span className="sm:hidden">Scroll to walk</span>
-              </p>
-            )}
+            <p className="museum-chip-pill t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
+              <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
+              <span className="hidden sm:inline lg:hidden">Scroll to walk · tap a painting</span>
+              <span className="sm:hidden">Scroll to walk</span>
+            </p>
           </div>
         )}
+        {/* Face forward — v13 V13-10b (Wil, 8/26): "the face forward button
+            should be positioned in the top right corner of the screen and
+            vertically centered with the skip the hall button." It used to be
+            TWO instances: the phone/tablet one stood inside the centred chip
+            row (mid-screen), the desktop one rode this top-right anchor. They
+            now share the one anchor — which also retires the v8 V8-322 hazard
+            outright: with no display utility on either element, `.btn-sm`'s
+            unlayered `display: inline-flex` has nothing left to beat, so the
+            double-draw it guarded against cannot recur.
+            The corner menu owns the same corner but retreats (data-hidden,
+            opacity 0, pointer-events none) as soon as the walk starts, which
+            is what the desktop instance has relied on since v8. Face forward
+            and the plaque drawer are mutually exclusive by construction — the
+            drawer exists only in approach, this button only outside it — so
+            there is no open-drawer state for it to collide with. */}
         {ready && !inApproach && lookedAway && (
           <div
-            className="absolute z-10 hidden lg:block"
+            className="absolute z-10"
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", right: "var(--ui-inset)" }}
           >
             <button
@@ -1823,7 +2034,11 @@ export default function Museum({ works, slotId }: Props) {
           <button
             ref={backRef}
             type="button"
-            className="btn-sm btn-ghost absolute z-20"
+            /* v13 V13-10f: `touch-none` — this button sits OVER the stage but
+               is not the canvas, so a touch that started on it was the one
+               gesture approach never blocked: it scrolled the page out from
+               under the open drawer. */
+            className="btn-sm btn-ghost touch-none absolute z-20"
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)", background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
             onClick={() => api.current?.approach(null)}
           >
@@ -1839,9 +2054,34 @@ export default function Museum({ works, slotId }: Props) {
             type="button"
             className="museum-alive-toggle absolute z-10"
             style={{ left: paintRect.x, top: paintRect.y, width: paintRect.w, height: paintRect.h }}
-            aria-label={alive === approached ? "Pause this painting's animation" : "Play this painting's animation"}
-            onClick={() => (alive === approached ? api.current?.turnOff(approached!) : api.current?.turnOn(approached!))}
+            /* v13 V13-05b: the announced state is the SWITCH (`stopped[i]`),
+               not the playback window — a work paused by the alive budget used
+               to announce itself as "Play" while the switch was still on. */
+            aria-label={approached !== null && stoppedFlags[approached] ? "Play this painting's animation" : "Pause this painting's animation"}
+            onClick={() => (approached !== null && stoppedFlags[approached] ? api.current?.turnOn(approached) : api.current?.turnOff(approached!))}
           />
+        )}
+        {/* v13 V13-05b: the switch's only chrome — a play/pause glyph over the
+            work for ~900ms after a toggle, then gone. Inert to the pointer so
+            the stage keeps every gesture. */}
+        {cue && plaque && plaque.video && paintRect && (
+          <div
+            key={cue.k}
+            className="museum-switch-cue absolute z-20"
+            aria-hidden="true"
+            style={{ left: paintRect.x + paintRect.w / 2, top: paintRect.y + paintRect.h / 2 }}
+          >
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              {cue.on ? (
+                <path d="M8.5 6.2l9 5.8-9 5.8z" fill="currentColor" />
+              ) : (
+                <>
+                  <rect x="8" y="6.2" width="2.8" height="11.6" rx="0.6" fill="currentColor" />
+                  <rect x="13.2" y="6.2" width="2.8" height="11.6" rx="0.6" fill="currentColor" />
+                </>
+              )}
+            </svg>
+          </div>
         )}
 
         {/* Desktop / landscape card — left edge, vertically centred, no border, one button */}
@@ -1865,11 +2105,10 @@ export default function Museum({ works, slotId }: Props) {
                 overscrollBehavior: "contain",
               }}
             >
-              {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
-                  LOCATION alone — the artist credit lives in the grid and on
-                  the About page. */}
-              <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-3">{plaque.name}</p>
+              {/* v13 V13-05a (Wil, 8/26): the "Location NN" eyebrow is gone
+                  from the plaque — the location button in the grid below the
+                  hall still carries it. The title takes its place. */}
+              <p className="t-title-sm">{plaque.name}</p>
               {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
                 <figure className="mt-4">
                   <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
@@ -1901,7 +2140,12 @@ export default function Museum({ works, slotId }: Props) {
           >
             <div
               ref={sheetHeadRef}
-              className="museum-sheet-head cursor-grab touch-none px-[var(--ui-inset)] pt-3 pb-3"
+              /* v13 V13-10c (Wil, 8/26): "the drawer's top padding should match
+                 the left padding" — the sides were on `--ui-inset` (20px on a
+                 phone, 40 on a portrait tablet) while the top was a flat 12px.
+                 The bottom keeps its 12px: it is the gap to the body, not the
+                 drawer's edge. */
+              className="museum-sheet-head cursor-grab touch-none px-[var(--ui-inset)] pt-[var(--ui-inset)] pb-3"
               onPointerDown={onSheetDown}
               onPointerMove={onSheetMove}
               onPointerUp={onSheetUp}
@@ -1946,16 +2190,24 @@ export default function Museum({ works, slotId }: Props) {
                 </svg>
               </button>
               )}
-              {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
-                  LOCATION alone — the artist credit lives in the grid and on
-                  the About page. */}
-              <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-2">{plaque.name}</p>
+              {/* v13 V13-05a (Wil, 8/26): the "Location NN" eyebrow is gone
+                  from the plaque — the location button in the grid below the
+                  hall still carries it. The title takes its place. */}
+              <p className="t-title-sm">{plaque.name}</p>
             </div>
             <div
               className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
               aria-hidden={sheet === "peek"}
-              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - 118px)" }}
+              /* v13 V13-10c: 118px was a literal that matched neither header
+                 state (measured 53.9 peek / 119.9 full on a phone, 56.2 / 122.2
+                 on a portrait tablet, and both grow with `--ui-inset` and with
+                 the fluid title's line-height). It is measured now — the header
+                 publishes its own height to `--cnwm-sheet-head` — so the body
+                 gets exactly the sheet's 55dvh cap minus the header, in either
+                 state and at any inset — less the sheet's own 1px top
+                 border, which the 55dvh cap counts (border-box). Fallback is
+                 the phone's full header. */
+              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 128px) - 1px)" }}
             >
               {plaque.line && (
                 <figure>
@@ -1972,7 +2224,11 @@ export default function Museum({ works, slotId }: Props) {
         {ready && (
           <nav
             ref={dotsRef}
-            className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center gap-4"
+            /* v13 V13-10d (Wil, 8/26): "the 1/10 counter should be centered
+               above the indicator dots." It used to sit INSIDE this row, which
+               pushed the dot list off centre by half the counter's width — the
+               row was centred, the dots were not. Stacked, both are. */
+            className="absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2"
             style={{
               /* v12 (Wil, 8/26): one resting offset, always set inline, and it
                  is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
@@ -1992,7 +2248,11 @@ export default function Museum({ works, slotId }: Props) {
             aria-hidden={inApproach || undefined}
             aria-label="Works in the hall"
           >
-            <p className="t-meta hidden whitespace-nowrap sm:block" aria-hidden="true">
+            {/* v13 V13-10d DECISION: the counter shows at every width now (it
+                was `hidden sm:block`, so phones — the widths Wil was looking
+                at — never had it). REVERT: restore `hidden sm:block` on this
+                line; the column layout above stands either way. */}
+            <p className="t-meta whitespace-nowrap" aria-hidden="true">
               {pad2((approached ?? railIdx) + 1)} / {pad2(works.length)}
             </p>
             <ol className="flex items-center gap-2">
