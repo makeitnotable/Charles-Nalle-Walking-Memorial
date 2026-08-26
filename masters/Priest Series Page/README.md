@@ -34,7 +34,7 @@ framing, ≤12 ≈ same artwork, higher = same art at a different crop OR unrela
 | plate (this folder) | px | matches | best source for the build |
 |---|---|---|---|
 | Captured at Holeur's Fashionable Bakery (pen, 2008) | 800×800 | `bakery/sketch` (5) = Wil #1 | **site tier already correct** (1440×1188) |
-| The Struggle (pen) | 800×659 | the scene in Wil's corrupted #2 | **this plate**, as fallback until Wil supplies a clean #2 |
+| The Struggle (pen) | 800×659 | the same scene as Wil's #2 | unused — Wil directed his own #2 file (BRIEF §2); this is the one-line alternative if he switches |
 | The Altruist (pen) | 565×480 | `commissioners-office/sketch-pt2` (19) = Wil #3 | **site tier already correct** (1440×1185) |
 | Don't Let Them Have Him (pen, 2008) | 800×800 | Wil #5 / `ferry/sketch` — weak, verify by eye | whichever of the three reads cleanest at 800w |
 | Nalle Crossing the Hudson (pen, 2007) | 1920×1920 | **Wil #6 (distance 0)** | **this plate** — 2.6× Wil's pixels; crop the label bars |

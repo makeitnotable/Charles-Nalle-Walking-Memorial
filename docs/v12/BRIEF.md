@@ -73,7 +73,7 @@ label changes:
 | # | work | drawing (Wil's name) | state today | build from |
 |---|---|---|---|---|
 | 1 | Bakery Abduction | Captured at Holeur's Fashionable Bakery | **already correct** (`bakery/sketch`, d=5) | nothing to do |
-| 2 | 1st and State Street Skirmish | Sketch of 1st and State Street Skirmish | wrong drawing hangs here (#10 does) | ⚠ **Wil's file is corrupt** — see below |
+| 2 | 1st and State Street Skirmish | Sketch of 1st and State Street Skirmish | wrong drawing hangs here (#10 does) | **`masters/Nalle Drawings/2. Sketch of 1st and State Street Skirmish.jpg`** — Wil's file, at his direction |
 | 3 | The Altruist | The Altruist | **already correct** (`sketch-pt2`, d=19) | nothing to do |
 | 4 | Charles Learning How to Read & Write | Harriet Scattering Tidings of the Event | **already correct** (`mansion/sketch`, d=8) | nothing to do |
 | 5 | Don't Let Them Have Him! | Don't Let Them Have Him! | likely already correct (`ferry/sketch`, d=22 — **verify by eye**) | site tier if same; else Wil #5 |
@@ -83,28 +83,28 @@ label changes:
 | 9 | Rushing the Room | Sketch of Rushing the Room | none | `…/Martin Struck by Deputy Sheriff Morrison (pen, 2008).jpg` (1920²; file name is the series page's mis-caption — the ARTWORK is Rushing the Room, per the artist's burned-in label and Wil's map) |
 | 10 | Martin Felled by Axe | Sketch of Martin Felled by Axe | hangs on ch2 today (`commissioners-office/sketch`, d=11) → **moves** to `barbershop/narrative2` | reuse the existing 1440 tier |
 
-⚠ **`2. Sketch of 1st and State Street Skirmish.jpg` is still unusable — the
-fallback is DECIDED, this does not block.** The file is not pen work: an
-upscaler has melted it into smeared pseudo-relief, no line survives. Measured
-8/26 as the variance of the Laplacian at 1000px wide — line-work energy
-**1,777**, against **19,917–52,544** for the other nine drawings in the same
-folder, an order of magnitude below the lowest. Wil intended to replace it and
-his commit `f707968` was that attempt, but it only **deleted the 1×1 pixel
-`… (Upscaled).jpg` stub**: the main file is byte-identical to the original
-delivery (blob `1b0db87`, 759,737 bytes, still only ever written by `3b6a685`).
-No blame in it — the export simply did not make the commit.
+**#2's source — settled 8/26 by Wil, build it, do not re-raise.** Use
+`masters/Nalle Drawings/2. Sketch of 1st and State Street Skirmish.jpg`.
 
-**Build this study from `masters/Priest Series Page/The Struggle (pen).jpg`**
-(800×659, clean pen, same scene) unless a genuinely clean export has landed in
-`masters/Nalle Drawings/` by the time you reach this item. **Check, do not
-assume:** re-run the line-work measurement above on his file; take it only if
-it scores in the thousands-of-tens like its neighbours, and say in the review
-guide which source won and what it scored. The 800px source is not a
-compromise where it matters: the hall serves `sketch-800.webp`
-(`paintings.astro:127`), so at hall size it is native. Only the chapter page's
-1440 tier is affected — cap that srcset at 800w with honest descriptors rather
-than upscaling. Note in the review guide which source was used, so Wil can send
-a better scan later if he wants one.
+For the record, because it will look different from its nine neighbours and
+someone will ask why: this file has been through an upscaler that smoothed the
+pen work into soft pseudo-relief. Measured as the variance of the Laplacian at
+1000px wide, its line-work energy is **1,777** against **19,917-52,544** for
+the other nine drawings in the folder. It was flagged twice and Wil reviewed
+the image himself and directed its use — his art, his call. Build it.
+
+Two things that follow, neither of them a re-litigation:
+
+- **Do not sharpen, denoise, or "restore" it.** Ship what he gave. The one
+  thing that genuinely helps is the scale it is served at: downscaling to the
+  hall's 800w recovers apparent crispness, so build the 800 tier from the
+  1200px original and let it be.
+- **Cap the chapter-page 1440 tier at 800w** with honest descriptors, as with
+  every other 1200px source here — never upscale.
+
+If he changes his mind at review, the switch is one line: build from
+`masters/Priest Series Page/The Struggle (pen).jpg` (800x659, clean pen, same
+scene) instead. Note in the review guide which source shipped.
 
 Resolution rule: **studies are NOT part of the paintings' 3:2 re-frame** — they
 hang at their own aspect, so prefer the fullest artwork over Wil's 3:2 crop,
@@ -386,10 +386,10 @@ on Wil for anything.
    and on `/map`; plus the iOS version and the Safari "Allow Website Tinting"
    state. Everything else in §3.17 ships on best-known implementation whether or
    not that report comes back.
-2. **Optional upgrade, any time:** a genuinely clean (non-upscaled) export of
-   the 1st-and-State-Street drawing in `masters/Nalle Drawings/` — his 8/26
-   attempt did not carry the new file (see §2). §2 ships without it; if one
-   arrives mid-round, measure it before adopting it.
+2. **Optional, any time:** if Wil ever finds an un-upscaled scan of the
+   1st-and-State-Street drawing, it drops into `masters/Nalle Drawings/` and
+   the study rebuilds from it. Not needed — §2 ships his current file at his
+   direction.
 3. *(Closed 8/26)* High-res home source — not needed; §3.8 is fixed from assets
    already in the repo.
 4. *(Closed 8/26)* 3:2 animation re-exports — not needed; the videos are
