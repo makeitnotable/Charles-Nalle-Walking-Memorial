@@ -7,7 +7,23 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**v13 IN FLIGHT (Wil's 8/26 eleven-item round).** Work order:
+**v13 COMPLETE (Wil's 8/26 eleven-item round).** All eleven closed — nine by
+code, V13-11 as "no change, by his own stop-condition" with the dvh table as
+its deliverable. Guide: `docs/v13/REVIEW-GUIDE.md`. Ledger: `docs/v13/AUDIT.md`.
+One item needs his device to confirm (V13-06, the iOS browser-chrome bars):
+headless Chromium reports zero safe-area insets and has no address bar, so the
+bars are unobservable here. A real, measured fix shipped anyway — the
+chrome-tint strips now out-paint the full-bleed stages on `/map` and
+`/paintings`, the two routes his screenshots came from. Capture protocol at the
+end of the review guide.
+
+**Four of his eleven diagnoses were contradicted by the code, and one fix he
+reported as missing was live and reading as its own opposite** (v12's feather
+dissolved the top and bottom 24% of the Historical Context plate — he asked to
+see MORE of it). Every complaint was re-measured against HEAD before anything
+was touched.
+
+**v13 (superseded lines below).** Work order:
 `docs/v13/BRIEF.md`. Ledger: `docs/v13/AUDIT.md`. Executed by group, one at a
 time (one Playwright process per container; never edit `src/` while an
 instrument runs). Closed so far: **G5** (V13-07a media half) and **G4**
@@ -29,12 +45,23 @@ committed ahead of any code so the executing session starts from disk. No `src/`
 file has been touched for v13.
 
 ## CURRENT ITEM
-G3 (the chapter pages — V13-03, V13-04, V13-08) is next. G5 and G4 are
-committed and pushed on `v2`, mirrored to
+Nothing in flight. v13 shipped on `v2`, mirrored to
 `claude/paintings-hall-museum-fixes-qufa6x`.
 
 ## NEXT ACTION
-G3 → G2 → G1, strictly one at a time. Then `docs/v13/REVIEW-GUIDE.md`.
+Wil's device evidence for the browser-chrome bars — three screen recordings
+(iOS Safari, iOS Chrome, Android Chrome) on `/map`, `/paintings` and one
+chapter, in the DEFAULT UNSCROLLED state with the URL bar visible, then a short
+scroll. A bar that changes colour as the page moves is sampling page content; a
+bar that does not is sampling the body. Those are different bugs with different
+fixes, and the scroll distinguishes them. Protocol: end of
+`docs/v13/REVIEW-GUIDE.md`.
+
+Also open, and reported but NOT fixed under his scope lock: the hall's render
+loop stays dead after a curtain transition; the ≥1024 look-away chip row
+renders with only a hidden child; the lens has no focus trap; `tier2-tmp.mjs`
+is stray build scratch at the repo root; `troy-1858-full-4096.avif` is now
+unreferenced by the AVIF path.
 
 Still open from v12, and folded into v13-06: Wil's iPhone check on the
 browser-bar tint (protocol in §1 of `docs/v12/REVIEW-GUIDE.md`). Optional,

@@ -43,11 +43,86 @@ Two more where the fix was live and reading as its own opposite:
 
 ## The eleven items
 
-### 1 · The 1858 lens → map transition (V13-01)
-*Filled in when the map island lands.*
+### 1 · The 1858 lens → map transition (V13-01) — `4a90331`
 
-### 2 · Desktop chapter cards — equal spacing, ends not cut off (V13-02)
-*Filled in when the map island lands.*
+**It was not the fade. It was a layout race.** The figure is a flex column, and
+the "Back to today" button unmounted in the *same commit* that started the
+fade — so `flex-1` absorbed its 68px in that layout pass, the box grew, and the
+image (anchored at 50% of the box) jumped **34px downward on the exact frame
+the fade began**. That is the jitter you saw: not a rough animation, a jump.
+
+| | before | after |
+|---|---|---|
+| anchor movement on the close frame | **34.00px** | **0.00px** |
+| movement across all visible frames | 34.00px | **0.00px** (26 frames sampled) |
+| lens box during the fade | 670 → 738px | 670px throughout |
+| fade length | 1600ms | **520ms** |
+
+The children now stay mounted for the whole fade and unmount on `transitionend`.
+The re-flow still happens — at t≈614ms, with opacity measured at **0**, so you
+cannot see it — and then the pose resets, so re-opening the lens no longer
+inherits wherever you left it.
+
+Three aggravators went with it: the fade drops to 520ms on the house ease
+(reduced motion swaps instantly); the map chrome is held back until the fade
+finishes, so its `backdrop-filter` never composites over a live fading layer;
+and `will-change: transform` comes off the permanent path — measured `auto` at
+rest, `transform` during a drag, `auto` again after. That last one also helps
+your 4.3 complaint independently of resolution: iOS Safari is lazy about
+re-rasterising a permanently promoted layer this large, which softens the plate
+on its own.
+
+Keyboard round-trip verified with a visible ring at every step, and focus now
+**returns to the "See Troy in 1858" door** instead of being dropped.
+
+### 2 · Desktop chapter cards — equal spacing, ends not cut off (V13-02) — `4a90331`
+
+**v12's arithmetic was already right; keen-slider was undoing it.** The library
+puts `overflow: hidden` on every slide, so the inward shift that equalised the
+gaps had **41.16px of each outer card's own artwork guillotined** — and the
+visible gap sprang back to 16 + 41.16 = **57.16px**, which is exactly the
+16/57/57 that v12 set out to fix. You were looking at a fix being cancelled.
+
+| width | gaps before | gaps after |
+|---|---|---|
+| 1280 / 1440 | 16 / 16 | 16 / 15.96 / 15.96 / 15.96 |
+| 1920 / 2560 | **57.16** / 16 / 16 / **57.16** | 16 / 15.96 / 15.96 / 15.96 |
+
+Spread **0.04px** against a ±0.5px bar. Focused-card centre error 0.25px
+(bar ±1). Scales exactly 1.0000 / 0.9200. **Cards clipped by their own slide:
+5 of 5 at every width ≥1024 before → 0 after.**
+
+*Judgement call:* the plan proposed equalising through keen's own `spacing`
+instead. Measured, that is geometrically impossible — one uniform pitch cannot
+equalise the focused card's two gaps against the gaps between two *shrunken*
+neighbours; they differ by half the shrink (20.58px) at any spacing or origin.
+So the clip goes, not the shift. **Revert:** delete the one line that sets
+`overflow: visible` on wide slides.
+
+**On "ends cut off".** At 1280 and 1440 three whole cards need 1576px and the
+strip cannot hold them, so an outermost *partial* is a permanent condition —
+and cards may not be resized, which you asked for. The fix is that a partial
+now **dissolves** instead of being sliced: the edge ramp goes 28px → 120px,
+eased. Pixel-sampled at 1920 with a white ground behind the mask: **0 ink at
+x = 0, 1, 2, 4**, first faint ink at x = 7, full by x = 120. The dissolve
+completes *inside* the frame, so no card ever meets the container edge with ink
+still in it.
+
+**Tablet and mobile are untouched, as you required** — asserted, not assumed.
+A full computed snapshot at 390 and 768 (slide overflow, inner transform and
+origin, card width/height/padding/border-radius/box-shadow/border, the
+thumbnail box, and font-size/family/line-height/letter-spacing/weight/colour on
+every text role) diffs **byte-identical** to HEAD. The new ramp lives in its own
+`min-width: 1024px` block; the 640px boundary and its 28px ramp are exactly as
+they were.
+
+**One thing I could not reproduce — your third fault.** You said the focused
+card sits right of centre. At rest it does not: the centre error is **0.25px**
+at every width ≥1024, and identical before and after my change. The most likely
+explanation is that the screenshot caught the strip **mid-settle** — keen runs a
+650ms ease-out after a drag — rather than at rest. Per your scope lock I did not
+add a nudge to chase it. If you see it again at rest, send a screenshot taken a
+second after the strip stops moving and I will treat it as a live defect.
 
 ### 3 · Chapter 2's Part-2 hero must blend like Part 1 (V13-03) — `a30b4c8`
 
@@ -161,8 +236,7 @@ actually done:
 **§ THIS IS THE ONE THING I CANNOT CLOSE FROM HERE — see the bottom of this
 guide for exactly what to capture.**
 
-### 4.3a · The 1858 plate at max zoom (V13-07a) — media half `14731bc`
-*Code half filled in when the map island lands.*
+### 4.3a · The 1858 plate at max zoom (V13-07a) — `14731bc` + `4a90331`
 
 The arithmetic behind your complaint: the `<picture>` split on `min-width:
 768px` alone, with **no DPR term anywhere**, so a DPR-3 phone exhausted its 1:1
@@ -188,6 +262,26 @@ not existed since Safari 16.4 (2023). Above 6144 a non-AVIF browser falls back
 to the 6144 WebP, which is exactly what it is served today — a no-op, not a
 regression. **Revert:** `node scripts/build-1858-tier.mjs 8192 --webp` and add
 the `<source>` back.
+
+**The code half — and the actual arithmetic of your complaint.** Selection now
+accounts for resolution rather than width alone, and the zoom ceiling is
+resolution-aware (`min(6, naturalWidth / (box × DPR))`, floor 4), so "crystal
+clear at max zoom" holds by construction on devices we cannot test here.
+
+Measured by driving the Zoom-in control to the ceiling and reading the matrix:
+
+| device | tier served | source px per device px at the ceiling |
+|---|---|---|
+| 390 @ DPR 3 (phone) | 6144 | 0.65 → **1.000** |
+| 834 @ DPR 2 (tablet) | 8192 | 0.68 → **1.000** |
+
+Cost, and only on first open of the lens: phones 0.92 → 1.95 MiB, ≥768
+1.95 → 3.25 MiB.
+
+*Judgement call:* the phone **WebP** fallback stays at 4096 rather than 6144 —
+pushing 3.07 MiB of WebP at a non-AVIF phone over cellular is worse than the
+status quo, and the AVIF path (what any phone able to run this actually gets)
+is already 1:1. **Revert:** point the `<img src>` at the 6144 WebP.
 
 ### 4.3b + 4.5 · The doubled rule under the menu's X (V13-07b / V13-09) — `2b6c342`
 
@@ -342,7 +436,11 @@ Per your scope lock, these were left alone.
 5. **Under `prefers-reduced-motion` the whole 3-D hall is disabled** and the
    static fallback renders. Worth knowing before anyone tries to test the hall
    in that mode — it is by design, not a bug.
-6. **`api.mapbox.com` is blocked by this container's proxy**, so the QA console
+6. **The 1858 lens has no focus trap** (pre-existing): a fifth Tab past "Back
+   to today" leaves the viewer and lands on the chapter links behind the map.
+7. **`public/media/site/troy-1858-full-4096.avif` is now unreferenced** by the
+   AVIF path and could be pruned; media was not touched.
+8. **`api.mapbox.com` is blocked by this container's proxy**, so the QA console
    log shows tunnel errors on map-bearing pages. Not application code; it will
    not appear on a real network.
 
