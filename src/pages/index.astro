@@ -40,12 +40,15 @@ import { withBase } from "../lib/url";
             The poster attribute goes with the double fetch it caused.
             1080 and 800x1200 are the masters' own ceilings (confirmed by Wil,
             8/26): this is as sharp as the source gets, not a chosen budget. */}
+        {/* Art-directed by WIDTH, deliberately, not by `sizes` + w-descriptors:
+            the preload above is media-split, and a density-based pick would
+            disagree with it on any phone at DPR 3 (945px of demand from a
+            412px viewport selects the 1080 file while the preload fetched the
+            800). Two explicit sources make the choice deterministic, so the
+            preload is always the file the page then uses. */}
         <picture>
-          <source
-            type="image/avif"
-            srcset={`${withBase("media/site/home-bg-800.avif")} 800w, ${withBase("media/site/home-bg-1440.avif")} 1080w`}
-            sizes="100vw"
-          />
+          <source media="(max-width: 767px)" type="image/avif" srcset={withBase("media/site/home-bg-800.avif")} />
+          <source type="image/avif" srcset={withBase("media/site/home-bg-1440.avif")} />
           <img
             class="home-media absolute inset-0 h-full w-full object-cover"
             style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
