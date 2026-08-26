@@ -17,13 +17,13 @@ before the change and after it.
 | V13-02 | 2 | desktop chapter cards: equal gaps, ends not clipped | OPEN | — |
 | V13-03 | 3 | Ch2 Part-2 hero must blend like Part 1 | **CLOSED** — one value; hero 2's scrim delta 0.9 → 0.1, at hero 1's noise floor | `a30b4c8` |
 | V13-04 | 4 | Historical Context plate: more picture, larger, no black flash, 1.00→1.03 scrub, feathered | **CLOSED** — feather 24%→12%; fully-opaque artwork +59% (327.6→519.8px @375); scrub 1.0297/−7.91px, reversible | `a30b4c8` |
-| V13-05 | 4.1 | hall drawer eyebrow, still/alive tap switch, desktop chip centring | OPEN | — |
+| V13-05 | 4.1 | hall drawer eyebrow, still/alive tap switch, desktop chip centring | **CLOSED** — eyebrow gone from both plaque sites (grid button kept); tap toggles anywhere on the work ±9%; chip centred in Skip's band (vertical was already 0.00px off) | `d097ea3` |
 | V13-06 | 4.2 | "black bars", viewport/mobile-web-app metas, safe areas | **CLOSED** — his diagnosis false on every count; qa:head lock added, three raw safe areas closed, chrome-tint lifted above the full-bleed stages | `2b6c342` |
 | V13-07a | 4.3a | 1858 plate blurry at max zoom on mobile/tablet | media half **CLOSED** (8192 tier, q52, 3.25 MB); code half rides with G1 | `14731bc` |
 | V13-07b | 4.3b | doubled rule under the menu's X | **CLOSED** — a clipped `:focus-visible` ring, not two borders; inward ring | `2b6c342` |
 | V13-08 | 4.4 | quote section alignment on every chapter | **CLOSED** — one shared measure (280px phone / 544px tablet); all five agree at every width; desktop untouched | `a30b4c8` |
 | V13-09 | 4.5 | two orange lines below the X (duplicate of V13-07b) | **CLOSED** by the same commit | `2b6c342` |
-| V13-10 | 4.6 | mobile paintings hall — six sub-items | OPEN | — |
+| V13-10 | 4.6 | mobile paintings hall — six sub-items | **CLOSED** — all six; *Rushing the Room* fixed index-agnostically (20/20 works exit cleanly), *Martin Felled by Axe* now derived `yC === CEIL_Y/2` (was 12cm through a portrait-tablet ceiling) | `d097ea3` |
 | V13-11 | 4.7 | mobile menu secondary-nav spacing | **CLOSED — no change, by his own stop-condition.** Break-even dvh 659; a real SE needs 102–179px and zeroing the gap buys 54.7px | `2b6c342` |
 
 ## Pre-flight measurements (orchestrator, against HEAD `06e76e2`)
