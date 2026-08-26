@@ -16,16 +16,25 @@ Ledger: `docs/v12/AUDIT.md`. Work order: `docs/v12/BRIEF.md`.
 **v11 (previous) — items 7 and 8a were held on Wil's decision; both are now
 answered and shipped in v12.**
 
+**v13 is PLANNED, NOT STARTED.** Wil's 8/26 eleven-item round is worked out in
+full — root cause, fix, files and acceptance per item — in `docs/v13/BRIEF.md`,
+committed ahead of any code so the executing session starts from disk. No `src/`
+file has been touched for v13.
+
 ## CURRENT ITEM
-Nothing outstanding. v12 shipped on `v2` (mirrored to
-`claude/paintings-hall-museum-fixes-qufa6x`).
+Nothing in flight. v12 shipped on `v2` (mirrored to
+`claude/paintings-hall-museum-fixes-qufa6x`). v13 awaits execution.
 
 ## NEXT ACTION
-Wil's iPhone check on the browser-bar tint — the protocol is §1 of
-`docs/v12/REVIEW-GUIDE.md`. Everything else in the round is measured and
-closed. Optional, whenever he has it: an un-upscaled scan of the
-1st-and-State-Street drawing (`masters/Nalle Drawings/2. …`), which ships as he
-supplied it at his direction.
+Execute `docs/v13/BRIEF.md` — its "Execution model" section carries the
+group/model/effort allocation and the order. Four of the eleven items carry a
+client diagnosis the code contradicts; the brief names each with evidence, so
+**measure before touching anything**.
+
+Still open from v12, and folded into v13-06: Wil's iPhone check on the
+browser-bar tint (protocol in §1 of `docs/v12/REVIEW-GUIDE.md`). Optional,
+whenever he has it: an un-upscaled scan of the 1st-and-State-Street drawing
+(`masters/Nalle Drawings/2. …`), which ships as he supplied it at his direction.
 
 ## v12 TRAPS WORTH KEEPING
 - CONTENT: **Safari 26 parses `theme-color` and ignores it.** It tints from the
