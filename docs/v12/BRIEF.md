@@ -25,8 +25,9 @@ ledger. Audit into `docs/v12/AUDIT.md` before editing anything.*
 
 ## 1 · The canon: official painting titles
 
-Wil's list, with his 8/26 punctuation answers applied (A = no exclamation,
-B = lowercase "the"):
+**Final.** Wil's 8/26 map is the authority for these strings, exactly as
+written there — punctuation included ("it is final"). Any earlier reading of
+his A/B answer is superseded; do not re-litigate the two strings this settles.
 
 | # | slug / key | official title (label text) |
 |---|---|---|
@@ -34,23 +35,16 @@ B = lowercase "the"):
 | 1 | `commissioners-office/horizontal` | 1st and State Street Skirmish |
 | 2 | `commissioners-office/horizontal-pt2` | The Altruist |
 | 3 | `mansion/horizontal` | Charles Learning How to Read & Write |
-| 4 | `ferry/horizontal` | Don't Let Them Have Him |
-| 5 | `ferry/narrative1` | Nalle Crossing the Hudson |
+| 4 | `ferry/horizontal` | Don't Let Them Have Him! |
+| 5 | `ferry/narrative1` | Nalle Crossing The Hudson |
 | 6 | `ferry/narrative2` | Ferry Crossing |
 | 7 | `barbershop/horizontal` | West Troy |
 | 8 | `barbershop/narrative1` | Rushing the Room |
 | 9 | `barbershop/narrative2` | Martin Felled by Axe |
 
-**One internal inconsistency in his message — DECIDED 8/26, do not re-ask.**
-His direct answer to the punctuation question gives "Don't Let Them Have Him"
-(no "!") and "Nalle Crossing the Hudson" (lowercase); the map table two
-paragraphs later writes "Don't Let Them Have Him!" and "Nalle Crossing The
-Hudson". The table above follows the **direct answer**, because that was the
-deliberate response to that exact question and the map table reads as a
-copy-paste of the title list I had sent him (its capital "The" is mine).
-Build it that way. Surface both strings in the review guide under "one-word
-corrections" so he can flip either at review time — it is a single JSON edit
-per title, no rebuild of anything.
+*(Settled 8/26: his message had briefly carried two readings of #4 and #5 —
+with and without the exclamation, "the" vs "The". He ruled for the map. The
+table above is it; the question is closed.)*
 
 **Where titles go.** Add a per-work title field to chapter JSON (schema in
 `src/content.config.ts:50-151`; e.g. `media.workTitles: { horizontal: "…" }`)
@@ -82,22 +76,30 @@ label changes:
 | 2 | 1st and State Street Skirmish | Sketch of 1st and State Street Skirmish | wrong drawing hangs here (#10 does) | ⚠ **Wil's file is corrupt** — see below |
 | 3 | The Altruist | The Altruist | **already correct** (`sketch-pt2`, d=19) | nothing to do |
 | 4 | Charles Learning How to Read & Write | Harriet Scattering Tidings of the Event | **already correct** (`mansion/sketch`, d=8) | nothing to do |
-| 5 | Don't Let Them Have Him | Don't Let Them Have Him! | likely already correct (`ferry/sketch`, d=22 — **verify by eye**) | site tier if same; else Wil #5 |
-| 6 | Nalle Crossing the Hudson | Nalle on the Hudson | none | `masters/Priest Series Page/Nalle Crossing the Hudson (pen, 2007).jpg` (1920², **d=0 vs Wil #6**) — crop label bars |
+| 5 | Don't Let Them Have Him! | Don't Let Them Have Him! | likely already correct (`ferry/sketch`, d=22 — **verify by eye**) | site tier if same; else Wil #5 |
+| 6 | Nalle Crossing The Hudson | Nalle on The Hudson | none | `masters/Priest Series Page/Nalle Crossing the Hudson (pen, 2007).jpg` (1920², **d=0 vs Wil #6**) — crop label bars |
 | 7 | Ferry Crossing | Escape to West Troy | none | `…/Escape to West Troy (pen, 2007).jpg` (1920², d=6) — crop label bars |
 | 8 | West Troy | Nalle Gets in The Wagon | **already correct** (`barbershop/sketch`, d=4) | nothing to do |
 | 9 | Rushing the Room | Sketch of Rushing the Room | none | `…/Martin Struck by Deputy Sheriff Morrison (pen, 2008).jpg` (1920²; file name is the series page's mis-caption — the ARTWORK is Rushing the Room, per the artist's burned-in label and Wil's map) |
 | 10 | Martin Felled by Axe | Sketch of Martin Felled by Axe | hangs on ch2 today (`commissioners-office/sketch`, d=11) → **moves** to `barbershop/narrative2` | reuse the existing 1440 tier |
 
-⚠ **`2. Sketch of 1st and State Street Skirmish.jpg` is unusable — the
-fallback is DECIDED, this does not block.** The 759 KB file is not pen work: an
-upscaler has melted it into smeared pseudo-relief, no line survives. The
-companion `… (Upscaled).jpg` is worse — 629 bytes, a **1×1 pixel** JPEG.
+⚠ **`2. Sketch of 1st and State Street Skirmish.jpg` is still unusable — the
+fallback is DECIDED, this does not block.** The file is not pen work: an
+upscaler has melted it into smeared pseudo-relief, no line survives. Measured
+8/26 as the variance of the Laplacian at 1000px wide — line-work energy
+**1,777**, against **19,917–52,544** for the other nine drawings in the same
+folder, an order of magnitude below the lowest. Wil intended to replace it and
+his commit `f707968` was that attempt, but it only **deleted the 1×1 pixel
+`… (Upscaled).jpg` stub**: the main file is byte-identical to the original
+delivery (blob `1b0db87`, 759,737 bytes, still only ever written by `3b6a685`).
+No blame in it — the export simply did not make the commit.
 
 **Build this study from `masters/Priest Series Page/The Struggle (pen).jpg`**
-(800×659, clean pen, same scene) unless a clean export of Wil's #2 has landed
-in `masters/Nalle Drawings/` by the time you reach this item — check the folder
-first, and prefer his file if it is real pen work. The 800px source is not a
+(800×659, clean pen, same scene) unless a genuinely clean export has landed in
+`masters/Nalle Drawings/` by the time you reach this item. **Check, do not
+assume:** re-run the line-work measurement above on his file; take it only if
+it scores in the thousands-of-tens like its neighbours, and say in the review
+guide which source won and what it scored. The 800px source is not a
 compromise where it matters: the hall serves `sketch-800.webp`
 (`paintings.astro:127`), so at hall size it is native. Only the chapter page's
 1440 tier is affected — cap that srcset at 800w with honest descriptors rather
@@ -384,9 +386,10 @@ on Wil for anything.
    and on `/map`; plus the iOS version and the Safari "Allow Website Tinting"
    state. Everything else in §3.17 ships on best-known implementation whether or
    not that report comes back.
-2. **Optional upgrade, any time:** a clean (non-upscaled) export of the
-   1st-and-State-Street drawing dropped into `masters/Nalle Drawings/`. §2 ships
-   without it.
+2. **Optional upgrade, any time:** a genuinely clean (non-upscaled) export of
+   the 1st-and-State-Street drawing in `masters/Nalle Drawings/` — his 8/26
+   attempt did not carry the new file (see §2). §2 ships without it; if one
+   arrives mid-round, measure it before adopting it.
 3. *(Closed 8/26)* High-res home source — not needed; §3.8 is fixed from assets
    already in the repo.
 4. *(Closed 8/26)* 3:2 animation re-exports — not needed; the videos are
@@ -395,8 +398,8 @@ on Wil for anything.
 ## 5 · Wil's answers (8/26) — all questions closed
 
 1. **Card gaps: desktop only.** Tablet and phone untouched.
-2. **Titles:** A = "Don't Let Them Have Him", B = "Nalle Crossing the Hudson"
-   (see §1's flag about his map table's competing punctuation).
+2. **Titles: his map is final** — the strings in §1 are verbatim from it,
+   punctuation included. Closed; do not re-ask.
 3. **Studies:** his `masters/Nalle Drawings/` map governs (§2) — every earlier
    default is superseded.
 4. **Bugs:** "Do not bring back any bugs, eliminate all bugs on the paintings
