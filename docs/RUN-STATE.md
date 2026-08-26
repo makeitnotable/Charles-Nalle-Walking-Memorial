@@ -7,50 +7,63 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**v11 IN FLIGHT (Wil's 8/22 round — twelve numbered items).** Ten shipped;
-items 7 (official painting titles) and 8a (the Part 1 study) are held on Wil's
-decision, not on work — see `docs/v11/PAINTING-NAMES.md`. Guide:
-`docs/v11/REVIEW-GUIDE.md`. Ledger: `docs/v11/SCOPE.md`.
+**v12 COMPLETE (Wil's 8/25–8/26 round — fourteen items + the painting canon +
+a hall sweep).** All twenty ledger items closed; one (V12-19, the iOS browser
+bar) ships on best-known implementation and needs his device to confirm, because
+no address bar exists in this container. Guide: `docs/v12/REVIEW-GUIDE.md`.
+Ledger: `docs/v12/AUDIT.md`. Work order: `docs/v12/BRIEF.md`.
 
-**v10.2 SHIPPED (Wil's 8/21–8/22 round).** Three items: V10-12 the museum's
-original walk restored with the arch kept · V10-13 the home lockup's air made
-a shrinkable spacer · V10-14 the map's phone overview camera given a reachable
-zoom floor. Guide: `docs/v10/REVIEW-GUIDE.md`. Scope ledger (every change ↔ a
-verbatim quote): `docs/v10/SCOPE.md`.
-
-**v9 — COMPLETE.** Three corrections to v8 plus eight new items. v8's closing
-state below.
-
-**v8 — RUN COMPLETE (P1–P7).** All 40 audit items shipped across 11 commits on
-`v2` (mirrored to `claude/nalle-memorial-polish-kc4uvm`). Final gate:
-rag 0/0/0 over 4,523 blocks × 99 passes · contrast 0 failures · a11y
-0/0/0 over 51 runs · frames CLEAN 4/4 runnable · museum-check 77–79 draw
-calls with no composition findings · census one ladder · audio-check
-clean · Lighthouse a11y 100 everywhere. The four perf routes under their
-v7 bars were proven ENVIRONMENTAL by building the pre-v8 commit and
-measuring it on this machine minutes apart (home 94 vs 93 · commissioners
-96 vs 96 · mansion 96 vs 96 · paintings 64 vs 64, TBT within 0.4%) — this
-container has no GPU. Evidence: docs/qa/v8-final/ + docs/qa/museum-v8/. Environment note: this container blocks
-cdn.playwright.dev — the pre-installed Chromium at /opt/pw-browsers is
-shimmed as chromium-1234/chromium_headless_shell-1234 (symlinks to the
-1194 builds); `npm run qa:setup` is NOT needed here. Dev server :4321 up
-(self-daemonized).
+**v11 (previous) — items 7 and 8a were held on Wil's decision; both are now
+answered and shipped in v12.**
 
 ## CURRENT ITEM
-v11: ten of twelve implemented, measured and pushed. Open and Wil's: the two
-painting titles that are not on the artist's series page (mansion and
-barbershop horizontals), the Part 1 study (its drawing is the study for the
-FERRY chapter's painting), and whether to re-frame all ten paintings from the
-masters' 3:2 to replace the site's 16:9 crops.
+Nothing outstanding. v12 shipped on `v2` (mirrored to
+`claude/paintings-hall-museum-fixes-qufa6x`).
 
-**v10.2 (previous):** implemented, measured and pushed; docs/v10/REVIEW-GUIDE.md written.
-Open and Wil's: the ten painting titles (his `masters/` filenames carry them —
-"Holeur's Fashionable Bakery", "The Commissioner's Office pt1/pt2", "Uri
-Gilbert's Mansion", "Washington Street Ferry Landing", "Peter Baltimore's
-Barbershop" — but the site's media keys are still generic and I have NOT
-assumed), the high-res splash source, and one decision: the "Take the walk"
-pill covers the Mapbox wordmark (measured y 721.7 over 715.3–733.0; he did not
-pick it when asked, so it is raised in the guide, not changed).
+## NEXT ACTION
+Wil's iPhone check on the browser-bar tint — the protocol is §1 of
+`docs/v12/REVIEW-GUIDE.md`. Everything else in the round is measured and
+closed. Optional, whenever he has it: an un-upscaled scan of the
+1st-and-State-Street drawing (`masters/Nalle Drawings/2. …`), which ships as he
+supplied it at his direction.
+
+## v12 TRAPS WORTH KEEPING
+- CONTENT: **Safari 26 parses `theme-color` and ignores it.** It tints from the
+  `<body>` background (falling back to `<html>`), plus fixed/sticky elements at
+  the viewport edges. A site whose body ground is one colour at every scroll
+  position gets that colour in the bar forever, however perfect the meta is.
+- MEASURE FIRST: the interlude's "harsh white line" was the FIX, not a missing
+  one — the ground above and below is the same cream at every width, so opaque
+  cream painted over the photograph was what drew the boundary. A dark ramp
+  measured a 219-unit hard edge; a mask on the image measures none.
+- INSTRUMENT: a probe that measures a full-width ROW instead of the visible
+  pill inside it reports a false overlap at every desktop width. Two of the
+  first hall-sweep "failures" were the probe's own bugs (that, and calling the
+  `state` getter as a function).
+- BUILD ORDER: a build script that both writes and reads the same media key
+  will hand the second consumer the first one's output —
+  `barbershop/sketch-n2` briefly became the 1st-and-State drawing this way.
+  Source every output from a master, never from a sibling output.
+- IMAGES: a burned-in caption bar cannot be found by a row MEAN (white type
+  lifts it) nor by a >90%-near-black test (a caption line is only ~86% dark).
+  Profile it: bar rows run 0.82–1.00 near-black, artwork rows about 0.27.
+- ENV: **no h264 decodes in this container's headless Chromium** — an untouched
+  chapter film reports readyState 0 too, so video changes are verified with
+  ffmpeg, not the browser. ffmpeg itself IS available:
+  `npm i --prefix <scratchpad>/tools ffmpeg-static` (install it OUTSIDE the
+  repo — a later `npm i` prunes an unsaved dep and deletes the binary), and
+  `opj_decompress` (apt `libopenjp2-tools`) reads the 1858 JP2 at `-r 1`.
+- ENV: `astro preview` AUTO-INCREMENTS its port when the requested one is busy,
+  so a stale preview silently answers on the port you meant for a second build.
+  Kill every `astro preview` before an A/B and verify which bundle each port
+  serves before trusting a screenshot.
+- ENV: a git worktree that SYMLINKS the main `node_modules` shares its Vite
+  cache and can rebuild the current code while claiming to be an older commit.
+  Hard-link (`cp -al`) and delete `.vite` / `.astro` instead.
+- ENV: Playwright 1.62 expects `chromium_headless_shell-XXXX/
+  chrome-headless-shell-linux64/chrome-headless-shell`; the pre-installed 1194
+  build stores it as `chrome-linux/headless_shell`, so both a directory shim and
+  an inner symlink are needed. Lighthouse needs `CHROME_PATH` set explicitly.
 
 ## v8 (previous run)
 RUN COMPLETE. Every item in docs/v8/AUDIT.md is implemented, measured and
