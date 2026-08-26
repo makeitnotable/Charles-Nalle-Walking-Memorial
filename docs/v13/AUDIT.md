@@ -13,13 +13,13 @@ before the change and after it.
 
 | # | his # | item | state | SHA |
 |---|---|---|---|---|
-| V13-01 | 1 | 1858 lens → map close is jittery | OPEN | — |
-| V13-02 | 2 | desktop chapter cards: equal gaps, ends not clipped | OPEN | — |
+| V13-01 | 1 | 1858 lens → map close is jittery | **CLOSED** — a layout race, not the fade; anchor moved 34.00px on the close frame, now 0.00px across all 26 visible frames | `4a90331` |
+| V13-02 | 2 | desktop chapter cards: equal gaps, ends not clipped | **CLOSED** — keen's own slide clip was undoing v12's shift; gaps 57.16 → 15.96/16 (spread 0.04px), 0 cards clipped, ends dissolve inside the frame; ≤1023 byte-identical | `4a90331` |
 | V13-03 | 3 | Ch2 Part-2 hero must blend like Part 1 | **CLOSED** — one value; hero 2's scrim delta 0.9 → 0.1, at hero 1's noise floor | `a30b4c8` |
 | V13-04 | 4 | Historical Context plate: more picture, larger, no black flash, 1.00→1.03 scrub, feathered | **CLOSED** — feather 24%→12%; fully-opaque artwork +59% (327.6→519.8px @375); scrub 1.0297/−7.91px, reversible | `a30b4c8` |
 | V13-05 | 4.1 | hall drawer eyebrow, still/alive tap switch, desktop chip centring | **CLOSED** — eyebrow gone from both plaque sites (grid button kept); tap toggles anywhere on the work ±9%; chip centred in Skip's band (vertical was already 0.00px off) | `d097ea3` |
 | V13-06 | 4.2 | "black bars", viewport/mobile-web-app metas, safe areas | **CLOSED** — his diagnosis false on every count; qa:head lock added, three raw safe areas closed, chrome-tint lifted above the full-bleed stages | `2b6c342` |
-| V13-07a | 4.3a | 1858 plate blurry at max zoom on mobile/tablet | media half **CLOSED** (8192 tier, q52, 3.25 MB); code half rides with G1 | `14731bc` |
+| V13-07a | 4.3a | 1858 plate blurry at max zoom on mobile/tablet | **CLOSED** — the `<picture>` had no DPR term at all; now 1.000 source px per device px at the ceiling on both 390/DPR3 and 834/DPR2 (was ~0.65) | `14731bc` + `4a90331` |
 | V13-07b | 4.3b | doubled rule under the menu's X | **CLOSED** — a clipped `:focus-visible` ring, not two borders; inward ring | `2b6c342` |
 | V13-08 | 4.4 | quote section alignment on every chapter | **CLOSED** — one shared measure (280px phone / 544px tablet); all five agree at every width; desktop untouched | `a30b4c8` |
 | V13-09 | 4.5 | two orange lines below the X (duplicate of V13-07b) | **CLOSED** by the same commit | `2b6c342` |
@@ -64,3 +64,17 @@ card) and `:1952` (the `portraitUI` sheet) both emit
 `<p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>`. Eleven other
 "Location NN" sites exist on the site; `paintings.astro:225` is the location
 *button* he explicitly protects. Only the two plaque sites change.
+
+## All eleven closed
+
+Every row above is closed. Nine were code changes; **V13-11 closed as "no
+change, by his own stop-condition"** — the measurement was the deliverable, and
+it is published in the review guide.
+
+**The one thing that cannot be closed from this container** is the iOS
+browser-chrome bar itself (V13-06): headless Chromium reports zero safe-area
+insets and has no address bar, so the bars are unobservable here. A real,
+measured fix shipped anyway — the chrome-tint strips now out-paint the
+full-bleed stages on `/map` and `/paintings`, which is where his screenshots
+came from. The capture protocol for confirming it is at the end of
+`docs/v13/REVIEW-GUIDE.md`.
