@@ -71,3 +71,31 @@ phone — precisely the failure the museos audit flags as that site's worst trai
 Shipping values are `128/168/200` for `--space-section` and `260/320/400` for
 `--space-void`, which hold the same *proportion* of the viewport at each width.
 Recorded because it is a deliberate deviation from the written plan, not drift.
+
+---
+
+## D4 · v12 reverses two earlier museum calls, at Wil's direction
+
+Both were deliberate when made, and both are deliberate now. Recorded so the
+next reader does not "fix" them back.
+
+**The plaque's close icon is no longer always present.** v10 V10-07 (Wil,
+8/21) put the X on screen whenever the drawer existed — "present at all times,
+not just something that appears when the user starts to scroll down." v12 (Wil,
+8/26) asks for the opposite behaviour and describes the whole cycle: the icon
+belongs to the OPEN drawer, tapping it hides the drawer completely, and
+scrolling on brings it back a step at a time — preview first, then the full
+card with the icon. Implemented as a third drawer state (`sheetHidden`) rather
+than a fourth point on the 0..1 position axis, so the drag, swipe and wheel
+maths are untouched. To revert: drop the `sheet === "full"` guard on
+`.museum-sheet-close`, point its click back at `snapSheet("peek")`, and delete
+the hidden branches in `onWheel` and the stage swipe.
+
+**The desktop plaque card now has a border.** v8 authored it without one on
+purpose (`Museum.tsx` header: "desktop card at the left edge with no border and
+one button"). Wil, 8/26: the drawer's stroke "is missing all together on
+desktop, check tablet too." `.museum-card` now takes the same 1px
+`--color-primary-7` the phone sheet carries. The sheet's own stroke was a real
+defect rather than a choice — only its top edge was ever drawn, so the 16px
+corner radius bent that line through an arc with nothing either side of it and
+it tapered to nothing, which is what he saw "going to zero" at the top corners.

@@ -7,7 +7,7 @@
     "pin": "Ferry"
   },
   "chapterLabel": "Chapter 4",
-  "sketchNote": "The whole sheet goes to the scrum: a dozen figures worked into one another over the cobblestones, the buildings behind them barely roughed in. Through the center runs one taut line, hauling Charles forward, and every hand in the drawing is fighting for it.",
+  "sketchNote": "Every figure in the sheet leans into one knot at the center. Priest laid the cobblestones in the same hatching as the coats, so paving and crowd read as a single surface, and the man down at the left is the only place the drawing opens up.",
   "heroFocus": 50,
   "plaque": false,
   "map": {
@@ -43,6 +43,8 @@
       "narrative1",
       "narrative2",
       "sketch",
+      "sketch-n1",
+      "sketch-n2",
       "square",
       "vertical"
     ],
@@ -52,7 +54,23 @@
       "narrative2",
       "reveal-horizontal",
       "reveal-vertical"
-    ]
+    ],
+    "works": {
+      "horizontal": {
+        "title": "Don't Let Them Have Him!",
+        "study": "sketch"
+      },
+      "narrative1": {
+        "title": "Nalle Crossing The Hudson",
+        "study": "sketch-n1",
+        "studyNote": "Charles lies the full width of the boat, bound at the wrists, while the rowers' hands work above him. Priest kept the far shore to a single line of onlookers along the top edge: the whole crossing is watched, and nobody moves."
+      },
+      "narrative2": {
+        "title": "Ferry Crossing",
+        "study": "sketch-n2",
+        "studyNote": "The oarsman's back fills the foreground and the far bank is all light — a shed, a flag, a few figures along the shoreline. Priest drew the water in long unbroken strokes, so the boat reads as already past the worst of it."
+      }
+    }
   },
   "scenes": [
     {

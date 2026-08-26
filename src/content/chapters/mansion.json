@@ -47,7 +47,13 @@
       "historical",
       "reveal-horizontal",
       "reveal-vertical"
-    ]
+    ],
+    "works": {
+      "horizontal": {
+        "title": "Charles Learning How to Read & Write",
+        "study": "sketch"
+      }
+    }
   },
   "scenes": [
     {

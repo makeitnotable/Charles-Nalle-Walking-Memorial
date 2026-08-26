@@ -133,6 +133,23 @@ const chapters = defineCollection({
     media: z.object({
       images: z.array(z.string()),
       videos: z.array(z.string()),
+      /** v12 (Wil, 8/26): the PAINTING canon, keyed by painting media key.
+       *  `title` is the artwork's official name from his chapter → painting →
+       *  drawing map — the hall's plaques and the grid's captions read it, and
+       *  it never replaces a LOCATION name (those stay in `name.*`, governed by
+       *  docs/v4/NAMING-CANON.md and the bronze plaques). `study` is the media
+       *  key of the drawing that hangs beside it; narrative works now carry one
+       *  too, which is why this is authored per work instead of derived from the
+       *  key. `studyNote` is the card's paragraph where the work is not a scene
+       *  and so has nowhere else to keep it. */
+      works: z.record(
+        z.string(),
+        z.object({
+          title: z.string(),
+          study: z.string().nullable().optional(),
+          studyNote: z.string().nullable().optional(),
+        }),
+      ),
     }),
     scenes: z.array(scene),
     historicalContext: z.array(z.string()),

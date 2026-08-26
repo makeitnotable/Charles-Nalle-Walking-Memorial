@@ -47,6 +47,8 @@
       "narrative1",
       "narrative2",
       "sketch",
+      "sketch-n1",
+      "sketch-n2",
       "square",
       "vertical"
     ],
@@ -56,7 +58,23 @@
       "narrative2",
       "reveal-horizontal",
       "reveal-vertical"
-    ]
+    ],
+    "works": {
+      "horizontal": {
+        "title": "West Troy",
+        "study": "sketch"
+      },
+      "narrative1": {
+        "title": "Rushing the Room",
+        "study": "sketch-n1",
+        "studyNote": "The door frame splits the sheet and the fight happens on both sides of it at once. Priest pinned the central figure with hands coming in from either edge, and left the WANTED bill in the top corner as the only thing in the room that is still."
+      },
+      "narrative2": {
+        "title": "Martin Felled by Axe",
+        "study": "sketch-n2",
+        "studyNote": "Two men are down across the bottom of the sheet, drawn at the same scale as the men still standing, so the eye reaches them first. Above them the struggle carries on into the dark of the doorway."
+      }
+    }
   },
   "scenes": [
     {

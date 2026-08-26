@@ -34,6 +34,9 @@ import ChapterSpine from "../components/ChapterSpine.astro";
 import WalkProgress from "../components/WalkProgress.astro";
 import { withBase } from "../lib/url";
 import { fitChars, nbsp } from "../lib/text";
+import sharp from "sharp";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export async function getStaticPaths() {
   const chapters = await getCollection("chapters");
@@ -86,6 +89,20 @@ const GROUND_FOCUS: Record<string, string> = {
   "ferry/moral": "center 35%",
   "barbershop/moral": "center 25%",
 };
+/* v12: the study tiers are built from whatever master exists, and two of them
+   are 1200px sources — `scripts/build-studies.mjs` never upscales, so those
+   `-1440` files really are 1200 wide. Read the width at build and let the
+   srcset descriptor tell the truth rather than claiming 1440w for all of them.
+   Resolved from process.cwd(), never import.meta.url (see paintings.astro). */
+const widthOf = async (rel: string, fallback: number) => {
+  try {
+    const m = await sharp(await readFile(join(process.cwd(), "public", rel))).metadata();
+    return m.width ?? fallback;
+  } catch {
+    return fallback;
+  }
+};
+
 const morals = c.morals.map((m, i) => {
   const ground = i === 0 ? "moral" : `moral-pt${i + 1}`;
   const scene = c.scenes[i] ?? c.scenes[0];
@@ -97,12 +114,19 @@ const morals = c.morals.map((m, i) => {
     ground,
     groundFocus: GROUND_FOCUS[`${slug}/${ground}`] ?? "center 25%",
     sketchKey: scene.reveal?.sketch ?? null,
+    /* v12: the study is credited by the PAINTING it was made for, not by the
+       location — the artwork keys are the same order the scenes run in. */
+    workTitle: c.media.works[i === 0 ? "horizontal" : "horizontal-pt2"]?.title ?? c.name.canonical,
     /* Never invent a caption: scene 1 uses the chapter note, a later scene
        uses its own if one has been written. Ch2 Pt 2's is outstanding —
        docs/CONTENT-STATUS.md. */
     note: i === 0 ? c.sketchNote : (scene.sketchNote ?? null),
   };
 });
+
+const sketchWidths = await Promise.all(
+  morals.map((m) => (m.sketchKey ? widthOf(`media/${slug}/${m.sketchKey}-1440.webp`, 1440) : Promise.resolve(1440))),
+);
 
 /**
  * THE INTERLUDE — the full-bleed beat between the sketch and the history.
@@ -617,9 +641,9 @@ const focus =
                       <div class="artifact border border-primary-7">
                         <img
                           src={withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.jpg`)}
-                          srcset={`${withBase(`media/${slug}/${morals[b.i].sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.webp`)} 1440w`}
+                          srcset={`${withBase(`media/${slug}/${morals[b.i].sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.webp`)} ${sketchWidths[b.i]}w`}
                           sizes="(min-width: 768px) 420px, 100vw"
-                          alt={`Study for “${c.name.canonical}”, Mark Priest`}
+                          alt={`Study for “${morals[b.i].workTitle}”, Mark Priest`}
                           loading="lazy"
                           decoding="async"
                           class="h-auto w-full"

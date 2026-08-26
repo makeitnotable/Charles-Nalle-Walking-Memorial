@@ -8,7 +8,7 @@
     "pin": "Commissioner"
   },
   "chapterLabel": "Chapter 2",
-  "sketchNote": "Everything in the study runs on one diagonal: the stair, the men on it, and the hands entering from the right edge. Priest drew the grip before he drew the faces.",
+  "sketchNote": "The study takes in the whole intersection: the portico on the left, the block of storefronts running back on the right, and between them a crowd already breaking into a brawl. Priest set the horizon high, so the street itself holds most of the sheet.",
   "heroFocus": 58,
   "plaque": true,
   "map": {
@@ -41,7 +41,6 @@
     "images": [
       "historical",
       "historical-pt2",
-      "troy-1858",
       "horizontal",
       "horizontal-pt2",
       "moral",
@@ -49,6 +48,7 @@
       "sketch",
       "sketch-pt2",
       "square",
+      "troy-1858",
       "vertical",
       "vertical-pt2"
     ],
@@ -59,7 +59,17 @@
       "reveal-horizontal-pt2",
       "reveal-vertical",
       "reveal-vertical-pt2"
-    ]
+    ],
+    "works": {
+      "horizontal": {
+        "title": "1st and State Street Skirmish",
+        "study": "sketch"
+      },
+      "horizontal-pt2": {
+        "title": "The Altruist",
+        "study": "sketch-pt2"
+      }
+    }
   },
   "scenes": [
     {

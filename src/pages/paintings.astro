@@ -44,20 +44,14 @@ const chapters = (await getCollection("chapters")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 
-/** Painting keys per chapter, in gallery order, with human titles. */
-const KEY_TITLES: Record<string, string> = {
-  horizontal: "",
-  "horizontal-pt2": "Part\u00a02",
-  narrative1: "Narrative\u00a0I",
-  narrative2: "Narrative\u00a0II",
-};
-/* v8 V8-320 (Wil, 00:32:36): the HALL plaque names the barbershop pair
- * "Peter Baltimore's Barbershop 1 / 2" — the stills grid below keeps its
- * Narrative numbering at his direction (00:34:11). Per-chapter overrides so
- * the ferry narratives are untouched. */
-const PLAQUE_VARIANTS: Record<string, Record<string, string>> = {
-  barbershop: { narrative1: "1", narrative2: "2" },
-};
+/* v12 (Wil, 8/26): every work carries its OWN title now — the paintings have
+ * official names and the hall says them. What used to live here was a
+ * composition rule (`name.canonical` + "Part 2" / "Narrative I"), which named
+ * the LOCATION ten times and the artwork never; the plaque's second variant
+ * line goes with it, because titles are unique. Gallery order per chapter is
+ * this key order; the canon itself is authored in the chapter JSON
+ * (`media.works`), so content stays out of the page. */
+const KEY_ORDER = ["horizontal", "horizontal-pt2", "narrative1", "narrative2"] as const;
 /** Animated variant per painting key (elevation G2: the dialog plays the
  * painting alive where Mark Priest's animation exists). */
 const KEY_VIDEOS: Record<string, string> = {
@@ -68,14 +62,11 @@ const KEY_VIDEOS: Record<string, string> = {
 };
 
 const works = chapters.flatMap((entry) =>
-  Object.keys(KEY_TITLES)
-    .filter((key) => entry.data.media.images.includes(key))
+  KEY_ORDER.filter((key) => entry.data.media.images.includes(key))
     .map((key) => ({
       slug: entry.id,
       key,
-      title: KEY_TITLES[key]
-        ? `${entry.data.name.canonical} ·\u00a0${KEY_TITLES[key]}`
-        : entry.data.name.canonical,
+      title: entry.data.media.works[key].title,
       chapterLabel: entry.data.chapterLabel,
       order: entry.data.order,
       full: withBase(`media/${entry.id}/${key}-1440.jpg`),
@@ -91,21 +82,22 @@ const works = chapters.flatMap((entry) =>
  * chapter's main canvas. Every asset already exists in the media pipeline. */
 const aspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/${w.key}-1440.jpg`, 1.5)));
 /* v9 V9-102 (Wil, 8/21): the study hangs on the WALL beside the painting it
-   was made for — and the Commissioner's Office Part 2 has its own drawing on
-   disk, so it hangs that one instead of going without. Narrative works have no
-   study and hang none. (v8's plaque-card copy of the study is gone: a second
-   copy inside the card duplicated what is already on the wall.) */
-const studyKeyOf = (key: string) =>
-  key === "horizontal" ? "sketch" : key === "horizontal-pt2" ? "sketch-pt2" : null;
+   was made for. (v8's plaque-card copy of the study is gone: a second copy
+   inside the card duplicated what is already on the wall.)
+   v12: which drawing that is, is now AUTHORED per work rather than derived
+   from the painting key — four narrative works gained a study this round, and
+   two of the six that already had one were hanging the wrong drawing. */
+const studyKeyOf = (entry: (typeof chapters)[number], key: string) =>
+  entry.data.media.works[key]?.study ?? null;
 const sketchAspects = await Promise.all(
   works.map((w) => {
-    const k = studyKeyOf(w.key);
+    const k = studyKeyOf(chapters.find((e) => e.id === w.slug)!, w.key);
     return k ? aspectOf(`media/${w.slug}/${k}-800.webp`, 1.25) : Promise.resolve(null);
   }),
 );
 const museumWorks = works.map((w, wi) => {
   const entry = chapters.find((e) => e.id === w.slug)!;
-  const studyKey = studyKeyOf(w.key);
+  const studyKey = studyKeyOf(entry, w.key);
   const hasSketch = Boolean(studyKey && entry.data.media.images.includes(studyKey));
   /* The plaque speaks a line from the day — the scene's APPROVED quote
      (never invented copy): the main canvas gets scene 1's, Part 2 gets
@@ -116,10 +108,10 @@ const museumWorks = works.map((w, wi) => {
     slug: w.slug,
     key: w.key,
     title: w.title,
-    /* The plaque sets the variant on its own line (juror pass 8: `· NARRATIVE /
-       II` runted in the narrow 1024×768 card) — an authored two-line lockup. */
-    name: entry.data.name.canonical,
-    variant: PLAQUE_VARIANTS[w.slug]?.[w.key] ?? (KEY_TITLES[w.key] || null),
+    /* v12: the plaque's line under LOCATION NN is the painting's own title.
+       v8's second "variant" line ("Part 2", "1", "2") is gone — it existed only
+       to disambiguate works that shared a location name, and none do now. */
+    name: w.title,
     order: w.order,
     tex1440: withBase(`media/${w.slug}/${w.key}-1440.jpg`),
     tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
@@ -129,7 +121,9 @@ const museumWorks = works.map((w, wi) => {
        study — only the duplicate thumbnail was meant to go. Scene 2's note
        where the chapter has one (Ch2 only), else the chapter's. */
     studyNote: hasSketch
-      ? (w.key === "horizontal-pt2" ? entry.data.scenes[1]?.sketchNote : null) ?? entry.data.sketchNote
+      ? entry.data.media.works[w.key]?.studyNote ??
+        (w.key === "horizontal-pt2" ? entry.data.scenes[1]?.sketchNote : null) ??
+        entry.data.sketchNote
       : null,
     aspect: aspects[wi],
     sketchAspect: hasSketch ? sketchAspects[wi] : null,
@@ -171,7 +165,7 @@ const museumWorks = works.map((w, wi) => {
         <source type="image/avif" srcset={withBase("media/commissioners-office/horizontal-pt2-1440.avif")} />
         <img
           src={withBase("media/commissioners-office/horizontal-pt2-1440.jpg")}
-          alt="“Commissioner’s Office · Part 2”, the crowd of one thousand outside, painting by Mark Priest"
+          alt="“The Altruist”, the crowd of one thousand outside, painting by Mark Priest"
           class="h-full w-full object-cover"
           loading="eager"
           fetchpriority="high"

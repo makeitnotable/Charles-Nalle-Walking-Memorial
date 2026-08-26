@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Mesh, MeshBasicMaterial, PerspectiveCamera, WebGLRenderer } from "three";
 
 /**
@@ -43,10 +43,10 @@ export interface Work {
   slug: string;
   key: string;
   title: string;
-  /** Plaque lockup: the place name, then the variant (`Narrative II`, `Part 2`)
-   *  on its own line — never a separator opening or a numeral closing a line. */
+  /** The plaque's own line under LOCATION NN: the painting's official title
+   *  (v12, Wil's 8/26 map). v8's second `variant` line — "Part 2", "1", "2" —
+   *  is gone with the location-derived names that needed disambiguating. */
   name: string;
-  variant: string | null;
   order: number;
   tex1440: string;
   tex800: string;
@@ -80,12 +80,6 @@ const EYE = 1.55;
 const RAIL_PITCH = -0.19;
 const RAIL_PITCH_PORTRAIT = -0.155;
 const ENTRY_Z = 7; // the wall behind you
-/* v8 V8-328 (Wil, 00:28:32): the dot rail's air above the sheet and the
-   rail's own reserved height — ONE source for the JSX `bottom`, the per-frame
-   follower in tick(), and layout()'s composition reserve (the old +12s lived
-   in two files' worth of literals and drifted). */
-const DOT_GAP = 24;
-const DOTS_H = 36;
 
 /**
  * v10 V10-06 (Wil, 8/21): "the only things on the card were the previously
@@ -120,6 +114,9 @@ export default function Museum({ works, slotId }: Props) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetHeadRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLElement>(null);
+  /* v12: the phone chip is centred between Skip's lower edge and the arch, so
+     Skip's real box is measured rather than reconstructed from its tokens. */
+  const skipRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
   const api = useRef<{
     approach: (i: number | null) => void;
@@ -131,6 +128,14 @@ export default function Museum({ works, slotId }: Props) {
   } | null>(null);
   const sheetRefState = useRef<"peek" | "full">("peek");
   sheetRefState.current = sheet;
+  /* v12 (Wil, 8/26): a THIRD drawer state, phones only — the close control
+     "should completely hide the drawer", and scrolling on brings it back a
+     step at a time: first scroll restores the preview, the second opens it
+     full with the close icon. Kept as its own flag rather than an extension of
+     the 0..1 axis, so the drag / swipe / wheel maths below are untouched. */
+  const [sheetHidden, setSheetHidden] = useState(false);
+  const sheetHiddenRef = useRef(false);
+  sheetHiddenRef.current = sheetHidden;
 
   /* ——— v8 V8-328: ONE continuous sheet position, every input drives it ———
      0 = peek (header only above the fold), 1 = the full card. The element is
@@ -146,7 +151,7 @@ export default function Museum({ works, slotId }: Props) {
   };
   const applySheet = (pos: number, animate: boolean) => {
     const el = sheetRef.current;
-    if (!el) return;
+    if (!el || sheetHiddenRef.current) return;
     /* a light rubber band past the ends — the hard clamp keeps the header on
        screen whatever the gesture does */
     const p = pos > 1 ? 1 + Math.min(0.06, (pos - 1) * 0.25) : pos < 0 ? Math.max(-0.06, pos * 0.25) : pos;
@@ -158,10 +163,39 @@ export default function Museum({ works, slotId }: Props) {
     setSheet(s);
     applySheet(s === "full" ? 1 : 0, true);
   };
+  /** Off the bottom edge entirely — the painting keeps the whole stage. */
+  const hideSheet = () => {
+    const el = sheetRef.current;
+    sheetHiddenRef.current = true; // synchronous: applySheet's guard reads this
+    setSheetHidden(true);
+    setSheet("peek");
+    sheetPosRef.current = 0;
+    if (el) {
+      el.style.transition = "transform var(--dur-fast) var(--ease)";
+      el.style.transform = `translateY(${Math.round(el.offsetHeight)}px)`;
+    }
+  };
+  /** …and back, one step: the preview first, never straight to the full card. */
+  const revealSheet = () => {
+    sheetHiddenRef.current = false; // …and back, before applySheet is called
+    setSheetHidden(false);
+    setSheet("peek");
+    applySheet(0, true);
+  };
   const applySheetFn = useRef(applySheet);
   applySheetFn.current = applySheet;
   const snapSheetFn = useRef(snapSheet);
   snapSheetFn.current = snapSheet;
+  const revealSheetFn = useRef(revealSheet);
+  revealSheetFn.current = revealSheet;
+
+  /* The close icon is IN FLOW in the sheet header, so mounting it changes the
+     header's height — and the header's height IS the drawer's travel. Re-apply
+     the current position after every state flip, before paint, or the drawer
+     jumps by the height of the icon the first time it appears. */
+  useLayoutEffect(() => {
+    if (!sheetHiddenRef.current) applySheetFn.current(sheetPosRef.current, false);
+  }, [sheet, sheetHidden]);
 
   // ——— Capability gate (runs once, before three is even fetched) ———
   useEffect(() => {
@@ -273,6 +307,14 @@ export default function Museum({ works, slotId }: Props) {
       renderer.domElement.setAttribute("aria-hidden", "true");
       renderer.domElement.style.display = "block";
       renderer.domElement.style.touchAction = "pan-y";
+      /* v12: the canvas comes OUT of flow. The stage is `h-dvh`, so its height
+         never depended on the canvas — but while the canvas was in flow, any
+         element that lost its offset resolved `bottom: auto` and fell into
+         static flow after it, off the bottom of the stage. That is exactly how
+         the dot rail landed on the chip in Wil's 8/24 frame. Belt and braces
+         with the rail's own always-set offset below. */
+      renderer.domElement.style.position = "absolute";
+      renderer.domElement.style.inset = "0";
 
       const scene = new THREE.Scene();
       const GROUND = new THREE.Color("#1d1411");
@@ -580,19 +622,28 @@ export default function Museum({ works, slotId }: Props) {
       type Placement = { pos: { x: number; y: number; z: number }; side: number; w: number; h: number };
       const placements: Placement[] = [];
 
+      const studyFrameGeos: import("three").BufferGeometry[] = [];
       works.forEach((work, i) => {
         const side = i % 2 === 0 ? 1 : -1; // 1 = right wall
         const z = -(i + 1) * SPACING;
         const isPortrait = work.aspect < 1;
         // U8: true aspect inside a max box; portrait hangs tall and narrow
-        let h = isPortrait ? (phone ? 2.3 : 2.6) : 2.0;
+        /* v12 (Wil, 8/26): "this painting is hung on the floor… move it up a
+           bit higher". The portrait work was BOTH the tallest canvas in the
+           hall (2.6 against 2.0) and the lowest-centred (1.6 against 1.7), and
+           the two compounded: its moulding stopped 130mm off the floorboards
+           where every other frame sits at 530mm. Slightly shorter and hung
+           higher, so its frame BOTTOM joins the family (0.48 desktop / 0.53
+           phone) instead of dropping below it — and the phone's 3.2m ceiling
+           still clears the top by 130mm. */
+        let h = isPortrait ? (phone ? 2.2 : 2.5) : 2.0;
         let w = h * work.aspect;
         const maxW = isPortrait ? 3.2 : 3.6;
         if (w > maxW) {
           w = maxW;
           h = w / work.aspect;
         }
-        const yC = isPortrait ? 1.6 : 1.7;
+        const yC = isPortrait ? (phone ? 1.8 : 1.9) : 1.7;
         const x = (CH - 0.1) * side;
         placements.push({ pos: { x, y: yC, z }, side, w, h });
 
@@ -661,10 +712,17 @@ export default function Museum({ works, slotId }: Props) {
           const sz = z + side * (w / 2 + sw / 2 + 0.6);
           // same depth idiom as the canvases (V8-325): the drawing stands
           // 10 mm proud of a frame face 20 mm off the wall
-          const sframe = new THREE.Mesh(litBox(0.08, sh + 0.14, sw + 0.14, "#80412b", "#95502f"), vcMat);
-          sframe.position.set(boxX(0.02, 0.08), 1.55, sz);
-          sframe.rotation.y = rotY;
-          scene.add(sframe);
+          /* v12: four narrative works gained a study this round, which took
+             the hall to 85 draw calls against a budget of 80 — every study was
+             costing two (frame + plane). The frames are static, identical in
+             material and differ only by transform, so they bake into ONE
+             geometry the way the arch's step treads already do (v8 V8-327);
+             the planes stay separate because each carries its own texture.
+             Ten calls become one and the hall renders identically. */
+          const sfg = litBox(0.08, sh + 0.14, sw + 0.14, "#80412b", "#95502f");
+          sfg.rotateY(rotY);
+          sfg.translate(boxX(0.02, 0.08), 1.55, sz);
+          studyFrameGeos.push(sfg);
           const smat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
           const smesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), smat);
           smesh.position.set(planeX(0.03), 1.55, sz);
@@ -680,6 +738,11 @@ export default function Museum({ works, slotId }: Props) {
           });
         }
       });
+
+      if (studyFrameGeos.length) {
+        const mergedStudies = mergeGeometries(studyFrameGeos);
+        scene.add(new THREE.Mesh(mergedStudies ?? studyFrameGeos[0], vcMat));
+      }
 
       const isPhoneTex = window.innerWidth < 1024;
       const loadWork = (i: number) => {
@@ -797,7 +860,9 @@ export default function Museum({ works, slotId }: Props) {
             ? Math.max(0, stage.getBoundingClientRect().bottom - sEl.getBoundingClientRect().top)
             : 110;
           const top = inset + 56; // Back row
-          const bottom = sheetH + DOT_GAP + DOTS_H + 12; // sheet + the dot rail riding above it
+          /* v12: the dot rail no longer rides above the sheet (it fades out in
+             approach), so the painting gets that band back — sheet + a hair. */
+          const bottom = sheetH + 12;
           /* v8 V8-330: F .88 (was .82) — with the fov computed from the
              binding axis below, 6% margins per side still clear the moulding
              and the whole frame fits the phone (juror-9's finger-width note
@@ -899,7 +964,14 @@ export default function Museum({ works, slotId }: Props) {
               sheetSwipe = -1;
             }
           }
-          if (sheetSwipe === 1) {
+          if (sheetSwipe === 1 && sheetHiddenRef.current) {
+            /* v12: hidden — an upward swipe (fingers up, opening) restores the
+               preview and ends the gesture there. */
+            if (swipeY0 - e.clientY > 8) {
+              revealSheetFn.current();
+              sheetSwipe = 0;
+            }
+          } else if (sheetSwipe === 1) {
             const travel = Math.max(1, sheetRef.current.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
             applySheetFn.current(swipePos0 + (swipeY0 - e.clientY) / travel, false);
             svels.push((py - e.clientY) / Math.max(1, now - lastMoveT)); // px/ms, up +
@@ -1006,6 +1078,17 @@ export default function Museum({ works, slotId }: Props) {
         e.preventDefault();
         const now = performance.now();
         if (now < wheelLatchUntil) return;
+        /* v12: hidden is a step of its own. Scrolling on brings the PREVIEW
+           back and consumes the gesture; the next one opens it full through
+           the ordinary machine below. Scrolling back while hidden does
+           nothing — there is nothing above it to close. */
+        if (sheetHiddenRef.current) {
+          if (e.deltaY > 0) {
+            revealSheetFn.current();
+            wheelLatchUntil = now + 160;
+          }
+          return;
+        }
         const travel = Math.max(1, sEl.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
         const pos = sheetPosRef.current;
         if (e.deltaY > 0) {
@@ -1091,6 +1174,8 @@ export default function Museum({ works, slotId }: Props) {
           setApproached(null);
           setPaintRect(null);
           setSheet("peek");
+          sheetHiddenRef.current = false;
+          setSheetHidden(false);
           syncAlive();
           renderer.domElement.style.touchAction = "pan-y";
           return;
@@ -1120,6 +1205,8 @@ export default function Museum({ works, slotId }: Props) {
           window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
         }
         setSheet("peek");
+        sheetHiddenRef.current = false;
+        setSheetHidden(false);
         setApproached(i);
         renderer.domElement.style.touchAction = "none";
         syncAlive();
@@ -1374,18 +1461,18 @@ export default function Museum({ works, slotId }: Props) {
         // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer
         // slides — set here (rAF runs after React's commits, so a 4Hz
         // paintRect re-render can never clobber a frame the eye sees).
-        if (dotsRef.current) {
-          if (mode === "approach" && approachedIdx !== null && isPortraitNow() && sheetRef.current) {
-            const vis = Math.max(0, stage.getBoundingClientRect().bottom - sheetRef.current.getBoundingClientRect().top);
-            dotsRef.current.style.transition = "none";
-            dotsRef.current.style.bottom = `${Math.round(vis) + DOT_GAP}px`;
-          } else if (dotsRef.current.style.bottom) {
-            dotsRef.current.style.transition = "";
-            dotsRef.current.style.bottom = "";
-          }
-        }
+        /* v12 (Wil, 8/26): the rail no longer rides the drawer — it fades out
+           entirely while a painting is open, so there is nothing to follow and
+           nothing to clear. The per-frame writer that lived here is gone with
+           it; that is also the code that used to blank the inline `bottom` to
+           "" with no CSS fallback and drop the rail into static flow. */
 
-        const away = Math.abs(dragYaw) > 0.35;
+        /* v12 (Wil, 8/24 screenshot): a vertical thumb-drag tilts the corridor
+           until the floor fills the screen, and `dragPitch` is its own
+           accumulator — clamped, but reset only by recenter(). Watching yaw
+           alone meant the one control that rights the hall never appeared, so
+           the tilt had no way back. ~7° of pitch offers it now. */
+        const away = Math.abs(dragYaw) > 0.35 || Math.abs(dragPitch) > 0.12;
         if (away !== lookedFlag) {
           lookedFlag = away;
           setLookedAway(away);
@@ -1422,12 +1509,42 @@ export default function Museum({ works, slotId }: Props) {
       };
       document.addEventListener("cnwm:curtain-cover", onCover);
       window.addEventListener("pagehide", onCover);
+      /* v12 (Wil, 8/26): on phones the wayfinding chip moves to the TOP of the
+         hall — "vertically centered between the bottom of the Skip button and
+         the top of the arch at the end of the hall". The arch's screen height
+         is geometry, not a guess, so project its apex through a camera posed
+         exactly as the RAIL'S RESTING camera (not the live one, which walks
+         and would drag the chip with it), and hand the midpoint to CSS. Once
+         per layout: the band only moves when the viewport does. */
+      const probeCam = camera.clone();
+      const setChipBand = () => {
+        const H = stage.clientHeight;
+        if (!H) return;
+        probeCam.aspect = stage.clientWidth / H;
+        probeCam.position.set(0, EYE, 0.4);
+        probeCam.rotation.set(isPortraitNow() ? RAIL_PITCH_PORTRAIT : RAIL_PITCH, 0, 0, "YXZ");
+        probeCam.updateProjectionMatrix();
+        probeCam.updateMatrixWorld(true);
+        const apex = new THREE.Vector3(0, ARCH_SPRING + ARCH_R, endZ).project(probeCam);
+        const archTop = ((1 - apex.y) / 2) * H;
+        const skipEl = skipRef.current;
+        const skipBottom = skipEl
+          ? skipEl.getBoundingClientRect().bottom - stage.getBoundingClientRect().top
+          : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20) + 44;
+        /* If the projection ever lands above Skip (a viewport so short the arch
+           is off the top), fall back to a hair under Skip rather than negative. */
+        const mid = archTop > skipBottom ? (skipBottom + archTop) / 2 : skipBottom + 28;
+        stage.style.setProperty("--cnwm-chip-y", `${Math.round(mid)}px`);
+      };
+
       const onResize = () => {
         renderer.setSize(stage.clientWidth, stage.clientHeight);
         camera.aspect = stage.clientWidth / stage.clientHeight;
         camera.updateProjectionMatrix();
+        setChipBand();
       };
       window.addEventListener("resize", onResize);
+      setChipBand();
       renderer.domElement.addEventListener("webglcontextlost", () => setCapable(false));
 
       // ——— Debug hook (scripts/museum-check.mjs) ———
@@ -1631,7 +1748,11 @@ export default function Museum({ works, slotId }: Props) {
             inset. */}
         {ready && !inApproach && (
           <div
-            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:bottom-[calc(var(--ui-inset)+44px)] sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
+            /* v12: phones move the chip from just above the dot rail to the
+               band between Skip and the arch (`--cnwm-chip-y`, written by the
+               scene each layout); tablet and desktop keep their v8 positions
+               exactly. */
+            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:top-[var(--cnwm-chip-y,38%)] max-sm:-translate-y-1/2 sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
             {lookedAway ? (
               /* the hiding utility rides a bare SPAN: `.btn-sm { display:
@@ -1675,7 +1796,7 @@ export default function Museum({ works, slotId }: Props) {
 
         {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
         {ready && !inApproach && (
-          <div className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
+          <div ref={skipRef} className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
             <button
               type="button"
               className="btn-sm btn-ghost btn-icon-end"
@@ -1746,15 +1867,7 @@ export default function Museum({ works, slotId }: Props) {
                   LOCATION alone — the artist credit lives in the grid and on
                   the About page. */}
               <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-3">
-                {plaque.name}
-                {plaque.variant && (
-                  <>
-                    <br />
-                    {plaque.variant}
-                  </>
-                )}
-              </p>
+              <p className="t-title-sm mt-3">{plaque.name}</p>
               {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
                 <figure className="mt-4">
                   <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
@@ -1807,37 +1920,35 @@ export default function Museum({ works, slotId }: Props) {
                   everything, standing where the v8 drag pill did — not a ghost
                   glyph in the corner. It closes the card; the header itself
                   still drags and taps. */}
+              {/* v12 (Wil, 8/26) REVERSES v10 V10-07 ("present at all times"):
+                  "the X icon should only appear after the user scrolls down to
+                  review more of the drawer's content. When they click it, it
+                  should completely hide the drawer." So it belongs to the open
+                  state, and it closes the drawer outright rather than stepping
+                  back to the preview. Logged in docs/v4/DECISIONS.md. */}
+              {sheet === "full" && !sheetHidden && (
               <button
                 type="button"
                 className="museum-sheet-close"
-                aria-label="Close the plaque"
-                /* v10 V10-07 (Wil, 8/21): "present at all times, not just
-                   something that appears when the user starts to scroll down." */
+                aria-label="Hide the plaque"
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   lastToggle.current = performance.now();
-                  snapSheet("peek");
-                  sheetHeadRef.current?.focus();
+                  hideSheet();
+                  backRef.current?.focus();
                 }}
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                   <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
                 </svg>
               </button>
+              )}
               {/* v8 V8-320 (Wil, 00:27:05): the plaque eyebrow is the
                   LOCATION alone — the artist credit lives in the grid and on
                   the About page. */}
               <p className="t-meta">Location&nbsp;{pad2(plaque.order)}</p>
-              <p className="t-title-sm mt-2">
-                {plaque.name}
-                {plaque.variant && (
-                  <>
-                    <br />
-                    {plaque.variant}
-                  </>
-                )}
-              </p>
+              <p className="t-title-sm mt-2">{plaque.name}</p>
             </div>
             <div
               className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
@@ -1861,13 +1972,22 @@ export default function Museum({ works, slotId }: Props) {
             ref={dotsRef}
             className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center gap-4"
             style={{
-              /* first-frame fallback only — tick() then follows the LIVE sheet
-                 top every frame while the drawer slides (v8 V8-328) */
-              bottom: plaque && portraitUI ? `${Math.round(sheetH) + DOT_GAP}px` : "calc(var(--ui-inset) + 4px)",
-              transition: "bottom var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease)",
+              /* v12 (Wil, 8/26): one resting offset, always set inline, and it
+                 is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
+                 there, `bottom: var(--ui-inset)` here (the old +4px was the
+                 only thing keeping the two apart). It is never recomputed and
+                 never cleared, so no viewport change can strand it. */
+              bottom: "var(--ui-inset)",
+              /* …and while a painting is open the rail is not wanted at all:
+                 "the indicator dots can and should however disappear when
+                 viewing a painting after clicking on it." */
+              opacity: inApproach ? 0 : 1,
+              pointerEvents: inApproach ? "none" : undefined,
+              transition: "opacity var(--dur-fast) var(--ease)",
               /* V8-327: the dots leave with the rest of the chrome as the
                  walk steps through the arch and down. */
             }}
+            aria-hidden={inApproach || undefined}
             aria-label="Works in the hall"
           >
             <p className="t-meta hidden whitespace-nowrap sm:block" aria-hidden="true">

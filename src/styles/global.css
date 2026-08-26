@@ -1680,9 +1680,25 @@ a.walk-seg:hover {
 .museum-sheet {
   background: color-mix(in srgb, var(--color-primary-2) 90%, transparent);
   backdrop-filter: blur(10px);
-  border-top: 1px solid var(--color-primary-7);
+  /* v12 (Wil, 8/26): "the drawer's outline stroke is disappearing at the top
+     left and right corners as if it is going to zero." It was: only the TOP
+     edge was ever stroked, and `border-radius` bends that 1px line through a
+     16px arc at each top corner — with zero-width borders either side of it,
+     the stroke tapers away across the curve. Stroking the sides as well gives
+     the arc something to be continuous with. The bottom stays open: it is
+     off-screen, and a line there would read as a seam. */
+  border: 1px solid var(--color-primary-7);
+  border-bottom: 0;
   border-radius: 16px 16px 0 0;
   will-change: transform;
+}
+/* v12: the desktop/landscape plaque had NO border at all — v8 authored it that
+   way deliberately, and Wil has now asked for the stroke on every device
+   ("it is missing all together on desktop, check tablet too"). Same 1px, same
+   token, matching the card's own 12px radius. Reversal logged in
+   docs/v4/DECISIONS.md. */
+.museum-card {
+  border: 1px solid var(--color-primary-7);
 }
 .museum-sheet-head {
   touch-action: none;
