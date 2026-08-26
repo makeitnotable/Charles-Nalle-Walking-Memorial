@@ -175,6 +175,24 @@ const canonical = new URL(
             last = best;
             meta.setAttribute("content", best);
           }
+          /* v12 item 17 (Wil, 8/26: "not fixed, it's still dark brown or
+             black"). Researched 8/26: Safari 26 PARSES theme-color and then
+             ignores it. It derives the toolbar tint from the <body> background
+             instead, falling back to <html>, and additionally reads
+             `position: fixed` / `sticky` elements sitting against the viewport
+             edges. This site's body ground is #1d1411 at every scroll position
+             — which is exactly the "dark brown" he is reporting, on every page,
+             however well the meta above is maintained.
+             Body cannot simply follow the edge: sections without their own
+             background show the page ground THROUGH body, so recolouring it
+             would repaint half the site. What Safari can be given instead is a
+             pair of hairlines pinned to the edges whose colour is the ground
+             already there — invisible by construction, and exactly the surface
+             its new rule looks for. Under artwork no flat colour can match, so
+             the strip goes transparent and Safari falls back as it does today. */
+          var docEl = document.documentElement;
+          docEl.style.setProperty("--chrome-tint-top", top && top.c && !top.art ? top.c : "transparent");
+          docEl.style.setProperty("--chrome-tint-bottom", bottom && bottom.c && !bottom.art ? bottom.c : "transparent");
         }
         function schedule() {
           if (queued) return;
@@ -240,6 +258,12 @@ const canonical = new URL(
     <meta name="twitter:image" content={new URL(withBase("og.png"), Astro.site)} />
   </head>
   <body class="min-h-dvh">
+    {/* v12 item 17: the two surfaces Safari 26 reads for its toolbar tint —
+        see the sampler in <head>, which paints them the ground each edge
+        actually has. 2px, inert, and beneath every piece of chrome on the
+        site (the walk rail alone is z-900), so they can never be seen. */}
+    <div class="chrome-tint chrome-tint-top" aria-hidden="true"></div>
+    <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
     <script is:inline>
       // Progressive enhancement flag: scroll-reveal initial states apply
       // only when JS runs (no-JS users see everything, statically).

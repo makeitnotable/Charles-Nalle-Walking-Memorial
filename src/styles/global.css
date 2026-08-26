@@ -1475,6 +1475,29 @@ h3 {
 
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
 /* ── The walk rail — persistent progress across the five stops ─────────── */
+/* v12 item 17: what Safari 26 samples for the toolbar tint. It stopped using
+   theme-color and now takes the body's background — which here is the dark
+   page ground at every scroll position, whatever section is on screen — plus
+   any fixed/sticky element against a viewport edge. These two are that second
+   thing: 2px, pointer-inert, z-0 (the walk rail is z-900 and paints over the
+   top one), coloured by the sampler with the ground that edge already has, and
+   transparent wherever the edge is artwork and no flat colour could match.
+   Every other browser keeps taking the meta; nothing here changes for them. */
+.chrome-tint {
+  position: fixed;
+  inset-inline: 0;
+  height: 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+.chrome-tint-top {
+  top: 0;
+  background: var(--chrome-tint-top, transparent);
+}
+.chrome-tint-bottom {
+  bottom: 0;
+  background: var(--chrome-tint-bottom, transparent);
+}
 .walk-rail {
   position: fixed;
   inset-inline: 0;
