@@ -54,6 +54,16 @@ const LOWER_PANEL = { y0: 0.5, y1: 1, cx: 0.5 };
 /* v7 M2 — pitch candidates, steepest first; the label-fit search picks the
    first at which every marker label sits inside the safe box. */
 const PITCHES = [52, 48, 44, 40, 36, 33];
+/* v12 item 1 (Wil, 8/26): "on desktop and possibly tablet the pitch of the map
+   should be oriented in such a way that the 3Dness… shows tastefully, making
+   the map page feel a bit more alive… The map page on mobile should stay
+   exactly as it is."
+   The pitch was never removed — the search has always taken the steepest angle
+   that still fits every label, and 52 was simply the steepest it was offered.
+   So offer it more, on the WIDE branch only: 60 is Mapbox's own default
+   maximum, and the fit test decides. Phones and landscape phones run the
+   narrow branch below and never see this list. */
+const PITCHES_WIDE = [60, 58, 56, 54, ...PITCHES];
 const expoOut = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -594,7 +604,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       }
       chosen = chosen ?? fitOnly;
     } else {
-      outer: for (const pitch of PITCHES) {
+      outer: for (const pitch of PITCHES_WIDE) {
         /* v11 item 9 (Wil, 8/22): "I'd like the map on the Map page pushed
            higher so the ferry pin sits farther from the `TAKE THE WALK`
            button. All pins should remain visible on every screen size."
@@ -1167,19 +1177,54 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          cycling is the same continuous function read correctly. */
       const det = sl.track.details;
       if (!det) return;
-      det.slides.forEach((sd, i) => {
+      /* v12 item 2 (Wil, 8/26): "equally horizontal spacing between each
+         chapter page card" — DESKTOP ONLY at his direction ("Chapter cards are
+         perfect on tablet and mobile, do not change").
+
+         The layout gap is already constant (keen `spacing`). What is not
+         constant is what the eye sees, because the scale above shrinks each
+         unfocused card about the edge NEAREST the centre: the focused card's
+         neighbour keeps its near edge, so that gap stays 16px, but the
+         neighbour's FAR edge recedes by 8% of a card — putting ~57px between
+         the pairs further out. Measured at 1440 before this: 16 / 57 / 57.
+
+         So each card is translated back toward the centre by exactly the width
+         its inboard neighbours gave up. Reads first, writes second: mixing
+         them forced a reflow per slide inside a per-frame loop. */
+      const wide = window.innerWidth >= 1024;
+      const rows = det.slides.map((sd, i) => {
         const inner = sl.slides[i]?.firstElementChild as HTMLElement | null;
-        if (!inner) return;
         const off = sd.distance - (1 - sd.size) / 2;
         const t = Math.min(1, sd.size > 0 ? Math.abs(off) / sd.size : 1);
-        inner.style.transform = `scale(${(1 - CARD_FOCUS * t).toFixed(4)})`;
+        const scale = 1 - CARD_FOCUS * t;
+        return { inner, off, scale, w: inner ? inner.offsetWidth : 0 };
+      });
+      if (wide) {
+        /* outward from the centre, each side accumulating its own shrink */
+        for (const dir of [1, -1]) {
+          const side = rows
+            .filter((r) => (dir > 0 ? r.off > 0.01 : r.off < -0.01))
+            .sort((a, b) => Math.abs(a.off) - Math.abs(b.off));
+          let shed = 0;
+          for (const r of side) {
+            (r as { shift?: number }).shift = -dir * shed;
+            shed += r.w * (1 - r.scale);
+          }
+        }
+      }
+      for (const r of rows) {
+        if (!r.inner) continue;
+        const shift = (r as { shift?: number }).shift ?? 0;
+        r.inner.style.transform = shift
+          ? `translateX(${shift.toFixed(2)}px) scale(${r.scale.toFixed(4)})`
+          : `scale(${r.scale.toFixed(4)})`;
         /* Juror pass 7 (M9): scale about the edge NEAREST the active card, so
            the neighbour recedes away from the centre and the layout peek
            (16.8 px at 360, 19 px at 390) stays fully visible — about its own
            centre the near edge slid 12 px inward and the peek read as 5–7 px.
            Bottoms stay aligned (origin on the bottom edge). */
-        inner.style.transformOrigin = off > 0.01 ? "left bottom" : off < -0.01 ? "right bottom" : "center bottom";
-      });
+        r.inner.style.transformOrigin = r.off > 0.01 ? "left bottom" : r.off < -0.01 ? "right bottom" : "center bottom";
+      }
     },
   });
 

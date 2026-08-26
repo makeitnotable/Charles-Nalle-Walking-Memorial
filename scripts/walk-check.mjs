@@ -165,7 +165,12 @@ for (const vp of VPS) {
     else if (rec.overview.labelsOutsideSafe.length) rec.note = `landscape: labels outside safe (accepted pan): ${rec.overview.labelsOutsideSafe.join(", ")}`;
     if (phone && rec.overview.minMarkerSep < 22) rec.findings.push(`M2 marker centres too close: ${rec.overview.minMarkerSep}px`);
     if (rec.overview.geolocate) rec.findings.push("M1 GeolocateControl present");
-    if (vp.width >= 1024 && rec.overview.camera.pitch < 40) rec.findings.push(`M2 overview pitch ${rec.overview.camera.pitch} < 40 on desktop`);
+    /* v12 item 1: the wide branch is offered 60/58/56/54 before v8's 52 and
+       lands 60 at 768-1920 with every label still inside the safe box. The
+       gate moves up with it — below 52 means the search has fallen back
+       toward the blind OVERVIEW constant, which is the failure worth
+       catching, not a shallow-but-fitted camera. */
+    if (vp.width >= 1024 && rec.overview.camera.pitch < 52) rec.findings.push(`M2 overview pitch ${rec.overview.camera.pitch} < 52 on desktop`);
     for (const c of rec.overview.controls) if (c.rect.h < 44 && /walk|1858|today|back|stop|continue/i.test(c.text)) rec.findings.push(`control "${c.text}" only ${c.rect.h}px tall`);
 
     // ——— Walk mode ———

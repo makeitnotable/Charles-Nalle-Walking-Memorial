@@ -9,26 +9,26 @@ Status: `open` → `done` (with the commit) as the round proceeds.
 
 | id | item | status |
 |---|---|---|
-| V12-01 | Official painting titles (BRIEF §1) | open |
-| V12-02 | Study canon — Wil's ten-drawing map (BRIEF §2) | open |
-| V12-03 | Map pitch: deeper 3-D on ≥640 (3.1) | open |
-| V12-04 | Chapter-card gaps equal — desktop only (3.2) | open |
+| V12-01 | Official painting titles (BRIEF §1) | done `0bed557` |
+| V12-02 | Study canon — Wil's ten-drawing map (BRIEF §2) | done `0bed557` |
+| V12-03 | Map pitch: deeper 3-D on ≥640 (3.1) | done `54671a6` |
+| V12-04 | Chapter-card gaps equal — desktop only (3.2) | done `54671a6` |
 | V12-05 | 1858 lens default view + caption air (3.3) | open |
 | V12-06 | Quote section alignment — VERIFY FIRST (3.4) | open |
 | V12-07 | Historical-context plate: seams, size, scroll (3.5) | open |
 | V12-08 | Ch2 Moral Pt 1 bottom spacing (3.6) | open |
-| V12-09 | Portrait painting hangs too low (3.7) | open |
+| V12-09 | Portrait painting hangs too low (3.7) | done `0bed557` |
 | V12-10 | Home desktop resolution (3.8) | open |
 | V12-11 | Mobile moral top/bottom air (3.9) | open |
 | V12-12 | Ch4 hero focus — Tubman cut off (3.10) | open |
-| V12-13 | Hall chip to the top on phones (3.11) | open |
-| V12-14 | Dot rail: bottom-anchored, hidden in approach (3.12) | open |
-| V12-15 | Drawer outline stroke (3.13) | open |
-| V12-16 | Drawer close-icon choreography (3.14) | open |
-| V12-17 | Re-frame the paintings to 3:2 — stills only (3.15) | open |
+| V12-13 | Hall chip to the top on phones (3.11) | done `0bed557` |
+| V12-14 | Dot rail: bottom-anchored, hidden in approach (3.12) | done `0bed557` |
+| V12-15 | Drawer outline stroke (3.13) | done `0bed557` |
+| V12-16 | Drawer close-icon choreography (3.14) | done `0bed557` |
+| V12-17 | Re-frame the paintings to 3:2 — stills only (3.15) | done `54671a6` |
 | V12-18 | Landscape-phone map framing — LAST (3.16) | open |
 | V12-19 | iOS browser-bar tint follow-through (3.17) | open |
-| V12-20 | Hall bug sweep beyond the fourteen (§5.4) | open |
+| V12-20 | Hall bug sweep beyond the fourteen (§5.4) | tilt fix `0bed557`; sweep open |
 
 ---
 

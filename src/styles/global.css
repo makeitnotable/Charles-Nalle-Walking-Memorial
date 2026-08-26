@@ -1699,6 +1699,21 @@ a.walk-seg:hover {
    docs/v4/DECISIONS.md. */
 .museum-card {
   border: 1px solid var(--color-primary-7);
+  max-height: calc(100dvh - 2 * var(--ui-inset));
+}
+/* v12: on a LANDSCAPE PHONE the stage is only ~390px tall and the card must
+   not swallow it — v8 set the bar at 55% of the stage, and the official
+   painting titles put the card back over it ("Charles Learning How to Read &
+   Write" wraps to three lines in a narrow card where "Uri Gilbert Home" took
+   one). Only short stages are capped; the card scrolls its own overflow, so
+   nothing becomes unreachable, and tall viewports keep the full-height card
+   they have had since v8. */
+@media (max-height: 500px) {
+  .museum-card {
+    /* 55dvh exactly lands ON the bar and rounds over it (measured 215px against
+       a 214.5px stage bar at 844x390); a few px of daylight keeps it inside. */
+    max-height: calc(55dvh - 6px);
+  }
 }
 .museum-sheet-head {
   touch-action: none;

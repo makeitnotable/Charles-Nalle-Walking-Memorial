@@ -1858,7 +1858,9 @@ export default function Museum({ works, slotId }: Props) {
               style={{
                 background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)",
                 backdropFilter: "blur(8px)",
-                maxHeight: "calc(100dvh - 2 * var(--ui-inset))",
+                /* max-height lives in CSS now (.museum-card): a landscape
+                   phone needs a tighter cap than a desktop, and an inline
+                   style cannot be overridden by a height media query. */
                 overflowY: "auto",
                 overscrollBehavior: "contain",
               }}

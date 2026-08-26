@@ -35,6 +35,17 @@ const MASTERS = join(ROOT, "masters/Stills");
 const OUT = join(ROOT, "public/media");
 const WIDTHS = [800, 1440];
 const APPLY = process.argv.includes("--apply");
+/* v12 item 15 (Wil, 8/26), answering the question this script was written to
+   ask: "Re-frame all ten paintings to the masters' 3:2 — use these", pointing
+   at the delivered masters. So the aspect guard below is lifted for the four
+   PAINTING keys and only those: the hall's works go back to the framing Mark
+   Priest delivered. Everything else — the vertical art-direction crops, the
+   historical plates — still refuses to re-crop itself.
+   Worth knowing why this is a correction rather than a change of mind: the
+   hall already plays Priest's animations at 1200×800 3:2 over these stills, so
+   a 16:9 still and its own film disagreed inside the same frame. */
+const REFRAME_KEYS = new Set(["horizontal", "horizontal-pt2", "narrative1", "narrative2"]);
+const REFRAME = process.argv.includes("--reframe");
 
 /** slug → key → master file, measured rather than inferred: the delivered
  *  names do not follow one rule (chapter 2's LANDSCAPE pt1 is the file without
@@ -122,20 +133,23 @@ for (const [slug, keys] of Object.entries(MAP)) {
     const outH = Math.round(outW / m.a);
     const bigger = outW > c.w || outH > c.h;
 
-    if (!sameAspect) {
+    const reframing = !sameAspect && REFRAME && REFRAME_KEYS.has(key);
+    if (!sameAspect && !reframing) {
       skips.push(
         `${slug}/${key} — FRAMING differs: master ${m.w}×${m.h} (a=${m.a.toFixed(3)}) vs site ${c.w}×${c.h} (a=${c.a.toFixed(3)})`,
       );
       skipped++;
       continue;
     }
-    if (!bigger) {
+    if (!bigger && !reframing) {
       skipped++;
       continue;
     }
 
     console.log(
-      `refresh ${slug}/${key}  ${c.w}×${c.h} → ${outW}×${outH}  (a=${m.a.toFixed(3)}, unchanged)`,
+      reframing
+        ? `REFRAME ${slug}/${key}  ${c.w}×${c.h} (a=${c.a.toFixed(3)}) → ${outW}×${outH} (a=${m.a.toFixed(3)})`
+        : `refresh ${slug}/${key}  ${c.w}×${c.h} → ${outW}×${outH}  (a=${m.a.toFixed(3)}, unchanged)`,
     );
     refreshed++;
     if (!APPLY) continue;
