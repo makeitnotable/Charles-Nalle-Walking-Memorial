@@ -13,7 +13,7 @@ Status: `open` → `done` (with the commit) as the round proceeds.
 | V12-02 | Study canon — Wil's ten-drawing map (BRIEF §2) | done `0bed557` |
 | V12-03 | Map pitch: deeper 3-D on ≥640 (3.1) | done `54671a6` |
 | V12-04 | Chapter-card gaps equal — desktop only (3.2) | done `54671a6` |
-| V12-05 | 1858 lens default view + caption air (3.3) | open |
+| V12-05 | 1858 lens default view + caption air (3.3) | done `c26a531` |
 | V12-06 | Quote section alignment — VERIFY FIRST (3.4) | open |
 | V12-07 | Historical-context plate: seams, size, scroll (3.5) | open |
 | V12-08 | Ch2 Moral Pt 1 bottom spacing (3.6) | open |

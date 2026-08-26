@@ -50,7 +50,6 @@ const MAX_BOUNDS: [[number, number], [number, number]] = [
    The lower panel (downtown Troy, the Hudson, West Troy) is the initial and
    reset view, filled by height and centred on the river; the upper panel is
    reached by panning (Kathy: "do not crop, allow pan and zoom"). */
-const LOWER_PANEL = { y0: 0.5, y1: 1, cx: 0.5 };
 /* v7 M2 — pitch candidates, steepest first; the label-fit search picks the
    first at which every marker label sits inside the safe box. */
 const PITCHES = [52, 48, 44, 40, 36, 33];
@@ -273,30 +272,39 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   );
   const lensZoomBy = useCallback((f: number) => lensZoomAt(f), [lensZoomAt]);
   const lensReset = useCallback(() => {
-    /* v7 L1: the lower panel, filled by height (scale 1/(1−y0)) and centred on
-       the river; the clamp in lensApply keeps the whole plate reachable.
-       v8 V8-263 (Wil, 00:04:26–00:07:27): the opening crop leans in — ×1.3
-       over the panel fit, biased right and toward downtown, so the wide-box
-       bleed into the upper panel (where "Green Island" sits) is gone and the
-       first view is the city, matching his meeting screenshot. Same math at
-       every breakpoint "so it feels similar". */
+    /* v12 item 6 (Wil, 8/26): "Make the default position and presentation of
+       the image match the crop in the screenshot" — the plate at rest, full
+       width, the river band across the middle.
+       This replaces v7 L1's lower-panel fit and v8 V8-263's lean-in (x1.3 over
+       that fit, biased toward downtown) and v9 V9-206's phone nudge: all three
+       framed a DETAIL as the opening view, and he has now asked for the whole
+       plate. The cover fit is exactly that — nothing scaled up, the plate
+       filling the viewer, the view at the plate's own centre. The clamp in
+       lensApply still keeps every corner reachable by drag and zoom. */
     const box = lensBoxRef.current;
     const w = box?.clientWidth ?? 0;
     const h = box?.clientHeight ?? 0;
     const imgH0 = w * PLATE;
-    const panelFit = imgH0 ? h / (imgH0 * (LOWER_PANEL.y1 - LOWER_PANEL.y0)) : 1;
-    /* Wide boxes also hold a width floor (show ≤ ~55% of the plate's width)
-       or a desktop opening still reaches the islands Wil zoomed away from. */
-    const s0 = Math.max(lensMinScale(), panelFit * 1.3, 1.8);
-    /* v9 V9-206 (Wil, 8/21): phones open a little further LEFT — he asked to
-       see more of the plate's left-hand side, which means the view centre
-       moves left, not right. Desktop keeps the crop he approved. */
-    const startCx = window.innerWidth < 640 ? 0.52 : 0.58; // downtown Troy's grid
-    const startCy = 0.74; // the river band + downtown, low in the lower panel
+    /* The plate is two rows of sheets: the sparse Brunswick row above, the CITY
+       and the river below. Wil's screenshot fills the viewer with the lower
+       row — sheet numerals along the top edge, HUDSON across the middle, the
+       basin at the bottom — so the framing is "fill the city panel by height",
+       which is v7 L1's original rule. What has to go is v8 V8-263's lean-in on
+       top of it (x1.3 with a 1.8 floor), which is what made the opening view a
+       detail rather than the map. */
+    const panelFit = imgH0 ? h / (imgH0 * 0.5) : 1;
+    /* …but only where the viewer is wide enough to hold that band. On a phone
+       the box is tall and narrow, and filling the panel by height would zoom
+       past everything; there the minimum scale — cover — shows the most plate
+       there is to show, and the view sits at the plate's centre. */
+    const wideBox = w >= h;
+    const s0 = wideBox ? Math.max(lensMinScale(), panelFit) : lensMinScale();
+    const startCx = 0.5;
+    const startCy = wideBox ? 0.75 : 0.5; // the city panel's own centre
     lensView.current = { s: s0, tx: -(startCx - 0.5) * w * s0, ty: -(startCy - 0.5) * imgH0 * s0 };
     lensApply();
   }, [lensApply]);
-  // First open lands on the lower panel too (the image mounts on first open).
+  // First open lands on the same resting framing (the image mounts on first open).
   useEffect(() => {
     if (lensSeen) requestAnimationFrame(() => lensReset());
   }, [lensSeen, lensReset]);
@@ -1417,8 +1425,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               onDoubleClick={lensDoubleClick}
               onKeyDown={lensKeyDown}
             >
+              {/* v12 item 6 (Wil, 8/26): "use our highest-quality image file."
+                  4096 was as far as the pipeline had ever taken the Library of
+                  Congress plate; the master is a 23000x19267 JP2, decoded here
+                  at half resolution and resampled to 6144 (avif 1.95MB / webp
+                  3.07MB against 0.92 / 1.34). Phones keep the 4096: at the 6x
+                  zoom ceiling a 390px box still has ~2 source pixels per CSS
+                  pixel from it, and it is half the bytes over cellular.
+                  Nothing mounts at all until the lens is first opened. */}
               <picture>
+                <source media="(min-width: 768px)" type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-6144.avif`} />
                 <source type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-4096.avif`} />
+                <source media="(min-width: 768px)" type="image/webp" srcSet={`${baseUrl}/media/site/troy-1858-full-6144.webp`} />
                 <img
                   ref={lensImgRef}
                   src={`${baseUrl}/media/site/troy-1858-full-4096.webp`}
@@ -1456,7 +1474,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               </div>
             </div>
           )}
-          <figcaption className="t-meta mt-5 text-center">
+          <figcaption className="t-meta mt-7 text-center">
             {/* phones: two authored lines (juror pass 8: the middle `·` dangled at a line end) */}
             Troy, New&nbsp;York&nbsp;·&nbsp;1858
             <span className="hidden sm:inline">&nbsp;·&nbsp;</span>
@@ -1470,7 +1488,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             <button
               type="button"
               onClick={() => setLens(false)}
-              className="btn-sm btn-ghost mt-4"
+              /* v12: "a bit more vertical spacing between the text… and the back to
+                 today button" — plate→caption 20→28, caption→door 16→24. */
+              className="btn-sm btn-ghost mt-6"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
             >
               Back to today
