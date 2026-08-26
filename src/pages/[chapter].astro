@@ -438,7 +438,7 @@ const focus =
             />
             <div
               class="pointer-events-none absolute inset-0"
-              style="background: linear-gradient(to top, rgba(29,20,17,.95) 0%, rgba(29,20,17,.8) 24%, rgba(29,20,17,.36) 44%, transparent 60%), linear-gradient(to bottom, rgba(29,20,17,.6), transparent 16%)"
+              style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
@@ -510,7 +510,7 @@ const focus =
           <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
             <div class="wipe-clip">
               <img
-                class="interlude-img h-[70vh] w-full object-cover md:h-[88vh]"
+                class="interlude-img h-[76vh] w-full object-cover md:h-[94vh]"
                 src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
                 srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
                 sizes="100vw"
@@ -843,8 +843,10 @@ const focus =
         const tl = gsap.timeline({
           scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: 0.6 },
         });
-        tl.fromTo(img, { scale: 1 }, { scale: 1.055, ease: "sine.inOut", duration: 1 })
-          .to(img, { scale: 1, ease: "sine.inOut", duration: 1 });
+        /* V13-04 step 4 (his spec): scale 1.00 → 1.03 plus translateY ≈ −8px,
+           reversible on scroll-up (the scrub already retraces it exactly). */
+        tl.fromTo(img, { scale: 1, y: 0 }, { scale: 1.03, y: -8, ease: "sine.inOut", duration: 1 })
+          .to(img, { scale: 1, y: 0, ease: "sine.inOut", duration: 1 });
       });
 
       // The hero lockup withdraws and leaves the painting alone on the screen.
@@ -940,15 +942,45 @@ const focus =
      centred block stops there and desktop keeps the layout it always had.
      Scoping it below 1024 also retires both workarounds the desktop case
      needed (a container-type opt-out and `justify-self`). */
+  /* V13-08 (Wil, 8/26): "the quote section on every chapter" reads centred
+     only when its own intrinsic width happens to fall short of the column —
+     `fit-content` gave every chapter a DIFFERENT block width, so a long quote
+     (17em at --fs-quote, wider than any phone column) resolved to 100% with
+     nothing left to centre while chapter 3's short one ("Are you a Negro?")
+     genuinely centred. One shared measure below 1024 instead, so every
+     chapter's block is the same width and phones show an equal margin either
+     side regardless of how long its quote runs. Tuned against all five
+     chapters' heading+quote line counts at 360–430 against HEAD's own line
+     counts, not against a guess: 260px breaks his guardrail (two hooks gain
+     TWO lines), 300px leaves only 18px either side, and 280px is the widest
+     margin still inside "at most one extra line" — two of six hooks gain one,
+     none gain two. He named chapter 3's phone rendering as the correct look;
+     it sat at 237px with 49px either side, and no single shared measure can
+     match that without wrapping the long quotes past his limit.
+     Text stays left-aligned inside the block; the hung indent stays off
+     below 1024 (v8 V8-277). Desktop (≥1024) is untouched (v10.1 V10-10). */
   @media (max-width: 1023px) {
     .scene-hook {
-      width: fit-content;
-      max-width: 100%;
+      --hook-measure: min(90%, 280px);
+      width: min(100%, var(--hook-measure));
       margin-inline: auto;
       text-align: left;
     }
     .scene-hook blockquote {
       text-indent: 0;
+    }
+  }
+  /* Tablet steps up once --fs-quote and --fs-title do. 544px is not a taste
+     call: it is `.t-quote`'s own 17em measure, and it is already the width
+     three of the five hooks resolve to at 768 today — so it brings bakery
+     (which was saturating the column at 688 on its HEADING, not its quote)
+     into line with the rest instead of dragging the rest out to meet it.
+     Measured against every candidate: 544 costs ZERO extra lines on any of
+     the six hooks and leaves 72px either side, where 650 also cost zero but
+     left only 19px — and "centred within the section" is the whole ask. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .scene-hook {
+      --hook-measure: 544px;
     }
   }
 </style>

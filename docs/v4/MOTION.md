@@ -73,3 +73,18 @@ which uses `position: sticky` rather than a scroll handler.
 - **Menu close-X quarter turn** — 300 ms `expo.out` on click, then the panel
   folds; no turn under reduced motion. `--dur-curtain` is now read by
   `curtain.ts`; the unused `--ease-pop` / `--ease-circ-in-out` tokens are gone.
+
+## v13 additions (2026-08-26)
+
+- **The Historical Context plate (`[chapter].astro`)** — one scrubbed GSAP
+  timeline across the whole passage: `scale 1.00 → 1.03` **plus
+  `translateY 0 → −8px`**, `sine.inOut`, `scrub: 0.6`, then back down on the
+  way out. v12 ran `scale 1 → 1.055` with no translate; Wil's 8/26 spec names
+  1.00→1.03 and "a slight translateY (a few pixels)", so both numbers are his,
+  not a taste call. Measured on the scrub: progress 0.5 → `1.0297 / −7.91px`,
+  progress 1.0 → `1.0004 / −0.11px`, and scrolling back up reproduces
+  `1.0297 / −7.90px` — reversible, which is what he asked for ("scrolling back
+  up should reverse it"). The transform stays on the IMG, never the section:
+  a scale on a full-bleed block once reported 1584px of width on a 1440
+  screen. Under `prefers-reduced-motion` the whole block is gated off and the
+  plate measures `transform: none`.
