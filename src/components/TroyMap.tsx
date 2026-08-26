@@ -113,6 +113,11 @@ interface Props {
  *  The focused card sits at scale 1; every other card at 1 - CARD_FOCUS. */
 const CARD_FOCUS = 0.08;
 
+/** v13 V13-01 item 3: the 1858 lens's close fade. Was 1600ms — a full-viewport
+ *  layer blending over the live WebGL canvas for a second and a half. Recorded
+ *  in docs/v4/MOTION.md; `prefers-reduced-motion` swaps at 0ms. */
+const LENS_FADE_MS = 520;
+
 /** The pill ladder (approved): label 12→15→18, padding 8→10→12 at md/lg —
  * legacy markers carried real responsive classes; inline styles must ladder
  * by viewport and re-render on resize. */
@@ -222,6 +227,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   lensRef.current = lens;
   /** Latches true the first time the 1858 lens opens — see the <figure> below. */
   const [lensSeen, setLensSeen] = useState(false);
+  /* v13 V13-01 (Wil's #1: "the 1858 lens → map close is jittery"). Measured
+     cause, not guessed: `setLens(false)` unmounted the "Back to today" door in
+     the SAME commit that started the fade, so the figure's `flex-1` box
+     absorbed its 68px (670 → 738 measured) and the plate — anchored
+     `top: 50%` of that box — jumped exactly 34.00px down on the first frame of
+     the fade. `lensClosing` keeps every child of the shell mounted for the
+     whole fade, so the close frame has zero layout change; they leave together
+     when the fade ends (transitionend, with a timeout fallback). */
+  const [lensClosing, setLensClosing] = useState(false);
+  const lensVisible = lens || lensClosing;
+  const lensShellRef = useRef<HTMLDivElement>(null);
+  const lensDoorRef = useRef<HTMLButtonElement>(null);
+  const lensCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lensReturnFocus = useRef(false);
 
   /* ——— The 1858 map viewer (Kathy, 8/7: "do not crop allow pan and zoom") ———
    * Pure ref state: the transform mutates the <img> node directly so a 60fps
@@ -243,6 +262,30 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     if (!box) return 1;
     return Math.max(1, box.clientHeight / (box.clientWidth * PLATE));
   };
+  /* v13 V13-01 item 4 / V13-07a item 4: the plate is ~33M texels at the zoom
+     ceiling on a DPR-3 phone. A PERMANENT `will-change: transform` keeps a
+     layer that large promoted for the life of the page — it blended over the
+     WebGL canvas for every frame of the close fade, and iOS Safari is lazy
+     about re-rasterising a promoted layer of this size, which softens the
+     plate independently of the source arithmetic. Promote only while a gesture
+     is actually moving it; drop it 400ms after the last write. Every transform
+     write goes through lensApply, so this is the one call site. */
+  const lensPromoteTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lensPromote = useCallback(() => {
+    const img = lensImgRef.current;
+    if (!img) return;
+    if (img.style.willChange !== "transform") img.style.willChange = "transform";
+    if (lensPromoteTimer.current) clearTimeout(lensPromoteTimer.current);
+    lensPromoteTimer.current = setTimeout(() => {
+      lensPromoteTimer.current = null;
+      const el = lensImgRef.current;
+      if (el && lensPointers.current.size === 0) el.style.willChange = "auto";
+    }, 400);
+  }, []);
+  useEffect(() => () => {
+    if (lensPromoteTimer.current) clearTimeout(lensPromoteTimer.current);
+  }, []);
+
   const lensApply = useCallback(() => {
     const img = lensImgRef.current;
     const box = lensBoxRef.current;
@@ -255,13 +298,29 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     v.tx = Math.max(-maxX, Math.min(maxX, v.tx));
     v.ty = Math.max(-maxY, Math.min(maxY, v.ty));
     img.style.transform = `translate(-50%, -50%) translate(${v.tx}px, ${v.ty}px) scale(${v.s})`;
-  }, []);
+    lensPromote();
+  }, [lensPromote]);
 
+  /* v13 V13-07a item 2 (belt and braces): the ceiling used to be a hard 6,
+     which is a CSS-pixel number in a device-pixel problem — at DPR 3 a 350px
+     box at s=6 asks for 6300 device pixels across. The ceiling is now the
+     scale at which the served file runs out of its own pixels, floored at 4 so
+     the lens is always a lens. Falls back to 6 until naturalWidth is known. */
+  const LENS_MAX_SCALE = 6;
+  const lensMaxScale = () => {
+    const img = lensImgRef.current;
+    const box = lensBoxRef.current;
+    const nat = img?.naturalWidth ?? 0;
+    const w = box?.clientWidth ?? 0;
+    if (!nat || !w) return LENS_MAX_SCALE;
+    const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+    return Math.max(4, Math.min(LENS_MAX_SCALE, nat / (w * dpr)));
+  };
   /** Zoom keeping the container-relative point (px,py — offsets from center) fixed. */
   const lensZoomAt = useCallback(
     (factor: number, px = 0, py = 0) => {
       const v = lensView.current;
-      const next = Math.max(lensMinScale(), Math.min(6, v.s * factor));
+      const next = Math.max(lensMinScale(), Math.min(lensMaxScale(), v.s * factor));
       const ratio = next / v.s;
       v.tx = px - (px - v.tx) * ratio;
       v.ty = py - (py - v.ty) * ratio;
@@ -304,16 +363,40 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     lensView.current = { s: s0, tx: -(startCx - 0.5) * w * s0, ty: -(startCy - 0.5) * imgH0 * s0 };
     lensApply();
   }, [lensApply]);
-  // First open lands on the same resting framing (the image mounts on first open).
+  /* v13 V13-01 item 5: the box's height changes as the "Back to today" door
+     mounts (open) and leaves (after the fade), so the resting pose and the pan
+     clamp are recomputed once the box has SETTLED — two frames after the
+     commit — instead of exactly once, ever. Never while the fade is running:
+     re-posing mid-fade would be the very jump this item removes. Because it
+     re-runs on the closing commit, a re-open never inherits the last pan/zoom. */
   useEffect(() => {
-    if (lensSeen) requestAnimationFrame(() => lensReset());
-  }, [lensSeen, lensReset]);
-  // Opening the lens hands keyboard focus to the viewer (arrows/+/−/0 work at
-  // once); closing it returns focus to the door that opened it.
+    if (!lensSeen || lensClosing) return;
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => lensReset());
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [lensSeen, lens, lensClosing, lensReset]);
+  // Opening the lens hands keyboard focus to the viewer (arrows/+/−/0 work at once).
   useEffect(() => {
-    if (lens) requestAnimationFrame(() => lensBoxRef.current?.focus({ preventScroll: true }));
-    else document.querySelector<HTMLButtonElement>("button.link-meta")?.blur();
+    if (!lens) return;
+    const r = requestAnimationFrame(() => lensBoxRef.current?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(r);
   }, [lens]);
+  /* v13 V13-01 item 6: closing RETURNS focus to the door that opened it. v12
+     called `.blur()` on that door instead, which dropped a keyboard user back
+     at the top of the document. The door only remounts once the fade is over
+     (item 2), so the return waits for that commit — and only when focus was
+     still inside the shell, so a click elsewhere is never overridden. */
+  useEffect(() => {
+    if (lens || lensClosing || !lensReturnFocus.current) return;
+    lensReturnFocus.current = false;
+    const r = requestAnimationFrame(() => lensDoorRef.current?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(r);
+  }, [lens, lensClosing]);
 
   const lensCenterOffset = (e: { clientX: number; clientY: number }) => {
     const r = lensBoxRef.current?.getBoundingClientRect();
@@ -362,11 +445,17 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     [lensApply, lensZoomAt],
   );
 
-  const lensPointerEnd = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    lensPointers.current.delete(e.pointerId);
-    lensPinch.current = 0;
-    if (lensPointers.current.size === 0) e.currentTarget.style.cursor = "grab";
-  }, []);
+  const lensPointerEnd = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      lensPointers.current.delete(e.pointerId);
+      lensPinch.current = 0;
+      if (lensPointers.current.size === 0) {
+        e.currentTarget.style.cursor = "grab";
+        lensPromote(); // re-arms the 400ms demote now that no finger owns the plate
+      }
+    },
+    [lensPromote],
+  );
 
   const lensDoubleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -433,6 +522,44 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const reduced =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* v13 V13-01 item 3: the close fade was 1600ms — long enough that a
+     full-viewport layer kept blending over the live WebGL canvas for a second
+     and a half, which is most of what "jittery" was. 520ms on the house
+     `--ease` (recorded in docs/v4/MOTION.md); reduced motion swaps instantly. */
+  const lensFadeMs = reduced ? 0 : LENS_FADE_MS;
+  const closeLens = useCallback(() => {
+    if (!lensRef.current) return;
+    const shell = lensShellRef.current;
+    lensReturnFocus.current = !!(shell && shell.contains(document.activeElement));
+    setLensClosing(true);
+    setLens(false);
+  }, []);
+  /* The shell's children (box, caption, door) and the map chrome they trade
+     places with are held until the fade actually ends. transitionend is the
+     signal; the timer is the fallback for the reduced-motion 0ms case and for
+     any engine that drops the event. */
+  useEffect(() => {
+    if (!lensClosing) return;
+    const shell = lensShellRef.current;
+    const end = () => {
+      if (lensCloseTimer.current) clearTimeout(lensCloseTimer.current);
+      lensCloseTimer.current = null;
+      setLensClosing(false);
+    };
+    const onEnd = (e: TransitionEvent) => {
+      if (e.target === shell && e.propertyName === "opacity") end();
+    };
+    shell?.addEventListener("transitionend", onEnd);
+    lensCloseTimer.current = setTimeout(end, lensFadeMs + 120);
+    return () => {
+      shell?.removeEventListener("transitionend", onEnd);
+      if (lensCloseTimer.current) {
+        clearTimeout(lensCloseTimer.current);
+        lensCloseTimer.current = null;
+      }
+    };
+  }, [lensClosing, lensFadeMs]);
 
   const activeLabelRef = useRef<string | null>(null);
   const setMarkers = useCallback((activeLabel: string | null, force = false) => {
@@ -1236,12 +1363,14 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          its inboard neighbours gave up. Reads first, writes second: mixing
          them forced a reflow per slide inside a per-frame loop. */
       const wide = window.innerWidth >= 1024;
+      const contW = sl.size || 0;
       const rows = det.slides.map((sd, i) => {
-        const inner = sl.slides[i]?.firstElementChild as HTMLElement | null;
+        const slide = sl.slides[i] as HTMLElement | undefined;
+        const inner = slide?.firstElementChild as HTMLElement | null;
         const off = sd.distance - (1 - sd.size) / 2;
         const t = Math.min(1, sd.size > 0 ? Math.abs(off) / sd.size : 1);
         const scale = 1 - CARD_FOCUS * t;
-        return { inner, off, scale, w: inner ? inner.offsetWidth : 0 };
+        return { slide, inner, off, scale, dist: sd.distance, w: inner ? inner.offsetWidth : 0 };
       });
       if (wide) {
         /* outward from the centre, each side accumulating its own shrink */
@@ -1259,6 +1388,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       for (const r of rows) {
         if (!r.inner) continue;
         const shift = (r as { shift?: number }).shift ?? 0;
+        /* v13 V13-02 (Wil's #2). The shift above is arithmetically right and
+           v12 still measured 16 / 57.16 / 57.16, because keen's own
+           `.keen-slider__slide { overflow: hidden }` clipped the translation
+           straight back: every card from the second out on each side lost
+           41.16px of its OWN painting off its inboard edge (measured at every
+           width from 1024 up), which both re-opened the gap to 16 + 41.16 and
+           left the hard vertical cut mid-artwork that reads as "ends cut off".
+           The slide is a LAYOUT box, not a frame — the frame is the container,
+           which still clips, plus its edge mask. Written inline, from the same
+           `wide` flag as the shift, so the two can never disagree; cleared
+           below 1024, where nothing is shifted and HEAD's clip is unchanged. */
+        if (r.slide) r.slide.style.overflow = wide ? "visible" : "";
         r.inner.style.transform = shift
           ? `translateX(${shift.toFixed(2)}px) scale(${r.scale.toFixed(4)})`
           : `scale(${r.scale.toFixed(4)})`;
@@ -1268,6 +1409,22 @@ export default function TroyMap({ stops, baseUrl }: Props) {
            centre the near edge slid 12 px inward and the peek read as 5–7 px.
            Bottoms stay aligned (origin on the bottom edge). */
         r.inner.style.transformOrigin = r.off > 0.01 ? "left bottom" : r.off < -0.01 ? "right bottom" : "center bottom";
+        /* v13 V13-02 item 3a — the anti-sliver rule. A card the strip comes to
+           rest on showing a hairline of is not a peek, it is an accident: at
+           2560 the fifth card can settle with 28px of itself inside the frame.
+           Below a quarter of a card visible it is faded out entirely (and the
+           ramp is continuous, so a drag never pops it in or out). Geometry
+           only — keen's own fractions, no layout reads inside the write pass. */
+        let op = "";
+        if (wide && contW > 0) {
+          const L = r.dist * contW + shift;
+          const pw = r.w * r.scale;
+          const pl = r.off > 0.01 ? L : r.off < -0.01 ? L + r.w - pw : L + (r.w - pw) / 2;
+          const visible = Math.max(0, Math.min(pl + pw, contW) - Math.max(pl, 0));
+          const frac = pw > 0 ? visible / pw : 1;
+          if (frac < 0.25) op = Math.max(0, (frac - 0.06) / 0.19).toFixed(3);
+        }
+        if (r.inner.style.opacity !== op) r.inner.style.opacity = op;
       }
     },
   });
@@ -1339,13 +1496,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
-      if (lensRef.current) setLens(false);
+      if (lensRef.current) closeLens();
       else if (walkRef.current === "walking") pauseWalk();
       else if (focusedRef.current) backToOverview();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [pauseWalk, backToOverview]);
+  }, [pauseWalk, backToOverview, closeLens]);
 
   /* v7 M9: on phones the ☰ retreats while a stop is focused (a 360px top row
      cannot hold Back + Stop the walk + ☰); `Back` is the exit that brings it
@@ -1439,9 +1596,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           first open. The transform lives in refs and is applied directly to
           the node — panning at 60fps must not re-render the map island. */}
       <div
-        className="lens-shell absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70 transition-opacity duration-[1600ms]"
-        style={{ opacity: lens ? 1 : 0, pointerEvents: lens ? "auto" : "none", padding: "var(--ui-inset)", paddingTop: "calc(var(--ui-inset) + 4px)" }}
-        aria-hidden={!lens}
+        ref={lensShellRef}
+        className="lens-shell absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70"
+        style={{
+          opacity: lens ? 1 : 0,
+          pointerEvents: lens ? "auto" : "none",
+          padding: "var(--ui-inset)",
+          paddingTop: "calc(var(--ui-inset) + 4px)",
+          transition: `opacity ${lensFadeMs}ms var(--ease)`,
+        }}
+        /* Not raised until the fade is over: while it runs, focus is still on
+           the (kept-mounted) "Back to today" door inside this subtree. */
+        aria-hidden={!lensVisible}
       >
         <figure className="flex h-full max-h-full w-full flex-col items-center">
           {/* v7 L2: the viewer fills the shell (within --ui-inset), leaving one
@@ -1461,17 +1627,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               onDoubleClick={lensDoubleClick}
               onKeyDown={lensKeyDown}
             >
-              {/* v12 item 6 (Wil, 8/26): "use our highest-quality image file."
-                  4096 was as far as the pipeline had ever taken the Library of
-                  Congress plate; the master is a 23000x19267 JP2, decoded here
-                  at half resolution and resampled to 6144 (avif 1.95MB / webp
-                  3.07MB against 0.92 / 1.34). Phones keep the 4096: at the 6x
-                  zoom ceiling a 390px box still has ~2 source pixels per CSS
-                  pixel from it, and it is half the bytes over cellular.
+              {/* v13 V13-07a (Wil's #4.3): the split used to be `min-width: 768px`
+                  and nothing else, and the old note here ("~2 source pixels per
+                  CSS pixel") was right about CSS pixels and exactly wrong about
+                  devices — it never accounted for DPR. A 390px phone at DPR 3
+                  with a 350px box was exhausting the 4096 file's own pixels at
+                  s=3.9 and upscaling 1.54x the rest of the way to the ceiling.
+                  Resolution, not width, now picks the tier: phones take 6144
+                  (6144 / (350 x 6 x 3) = 0.975 source px per device px at the
+                  ceiling), >=768 takes the new 8192 (tablet DPR 2:
+                  8192 / (754 x 6 x 2) = 0.905). Above 6144 we ship AVIF only —
+                  a non-AVIF browser keeps exactly the WebP it is served today.
                   Nothing mounts at all until the lens is first opened. */}
               <picture>
-                <source media="(min-width: 768px)" type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-6144.avif`} />
-                <source type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-4096.avif`} />
+                <source media="(min-width: 768px)" type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-8192.avif`} />
+                <source type="image/avif" srcSet={`${baseUrl}/media/site/troy-1858-full-6144.avif`} />
                 <source media="(min-width: 768px)" type="image/webp" srcSet={`${baseUrl}/media/site/troy-1858-full-6144.webp`} />
                 <img
                   ref={lensImgRef}
@@ -1480,7 +1650,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                   draggable={false}
                   decoding="async"
                   className="absolute top-1/2 left-1/2 w-full max-w-none select-none"
-                  style={{ transformOrigin: "center", willChange: "transform", transform: "translate(-50%, -50%)" }}
+                  /* v13 V13-01 item 4: `will-change` is written by lensPromote()
+                     only while a gesture is moving the plate, never permanently. */
+                  style={{ transformOrigin: "center", transform: "translate(-50%, -50%)" }}
                 />
               </picture>
               <div className="absolute top-2 right-2 flex flex-col gap-1">
@@ -1518,12 +1690,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             Library&nbsp;of&nbsp;Congress
           </figcaption>
 
-          {/* v7 L3: the lens's ONE door — Back to today, centred; mounted only
-              while the lens is open so it is never a hidden tab stop. */}
-          {lens && (
+          {/* v7 L3: the lens's ONE door — Back to today, centred.
+              v13 V13-01 item 1: mounted for the whole CLOSE as well, so the
+              68px it occupies never leaves the flex column on the frame the
+              fade begins (that unmount was the measured 34px jump). It stops
+              being a tab stop the instant the lens is no longer open. */}
+          {lensVisible && (
             <button
               type="button"
-              onClick={() => setLens(false)}
+              tabIndex={lens ? 0 : -1}
+              onClick={closeLens}
               /* v12: "a bit more vertical spacing between the text… and the back to
                  today button" — plate→caption 20→28, caption→door 16→24. */
               className="btn-sm btn-ghost mt-6"
@@ -1538,7 +1714,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* Place chip (items 10/13): accurate copy only, and NEVER on screen at
           the same time as the chapter cards — two name surfaces at once was
           the collision class v5 spent a phase killing. */}
-      {!(focused && shellVisible) && !lens && (
+      {!(focused && shellVisible) && !lensVisible && (
         <div className="pointer-events-none absolute top-[calc(var(--ui-inset)+5px)] left-[var(--ui-inset)] z-20 mr-[104px]">
           <p
             className="t-meta rounded-full px-4 py-2"
@@ -1572,7 +1748,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           stop pill can sit under it; narrower screens keep it centred above. */}
       {hintOpen && (
         <div
-          className="pointer-events-none absolute bottom-44 left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-32 [@media(max-height:560px)]:bottom-20 xl:bottom-[calc(var(--ui-inset)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
+          /* v13: the fourth raw safe-area offset on the site — below `xl:` the
+             chip used raw Tailwind `bottom-*` while the `xl:` branch already
+             routed through `--ui-inset` (20px at 360–640, 40px at 768–1024).
+             Same position wherever the inset is 0; lifted clear of the home
+             indicator where it is not. */
+          className="pointer-events-none absolute bottom-[calc(var(--ui-inset)+156px)] left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+108px)] [@media(max-height:560px)]:bottom-[calc(var(--ui-inset)+60px)] xl:bottom-[calc(var(--ui-inset)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
           aria-hidden="true"
         >
           <div
@@ -1586,7 +1767,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
       {/* v7 M7: Back — top-left at the equal inset (the chip is hidden in
           focused mode). Phones read "Back", larger screens "Back to map". */}
-      {focused && !lens && (
+      {focused && !lensVisible && (
         <button
           type="button"
           onClick={backToOverview}
@@ -1610,7 +1791,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* v7 M3/M4: the walk control — top-right at the inset on every
           breakpoint, mirroring Back. Stop the walk ⇄ Continue; Walk again
           after stop 5. */}
-      {focused && !lens && (
+      {focused && !lensVisible && (
         <button
           type="button"
           onClick={walk === "walking" ? stopWalk : walk === "done" ? () => runTour(0) : continueWalk}
@@ -1629,7 +1810,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           it reads as a button), `Take the walk` centred at the bottom (phones:
           left-aligned with the chip's inset, centred on the ☰'s axis), ☰
           bottom-right; phones tuck the (i) beside the ☰. */}
-      {!focused && !lens && (
+      {/* v13 V13-01 item 2: `lensVisible`, not `lens` — the trio (chip, "Take
+          the walk", the 1858 door) must not remount DURING the fade. The door
+          carries `backdrop-filter: blur(6px)`, and remounting it under a live
+          fading full-viewport layer forced a backdrop readback on every
+          compositor frame of the close. */}
+      {!focused && !lensVisible && (
         <>
           {/* v7 V7-023: the bottom band is a scroll handle on touch screens —
               a vertical drag here scrolls the page (the map swallows every
@@ -1656,6 +1842,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           </div>
           <span className="absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-20 inline-flex">
             <button
+              ref={lensDoorRef}
               type="button"
               onClick={() => {
                 setLensSeen(true);

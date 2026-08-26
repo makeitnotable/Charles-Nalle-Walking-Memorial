@@ -98,3 +98,16 @@ which uses `position: sticky` rather than a scroll handler.
   and disappears without a fade. (Belt and braces: the three.js hall is
   disabled entirely under reduce and the static fallback renders instead, so
   the cue never mounts there at all.)
+
+- **The 1858 lens's close fade (`TroyMap.tsx`)** — v13 V13-01. **1600ms → 520ms**
+  on `var(--ease)` (`LENS_FADE_MS`), the map chrome held back until it ends.
+  `--dur-slow` is 1600ms because a scroll reveal is a page settling; this is a
+  full-viewport layer blending over a live WebGL canvas, and holding it there
+  for a second and a half is most of what read as jitter. The shell's children
+  — box, caption and the "Back to today" door — now stay mounted for the whole
+  fade, so the close frame has no layout change in it at all (the door's 68px
+  leaving the flex column was a measured 34.00px jump of the plate on the first
+  frame). Under `prefers-reduced-motion` the swap is instant: the global
+  reduce rule flattens the transition and the children leave on the same
+  commit — measured 0 intermediate opacities, 0 frames of anchor movement.
+

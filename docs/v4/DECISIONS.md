@@ -169,3 +169,38 @@ The tap gate (`dt < 300ms && moved < 8px`) was measured and left alone: a
 synthesized tap reads dt 1ms / moved 0px, and real finger jitter is not
 measurable in this container.
 **Revert:** change `0.09` in `Museum.tsx`'s approach-tap branch back to a raycast-only hit.
+
+**The 1858 plate is picked by resolution, not by width.** V13-07a. The
+`<picture>` split on `min-width: 768px` and nothing else, so a DPR-3 phone ran
+out of the 4096 file's own pixels at s=3.9 and upscaled 1.54x the rest of the
+way to the zoom ceiling. Phones now take the 6144 AVIF (1.95 MiB, up from the
+4096 AVIF's 0.92 MiB — **+1.02 MiB**, and only ever on the first open of the
+lens); ≥768 takes the new 8192 AVIF (3.25 MiB, up from the 6144 AVIF's
+1.95 MiB — **+1.30 MiB**). Above 6144 we ship AVIF only, so a non-AVIF browser keeps
+exactly the WebP it is served today (6144 at ≥768, 4096 below) and no new WebP
+bytes exist. Measured at the ceiling: 390/DPR3 **1.000** source px per device
+px, 834/DPR2 **1.000** (the bar was 0.9). The ceiling itself is now
+`min(6, naturalWidth / (box × DPR))` floored at 4, so the guarantee holds on
+devices we cannot test — at the cost that a 1440/DPR2 desktop tops out at 4×
+(0.771 source px per device px) rather than pretending 6 means anything there.
+**Revert:** in `TroyMap.tsx`, point the two AVIF `<source>`s back at
+`troy-1858-full-6144.avif` / `troy-1858-full-4096.avif` and replace
+`lensMaxScale()` in `lensZoomAt` with the literal `6`.
+
+**The chapter-card slide stops being a frame at ≥1024.** V13-02. v12's
+gap-equalising shift was arithmetically right and still measured 16 / 57.16 /
+57.16, because keen's own `.keen-slider__slide { overflow: hidden }` clipped the
+translation straight back — every card from the second out on each side lost
+41.16px of its OWN painting off its inboard edge, which is both the unequal gap
+and the "sliced card" in his screenshot. Equalising through keen's `spacing`
+instead is not available: one uniform pitch cannot make the focused card's two
+gaps equal to the gaps between two shrunken neighbours (they differ by half the
+shrink, 20.58px, at any spacing), so the shift stays and the clip goes. The
+frame is now the container, which still clips, plus a 120px eased edge mask
+(28px at 640–1023, unchanged) and an anti-sliver ramp that fades any partial
+under a quarter of a card. Nothing below 1024 changes: the write is gated by
+the same `wide` flag as the shift, and 390/768 measure byte-identical to HEAD.
+**Revert:** delete the `r.slide.style.overflow` line and the `op` block in
+`detailsChanged`, and the `@media (min-width: 1024px)` mask rule in
+`global.css`.
+

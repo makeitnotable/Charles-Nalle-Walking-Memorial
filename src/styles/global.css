@@ -1417,6 +1417,38 @@ h3 {
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent);
   }
 }
+/* v13 V13-02 item 3b. From 1024 up the strip is wider than three whole cards
+   will ever fit (514.5 + 16 pitch: three need 1576px), so an outermost PARTIAL
+   is a permanent condition, not a bug — what was a bug is that 28px is too
+   short a ramp to dissolve one. A card cut at the frame edge under a 28px
+   linear fade still reads as a guillotine; over 120px, eased (the stops
+   approximate a smoothstep, so there is no banding hinge), it reads as the
+   strip continuing past the frame. The ramp reaches 0 four pixels INSIDE the
+   edge, so no partial ever meets the container edge with ink still in it.
+   The 640px boundary above is untouched: phones keep no mask at all and
+   640–1023 keeps HEAD's 28px exactly. */
+@media (min-width: 1024px) {
+  .location-cards-slider {
+    --card-mask: linear-gradient(
+      to right,
+      transparent 0,
+      transparent 4px,
+      rgb(0 0 0 / 0.06) 24px,
+      rgb(0 0 0 / 0.25) 48px,
+      rgb(0 0 0 / 0.55) 72px,
+      rgb(0 0 0 / 0.85) 96px,
+      #000 120px,
+      #000 calc(100% - 120px),
+      rgb(0 0 0 / 0.85) calc(100% - 96px),
+      rgb(0 0 0 / 0.55) calc(100% - 72px),
+      rgb(0 0 0 / 0.25) calc(100% - 48px),
+      rgb(0 0 0 / 0.06) calc(100% - 24px),
+      transparent calc(100% - 4px)
+    );
+    mask-image: var(--card-mask);
+    -webkit-mask-image: var(--card-mask);
+  }
+}
 /* v7 M9: slide geometry — phones min(343px, 84vw) so ≥ 16px of each neighbour
    peeks at 360; the approved 428.75 / 514.5 at sm / lg. */
 .walk-slide {
