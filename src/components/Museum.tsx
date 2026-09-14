@@ -111,11 +111,14 @@ export default function Museum({ works, slotId }: Props) {
   const [ready, setReady] = useState(false);
   const [railIdx, setRailIdx] = useState(0);
   const [lookedAway, setLookedAway] = useState(false);
-  /* v13 V13-10a (Wil, 8/26): "Scroll to Walk should disappear once the user
-     starts scrolling." Nothing in the React tree watched the walk — `railT`
-     lives inside the scene closure and `onScroll` only ever published the
-     integer rail index — so the chip stood for the whole hall. */
-  const [walkStarted, setWalkStarted] = useState(false);
+  /* v14 E6 (Wil): the wayfinding chip is a ONE-TIME hint at every width. It
+     stands until the visitor's first input — a wheel over the hall, the walk
+     passing 1% of the rail, a press on the canvas, a hall key, an approach —
+     and then stays gone until a full reload. One-way by construction: nothing
+     ever sets this back to false. It supersedes v13 V13-10a's phone-only
+     `walkStarted` / `data-walking`, which hid the chip while walking and
+     brought it BACK at a dead stop. */
+  const [hintDismissed, setHintDismissed] = useState(false);
   /** Phone sheet: "peek" (title only) or "full". */
   const [sheet, setSheet] = useState<"peek" | "full">("peek");
   const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -889,8 +892,9 @@ export default function Museum({ works, slotId }: Props) {
 
       let lastRailIdx = -1;
       /* v13 V13-10a: one boolean out of the closure — the walk has begun. Set
-         at 1% of the rail (past a stray pixel of overscroll), cleared only
-         back at a dead stop, so the chip cannot flicker at the threshold. */
+         at 1% of the rail (past a stray pixel of overscroll). v14 E6: never
+         cleared — the hint it dismisses is one-way now, so the v13 dead-stop
+         reset (which brought the chip back at the top) is gone with it. */
       let walkFlag = false;
       const onScroll = () => {
         const r = wrap.getBoundingClientRect();
@@ -898,10 +902,7 @@ export default function Museum({ works, slotId }: Props) {
         railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
         if (!walkFlag && railT > 0.01) {
           walkFlag = true;
-          setWalkStarted(true);
-        } else if (walkFlag && railT <= 0.0005) {
-          walkFlag = false;
-          setWalkStarted(false);
+          setHintDismissed(true);
         }
         checkUnpin();
         const idx = Math.min(works.length - 1, Math.max(0, Math.round(-railZ() / SPACING) - 1));
@@ -1719,6 +1720,27 @@ export default function Museum({ works, slotId }: Props) {
       };
       window.addEventListener("resize", onResize);
       setChipBand();
+      /* v14 E6: the hint's other dismissals — one listener each, kept apart
+         from the handlers that do the work (`down`, `onKey`, `onWheel`). The
+         wheel counts only once the sticky stage has ARRIVED (top <= 1): while
+         the page is still bringing the hall into view, a wheel over the
+         incoming stage is reading the page, not the museum. The key gate
+         mirrors onKey's own (never from a form field; the stage must hold the
+         viewport's centre line). Approach is caught in the React tree. */
+      const dismissHint = () => setHintDismissed(true);
+      const onHintWheel = () => {
+        if (stage.getBoundingClientRect().top <= 1) dismissHint();
+      };
+      const onHintKey = (e: KeyboardEvent) => {
+        const t = e.target as HTMLElement | null;
+        if (t && /^(input|textarea|select)$/i.test(t.tagName)) return;
+        const r = stage.getBoundingClientRect();
+        if (!(r.top < window.innerHeight * 0.5 && r.bottom > window.innerHeight * 0.5)) return;
+        if (/^(ArrowLeft|ArrowRight|ArrowUp|ArrowDown|w|W|s|S)$/.test(e.key) || (e.key === "Enter" && t?.tagName === "BODY")) dismissHint();
+      };
+      stage.addEventListener("wheel", onHintWheel, { passive: true });
+      renderer.domElement.addEventListener("pointerdown", dismissHint);
+      window.addEventListener("keydown", onHintKey);
       renderer.domElement.addEventListener("webglcontextlost", () => setCapable(false));
 
       // ——— Debug hook (scripts/museum-check.mjs) ———
@@ -1817,6 +1839,9 @@ export default function Museum({ works, slotId }: Props) {
           window.removeEventListener("scroll", arm);
           window.removeEventListener("pointerdown", arm);
           window.removeEventListener("keydown", arm);
+          stage.removeEventListener("wheel", onHintWheel);
+          renderer.domElement.removeEventListener("pointerdown", dismissHint);
+          window.removeEventListener("keydown", onHintKey);
           io.disconnect();
           works.forEach((_, i) => teardownVideo(i));
           renderer.dispose();
@@ -1877,6 +1902,11 @@ export default function Museum({ works, slotId }: Props) {
     const id = requestAnimationFrame(() => api.current?.chipBand());
     return () => cancelAnimationFrame(id);
   }, [ready, approached, lookedAway]);
+  /* v14 E6: entering approach is an interaction too — without this the chip
+     would come back the moment the visitor returned to the hall. */
+  useEffect(() => {
+    if (approached !== null) setHintDismissed(true);
+  }, [approached]);
   useEffect(() => {
     const onKey = () => (keyboardInput.current = true);
     const onPointer = () => (keyboardInput.current = false);
@@ -1958,14 +1988,16 @@ export default function Museum({ works, slotId }: Props) {
             it slightly above the screen's middle; desktop keeps the chip
             top-centre while Face forward rides top-RIGHT on Skip's axis and
             inset. */}
-        {ready && !inApproach && !lookedAway && (
+        {ready && !inApproach && !lookedAway && !hintDismissed && (
           <div
             /* v12: phones move the chip from just above the dot rail to the
                band between Skip and the arch (`--cnwm-chip-y`, written by the
                scene each layout); tablet and desktop keep their v8 positions
-               exactly. */
-            data-walking={walkStarted ? "true" : undefined}
-            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-sm:top-[var(--cnwm-chip-y,38%)] max-sm:-translate-y-1/2 sm:max-lg:inset-x-[var(--ui-inset)] sm:max-lg:top-[44%] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
+               exactly. v14 E15 (Wil): tablets take the phone placement too —
+               "closer to the top, matching the mobile placement" — so the
+               band rule runs to 1024 and only desktop keeps its top inset.
+               v14 E6: `hintDismissed` gates the row — a one-time hint. */
+            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-lg:top-[var(--cnwm-chip-y,38%)] max-lg:-translate-y-1/2 sm:max-lg:inset-x-[var(--ui-inset)] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
           >
             <p className="museum-chip-pill t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
               <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
@@ -1988,11 +2020,19 @@ export default function Museum({ works, slotId }: Props) {
             is what the desktop instance has relied on since v8. Face forward
             and the plaque drawer are mutually exclusive by construction — the
             drawer exists only in approach, this button only outside it — so
-            there is no open-drawer state for it to collide with. */}
+            there is no open-drawer state for it to collide with.
+            v14 E10 (Wil): "the Face Forward button ends up behind the menu."
+            The retreat above was never a guarantee — the menu comes back on
+            any upward scroll of 24px, fixed at z-1000 — so the button no
+            longer shares its slot. Its horizontal lives in
+            `.museum-face-forward` (global.css): immediately LEFT of the slot
+            (72px burger + 12px) wherever the band fits all three controls,
+            and below 390px it keeps the corner and yields to the menu
+            instead. Top stays inline, on Skip's axis. */}
         {ready && !inApproach && lookedAway && (
           <div
-            className="absolute z-10"
-            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", right: "var(--ui-inset)" }}
+            className="museum-face-forward absolute z-10"
+            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))" }}
           >
             <button
               type="button"
@@ -2227,8 +2267,10 @@ export default function Museum({ works, slotId }: Props) {
             /* v13 V13-10d (Wil, 8/26): "the 1/10 counter should be centered
                above the indicator dots." It used to sit INSIDE this row, which
                pushed the dot list off centre by half the counter's width — the
-               row was centred, the dots were not. Stacked, both are. */
-            className="absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2"
+               row was centred, the dots were not. Stacked, both are.
+               v14 E16 (Wil): gap-3 — 12px between the counter and the dots,
+               up from 8 ("a small amount, not dramatic"). */
+            className="absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3"
             style={{
               /* v12 (Wil, 8/26): one resting offset, always set inline, and it
                  is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`

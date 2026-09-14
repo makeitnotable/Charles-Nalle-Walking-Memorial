@@ -1099,12 +1099,26 @@ h3 {
     min-height: 44px;
   }
 }
-/* v13 V13-10a (Wil, 8/26): "the 'Scroll to Walk' text/tag should disappear
-   once the user starts scrolling." Phones only — the tablet and desktop copy
-   carries the drag/tap instructions too and keeps its v8 behaviour. The scene
-   sets data-walking once the rail passes 1%. */
-@media (max-width: 639px) {
-  .museum-chip-row[data-walking="true"] .museum-chip-pill {
+/* v14 E10 (Wil): "the Face Forward button ends up behind the menu." It shared
+   the corner menu's slot (fixed, z-1000) and relied on the menu retreating,
+   but the menu returns on any upward scroll of 24px. It now stands immediately
+   LEFT of the slot — the 72px burger plus 12px, the band's own gap — so the
+   two cannot overlap in either menu state. Top stays inline, on Skip's axis.
+   (v13 V13-10a's phone-only `data-walking` rule stood here; v14 E6 retired it
+   — the chip is a one-time hint gated in Museum.tsx at every width now.) */
+.museum-face-forward {
+  right: calc(var(--ui-inset) + 72px + 12px);
+}
+/* Below 390px the band cannot hold all three: measured, Skip (95px), this
+   button (162px) and the burger (72px) with their gaps overrun Skip by 6px at
+   375 and 21px at 360, and clear it by 9px at 390. There it keeps the corner
+   and yields to the menu (Wil's Option B): hidden while the menu is showing,
+   back the moment it retreats — never partially covered either way. */
+@media (max-width: 389px) {
+  .museum-face-forward {
+    right: var(--ui-inset);
+  }
+  body:has(.cnwm-menu:not([data-hidden="true"])) .museum-face-forward {
     display: none;
   }
 }
