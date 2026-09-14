@@ -331,6 +331,37 @@ import { withBase } from "../lib/url";
       max-width: 64ch;
     }
   }
+  /* v14 E26 (client): on tablets and phones the CTA is pinned to the frame's
+     bottom again (v9 V9-401 had let it flow). `margin-top: auto` takes the
+     free space AFTER the air spacer has what it asked for, and yields to
+     zero before any sibling shrinks — so the lockup keeps its air rules and
+     the CTA can never leave the frame. The bottom inset is set against the
+     16px side inset: 24px on phones, 32px from 768, never under the home
+     indicator. Below 1024, the site's desktop line; desktop is unchanged. */
+  @media (max-width: 1023px) {
+    .home-cta {
+      margin-top: auto;
+    }
+    .home-stack {
+      padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .home-stack {
+      padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
+    }
+  }
+  /* The landscape-phone tier above stays centred: at 844×390 the lockup
+     already fills the frame (12px spare top and bottom), so there is nothing
+     to pin it against, and a taller bottom inset would only push it off-centre. */
+  @media (max-height: 500px) {
+    .home-cta {
+      margin-top: 0;
+    }
+    .home-stack {
+      padding-bottom: 16px;
+    }
+  }
   /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
      and reduced-motion states are simply "everything visible". */
   .home-seq {

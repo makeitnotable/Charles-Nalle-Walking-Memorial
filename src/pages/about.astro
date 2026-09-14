@@ -182,7 +182,9 @@ const [QUOTE_BOOK, QUOTE_SUBTITLE] = about.closingQuote.source.split(": ");
         </p>
         {/* v8 V8-307 (Wil, 8/19 01:20:08): the closer centres on phones and
             tablets — About only; the People closer keeps its left seat. */}
-        <div class="mt-10 flex justify-center lg:justify-start">
+        {/* v14 E18 (client): tablets left-align it to the column, matching
+            desktop; phones alone stay centred. */}
+        <div class="mt-10 flex justify-center md:justify-start">
           <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid btn-icon-end">
             Walk the story
             <Icon name="arrow" />

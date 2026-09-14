@@ -389,9 +389,12 @@ const focus =
             carried none at all — 288px of air above the moral against 64
             below. The same section token closes it now, so Part 1 ends the way
             every other moral ends. */}
+        {/* v14 E20 (client): the Part-2 hero displays like the chapter hero —
+            full-bleed at the full viewport height (was 82dvh); the same
+            `pb-[max(5dvh,32px)]` lockup inset as #hero, unchanged. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="sec relative h-[82dvh] overflow-hidden bg-neutral-2"
+            class="sec relative h-dvh overflow-hidden bg-neutral-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
           >
@@ -509,14 +512,32 @@ const focus =
         {b.type === "interlude" && (
           <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
             <div class="wipe-clip">
-              <img
-                class="interlude-img h-[76vh] w-full object-cover md:h-[94vh]"
-                src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
-                srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
-                sizes="100vw"
-                alt={interlude.alt}
-                loading="lazy"
-              />
+              {/* v14 E27 (client): the desktop plate was oversized and popped
+                  in. Height 94vh → 87vh (the middle of v12's 80 and v13's 94;
+                  phones unchanged); the existing AVIF tier is served ahead of
+                  webp; and the img fades in on load (`is-loaded`, global.css)
+                  after the page script starts its fetch early. `block` on the
+                  <picture>: the wipe's breath of scale (.wipe-clip > *) needs
+                  a block box, and an inline <picture> would ignore it. */}
+              <picture class="block">
+                <source
+                  type="image/avif"
+                  srcset={`${withBase(`media/${slug}/${interlude.key}-800.avif`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.avif`)} 1440w`}
+                  sizes="100vw"
+                />
+                <source
+                  type="image/webp"
+                  srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
+                  sizes="100vw"
+                />
+                <img
+                  class="interlude-img h-[76vh] w-full object-cover md:h-[87vh]"
+                  src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
+                  sizes="100vw"
+                  alt={interlude.alt}
+                  loading="lazy"
+                />
+              </picture>
               {/* v12: the cream overlay that used to sit here is gone — the
                   plate is feathered by a mask on the image itself instead, so
                   the picture dissolves into the real ground rather than having
@@ -786,6 +807,36 @@ const focus =
     if (location.hash) {
       const land = () => document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant", block: "start" });
       window.addEventListener("load", () => setTimeout(land, 60), { once: true });
+    }
+
+    /* v14 E27 (client): the interlude plate is lazy and often decoded after
+       the wipe had begun, arriving in one frame. Its fetch now starts ~1600px
+       ahead of the viewport (Chromium's own lazy distance is 1250px on 4g;
+       Safari's is far shorter) by flipping `loading` to eager, and the plate
+       fades in when it lands — `is-loaded` drives the opacity in global.css,
+       where reduced motion and no-JS never hide it. Not a <head> preload: the
+       LCP path is untouched. */
+    const plates = document.querySelectorAll<HTMLImageElement>(".interlude-img");
+    if (plates.length) {
+      const early = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            (e.target as HTMLImageElement).loading = "eager";
+            early.unobserve(e.target);
+          }
+        },
+        { rootMargin: "1600px 0px" },
+      );
+      plates.forEach((img) => {
+        const show = () => img.classList.add("is-loaded");
+        if (img.complete && img.naturalWidth > 0) show();
+        else {
+          img.addEventListener("load", show, { once: true });
+          img.addEventListener("error", show, { once: true });
+        }
+        early.observe(img);
+      });
     }
 
     if (!reduced) {

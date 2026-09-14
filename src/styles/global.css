@@ -1034,6 +1034,9 @@ h3 {
   /* V13-04: the ramp halved (24% → 12% at each end) — same two-stage
      easing, same shape, just compressed — so the plate shows more picture
      at the edges instead of dissolving more of it. */
+  /* v14 E27 (client): the fade into the history section below read too
+     strong, so the BOTTOM ramp goes back to v12's 24% (its exact stops, the
+     same two-stage shape); the top ramp keeps V13-04's 12%. */
   --interlude-feather: linear-gradient(
     to bottom,
     transparent 0%,
@@ -1042,15 +1045,30 @@ h3 {
     rgba(0, 0, 0, 0.72) 7.5%,
     rgba(0, 0, 0, 0.92) 10%,
     #000 12%,
-    #000 88%,
-    rgba(0, 0, 0, 0.92) 90%,
-    rgba(0, 0, 0, 0.72) 92.5%,
-    rgba(0, 0, 0, 0.4) 95.5%,
-    rgba(0, 0, 0, 0.12) 98%,
+    #000 76%,
+    rgba(0, 0, 0, 0.92) 80%,
+    rgba(0, 0, 0, 0.72) 85%,
+    rgba(0, 0, 0, 0.4) 91%,
+    rgba(0, 0, 0, 0.12) 96%,
     transparent 100%
   );
   -webkit-mask-image: var(--interlude-feather);
   mask-image: var(--interlude-feather);
+}
+/* v14 E27 (client): the plate fades in as it decodes rather than arriving in
+   one frame — the chapter script adds `is-loaded` on load (at once when the
+   image is already complete). Gated on `.js` and motion preference, so no-JS
+   and reduced motion see the plate immediately. The <picture> around it keeps
+   the wipe's `.wipe-clip > *` transition off this element, so the two
+   transitions never contend for the shorthand. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .interlude-img {
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease);
+  }
+  .js .interlude-img.is-loaded {
+    opacity: 1;
+  }
 }
 
 /* v11 item 8b (Wil, 8/22): "the `THE MUSEUM • SCROLL TO WALK • DRAG TO LOOK •
