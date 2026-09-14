@@ -158,12 +158,24 @@ const links = [
   .footer-meta {
     margin-top: 0;
     padding-top: 1.5rem;
-    padding-bottom: 2.5rem;
+    /* E24 (Wil, 9/14: "no content is ever obscured by the browser chrome").
+       This row is the last thing in every document, and `viewport-fit=cover`
+       runs the document under the home indicator / gesture bar once a
+       browser's toolbar retracts (iOS Safari collapsed, Add-to-Home-Screen,
+       Android 15 Chrome edge-to-edge) — the one place on the site whose
+       bottom clearance did NOT carry env(safe-area-inset-bottom). Measured
+       with the inset emulated: 40px of padding against a 34px indicator zone
+       left 6px; against a 48px Android nav inset the last line sat 8px inside
+       it. The inset is ADDED, so the authored rhythm is untouched wherever
+       env() is 0 (every desktop, most Android) — byte for byte 40 / 128. */
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   }
   /* Chapters keep the bottom-left lane clear for the narration pill (C10);
-     the scoped rule used to out-cascade the `pb-28` utility. */
+     the scoped rule used to out-cascade the `pb-28` utility. The pill sits on
+     --ui-inset, which already grows with the safe area, so the lane it clears
+     grows with it too (E24). */
   .footer-meta[data-audio] {
-    padding-bottom: 8rem;
+    padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
   }
   .footer-disclaimer {
     max-width: 62ch;

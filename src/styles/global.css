@@ -175,7 +175,19 @@
   /* ── SHELL — one width, site-wide. The v3 hero broke registration by
      running 1344px against a 1280px shell; there is now no way to. ───────── */
   --shell: 1280px;
-  --gutter: 20px;
+  /* E24 (Wil, 9/14: "no content is ever obscured by the browser chrome").
+     `viewport-fit=cover` runs the page under the notch / Dynamic Island on a
+     phone held sideways (and under an Android display cutout), and while the
+     FLOATING lane took the safe areas in v11.2 (--ui-inset, below), the
+     content column never did: measured at 844×390 with a 47px side inset
+     emulated, every .shell column — hero lockup, page eyebrows, prose, the
+     footer — began 27px inside the cutout zone. The gutter is now the deeper
+     of itself and the two side insets, the same idiom as --ui-inset; every
+     consumer (.shell, --fit-basis, the credits, the transcript column) moves
+     together. Where env() is 0 — every desktop, portrait phones, most Android
+     — max() IS the token: 20 / 40 / 56, byte for byte. --ui-inset is
+     unchanged, since it already took max() over the same insets. */
+  --gutter: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
 
   /* ── SHAPE — a border marks an ARTIFACT. Radius calms. ─────────────────── */
   --r-lg: 24px; /* hero + home frames only */
@@ -240,7 +252,7 @@
     --space-beat: 96px;
     --space-section: 168px;
     --space-void: 320px;
-    --gutter: 40px;
+    --gutter: max(40px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   }
 }
 
@@ -260,7 +272,7 @@
     --space-beat: 128px;
     --space-section: 200px;
     --space-void: 400px;
-    --gutter: 56px;
+    --gutter: max(56px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   }
 }
 
