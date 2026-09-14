@@ -102,12 +102,11 @@ export default function Museum({ works, slotId }: Props) {
   const [alive, setAlive] = useState<number | null>(null);
   /* v13 V13-05b (Wil, 8/26): the still <-> alive TAP SWITCH. `stopped[]` is
      the scene's own truth — a work the visitor switched off stays off, even
-     after leaving approach — so it is mirrored out here for two reasons: the
-     invisible toggle must ANNOUNCE the true state (it used to read `alive`,
-     which is the playback window, not the switch), and the brief cue below
-     must show what the tap just did. */
+     after leaving approach — so it is mirrored out here: the invisible toggle
+     must ANNOUNCE the true state (it used to read `alive`, which is the
+     playback window, not the switch). v14 E17 (Wil): the v13 play/pause cue
+     that also read it is gone — the switch is discoverable by touch alone. */
   const [stoppedFlags, setStoppedFlags] = useState<boolean[]>([]);
-  const [cue, setCue] = useState<{ on: boolean; k: number } | null>(null);
   const [ready, setReady] = useState(false);
   const [railIdx, setRailIdx] = useState(0);
   const [lookedAway, setLookedAway] = useState(false);
@@ -343,7 +342,15 @@ export default function Museum({ works, slotId }: Props) {
       const CH = portrait ? 2.4 : CORRIDOR_HALF;
       const CEIL_Y = portrait ? 3.2 : 4.2;
       const fovFor = () => (stage.clientWidth < stage.clientHeight ? 72 : 58);
-      const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.1, 80);
+      /* v14 E13 (Wil): "frames and paintings flicker during any movement". A
+         frame is four faces 15 mm apart with the canvas 10 mm proud, and the
+         depth buffer's resolution scales with distance² / near: at 0.1 a
+         16-bit buffer resolves ~1.5 cm at 10 m and ~14 cm at 30 m, so the
+         stack fights down the hall. The camera is never nearer than 0.64 m to
+         a work (dEff ≥ 0.6 in approach; 1.55 m off the floor on the rail), so
+         0.3 clips nothing and triples the precision at every distance. fov
+         and far are untouched. */
+      const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.3, 80);
       const BASE_FOV = fovFor();
 
       const lastZ = -works.length * SPACING; // last work
@@ -622,7 +629,14 @@ export default function Museum({ works, slotId }: Props) {
         g.fillRect(0, 0, 256, 256);
       }
       const poolTex = new THREE.CanvasTexture(poolCanvas);
-      const poolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false });
+      /* v14 E13: the pool plane hangs at (CH − 0.02) — the SAME plane as the
+         moulding's front face — so where the glow crosses the frame the two
+         are coplanar and the depth test is a coin toss per pixel that re-rolls
+         with every camera move (textbook decal z-fighting: the pool is drawn
+         after the frame with LEQUAL). A negative polygon offset pulls the glow
+         one depth unit forward so it wins there consistently; it still loses
+         to the lip, slip and canvas, which stand 15–40 mm nearer. */
+      const poolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
       const floorPoolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, opacity: 0.4 });
 
       await breathe();
@@ -635,7 +649,70 @@ export default function Museum({ works, slotId }: Props) {
       const workGroups: import("three").Group[] = [];
       const paintingMats: MeshBasicMaterial[] = [];
       const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
-      const loadedFlags: boolean[] = works.map(() => false);
+      /* v14 E11 (Wil: "some paintings intermittently fail to load … and display
+         only a flat placeholder"). These two were declared in the rail block —
+         sixty lines and one `await breathe()` AFTER `loadWork(0)` and
+         `loadWork(1)` were issued — so a texture answered from the HTTP cache
+         (any repeat visit) could run its callback first and find `stillTexs`
+         in its temporal dead zone: a ReferenceError inside the loader, and
+         with the work already flagged loaded, a flat canvas for the rest of
+         the visit. They live with the other per-work arrays now. */
+      const stillTexs: (import("three").Texture | null)[] = works.map(() => null);
+      const videoTexs: (import("three").VideoTexture | null)[] = works.map(() => null);
+      const sketchMats: (MeshBasicMaterial | null)[] = works.map(() => null);
+      /* v14 E11: idle / pending / loaded / failed per work (and per study).
+         `loadedFlags` went true the moment a fetch was ISSUED, and
+         `TextureLoader.load` ran with no onError, so one dropped or aborted
+         request left that work flat for good. The debug hook reads these. */
+      type TexState = "idle" | "pending" | "loaded" | "failed";
+      const texState: TexState[] = works.map(() => "idle");
+      const sketchState: (TexState | null)[] = works.map((w) => (w.sketch ? "idle" : null));
+      const TEX_TRIES = 3; // per tier
+      const TEX_COOLDOWN = 20000; // failed → idle again, so the near works get another cycle
+      /** A still that cannot fail silently: TEX_TRIES on each URL in turn with
+       *  400·2ⁱ ms backoff, then `failed` — which cools back to `idle`, so the
+       *  frame loop's own `loadWork` calls (and `online`) can try again. */
+      const loadStill = (urls: string[], onLoad: (t: import("three").Texture) => void, onState: (s: TexState) => void) => {
+        let tries = 0;
+        const attempt = () => {
+          if (disposed) return;
+          onState("pending");
+          const url = urls[Math.min(urls.length - 1, Math.floor(tries / TEX_TRIES))];
+          loader.load(
+            url,
+            (t) => {
+              if (disposed) return;
+              onState("loaded");
+              onLoad(t);
+            },
+            undefined,
+            () => {
+              if (disposed) return;
+              tries++;
+              if (tries >= TEX_TRIES * urls.length) {
+                console.warn(`[museum] texture failed after ${tries} attempts: ${url}`);
+                onState("failed");
+                return;
+              }
+              window.setTimeout(attempt, 400 * 2 ** ((tries - 1) % TEX_TRIES));
+            },
+          );
+        };
+        attempt();
+      };
+      /** The one rule for a canvas's map: a texture means white, no texture
+       *  means the flat placeholder. The program needs recompiling only when
+       *  the KIND of map changes (none / still / film — three keys the shader
+       *  on `decodeVideoTexture`), so a same-kind swap skips `needsUpdate`. */
+      const kindOf = (t: import("three").Texture | null) => (t ? ((t as Partial<import("three").VideoTexture>).isVideoTexture ? "video" : "still") : "none");
+      const setMap = (i: number, t: import("three").Texture | null) => {
+        const m = paintingMats[i];
+        if (m.map === t) return;
+        const recompile = kindOf(m.map) !== kindOf(t);
+        m.map = t;
+        m.color.set(t ? "#ffffff" : "#2f1d14");
+        if (recompile) m.needsUpdate = true;
+      };
       const slipMat = mat("#1a100a");
 
       type Placement = { pos: { x: number; y: number; z: number }; side: number; w: number; h: number };
@@ -776,16 +853,32 @@ export default function Museum({ works, slotId }: Props) {
           smesh.position.set(planeX(0.03), 1.55, sz);
           smesh.rotation.y = (-Math.PI / 2) * side;
           scene.add(smesh);
-          loader.load(work.sketch, (t) => {
-            if (disposed) return;
+          sketchMats[i] = smat;
+        }
+      });
+      /* v14 E11: the study went through the same bare `loader.load` — one
+         dropped request and the drawing stayed a flat brown plane for the
+         visit. Same retry loader as the canvases; `online` re-issues a failed
+         one. */
+      const loadSketch = (i: number) => {
+        const url = works[i].sketch;
+        const smat = sketchMats[i];
+        if (!url || !smat || sketchState[i] !== "idle") return;
+        loadStill(
+          [url],
+          (t) => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = maxAniso;
             smat.map = t;
             smat.color.set("#ffffff");
             smat.needsUpdate = true;
-          });
-        }
-      });
+          },
+          (s) => {
+            sketchState[i] = s;
+          },
+        );
+      };
+      works.forEach((_, i) => loadSketch(i));
 
       if (studyFrameGeos.length) {
         const mergedStudies = mergeGeometries(studyFrameGeos);
@@ -793,27 +886,42 @@ export default function Museum({ works, slotId }: Props) {
       }
 
       const isPhoneTex = window.innerWidth < 1024;
+      /* v14 E11: idempotent per state — a pending fetch is never doubled, a
+         loaded work never re-fetched, and a failed one waits out its cooldown
+         (the frame loop calls this every frame for the nearest works, so
+         `failed` must not mean "retry now"). The device's tier is tried
+         TEX_TRIES times, then the other tier — a 1440 that is broken on the
+         CDN still gets its 800, and vice versa. */
       const loadWork = (i: number) => {
-        if (loadedFlags[i]) return;
-        loadedFlags[i] = true;
-        loader.load(isPhoneTex ? works[i].tex800 : works[i].tex1440, (t) => {
-          if (disposed) return;
-          t.colorSpace = THREE.SRGBColorSpace;
-          t.anisotropy = maxAniso;
-          /* v8 V8-326: cache the still so pausing a film restores it
-             synchronously (the v7 teardown re-fetched and flashed), and never
-             clobber a playing film with a late-arriving still. */
-          stillTexs[i] = t;
-          /* v10 V10-05: apply it unless a film is genuinely PLAYING. The v8
-             guard tested "has a video element", so a work holding a warm but
-             paused element never took the still it had just fetched. */
-          const playing = videoEls[i] && !videoEls[i]!.paused;
-          if (!playing) {
-            paintingMats[i].map = t;
-            paintingMats[i].color.set("#ffffff");
-            paintingMats[i].needsUpdate = true;
-          }
-        });
+        if (texState[i] !== "idle") return;
+        const tiers = isPhoneTex ? [works[i].tex800, works[i].tex1440] : [works[i].tex1440, works[i].tex800];
+        loadStill(
+          tiers,
+          (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = maxAniso;
+            /* v8 V8-326: cache the still so pausing a film restores it
+               synchronously (the v7 teardown re-fetched and flashed), and never
+               clobber a playing film with a late-arriving still. */
+            stillTexs[i] = t;
+            /* v10 V10-05 applied it "unless a film is genuinely PLAYING", read
+               as `!video.paused` — which is true from the moment play() is
+               CALLED, frames or no frames. A film that never decoded (codec,
+               decoder budget, a play() that never settles) therefore kept the
+               still off the canvas for good. v14 E11: the still yields only to
+               a film that has actually swapped in. */
+            const filmShowing = videoTexs[i] !== null && paintingMats[i].map === videoTexs[i];
+            if (!filmShowing) setMap(i, t);
+          },
+          (s) => {
+            texState[i] = s;
+            if (s === "failed") {
+              window.setTimeout(() => {
+                if (!disposed && texState[i] === "failed") texState[i] = "idle";
+              }, TEX_COOLDOWN);
+            }
+          },
+        );
       };
       loadWork(0);
       loadWork(1);
@@ -852,10 +960,14 @@ export default function Museum({ works, slotId }: Props) {
         softGL = false;
       }
       const stopped: boolean[] = works.map(() => softGL);
-      let cueSeq = 0;
-      const stillTexs: (import("three").Texture | null)[] = works.map(() => null);
-      const videoTexs: (import("three").VideoTexture | null)[] = works.map(() => null);
       let armed = false;
+      /* v14 E5: the 2-D close-look dialog below the hall HOLDS the films while
+         it is open — a phone's decoders are one budget, and the hall's warm
+         elements kept decoding off-screen behind the modal, which is one way
+         the dialog's own film never got a frame. paintings.astro dispatches
+         `cnwm:dialog-open` / `cnwm:dialog-close`; `syncAlive` treats held
+         like unarmed, and `stopped[]` is untouched by it. */
+      let held = false;
       /* assigned below, referenced by onScroll before then — a pre-declared
          no-op keeps the first synchronous onScroll() out of the TDZ */
       let syncAlive: () => void = () => {};
@@ -1249,10 +1361,9 @@ export default function Museum({ works, slotId }: Props) {
       const toggleAlive = () => {
         if (approachedIdx === null) return;
         stopped[approachedIdx] = !stopped[approachedIdx];
-        /* v13 V13-05b: minimum state feedback — a play/pause glyph over the
-           work for ~900ms. Only where there is something to play: a still work
-           has no switch to report. */
-        if (works[approachedIdx].video) setCue({ on: !stopped[approachedIdx], k: ++cueSeq });
+        /* v14 E17 (Wil): the v13 play/pause glyph is gone — "the interaction
+           should be discoverable through direct interaction only". The switch
+           itself is the feedback: the film stills, or moves again. */
         syncAlive();
       };
 
@@ -1322,6 +1433,25 @@ export default function Museum({ works, slotId }: Props) {
       };
 
       /* ── v8 V8-326: the windowed video lifecycle ─────────────────────── */
+      /** v14 E17: arm the still → film swap. The map changes only once a frame
+       *  is actually DECODED (a VideoTexture renders black until then — the v7
+       *  flash), and only while the element is still this work's and still
+       *  playing (a pause that lands between the frame and the callback keeps
+       *  the still). Called for a NEW element and again on every RESUME: v8
+       *  armed it once at creation, so a film the switch had paused (map back
+       *  on the still) played on invisibly after the second tap — "the second
+       *  tap does nothing". */
+      const armSwap = (i: number, v: HTMLVideoElement, vt: import("three").VideoTexture) => {
+        const swapIn = () => {
+          if (disposed || videoEls[i] !== v || videoTexs[i] !== vt || v.paused) return;
+          setMap(i, vt);
+        };
+        /* lib.dom declares rVFC, so a plain `in` check narrows the else branch
+           to `never` — the runtime check is real (Firefox lacks it). */
+        const rvfc = (v as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number }).requestVideoFrameCallback;
+        if (typeof rvfc === "function") rvfc.call(v, swapIn);
+        else v.addEventListener("playing", swapIn, { once: true });
+      };
       const ensureVideo = (i: number) => {
         const w = works[i];
         if (!w.video) return;
@@ -1334,6 +1464,10 @@ export default function Museum({ works, slotId }: Props) {
         loadWork(i);
         const existing = videoEls[i];
         if (existing) {
+          /* v14 E17: a warm, paused element resumes — and the swap is re-armed,
+             because pauseVideo put the still back on the canvas. */
+          const vt = videoTexs[i];
+          if (vt && paintingMats[i].map !== vt) armSwap(i, existing, vt);
           existing.play().catch(() => {});
           return;
         }
@@ -1346,6 +1480,16 @@ export default function Museum({ works, slotId }: Props) {
         v.crossOrigin = "anonymous";
         const vt = new THREE.VideoTexture(v);
         vt.colorSpace = THREE.SRGBColorSpace;
+        /* v14 E13: a VideoTexture ships LinearFilter and no mipmaps, so a
+           1200-px film drawn at 150–400 px (the second-nearest work on a
+           phone) aliases, and aliasing under motion reads as the painting
+           shimmering. Mipmaps + trilinear + the stills' anisotropy give the
+           film the filtering the stills have had since v6. Cost: one
+           generateMipmap per uploaded frame for ≤ 3 films; three ≥ r163 is
+           WebGL2-only, so NPOT mipmaps are fine. */
+        vt.generateMipmaps = true;
+        vt.minFilter = THREE.LinearMipmapLinearFilter;
+        vt.anisotropy = maxAniso;
         v.addEventListener(
           "loadedmetadata",
           () => {
@@ -1362,19 +1506,7 @@ export default function Museum({ works, slotId }: Props) {
           },
           { once: true },
         );
-        /* The map swaps only once a frame is DECODED — a VideoTexture renders
-           black until then (the v7 still→film flash). */
-        const swapIn = () => {
-          if (disposed || videoEls[i] !== v) return;
-          paintingMats[i].map = vt;
-          paintingMats[i].color.set("#ffffff");
-          paintingMats[i].needsUpdate = true;
-        };
-        /* lib.dom declares rVFC, so a plain `in` check narrows the else branch
-           to `never` — the runtime check is real (Firefox lacks it). */
-        const rvfc = (v as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number }).requestVideoFrameCallback;
-        if (typeof rvfc === "function") rvfc.call(v, () => swapIn());
-        else v.addEventListener("playing", swapIn, { once: true });
+        armSwap(i, v, vt);
         v.play().catch(() => {
           // iOS Low-Power may reject: retry on the next ending gesture
           const retry = () => {
@@ -1392,16 +1524,13 @@ export default function Museum({ works, slotId }: Props) {
         v.pause();
         /* v10 V10-05: restore the still if we have it; if we do not, the
            material must not be left showing a stopped film — fall back to the
-           flat canvas colour and let the pending loadWork() paint it. */
-        if (stillTexs[i]) {
-          if (paintingMats[i].map !== stillTexs[i]) {
-            paintingMats[i].map = stillTexs[i];
-            paintingMats[i].needsUpdate = true;
-          }
-        } else if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) {
-          paintingMats[i].map = null;
-          paintingMats[i].color.set("#2f1d14");
-          paintingMats[i].needsUpdate = true;
+           flat canvas colour and ask for the still again. (v14 E11: v10 "let
+           the pending loadWork() paint it", and after a failed fetch there was
+           no pending loadWork — the placeholder stayed.) */
+        if (stillTexs[i]) setMap(i, stillTexs[i]);
+        else if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) {
+          setMap(i, null);
+          loadWork(i);
         }
       };
       const teardownVideo = (i: number) => {
@@ -1412,24 +1541,17 @@ export default function Museum({ works, slotId }: Props) {
         v.load();
         videoEls[i] = null;
         /* v10 V10-05: only ever dispose a texture nothing is drawing with. */
-        if (paintingMats[i].map === videoTexs[i]) {
-          paintingMats[i].map = stillTexs[i] ?? null;
-          if (!stillTexs[i]) paintingMats[i].color.set("#2f1d14");
-          paintingMats[i].needsUpdate = true;
-        }
+        if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) setMap(i, stillTexs[i] ?? null);
         videoTexs[i]?.dispose();
         videoTexs[i] = null;
-        if (!stillTexs[i]) {
-          loadedFlags[i] = false;
-          loadWork(i);
-        }
+        if (!stillTexs[i]) loadWork(i); // v14 E11: through the state machine, never a cleared flag
       };
       /** The one place the alive window is decided: nearest-N on the rail,
        *  the inspected work alone in approach, user `stopped` always wins. */
       syncAlive = () => {
         if (disposed) return;
         let desired: number[] = [];
-        if (armed) {
+        if (armed && !held) {
           if (mode === "approach") {
             if (approachedIdx !== null && works[approachedIdx].video && !stopped[approachedIdx]) desired = [approachedIdx];
           } else {
@@ -1639,6 +1761,34 @@ export default function Museum({ works, slotId }: Props) {
       };
       document.addEventListener("cnwm:curtain-cover", onCover);
       window.addEventListener("pagehide", onCover);
+      /* v14 E5: the close-look dialog holds the hall's films while it is open
+         (`held`, above); on close the window resumes exactly as after a tab
+         switch. Films paused this way keep their `stopped[]` switch. */
+      const onDialogOpen = () => {
+        held = true;
+        syncAlive();
+      };
+      const onDialogClose = () => {
+        held = false;
+        syncAlive();
+      };
+      document.addEventListener("cnwm:dialog-open", onDialogOpen);
+      document.addEventListener("cnwm:dialog-close", onDialogClose);
+      /* v14 E11: a connection that comes back re-issues every failed still and
+         study at once instead of waiting out each cooldown. */
+      const onOnline = () => {
+        works.forEach((_, i) => {
+          if (texState[i] === "failed") {
+            texState[i] = "idle";
+            loadWork(i);
+          }
+          if (sketchState[i] === "failed") {
+            sketchState[i] = "idle";
+            loadSketch(i);
+          }
+        });
+      };
+      window.addEventListener("online", onOnline);
       /* v12 (Wil, 8/26): on phones the wayfinding chip moves to the TOP of the
          hall — "vertically centered between the bottom of the Skip button and
          the top of the arch at the end of the hall". The arch's screen height
@@ -1780,6 +1930,13 @@ export default function Museum({ works, slotId }: Props) {
             alive: approachedIdx !== null && videoEls[approachedIdx] && !videoEls[approachedIdx]!.paused ? approachedIdx : -1,
             aliveList: videoEls.map((v, i) => (v && !v.paused ? i : -1)).filter((i) => i >= 0),
             stopped: [...stopped],
+            /* v14: texture and film state, read-only — the E11/E17 checks
+               assert on these rather than sampling pixels. */
+            texState: [...texState],
+            sketchState: [...sketchState],
+            mapKind: paintingMats.map((m) => kindOf(m.map)),
+            videoState: videoEls.map((v) => (v ? { paused: v.paused, readyState: v.readyState, error: v.error ? v.error.code : 0 } : null)),
+            held,
             fov: camera.fov,
             far: camera.far,
             portrait,
@@ -1835,6 +1992,9 @@ export default function Museum({ works, slotId }: Props) {
           document.removeEventListener("visibilitychange", onVis);
           document.removeEventListener("cnwm:curtain-cover", onCover);
           window.removeEventListener("pagehide", onCover);
+          document.removeEventListener("cnwm:dialog-open", onDialogOpen);
+          document.removeEventListener("cnwm:dialog-close", onDialogClose);
+          window.removeEventListener("online", onOnline);
           stage.removeEventListener("wheel", onWheel);
           window.removeEventListener("scroll", arm);
           window.removeEventListener("pointerdown", arm);
@@ -1886,13 +2046,6 @@ export default function Museum({ works, slotId }: Props) {
     ro.observe(head);
     return () => ro.disconnect();
   }, [approached, portraitUI]);
-  /* v13 V13-05b: the switch cue is a flash, not chrome — it clears itself.
-     ~900ms of animation, then the element leaves the tree. */
-  useEffect(() => {
-    if (!cue) return;
-    const t = setTimeout(() => setCue(null), 950);
-    return () => clearTimeout(t);
-  }, [cue]);
   /* v13 V13-05c: the top band's reserves are the real boxes of Skip and the
      corner menu, and Skip only exists while the rail chrome is mounted — so
      the band is re-measured whenever that chrome appears or changes shape,
@@ -2101,29 +2254,6 @@ export default function Museum({ works, slotId }: Props) {
             onClick={() => (approached !== null && stoppedFlags[approached] ? api.current?.turnOn(approached) : api.current?.turnOff(approached!))}
           />
         )}
-        {/* v13 V13-05b: the switch's only chrome — a play/pause glyph over the
-            work for ~900ms after a toggle, then gone. Inert to the pointer so
-            the stage keeps every gesture. */}
-        {cue && plaque && plaque.video && paintRect && (
-          <div
-            key={cue.k}
-            className="museum-switch-cue absolute z-20"
-            aria-hidden="true"
-            style={{ left: paintRect.x + paintRect.w / 2, top: paintRect.y + paintRect.h / 2 }}
-          >
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              {cue.on ? (
-                <path d="M8.5 6.2l9 5.8-9 5.8z" fill="currentColor" />
-              ) : (
-                <>
-                  <rect x="8" y="6.2" width="2.8" height="11.6" rx="0.6" fill="currentColor" />
-                  <rect x="13.2" y="6.2" width="2.8" height="11.6" rx="0.6" fill="currentColor" />
-                </>
-              )}
-            </svg>
-          </div>
-        )}
-
         {/* Desktop / landscape card — left edge, vertically centred, no border, one button */}
         {plaque && !portraitUI && (
           <div
