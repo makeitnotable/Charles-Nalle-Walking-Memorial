@@ -1259,22 +1259,71 @@ export default function Museum({ works, slotId }: Props) {
       const isPortraitNow = () => stage.clientWidth < 1024 && stage.clientHeight > stage.clientWidth;
       let wheelLatchUntil = 0;
       let wheelSnapTimer: number | undefined;
+      /* v14 E7/E14 — shared input helpers.
+         wheelPx: a wheel delta in CSS px whatever the deltaMode (Firefox mice
+         report LINES; a page-mode delta is one stage height). deltaX/Y are
+         read BEFORE deltaMode on purpose — Firefox ≥ 112 keeps an event in
+         pixel mode only for pages that read the deltas first. */
+      const wheelPx = (e: WheelEvent) => {
+        const dx = e.deltaX;
+        const dy = e.deltaY;
+        const k = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? stage.clientHeight : 1;
+        return { dx: dx * k, dy: dy * k };
+      };
+      /* the nearest ancestor of `t` that is a real scroll container WITH
+         overflow to scroll — the plaque body, the desktop card, the corner
+         menu's panel — never the document itself. A body or card whose text
+         fits is not a scroller: the browser would chain its scroll to the
+         page, which is exactly the leak E7 closes. */
+      const scrollerOf = (t: EventTarget | null): HTMLElement | null => {
+        let el: HTMLElement | null = t instanceof Element ? (t as HTMLElement) : t instanceof Node ? t.parentElement : null;
+        while (el && el !== document.body && el !== document.documentElement) {
+          if (el.scrollHeight > el.clientHeight + 1) {
+            const oy = getComputedStyle(el).overflowY;
+            if (oy === "auto" || oy === "scroll") return el;
+          }
+          el = el.parentElement;
+        }
+        return null;
+      };
+      /** can `el` still scroll in the direction of `dy` (+ = content down)? */
+      const canScroll = (el: HTMLElement, dy: number) => (dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 1 : dy < 0 && el.scrollTop > 0);
       const onWheel = (e: WheelEvent) => {
+        const { dx: wdx, dy: wdy } = wheelPx(e);
+        /* v14 E14 (Wil): a HORIZONTAL two-finger swipe turns the look — the
+           trackpad's own idiom, no press-and-hold. Same "grab the wall" sign
+           as the mouse drag: swiping left is deltaX > 0 in the natural-scroll
+           convention, drags the wall left, and the view pans right. Pinch
+           arrives as ctrl+wheel in every engine and stays with the zoom below;
+           a scroll container under the cursor keeps its own wheel; trackpads
+           emit their own momentum, so nothing is fed to yawVel — the tick's
+           look damping smooths the steps. The rate is ~2/3 of the drag's
+           0.0022 rad/px because trackpad deltas carry OS acceleration. */
+        if (!e.ctrlKey && Math.abs(wdx) > Math.abs(wdy) && !scrollerOf(e.target)) {
+          e.preventDefault();
+          dragYaw -= wdx * 0.0015;
+          yawVel = 0;
+          return;
+        }
         if (mode !== "approach") return;
+        /* v14 E7: a scroll container under the cursor that can still move in
+           the wheel's direction owns the event — the browser scrolls it, and
+           it alone; at its end the wheel is ABSORBED, never chained to the
+           page (whose scroll is the walk). Measured before this: a wheel over
+           the open plaque's header, or over a body too short to scroll, moved
+           the page 900px per gesture with the drawer still open. A card or
+           body that fits its text falls through to the machine, as before. */
+        const sc = scrollerOf(e.target);
+        if (sc) {
+          if (!canScroll(sc, wdy) && e.cancelable) e.preventDefault();
+          return;
+        }
         const sEl = sheetRef.current;
         if (!(isPortraitNow() && sEl)) {
-          /* a card tall enough to scroll (short desktops + a study) owns the
-             wheel over itself — otherwise preventDefault ate the scroll */
-          if (e.target instanceof Element) {
-            const card = e.target.closest(".museum-card");
-            if (card && card.scrollHeight > card.clientHeight + 1) return;
-          }
           e.preventDefault();
           setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
           return;
         }
-        // over the OPEN sheet the body owns the wheel (it scrolls its own text)
-        if (sheetPosRef.current > 0.98 && e.target instanceof Node && sEl.contains(e.target)) return;
         e.preventDefault();
         const now = performance.now();
         if (now < wheelLatchUntil) return;
@@ -1353,6 +1402,76 @@ export default function Museum({ works, slotId }: Props) {
       stage.addEventListener("pointerup", pinchEnd);
       stage.addEventListener("pointercancel", pinchEnd);
 
+      /* v14 E7 (Wil): while a painting is open NOTHING may scroll the
+         document. The page's scroll IS the walk, and the sticky stage hides
+         it — the hall moves on silently under the drawer and Back lands the
+         visitor somewhere else (or the stage un-pins and V13-10f's exit
+         fires). The canvas already carries touch-action: none and the stage
+         wheel above handles what lands on the stage; this is the classic
+         body-scroll lock for everything else, bound only for the duration of
+         approach so the rail keeps its passive, compositor-driven scroll:
+         · wheel — for targets outside the stage (the corner menu);
+         · touchmove — prevented unless the touch began inside a scroll
+           container that can still scroll in the finger's direction (plaque
+           body, card, menu panel). Decided from the FIRST move, per touch: a
+           body too short to scroll, or one at its end, chains to the page in
+           every engine at gesture start, and iOS < 16 ignores the CSS
+           overscroll-behavior that stops it elsewhere. touchstart is never
+           prevented (that kills the tap's click), and a touch that began on a
+           control keeps a 6px tap tolerance before the lock takes it — iOS
+           drops the click for a prevented move, Chrome sends none inside its
+           own slop. */
+      const touchLock = new Map<number, { y0: number; x0: number; sc: HTMLElement | null; act: boolean }>();
+      const lockTouchStart = (e: TouchEvent) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          const el = t.target instanceof Element ? t.target : null;
+          touchLock.set(t.identifier, { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: !!el?.closest('button, a[href], [role="button"]') });
+        }
+      };
+      const lockTouchEnd = (e: TouchEvent) => {
+        for (let i = 0; i < e.changedTouches.length; i++) touchLock.delete(e.changedTouches[i].identifier);
+      };
+      const lockTouchMove = (e: TouchEvent) => {
+        if (mode !== "approach" || !e.cancelable) return;
+        const t = e.changedTouches[0];
+        if (!t) return;
+        let s = touchLock.get(t.identifier);
+        if (!s) {
+          s = { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: false };
+          touchLock.set(t.identifier, s);
+        }
+        const dy = s.y0 - t.clientY; // finger up = content down = +
+        if (s.act && Math.hypot(t.clientX - s.x0, dy) < 6) return;
+        if (s.sc && e.touches.length === 1 && canScroll(s.sc, dy)) return;
+        e.preventDefault();
+      };
+      const lockWheel = (e: WheelEvent) => {
+        if (mode !== "approach" || !e.cancelable || (e.target instanceof Node && stage.contains(e.target))) return;
+        const sc = scrollerOf(e.target);
+        if (sc && canScroll(sc, wheelPx(e).dy)) return;
+        e.preventDefault();
+      };
+      let locked = false;
+      const lockDocument = (on: boolean) => {
+        if (on === locked) return;
+        locked = on;
+        if (on) {
+          window.addEventListener("wheel", lockWheel, { passive: false });
+          window.addEventListener("touchstart", lockTouchStart, { passive: true });
+          window.addEventListener("touchmove", lockTouchMove, { passive: false });
+          window.addEventListener("touchend", lockTouchEnd, { passive: true });
+          window.addEventListener("touchcancel", lockTouchEnd, { passive: true });
+        } else {
+          window.removeEventListener("wheel", lockWheel);
+          window.removeEventListener("touchstart", lockTouchStart);
+          window.removeEventListener("touchmove", lockTouchMove);
+          window.removeEventListener("touchend", lockTouchEnd);
+          window.removeEventListener("touchcancel", lockTouchEnd);
+          touchLock.clear();
+        }
+      };
+
       const setZoom = (z: number) => {
         /* v8 V8-326: zoom is pure zoom — the v7 edge-trigger fought the
            alive-by-default hall. */
@@ -1381,10 +1500,12 @@ export default function Museum({ works, slotId }: Props) {
           setSheetHidden(false);
           syncAlive();
           renderer.domElement.style.touchAction = "pan-y";
+          lockDocument(false); // v14 E7: the page scrolls again — that is the walk
           return;
         }
         loadWork(i);
         mode = "approach";
+        lockDocument(true); // v14 E7: nothing scrolls the document while a work is open
         zoom = 1;
         recenter();
         approachedAt = performance.now();
@@ -1646,10 +1767,17 @@ export default function Museum({ works, slotId }: Props) {
                scroll container (where they scroll THAT), or Space is about to
                activate the control that has focus. Escape and Back are still
                the way out, so nothing becomes unreachable. */
-            const inScroller = !!(t && t.closest(".museum-sheet-body, .museum-card"));
-            const activatable = !!(t && t.closest('button, a[href], [role="button"]'));
+            /* v14 E7: the scroller exception is DIRECTIONAL now. Measured:
+               with focus on Back inside a card too short to scroll, PageDown
+               walked the page 40px and End threw the visitor out to the grid
+               — the browser's keyboard scroll bubbles from the focused box to
+               the document the moment the box cannot move that way. */
             const isSpace = e.key === " " || e.key === "Spacebar";
-            const isPage = e.key === "PageUp" || e.key === "PageDown" || e.key === "Home" || e.key === "End" || e.key === "ArrowUp" || e.key === "ArrowDown";
+            const up = e.key === "PageUp" || e.key === "Home" || e.key === "ArrowUp" || (isSpace && e.shiftKey);
+            const isPage = up || e.key === "PageDown" || e.key === "End" || e.key === "ArrowDown";
+            const sc = t ? scrollerOf(t) : null;
+            const inScroller = !!(sc && canScroll(sc, up ? -1 : 1));
+            const activatable = !!(t && t.closest('button, a[href], [role="button"]'));
             if (!inScroller && (isPage || (isSpace && !activatable))) e.preventDefault();
           }
         }
@@ -1996,6 +2124,7 @@ export default function Museum({ works, slotId }: Props) {
           document.removeEventListener("cnwm:dialog-close", onDialogClose);
           window.removeEventListener("online", onOnline);
           stage.removeEventListener("wheel", onWheel);
+          lockDocument(false); // v14 E7: the approach-only window listeners
           window.removeEventListener("scroll", arm);
           window.removeEventListener("pointerdown", arm);
           window.removeEventListener("keydown", arm);
