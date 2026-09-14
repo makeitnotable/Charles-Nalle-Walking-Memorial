@@ -1563,12 +1563,21 @@ h3 {
     padding-bottom: calc(var(--ui-inset) + 200px);
   }
 }
-/* v8 V8-203: phones run four corners (chip · 1858 door · walk door · ☰) —
-   TroyMap mounts the (i) in the bottom-RIGHT corner there, and this pad
-   tucks it beside the ☰ (which is not a Mapbox control). */
+/* v8 V8-203 tucked the phone's (i) beside a bottom-right ☰ (+84px of right
+   padding). v14 E2 (client): the ☰ is top-right on /map as on every other
+   page, so the (i) sits at the plain corner inset — the pocket is gone. */
+/* v14 E25 (client): the 1858 lens caption is ONE line at every width. Below
+   640 the size follows the viewport (precedent: .map-index-title) so the
+   letterspaced caps string fits inside the inset, never under 10px. Measured:
+   43 caps at 12px / +0.10em run 358px; a 360px phone has 320px inside the
+   inset, so 2.9vw (10.4px there, 11.3 at 390, 12 from 414 up) is the largest
+   step that clears every phone width with a few pixels to spare. */
+.lens-caption {
+  white-space: nowrap;
+}
 @media (max-width: 639px) {
-  .troymap-root .mapboxgl-ctrl-bottom-right {
-    padding-right: calc(var(--ui-inset) + 84px);
+  .lens-caption {
+    font-size: max(10px, min(var(--fs-meta), 2.9vw));
   }
 }
 /* v7 V7-088: Mapbox's own controls take the house focus ring. */

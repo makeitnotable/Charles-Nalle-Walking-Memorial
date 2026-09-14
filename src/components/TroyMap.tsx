@@ -129,7 +129,8 @@ function pillSizes() {
 
 /** Approved marker: Poppins pill + 20px numbered chip + 2×30px stem + 8px
  * dot, above/below per stop. Pure inline styles — utility scanning can never
- * break these. */
+ * break these. v14 E1 (client): the dot is a solid, borderless disc — the
+ * 1.5px primary-2 ring is gone in both variants and both states. */
 function markerHtml(stop: Stop, active: boolean): string {
   const s = active ? MARKER.active : MARKER.inactive;
   const z = pillSizes();
@@ -161,7 +162,7 @@ function markerHtml(stop: Stop, active: boolean): string {
       <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
         <line x1="0" y1="0" x2="${pdx}" y2="${pdy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
       </svg>
-      <div style="position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
+      <div style="position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:9999px;background:${s.line}"></div>
       <div style="position:absolute;left:${pdx}px;top:${pdy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:6px;border-radius:24px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-chrome),serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
         <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:6px;background:#E45B27;width:16px;height:16px;flex:none">
           <p style="color:#1D1411;font-size:10px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
@@ -181,7 +182,7 @@ function markerHtml(stop: Stop, active: boolean): string {
       <svg style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" width="1" height="1" aria-hidden="true">
         <line x1="0" y1="0" x2="${dx}" y2="${dy}" stroke="${s.line}" stroke-width="1.5" stroke-linecap="round"></line>
       </svg>
-      <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line};border:1.5px solid var(--color-primary-2)"></div>
+      <div style="position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:9999px;background:${s.line}"></div>
       <div style="position:absolute;left:${dx}px;top:${dy}px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;padding:${z.pad}px;border-radius:30px;background:${s.bg};color:${s.text};border:1px solid ${s.border};font-family:var(--font-chrome),serif;font-weight:500;white-space:nowrap;transition:background var(--dur-fast) var(--ease)">
         <div style="display:flex;align-items:center;justify-content:center;border-radius:9999px;margin-right:7px;background:#E45B27;width:20px;height:20px;flex:none">
           <p style="color:#1D1411;font-size:11px;margin:0;line-height:1;font-weight:600">${stop.order}</p>
@@ -241,6 +242,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const lensDoorRef = useRef<HTMLButtonElement>(null);
   const lensCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lensReturnFocus = useRef(false);
+  /** v14 E25: true while the pointer that is down first landed on the plate. */
+  const lensDownInBox = useRef(false);
 
   /* ——— The 1858 map viewer (Kathy, 8/7: "do not crop allow pan and zoom") ———
    * Pure ref state: the transform mutates the <img> node directly so a 60fps
@@ -507,7 +510,6 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   walkRef.current = walk;
   const tourRun = useRef(0);
   const [hintOpen, setHintOpen] = useState(false);
-  const [arrivalStop, setArrivalStop] = useState<Stop | null>(null);
   const flyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** v7 X1: set once the curtain starts covering — every camera/route
    *  animation checks it and stands down so page A is still under the cover. */
@@ -971,7 +973,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     /* Bottom-LEFT: the menu FAB owns bottom-right on /map (item 10), and a
        licence mark must never sit under chrome (juror pass 1 P2). */
     /* v8 V8-203: phones run four corners (chip / 1858 / walk door / ☰) —
-       the (i) moves beside the ☰ in the bottom-right pocket there. */
+       the (i) moves beside the ☰ in the bottom-right pocket there.
+       v14 E2: the ☰ is top-right on /map as everywhere else; the phone (i)
+       keeps this corner at the plain inset (the +84px pocket is gone). */
     map.addControl(
       new mapboxgl.AttributionControl({ compact: true }),
       window.innerWidth < 640 || window.innerHeight < 560 ? "bottom-right" : "bottom-left",
@@ -1152,8 +1156,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         setFocused(true);
         setActiveIdx(deepIdx);
         setMarkers(stops[deepIdx].label);
-        setArrivalStop(stops[deepIdx]);
-        setTimeout(() => setArrivalStop(null), 5200);
+        /* v14 E21 (client): the arrival name plate that used to ride this
+           flight is gone; the 5s flight itself is unchanged. */
         const arrPitch = overviewCamera().pitch;
         if (reduced) map.jumpTo({ center: stops[deepIdx].coordinates, zoom: 17.75, pitch: arrPitch, bearing: OVERVIEW.bearing });
         else
@@ -1504,6 +1508,50 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [pauseWalk, backToOverview, closeLens]);
 
+  /* v14 E22 (client): "disable scrolling during 'Walk the Story' auto-advance"
+     — touch, wheel, trackpad and keyboard — and give it back the moment the
+     walk ends (`done`) or is cancelled (Stop, Escape, a card drag, a marker
+     tap, the curtain): every exit leaves `walk === "walking"`, so that is the
+     lock's whole lifetime. Event-level prevention, NOT `overflow: hidden` on
+     <html> — hiding the desktop scrollbar resizes the 100dvh shell and shifts
+     the camera mid-flight. Programmatic scrolls (bringShellIntoView) are not
+     events and still run. The wheel is blocked over the map too: under
+     cooperative gestures Mapbox lets a plain wheel through to the page (it
+     only preventDefaults ⌘/Ctrl-zoom, on its own canvas listener, which runs
+     before this one), so an exemption there would leave the map area
+     scrolling the page. Typing and Space-on-a-button keep their defaults;
+     Mapbox's own arrow-key pan already preventDefaults before this runs. The
+     card strip also takes `touch-action: none` while walking (inline, below)
+     so a vertical finger drag on the cards can never start a native scroll
+     that Chrome would then refuse to cancel — keen's horizontal drag, which
+     pauses the walk by design, is untouched. touchmove is captured, not
+     bubbled: keen stopPropagation()s every touchmove on its container
+     (measured 12/12), so a bubble listener here would never see a finger on
+     the cards. Neither library reads the native defaultPrevented. */
+  useEffect(() => {
+    if (walk !== "walking") return;
+    const block = (e: Event) => {
+      if (e.cancelable) e.preventDefault();
+    };
+    const SCROLL_KEYS = new Set(["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"]);
+    const onKey = (e: KeyboardEvent) => {
+      if (!SCROLL_KEYS.has(e.key)) return;
+      const t = e.target instanceof Element ? e.target : null;
+      if (t?.closest("input, textarea, select, [contenteditable]")) return;
+      // Space on a button is activation, not scrolling
+      if ((e.key === " " || e.key === "Spacebar") && t?.closest("button, [role='button'], summary")) return;
+      e.preventDefault();
+    };
+    window.addEventListener("wheel", block, { passive: false });
+    window.addEventListener("touchmove", block, { passive: false, capture: true });
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("wheel", block);
+      window.removeEventListener("touchmove", block, true);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [walk]);
+
   /* v7 M9: on phones the ☰ retreats while a stop is focused (a 360px top row
      cannot hold Back + Stop the walk + ☰); `Back` is the exit that brings it
      back. A separate attribute so Menu.astro's scroll handler can't fight it. */
@@ -1608,6 +1656,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         /* Not raised until the fade is over: while it runs, focus is still on
            the (kept-mounted) "Back to today" door inside this subtree. */
         aria-hidden={!lensVisible}
+        /* v14 E25 (client): anything outside the plate closes the lens — the
+           backdrop, the caption, the shell's own padding. A drag that starts
+           ON the plate and ends outside must not: the box holds pointer
+           capture, so its click retargets to the box, and the pointerdown
+           record is the belt for an engine that retargets differently. The
+           door and the +/−/reset buttons keep their own handlers. */
+        onPointerDown={(e) => {
+          lensDownInBox.current = !!lensBoxRef.current?.contains(e.target as Node);
+        }}
+        onClick={(e) => {
+          const t = e.target as HTMLElement;
+          if (lensDownInBox.current || lensBoxRef.current?.contains(t) || t.closest("button")) return;
+          closeLens();
+        }}
       >
         <figure className="flex h-full max-h-full w-full flex-col items-center">
           {/* v7 L2: the viewer fills the shell (within --ui-inset), leaving one
@@ -1682,12 +1744,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               </div>
             </div>
           )}
-          <figcaption className="t-meta mt-7 text-center">
-            {/* phones: two authored lines (juror pass 8: the middle `·` dangled at a line end) */}
-            Troy, New&nbsp;York&nbsp;·&nbsp;1858
-            <span className="hidden sm:inline">&nbsp;·&nbsp;</span>
-            <br className="sm:hidden" />
-            Library&nbsp;of&nbsp;Congress
+          {/* v14 E25 (client): ONE line at every width, phones included (juror
+              pass 8 had authored two there). `.lens-caption` (global.css) keeps
+              it whole with nowrap and a phone-only size fit. */}
+          <figcaption className="t-meta lens-caption mt-7 text-center">
+            Troy, New&nbsp;York&nbsp;·&nbsp;1858&nbsp;·&nbsp;Library&nbsp;of&nbsp;Congress
           </figcaption>
 
           {/* v7 L3: the lens's ONE door — Back to today, centred.
@@ -1711,34 +1772,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         </figure>
       </div>
 
-      {/* Place chip (items 10/13): accurate copy only, and NEVER on screen at
-          the same time as the chapter cards — two name surfaces at once was
-          the collision class v5 spent a phase killing. */}
-      {!(focused && shellVisible) && !lensVisible && (
-        <div className="pointer-events-none absolute top-[calc(var(--ui-inset)+5px)] left-[var(--ui-inset)] z-20 mr-[104px]">
-          <p
-            className="t-meta rounded-full px-4 py-2"
-            style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
-          >
-            April 27, 1860
-          </p>
-        </div>
-      )}
-
-      {/* Arrival name plate (M10) — the flight lands on a spoken line */}
-      {arrivalStop && (
-        <div className="pointer-events-none absolute top-[calc(var(--ui-inset)+72px)] left-1/2 z-20 w-max max-w-[min(86vw,420px)] -translate-x-1/2">
-          <div
-            className="rounded-full px-6 py-3 text-center"
-            style={{ background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)" }}
-          >
-            <p className="t-meta">Location {String(arrivalStop.order).padStart(2, "0")} of {stops.length}</p>
-            <p className="t-title-sm mt-2">
-              {arrivalStop.canonical ?? arrivalStop.cardTitle}
-            </p>
-          </div>
-        </div>
-      )}
+      {/* v14 E2 (client): the "April 27, 1860" place chip (items 10/13) and the
+          arrival name plate (M10) are gone. */}
 
       {/* Hint card (M8) — fully inert: it can never intercept a tap anywhere.
           It leaves on the first map gesture (the gesture it teaches) or on a
@@ -1817,6 +1852,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           compositor frame of the close. */}
       {!focused && !lensVisible && (
         <>
+          {/* v14 E2 (client): the corners are now — `See Troy in 1858` top-LEFT,
+              ☰ top-right (the site-wide menu, as on every other page), `Take
+              the walk` bottom-centre at EVERY width (phones included, by his
+              allowance — the ☰ it used to align with has left the bottom row).
+              Supersedes the v8 corner plan above. */}
           {/* v7 V7-023: the bottom band is a scroll handle on touch screens —
               a vertical drag here scrolls the page (the map swallows every
               other one); the buttons ride above it. */}
@@ -1835,12 +1875,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
             </svg>
           </div>
-          <div className="absolute z-20 flex items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] max-sm:left-[var(--ui-inset)] sm:bottom-[calc(var(--ui-inset)+12px)] sm:left-1/2 sm:-translate-x-1/2">
+          <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] sm:bottom-[calc(var(--ui-inset)+12px)]">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
               Take the walk
             </button>
           </div>
-          <span className="absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-20 inline-flex">
+          <span className="absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 inline-flex">
             <button
               ref={lensDoorRef}
               type="button"
@@ -1880,6 +1920,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="keen-slider location-cards-slider"
             role="region"
             aria-label="Stop cards"
+            /* v14 E22: keen's own `touch-action: pan-y` returns the instant the walk is not running. */
+            style={{ touchAction: walk === "walking" ? "none" : undefined }}
           >
             {stops.map((stop, index) => {
               const isActive = index === activeIdx;

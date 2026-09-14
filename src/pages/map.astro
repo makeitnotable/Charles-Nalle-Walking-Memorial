@@ -35,12 +35,13 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 {/* Item 9: no WalkProgress rail here — the map IS the walk's overview; a
-    second progress instrument above it was chrome noise. Item 10's menu
-    lane: bottom-right, clear of the map's own top chrome. */}
+    second progress instrument above it was chrome noise. v14 E2 (client): the
+    menu is the default top-right one, as on every other page (item 10's
+    bottom-right lane is gone; the map's own top-right control only shows while
+    the ☰ has retreated). */}
 <Base
   title="Map · Charles Nalle Walking Memorial"
   description="The route of the Charles Nalle rescue through downtown Troy, NY: five locations from the bakery where he was seized to the barbershop where his freedom was won."
-  menuPosition="bottom-right"
 >
 
   {/* The shell is server-rendered at full height so island hydration causes
@@ -78,10 +79,14 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
     </div>
 
     {/* The typographic index — the image IS the card; nothing is boxed. */}
+    {/* v14 E23 (client): one hairline in the list — above Location 1 only; the
+        four between/after the items are gone. The survivor gets 16px more
+        under it (pt-4 + the anchor's py-6 = 40px, the --sp-4 step) so the gap
+        to Location 1 reads balanced. */}
     <ol class="beat">
       {
-        chapters.map((entry) => (
-          <li class="reveal rule-top">
+        chapters.map((entry, i) => (
+          <li class={i === 0 ? "reveal rule-top pt-4" : "reveal"}>
             <a
               href={withBase(entry.id)}
               data-curtain-label={entry.data.name.short}
