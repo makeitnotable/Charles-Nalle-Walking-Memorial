@@ -1881,25 +1881,17 @@ a.walk-seg:hover {
 .museum-sheet {
   background: color-mix(in srgb, var(--color-primary-2) 90%, transparent);
   backdrop-filter: blur(10px);
-  /* v12 (Wil, 8/26): "the drawer's outline stroke is disappearing at the top
-     left and right corners as if it is going to zero." It was: only the TOP
-     edge was ever stroked, and `border-radius` bends that 1px line through a
-     16px arc at each top corner — with zero-width borders either side of it,
-     the stroke tapers away across the curve. Stroking the sides as well gives
-     the arc something to be continuous with. The bottom stays open: it is
-     off-screen, and a line there would read as a seam. */
-  border: 1px solid var(--color-primary-7);
-  border-bottom: 0;
+  /* v12 (Wil, 8/26) stroked the top and sides in `--color-primary-7` so the
+     16px arcs had something to be continuous with. v14 E12 (Wil): "remove the
+     orange/brown border (stroke) around the info card / drawer UI" — no
+     outline in any state, at any width. Radius, blur and ground stay. */
   border-radius: 16px 16px 0 0;
   will-change: transform;
 }
-/* v12: the desktop/landscape plaque had NO border at all — v8 authored it that
-   way deliberately, and Wil has now asked for the stroke on every device
-   ("it is missing all together on desktop, check tablet too"). Same 1px, same
-   token, matching the card's own 12px radius. Reversal logged in
-   docs/v4/DECISIONS.md. */
+/* v12 gave the desktop/landscape plaque the same 1px `--color-primary-7`
+   stroke as the sheet, at Wil's request; v14 E12 (Wil) takes it off every
+   device again — the card is back to v8's borderless authoring. */
 .museum-card {
-  border: 1px solid var(--color-primary-7);
   max-height: calc(100dvh - 2 * var(--ui-inset));
 }
 /* v12: on a LANDSCAPE PHONE the stage is only ~390px tall and the card must
@@ -1935,7 +1927,13 @@ a.walk-seg:hover {
   place-items: center;
   width: 44px;
   height: 44px;
-  margin: 4px auto 18px;
+  /* v14 E9.2 (Wil): "the space from the top of the drawer to the top of the
+     X/Close button matches the space from the bottom of the X/Close button to
+     the top of the painting title." The header's top padding is `--ui-inset`
+     (v13: it matches the left padding), so the gap under the button is the
+     same token — 20 / 20 on a phone, 40 / 40 on a portrait tablet, where it
+     used to be 24 / 18 and 44 / 18. */
+  margin: 0 auto var(--ui-inset);
   border: 1px solid var(--color-primary-7);
   border-radius: 999px;
   background: color-mix(in srgb, var(--color-primary-3) 92%, transparent);
@@ -1953,6 +1951,43 @@ a.walk-seg:hover {
 .museum-sheet-close:focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: 2px;
+}
+/* v14 E8 (Wil): the glyph morphs — chevron while the drawer is collapsed ("tap
+   to expand"), X once it is open. Two 15-unit bars in the 24 box, each drawn
+   about its own origin and placed here. X: both through (12,12) at ±45°, the
+   v9 icon exactly. Chevron: the same bars slid apart to (15,12) / (9,12) and
+   dashed down to 8.5 units (the offset keeps the dash centred), so their upper
+   ends meet at (12,9) — round caps survive, where a scaleX would have squashed
+   them. Translate and dash length tween on `--dur-fast` / `--ease`; the A11Y
+   reduce rule at the foot of this file zeroes the duration, so the swap is
+   instant there. */
+.museum-sheet-close line {
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 15 15;
+  stroke-dashoffset: 0;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    stroke-dasharray var(--dur-fast) var(--ease),
+    stroke-dashoffset var(--dur-fast) var(--ease);
+}
+.museum-sheet-glyph-a {
+  transform: translate(12px, 12px) rotate(45deg);
+}
+.museum-sheet-glyph-b {
+  transform: translate(12px, 12px) rotate(-45deg);
+}
+.museum-sheet[data-state="peek"] .museum-sheet-close line {
+  stroke-dasharray: 8.5 15;
+  stroke-dashoffset: -3.25;
+}
+.museum-sheet[data-state="peek"] .museum-sheet-glyph-a {
+  transform: translate(15px, 12px) rotate(45deg);
+}
+.museum-sheet[data-state="peek"] .museum-sheet-glyph-b {
+  transform: translate(9px, 12px) rotate(-45deg);
 }
 
 /* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,

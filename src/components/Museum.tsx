@@ -81,6 +81,18 @@ const RAIL_PITCH = -0.19;
 const RAIL_PITCH_PORTRAIT = -0.155;
 const ENTRY_Z = 7; // the wall behind you
 
+/* v14 E9.1 (Wil): the ONE portrait/drawer split, read in three places —
+   `portraitUI` (the React tree), `layout()` and `isPortraitNow()` (the scene).
+   Each used to encode its own `< 1024`, so the 12.9" and 13" iPads (1024 and
+   1032 CSS px across in portrait) fell through to the desktop side card: no
+   drawer, no X. Portrait viewports below the 1200 desktop type step take the
+   sheet — every shipping portrait tablet is ≤ 1032 wide, and under 1200 the
+   drawer keeps to the 20 / 40 `--ui-inset` steps it was measured at. The
+   media query's `portrait` is h ≥ w, so the stage form says the same. */
+const SHEET_MAX_W = 1199;
+const SHEET_MQ = `(max-width: ${SHEET_MAX_W}px) and (orientation: portrait)`;
+const isSheetUI = (w: number, h: number) => w <= SHEET_MAX_W && h >= w;
+
 /**
  * v10 V10-06 (Wil, 8/21): "the only things on the card were the previously
  * existing text and the written content associated with the artist study."
@@ -208,7 +220,9 @@ export default function Museum({ works, slotId }: Props) {
   /* The close icon is IN FLOW in the sheet header, so mounting it changes the
      header's height — and the header's height IS the drawer's travel. Re-apply
      the current position after every state flip, before paint, or the drawer
-     jumps by the height of the icon the first time it appears. */
+     jumps by the height of the icon the first time it appears. v14 E8 mounts
+     the icon in both states, so peek <-> full no longer moves the travel; the
+     re-apply still covers the reveal from hidden, where the icon returns. */
   useLayoutEffect(() => {
     if (!sheetHiddenRef.current) applySheetFn.current(sheetPosRef.current, false);
   }, [sheet, sheetHidden]);
@@ -278,8 +292,9 @@ export default function Museum({ works, slotId }: Props) {
   // Layout is live (column vs sheet) while the world stays as built.
   useEffect(() => {
     /* Phones AND portrait tablets: a side card next to a 16:9 canvas does not
-       fit a 2.4m half-corridor even at the 84° fov cap — the sheet does. */
-    const mq = window.matchMedia("(max-width: 1023px) and (orientation: portrait)");
+       fit a 2.4m half-corridor even at the 84° fov cap — the sheet does.
+       v14 E9.1: the split is `SHEET_MQ`, shared with the scene's two readers. */
+    const mq = window.matchMedia(SHEET_MQ);
     const on = () => setPortraitUI(mq.matches);
     on();
     mq.addEventListener("change", on);
@@ -1031,7 +1046,7 @@ export default function Museum({ works, slotId }: Props) {
       const layout = () => {
         const W = stage.clientWidth;
         const H = stage.clientHeight;
-        const isPortraitUI = W < 1024 && H > W;
+        const isPortraitUI = isSheetUI(W, H); // v14 E9.1: the shared split
         const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
         if (isPortraitUI) {
           /* v8 V8-328: the VISIBLE sheet height — the element is full-size and
@@ -1256,7 +1271,7 @@ export default function Museum({ works, slotId }: Props) {
       // closes it first, then zooms in. A 160ms latch swallows trackpad
       // momentum at each boundary so one gesture never tunnels through two
       // states; an idle timer snaps a half-open sheet home.
-      const isPortraitNow = () => stage.clientWidth < 1024 && stage.clientHeight > stage.clientWidth;
+      const isPortraitNow = () => isSheetUI(stage.clientWidth, stage.clientHeight); // v14 E9.1: the shared split
       let wheelLatchUntil = 0;
       let wheelSnapTimer: number | undefined;
       /* v14 E7/E14 — shared input helpers.
@@ -2160,8 +2175,9 @@ export default function Museum({ works, slotId }: Props) {
      keep their modality; Esc still works from anywhere. */
   const keyboardInput = useRef(false);
   /* v13 V13-10c: the drawer body's cap is the sheet's cap minus the REAL
-     header, which changes between peek and full (the close button) and with
-     `--ui-inset`. Measured, not assumed. */
+     header, which changes with `--ui-inset` and the fluid title (and, until
+     v14 E8 mounted the button in both states, between peek and full).
+     Measured, not assumed. */
   useEffect(() => {
     const head = sheetHeadRef.current;
     const sheet = sheetRef.current;
@@ -2455,6 +2471,11 @@ export default function Museum({ works, slotId }: Props) {
               aria-expanded={sheet === "full"}
               aria-label={sheet === "full" ? "Collapse the plaque" : "Expand the plaque"}
               onKeyDown={(e) => {
+                /* v14 E8: the round button is a child of this handle, and its
+                   Enter / Space bubble here — swallowing them (preventDefault)
+                   turned the button's own activation into a header toggle, so
+                   Enter on the X collapsed the card instead of hiding it. */
+                if (e.target !== e.currentTarget) return;
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
                   snapSheet(sheet === "peek" ? "full" : "peek");
@@ -2471,21 +2492,39 @@ export default function Museum({ works, slotId }: Props) {
                   should completely hide the drawer." So it belongs to the open
                   state, and it closes the drawer outright rather than stepping
                   back to the preview. Logged in docs/v4/DECISIONS.md. */}
-              {sheet === "full" && !sheetHidden && (
+              {/* v14 E8 (Wil): ONE button for both states. Collapsed it is an
+                  upward chevron ("tap to expand") that opens the card; open it
+                  is the v12 X that hides the drawer outright. The glyph is two
+                  stroked bars whose transform and dash length morph between the
+                  poses in CSS (`.museum-sheet-close line`, keyed off the
+                  sheet's data-state), so every expansion path — this tap, the
+                  header drag, the stage swipe, the wheel, Enter on the header —
+                  ends in the X because they all end in `snapSheet("full")`.
+                  Mounted whenever the sheet is on screen, so the header is one
+                  height in both states; it leaves with the hidden sheet. */}
+              {!sheetHidden && (
               <button
                 type="button"
                 className="museum-sheet-close"
-                aria-label="Hide the plaque"
+                aria-label={sheet === "full" ? "Hide the plaque" : "Expand the plaque"}
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   lastToggle.current = performance.now();
-                  hideSheet();
-                  backRef.current?.focus();
+                  if (sheet === "full") {
+                    hideSheet();
+                    backRef.current?.focus();
+                  } else snapSheet("full");
                 }}
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                  {/* each bar is drawn about its own origin and placed by CSS:
+                      X — both through (12,12) at ±45°, the full 15 units (the
+                      v9 icon exactly); chevron — the same bars at (15,12) and
+                      (9,12), dashed down to 8.5 units so their upper ends meet
+                      at (12,9): arms (6,15)–(12,9)–(18,15). */}
+                  <line className="museum-sheet-glyph-a" x1="-7.5" y1="0" x2="7.5" y2="0" />
+                  <line className="museum-sheet-glyph-b" x1="-7.5" y1="0" x2="7.5" y2="0" />
                 </svg>
               </button>
               )}
@@ -2503,10 +2542,10 @@ export default function Museum({ works, slotId }: Props) {
                  the fluid title's line-height). It is measured now — the header
                  publishes its own height to `--cnwm-sheet-head` — so the body
                  gets exactly the sheet's 55dvh cap minus the header, in either
-                 state and at any inset — less the sheet's own 1px top
-                 border, which the 55dvh cap counts (border-box). Fallback is
-                 the phone's full header. */
-              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 128px) - 1px)" }}
+                 state and at any inset. v14 E12: the `- 1px` that paid for the
+                 sheet's top border went with the border. Fallback is the
+                 phone's header (one height in both states since v14 E8). */
+              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 156px))" }}
             >
               {plaque.line && (
                 <figure>
