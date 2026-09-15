@@ -279,7 +279,10 @@ const focus =
       which is what the QR filmstrip measures at t=1s. "Scroll to listen" is
       gone (item 25) — the story begins by scrolling, and the page says so by
       being a page. */}
-  <header id="hero" class="relative h-dvh overflow-hidden bg-neutral-2">
+  {/* v14.1 (Wil, 9/15): `h-lvh` — the painting runs under the browser's glass
+      bottom bar (the JetBlue reference); the lockup adds --cnwm-bar to its
+      inset so it stays above the bar and settles as the bars collapse. */}
+  <header id="hero" class="relative h-lvh overflow-hidden bg-neutral-2">
     <div id="hero-media" class="absolute inset-0" style={`--hero-lift: ${focus.portraitScale}`}>
       {/* The still painting — the LCP, responsive and art-directed. The 480
           tier halves the poster bytes on the QR phone (31KB vs 66KB). */}
@@ -348,7 +351,7 @@ const focus =
     </div>
 
     <div class="absolute inset-x-0 bottom-0">
-      <div class="shell pb-[max(5dvh,32px)]">
+      <div class="shell pb-[calc(max(5dvh,32px)+var(--cnwm-bar))]">
         <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
@@ -394,7 +397,7 @@ const focus =
             `pb-[max(5dvh,32px)]` lockup inset as #hero, unchanged. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="sec relative h-dvh overflow-hidden bg-neutral-2"
+            class="sec relative h-lvh overflow-hidden bg-neutral-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
           >
@@ -445,7 +448,7 @@ const focus =
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
-              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
+              <div class="shell pb-[calc(max(5dvh,32px)+var(--cnwm-bar))]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
                 <p class="t-meta">Location {pad2(c.order)} · continued</p>
                 {/* v11 item 3 (Wil, 8/22): "maybe we should size it up to the
                     next level in our type ramp/scale, figure out what looks

@@ -152,10 +152,11 @@ const museumWorks = works.map((w, wi) => {
       client-side). Incapable visitors keep the window as a full-bleed lead
       painting; the grid below is the page either way, and stays the
       screen-reader surface always. */}
-  <div id="museum-slot" class="relative mt-16 h-dvh">
+  <div id="museum-slot" class="relative mt-16 h-lvh">
     {/* One viewport tall regardless of how far the island expands the slot —
-        the museum's opaque stage paints over it when active. */}
-    <div class="absolute inset-x-0 top-0 h-dvh overflow-hidden">
+        the museum's opaque stage paints over it when active. v14.1: lvh, so
+        the window runs under the browser's bottom bar like the stage. */}
+    <div class="absolute inset-x-0 top-0 h-lvh overflow-hidden">
       <picture>
         <source
           media="(max-width: 767px)"

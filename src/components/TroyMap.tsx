@@ -834,7 +834,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const cardLift = (): [number, number] => {
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
     const w = window.innerWidth;
-    const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
+    /* v14.1: the strip also rides above the browser's bottom bar (--cnwm-bar) */
+    const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cnwm-bar")) || 0;
+    const strip = (w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset) + bar; /* v8 V8-201: the strip sits ON the inset */
     // never so far that the active name plate meets the top edge (landscape phones)
     return [0, -Math.round(Math.min(strip / 2, window.innerHeight / 2 - 100))];
   };
@@ -1040,7 +1042,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         if (focusedRef.current && shellVisibleRef.current) {
           const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
           const w = window.innerWidth;
-          const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
+          const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--cnwm-bar")) || 0;
+          const strip = (w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset) + bar; /* v8 V8-201 + v14.1 --cnwm-bar */
           const limit = window.innerHeight - strip - 8;
           const narrowNow = w < 640 || window.innerHeight < 560;
           msAll.forEach(({ marker, stop }) => {
@@ -1651,6 +1654,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           pointerEvents: lens ? "auto" : "none",
           padding: "var(--ui-inset)",
           paddingTop: "calc(var(--ui-inset) + 4px)",
+          paddingBottom: "calc(var(--ui-inset) + var(--cnwm-bar))", /* v14.1: above the browser's bottom bar */
           transition: `opacity ${lensFadeMs}ms var(--ease)`,
         }}
         /* Not raised until the fade is over: while it runs, focus is still on
@@ -1788,7 +1792,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
              routed through `--ui-inset` (20px at 360–640, 40px at 768–1024).
              Same position wherever the inset is 0; lifted clear of the home
              indicator where it is not. */
-          className="pointer-events-none absolute bottom-[calc(var(--ui-inset)+156px)] left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+108px)] [@media(max-height:560px)]:bottom-[calc(var(--ui-inset)+60px)] xl:bottom-[calc(var(--ui-inset)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
+          className="pointer-events-none absolute bottom-[calc(var(--ui-inset)+156px+var(--cnwm-bar))] left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+108px+var(--cnwm-bar))] [@media(max-height:560px)]:bottom-[calc(var(--ui-inset)+60px+var(--cnwm-bar))] xl:bottom-[calc(var(--ui-inset)+16px+var(--cnwm-bar))] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
           aria-hidden="true"
         >
           <div
@@ -1862,7 +1866,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               other one); the buttons ride above it. */}
           <div
             className="map-scroll-handle absolute right-0 bottom-0 left-0 z-10 sm:hidden"
-            style={{ height: "calc(var(--ui-inset) + 84px)", touchAction: "pan-y" }}
+            style={{ height: "calc(var(--ui-inset) + 84px + var(--cnwm-bar))", touchAction: "pan-y" }}
             aria-hidden="true"
           >
             <svg
@@ -1875,7 +1879,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
             </svg>
           </div>
-          <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] sm:bottom-[calc(var(--ui-inset)+12px)]">
+          <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px+var(--cnwm-bar))] sm:bottom-[calc(var(--ui-inset)+12px+var(--cnwm-bar))]">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
               Take the walk
             </button>
@@ -1908,7 +1912,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           moveToIdx reliably. Visibility is opacity/pointer-events only. */}
       {
         <div
-          className="fixed right-0 bottom-0 left-0 z-10 pb-[var(--ui-inset)] transition-opacity duration-300"
+          className="fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+var(--cnwm-bar))] transition-opacity duration-300"
           style={{
             opacity: focused && shellVisible ? 1 : 0,
             pointerEvents: focused && shellVisible ? "auto" : "none",

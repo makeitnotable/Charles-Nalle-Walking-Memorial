@@ -2279,7 +2279,10 @@ export default function Museum({ works, slotId }: Props) {
 
   return (
     <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
-      <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
+      {/* v14.1 (Wil, 9/15): `h-lvh`, not dvh — the stage runs under the
+          browser's glass bottom bar (see --cnwm-bar in global.css); the dot
+          rail and the sheet lift by that token so nothing sits beneath it. */}
+      <div ref={stageRef} className="sticky top-0 h-lvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
             phones set the pair just above the indicator dots; tablets centre
@@ -2449,7 +2452,7 @@ export default function Museum({ works, slotId }: Props) {
         {plaque && portraitUI && (
           <div
             ref={sheetRef}
-            className="museum-sheet absolute inset-x-0 bottom-0 z-20"
+            className="museum-sheet absolute inset-x-0 bottom-[var(--cnwm-bar)] z-20"
             data-state={sheet}
             style={{ maxHeight: "55dvh" }}
           >
@@ -2575,7 +2578,7 @@ export default function Museum({ works, slotId }: Props) {
                  there, `bottom: var(--ui-inset)` here (the old +4px was the
                  only thing keeping the two apart). It is never recomputed and
                  never cleared, so no viewport change can strand it. */
-              bottom: "var(--ui-inset)",
+              bottom: "calc(var(--ui-inset) + var(--cnwm-bar))",
               /* …and while a painting is open the rail is not wanted at all:
                  "the indicator dots can and should however disappear when
                  viewing a painting after clicking on it." */
