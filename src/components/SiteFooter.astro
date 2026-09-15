@@ -149,7 +149,12 @@ const links = [
   .footer-wordmark {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(1.125rem, 0.9rem + 1.05vw, 1.625rem);
+    /* v14 E4 (Wil): the name and "Made by Notable" competed. The credit is
+       already in the secondary cut (Libre Caslon Text), so the fallback he
+       named applies: the name steps up. Caslon Display ships one weight and
+       the system never synthesises bold, so the step is +2px of size at
+       every stop of the clamp (18→20 · 26→28), still one line at 320. */
+    font-size: clamp(calc(1.125rem + 2px), calc(0.9rem + 1.05vw + 2px), calc(1.625rem + 2px));
     line-height: 1.1;
     letter-spacing: -0.01em;
     color: var(--color-neutral-12);
