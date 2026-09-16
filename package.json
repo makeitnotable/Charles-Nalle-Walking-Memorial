@@ -31,6 +31,9 @@
     "qa:audio": "node scripts/audio-check.mjs",
     "qa:bleed": "node scripts/bleed-check.mjs",
     "qa:head": "node scripts/head-check.mjs",
+    "qa:scope": "node scripts/scope-check.mjs",
+    "qa:snap": "node scripts/snap.mjs",
+    "qa:snap:update": "node scripts/snap.mjs --update",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },

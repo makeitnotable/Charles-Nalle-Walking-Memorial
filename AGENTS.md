@@ -42,6 +42,32 @@ Non-negotiables inherited from the constitution's design baseline:
   `.env.production`, so `npm run dev` seeds one automatically (`predev` →
   `scripts/ensure-env.mjs`). Without it the map renders with an empty token.
 
+## Client rounds — the discipline
+
+Rounds 1–2 shipped `lvh` stage sizing against a simulated browser bar, and Wil
+found the map, the splash and the card strip broken on his phone. Every client
+round now runs under three mechanical gates and one rule; each round's manifest
+lives in `docs/rounds/<date>-round-N.json` (the plan's allowed-file list).
+
+1. **Revert point.** Before the first edit: `git tag client-round-N-base <v2 tip>`.
+   This repo's tokens may refuse tag pushes, so also push the same commit as a
+   branch, `claude/client-round-N-base`, and carry the SHA in the manifest.
+   Undo a round: `git reset --hard client-round-N-base`.
+2. **Scope gate.** `npm run qa:scope` before every commit and push. It diffs the
+   tree against the round's base and fails on any path the manifest does not list.
+3. **Visual gate.** `npm run qa:snap` against `astro preview --port 4331`
+   (11 routes × 390/768/1440 plus the museum rail; canvases masked). Baselines
+   live in `docs/qa/baseline/`; refresh them with `npm run qa:snap:update`, which
+   touches only routes the manifest's `snap.allowedRoutes` names. Drift anywhere
+   else is a defect to fix, never a new baseline.
+4. **Device first.** Anything that depends on browser chrome or viewport units
+   (`lvh`/`dvh`/`svh`, safe areas, the bar tint) never ships to `v2` on
+   assumption. It goes to the review branch or the hidden test page
+   (`/chrome-test`) for Wil's phone first — no instrument here can see Safari's bars.
+
+Every round report ends with the checklist, the verified/unverified split and
+the revert command.
+
 ## Development
 
 When starting the dev server, use background mode:
