@@ -84,13 +84,13 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
     {/* The typographic index — the image IS the card; nothing is boxed. */}
     {/* v14 E23 (client): one hairline in the list — above Location 1 only; the
-        four between/after the items are gone. The survivor gets 16px more
-        under it (pt-4 + the anchor's py-6 = 40px, the --sp-4 step) so the gap
-        to Location 1 reads balanced. */}
+        four between/after the items are gone. v14.2 (Wil, 9/16): more air under
+        the survivor — pt-10 + the anchor's py-6 = 64px, the --sp-5 step (was
+        pt-4 → 40px, --sp-4), at every breakpoint. Nothing else in the list moves. */}
     <ol class="beat">
       {
         chapters.map((entry, i) => (
-          <li class={i === 0 ? "reveal rule-top pt-4" : "reveal"}>
+          <li class={i === 0 ? "reveal rule-top pt-10" : "reveal"}>
             <a
               href={withBase(entry.id)}
               data-curtain-label={entry.data.name.short}

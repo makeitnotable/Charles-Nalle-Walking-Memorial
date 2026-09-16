@@ -23,13 +23,17 @@ const isHere = (slug: string) => {
 
 /* Generated from the content collection — the v3 hardcoded list had already
  * drifted to "Mansion" and "Ferry" while the map said something else. There is
- * one source for a place name now: `name.short`. */
+ * one source for a place name now: `name.short`. v14.2 (Wil, 9/16): below the
+ * 1200px desktop line the row reads the map's extra-short `name.pin` (Bakery ·
+ * Commissioner · Mansion · Ferry · Barbershop, falling back to `short`); the
+ * curtain label stays `name.short` at every width. */
 const chapters = (await getCollection("chapters"))
   .sort((a, b) => a.data.order - b.data.order)
   .map((e) => ({
     slug: e.id,
     order: String(e.data.order).padStart(2, "0"),
     name: e.data.name.short,
+    pin: e.data.name.pin ?? e.data.name.short,
   }));
 /* One inset for every floating element on the site. The burger used to sit at
  * right:12px while page content sat on a 56px gutter — 124px adrift on a 1440
@@ -106,11 +110,16 @@ const notchClass =
               aria-current={isHere(c.slug) ? "page" : undefined}
             >
               <span class="t-meta w-8 shrink-0">{c.order}</span>
+              {/* v14.2 (Wil, 9/16): two labels, one shown — `name.short` from the
+                  1200px desktop line up, the extra-short `name.pin` below it (the
+                  scoped rules at the foot of this file). Exactly one span is
+                  displayed at any width, so assistive tech reads one name. */}
               <span
                 class="t-title-sm transition-colors group-hover:text-primary-9"
                 style="transition-duration: var(--dur-fast)"
               >
-                {c.name}
+                <span class="cnwm-menu-label-long">{c.name}</span>
+                <span class="cnwm-menu-label-short">{c.pin}</span>
               </span>
             </a>
           </li>
@@ -135,6 +144,23 @@ const notchClass =
     )}
   </nav>
 </div>
+
+{/* v14.2 (Wil, 9/16): the chapter rows carry both labels; these two queries
+    meet at the site's desktop line (the 1200px type step) so exactly one is
+    displayed at any width — `display: none` keeps the other out of the
+    accessible name as well as the layout. */}
+<style>
+  @media (max-width: 1199px) {
+    .cnwm-menu-label-long {
+      display: none;
+    }
+  }
+  @media (min-width: 1200px) {
+    .cnwm-menu-label-short {
+      display: none;
+    }
+  }
+</style>
 
 <script>
   import gsap from "gsap";
