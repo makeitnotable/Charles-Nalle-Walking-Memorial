@@ -142,39 +142,50 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
   }).catch((e) => ({ error: String(e).slice(0, 90) }));
   recV(vp.n, "portrait work centred", !hang.error && hang.d < 0.01 && hang.frameTop <= hang.ceil && hang.frameBot >= 0, JSON.stringify(hang));
 
-  // v13-10d · the counter sits on the dot rail's own centre line
+  // v13-10d · the counter sits on the dot rail's own centre line.
+  // v14.2 (Wil, 9/16): BELOW the dots now, 12px under them (the column's gap-3).
   const nav = await page.evaluate(() => {
     const n = document.querySelector('nav[aria-label="Works in the hall"]');
     const p = n?.querySelector("p"), ol = n?.querySelector("ol");
     if (!p || !ol) return { error: "no nav" };
     const pr = p.getBoundingClientRect(), orr = ol.getBoundingClientRect();
     const cx = (r) => (r.left + r.right) / 2;
-    return { visible: pr.height > 0, dcx: +(cx(pr) - cx(orr)).toFixed(2), above: pr.bottom <= orr.top + 0.5 };
+    return { visible: pr.height > 0, dcx: +(cx(pr) - cx(orr)).toFixed(2), below: pr.top >= orr.bottom - 0.5, gap: +(pr.top - orr.bottom).toFixed(2) };
   }).catch((e) => ({ error: String(e).slice(0, 90) }));
-  recV(vp.n, "counter above + on dot centre", !nav.error && nav.visible && Math.abs(nav.dcx) < 1 && nav.above, JSON.stringify(nav));
+  recV(vp.n, "counter below + on dot centre", !nav.error && nav.visible && Math.abs(nav.dcx) < 1 && nav.below && Math.abs(nav.gap - 12) < 1, JSON.stringify(nav));
 
-  // v13-10b · Face forward is right-aligned on Skip's axis (<=767)
-  if (vp.width <= 767) {
+  // v13-10b · Face forward was right-aligned on Skip's axis (<=767).
+  // v14.2 (Wil, 9/16): it stands directly ABOVE the dot rail, centred on it,
+  // 12px up (the column's gap-3), at EVERY viewport — outside the <nav>
+  // landmark, and never touching Skip.
+  {
     const ff = await page.evaluate(async () => {
       const s = (ms) => new Promise((r) => setTimeout(r, ms));
       window.__museum.approach(null); await s(300);
       window.__museum.setLook(0.6, 0); await s(600);
       const btns = [...document.querySelectorAll("button")].filter((b) => /face forward/i.test(b.textContent || "") && b.getBoundingClientRect().height > 0);
       const skip = document.querySelector('[aria-label="Skip the hall"]')?.getBoundingClientRect();
-      const stage = document.querySelector("#museum-slot .sticky") || document.querySelector(".sticky");
-      const sr = stage.getBoundingClientRect();
-      const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
-      if (btns.length !== 1 || !skip) return { error: `instances=${btns.length}` };
-      const r = btns[0].getBoundingClientRect();
-      return { instances: btns.length, rightGap: +(sr.right - r.right).toFixed(1), inset,
-               dcy: +(((r.top + r.bottom) / 2) - ((skip.top + skip.bottom) / 2)).toFixed(2) };
+      const nav = document.querySelector('nav[aria-label="Works in the hall"]');
+      const ol = nav?.querySelector("ol");
+      if (btns.length !== 1 || !skip || !ol) return { error: `instances=${btns.length}` };
+      const r = btns[0].getBoundingClientRect(), o = ol.getBoundingClientRect();
+      const cx = (q) => (q.left + q.right) / 2;
+      const hitsSkip = Math.min(r.right, skip.right) - Math.max(r.left, skip.left) > 0 && Math.min(r.bottom, skip.bottom) - Math.max(r.top, skip.top) > 0;
+      return { instances: btns.length, gap: +(o.top - r.bottom).toFixed(2), dcx: +(cx(r) - cx(o)).toFixed(2), inNav: nav.contains(btns[0]), hitsSkip };
     }).catch((e) => ({ error: String(e).slice(0, 90) }));
-    recV(vp.n, "Face forward top-right on Skip", !ff.error && Math.abs(ff.rightGap - ff.inset) < 1.5 && Math.abs(ff.dcy) < 1, JSON.stringify(ff));
+    recV(vp.n, "Face forward above the dots", !ff.error && Math.abs(ff.gap - 12) < 1 && Math.abs(ff.dcx) < 1 && !ff.inNav && !ff.hitsSkip, JSON.stringify(ff));
     await page.evaluate(() => window.__museum.recenter());
     await page.waitForTimeout(400);
   }
 
   // v13-10a · the chip stands at railT 0 and is gone once the walk starts (phones)
+  // v14.2 (9/16): since v14 E6 the chip is a ONE-TIME hint (`hintDismissed`),
+  // and the churn / Escape / tilt checks above already dismissed it on this
+  // document — so the assertion is read on a fresh load, where it still means
+  // what v13-10a wrote: shown at railT 0, gone once the walk starts.
+  await page.reload({ waitUntil: "networkidle", timeout: 60000 });
+  await page.waitForFunction(() => window.__museum, { timeout: 30000 }).catch(() => {});
+  await page.waitForTimeout(1500);
   const chip = await page.evaluate(async () => {
     const s = (ms) => new Promise((r) => setTimeout(r, ms));
     const st = document.querySelector("#museum-slot .sticky") || document.querySelector(".sticky");
@@ -194,7 +205,10 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
     await s(400);
     return { at0, at5 };
   }).catch((e) => ({ error: String(e).slice(0, 90) }));
-  recV(vp.n, "chip at railT 0, gone after", !chip.error && chip.at0.vis && chip.at0.railT === 0 && (mobile ? !chip.at5.vis : chip.at5.vis) && chip.at5.railT > 0.02, JSON.stringify(chip));
+  /* v14 E6 dismisses the hint at 1% of the rail at EVERY width and never
+     brings it back, so "gone after" holds on tablets and desktop too — the
+     v13 branch that expected it to persist there described the pre-E6 chip. */
+  recV(vp.n, "chip at railT 0, gone after", !chip.error && chip.at0.vis && chip.at0.railT === 0 && !chip.at5.vis && chip.at5.railT > 0.02, JSON.stringify(chip));
 
   // v13-10c · the drawer's top padding equals its left padding, in peek
   if (portraitUI) {

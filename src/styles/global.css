@@ -1111,34 +1111,6 @@ h3 {
     min-height: 44px;
   }
 }
-/* v14 E10 (Wil): "the Face Forward button ends up behind the menu." It shared
-   the corner menu's slot (fixed, z-1000) and relied on the menu retreating,
-   but the menu returns on any upward scroll of 24px. It now stands immediately
-   LEFT of the slot — the 72px burger plus 12px, the band's own gap — so the
-   two cannot overlap in either menu state. Top stays inline, on Skip's axis.
-   (v13 V13-10a's phone-only `data-walking` rule stood here; v14 E6 retired it
-   — the chip is a one-time hint gated in Museum.tsx at every width now.) */
-.museum-face-forward {
-  right: calc(var(--ui-inset) + 72px + 12px);
-}
-/* Below 390px the band cannot hold all three: measured, Skip (95px), this
-   button (162px) and the burger (72px) with their gaps overrun Skip by 6px at
-   375 and 21px at 360, and clear it by 9px at 390. There it keeps the corner
-   and yields to the menu (Wil's Option B): hidden while the menu is showing,
-   back the moment it retreats — never partially covered either way. */
-/* v14.1 (Wil, 9/15, iPhone screenshot): on a real phone the three did NOT fit
-   side by side even at 393px — Skip and Face forward overlapped by ~13px, the
-   device's text metrics running wider than headless Chromium's. So every
-   phone width (< 640) takes Option B: the button keeps the corner and yields
-   to the menu while the menu is showing, back the moment it retreats. */
-@media (max-width: 639px) {
-  .museum-face-forward {
-    right: var(--ui-inset);
-  }
-  body:has(.cnwm-menu:not([data-hidden="true"])) .museum-face-forward {
-    display: none;
-  }
-}
 .map-shell {
   position: relative;
   height: 100dvh;
@@ -1890,7 +1862,7 @@ a.walk-seg:hover {
      16px arcs had something to be continuous with. v14 E12 (Wil): "remove the
      orange/brown border (stroke) around the info card / drawer UI" — no
      outline in any state, at any width. Radius, blur and ground stay. */
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0; /* v14.2 (Wil, 9/16): the site's large radius, 24px */
   will-change: transform;
 }
 /* v12 gave the desktop/landscape plaque the same 1px `--color-primary-7`
@@ -1922,7 +1894,27 @@ a.walk-seg:hover {
 .museum-sheet-head:focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: -2px;
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0; /* v14.2: follows the sheet's radius */
+}
+/* v14.2 (Wil, 9/16): in peek the title is the only thing in the header (the X
+   exists in the open state alone), so the header's bottom air matches its top
+   and sides — `--ui-inset` — and the title's box is trimmed to its ink (cap
+   line to baseline: every title is uppercase), so the ink stands exactly one
+   inset from the drawer's edge and one from the stage's. WebKit and Chromium
+   honour text-box-trim; elsewhere it degrades to the line box, ≤ 3px off. The
+   full state keeps its 12px gap to the body. Unlayered, so this beats the
+   header's layered `pb-3` utility whatever the specificity.
+   The 1px: measured at DPR 2 (Chromium 141, the real Caslon Display), the
+   ink's top stood 0.6–1.0px above the inset and its bottom 0.5px inside it on
+   a phone but 1.4–1.9px inside it on a portrait tablet — the drawer's integer
+   translate leaves the header's box 0.81px under the stage edge there. One
+   pixel squares the tablet and keeps the phone within 0.5px. */
+.museum-sheet[data-state="peek"] .museum-sheet-head {
+  padding-bottom: calc(var(--ui-inset) + 1px);
+}
+.museum-sheet[data-state="peek"] .museum-sheet-head .t-title-sm {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
 }
 /* v9 V9-103 (Wil, 8/21): the close control is a real round button, centred
    above the card's content where the v8 drag pill sat — solid on the button
@@ -1956,43 +1948,6 @@ a.walk-seg:hover {
 .museum-sheet-close:focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: 2px;
-}
-/* v14 E8 (Wil): the glyph morphs — chevron while the drawer is collapsed ("tap
-   to expand"), X once it is open. Two 15-unit bars in the 24 box, each drawn
-   about its own origin and placed here. X: both through (12,12) at ±45°, the
-   v9 icon exactly. Chevron: the same bars slid apart to (15,12) / (9,12) and
-   dashed down to 8.5 units (the offset keeps the dash centred), so their upper
-   ends meet at (12,9) — round caps survive, where a scaleX would have squashed
-   them. Translate and dash length tween on `--dur-fast` / `--ease`; the A11Y
-   reduce rule at the foot of this file zeroes the duration, so the swap is
-   instant there. */
-.museum-sheet-close line {
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  fill: none;
-  stroke-dasharray: 15 15;
-  stroke-dashoffset: 0;
-  transition:
-    transform var(--dur-fast) var(--ease),
-    stroke-dasharray var(--dur-fast) var(--ease),
-    stroke-dashoffset var(--dur-fast) var(--ease);
-}
-.museum-sheet-glyph-a {
-  transform: translate(12px, 12px) rotate(45deg);
-}
-.museum-sheet-glyph-b {
-  transform: translate(12px, 12px) rotate(-45deg);
-}
-.museum-sheet[data-state="peek"] .museum-sheet-close line {
-  stroke-dasharray: 8.5 15;
-  stroke-dashoffset: -3.25;
-}
-.museum-sheet[data-state="peek"] .museum-sheet-glyph-a {
-  transform: translate(15px, 12px) rotate(45deg);
-}
-.museum-sheet[data-state="peek"] .museum-sheet-glyph-b {
-  transform: translate(9px, 12px) rotate(-45deg);
 }
 
 /* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,

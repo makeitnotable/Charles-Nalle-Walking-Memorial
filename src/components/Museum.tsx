@@ -2279,10 +2279,7 @@ export default function Museum({ works, slotId }: Props) {
 
   return (
     <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
-      {/* v14.1 (Wil, 9/15): `h-lvh`, not dvh — the stage runs under the
-          browser's glass bottom bar (see --cnwm-bar in global.css); the dot
-          rail and the sheet lift by that token so nothing sits beneath it. */}
-      <div ref={stageRef} className="sticky top-0 h-lvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
+      <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
             phones set the pair just above the indicator dots; tablets centre
@@ -2307,44 +2304,8 @@ export default function Museum({ works, slotId }: Props) {
             </p>
           </div>
         )}
-        {/* Face forward — v13 V13-10b (Wil, 8/26): "the face forward button
-            should be positioned in the top right corner of the screen and
-            vertically centered with the skip the hall button." It used to be
-            TWO instances: the phone/tablet one stood inside the centred chip
-            row (mid-screen), the desktop one rode this top-right anchor. They
-            now share the one anchor — which also retires the v8 V8-322 hazard
-            outright: with no display utility on either element, `.btn-sm`'s
-            unlayered `display: inline-flex` has nothing left to beat, so the
-            double-draw it guarded against cannot recur.
-            The corner menu owns the same corner but retreats (data-hidden,
-            opacity 0, pointer-events none) as soon as the walk starts, which
-            is what the desktop instance has relied on since v8. Face forward
-            and the plaque drawer are mutually exclusive by construction — the
-            drawer exists only in approach, this button only outside it — so
-            there is no open-drawer state for it to collide with.
-            v14 E10 (Wil): "the Face Forward button ends up behind the menu."
-            The retreat above was never a guarantee — the menu comes back on
-            any upward scroll of 24px, fixed at z-1000 — so the button no
-            longer shares its slot. Its horizontal lives in
-            `.museum-face-forward` (global.css): immediately LEFT of the slot
-            (72px burger + 12px) wherever the band fits all three controls,
-            and below 390px it keeps the corner and yields to the menu
-            instead. Top stays inline, on Skip's axis. */}
-        {ready && !inApproach && lookedAway && (
-          <div
-            className="museum-face-forward absolute z-10"
-            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))" }}
-          >
-            <button
-              type="button"
-              className="btn-sm btn-ghost"
-              style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
-              onClick={() => api.current?.recenter()}
-            >
-              Face forward
-            </button>
-          </div>
-        )}
+        {/* Face forward lives in the bottom-centre column with the dot rail
+            (below) since v14.2. */}
 
         {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
         {ready && !inApproach && (
@@ -2452,7 +2413,7 @@ export default function Museum({ works, slotId }: Props) {
         {plaque && portraitUI && (
           <div
             ref={sheetRef}
-            className="museum-sheet absolute inset-x-0 bottom-[var(--cnwm-bar)] z-20"
+            className="museum-sheet absolute inset-x-0 bottom-0 z-20"
             data-state={sheet}
             style={{ maxHeight: "55dvh" }}
           >
@@ -2495,39 +2456,28 @@ export default function Museum({ works, slotId }: Props) {
                   should completely hide the drawer." So it belongs to the open
                   state, and it closes the drawer outright rather than stepping
                   back to the preview. Logged in docs/v4/DECISIONS.md. */}
-              {/* v14 E8 (Wil): ONE button for both states. Collapsed it is an
-                  upward chevron ("tap to expand") that opens the card; open it
-                  is the v12 X that hides the drawer outright. The glyph is two
-                  stroked bars whose transform and dash length morph between the
-                  poses in CSS (`.museum-sheet-close line`, keyed off the
-                  sheet's data-state), so every expansion path — this tap, the
-                  header drag, the stage swipe, the wheel, Enter on the header —
-                  ends in the X because they all end in `snapSheet("full")`.
-                  Mounted whenever the sheet is on screen, so the header is one
-                  height in both states; it leaves with the hidden sheet. */}
-              {!sheetHidden && (
+              {/* v14.2 (Wil, 9/16) reverses v14 E8's always-mounted chevron/X:
+                  the round button exists in the OPEN state only, as a static X
+                  that hides the drawer — the v12/v13 gate and glyph exactly. In
+                  peek the title stands alone. The header is therefore shorter
+                  in peek than in full again; `sheetTravel()`, the
+                  `[sheet, sheetHidden]` layout effect and the
+                  `--cnwm-sheet-head` observer re-measure it, as before E8. */}
+              {sheet === "full" && !sheetHidden && (
               <button
                 type="button"
                 className="museum-sheet-close"
-                aria-label={sheet === "full" ? "Hide the plaque" : "Expand the plaque"}
+                aria-label="Hide the plaque"
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   lastToggle.current = performance.now();
-                  if (sheet === "full") {
-                    hideSheet();
-                    backRef.current?.focus();
-                  } else snapSheet("full");
+                  hideSheet();
+                  backRef.current?.focus();
                 }}
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  {/* each bar is drawn about its own origin and placed by CSS:
-                      X — both through (12,12) at ±45°, the full 15 units (the
-                      v9 icon exactly); chevron — the same bars at (15,12) and
-                      (9,12), dashed down to 8.5 units so their upper ends meet
-                      at (12,9): arms (6,15)–(12,9)–(18,15). */}
-                  <line className="museum-sheet-glyph-a" x1="-7.5" y1="0" x2="7.5" y2="0" />
-                  <line className="museum-sheet-glyph-b" x1="-7.5" y1="0" x2="7.5" y2="0" />
+                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
                 </svg>
               </button>
               )}
@@ -2561,66 +2511,97 @@ export default function Museum({ works, slotId }: Props) {
           </div>
         )}
 
-        {/* Dot rail — every mode; rides above the sheet on phones */}
+        {/* Dot rail — every mode; fades out while a painting is open.
+            v14.2 (Wil, 9/16): ONE bottom-centre column at every breakpoint,
+            top → bottom: Face forward (only while looked away) · 12px · dots
+            · 12px · counter. The wrapper carries the rail's resting offset
+            and is `pointer-events-none` — its box would otherwise stand over
+            the plaque header in approach — so each child opts back in. */}
         {ready && (
-          <nav
-            ref={dotsRef}
-            /* v13 V13-10d (Wil, 8/26): "the 1/10 counter should be centered
-               above the indicator dots." It used to sit INSIDE this row, which
-               pushed the dot list off centre by half the counter's width — the
-               row was centred, the dots were not. Stacked, both are.
-               v14 E16 (Wil): gap-3 — 12px between the counter and the dots,
-               up from 8 ("a small amount, not dramatic"). */
-            className="absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3"
+          <div
+            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3"
             style={{
               /* v12 (Wil, 8/26): one resting offset, always set inline, and it
                  is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
                  there, `bottom: var(--ui-inset)` here (the old +4px was the
                  only thing keeping the two apart). It is never recomputed and
                  never cleared, so no viewport change can strand it. */
-              bottom: "calc(var(--ui-inset) + var(--cnwm-bar))",
-              /* …and while a painting is open the rail is not wanted at all:
-                 "the indicator dots can and should however disappear when
-                 viewing a painting after clicking on it." */
-              opacity: inApproach ? 0 : 1,
-              pointerEvents: inApproach ? "none" : undefined,
-              transition: "opacity var(--dur-fast) var(--ease)",
-              /* V8-327: the dots leave with the rest of the chrome as the
-                 walk steps through the arch and down. */
+              bottom: "var(--ui-inset)",
             }}
-            aria-hidden={inApproach || undefined}
-            aria-label="Works in the hall"
           >
-            {/* v13 V13-10d DECISION: the counter shows at every width now (it
-                was `hidden sm:block`, so phones — the widths Wil was looking
-                at — never had it). REVERT: restore `hidden sm:block` on this
-                line; the column layout above stands either way. */}
-            <p className="t-meta whitespace-nowrap" aria-hidden="true">
-              {pad2((approached ?? railIdx) + 1)} / {pad2(works.length)}
-            </p>
-            <ol className="flex items-center gap-2">
-              {works.map((w, i) => {
-                const active = i === (approached ?? railIdx);
-                return (
-                  <li key={w.slug + w.key}>
-                    <button
-                      type="button"
-                      ref={(el) => {
-                        dotRefs.current[i] = el;
-                      }}
-                      onClick={() => api.current?.approach(i)}
-                      aria-label={`Approach “${w.title}”`}
-                      aria-current={active ? "true" : undefined}
-                      className={`grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-colors ${active ? "border-primary-9" : "border-primary-7 hover:border-primary-9"}`}
-                      style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
-                    >
-                      <span className={`h-1.5 w-1.5 rounded-full ${active ? "bg-primary-9" : "bg-primary-11/60"}`} aria-hidden="true" />
-                    </button>
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
+            {/* Face forward — v13 V13-10b (Wil, 8/26) stood it top-right on
+                Skip's axis; v14 E10 moved it left of the corner menu; v14.1
+                hid it while the menu showed on phones. v14.2 (Wil, 9/16): it
+                heads this column instead, so it shares no corner with Skip or
+                the menu at any width. It stays OUTSIDE the <nav> so the
+                landmark stays honest. Face forward and the plaque drawer are
+                mutually exclusive by construction — the drawer exists only in
+                approach, this button only outside it. */}
+            {!inApproach && lookedAway && (
+              <button
+                type="button"
+                className="btn-sm btn-ghost pointer-events-auto"
+                style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+                onClick={() => api.current?.recenter()}
+              >
+                Face forward
+              </button>
+            )}
+            <nav
+              ref={dotsRef}
+              /* v13 V13-10d (Wil, 8/26): "the 1/10 counter should be centered
+                 above the indicator dots." It used to sit INSIDE this row, which
+                 pushed the dot list off centre by half the counter's width — the
+                 row was centred, the dots were not. Stacked, both are.
+                 v14 E16 (Wil): gap-3 — 12px between the counter and the dots,
+                 up from 8 ("a small amount, not dramatic").
+                 v14.2 (Wil, 9/16): the counter sits BELOW the dots, still on
+                 their centre line, still 12px away. */
+              className="pointer-events-auto flex flex-col items-center gap-3"
+              style={{
+                /* …and while a painting is open the rail is not wanted at all:
+                   "the indicator dots can and should however disappear when
+                   viewing a painting after clicking on it." */
+                opacity: inApproach ? 0 : 1,
+                pointerEvents: inApproach ? "none" : undefined,
+                transition: "opacity var(--dur-fast) var(--ease)",
+                /* V8-327: the dots leave with the rest of the chrome as the
+                   walk steps through the arch and down. */
+              }}
+              aria-hidden={inApproach || undefined}
+              aria-label="Works in the hall"
+            >
+              <ol className="flex items-center gap-2">
+                {works.map((w, i) => {
+                  const active = i === (approached ?? railIdx);
+                  return (
+                    <li key={w.slug + w.key}>
+                      <button
+                        type="button"
+                        ref={(el) => {
+                          dotRefs.current[i] = el;
+                        }}
+                        onClick={() => api.current?.approach(i)}
+                        aria-label={`Approach “${w.title}”`}
+                        aria-current={active ? "true" : undefined}
+                        className={`grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-colors ${active ? "border-primary-9" : "border-primary-7 hover:border-primary-9"}`}
+                        style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${active ? "bg-primary-9" : "bg-primary-11/60"}`} aria-hidden="true" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+              {/* v13 V13-10d DECISION: the counter shows at every width now (it
+                  was `hidden sm:block`, so phones — the widths Wil was looking
+                  at — never had it). REVERT: restore `hidden sm:block` on this
+                  line; the column layout above stands either way. */}
+              <p className="t-meta whitespace-nowrap" aria-hidden="true">
+                {pad2((approached ?? railIdx) + 1)} / {pad2(works.length)}
+              </p>
+            </nav>
+          </div>
         )}
       </div>
     </div>
