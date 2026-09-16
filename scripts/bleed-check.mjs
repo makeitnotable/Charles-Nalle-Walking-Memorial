@@ -57,21 +57,27 @@ const GUTTERS = [
   { width: 1920, height: 1080, gutter: 56 },
 ];
 
-/* The MODE of an 8px band, never its mean: a browser tints from the ground it
-   sees, and a row of body text or a hairline must not drag the answer. */
-async function band(buf, w, top) {
-  const { data } = await sharp(buf)
-    .extract({ left: 0, top, width: w, height: 8 })
+/* The MODE of a band of pixels, never its mean: a browser tints from the ground
+   it sees, and a row of body text or a hairline must not drag the answer.
+   `cols` limits the read to those x-columns (the walk rail's gaps — see TINT). */
+async function band(buf, w, top, height = 8, cols = null) {
+  const { data, info } = await sharp(buf)
+    .extract({ left: 0, top, width: w, height })
+    .removeAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true });
-  const n = w * 8;
+  const ch = info.channels;
+  const use = cols && cols.length ? new Set(cols) : null;
   const tally = new Map();
-  for (let i = 0; i < n; i++) {
-    const k = ((data[i * 3] >> 2) << 12) | ((data[i * 3 + 1] >> 2) << 6) | (data[i * 3 + 2] >> 2);
-    const e = tally.get(k);
-    if (e) { e.n++; e.r += data[i * 3]; e.g += data[i * 3 + 1]; e.b += data[i * 3 + 2]; }
-    else tally.set(k, { n: 1, r: data[i * 3], g: data[i * 3 + 1], b: data[i * 3 + 2] });
-  }
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < w; x++) {
+      if (use && !use.has(x)) continue;
+      const i = (y * w + x) * ch;
+      const k = ((data[i] >> 2) << 12) | ((data[i + 1] >> 2) << 6) | (data[i + 2] >> 2);
+      const e = tally.get(k);
+      if (e) { e.n++; e.r += data[i]; e.g += data[i + 1]; e.b += data[i + 2]; }
+      else tally.set(k, { n: 1, r: data[i], g: data[i + 1], b: data[i + 2] });
+    }
   let best = null;
   for (const e of tally.values()) if (!best || e.n > best.n) best = e;
   const hx = (v) => Math.round(v / best.n).toString(16).padStart(2, "0");
@@ -87,6 +93,24 @@ const browser = await chromium.launch();
 let failures = 0;
 
 /* ── 1 · TINT ─────────────────────────────────────────────────────────────── */
+/* v14.2 (Wil, 9/16: "continue the artwork"). What a bar face must read is no
+   longer "the flat ground, or nothing over a painting" — it is the colour the
+   sampler in Base.astro RESOLVES for that edge: the nearest `data-edge-top` /
+   `data-edge-bottom` (`-wide` from 768px) declared by whatever sits at the
+   edge, else the first flat ground in paint order, else <html>. Over a hero or
+   the map that is a declared colour, and a strip is never transparent unless a
+   section says `transparent` outright. So each face is checked three ways:
+     · the custom property carries the resolved colour and the strip's computed
+       background took it;
+     · the 2px strip actually PAINTS it — rows 0–1 and h−2..h−1 of the shot. On
+       chapter pages the walk rail's 3px stripe lies over the top strip, so
+       those rows are read only in the rail's four 2px gaps, located from the
+       DOM;
+     · the theme-color meta carries one of the two strip colours (Chrome for
+       Android reads the meta; Safari reads the strips).
+   The resolver below mirrors the sampler on purpose: it is the contract the
+   hooks in [chapter].astro and map.astro are written against, re-derived here
+   so a hook that stops resolving fails the instrument rather than the phone. */
 const faces = [];
 for (const vp of VPS) {
   const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: 1 });
@@ -101,27 +125,89 @@ for (const vp of VPS) {
     for (const y of depths) {
       await page.evaluate((v) => scrollTo(0, v), y);
       await page.waitForTimeout(320);
+      /* v14.2: measure the SETTLED screen. A scroll-reveal rising into an edge
+         takes 1.6s and the sampler re-reads the edge on transitionend, so wait
+         for the finite animations the scroll started (looping ones excluded;
+         1.8s cap) before the shot. */
+      await page.evaluate(() =>
+        Promise.race([
+          Promise.all(
+            document
+              .getAnimations()
+              .filter((a) => a.playState === "running" && isFinite(a.effect.getComputedTiming().endTime))
+              .map((a) => a.finished.catch(() => {})),
+          ),
+          new Promise((r) => setTimeout(r, 1800)),
+        ]),
+      );
+      await page.waitForTimeout(60);
       const buf = await page.screenshot({ type: "png" });
-      /* 4px in: the walk rail is a 3px hairline pinned to the top of every
-         chapter page and it is not the page's ground. */
-      const painted = { top: await band(buf, vp.width, 4), bottom: await band(buf, vp.width, vp.height - 12) };
       const dom = await page.evaluate(() => {
         const ART = /^(img|video|canvas|svg|picture)$/;
-        const at = (yy) => {
-          let el = document.elementFromPoint((innerWidth / 2) | 0, yy), art = false;
-          while (el && el !== document.documentElement) {
+        const hex = (c) => {
+          const m = String(c).match(/[\d.]+/g);
+          if (!m || m.length < 3) return null;
+          if (m.length > 3 && Number(m[3]) < 0.999) return null;
+          return "#" + m.slice(0, 3).map((n) => Math.round(Number(n)).toString(16).padStart(2, "0")).join("");
+        };
+        const value = (v) => {
+          if (!v) return null;
+          v = String(v).trim().toLowerCase();
+          return v === "transparent" || /^#[0-9a-f]{6}$/.test(v) ? v : null;
+        };
+        const wide = matchMedia("(min-width: 768px)").matches;
+        const declared = (el, side) => {
+          const host = el.closest && el.closest(`[data-edge-${side}]`);
+          if (!host) return null;
+          return (wide && value(host.getAttribute(`data-edge-${side}-wide`))) || value(host.getAttribute(`data-edge-${side}`));
+        };
+        /* 4px in: the walk rail is a 3px hairline pinned to the top of every
+           chapter page and it is not the page's ground. */
+        const resolve = (yy, side) => {
+          let art = false;
+          for (const el of document.elementsFromPoint((innerWidth / 2) | 0, yy)) {
+            if (el === document.documentElement) break;
+            const d = declared(el, side);
+            if (d) return { c: d, hook: true, art: false };
             const cs = getComputedStyle(el);
             if (ART.test(el.tagName.toLowerCase()) || cs.backgroundImage !== "none") art = true;
-            const m = cs.backgroundColor.match(/[\d.]+/g);
-            if (m && (m.length < 4 || Number(m[3]) >= 0.999)) return { art };
-            el = el.parentElement;
+            const c = hex(cs.backgroundColor);
+            if (c) return { c, hook: false, art };
           }
-          return { art };
+          return { c: hex(getComputedStyle(document.documentElement).backgroundColor), hook: false, art };
         };
-        return { top: at(4), bottom: at(innerHeight - 5), theme: document.querySelector('meta[name="theme-color"]').content };
+        const root = getComputedStyle(document.documentElement);
+        const strip = (sel) => hex(getComputedStyle(document.querySelector(sel)).backgroundColor);
+        /* The rail's stripe covers the top strip; its gaps are where the strip shows. */
+        let gaps = null;
+        const rail = document.querySelector(".walk-rail");
+        if (rail && rail.getBoundingClientRect().top < 2) {
+          const segs = [...rail.querySelectorAll(".walk-seg")].map((s) => s.getBoundingClientRect()).sort((a, b) => a.left - b.left);
+          gaps = [];
+          for (let i = 1; i < segs.length; i++)
+            for (let x = Math.ceil(segs[i - 1].right); x < Math.floor(segs[i].left); x++) gaps.push(x);
+        }
+        return {
+          top: resolve(4, "top"),
+          bottom: resolve(innerHeight - 5, "bottom"),
+          tint: { top: root.getPropertyValue("--chrome-tint-top").trim(), bottom: root.getPropertyValue("--chrome-tint-bottom").trim() },
+          css: { top: strip(".chrome-tint-top"), bottom: strip(".chrome-tint-bottom") },
+          theme: document.querySelector('meta[name="theme-color"]').content,
+          gaps,
+        };
       });
-      for (const side of ["top", "bottom"])
-        faces.push({ vp: vp.name, route, y, side, painted: painted[side], art: dom[side].art, theme: dom.theme, d: dist(dom.theme, painted[side]) });
+      const painted = {
+        top: await band(buf, vp.width, 0, 2, dom.gaps),
+        bottom: await band(buf, vp.width, vp.height - 2, 2),
+      };
+      for (const side of ["top", "bottom"]) {
+        const want = dom[side].c;
+        const clear = want === "transparent";
+        const varOk = dom.tint[side] === want && (clear ? dom.css[side] === null : dom.css[side] === want);
+        const paintOk = clear || dist(want, painted[side]) <= TOL;
+        const metaOk = !clear && dist(dom.theme, want) <= TOL;
+        faces.push({ vp: vp.name, route, y, side, want, hook: dom[side].hook, clear, tint: dom.tint[side], painted: painted[side], theme: dom.theme, varOk, paintOk, metaOk });
+      }
     }
   }
   await ctx.close();
@@ -132,21 +218,24 @@ for (const f of faces) {
   if (!screens.has(k)) screens.set(k, []);
   screens.get(k).push(f);
 }
-let seamless = 0, artwork = 0, split = 0, bar = 0;
+let seamless = 0, hooked = 0, clear = 0, split = 0, bar = 0;
 const bars = [];
 for (const pair of screens.values())
   for (const f of pair) {
     const other = pair.find((o) => o !== f);
-    if (f.d <= TOL) seamless++;
-    else if (f.art) artwork++;                       // a painting owns the edge
-    else if (other && other.d <= TOL) split++;       // two grounds, one colour
-    else { bar++; bars.push(`  ${f.vp} ${f.route} y=${f.y} ${f.side}: page ${f.painted} vs chrome ${f.theme} — Δ${f.d}`); }
+    if (f.clear && f.varOk) clear++;                                   // a section asked for no colour
+    else if (f.varOk && f.paintOk && f.metaOk) { seamless++; if (f.hook) hooked++; }
+    else if (f.varOk && f.paintOk && other && other.metaOk) split++;   // two colours, the meta took the other
+    else {
+      bar++;
+      bars.push(`  ${f.vp} ${f.route} y=${f.y} ${f.side}: resolved ${f.want}${f.hook ? " (declared)" : ""} · strip var ${f.tint || "unset"} · painted ${f.painted} · meta ${f.theme}`);
+    }
   }
 console.log(`TINT — ${screens.size} screens × 2 bar faces = ${faces.length}`);
-console.log(`  seamless (the chrome IS the page)  ${seamless}`);
-console.log(`  over artwork (no flat colour can)  ${artwork}`);
-console.log(`  forced split (other edge seamless) ${split}`);
-console.log(`  A VISIBLE BAR                      ${bar}`);
+console.log(`  seamless (strip = resolved edge, meta agrees)   ${seamless}  (${hooked} from a declared edge colour)`);
+console.log(`  see-through (a section declared transparent)    ${clear}`);
+console.log(`  forced split (two colours; meta took the other) ${split}`);
+console.log(`  A VISIBLE BAR                                   ${bar}`);
 if (bar) { console.log(bars.join("\n")); failures += bar; }
 
 /* ── 2 · RETRACTION PRECONDITIONS ─────────────────────────────────────────── */

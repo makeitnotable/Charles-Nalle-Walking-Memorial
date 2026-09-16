@@ -1,0 +1,390 @@
+---
+/**
+ * /chrome-test — v14.2 (Wil, 9/16). The browser-bar proof sheet.
+ *
+ * No instrument in this container can see Safari's chrome: iOS paints its
+ * address bar and toolbar from a colour it reads at the page's edges, and
+ * headless Chromium has no bars at all. So this page puts the rule in front of
+ * Wil's phone. Three full-height panels — a flat cream ground; the Bakery
+ * painting under the hero's own scrim with the colour
+ * scripts/build-edge-colors.mjs sampled from its top edge declared on the
+ * section; and the same painting with both edges declared `transparent`
+ * (Safari's own fallback, which is what every hero did before v14.2) — plus a
+ * control cluster that changes what the page hands the browser: the fixed
+ * strips' height (2 / 8 / 24px), whether the root grounds (<html> AND <body> —
+ * Safari 26 was observed reading body first, then html) stay painted, and a
+ * loud theme-color that the sampler in Base.astro is locked out of
+ * (`data-chrome-tint-lock` on <html>) while it is on. The readout prints what
+ * the page is telling the browser right now: the two resolved strip colours,
+ * the meta, the strip height, and which panel owns each edge. What Wil
+ * reports from scrolling this settles the strip height and confirms the rule.
+ *
+ * Internal page — noIndex, noMenu, unlinked, like /styleguide. Every URL goes
+ * through withBase(); nothing here touches global.css; no animation. The
+ * static theme-color meta stays #1d1411 (head-check): the loud colour is set
+ * at runtime only.
+ */
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+import edge from "../data/edge-colors.json";
+
+/* The chapter hero's own art direction: the portrait poster below 768px, the
+   landscape one from 768px up — and the declared colour that matches each. */
+const media = (key: string, ext: string) => withBase(`media/bakery/${key}-poster-800.${ext}`);
+const EDGE_TOP = edge.bakery["reveal-vertical"];
+const EDGE_TOP_WIDE = edge.bakery["reveal-horizontal"];
+/* The hero scrim's terminal colour, the page ground: what #hero declares for its bottom edge. */
+const EDGE_BOTTOM = "#1d1411";
+/* The cream reading ground (--ground-light). */
+const CREAM = "#f6f3ee";
+const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
+---
+
+<Base
+  title="Chrome test · CNWM"
+  description="Internal proof sheet for the browser-bar tint. Not part of the memorial."
+  noMenu
+  noIndex
+>
+  <section
+    class="ct-panel ground-cream"
+    data-panel="1 · flat cream"
+    data-edge-top={CREAM}
+    data-edge-bottom={CREAM}
+    aria-labelledby="ct-h1"
+  >
+    <div class="ct-copy shell">
+      <p class="t-meta">Panel 1 of 3 · flat colour</p>
+      <h1 id="ct-h1" class="t-title mt-6">CREAM GROUND</h1>
+      <p class="t-meta-body ct-note mt-6">
+        Both edges declare <span class="ct-mono">{CREAM}</span>. While this panel fills the screen, the
+        browser’s bars above and below should read as this cream.
+      </p>
+      <p class="t-meta-body ct-note mt-3">
+        Scroll down through the three panels. The controls on the right change what the page hands the
+        browser; the readout shows what it is telling it right now.
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="ct-panel ct-art"
+    data-panel="2 · painting, declared colour"
+    data-edge-top={EDGE_TOP}
+    data-edge-top-wide={EDGE_TOP_WIDE}
+    data-edge-bottom={EDGE_BOTTOM}
+    aria-labelledby="ct-h2"
+  >
+    <picture>
+      <source media="(min-width: 768px)" type="image/avif" srcset={media("reveal-horizontal", "avif")} />
+      <source media="(min-width: 768px)" type="image/webp" srcset={media("reveal-horizontal", "webp")} />
+      <source type="image/avif" srcset={media("reveal-vertical", "avif")} />
+      <source type="image/webp" srcset={media("reveal-vertical", "webp")} />
+      <img
+        src={withBase("media/bakery/reveal-horizontal-poster.jpg")}
+        alt={alt}
+        class="ct-still"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    <div class="ct-scrim" aria-hidden="true"></div>
+    <div class="ct-copy ct-copy-bottom shell">
+      <p class="t-meta">Panel 2 of 3 · painting with a declared edge colour</p>
+      <h2 id="ct-h2" class="t-title mt-6">CONTINUE THE ARTWORK</h2>
+      <p class="t-meta-body ct-note mt-6">
+        The top edge declares <span class="ct-mono">{EDGE_TOP}</span> on phones and
+        <span class="ct-mono">{EDGE_TOP_WIDE}</span> from 768px — the painting’s top edge under the hero
+        scrim, sampled at build. The bottom edge declares <span class="ct-mono">{EDGE_BOTTOM}</span>, the
+        scrim’s terminal colour.
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="ct-panel ct-art"
+    data-panel="3 · painting, no colour"
+    data-edge-top="transparent"
+    data-edge-bottom="transparent"
+    aria-labelledby="ct-h3"
+  >
+    <picture>
+      <source media="(min-width: 768px)" type="image/avif" srcset={media("reveal-horizontal", "avif")} />
+      <source media="(min-width: 768px)" type="image/webp" srcset={media("reveal-horizontal", "webp")} />
+      <source type="image/avif" srcset={media("reveal-vertical", "avif")} />
+      <source type="image/webp" srcset={media("reveal-vertical", "webp")} />
+      <img
+        src={withBase("media/bakery/reveal-horizontal-poster.jpg")}
+        alt={alt}
+        class="ct-still"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    <div class="ct-scrim" aria-hidden="true"></div>
+    <div class="ct-copy ct-copy-bottom shell">
+      <p class="t-meta">Panel 3 of 3 · painting with no colour</p>
+      <h2 id="ct-h3" class="t-title mt-6">SAFARI’S OWN FALLBACK</h2>
+      <p class="t-meta-body ct-note mt-6">
+        Both edges declare <span class="ct-mono">transparent</span>: the strips paint nothing and the
+        browser is left to read the painting itself. This is what every hero did before v14.2.
+      </p>
+    </div>
+  </section>
+
+  <aside class="ct-controls" aria-label="Test controls">
+    <p class="t-meta" id="ct-h-height">Strip height</p>
+    <div class="ct-row" role="group" aria-labelledby="ct-h-height">
+      <button type="button" class="ct-btn" data-height="2" aria-pressed="true">2px</button>
+      <button type="button" class="ct-btn" data-height="8" aria-pressed="false">8px</button>
+      <button type="button" class="ct-btn" data-height="24" aria-pressed="false">24px</button>
+    </div>
+    <button type="button" class="ct-btn ct-wide" id="ct-root" aria-pressed="false">
+      html + body background: painted
+    </button>
+    <button type="button" class="ct-btn ct-wide" id="ct-loud" aria-pressed="false">Loud theme-color: off</button>
+    <dl class="ct-readout">
+      <div>
+        <dt>top strip</dt>
+        <dd><span class="ct-swatch" id="ct-sw-top"></span><span id="ct-v-top">—</span></dd>
+      </div>
+      <div>
+        <dt>bottom strip</dt>
+        <dd><span class="ct-swatch" id="ct-sw-bot"></span><span id="ct-v-bot">—</span></dd>
+      </div>
+      <div>
+        <dt>theme-color meta</dt>
+        <dd><span class="ct-swatch" id="ct-sw-meta"></span><span id="ct-v-meta">—</span></dd>
+      </div>
+      <div>
+        <dt>strip height</dt>
+        <dd id="ct-v-h">—</dd>
+      </div>
+      <div>
+        <dt>root grounds</dt>
+        <dd id="ct-v-root">—</dd>
+      </div>
+      <div>
+        <dt>at the top edge</dt>
+        <dd id="ct-v-ptop">—</dd>
+      </div>
+      <div>
+        <dt>at the bottom edge</dt>
+        <dd id="ct-v-pbot">—</dd>
+      </div>
+    </dl>
+  </aside>
+</Base>
+
+<style>
+  .ct-panel {
+    position: relative;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+  .ct-art {
+    background: var(--color-neutral-2);
+    color: var(--color-primary-12);
+  }
+  .ct-still {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* The chapter hero's own two scrims, byte for byte — so the only thing that
+     differs between panels 2 and 3 is what the strip is told. */
+  .ct-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to top, rgb(29, 20, 17) 0%, rgba(29, 20, 17, 0.8) 26%, rgba(29, 20, 17, 0.36) 48%, transparent 64%),
+      linear-gradient(to bottom, rgba(29, 20, 17, 0.55), transparent 18%);
+  }
+  .ct-copy {
+    position: relative;
+    padding-top: calc(var(--ui-inset) + 40px);
+    padding-bottom: 40px;
+    /* The copy stays out from under the fixed cluster (its width + a beat),
+       so every heading and note reads in full on a phone. */
+    padding-right: calc(min(40vw, 240px) + 36px);
+  }
+  .ct-copy-bottom {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding-top: 0;
+    padding-bottom: max(5dvh, 32px);
+    text-shadow:
+      0 1px 2px rgba(16, 10, 6, 0.9),
+      0 0 3px rgba(16, 10, 6, 0.7),
+      0 1px 14px rgba(16, 10, 6, 0.85);
+  }
+  .ct-note {
+    max-width: 46ch;
+  }
+  .ct-mono {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  /* The cluster sits at the right, vertically centred, and never wider than
+     40vw — so it never touches either edge the bars read, and the centre
+     column the sampler reads stays clear of it at every width. */
+  .ct-controls {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: min(40vw, 240px);
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border-radius: var(--r);
+    background: rgba(29, 20, 17, 0.92);
+    color: var(--color-primary-12);
+  }
+  .ct-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .ct-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid var(--color-primary-7);
+    background: var(--color-primary-3);
+    color: var(--color-primary-12);
+    font-family: var(--font-chrome);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+  .ct-wide {
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  .ct-btn[aria-pressed="true"] {
+    background: var(--color-primary-10);
+    border-color: var(--color-primary-10);
+    color: var(--color-primary-2);
+  }
+  .ct-btn:focus-visible {
+    outline: 2px solid var(--color-primary-9);
+    outline-offset: 2px;
+  }
+  .ct-readout {
+    display: grid;
+    gap: 6px;
+    margin: 4px 0 0;
+    font-family: var(--font-chrome);
+    font-size: 12px;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+  }
+  .ct-readout dt {
+    color: var(--color-gray-11);
+  }
+  .ct-readout dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .ct-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: -1px;
+    border-radius: 2px;
+    border: 1px solid rgba(254, 217, 204, 0.3);
+  }
+</style>
+
+<script>
+  const html = document.documentElement;
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])')!;
+  const strips = Array.from(document.querySelectorAll<HTMLElement>(".chrome-tint"));
+  const $ = (id: string) => document.getElementById(id)!;
+
+  /* Strip height — inline on both fixed strips (they live in Base.astro; this
+     page owns no global CSS). */
+  const heightButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-height]"));
+  const setHeight = (h: string) => {
+    for (const s of strips) s.style.height = `${h}px`;
+    for (const b of heightButtons) b.setAttribute("aria-pressed", String(b.dataset.height === h));
+    update();
+  };
+  for (const b of heightButtons) b.addEventListener("click", () => setHeight(b.dataset.height!));
+
+  /* Root grounds — html AND body, since Safari was observed reading body first. */
+  const rootBtn = $("ct-root") as HTMLButtonElement;
+  let rootClear = false;
+  rootBtn.addEventListener("click", () => {
+    rootClear = !rootClear;
+    html.style.background = rootClear ? "transparent" : "";
+    document.body.style.background = rootClear ? "transparent" : "";
+    rootBtn.setAttribute("aria-pressed", String(rootClear));
+    rootBtn.textContent = `html + body background: ${rootClear ? "transparent" : "painted"}`;
+    update();
+  });
+
+  /* Loud theme-color — the lock keeps the sampler off the meta; lifting it
+     re-samples (Base.astro watches the attribute) and restores the rule. */
+  const LOUD = "#ff2d55";
+  const loudBtn = $("ct-loud") as HTMLButtonElement;
+  let loud = false;
+  loudBtn.addEventListener("click", () => {
+    loud = !loud;
+    if (loud) {
+      html.dataset.chromeTintLock = "meta";
+      meta.setAttribute("content", LOUD);
+    } else {
+      delete html.dataset.chromeTintLock;
+    }
+    loudBtn.setAttribute("aria-pressed", String(loud));
+    loudBtn.textContent = `Loud theme-color: ${loud ? `on (${LOUD})` : "off"}`;
+    update();
+  });
+
+  /* The readout: what the page is telling the browser right now. */
+  const panelAt = (y: number) => {
+    const hit = document.elementsFromPoint((innerWidth / 2) | 0, y).find((e) => e.closest(".ct-panel"));
+    return hit ? hit.closest<HTMLElement>(".ct-panel")!.dataset.panel! : "—";
+  };
+  const show = (swatch: string, value: string, v: string) => {
+    $(swatch).style.background = v || "transparent";
+    $(value).textContent = v || "—";
+  };
+  let queued = false;
+  function update() {
+    queued = false;
+    show("ct-sw-top", "ct-v-top", html.style.getPropertyValue("--chrome-tint-top").trim());
+    show("ct-sw-bot", "ct-v-bot", html.style.getPropertyValue("--chrome-tint-bottom").trim());
+    show("ct-sw-meta", "ct-v-meta", meta.getAttribute("content") || "");
+    $("ct-v-h").textContent = strips.length ? getComputedStyle(strips[0]).height : "no strips";
+    $("ct-v-root").textContent = rootClear
+      ? "transparent (html + body)"
+      : `painted (${getComputedStyle(document.body).backgroundColor})`;
+    $("ct-v-ptop").textContent = panelAt(4);
+    $("ct-v-pbot").textContent = panelAt(innerHeight - 5);
+  }
+  const schedule = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+  addEventListener("scroll", schedule, { passive: true });
+  addEventListener("resize", schedule, { passive: true });
+  new MutationObserver(schedule).observe(html, { attributes: true, attributeFilter: ["style", "data-chrome-tint-lock"] });
+  new MutationObserver(schedule).observe(meta, { attributes: true, attributeFilter: ["content"] });
+  setHeight("2");
+</script>

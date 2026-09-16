@@ -103,17 +103,34 @@ const canonical = new URL(
          when they disagree the one that owns more of the centre line wins, so
          the tint follows the section actually filling the screen and a tie
          falls to the bottom — where iOS parks its address bar. Nothing here
-         reads a colour this stylesheet does not already paint; there is no new
-         palette value anywhere in it.
+         reads a colour this stylesheet does not already paint, with one
+         declared exception (v14.2, below): a section may state its own edge
+         colour in a `data-edge-*` attribute.
 
          The curtain needs no special case: while it covers, it is the only
          hit-testable thing on the screen (pointer-events flips to auto), so a
          page transition tints itself. No JS, or a browser that ignores
-         theme-color: the static meta above stands and nothing regresses. */
+         theme-color: the static meta above stands and nothing regresses.
+
+         v14.2 (Wil, 9/16: "continue the artwork"). Over a painting there is no
+         flat colour to read, and leaving the strip transparent there (v12) is
+         exactly where Safari painted its bars black. So a section that knows
+         what its edge should read now declares it: `data-edge-top` /
+         `data-edge-bottom` carry a #rrggbb — the heroes a colour sampled from
+         the canvas's own top edge at build (scripts/build-edge-colors.mjs →
+         src/data/edge-colors.json), the map its style's dark ground — and
+         `data-edge-top-wide` / `data-edge-bottom-wide` override it from 768px
+         up, where the landscape poster is a different crop. The nearest
+         declaring ancestor of whatever sits at the edge wins; otherwise the
+         section's ground decides, and a strip is never transparent again. The
+         literal value `transparent` is honoured so /chrome-test can show
+         Safari's own fallback beside the rule; anything else is ignored.
+         `data-chrome-tint-lock` on <html> (the test page's "loud theme-color"
+         toggle) keeps this script's hands off the meta while it is set. */
       (function () {
         var meta = document.querySelector('meta[name="theme-color"]:not([media])');
         if (!meta || !document.elementFromPoint) return;
-        var last = meta.getAttribute("content"), queued = false;
+        var queued = false;
 
         function hex(c) {
           var m = String(c).match(/[\d.]+/g);
@@ -129,20 +146,54 @@ const canonical = new URL(
           );
         }
         var ART = /^(img|video|canvas|svg|picture)$/;
-        /* Returns the flat ground behind a point, and whether a PICTURE is
-           covering it. An edge under a painting cannot be matched by any flat
-           colour, so when only one edge is clear that edge decides the tint. */
-        function groundAt(y) {
-          var el = document.elementFromPoint((window.innerWidth / 2) | 0, y);
+        var WIDE = "(min-width: 768px)";
+        /* v14.2: a declared edge colour is `#rrggbb` (lowercased) or the
+           literal `transparent`; anything else is ignored. */
+        function edgeValue(v) {
+          if (!v) return null;
+          v = String(v).trim().toLowerCase();
+          return v === "transparent" || /^#[0-9a-f]{6}$/.test(v) ? v : null;
+        }
+        /* The nearest ancestor-or-self of `el` declaring `data-edge-<side>`,
+           reading its `-wide` override first from 768px up. */
+        function edgeAttr(el, side) {
+          var host = el.closest && el.closest("[data-edge-" + side + "]");
+          if (!host) return null;
+          var wide = matchMedia(WIDE).matches
+            ? edgeValue(host.getAttribute("data-edge-" + side + "-wide"))
+            : null;
+          return wide || edgeValue(host.getAttribute("data-edge-" + side));
+        }
+        /* Returns the colour the bar at `side` should take behind the point
+           (w/2, y): the nearest declared edge colour, else the first flat
+           ground in paint order, else <html>. The whole stack under the point
+           is read (elementsFromPoint), not only the hit element's ancestors: a
+           fixed strip with no ground of its own must not hide the section
+           beneath it, while a covering panel — the curtain — still wins over
+           whatever it covers, because it is met first. `art` reports whether a
+           picture lies over the point (bleed-check reads it; the rule no
+           longer does). */
+        function groundAt(y, side) {
+          var x = (window.innerWidth / 2) | 0;
+          var stack = document.elementsFromPoint
+            ? document.elementsFromPoint(x, y)
+            : [document.elementFromPoint(x, y)];
           var art = false;
-          while (el && el !== document.documentElement) {
+          for (var i = 0; i < stack.length; i++) {
+            var el = stack[i];
+            if (!el || el === document.documentElement) break;
+            var declared = side ? edgeAttr(el, side) : null;
+            if (declared) return { c: declared, art: false, hook: true };
             var cs = getComputedStyle(el);
             if (ART.test(el.tagName.toLowerCase()) || cs.backgroundImage !== "none") art = true;
             var c = hex(cs.backgroundColor);
-            if (c) return { c: c, art: art };
-            el = el.parentElement;
+            if (c) return { c: c, art: art, hook: false };
           }
-          return { c: hex(getComputedStyle(document.documentElement).backgroundColor), art: art };
+          return { c: hex(getComputedStyle(document.documentElement).backgroundColor), art: art, hook: false };
+        }
+        /* A colour the meta can carry: a declared `transparent` cannot. */
+        function flat(g) {
+          return g && g.c && g.c !== "transparent" ? g.c : null;
         }
         function sample() {
           queued = false;
@@ -150,29 +201,27 @@ const canonical = new URL(
           if (!h) return;
           /* 4px in from each edge: the walk rail is a 3px hairline pinned to
              the top of every chapter page and it is not the page's ground. */
-          var top = groundAt(4), bottom = groundAt(h - 5);
-          var best = (bottom && bottom.c) || (top && top.c);
-          if (top && bottom && top.c && bottom.c && top.c !== bottom.c) {
-            if (top.art !== bottom.art) {
-              /* One edge is under a painting; the clear one is the only bar
-                 face a flat colour can ever meet. */
-              best = top.art ? bottom.c : top.c;
-            } else {
-              /* Two grounds share the screen. Whichever owns more of the centre
-                 line owns the page the visitor is reading; the other is on its
-                 way in or out. Ties keep `bottom`, where iOS parks its bar. */
-              var nTop = 0, nBottom = 0;
-              for (var f = 0.2; f < 0.81; f += 0.2) {
-                var g = groundAt((h * f) | 0);
-                if (!g || !g.c) continue;
-                if (g.c === top.c) nTop++;
-                else if (g.c === bottom.c) nBottom++;
-              }
-              best = nTop > nBottom ? top.c : bottom.c;
+          var top = groundAt(4, "top"), bottom = groundAt(h - 5, "bottom");
+          var best = flat(bottom) || flat(top);
+          if (flat(top) && flat(bottom) && top.c !== bottom.c) {
+            /* Two colours share the screen. Whichever owns more of the centre
+               line owns the page the visitor is reading; the other is on its
+               way in or out. A centre point is read as its section's TOP edge
+               first, so a hero that owns both edges resolves to its own
+               painting's colour — the top bar is the one Chrome for Android
+               paints from this meta. Ties keep `bottom`, where iOS parks its
+               bar. (v14.2: the old art-based tiebreak is gone — over artwork a
+               declared colour now stands in for the flat ground it never had.) */
+            var nTop = 0, nBottom = 0;
+            for (var f = 0.2; f < 0.81; f += 0.2) {
+              var y = (h * f) | 0;
+              if (groundAt(y, "top").c === top.c) nTop++;
+              else if (groundAt(y, "bottom").c === bottom.c) nBottom++;
             }
+            best = nTop > nBottom ? top.c : bottom.c;
           }
-          if (best && best !== last) {
-            last = best;
+          var docEl = document.documentElement;
+          if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
           }
           /* v12 item 17 (Wil, 8/26: "not fixed, it's still dark brown or
@@ -188,11 +237,13 @@ const canonical = new URL(
              would repaint half the site. What Safari can be given instead is a
              pair of hairlines pinned to the edges whose colour is the ground
              already there — invisible by construction, and exactly the surface
-             its new rule looks for. Under artwork no flat colour can match, so
-             the strip goes transparent and Safari falls back as it does today. */
-          var docEl = document.documentElement;
-          docEl.style.setProperty("--chrome-tint-top", top && top.c && !top.art ? top.c : "transparent");
-          docEl.style.setProperty("--chrome-tint-bottom", bottom && bottom.c && !bottom.art ? bottom.c : "transparent");
+             its new rule looks for.
+             v14.2: under artwork the strip used to go transparent, and Safari's
+             fallback there is black. Now it takes the edge's resolved colour —
+             the declared one over a hero or the map, the section's ground
+             elsewhere — and is transparent only where a section says so. */
+          docEl.style.setProperty("--chrome-tint-top", (top && top.c) || "transparent");
+          docEl.style.setProperty("--chrome-tint-bottom", (bottom && bottom.c) || "transparent");
         }
         function schedule() {
           if (queued) return;
@@ -204,14 +255,29 @@ const canonical = new URL(
         addEventListener("orientationchange", schedule, { passive: true });
         addEventListener("pageshow", schedule);
         addEventListener("load", schedule);
+        /* v14.2: what sits under an edge can move without a scroll. A
+           scroll-reveal translates its element 24px over 1.6s — measured at
+           360×800 on /barbershop, the framed Onward map (#341a11) rising into
+           the top edge left the strip on the page ground behind it until the
+           next scroll. The settled state is sampled again when any transition
+           or animation ends; `queued` caps the work at one sample per frame. */
+        addEventListener("transitionend", schedule, { capture: true, passive: true });
+        addEventListener("animationend", schedule, { capture: true, passive: true });
         if (document.readyState === "loading")
           addEventListener("DOMContentLoaded", schedule, { once: true });
         else schedule();
         /* The curtain covers and uncovers without a scroll, so watch the flag
-           the transition sets rather than waiting for one. */
+           the transition sets rather than waiting for one. v14.2: the test
+           page's meta lock is released the same way — re-sample when it lifts.
+           And `subtree`: a class flip anywhere can change what is hit-testable
+           at an edge with no scroll of its own (a `hidden` toggled on a panel,
+           a state class on a stage, a reveal's `is-in` starting its rise), so
+           class flips anywhere re-sample too; the transition that follows is
+           caught by `transitionend` above. */
         new MutationObserver(schedule).observe(document.documentElement, {
           attributes: true,
-          attributeFilter: ["class"],
+          attributeFilter: ["class", "data-chrome-tint-lock"],
+          subtree: true,
         });
       })();
     </script>
@@ -343,6 +409,48 @@ const canonical = new URL(
         return typeof conn.downlink === "number" && conn.downlink > 0 && conn.downlink < 3;
       };
       if (lazyVids.length) {
+        /* v14.2 (Wil, 9/16): the films that would not play, the play glyph
+           and the soft hero still are iOS Low Power Mode ("I turned off Low
+           Power Mode and everything worked as normal"). There play() rejects,
+           and until now the rejection was swallowed with the <video> left
+           mounted over the still: WebKit draws its play button on a frozen
+           first frame, and the still beneath it was the 480px tier, which at
+           DPR 3 is what read as low resolution. Wil's decision: PLAY ON FIRST
+           TAP. A rejected film is taken out of the box (inline display:none —
+           no box, no glyph; inline beats `md:block`), the sibling <picture>'s
+           480px sources are removed so the <img> re-selects the 800px still (a
+           spec-defined relevant mutation: source selection re-runs with no
+           blank frame; the preload links are untouched), and ONE retry is
+           armed on the window for the next tap or key. `pointerup`, because a
+           pan ends in `pointercancel` — a scroll never spends the retry — and
+           Escape is excluded because the spec excludes it from user
+           activation. The retry starts every pending film synchronously inside
+           the gesture and un-hides each only once its play() resolves. A film
+           that carries a poster (the ch2 archival strip) is exempt: there
+           WebKit's own tap-to-play over the poster is the right behaviour. */
+        const pending = new Set<HTMLVideoElement>();
+        let armed = false;
+        const retry = (e: Event) => {
+          if (e.type === "keydown" && (e as KeyboardEvent).key === "Escape") return;
+          window.removeEventListener("pointerup", retry, true);
+          window.removeEventListener("keydown", retry, true);
+          armed = false;
+          const films = [...pending];
+          pending.clear();
+          for (const v of films) v.play().then(() => v.style.removeProperty("display")).catch(() => {});
+        };
+        const deferred = (v: HTMLVideoElement) => {
+          if (v.poster) return;
+          v.style.display = "none";
+          v.parentElement
+            ?.querySelectorAll('picture > source[media="(max-width: 480px)"]')
+            .forEach((s) => s.remove());
+          pending.add(v);
+          if (armed) return;
+          armed = true;
+          window.addEventListener("pointerup", retry, true);
+          window.addEventListener("keydown", retry, true);
+        };
         const load = (v: HTMLVideoElement) => {
           // `data-reduce-static` marks a film whose poster IS the finished
           // artwork — under reduced motion, or on a thin pipe, we never attach
@@ -354,7 +462,7 @@ const canonical = new URL(
             // archival still on the chapter path alone).
             if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster;
             v.src = v.dataset.src;
-            v.play().catch(() => {});
+            v.play().catch(() => deferred(v));
           }
         };
         // Films never race the first paint: start after the window load event
