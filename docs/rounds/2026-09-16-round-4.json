@@ -1,0 +1,51 @@
+{
+  "round": 4,
+  "date": "2026-09-16",
+  "plan": "docs/rounds/2026-09-16-round-4-plan.md",
+  "base": {
+    "tag": "client-round-4-base",
+    "commit": "b0d7c30994bb48aa6dc9e8a598b74e445bbaa305",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/styles/global.css",
+    "src/layouts/Base.astro",
+    "src/pages/index.astro",
+    "src/pages/[chapter].astro",
+    "src/pages/map.astro",
+    "src/pages/paintings.astro",
+    "src/pages/about.astro",
+    "src/pages/people.astro",
+    "src/pages/404.astro",
+    "src/pages/styleguide.astro",
+    "src/pages/chrome-test.astro",
+    "src/components/TroyMap.tsx",
+    "src/components/Museum.tsx",
+    "src/components/AudioStory.tsx",
+    "src/components/Menu.astro",
+    "src/components/SiteFooter.astro",
+    "scripts/bleed-check.mjs",
+    "scripts/hall-stress.mjs",
+    "scripts/museum-check.mjs",
+    "scripts/walk-check.mjs",
+    "docs/rounds/2026-09-16-round-4-plan.md",
+    "docs/rounds/2026-09-16-round-4.json",
+    "docs/qa/baseline/*.png"
+  ],
+  "snap": {
+    "allowedRoutes": [
+      "/",
+      "/bakery",
+      "/commissioners-office",
+      "/mansion",
+      "/ferry",
+      "/barbershop",
+      "/map",
+      "/people",
+      "/paintings",
+      "/about",
+      "/404"
+    ]
+  },
+  "notes": "Base b0d7c30 is the v2 tip (round 3, live as Actions run 223), so the base branch IS v2 and no separate claude/client-round-4-base branch was pushed; the tag exists locally only. Every route is in snap.allowedRoutes because item 8 (button weight + Title Case) and item 6 (the chrome strips) touch every page. Instrument scripts are listed for assertion updates only."
+}
