@@ -1141,7 +1141,7 @@ h3 {
 }
 .map-shell {
   position: relative;
-  height: 100lvh; /* v14.1: under the browser's bottom bar — see --cnwm-bar */
+  height: 100dvh;
   width: 100%;
   /* v9 V9-301: while the GL canvas is sizing (and as iOS toolbars slide, which
      changes dvh mid-gesture) the uncovered strip must read as the page, not as
@@ -1263,11 +1263,6 @@ h3 {
 .mapboxgl-ctrl-top-left,
 .mapboxgl-ctrl-top-right {
   padding: var(--ui-inset);
-}
-/* v14.1: the shell runs under the browser's bottom bar; the (i) lifts above it. */
-.mapboxgl-ctrl-bottom-left,
-.mapboxgl-ctrl-bottom-right {
-  padding-bottom: calc(var(--ui-inset) + var(--cnwm-bar));
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
@@ -1559,18 +1554,18 @@ h3 {
    requirement — rides just above the strip. Card heights 128/160/192. */
 .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
 .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-  padding-bottom: calc(var(--ui-inset) + 136px + var(--cnwm-bar));
+  padding-bottom: calc(var(--ui-inset) + 136px);
 }
 @media (min-width: 640px) {
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-    padding-bottom: calc(var(--ui-inset) + 168px + var(--cnwm-bar));
+    padding-bottom: calc(var(--ui-inset) + 168px);
   }
 }
 @media (min-width: 1024px) {
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-    padding-bottom: calc(var(--ui-inset) + 200px + var(--cnwm-bar));
+    padding-bottom: calc(var(--ui-inset) + 200px);
   }
 }
 /* v8 V8-203 tucked the phone's (i) beside a bottom-right ☰ (+84px of right
@@ -1726,25 +1721,6 @@ a.walk-seg:hover {
  * read the literal string "max(40px, 0px, …)", got NaN, and silently fallen
  * back to 20px at every width. Registered as a <length> it computes to a
  * resolved length and those four readers keep working. */
-/* v14.1 (Wil, 9/15: the JetBlue reference — "a full bleed look with a
-   transparent toolbar that shows the content behind"). On iOS 26 the bars are
-   glass over whatever the DOCUMENT draws beneath them; a box sized in `dvh`
-   stops at the toolbar's top edge, so what showed through was the next
-   section's flat ground. `--cnwm-bar` is the retractable chrome's height:
-   the large viewport minus the dynamic one — ~90px on an iPhone with its bars
-   out, 0 once they collapse, and 0 on every desktop. Full-bleed stages take
-   `100lvh` (they run under the glass and, being large-viewport sized, no
-   longer resize as the bars move), and every bottom-anchored control or
-   lockup adds this token so nothing sits under the bar. Registered as a
-   <length> because TroyMap reads it with parseFloat. */
-@property --cnwm-bar {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
-:root {
-  --cnwm-bar: max(0px, calc(100lvh - 100dvh));
-}
 @property --ui-inset {
   syntax: "<length>";
   inherits: true;

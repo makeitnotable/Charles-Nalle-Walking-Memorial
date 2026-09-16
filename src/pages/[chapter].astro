@@ -37,6 +37,7 @@ import { fitChars, nbsp } from "../lib/text";
 import sharp from "sharp";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import edge from "../data/edge-colors.json";
 
 export async function getStaticPaths() {
   const chapters = await getCollection("chapters");
@@ -251,6 +252,14 @@ const sceneHeading = (label: string, index: number) => {
 const hKey = c.scenes[0].reveal?.video ?? "reveal-horizontal";
 const vKey = c.scenes[0].reveal?.videoVertical ?? "reveal-vertical";
 const poster = (key: string, ext: string) => withBase(`media/${slug}/${key}-poster-800.${ext}`);
+/* v14.2 (Wil, 9/16): the browser's bars continue the painting. Each hero
+   carries `data-edge-top` (portrait poster) / `data-edge-top-wide` (landscape,
+   from 768) and `data-edge-bottom` (the scrim's terminal #1d1411) for the edge
+   sampler in Base.astro. The colours are built from the posters' top band by
+   scripts/build-edge-colors.mjs → src/data/edge-colors.json; a key with no
+   colour renders no attribute. */
+const edgeColors = (edge as Record<string, Record<string, string>>)[slug] ?? {};
+const edgeOf = (key: string | undefined): string | undefined => (key ? edgeColors[key] : undefined);
 const heroAlt = `“${c.name.canonical}”, painting by Mark Priest`;
 /* v7 C7: one focus per orientation; the portrait <video> finally gets the same
    object-position as its poster (it had none). */
@@ -279,10 +288,13 @@ const focus =
       which is what the QR filmstrip measures at t=1s. "Scroll to listen" is
       gone (item 25) — the story begins by scrolling, and the page says so by
       being a page. */}
-  {/* v14.1 (Wil, 9/15): `h-lvh` — the painting runs under the browser's glass
-      bottom bar (the JetBlue reference); the lockup adds --cnwm-bar to its
-      inset so it stays above the bar and settles as the bars collapse. */}
-  <header id="hero" class="relative h-lvh overflow-hidden bg-neutral-2">
+  <header
+    id="hero"
+    class="relative h-dvh overflow-hidden bg-neutral-2"
+    data-edge-top={edgeOf(vKey)}
+    data-edge-top-wide={edgeOf(hKey)}
+    data-edge-bottom="#1d1411"
+  >
     <div id="hero-media" class="absolute inset-0" style={`--hero-lift: ${focus.portraitScale}`}>
       {/* The still painting — the LCP, responsive and art-directed. The 480
           tier halves the poster bytes on the QR phone (31KB vs 66KB). */}
@@ -351,7 +363,7 @@ const focus =
     </div>
 
     <div class="absolute inset-x-0 bottom-0">
-      <div class="shell pb-[calc(max(5dvh,32px)+var(--cnwm-bar))]">
+      <div class="shell pb-[max(5dvh,32px)]">
         <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
@@ -397,9 +409,12 @@ const focus =
             `pb-[max(5dvh,32px)]` lockup inset as #hero, unchanged. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="sec relative h-lvh overflow-hidden bg-neutral-2"
+            class="sec relative h-dvh overflow-hidden bg-neutral-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
+            data-edge-top={edgeOf(c.scenes[b.i].reveal!.videoVertical)}
+            data-edge-top-wide={edgeOf(c.scenes[b.i].reveal!.video)}
+            data-edge-bottom="#1d1411"
           >
             <picture>
               <source
@@ -448,7 +463,7 @@ const focus =
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
-              <div class="shell pb-[calc(max(5dvh,32px)+var(--cnwm-bar))]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
+              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
                 <p class="t-meta">Location {pad2(c.order)} · continued</p>
                 {/* v11 item 3 (Wil, 8/22): "maybe we should size it up to the
                     next level in our type ramp/scale, figure out what looks

@@ -46,7 +46,11 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   {/* The shell is server-rendered at full height so island hydration causes
       zero layout shift; the island fills it. */}
-  <div class="map-shell">
+  {/* v14.2 (Wil, 9/16): the browser's bars continue the map — `data-edge-*`
+      is the style's own ground, #353535, the mode colour of the rendered
+      canvas (docs/qa/phase3/map--1440.png and the phase23/phase6 renders agree)
+      for the edge sampler in Base.astro. */}
+  <div class="map-shell" data-edge-top="#353535" data-edge-bottom="#353535">
     <div id="map-placeholder" class="absolute inset-0 grid place-items-center" aria-hidden="true">
       <p class="t-meta">The map is loading…</p>
     </div>

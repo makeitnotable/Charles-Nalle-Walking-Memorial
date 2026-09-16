@@ -20,10 +20,7 @@ import { withBase } from "../lib/url";
 >
   {/* Items 3–4: no menu on the title card; the frame runs nearly full-bleed
       (was p-4/p-12 — a picture on a wall, not a doorway). */}
-  {/* v14.1 (Wil, 9/15): lvh — the frame runs under the browser's glass
-      bottom bar; the stack's bottom inset adds --cnwm-bar so the CTA stays
-      above it (global.css). */}
-  <div class="h-lvh p-2.5 md:p-5">
+  <div class="h-dvh p-2.5 md:p-5">
     <div class="relative flex h-full flex-col items-center justify-between">
       <!-- The photo frame: film plays inside it, treated like the approved still -->
       <div
@@ -195,7 +192,7 @@ import { withBase } from "../lib/url";
     --home-air: clamp(190px, 37dvh, 420px);
     --home-gap: clamp(20px, 4vh, 44px);
     gap: var(--home-gap);
-    padding-bottom: calc(16px + var(--cnwm-bar));
+    padding-bottom: 16px;
   }
   .home-stack::before {
     content: "";
@@ -212,7 +209,7 @@ import { withBase } from "../lib/url";
       --home-air: clamp(150px, 30dvh, 320px);
       /* V10-13: the bottom inset yields too, so the last 24px of a short frame
          is never spent on air the lockup needs. */
-      padding-bottom: calc(clamp(16px, 4dvh, 40px) + var(--cnwm-bar));
+      padding-bottom: clamp(16px, 4dvh, 40px);
     }
   }
   /* v8 V8-103 (Wil, 00:35:22) — portrait tablets used to fall through every
@@ -341,17 +338,19 @@ import { withBase } from "../lib/url";
      the CTA can never leave the frame. The bottom inset is set against the
      16px side inset: 24px on phones, 32px from 768, never under the home
      indicator. Below 1024, the site's desktop line; desktop is unchanged. */
+  /* v14.2 (Wil, 9/16): the CTA's bottom inset steps up to 56px on phones and
+     64px on 768–1023 (was 24/32); the air spacer above absorbs the difference. */
   @media (max-width: 1023px) {
     .home-cta {
       margin-top: auto;
     }
     .home-stack {
-      padding-bottom: calc(max(24px, env(safe-area-inset-bottom, 0px)) + var(--cnwm-bar));
+      padding-bottom: max(56px, env(safe-area-inset-bottom, 0px));
     }
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     .home-stack {
-      padding-bottom: calc(max(32px, env(safe-area-inset-bottom, 0px)) + var(--cnwm-bar));
+      padding-bottom: max(64px, env(safe-area-inset-bottom, 0px));
     }
   }
   /* The landscape-phone tier above stays centred: at 844×390 the lockup
@@ -362,7 +361,7 @@ import { withBase } from "../lib/url";
       margin-top: 0;
     }
     .home-stack {
-      padding-bottom: calc(16px + var(--cnwm-bar));
+      padding-bottom: 16px;
     }
   }
   /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
