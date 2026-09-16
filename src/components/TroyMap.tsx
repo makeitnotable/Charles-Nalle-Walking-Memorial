@@ -1775,7 +1775,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               className="btn-sm btn-ghost mt-6"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
             >
-              Back to Today
+              Back to today
             </button>
           )}
         </figure>
@@ -1828,7 +1828,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
             <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
           </svg>
-          <span>Back<span className="hidden sm:inline"> to Map</span></span>
+          <span>Back<span className="hidden sm:inline"> to map</span></span>
         </button>
       )}
 
@@ -1844,8 +1844,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           }
           className="btn-sm btn-solid absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-30"
         >
-          {/* v14.3 (Wil, 9/16): labels are authored in Title Case — .btn no longer uppercases. */}
-          {walk === "walking" ? "Stop the Walk" : walk === "done" ? "Walk Again" : "Continue"}
+          {walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again" : "Continue"}
         </button>
       )}
 
@@ -1885,7 +1884,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           </div>
           <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] sm:bottom-[calc(var(--ui-inset)+12px)]">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
-              Take the Walk
+              Take the walk
             </button>
           </div>
           <span className="absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 inline-flex">

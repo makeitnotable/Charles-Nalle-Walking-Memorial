@@ -829,13 +829,15 @@ h3 {
   gap: 0.5em;
   font-family: var(--font-chrome);
   /* v14.2 (Wil, 9/16) took this to 700 — LC Text ships 400 and 700, no 500.
-     v14.3 (Wil, 9/16): "too heavy and thick" — back to the original 400. */
+     v14.3 (Wil, 9/16): "too heavy and thick" — back to the original 400.
+     v14.4 (Wil, 9/16): "the original font weight … I do not like the heavier
+     weight" — 400 stands. */
   font-weight: 400;
   letter-spacing: 0.08em;
-  /* v14.3 (Wil, 9/16): labels read as authored — Title Case, "Take the Walk"
-     not "TAKE THE WALK". `none`, not a removed line: text-transform inherits,
-     so a button inside an uppercase parent must still opt out. */
-  text-transform: none;
+  /* v14.3 (Wil, 9/16) tried Title Case as authored. v14.4 (Wil, 9/16):
+     "revert all button text to the original styling: ALL CAPS" — the
+     original rule, and every label is authored in sentence case again. */
+  text-transform: uppercase;
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;
@@ -1862,8 +1864,16 @@ a.walk-seg:hover {
      `sheetTravel()` counts it (Museum.tsx), so peek shows the whole stroke
      above the header. REVERT: `border: 0` here, and those two.
      Tablet + mobile only by construction — the sheet exists only there; the
-     desktop/landscape `.museum-card` below stays borderless. */
-  border: 1px solid var(--color-primary-6);
+     desktop/landscape `.museum-card` below stays borderless.
+     v14.4 (Wil, 9/16): "change the drawer border/stroke colour to match the
+     horizontal divider line … that separates the painting title from the
+     artist study section (use that divider line colour exactly)". That line
+     is `.museum-study`'s `border-primary-7/60` (Museum.tsx StudyNote), which
+     Tailwind emits as the color-mix below with the hex as its fallback — the
+     same two declarations, so the stroke and the divider are one colour on
+     every engine. REVERT: `var(--color-primary-6)`. */
+  border: 1px solid #80412b99;
+  border-color: color-mix(in oklab, var(--color-primary-7) 60%, transparent);
   border-bottom: 0;
   /* v14.2 (Wil, 9/16) took the radius to the site's large step, `--r-lg`
      (24px). v14.3 (Wil, 9/16): "increase the drawer's corner radius" — 32px,

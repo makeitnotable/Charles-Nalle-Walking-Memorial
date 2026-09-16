@@ -2326,8 +2326,7 @@ export default function Museum({ works, slotId }: Props) {
               }}
               aria-label="Skip the hall"
             >
-              {/* v14.3 (Wil, 9/16): labels are authored in Title Case — .btn no longer uppercases. */}
-              <span className="hidden sm:inline">Skip the Hall</span>
+              <span className="hidden sm:inline">Skip the hall</span>
               <span className="sm:hidden">Skip</span>
               <svg className="icon icon-sm icon-filled" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
@@ -2351,7 +2350,7 @@ export default function Museum({ works, slotId }: Props) {
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)", background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
             onClick={() => api.current?.approach(null)}
           >
-            Back to the Hall
+            Back to the hall
           </button>
         )}
 
@@ -2405,7 +2404,7 @@ export default function Museum({ works, slotId }: Props) {
               <div className="mt-5">
                 {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
                 <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
-                  Back to the Hall
+                  Back to the hall
                 </button>
               </div>
             </div>
@@ -2523,7 +2522,7 @@ export default function Museum({ works, slotId }: Props) {
 
         {/* Dot rail — every mode; fades out while a painting is open.
             v14.2 (Wil, 9/16): ONE bottom-centre column at every breakpoint,
-            top → bottom: Face forward (only while looked away) · 16px · dots
+            top → bottom: Face forward (only while looked away) · 24px · dots
             · 16px · counter. The wrapper carries the rail's resting offset
             and is `pointer-events-none` — its box would otherwise stand over
             the plaque header in approach — so each child opts back in.
@@ -2531,10 +2530,14 @@ export default function Museum({ works, slotId }: Props) {
             — "increase the vertical spacing above and below the indicator
             dots slightly … room to breathe, but avoid creating a large gap".
             The column's bottom offset does not move. REVERT: `gap-3` here and
-            on the <nav> below. */}
+            on the <nav> below.
+            v14.4 (Wil, 9/16): "increase the vertical spacing between the
+            bottom of the Face Forward button and the top of the indicator
+            dots" — this wrapper's gap alone goes 16 → 24 (`gap-6`, `--sp-3`);
+            the dots ↔ counter gap on the <nav> stays 16. REVERT: `gap-4`. */}
         {ready && (
           <div
-            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-4"
+            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-6"
             style={{
               /* v12 (Wil, 8/26): one resting offset, always set inline, and it
                  is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
@@ -2559,7 +2562,7 @@ export default function Museum({ works, slotId }: Props) {
                 style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
                 onClick={() => api.current?.recenter()}
               >
-                Face Forward
+                Face forward
               </button>
             )}
             <nav

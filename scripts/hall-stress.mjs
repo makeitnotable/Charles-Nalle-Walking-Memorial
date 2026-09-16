@@ -158,7 +158,7 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
   // v13-10b · Face forward was right-aligned on Skip's axis (<=767).
   // v14.2 (Wil, 9/16): it stands directly ABOVE the dot rail, centred on it,
   // 12px up (the column's gap-3) — v14.3 (Wil, 9/16): 16px, the column's
-  // gap-4 — at EVERY viewport — outside the <nav>
+  // gap-4 — v14.4 (Wil, 9/16): 24px, gap-6 — at EVERY viewport — outside the <nav>
   // landmark, and never touching Skip.
   {
     const ff = await page.evaluate(async () => {
@@ -175,7 +175,7 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
       const hitsSkip = Math.min(r.right, skip.right) - Math.max(r.left, skip.left) > 0 && Math.min(r.bottom, skip.bottom) - Math.max(r.top, skip.top) > 0;
       return { instances: btns.length, gap: +(o.top - r.bottom).toFixed(2), dcx: +(cx(r) - cx(o)).toFixed(2), inNav: nav.contains(btns[0]), hitsSkip };
     }).catch((e) => ({ error: String(e).slice(0, 90) }));
-    recV(vp.n, "Face forward above the dots", !ff.error && Math.abs(ff.gap - 16) < 1 && Math.abs(ff.dcx) < 1 && !ff.inNav && !ff.hitsSkip, JSON.stringify(ff));
+    recV(vp.n, "Face forward above the dots", !ff.error && Math.abs(ff.gap - 24) < 1 && Math.abs(ff.dcx) < 1 && !ff.inNav && !ff.hitsSkip, JSON.stringify(ff));
     await page.evaluate(() => window.__museum.recenter());
     await page.waitForTimeout(400);
   }

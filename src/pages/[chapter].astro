@@ -827,8 +827,7 @@ const focus =
                   external
                   href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
                 >
-                  {/* v14.3 (Wil, 9/16): Title Case as authored — .btn no longer uppercases. */}
-                  Get Directions
+                  Get directions
                 </Button>
               )
             }
@@ -989,8 +988,7 @@ const focus =
     );
     document.querySelectorAll(".reveal, .reveal-quote, .lines, .wipe").forEach((el) => io.observe(el));
 
-    // Share: native share sheet, clipboard fallback. v14.3 (Wil, 9/16): the
-    // copied state is a button label too — Title Case, since .btn no longer uppercases.
+    // Share: native share sheet, clipboard fallback.
     document.getElementById("share-btn")?.addEventListener("click", async () => {
       const data = { title: document.title, url: location.href };
       try {
@@ -998,7 +996,7 @@ const focus =
         else {
           await navigator.clipboard.writeText(location.href);
           const b = document.getElementById("share-btn");
-          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link Copied";
+          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link copied";
         }
       } catch {
         /* user dismissed */
