@@ -996,7 +996,12 @@ const focus =
         else {
           await navigator.clipboard.writeText(location.href);
           const b = document.getElementById("share-btn");
-          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link copied";
+          /* v14.5 (Wil, 9/16): the copied state never showed. The button is
+             `Share` + a trailing <svg> icon (Button.astro, icon-end), so the
+             LAST child node is the icon — the text landed inside the SVG,
+             unrendered, and wiped its paths. Write to the label's text node. */
+          const label = b && [...b.childNodes].find((n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+          if (label) label.textContent = "Link copied";
         }
       } catch {
         /* user dismissed */
