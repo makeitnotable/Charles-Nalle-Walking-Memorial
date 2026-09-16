@@ -175,7 +175,13 @@ export default function Museum({ works, slotId }: Props) {
   const sheetTravel = () => {
     const el = sheetRef.current;
     const head = sheetHeadRef.current;
-    return el && head ? Math.max(1, el.offsetHeight - head.offsetHeight) : 1;
+    /* v14.3 (Wil, 9/16): the sheet wears its 1px top stroke again, and
+       `offsetHeight` counts it — travel is the height BELOW the header, so
+       the stroke (`clientTop`) stays above the fold with it. Without this the
+       header's last pixel slid under the stage edge in peek and the title's
+       bottom air missed the inset on a portrait tablet. REVERT with the
+       border: drop `- el.clientTop`. */
+    return el && head ? Math.max(1, el.offsetHeight - el.clientTop - head.offsetHeight) : 1;
   };
   const applySheet = (pos: number, animate: boolean) => {
     const el = sheetRef.current;
@@ -2320,7 +2326,8 @@ export default function Museum({ works, slotId }: Props) {
               }}
               aria-label="Skip the hall"
             >
-              <span className="hidden sm:inline">Skip the hall</span>
+              {/* v14.3 (Wil, 9/16): labels are authored in Title Case — .btn no longer uppercases. */}
+              <span className="hidden sm:inline">Skip the Hall</span>
               <span className="sm:hidden">Skip</span>
               <svg className="icon icon-sm icon-filled" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
@@ -2344,7 +2351,7 @@ export default function Museum({ works, slotId }: Props) {
             style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)", background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
             onClick={() => api.current?.approach(null)}
           >
-            Back to the hall
+            Back to the Hall
           </button>
         )}
 
@@ -2398,7 +2405,7 @@ export default function Museum({ works, slotId }: Props) {
               <div className="mt-5">
                 {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
                 <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
-                  Back to the hall
+                  Back to the Hall
                 </button>
               </div>
             </div>
@@ -2496,9 +2503,12 @@ export default function Museum({ works, slotId }: Props) {
                  publishes its own height to `--cnwm-sheet-head` — so the body
                  gets exactly the sheet's 55dvh cap minus the header, in either
                  state and at any inset. v14 E12: the `- 1px` that paid for the
-                 sheet's top border went with the border. Fallback is the
+                 sheet's top border went with the border. v14.3 (Wil, 9/16):
+                 the stroke is back (`.museum-sheet`, global.css) and so is the
+                 1px — the 55dvh cap is border-box, so without it the body
+                 would overflow the cap by the stroke. Fallback is the
                  phone's header (one height in both states since v14 E8). */
-              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 156px))" }}
+              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 156px) - 1px)" }}
             >
               {plaque.line && (
                 <figure>
@@ -2513,13 +2523,18 @@ export default function Museum({ works, slotId }: Props) {
 
         {/* Dot rail — every mode; fades out while a painting is open.
             v14.2 (Wil, 9/16): ONE bottom-centre column at every breakpoint,
-            top → bottom: Face forward (only while looked away) · 12px · dots
-            · 12px · counter. The wrapper carries the rail's resting offset
+            top → bottom: Face forward (only while looked away) · 16px · dots
+            · 16px · counter. The wrapper carries the rail's resting offset
             and is `pointer-events-none` — its box would otherwise stand over
-            the plaque header in approach — so each child opts back in. */}
+            the plaque header in approach — so each child opts back in.
+            v14.3 (Wil, 9/16): both gaps 12 → 16 (`gap-4`, the `--sp-2` step)
+            — "increase the vertical spacing above and below the indicator
+            dots slightly … room to breathe, but avoid creating a large gap".
+            The column's bottom offset does not move. REVERT: `gap-3` here and
+            on the <nav> below. */}
         {ready && (
           <div
-            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3"
+            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-4"
             style={{
               /* v12 (Wil, 8/26): one resting offset, always set inline, and it
                  is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
@@ -2544,7 +2559,7 @@ export default function Museum({ works, slotId }: Props) {
                 style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
                 onClick={() => api.current?.recenter()}
               >
-                Face forward
+                Face Forward
               </button>
             )}
             <nav
@@ -2556,8 +2571,10 @@ export default function Museum({ works, slotId }: Props) {
                  v14 E16 (Wil): gap-3 — 12px between the counter and the dots,
                  up from 8 ("a small amount, not dramatic").
                  v14.2 (Wil, 9/16): the counter sits BELOW the dots, still on
-                 their centre line, still 12px away. */
-              className="pointer-events-auto flex flex-col items-center gap-3"
+                 their centre line, still 12px away.
+                 v14.3 (Wil, 9/16): 16px (`gap-4`), with the column's gap
+                 above the dots — see the wrapper's note. REVERT: `gap-3`. */
+              className="pointer-events-auto flex flex-col items-center gap-4"
               style={{
                 /* …and while a painting is open the rail is not wanted at all:
                    "the indicator dots can and should however disappear when

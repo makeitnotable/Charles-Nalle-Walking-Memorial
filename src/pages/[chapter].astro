@@ -283,14 +283,32 @@ const focus =
   {/* ══════ HERO — the finished animated painting, FULL-BLEED (items 2/16) ══════
       The painting owns every pixel of the fold; the lockup sits over its base
       on the house scrim. No frame, no letterbox strip, no fold arithmetic —
-      the hero IS 100dvh, so F2 holds by construction. The kicker and name are
-      plain text over a CSS gradient: they paint before any image byte arrives,
-      which is what the QR filmstrip measures at t=1s. "Scroll to listen" is
-      gone (item 25) — the story begins by scrolling, and the page says so by
-      being a page. */}
+      the hero IS one viewport tall, so F2 holds by construction. The kicker
+      and name are plain text over a CSS gradient: they paint before any image
+      byte arrives, which is what the QR filmstrip measures at t=1s. "Scroll to
+      listen" is gone (item 25) — the story begins by scrolling, and the page
+      says so by being a page.
+
+      v14.3 (Wil, 9/16, item 3: "when the user reverses scroll direction …
+      the page briefly jitters/shakes and may freeze"). `h-svh`, was `h-dvh`.
+      iOS collapses its bars on a scroll down and expands them on the first
+      scroll up, and `dvh` follows them — so this in-flow hero grew and shrank
+      by the bar's height (≈90px; ≈200px with Wil's address-bar-on-top layout)
+      while the reader was thousands of pixels below it, and everything under
+      it moved by exactly that much, with the hero's two full-screen <video>s
+      and its <picture> re-laid-out each time. Measured at 390×844 (Chromium,
+      iOS unit semantics emulated, no scroll anchoring — WebKit has none): the
+      paragraph under the thumb jumped +90px as the bars collapsed and −90px
+      at the reversal on /bakery (layout shift 0.09–0.11), and +400/−400px
+      past Ch2's second hero, where two such boxes sit above the reader.
+      `svh` is the viewport with the bars EXPANDED — what they are whenever
+      this hero is on screen, at the page top — so nothing changes at rest and
+      nothing above the reader resizes mid-gesture. Same for the lockup's
+      `5svh` inset and Ch2's Part-2 hero below. Not `lvh`: round 2 tried that
+      and it broke his phone (docs/rounds/2026-09-16-round-3-plan.md). */}
   <header
     id="hero"
-    class="relative h-dvh overflow-hidden bg-neutral-2"
+    class="relative h-svh overflow-hidden bg-neutral-2"
     data-edge-top={edgeOf(vKey)}
     data-edge-top-wide={edgeOf(hKey)}
     data-edge-bottom="#1d1411"
@@ -363,7 +381,7 @@ const focus =
     </div>
 
     <div class="absolute inset-x-0 bottom-0">
-      <div class="shell pb-[max(5dvh,32px)]">
+      <div class="shell pb-[max(5svh,32px)]">
         <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
@@ -406,10 +424,18 @@ const focus =
             every other moral ends. */}
         {/* v14 E20 (client): the Part-2 hero displays like the chapter hero —
             full-bleed at the full viewport height (was 82dvh); the same
-            `pb-[max(5dvh,32px)]` lockup inset as #hero, unchanged. */}
+            `pb-[max(5svh,32px)]` lockup inset as #hero, unchanged.
+            v14.3 (Wil, 9/16, item 3): `h-svh` with #hero — see its note. This
+            one sits mid-page, so a reader in Part 2 had BOTH heroes resizing
+            above them (measured: twice the bar, +400/−400px at Δ200). While
+            the bars are collapsed on the way down it is now the bar's height
+            short of the dynamic viewport for the moment it fills the screen;
+            the scrim's ground (#1d1411) is the page ground, so the band that
+            shows is the same colour, and the bars expand on the first scroll
+            up. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="sec relative h-dvh overflow-hidden bg-neutral-2"
+            class="sec relative h-svh overflow-hidden bg-neutral-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
             data-edge-top={edgeOf(c.scenes[b.i].reveal!.videoVertical)}
@@ -463,7 +489,7 @@ const focus =
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0">
-              <div class="shell pb-[max(5dvh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
+              <div class="shell pb-[max(5svh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
                 <p class="t-meta">Location {pad2(c.order)} · continued</p>
                 {/* v11 item 3 (Wil, 8/22): "maybe we should size it up to the
                     next level in our type ramp/scale, figure out what looks
@@ -801,7 +827,8 @@ const focus =
                   external
                   href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
                 >
-                  Get directions
+                  {/* v14.3 (Wil, 9/16): Title Case as authored — .btn no longer uppercases. */}
+                  Get Directions
                 </Button>
               )
             }
@@ -864,7 +891,10 @@ const focus =
          every start/end re-derived while the reader's thumb is still moving,
          which is what turns a growing hero into a jump. This option exists for
          exactly that: ignore the resize a mobile address bar causes, keep
-         honouring a real orientation change. */
+         honouring a real orientation change.
+         v14.3 (Wil, 9/16, item 3): the heroes are `svh` now, so nothing above
+         the reader grows any more; this stays because the refresh itself —
+         every trigger re-measured mid-thumb — is the other half of the freeze. */
       ScrollTrigger.config({ ignoreMobileResize: true });
 
       /* v7 C2 — the moral's ground drifts against the reader (±6% travel,
@@ -959,7 +989,8 @@ const focus =
     );
     document.querySelectorAll(".reveal, .reveal-quote, .lines, .wipe").forEach((el) => io.observe(el));
 
-    // Share: native share sheet, clipboard fallback.
+    // Share: native share sheet, clipboard fallback. v14.3 (Wil, 9/16): the
+    // copied state is a button label too — Title Case, since .btn no longer uppercases.
     document.getElementById("share-btn")?.addEventListener("click", async () => {
       const data = { title: document.title, url: location.href };
       try {
@@ -967,7 +998,7 @@ const focus =
         else {
           await navigator.clipboard.writeText(location.href);
           const b = document.getElementById("share-btn");
-          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link copied";
+          if (b) b.childNodes[b.childNodes.length - 1].textContent = "Link Copied";
         }
       } catch {
         /* user dismissed */

@@ -828,9 +828,14 @@ h3 {
   justify-content: center;
   gap: 0.5em;
   font-family: var(--font-chrome);
-  font-weight: 700; /* v14.2 (Wil, 9/16): the family's only other cut — LC Text ships 400 and 700, no 500 */
+  /* v14.2 (Wil, 9/16) took this to 700 — LC Text ships 400 and 700, no 500.
+     v14.3 (Wil, 9/16): "too heavy and thick" — back to the original 400. */
+  font-weight: 400;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  /* v14.3 (Wil, 9/16): labels read as authored — Title Case, "Take the Walk"
+     not "TAKE THE WALK". `none`, not a removed line: text-transform inherits,
+     so a button inside an uppercase parent must still opt out. */
+  text-transform: none;
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;
@@ -1113,11 +1118,24 @@ h3 {
 }
 .map-shell {
   position: relative;
-  height: 100dvh;
+  /* v14.3 (Wil, 9/16, item 3 — scroll jitter): `svh`, was `dvh`. The shell is
+     in flow at the top of a page whose index scrolls beneath it. As iOS
+     collapsed its bars on the way down and expanded them on the first scroll
+     up, `dvh` followed: the shell grew and shrank by the bar (≈90px; ≈200px on
+     Wil's address-bar-on-top layout), the index under the reader jumped by
+     the same amount (measured at 390×844: +90/−90 and +200/−200px, layout
+     shift 0.10–0.24) and Mapbox re-sized its canvas each time — the longest
+     task on the page in the 500 ms after a reversal. `svh` is the viewport
+     with the bars expanded, which they are at the page top where the shell is
+     seen, so nothing changes at rest; not `lvh` (round 2's mistake). The one
+     state this does not cover — scrolled to the very top with the bars still
+     collapsed — is one iOS leaves on any scroll up. If his phone ever shows a
+     band of page ground under the map above the card strip, this line goes
+     back to 100dvh. */
+  height: 100svh;
   width: 100%;
-  /* v9 V9-301: while the GL canvas is sizing (and as iOS toolbars slide, which
-     changes dvh mid-gesture) the uncovered strip must read as the page, not as
-     the canvas's black. */
+  /* v9 V9-301: while the GL canvas is sizing the uncovered strip must read as
+     the page, not as the canvas's black. */
   background: var(--color-primary-2);
 }
 /* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
@@ -1431,39 +1449,46 @@ h3 {
 
 /* The map's card strip: on ≥640 the neighbours fade at the frame edge instead
    of being guillotined mid-badge (juror P1-4/P1-7). v7 M9: NOT on phones —
-   there the fade read as "dimmed cards"; neighbours peek fully opaque. */
-@media (min-width: 640px) {
-  .location-cards-slider {
-    mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent);
-  }
-}
-/* v13 V13-02 item 3b. From 1024 up the strip is wider than three whole cards
+   there the fade read as "dimmed cards"; neighbours peek fully opaque.
+   v13 V13-02 item 3b. From 1024 up the strip is wider than three whole cards
    will ever fit (514.5 + 16 pitch: three need 1576px), so an outermost PARTIAL
    is a permanent condition, not a bug — what was a bug is that 28px is too
    short a ramp to dissolve one. A card cut at the frame edge under a 28px
-   linear fade still reads as a guillotine; over 120px, eased (the stops
-   approximate a smoothstep, so there is no banding hinge), it reads as the
-   strip continuing past the frame. The ramp reaches 0 four pixels INSIDE the
-   edge, so no partial ever meets the container edge with ink still in it.
-   The 640px boundary above is untouched: phones keep no mask at all and
-   640–1023 keeps HEAD's 28px exactly. */
-@media (min-width: 1024px) {
+   linear fade still reads as a guillotine; eased (the stops approximate a
+   smoothstep, so there is no banding hinge), it reads as the strip continuing
+   past the frame. The ramp reaches 0 four pixels INSIDE the edge, so no
+   partial ever meets the container edge with ink still in it.
+   v14.3 (Wil, 9/16, item 4): "increase the opacity of the chapter cards when
+   they are positioned on the far left or far right edge … not 'ghosted' …
+   the fade-out should feel smoother and more graceful." v13's ramp ran
+   120px, and that is what ghosted them: at 1920 the outermost card rests with
+   197px inside the frame, 120 of them mist (pixel-read alpha reached .85 only
+   96px in); at 1024 half of a 239px partial was gone. The same smoothstep
+   now runs over 44px (4 → 48; alpha ≥ .85 from 38px in, measured at 768,
+   1024, 1440 and 1920), so a card holds as a card and dissolves only in its
+   last 48px. 640–1023 takes the same eased profile in place of its 28px
+   linear cut (a linear ramp has a hinge; the S-curve has none) — one rule from
+   640 up; phones still carry no mask. Revert: v13's 120px stops
+   (0/.06/.25/.55/.85/1 at 4/24/48/72/96/120px) under min-width 1024 and the
+   28px linear under 640. */
+@media (min-width: 640px) {
   .location-cards-slider {
     --card-mask: linear-gradient(
       to right,
       transparent 0,
       transparent 4px,
-      rgb(0 0 0 / 0.06) 24px,
-      rgb(0 0 0 / 0.25) 48px,
-      rgb(0 0 0 / 0.55) 72px,
-      rgb(0 0 0 / 0.85) 96px,
-      #000 120px,
-      #000 calc(100% - 120px),
-      rgb(0 0 0 / 0.85) calc(100% - 96px),
-      rgb(0 0 0 / 0.55) calc(100% - 72px),
-      rgb(0 0 0 / 0.25) calc(100% - 48px),
-      rgb(0 0 0 / 0.06) calc(100% - 24px),
+      rgb(0 0 0 / 0.07) 11px,
+      rgb(0 0 0 / 0.26) 19px,
+      rgb(0 0 0 / 0.5) 26px,
+      rgb(0 0 0 / 0.74) 33px,
+      rgb(0 0 0 / 0.93) 41px,
+      #000 48px,
+      #000 calc(100% - 48px),
+      rgb(0 0 0 / 0.93) calc(100% - 41px),
+      rgb(0 0 0 / 0.74) calc(100% - 33px),
+      rgb(0 0 0 / 0.5) calc(100% - 26px),
+      rgb(0 0 0 / 0.26) calc(100% - 19px),
+      rgb(0 0 0 / 0.07) calc(100% - 11px),
       transparent calc(100% - 4px)
     );
     mask-image: var(--card-mask);
@@ -1566,49 +1591,14 @@ h3 {
 
 /* Curtain transition panel (GSAP drives y; these are the resting styles) */
 /* ── The walk rail — persistent progress across the five stops ─────────── */
-/* v12 item 17: what Safari 26 samples for the toolbar tint. It stopped using
-   theme-color and now takes the body's background — which here is the dark
-   page ground at every scroll position, whatever section is on screen — plus
-   any fixed/sticky element against a viewport edge. These two are that second
-   thing: 2px, pointer-inert, z-0 (the walk rail is z-900 and paints over the
-   top one), coloured by the sampler with the ground that edge already has, and
-   transparent wherever the edge is artwork and no flat colour could match.
-   Every other browser keeps taking the meta; nothing here changes for them. */
-.chrome-tint {
-  position: fixed;
-  inset-inline: 0;
-  height: 2px;
-  pointer-events: none;
-  /* v13 V13-06: was z-index: 0, which only outranks a same-level sibling BY
-     DOM ORDER — and `.map-shell` (/map) and the museum's sticky h-dvh stage
-     (/paintings) both come LATER in the document than these strips, so at
-     z:0 the stage painted over the strip and Safari sampled the WebGL canvas
-     instead of the intended tint. Those are exactly the two routes Wil's
-     screenshots come from. An explicit z-index settles it regardless of DOM
-     order.
-
-     THE CEILING IS THE WALK RAIL, NOT THE SCRIM. v12 set z:0 here on purpose
-     and said so: "the walk rail is z-900 and paints over the top one". The
-     rail's progress stripe is 3px and this strip is 2px at the same edge, so
-     anything above 900 eats two thirds of it — measured at 390×844 on
-     /bakery: at z:950 the top 2px read #f6f3ee (this strip) and only the
-     third px read #e45b27 (the rail). 100 clears every full-bleed stage and
-     its controls (the map and museum islands top out at Tailwind z-30, and
-     the shells themselves are z:auto) while leaving the rail, the scrim
-     (999), the menu (1000) and the curtain (9999+) exactly as they were.
-     Still pointer-events: none and 2px — inert, and invisible wherever the
-     sampler leaves it transparent (over artwork, no flat colour can match,
-     so it does not paint a band). */
-  z-index: 100;
-}
-.chrome-tint-top {
-  top: 0;
-  background: var(--chrome-tint-top, transparent);
-}
-.chrome-tint-bottom {
-  bottom: 0;
-  background: var(--chrome-tint-bottom, transparent);
-}
+/* v14.3 (Wil, 9/16: "remove any custom styling that adds a border and/or
+   solid background fill behind the browser address bar / toolbar area … no
+   stray 1px divider line"). The two fixed 2px `.chrome-tint` strips that v12
+   item 17 pinned to the viewport edges (and v13 V13-06 raised to z:100) lived
+   here. On his iPhone they read as a thin coloured line across the top and
+   bottom of every page, so they are gone — see the sampler note in
+   Base.astro. The rail below is the only fixed element left on an edge: a 3px
+   progress hairline, UI rather than a ground. */
 .walk-rail {
   position: fixed;
   inset-inline: 0;
@@ -1861,13 +1851,32 @@ a.walk-seg:hover {
   /* v12 (Wil, 8/26) stroked the top and sides in `--color-primary-7` so the
      16px arcs had something to be continuous with. v14 E12 (Wil): "remove the
      orange/brown border (stroke) around the info card / drawer UI" — no
-     outline in any state, at any width. Radius, blur and ground stay. */
-  border-radius: var(--r-lg) var(--r-lg) 0 0; /* v14.2 (Wil, 9/16): the site's large radius, 24px */
+     outline in any state, at any width. Radius, blur and ground stay.
+     v14.3 (Wil, 9/16): "reapply the border/stroke on the drawer's top, left,
+     and right edges. Pick a border/stroke colour from our colour palette that
+     is subtle." The same three sides as v12, one step quieter: `--color-
+     primary-6`, the palette's hairline, not the primary-7 frame E12 called
+     orange/brown. The bottom stays open — off-screen, a line there reads as a
+     seam. The sides are stroked so the arcs have something to be continuous
+     with (v12's finding). The body's max-height pays the 1px again and
+     `sheetTravel()` counts it (Museum.tsx), so peek shows the whole stroke
+     above the header. REVERT: `border: 0` here, and those two.
+     Tablet + mobile only by construction — the sheet exists only there; the
+     desktop/landscape `.museum-card` below stays borderless. */
+  border: 1px solid var(--color-primary-6);
+  border-bottom: 0;
+  /* v14.2 (Wil, 9/16) took the radius to the site's large step, `--r-lg`
+     (24px). v14.3 (Wil, 9/16): "increase the drawer's corner radius" — 32px,
+     the drawer alone; `--r-lg` still frames the hero and the home page. The
+     head's focus ring follows below. REVERT: `var(--r-lg) var(--r-lg) 0 0`. */
+  border-radius: 32px 32px 0 0;
   will-change: transform;
 }
 /* v12 gave the desktop/landscape plaque the same 1px `--color-primary-7`
    stroke as the sheet, at Wil's request; v14 E12 (Wil) takes it off every
-   device again — the card is back to v8's borderless authoring. */
+   device again — the card is back to v8's borderless authoring. v14.3 (Wil,
+   9/16) restores the stroke on the SHEET alone ("tablet + mobile"); the card
+   stays as E12 left it. */
 .museum-card {
   max-height: calc(100dvh - 2 * var(--ui-inset));
 }
@@ -1894,7 +1903,7 @@ a.walk-seg:hover {
 .museum-sheet-head:focus-visible {
   outline: 2px solid var(--color-primary-9);
   outline-offset: -2px;
-  border-radius: var(--r-lg) var(--r-lg) 0 0; /* v14.2: follows the sheet's radius */
+  border-radius: 32px 32px 0 0; /* v14.2: follows the sheet's radius — v14.3 (Wil, 9/16): 32px with it */
 }
 /* v14.2 (Wil, 9/16): in peek the title is the only thing in the header (the X
    exists in the open state alone), so the header's bottom air matches its top
@@ -1908,7 +1917,13 @@ a.walk-seg:hover {
    ink's top stood 0.6–1.0px above the inset and its bottom 0.5px inside it on
    a phone but 1.4–1.9px inside it on a portrait tablet — the drawer's integer
    translate leaves the header's box 0.81px under the stage edge there. One
-   pixel squares the tablet and keeps the phone within 0.5px. */
+   pixel squares the tablet and keeps the phone within 0.5px.
+   v14.3 (Wil, 9/16): the 1px stroke stands above the header again and
+   `sheetTravel()` counts it, so the header's bottom stays where v14.2 put it
+   and the bottom numbers hold (20.5 phone, 39.5–39.6 tablet). The top is now
+   read from the stroke's outer edge: inset + 0.1 on a phone, + 0.4–0.5 on a
+   portrait tablet — the stroke absorbs the cap overshoot. Nothing here
+   changes. */
 .museum-sheet[data-state="peek"] .museum-sheet-head {
   padding-bottom: calc(var(--ui-inset) + 1px);
 }

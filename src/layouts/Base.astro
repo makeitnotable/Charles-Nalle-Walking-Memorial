@@ -113,24 +113,54 @@ const canonical = new URL(
          theme-color: the static meta above stands and nothing regresses.
 
          v14.2 (Wil, 9/16: "continue the artwork"). Over a painting there is no
-         flat colour to read, and leaving the strip transparent there (v12) is
-         exactly where Safari painted its bars black. So a section that knows
-         what its edge should read now declares it: `data-edge-top` /
-         `data-edge-bottom` carry a #rrggbb — the heroes a colour sampled from
-         the canvas's own top edge at build (scripts/build-edge-colors.mjs →
-         src/data/edge-colors.json), the map its style's dark ground — and
-         `data-edge-top-wide` / `data-edge-bottom-wide` override it from 768px
-         up, where the landscape poster is a different crop. The nearest
-         declaring ancestor of whatever sits at the edge wins; otherwise the
-         section's ground decides, and a strip is never transparent again. The
-         literal value `transparent` is honoured so /chrome-test can show
-         Safari's own fallback beside the rule; anything else is ignored.
-         `data-chrome-tint-lock` on <html> (the test page's "loud theme-color"
-         toggle) keeps this script's hands off the meta while it is set. */
+         flat colour to read, so a section that knows what its edge should read
+         declares it: `data-edge-top` / `data-edge-bottom` carry a #rrggbb —
+         the heroes a colour sampled from the canvas's own top edge at build
+         (scripts/build-edge-colors.mjs → src/data/edge-colors.json), the map
+         its style's dark ground — and `data-edge-top-wide` /
+         `data-edge-bottom-wide` override it from 768px up, where the landscape
+         poster is a different crop. The nearest declaring ancestor of whatever
+         sits at the edge wins; otherwise the section's ground decides. The
+         literal value `transparent` is honoured (that edge then leaves the meta
+         alone, so /chrome-test can show Safari's own fallback beside the
+         rule); anything else is ignored. `data-chrome-tint-lock` on <html>
+         (the test page's "loud theme-color" toggle) keeps this script's hands
+         off the meta while it is set.
+
+         v14.3 (Wil, 9/16: "remove any custom styling that adds a border and/or
+         solid background fill behind the browser address bar / toolbar area …
+         no stray 1px divider line"). Researched 8/26 (v12 item 17): Safari 26
+         PARSES theme-color and then ignores it, tinting its bars from the
+         <body> ground (then <html>) and from fixed/sticky elements against the
+         viewport edges — so v12 pinned two fixed 2px `.chrome-tint` strips to
+         the edges and this script painted them the resolved colour. On his
+         iPhone (iOS 26, /map) Safari kept its bars black regardless, and the
+         strips read as a thin coloured line across the top and bottom of the
+         page: the divider he is reporting. They are gone. No web API makes a
+         tab's chrome transparent or turns on Safari's floating/compact bar
+         (both are the visitor's settings); all a page can do is paint no band
+         of its own under the bars, and `viewport-fit=cover` already lets the
+         content run under them. The meta stays and this sampler still keeps
+         it current: Chrome for Android always paints a toolbar fill, and a
+         fill that matches the adjacent section is Wil's fallback for exactly
+         that case. */
       (function () {
         var meta = document.querySelector('meta[name="theme-color"]:not([media])');
         if (!meta || !document.elementFromPoint) return;
         var queued = false;
+        /* v14.3 (Wil, 9/16, item 3 — scroll jitter): sampled at most every
+           SAMPLE_MS while events keep coming, with one trailing sample after
+           the last. Measured at 390×844 under 4× CPU throttling, `sample` ran
+           on every scroll frame (61–66 runs in a 60-frame scroll) at 4–6 ms a
+           run on the chapter pages (max 44 ms) — two to ten hit tests
+           (`elementsFromPoint`) and their computed styles — the largest
+           per-frame script cost on the site, against 0.7 ms for GSAP's scroll
+           handler and 0.08 ms for the corner menu's. What it produces is
+           unchanged: the first event still samples at once, the settled state
+           is always sampled, and a browser recolours its bar over ~300 ms. */
+        var SAMPLE_MS = 100;
+        var lastSample = 0;
+        var trailing = 0;
 
         function hex(c) {
           var m = String(c).match(/[\d.]+/g);
@@ -197,6 +227,7 @@ const canonical = new URL(
         }
         function sample() {
           queued = false;
+          lastSample = performance.now();
           var h = window.innerHeight;
           if (!h) return;
           /* 4px in from each edge: the walk rail is a 3px hairline pinned to
@@ -224,29 +255,15 @@ const canonical = new URL(
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
           }
-          /* v12 item 17 (Wil, 8/26: "not fixed, it's still dark brown or
-             black"). Researched 8/26: Safari 26 PARSES theme-color and then
-             ignores it. It derives the toolbar tint from the <body> background
-             instead, falling back to <html>, and additionally reads
-             `position: fixed` / `sticky` elements sitting against the viewport
-             edges. This site's body ground is #1d1411 at every scroll position
-             — which is exactly the "dark brown" he is reporting, on every page,
-             however well the meta above is maintained.
-             Body cannot simply follow the edge: sections without their own
-             background show the page ground THROUGH body, so recolouring it
-             would repaint half the site. What Safari can be given instead is a
-             pair of hairlines pinned to the edges whose colour is the ground
-             already there — invisible by construction, and exactly the surface
-             its new rule looks for.
-             v14.2: under artwork the strip used to go transparent, and Safari's
-             fallback there is black. Now it takes the edge's resolved colour —
-             the declared one over a hero or the map, the section's ground
-             elsewhere — and is transparent only where a section says so. */
-          docEl.style.setProperty("--chrome-tint-top", (top && top.c) || "transparent");
-          docEl.style.setProperty("--chrome-tint-bottom", (bottom && bottom.c) || "transparent");
         }
         function schedule() {
           if (queued) return;
+          var wait = SAMPLE_MS - (performance.now() - lastSample);
+          if (wait > 0) {
+            /* v14.3: inside the window — one trailing sample, not one per event */
+            if (!trailing) trailing = setTimeout(function () { trailing = 0; schedule(); }, wait);
+            return;
+          }
           queued = true;
           requestAnimationFrame(sample);
         }
@@ -324,12 +341,6 @@ const canonical = new URL(
     <meta name="twitter:image" content={new URL(withBase("og.png"), Astro.site)} />
   </head>
   <body class="min-h-dvh">
-    {/* v12 item 17: the two surfaces Safari 26 reads for its toolbar tint —
-        see the sampler in <head>, which paints them the ground each edge
-        actually has. 2px, inert, and beneath every piece of chrome on the
-        site (the walk rail alone is z-900), so they can never be seen. */}
-    <div class="chrome-tint chrome-tint-top" aria-hidden="true"></div>
-    <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
     <script is:inline>
       // Progressive enhancement flag: scroll-reveal initial states apply
       // only when JS runs (no-JS users see everything, statically).

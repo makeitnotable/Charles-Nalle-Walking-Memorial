@@ -158,8 +158,9 @@ const groups: { heading: string; blurb: string; people: Person[] }[] = [
         <p class="t-meta">Their story lives on</p>
         <h2 class="t-title reveal mt-4">Stand where they stood</h2>
         <div class="mt-10">
+          {/* v14.3 (Wil, 9/16): Title Case as authored — .btn no longer uppercases. */}
           <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid btn-icon-end">
-            Walk the story
+            Walk the Story
             <Icon name="arrow" />
           </a>
         </div>

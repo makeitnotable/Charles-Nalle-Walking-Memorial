@@ -134,9 +134,10 @@ import { withBase } from "../lib/url";
           mark where&nbsp;it&nbsp;happened.
         </p>
 
-        {/* v7 H3 (Wil): the story, not the format. */}
+        {/* v7 H3 (Wil): the story, not the format. v14.3 (Wil, 9/16): Title
+            Case as authored — .btn no longer uppercases. */}
         <a href={withBase("map")} class="btn btn-cta btn-icon-end home-cta home-seq" style="--seq: 5">
-          Walk the story
+          Walk the Story
           <Icon name="arrow" />
         </a>
       </div>
@@ -340,17 +341,20 @@ import { withBase } from "../lib/url";
      indicator. Below 1024, the site's desktop line; desktop is unchanged. */
   /* v14.2 (Wil, 9/16): the CTA's bottom inset steps up to 56px on phones and
      64px on 768–1023 (was 24/32); the air spacer above absorbs the difference. */
+  /* v14.3 (Wil, 9/16): "cut the extra vertical space" under the CTA — 28px on
+     phones and 48px on 768–1023 (was 56/64). Same max() against the home
+     indicator; the landscape tier and desktop are untouched. */
   @media (max-width: 1023px) {
     .home-cta {
       margin-top: auto;
     }
     .home-stack {
-      padding-bottom: max(56px, env(safe-area-inset-bottom, 0px));
+      padding-bottom: max(28px, env(safe-area-inset-bottom, 0px));
     }
   }
   @media (min-width: 768px) and (max-width: 1023px) {
     .home-stack {
-      padding-bottom: max(64px, env(safe-area-inset-bottom, 0px));
+      padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
     }
   }
   /* The landscape-phone tier above stays centred: at 844×390 the lockup

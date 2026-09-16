@@ -1416,9 +1416,18 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         /* v13 V13-02 item 3a — the anti-sliver rule. A card the strip comes to
            rest on showing a hairline of is not a peek, it is an accident: at
            2560 the fifth card can settle with 28px of itself inside the frame.
-           Below a quarter of a card visible it is faded out entirely (and the
-           ramp is continuous, so a drag never pops it in or out). Geometry
-           only — keen's own fractions, no layout reads inside the write pass. */
+           The ramp is continuous, so a drag never pops it in or out. Geometry
+           only — keen's own fractions, no layout reads inside the write pass.
+           v14.3 (Wil, 9/16, item 4 — "not ghosted"): v13 faded anything under
+           a quarter visible (0 at 6%, 1 at 25%), so a card leaving the frame
+           went to mist while ~118px of it still showed, on top of the edge
+           mask. The band is now 8.5% → 16.5% (0 below ~40px of a 473px card,
+           whole above ~78px): every resting sliver this rule exists for reads
+           exactly 0 — 2560 rests at 5.9% (28px), 1600 at 7.9% (37px), 1536 at
+           1.1% (measured, pixel alpha 0) — and everything wider is a partial
+           the 48px mask edge handles (1680's 77px rests at .98). Same slope as
+           v13's ramp, so a 5px drag step still moves opacity by ≤ .13.
+           Revert: `frac < 0.25` / `(frac - 0.06) / 0.19`. */
         let op = "";
         if (wide && contW > 0) {
           const L = r.dist * contW + shift;
@@ -1426,7 +1435,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           const pl = r.off > 0.01 ? L : r.off < -0.01 ? L + r.w - pw : L + (r.w - pw) / 2;
           const visible = Math.max(0, Math.min(pl + pw, contW) - Math.max(pl, 0));
           const frac = pw > 0 ? visible / pw : 1;
-          if (frac < 0.25) op = Math.max(0, (frac - 0.06) / 0.19).toFixed(3);
+          if (frac < 0.165) op = Math.max(0, (frac - 0.085) / 0.08).toFixed(3);
         }
         if (r.inner.style.opacity !== op) r.inner.style.opacity = op;
       }
@@ -1766,7 +1775,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               className="btn-sm btn-ghost mt-6"
               style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)", minHeight: 44 }}
             >
-              Back to today
+              Back to Today
             </button>
           )}
         </figure>
@@ -1819,7 +1828,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
             <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
           </svg>
-          <span>Back<span className="hidden sm:inline"> to map</span></span>
+          <span>Back<span className="hidden sm:inline"> to Map</span></span>
         </button>
       )}
 
@@ -1835,7 +1844,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           }
           className="btn-sm btn-solid absolute top-[var(--ui-inset)] right-[var(--ui-inset)] z-30"
         >
-          {walk === "walking" ? "Stop the walk" : walk === "done" ? "Walk again" : "Continue"}
+          {/* v14.3 (Wil, 9/16): labels are authored in Title Case — .btn no longer uppercases. */}
+          {walk === "walking" ? "Stop the Walk" : walk === "done" ? "Walk Again" : "Continue"}
         </button>
       )}
 
@@ -1865,19 +1875,17 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             style={{ height: "calc(var(--ui-inset) + 84px)", touchAction: "pan-y" }}
             aria-hidden="true"
           >
-            <svg
-              className="absolute bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 opacity-60"
-              viewBox="0 0 24 24"
-              fill="var(--color-primary-11)"
-              aria-hidden="true"
-              style={{ transform: "translateX(-50%) rotate(90deg)" }}
-            >
-              <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
-            </svg>
+            {/* v14.3 (Wil, 9/16, item 5): the small orange down-arrow glyph
+                that sat at the band's foot (12px, primary-11 at 60%, the
+                broadside head rotated 90°) is gone — "remove this arrow here
+                and anywhere else it exists in this form". The band itself
+                stays: it is the touch scroll affordance, not the glyph.
+                Revert: restore the `<svg className="absolute bottom-1
+                left-1/2 h-3 w-3 …">` with the ICONS.arrow head path. */}
           </div>
           <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] sm:bottom-[calc(var(--ui-inset)+12px)]">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
-              Take the walk
+              Take the Walk
             </button>
           </div>
           <span className="absolute top-[var(--ui-inset)] left-[var(--ui-inset)] z-20 inline-flex">

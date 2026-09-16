@@ -10,14 +10,17 @@
  * scripts/build-edge-colors.mjs sampled from its top edge declared on the
  * section; and the same painting with both edges declared `transparent`
  * (Safari's own fallback, which is what every hero did before v14.2) — plus a
- * control cluster that changes what the page hands the browser: the fixed
- * strips' height (2 / 8 / 24px), whether the root grounds (<html> AND <body> —
- * Safari 26 was observed reading body first, then html) stay painted, and a
- * loud theme-color that the sampler in Base.astro is locked out of
- * (`data-chrome-tint-lock` on <html>) while it is on. The readout prints what
- * the page is telling the browser right now: the two resolved strip colours,
- * the meta, the strip height, and which panel owns each edge. What Wil
- * reports from scrolling this settles the strip height and confirms the rule.
+ * control cluster that changes what the page hands the browser: whether the
+ * root grounds (<html> AND <body> — Safari 26 was observed reading body first,
+ * then html) stay painted, and a loud theme-color that the sampler in
+ * Base.astro is locked out of (`data-chrome-tint-lock` on <html>) while it is
+ * on. The readout prints what the page is telling the browser right now: the
+ * meta, the root grounds, and which panel owns each edge.
+ *
+ * v14.3 (Wil, 9/16): the fixed `.chrome-tint` strips are gone from Base.astro
+ * (they read as a divider line on his phone), and with them this page's strip
+ * height control and strip readouts. What is left is what a page can still
+ * hand a browser: the meta and the root grounds.
  *
  * Internal page — noIndex, noMenu, unlinked, like /styleguide. Every URL goes
  * through withBase(); nothing here touches global.css; no animation. The
@@ -126,39 +129,21 @@ const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
       <p class="t-meta">Panel 3 of 3 · painting with no colour</p>
       <h2 id="ct-h3" class="t-title mt-6">SAFARI’S OWN FALLBACK</h2>
       <p class="t-meta-body ct-note mt-6">
-        Both edges declare <span class="ct-mono">transparent</span>: the strips paint nothing and the
-        browser is left to read the painting itself. This is what every hero did before v14.2.
+        Both edges declare <span class="ct-mono">transparent</span>: the sampler leaves the meta where it
+        was and the browser is left to read the painting itself. This is what every hero did before v14.2.
       </p>
     </div>
   </section>
 
   <aside class="ct-controls" aria-label="Test controls">
-    <p class="t-meta" id="ct-h-height">Strip height</p>
-    <div class="ct-row" role="group" aria-labelledby="ct-h-height">
-      <button type="button" class="ct-btn" data-height="2" aria-pressed="true">2px</button>
-      <button type="button" class="ct-btn" data-height="8" aria-pressed="false">8px</button>
-      <button type="button" class="ct-btn" data-height="24" aria-pressed="false">24px</button>
-    </div>
     <button type="button" class="ct-btn ct-wide" id="ct-root" aria-pressed="false">
       html + body background: painted
     </button>
     <button type="button" class="ct-btn ct-wide" id="ct-loud" aria-pressed="false">Loud theme-color: off</button>
     <dl class="ct-readout">
       <div>
-        <dt>top strip</dt>
-        <dd><span class="ct-swatch" id="ct-sw-top"></span><span id="ct-v-top">—</span></dd>
-      </div>
-      <div>
-        <dt>bottom strip</dt>
-        <dd><span class="ct-swatch" id="ct-sw-bot"></span><span id="ct-v-bot">—</span></dd>
-      </div>
-      <div>
         <dt>theme-color meta</dt>
         <dd><span class="ct-swatch" id="ct-sw-meta"></span><span id="ct-v-meta">—</span></dd>
-      </div>
-      <div>
-        <dt>strip height</dt>
-        <dd id="ct-v-h">—</dd>
       </div>
       <div>
         <dt>root grounds</dt>
@@ -194,7 +179,7 @@ const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
     object-fit: cover;
   }
   /* The chapter hero's own two scrims, byte for byte — so the only thing that
-     differs between panels 2 and 3 is what the strip is told. */
+     differs between panels 2 and 3 is what the sampler is told. */
   .ct-scrim {
     position: absolute;
     inset: 0;
@@ -312,18 +297,7 @@ const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
 <script>
   const html = document.documentElement;
   const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])')!;
-  const strips = Array.from(document.querySelectorAll<HTMLElement>(".chrome-tint"));
   const $ = (id: string) => document.getElementById(id)!;
-
-  /* Strip height — inline on both fixed strips (they live in Base.astro; this
-     page owns no global CSS). */
-  const heightButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-height]"));
-  const setHeight = (h: string) => {
-    for (const s of strips) s.style.height = `${h}px`;
-    for (const b of heightButtons) b.setAttribute("aria-pressed", String(b.dataset.height === h));
-    update();
-  };
-  for (const b of heightButtons) b.addEventListener("click", () => setHeight(b.dataset.height!));
 
   /* Root grounds — html AND body, since Safari was observed reading body first. */
   const rootBtn = $("ct-root") as HTMLButtonElement;
@@ -367,10 +341,7 @@ const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
   let queued = false;
   function update() {
     queued = false;
-    show("ct-sw-top", "ct-v-top", html.style.getPropertyValue("--chrome-tint-top").trim());
-    show("ct-sw-bot", "ct-v-bot", html.style.getPropertyValue("--chrome-tint-bottom").trim());
     show("ct-sw-meta", "ct-v-meta", meta.getAttribute("content") || "");
-    $("ct-v-h").textContent = strips.length ? getComputedStyle(strips[0]).height : "no strips";
     $("ct-v-root").textContent = rootClear
       ? "transparent (html + body)"
       : `painted (${getComputedStyle(document.body).backgroundColor})`;
@@ -386,5 +357,5 @@ const alt = "“Holeur’s Fashionable Bakery”, painting by Mark Priest";
   addEventListener("resize", schedule, { passive: true });
   new MutationObserver(schedule).observe(html, { attributes: true, attributeFilter: ["style", "data-chrome-tint-lock"] });
   new MutationObserver(schedule).observe(meta, { attributes: true, attributeFilter: ["content"] });
-  setHeight("2");
+  update();
 </script>

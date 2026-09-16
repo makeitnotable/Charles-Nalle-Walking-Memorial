@@ -109,14 +109,15 @@ const ramps: Record<string, string[]> = {
 
     <p class="t-meta-body mt-8">A pair: same size, solid + ghost, equal optical weight. Icons trail; only <code>close</code> leads.</p>
     <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button variant="solid" icon="arrow">Continue the walk</Button>
-      <Button variant="ghost" icon="pin">Get directions</Button>
+      {/* v14.3 (Wil, 9/16): Title Case as authored — .btn no longer uppercases. */}
+      <Button variant="solid" icon="arrow">Continue the Walk</Button>
+      <Button variant="ghost" icon="pin">Get Directions</Button>
     </div>
 
     <p class="t-meta-body mt-10">Small · chrome and utility.</p>
     <div class="mt-4 flex flex-wrap items-center gap-4">
       <Button size="sm" variant="solid">Overview</Button>
-      <Button size="sm" variant="ghost" icon="share">Share this chapter</Button>
+      <Button size="sm" variant="ghost" icon="share">Share This Chapter</Button>
       <Button size="sm" variant="ghost" icon="close" iconLeading>Close</Button>
     </div>
 

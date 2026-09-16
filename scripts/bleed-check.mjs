@@ -8,9 +8,11 @@
  * viewport — and it paints them ONE colour. So "full bleed" on a phone is three
  * measurable claims, and this asserts all three:
  *
- *   1 TINT       every screen's two bar faces take the ground the page is
- *                actually showing there, so the strip reads as the page rather
- *                than as a bar.
+ *   1 TINT       the site paints no band of its own at either viewport edge
+ *                (v14.3: no `.chrome-tint` strip, no fixed hairline, no 2px
+ *                row that differs from the page under it), and the theme-color
+ *                meta carries the ground the page is actually showing at an
+ *                edge — the fill Chrome for Android paints its toolbar with.
  *   2 RETRACTION the root document is the scroller and has runway, which is
  *                the precondition for a browser to slide its chrome away.
  *   3 LANE       --ui-inset still resolves to a LENGTH (four islands parseFloat
@@ -78,10 +80,12 @@ async function band(buf, w, top, height = 8, cols = null) {
       if (e) { e.n++; e.r += data[i]; e.g += data[i + 1]; e.b += data[i + 2]; }
       else tally.set(k, { n: 1, r: data[i], g: data[i + 1], b: data[i + 2] });
     }
-  let best = null;
-  for (const e of tally.values()) if (!best || e.n > best.n) best = e;
+  let best = null, total = 0;
+  for (const e of tally.values()) { total += e.n; if (!best || e.n > best.n) best = e; }
   const hx = (v) => Math.round(v / best.n).toString(16).padStart(2, "0");
-  return "#" + hx(best.r) + hx(best.g) + hx(best.b);
+  /* v14.3: `share` is the mode's fraction of the read — a flat strip is ≥ 0.95,
+     artwork or text under the edge far lower. */
+  return { mode: "#" + hx(best.r) + hx(best.g) + hx(best.b), share: best.n / total };
 }
 const dist = (a, b) => {
   const p = (s) => [1, 3, 5].map((i) => parseInt(s.slice(i, i + 2), 16));
@@ -93,21 +97,26 @@ const browser = await chromium.launch();
 let failures = 0;
 
 /* ── 1 · TINT ─────────────────────────────────────────────────────────────── */
-/* v14.2 (Wil, 9/16: "continue the artwork"). What a bar face must read is no
-   longer "the flat ground, or nothing over a painting" — it is the colour the
-   sampler in Base.astro RESOLVES for that edge: the nearest `data-edge-top` /
-   `data-edge-bottom` (`-wide` from 768px) declared by whatever sits at the
-   edge, else the first flat ground in paint order, else <html>. Over a hero or
-   the map that is a declared colour, and a strip is never transparent unless a
-   section says `transparent` outright. So each face is checked three ways:
-     · the custom property carries the resolved colour and the strip's computed
-       background took it;
-     · the 2px strip actually PAINTS it — rows 0–1 and h−2..h−1 of the shot. On
-       chapter pages the walk rail's 3px stripe lies over the top strip, so
-       those rows are read only in the rail's four 2px gaps, located from the
+/* v14.3 (Wil, 9/16: "remove any custom styling that adds a border and/or solid
+   background fill behind the browser address bar / toolbar area … no stray 1px
+   divider line"). The two fixed 2px `.chrome-tint` strips v12 pinned to the
+   edges (v14.2 painted them the resolved edge colour) read as a thin coloured
+   line on his iPhone, so they are gone and the claim inverts: the site paints
+   NOTHING of its own at an edge. Each bar face is checked three ways:
+     · the DOM: no `.chrome-tint` element, no `--chrome-tint-*` property, and
+       nothing fixed/sticky, full-width and ≤ 8px tall with a paint of its own
+       under the edge point — the walk rail excepted (a 3px progress hairline:
+       UI, not a ground);
+     · the pixels: rows 0–1 and h−2..h−1 of the shot are not a uniform band
+       (≥ 95% one colour) that differs from the rows 4px in. On chapter pages
+       the top rows are read only in the rail's four 2px gaps, located from the
        DOM;
-     · the theme-color meta carries one of the two strip colours (Chrome for
-       Android reads the meta; Safari reads the strips).
+     · the meta: theme-color carries the colour the sampler in Base.astro
+       RESOLVES for one of the two edges — the nearest `data-edge-top` /
+       `data-edge-bottom` (`-wide` from 768px) declared by whatever sits at the
+       edge, else the first flat ground in paint order, else <html>; a section
+       that declares `transparent` leaves the meta alone. That is the fill
+       Chrome for Android paints its toolbar with; Safari 26 ignores it.
    The resolver below mirrors the sampler on purpose: it is the contract the
    hooks in [chapter].astro and map.astro are written against, re-derived here
    so a hook that stops resolving fails the instrument rather than the phone. */
@@ -177,8 +186,22 @@ for (const vp of VPS) {
           return { c: hex(getComputedStyle(document.documentElement).backgroundColor), hook: false, art };
         };
         const root = getComputedStyle(document.documentElement);
-        const strip = (sel) => hex(getComputedStyle(document.querySelector(sel)).backgroundColor);
-        /* The rail's stripe covers the top strip; its gaps are where the strip shows. */
+        /* v14.3: anything fixed/sticky, full-width and ≤ 8px tall with a paint
+           of its own under the edge point is a band of the site's making. The
+           walk rail (a 3px progress hairline) is UI and is excepted. */
+        const hairline = (yy) => {
+          const found = [];
+          for (const el of document.elementsFromPoint((innerWidth / 2) | 0, yy)) {
+            if (el === document.documentElement || el === document.body || el.closest(".walk-rail")) continue;
+            const cs = getComputedStyle(el);
+            const r = el.getBoundingClientRect();
+            const paints = hex(cs.backgroundColor) || cs.backgroundImage !== "none" || parseFloat(cs.borderTopWidth) > 0 || parseFloat(cs.borderBottomWidth) > 0;
+            if ((cs.position === "fixed" || cs.position === "sticky") && r.width >= innerWidth - 2 && r.height <= 8 && paints)
+              found.push(`${el.tagName.toLowerCase()}.${[...el.classList].join(".")}`);
+          }
+          return found;
+        };
+        /* The rail's stripe covers the top rows on a chapter page; its gaps show the page. */
         let gaps = null;
         const rail = document.querySelector(".walk-rail");
         if (rail && rail.getBoundingClientRect().top < 2) {
@@ -190,23 +213,33 @@ for (const vp of VPS) {
         return {
           top: resolve(4, "top"),
           bottom: resolve(innerHeight - 5, "bottom"),
-          tint: { top: root.getPropertyValue("--chrome-tint-top").trim(), bottom: root.getPropertyValue("--chrome-tint-bottom").trim() },
-          css: { top: strip(".chrome-tint-top"), bottom: strip(".chrome-tint-bottom") },
+          strips: document.querySelectorAll(".chrome-tint").length,
+          vars: (root.getPropertyValue("--chrome-tint-top") + root.getPropertyValue("--chrome-tint-bottom")).trim(),
+          hairline: { top: hairline(1), bottom: hairline(innerHeight - 2) },
           theme: document.querySelector('meta[name="theme-color"]').content,
           gaps,
         };
       });
+      /* The edge rows against the rows 4px in — the depth the sampler reads at. */
       const painted = {
         top: await band(buf, vp.width, 0, 2, dom.gaps),
+        topIn: await band(buf, vp.width, 4, 2, dom.gaps),
         bottom: await band(buf, vp.width, vp.height - 2, 2),
+        bottomIn: await band(buf, vp.width, vp.height - 6, 2),
       };
       for (const side of ["top", "bottom"]) {
         const want = dom[side].c;
         const clear = want === "transparent";
-        const varOk = dom.tint[side] === want && (clear ? dom.css[side] === null : dom.css[side] === want);
-        const paintOk = clear || dist(want, painted[side]) <= TOL;
+        const edge = painted[side], inner = painted[side + "In"];
+        const domOk = dom.strips === 0 && dom.vars === "" && dom.hairline[side].length === 0;
+        /* A band is two FLAT colours meeting within 4px of the edge. A flat
+           edge over rows that are not flat is content scrolled to the edge —
+           measured: /commissioners-office at 390×844, y=2696, the cream gap
+           between two lines of body text at rows 0–1 over the glyph ink at
+           rows 4–5. A strip over artwork is caught structurally (`domOk`). */
+        const paintOk = !(edge.share >= 0.95 && inner.share >= 0.95 && dist(edge.mode, inner.mode) > TOL);
         const metaOk = !clear && dist(dom.theme, want) <= TOL;
-        faces.push({ vp: vp.name, route, y, side, want, hook: dom[side].hook, clear, tint: dom.tint[side], painted: painted[side], theme: dom.theme, varOk, paintOk, metaOk });
+        faces.push({ vp: vp.name, route, y, side, want, hook: dom[side].hook, clear, strips: dom.strips, vars: dom.vars, hairline: dom.hairline[side], painted: edge, inner, theme: dom.theme, domOk, paintOk, metaOk });
       }
     }
   }
@@ -223,19 +256,19 @@ const bars = [];
 for (const pair of screens.values())
   for (const f of pair) {
     const other = pair.find((o) => o !== f);
-    if (f.clear && f.varOk) clear++;                                   // a section asked for no colour
-    else if (f.varOk && f.paintOk && f.metaOk) { seamless++; if (f.hook) hooked++; }
-    else if (f.varOk && f.paintOk && other && other.metaOk) split++;   // two colours, the meta took the other
+    if (f.domOk && f.paintOk && f.clear) clear++;                                  // a section asked for no colour; the meta is left alone
+    else if (f.domOk && f.paintOk && f.metaOk) { seamless++; if (f.hook) hooked++; }
+    else if (f.domOk && f.paintOk && other && other.metaOk) split++;              // two colours, the meta took the other
     else {
       bar++;
-      bars.push(`  ${f.vp} ${f.route} y=${f.y} ${f.side}: resolved ${f.want}${f.hook ? " (declared)" : ""} · strip var ${f.tint || "unset"} · painted ${f.painted} · meta ${f.theme}`);
+      bars.push(`  ${f.vp} ${f.route} y=${f.y} ${f.side}: resolved ${f.want}${f.hook ? " (declared)" : ""} · strips ${f.strips} · var ${f.vars || "unset"} · fixed hairline ${f.hairline.join(",") || "none"} · edge rows ${f.painted.mode} (${f.painted.share.toFixed(2)} uniform) vs 4px in ${f.inner.mode} · meta ${f.theme}`);
     }
   }
 console.log(`TINT — ${screens.size} screens × 2 bar faces = ${faces.length}`);
-console.log(`  seamless (strip = resolved edge, meta agrees)   ${seamless}  (${hooked} from a declared edge colour)`);
-console.log(`  see-through (a section declared transparent)    ${clear}`);
-console.log(`  forced split (two colours; meta took the other) ${split}`);
-console.log(`  A VISIBLE BAR                                   ${bar}`);
+console.log(`  seamless (nothing of the site's own at the edge; meta = resolved edge) ${seamless}  (${hooked} from a declared edge colour)`);
+console.log(`  see-through (a section declared transparent)                          ${clear}`);
+console.log(`  forced split (two colours; meta took the other)                       ${split}`);
+console.log(`  A VISIBLE BAR                                                         ${bar}`);
 if (bar) { console.log(bars.join("\n")); failures += bar; }
 
 /* ── 2 · RETRACTION PRECONDITIONS ─────────────────────────────────────────── */

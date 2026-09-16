@@ -144,6 +144,7 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
 
   // v13-10d · the counter sits on the dot rail's own centre line.
   // v14.2 (Wil, 9/16): BELOW the dots now, 12px under them (the column's gap-3).
+  // v14.3 (Wil, 9/16): 16px (gap-4) — "room to breathe" under the dots.
   const nav = await page.evaluate(() => {
     const n = document.querySelector('nav[aria-label="Works in the hall"]');
     const p = n?.querySelector("p"), ol = n?.querySelector("ol");
@@ -152,11 +153,12 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
     const cx = (r) => (r.left + r.right) / 2;
     return { visible: pr.height > 0, dcx: +(cx(pr) - cx(orr)).toFixed(2), below: pr.top >= orr.bottom - 0.5, gap: +(pr.top - orr.bottom).toFixed(2) };
   }).catch((e) => ({ error: String(e).slice(0, 90) }));
-  recV(vp.n, "counter below + on dot centre", !nav.error && nav.visible && Math.abs(nav.dcx) < 1 && nav.below && Math.abs(nav.gap - 12) < 1, JSON.stringify(nav));
+  recV(vp.n, "counter below + on dot centre", !nav.error && nav.visible && Math.abs(nav.dcx) < 1 && nav.below && Math.abs(nav.gap - 16) < 1, JSON.stringify(nav));
 
   // v13-10b · Face forward was right-aligned on Skip's axis (<=767).
   // v14.2 (Wil, 9/16): it stands directly ABOVE the dot rail, centred on it,
-  // 12px up (the column's gap-3), at EVERY viewport — outside the <nav>
+  // 12px up (the column's gap-3) — v14.3 (Wil, 9/16): 16px, the column's
+  // gap-4 — at EVERY viewport — outside the <nav>
   // landmark, and never touching Skip.
   {
     const ff = await page.evaluate(async () => {
@@ -173,7 +175,7 @@ for (const vp of [{ n: "375", width: 375, height: 812 }, { n: "390", width: 390,
       const hitsSkip = Math.min(r.right, skip.right) - Math.max(r.left, skip.left) > 0 && Math.min(r.bottom, skip.bottom) - Math.max(r.top, skip.top) > 0;
       return { instances: btns.length, gap: +(o.top - r.bottom).toFixed(2), dcx: +(cx(r) - cx(o)).toFixed(2), inNav: nav.contains(btns[0]), hitsSkip };
     }).catch((e) => ({ error: String(e).slice(0, 90) }));
-    recV(vp.n, "Face forward above the dots", !ff.error && Math.abs(ff.gap - 12) < 1 && Math.abs(ff.dcx) < 1 && !ff.inNav && !ff.hitsSkip, JSON.stringify(ff));
+    recV(vp.n, "Face forward above the dots", !ff.error && Math.abs(ff.gap - 16) < 1 && Math.abs(ff.dcx) < 1 && !ff.inNav && !ff.hitsSkip, JSON.stringify(ff));
     await page.evaluate(() => window.__museum.recenter());
     await page.waitForTimeout(400);
   }

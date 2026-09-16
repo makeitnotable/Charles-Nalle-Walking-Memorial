@@ -152,10 +152,20 @@ const museumWorks = works.map((w, wi) => {
       client-side). Incapable visitors keep the window as a full-bleed lead
       painting; the grid below is the page either way, and stays the
       screen-reader surface always. */}
-  <div id="museum-slot" class="relative mt-16 h-dvh">
+  {/* v14.3 (Wil, 9/16, item 3 — scroll jitter): `h-svh`, was `h-dvh`, on the
+      slot and its lead painting. With the island active the slot's height is
+      the island's own (works × 90vh, set inline) and the stage is sticky, so
+      the bars never moved this page; without it (reduced motion, no WebGL)
+      the slot was an in-flow `dvh` box above the grid that grew and shrank by
+      the bar as iOS collapsed and expanded it — measured at 390×844 under
+      reduced motion: the grid jumped −90/−200px at the reversal. `svh` is the
+      bars-expanded viewport, the state at the page top; identical at rest.
+      The sticky stage inside it (Museum.tsx) stays `h-dvh` on purpose: it has
+      to cover the viewport in both bar states. */}
+  <div id="museum-slot" class="relative mt-16 h-svh">
     {/* One viewport tall regardless of how far the island expands the slot —
         the museum's opaque stage paints over it when active. */}
-    <div class="absolute inset-x-0 top-0 h-dvh overflow-hidden">
+    <div class="absolute inset-x-0 top-0 h-svh overflow-hidden">
       <picture>
         <source
           media="(max-width: 767px)"
