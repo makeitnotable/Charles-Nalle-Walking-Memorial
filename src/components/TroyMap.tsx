@@ -252,6 +252,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const lensBoxRef = useRef<HTMLDivElement>(null);
   const lensImgRef = useRef<HTMLImageElement>(null);
   const lensView = useRef({ s: 1, tx: 0, ty: 0 });
+  const shellRef = useRef<HTMLElement | null>(null);
   const lensPointers = useRef(new Map<number, { x: number; y: number }>());
   const lensPinch = useRef(0);
 
@@ -259,6 +260,21 @@ export default function TroyMap({ stops, baseUrl }: Props) {
      sized to the box WIDTH at scale 1 (natural aspect 4096/3431), centred,
      and must always cover the box — so the minimum scale is the cover scale
      and the whole plate stays reachable by panning. */
+  /* v14.5 (round 8 §5.3): E — how far .map-shell now grows BELOW the layout
+     viewport so the map continues under iOS 26's bottom toolbar. The value
+     lives in global.css (`--map-e`, a min() of `100lvh - 100svh` and `20svh`
+     behind the @supports gate) and is read from there, never duplicated here:
+     it is 0 on every browser without bars, and it CHANGES ON ROTATION, so
+     everything that depends on it recomputes on resize and orientationchange.
+     The canvas is E taller than the UI layer, so the camera gets E of bottom
+     padding back and the framing the reader sees is unchanged. */
+  const mapE = () => {
+    const el = shellRef.current;
+    if (!el) return 0;
+    const v = parseFloat(getComputedStyle(el).getPropertyValue("--map-e"));
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  };
+
   const PLATE = 3431 / 4096;
   const lensMinScale = () => {
     const box = lensBoxRef.current;
@@ -627,7 +643,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     if (!map || !gl) return OVERVIEW;
     const w = window.innerWidth;
     const h = window.innerHeight;
-    const key = `${w}x${h}`;
+    /* v14.5: E is part of the viewport identity — it changes on rotation and
+       the fit's padding depends on it, so a cached camera from the other
+       orientation must not be reused. */
+    const key = `${w}x${h}x${Math.round(mapE())}`;
     if (camCache.current?.key === key) return camCache.current.cam;
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
     const b = new gl.LngLatBounds();
@@ -767,7 +786,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
            CTA. Reserving more room at the bottom of the fit lifts dot and pill
            together, which is the whole marker. */
         const cam = map.cameraForBounds(b, {
-          padding: { top: 120, bottom: 240, left: 140, right: 140 },
+          /* +E: an explicit padding REPLACES the map's own, so the strip under
+             the toolbar has to be re-added here or the fit would frame into it. */
+          padding: { top: 120, bottom: 240 + mapE(), left: 140, right: 140 },
           bearing: OVERVIEW.bearing,
           pitch,
         } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
@@ -803,7 +824,8 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     let lastResort: typeof chosen = null;
     if (!chosen && short) {
       const fit = map.cameraForBounds(b, {
-        padding: { top: inset + 56, bottom: inset + 76, left: inset + 24, right: inset + 24 },
+        /* +E, for the same reason as the fit above. */
+        padding: { top: inset + 56, bottom: inset + 76 + mapE(), left: inset + 24, right: inset + 24 },
         bearing: OVERVIEW.bearing,
         pitch: PITCHES[PITCHES.length - 1],
       } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
@@ -825,7 +847,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       camCache.current = null;
     };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    /* v14.5: E changes on rotation, and iOS does not always fire resize for it. */
+    window.addEventListener("orientationchange", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
   }, []);
 
   /** v7 (juror 2): in focused/walk mode the stop is lifted so it — and its
@@ -985,8 +1012,27 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const finePointer = window.matchMedia("(pointer: fine)");
     const onPointerKind = () => map.setCooperativeGestures(finePointer.matches);
     finePointer.addEventListener("change", onPointerKind);
-    map.on("load", () => map.resize());
-    const ro = new ResizeObserver(() => map.resize());
+    /* v14.5 (round 8 §5.3): the canvas runs E below the UI layer, so the
+       camera is told to treat that strip as padding — every centring,
+       cameraForBounds and easeTo then frames the box the reader actually sees,
+       and the map simply continues underneath it. E is 0 off iOS, where this
+       is a no-op. It changes on rotation (lvh and svh both change), so it is
+       re-applied on resize and orientationchange alongside map.resize(). */
+    const applyPadding = () => {
+      const e = mapE();
+      const p = map.getPadding?.();
+      if (!p || p.bottom !== e) map.setPadding({ top: 0, right: 0, bottom: e, left: 0 });
+    };
+    map.on("load", () => {
+      map.resize();
+      applyPadding();
+    });
+    const onViewportChange = () => {
+      map.resize();
+      applyPadding();
+    };
+    window.addEventListener("orientationchange", onViewportChange);
+    const ro = new ResizeObserver(onViewportChange);
     ro.observe(container.current);
 
     // v7 M1: the GeolocateControl is gone (Wil) — bottom-left is attribution alone.
@@ -1232,6 +1278,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
 
     teardown = () => {
       ro.disconnect();
+      window.removeEventListener("orientationchange", onViewportChange);
       finePointer.removeEventListener("change", onPointerKind);
       map.remove();
       mapRef.current = null;
@@ -1641,7 +1688,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }
 
   return (
-    <div className="troymap-root relative h-full w-full bg-primary-2" data-walk={focused && shellVisible ? "true" : "false"}>
+    <div
+      ref={(el) => {
+        /* v14.5: --map-e is declared on .map-shell (global.css). Read it from
+           the shell itself rather than duplicating the expression here. */
+        shellRef.current = el?.closest<HTMLElement>(".map-shell") ?? el;
+      }}
+      className="troymap-root relative h-full w-full bg-primary-2"
+      data-walk={focused && shellVisible ? "true" : "false"}
+    >
       <div ref={container} className="map-canvas absolute inset-0" />
 
       {/* 1858 lens (M7): Barton's "City of Troy, N.Y.: From actual surveys" (1858, LOC

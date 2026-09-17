@@ -26,6 +26,15 @@ interface Props {
   preloadImage?: string;
   /** Art-directed LCP preloads (chapter heroes: portrait vs landscape poster). */
   preloadImages?: { href: string; type?: string; media?: string }[];
+  /**
+   * v14.5 (round 8 §5.1). "section" makes the ADDRESS BAR take the background
+   * colour of the section under it as the reader scrolls, instead of whatever
+   * Safari would fall back to. Only the five chapter routes ask for this; see
+   * the sampler below for the mechanism and its one accepted limit (it holds
+   * at rest and lets go once the bar minimizes — round 8 test 2 proved no
+   * page-side mechanism can hold a fill in the minimized state).
+   */
+  topBar?: "section";
 }
 
 const {
@@ -36,6 +45,7 @@ const {
   noIndex = false,
   preloadImage,
   preloadImages = [],
+  topBar,
 } = Astro.props;
 // File-format builds report pathnames like /base/bakery.html — canonicalize
 // to the extensionless URLs that GH Pages actually serves.
@@ -46,7 +56,7 @@ const canonical = new URL(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-top-bar={topBar}>
   <head>
     <meta charset="utf-8" />
     {/* v9 V9-301 (Wil, 8/21: "there shouldn't be a black bar at the bottom or
@@ -194,6 +204,35 @@ const canonical = new URL(
             : null;
           return wide || edgeValue(host.getAttribute("data-edge-" + side));
         }
+        /* v14.5 (round 8 §5.1) — the chapter pages' address bar.
+           `groundAt` answers "what colour is at this point", which over a
+           painting is the artwork's declared edge colour. This answers a
+           different question: "what is the SECTION under this point painted?"
+           It walks the hit stack, and from each hit walks up to the nearest
+           section-level box — a <header>, <section>, <footer>, or a direct
+           child of <main> — that has an OPAQUE background, and returns that.
+           `data-edge-*` is deliberately ignored: those are sampled from the
+           artwork, and what Wil asked for here is the section's own ground
+           (#100a06 over the hero, the cream reading ground below it). */
+        var SECTION = /^(header|section|footer)$/;
+        function sectionGroundAt(y) {
+          var x = (window.innerWidth / 2) | 0;
+          var stack = document.elementsFromPoint
+            ? document.elementsFromPoint(x, y)
+            : [document.elementFromPoint(x, y)];
+          for (var i = 0; i < stack.length; i++) {
+            var el = stack[i];
+            if (!el || el === document.documentElement) break;
+            for (var n = el; n && n !== document.body; n = n.parentElement) {
+              var parent = n.parentElement;
+              if (!SECTION.test(n.tagName.toLowerCase()) && !(parent && parent.tagName.toLowerCase() === "main"))
+                continue;
+              var c = hex(getComputedStyle(n).backgroundColor);
+              if (c) return c;
+            }
+          }
+          return hex(getComputedStyle(document.body).backgroundColor);
+        }
         /* Returns the colour the bar at `side` should take behind the point
            (w/2, y): the nearest declared edge colour, else the first flat
            ground in paint order, else <html>. The whole stack under the point
@@ -252,6 +291,21 @@ const canonical = new URL(
             best = nTop > nBottom ? top.c : bottom.c;
           }
           var docEl = document.documentElement;
+          /* v14.5 (round 8 §5.1): on the chapter routes the top strip carries
+             the section's own ground as an OPAQUE colour, which is what iOS 26
+             reads for the address bar, and Chrome for Android takes the same
+             colour through the meta. The strip is 4px, opacity 0 and never
+             hit-tested, so this paints nothing: if Safari declines to read it,
+             the page looks exactly as it does today. Everywhere else the
+             two-edge rule above is untouched. */
+          if (docEl.dataset.topBar === "section") {
+            var sc = sectionGroundAt(4);
+            if (sc) {
+              var strip = document.querySelector(".edge-glass-top");
+              if (strip && strip.style.backgroundColor !== sc) strip.style.backgroundColor = sc;
+              best = sc;
+            }
+          }
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
           }
@@ -353,7 +407,7 @@ const canonical = new URL(
          reaches the end of the document, so a panel declared last let page B's
          hero flash for a frame or two under 4× CPU. Here it exists before any
          content paints; the head script has already set `.curtain-covered`. -->
-    <div id="curtain-panel" class="curtain-panel" aria-hidden="true" data-edge-top="#100a06" data-edge-bottom="#100a06"></div>
+    <div id="curtain-panel" class="curtain-panel" aria-hidden="true" data-edge-top="#1d1411" data-edge-bottom="#1d1411"></div>
     <div class="edge-glass edge-glass-top" aria-hidden="true"></div>
     <div class="edge-glass edge-glass-bottom" aria-hidden="true"></div>
     <div id="curtain-text" class="curtain-text" aria-hidden="true">

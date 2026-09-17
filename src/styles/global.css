@@ -115,7 +115,7 @@
 
   /* Neutral (warm cream) */
   --color-neutral-1: #070912;
-  --color-neutral-2: #100a06; /* deep overlay / curtain / route casing */
+  --color-neutral-2: #100a06; /* deep overlay / route casing (v14.5: no longer the curtain) */
   --color-neutral-3: #302414;
   --color-neutral-4: #503d22;
   --color-neutral-5: #705731;
@@ -1134,11 +1134,53 @@ h3 {
      collapsed — is one iOS leaves on any scroll up. If his phone ever shows a
      band of page ground under the map above the card strip, this line goes
      back to 100dvh. */
-  height: 100svh;
+  /* v14.5 (round 8 §5.3): + E, so the map physically continues under the
+     bottom toolbar. See --map-e below for the value and why it is not a
+     constant. `svh` (not dvh) still governs the part the reader sees at rest,
+     so the jitter this note warns about is unchanged. */
+  height: calc(100svh + var(--map-e));
   width: 100%;
   /* v9 V9-301: while the GL canvas is sizing the uncovered strip must read as
      the page, not as the canvas's black. */
   background: var(--color-primary-2);
+}
+/* v14.5 (round 8 §5.3) — E, and the three rules that keep every pixel of UI
+ * where it was.
+ *
+ * Round 8's lab measured iOS 26's bars on Wil's phone: 107px at the top and
+ * 92px at the bottom of an 844px screen, with `lvh - svh` reporting their sum
+ * (198.98). CSS cannot report the split, so E is derived, not measured:
+ * `100lvh - 100svh` is the pair, capped at `20svh` so a short landscape
+ * viewport cannot grow absurdly, and the whole expression self-zeroes wherever
+ * lvh == svh — every desktop, Android and any iOS without bars — which is why
+ * no width or orientation query is needed. No px constants: a constant sized
+ * from one phone is wrong on the next, and round 2's `lvh` regression is what
+ * happens when the map's height stops matching the device.
+ *
+ * The @supports gate is the one round 7 already relies on, and round 8's lab
+ * confirmed it fires on Wil's phone even with Request Desktop Website on —
+ * UA spoofing does not change CSS feature support. */
+@supports (-webkit-touch-callout: none) {
+  .map-shell {
+    /* `round(down, …, 1px)` matters, and was measured: a fractional E (168.8px
+       at 390×844) makes the canvas a fractional height, and overviewCamera's
+       fit is a DISCRETE search — it steps the zoom down until every label pill
+       is inside a safe box and none overlap — so a hair of difference in the
+       available box flipped which step won and moved pins by up to 10px. An
+       integer E makes the fit arithmetic exact and the pins land where they
+       always did. If a browser lacks round(), the whole declaration is invalid
+       and --map-e falls back to its @property initial 0px: the map does not
+       grow, which is exactly today's behaviour. */
+    --map-e: round(down, min(calc(100lvh - 100svh), 20svh), 1px);
+  }
+}
+/* The UI layer keeps the ORIGINAL box, so every element anchored to its bottom
+   — the hint, the scroll handle, `Take the walk` — holds its screen position
+   with no per-element arithmetic. Two classes, to beat Tailwind's `h-full` on
+   the same element regardless of bundle order (the same reason .map-canvas
+   below is written this way). */
+.map-shell .troymap-root {
+  height: calc(100% - var(--map-e));
 }
 /* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
  * the utility bundle, silently overriding `.absolute` at equal specificity —
@@ -1148,7 +1190,12 @@ h3 {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
+  /* v14.5 (round 8 §5.3): top/bottom drive the height so the canvas can reach
+     E BELOW the UI layer and fill the grown shell — `height: 100%` would
+     over-constrain the box and `bottom` would be ignored. E is 0 off iOS, so
+     this computes to exactly the old `inset: 0; height: 100%`. */
+  height: auto;
+  bottom: calc(-1 * var(--map-e));
 }
 .reveal-frame {
   aspect-ratio: 3 / 2;
@@ -1255,6 +1302,13 @@ h3 {
 .mapboxgl-ctrl-top-left,
 .mapboxgl-ctrl-top-right {
   padding: var(--ui-inset);
+}
+/* v14.5 (round 8 §5.3): these live inside the canvas, which now runs E below
+   the UI layer, so they take E back — the Mapbox logo and the attribution are
+   a licence condition and must stay visible. E is 0 everywhere else. */
+.map-shell .mapboxgl-ctrl-bottom-left,
+.map-shell .mapboxgl-ctrl-bottom-right {
+  padding-bottom: calc(var(--ui-inset) + var(--map-e));
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
@@ -1690,6 +1744,16 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 20px;
 }
+/* v14.5 (round 8 §5.3): same reason as --ui-inset above, and it bit once —
+   TroyMap reads this with parseFloat to give Mapbox its bottom padding, and
+   while it was unregistered the computed value was the literal token
+   `min(calc(100lvh - 100svh), 20svh)`, which parses to NaN. Registered as a
+   <length> it resolves to px and the camera gets the real number. */
+@property --map-e {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
      pinned to a viewport edge. An opaque colour there becomes a solid band
@@ -1698,6 +1762,11 @@ a.walk-seg:hover {
      It is only ever painted where something opaque covers it or at opacity 0,
      so tuning the alpha here never changes a visible pixel. */
   --edge-glass: rgb(29 20 17 / 0.02);
+  /* v14.5 (round 8 §5.3): how far the full-page map grows BELOW the layout
+     viewport, so it continues behind iOS 26's bottom toolbar instead of
+     ending where the toolbar starts and showing the index's brown behind it.
+     0 everywhere by default; raised only on .map-shell, below. */
+  --map-e: 0px;
   --ui-inset: max(
     var(--gutter),
     env(safe-area-inset-top, 0px),
@@ -1797,10 +1866,20 @@ a.walk-seg:hover {
   /* v14.4 (Safari 26 bars): Safari tints its address bar and toolbar from the
      background-color of any fixed element touching a viewport edge, and it
      samples elements that are parked off-screen, transparent or inert. This
-     panel was always rendered, opaque #100a06 and full-screen, so every page
-     it had ever covered kept solid #100a06 bands above and below. Two
-     changes: the colour lives on ::before (pseudo-elements are not sampled),
-     and the panel leaves the render tree whenever it is not animating. */
+     panel was always rendered, opaque and full-screen, so every page it had
+     ever covered kept a solid band above and below. Two changes: the colour
+     lives on ::before (pseudo-elements are not sampled), and the panel leaves
+     the render tree whenever it is not animating.
+
+     v14.5 (round 8, Wil's Option A): the fill is the PAGE GROUND
+     --color-primary-2 (#1d1411), not --color-neutral-2 (#100a06). Round 8's
+     lab proved the tint Safari takes from this panel cannot be cleared once
+     set: of five variants, only an animated colour change on an element that
+     stays in the tree moved the bar at all, and every removal-based recovery
+     (display:none, a scroll nudge, a body-background flip) left it exactly
+     where it was. So the panel stops handing Safari a colour worth clearing —
+     a stale tint is now the same #1d1411 as the correct one. This IS a visible
+     change to the wipe on every page, and it is approved. */
   display: none;
   background-color: var(--edge-glass);
   transform: translateY(100%);
@@ -1810,7 +1889,8 @@ a.walk-seg:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--color-neutral-2);
+  /* v14.5: the page ground, so a tint Safari cannot clear is the right one. */
+  background: var(--color-primary-2);
 }
 .curtain-panel.is-active {
   display: block;

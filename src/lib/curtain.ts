@@ -2,7 +2,7 @@
  * The curtain page transition (approved signature #1, ported from legacy
  * TransitionOverlay.jsx into MPA form).
  *
- * Legacy choreography: #100A06 panel slides up (0.6s circ.inOut), the
+ * Legacy choreography: the panel slides up (0.6s circ.inOut), the
  * CHARLES/NALLE wordmark (or destination name) fades in, 1.0s hold while
  * navigation fires, exits upward (0.6s circ.out).
  *
@@ -10,6 +10,12 @@
  * (flagged via sessionStorage) starts covered, holds briefly, and plays the
  * exit half. The panel is opaque on both sides of the load, so the seam is
  * invisible. Reduced motion: instant navigation, no curtain.
+ *
+ * v14.5 (round 8): the panel's fill is the page ground #1d1411, not the legacy
+ * #100A06 — see .curtain-panel in global.css for why (Safari 26 keeps the tint
+ * it read from this panel, and nothing a page can do clears it, so the colour
+ * it reads is now the one the bars should end on). Timing, easing, the label
+ * and every bit of the choreography are unchanged.
  */
 import gsap from "gsap";
 
