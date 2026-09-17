@@ -353,7 +353,9 @@ const canonical = new URL(
          reaches the end of the document, so a panel declared last let page B's
          hero flash for a frame or two under 4× CPU. Here it exists before any
          content paints; the head script has already set `.curtain-covered`. -->
-    <div id="curtain-panel" class="curtain-panel" aria-hidden="true"></div>
+    <div id="curtain-panel" class="curtain-panel" aria-hidden="true" data-edge-top="#100a06" data-edge-bottom="#100a06"></div>
+    <div class="edge-glass edge-glass-top" aria-hidden="true"></div>
+    <div class="edge-glass edge-glass-bottom" aria-hidden="true"></div>
     <div id="curtain-text" class="curtain-text" aria-hidden="true">
       <div id="curtain-text-content" class="flex flex-col">
         <p class="t-wordmark">Charles</p>

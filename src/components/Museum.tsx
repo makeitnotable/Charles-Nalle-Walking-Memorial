@@ -2285,7 +2285,7 @@ export default function Museum({ works, slotId }: Props) {
 
   return (
     <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "relative h-full" : "relative"}>
-      <div ref={stageRef} className="sticky top-0 h-dvh w-full overflow-hidden bg-primary-2" style={{ overscrollBehaviorX: "none" }}>
+      <div ref={stageRef} className="museum-stage sticky top-0 h-dvh w-full overflow-hidden" style={{ overscrollBehaviorX: "none" }}>
         {/* Wayfinding chip (rail) → Face forward (looked away).
             v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
             phones set the pair just above the indicator dots; tablets centre

@@ -1691,6 +1691,13 @@ a.walk-seg:hover {
   initial-value: 20px;
 }
 :root {
+  /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
+     pinned to a viewport edge. An opaque colour there becomes a solid band
+     behind the bars; a fully transparent one falls back to the page ground
+     (also a solid band); a semi-transparent one lets the page show through.
+     It is only ever painted where something opaque covers it or at opacity 0,
+     so tuning the alpha here never changes a visible pixel. */
+  --edge-glass: rgb(29 20 17 / 0.02);
   --ui-inset: max(
     var(--gutter),
     env(safe-area-inset-top, 0px),
@@ -1787,15 +1794,34 @@ a.walk-seg:hover {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--color-neutral-2);
+  /* v14.4 (Safari 26 bars): Safari tints its address bar and toolbar from the
+     background-color of any fixed element touching a viewport edge, and it
+     samples elements that are parked off-screen, transparent or inert. This
+     panel was always rendered, opaque #100a06 and full-screen, so every page
+     it had ever covered kept solid #100a06 bands above and below. Two
+     changes: the colour lives on ::before (pseudo-elements are not sampled),
+     and the panel leaves the render tree whenever it is not animating. */
+  display: none;
+  background-color: var(--edge-glass);
   transform: translateY(100%);
   pointer-events: none;
+}
+.curtain-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-neutral-2);
+}
+.curtain-panel.is-active {
+  display: block;
 }
 .curtain-text {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  display: flex;
+  /* v14.4: full-screen and fixed, so Safari counts it at both edges even at
+     opacity 0 — rendered only while the curtain moves. */
+  display: none;
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -1804,12 +1830,64 @@ a.walk-seg:hover {
 /* v7 X1 — page B arrives covered (set by the inline head script before first
    paint); the module's exit half takes over from this exact state. */
 .curtain-covered .curtain-panel {
+  display: block;
   transform: none;
   pointer-events: auto;
   will-change: transform;
 }
 .curtain-covered .curtain-text {
   opacity: 1;
+}
+.curtain-text.is-active,
+.curtain-covered .curtain-text {
+  display: flex;
+}
+
+/* ── v14.4: Liquid Glass behind Safari's bars, site-wide ──────────────────
+ * Safari 26 tints its address bar and toolbar from the background-color (and
+ * backdrop-filter) of fixed/sticky elements within ~4px of the top or ~3px
+ * of the bottom that are at least 80% wide and 3px tall — including ones at
+ * opacity 0 or parked off-screen — and otherwise from the page ground. Only
+ * display:none and pseudo-elements are skipped. Nothing in this block may
+ * change a visible pixel: every --edge-glass fill is either covered by an
+ * opaque ::before or drawn at opacity 0. */
+
+/* The corridor stage is sticky and full-screen: its opaque ground moves to
+   ::before (same colour, same box, painted beneath every child). */
+.museum-stage {
+  background-color: var(--edge-glass);
+}
+.museum-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-primary-2);
+}
+/* One invisible reading per edge, on every page. iOS/iPadOS only (the
+   @supports test is WebKit-touch-only); opacity 0, inert, never hit-tested,
+   and out of the Base.astro sampler's reach (it reads 4px in from each edge
+   and skips non-opaque colours). */
+.edge-glass {
+  display: none;
+}
+@supports (-webkit-touch-callout: none) {
+  .edge-glass {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    height: 4px;
+    z-index: 950;
+    opacity: 0;
+    pointer-events: none;
+    background-color: var(--edge-glass);
+  }
+  .edge-glass-top {
+    top: 0;
+  }
+  .edge-glass-bottom {
+    bottom: 0;
+  }
 }
 
 /* v7 C7 — the hero still reads the portrait focus below md and the landscape

@@ -63,6 +63,18 @@ function setLabel(content: HTMLElement, label: string | null, withDate = false) 
   }
 }
 
+/** v14.4: the panel is only rendered while it moves (see .curtain-panel). */
+function show(panel: HTMLElement) {
+  panel.classList.add("is-active");
+  document.getElementById("curtain-text")?.classList.add("is-active");
+}
+function park(panel: HTMLElement) {
+  panel.style.pointerEvents = "none";
+  gsap.set(panel, { y: "100%" });
+  panel.classList.remove("is-active");
+  document.getElementById("curtain-text")?.classList.remove("is-active");
+}
+
 /** Cover the page, then run `go` once hidden. */
 export function playCover(
   go: () => void,
@@ -77,6 +89,7 @@ export function playCover(
   const { panel, text, content } = e;
   document.dispatchEvent(new CustomEvent(CURTAIN_COVER_EVENT));
   setLabel(content, label, withDate);
+  show(panel);
   panel.style.pointerEvents = "auto";
   panel.style.willChange = "transform";
   sessionStorage.setItem(FLAG, "1");
@@ -106,8 +119,7 @@ export function playCover(
         duration: 0.4,
         ease: "circ.out",
         onComplete: () => {
-          panel.style.pointerEvents = "none";
-          gsap.set(panel, { y: "100%" });
+          park(panel);
           requestAnimationFrame(() => (panel.style.willChange = ""));
         },
       });
@@ -135,6 +147,7 @@ function playExit() {
      label written (`.curtain-covered`); take the same state over as inline
      styles, then release the class so nothing fights the tween. */
   setLabel(content, label, withDate);
+  show(panel);
   panel.style.pointerEvents = "auto";
   panel.style.willChange = "transform";
   gsap.set(panel, { y: "0%" });
@@ -153,8 +166,7 @@ function playExit() {
         duration: dur,
         ease: "circ.out",
         onComplete: () => {
-          panel.style.pointerEvents = "none";
-          gsap.set(panel, { y: "100%" });
+          park(panel);
           requestAnimationFrame(() => (panel.style.willChange = ""));
         },
       },
@@ -164,10 +176,9 @@ function playExit() {
   // Fail-open: never let a stalled exit hold page B hostage.
   window.setTimeout(() => {
     if (panel.style.pointerEvents === "auto") {
-      panel.style.pointerEvents = "none";
+      park(panel);
       panel.style.willChange = "";
       document.documentElement.classList.remove("curtain-covered");
-      gsap.set(panel, { y: "100%" });
       gsap.set(text, { opacity: 0 });
     }
   }, 3000);
@@ -200,9 +211,8 @@ export function initCurtain() {
       const e = els();
       document.documentElement.classList.remove("curtain-covered");
       if (e) {
-        gsap.set(e.panel, { y: "100%" });
+        park(e.panel);
         gsap.set(e.text, { opacity: 0 });
-        e.panel.style.pointerEvents = "none";
         e.panel.style.willChange = "";
       }
     }
