@@ -1944,30 +1944,49 @@ a.walk-seg:hover {
   z-index: -1;
   background: var(--color-primary-2);
 }
-/* One invisible reading per edge, on every page. iOS/iPadOS only (the
-   @supports test is WebKit-touch-only); opacity 0, inert, never hit-tested,
-   and out of the Base.astro sampler's reach (it reads 4px in from each edge
-   and skips non-opaque colours). */
+/* One invisible reading per edge, on every page. Opacity 0, inert, never
+   hit-tested, and out of the Base.astro sampler's reach: `pointer-events:
+   none` keeps the strip out of elementsFromPoint entirely, so it cannot be
+   read as a ground by groundAt() or sectionGroundAt() however tall it is.
+
+   v14.6 (round 8 phase C, Wil's device pass): 4px -> 12px, and the
+   `@supports (-webkit-touch-callout: none)` gate is gone.
+
+   Why. Round 8 phase B shipped this strip as the mechanism for the chapter
+   pages' section-coloured address bar (Base.astro, `data-top-bar="section"`),
+   and on Wil's iPhone no fill appeared at all. Two reasons, both departures
+   from what the round's own plan specified in section 5.1:
+
+   - HEIGHT. The plan said 12px; 4px shipped. This round's evidence table puts
+     the qualifying minimum at 3px on iOS and 6px on macOS, and records 12px as
+     the value bleedblend measured as reliably working. 4px is one pixel over
+     the iOS floor and UNDER the macOS floor, so Mac Safari could never have
+     read it and iOS was sitting on the threshold.
+   - THE GATE. The plan said ungated "so Mac Safari gets them too"; the gate
+     shipped. A2 measured the gate firing true on Wil's iPhone, so it is not
+     what blocked iOS — but it did exclude Mac Safari completely.
+
+   Neither change can paint: opacity is 0 and the box is out of flow, so the
+   12px box is invisible on every platform and the visual gate holds at 0
+   drift. Which of the two was the iOS blocker is what /glass-lab test 4
+   settles on the device, with a VIVID red probe rather than another
+   near-black (test 2's eight answers were useless because every option was a
+   dark brown and Wil could not tell them apart). */
 .edge-glass {
-  display: none;
+  display: block;
+  position: fixed;
+  inset-inline: 0;
+  height: 12px;
+  z-index: 950;
+  opacity: 0;
+  pointer-events: none;
+  background-color: var(--edge-glass);
 }
-@supports (-webkit-touch-callout: none) {
-  .edge-glass {
-    display: block;
-    position: fixed;
-    inset-inline: 0;
-    height: 4px;
-    z-index: 950;
-    opacity: 0;
-    pointer-events: none;
-    background-color: var(--edge-glass);
-  }
-  .edge-glass-top {
-    top: 0;
-  }
-  .edge-glass-bottom {
-    bottom: 0;
-  }
+.edge-glass-top {
+  top: 0;
+}
+.edge-glass-bottom {
+  bottom: 0;
 }
 
 /* v7 C7 — the hero still reads the portrait focus below md and the landscape

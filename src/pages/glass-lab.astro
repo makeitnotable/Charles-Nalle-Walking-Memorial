@@ -28,6 +28,14 @@
  *   U3'    Can a repaint of the edge region clear the stale tint, with the end
  *          state being NO tint rather than a replacement colour?
  *
+ * Phase C (round 8's device pass, 2026-09-17) adds TEST 4. Phase B's chapter
+ * address-bar strip produced no fill at all on Wil's iPhone; it shipped at 4px
+ * and gated where section 5.1 of the plan specified 12px and ungated. Test 4
+ * separates those two causes, and probes in PURE RED because test 2's eight
+ * answers were unusable — every configuration was a dark brown against a dark
+ * brown page ("I couldn't tell which dark brown"). No production colour is
+ * touched by any of this; the lab is internal and unlinked.
+ *
  * A2 asks exactly those three, with the failure mode of round A designed out:
  * three tests instead of seven, a button that puts the sticky stage on screen
  * so U4 cannot be missed, and a sub-stepper that applies each configuration of
@@ -91,7 +99,41 @@ const COMBOS: Combo[] = [
   { id: "c8_solid_rail0_op1", label: "strip SOLID at opacity 1 · rail OFF (visible band — the control)", top: "solid", rail: "false", op: "1" },
 ];
 
-/* ── the three tests ──────────────────────────────────────────────────────── */
+/* ── test 4: height and gate, asked with a colour Wil can actually name ───────
+ * Round 8 phase B shipped the chapter address-bar strip at 4px and still
+ * behind `@supports (-webkit-touch-callout: none)`, where section 5.1 of the
+ * plan specified 12px and ungated. On Wil's device pass no fill appeared at
+ * all. This test says which of the two was the blocker.
+ *
+ * The probe is PURE RED. Test 2's eight configurations all came back "yes"
+ * because every one of them was a dark brown against a dark brown page and
+ * the answers could not discriminate — Wil's words: "I couldn't tell which
+ * dark brown". Red against #1d1411 makes the question "red or brown?", which
+ * has one answer. The lab is unlinked and internal; NO production colour
+ * changes, here or anywhere.
+ *
+ * On the gate rows: A2 already measured `@supports (-webkit-touch-callout:
+ * none)` firing TRUE on Wil's iPhone, so V3/V4 should match V1/V2 there and a
+ * difference would overturn that measurement. The gate rows are decisive on
+ * MAC SAFARI, where the gate never fires and 4px is under the 6px macOS
+ * floor — which is why the same four run on both. */
+interface Vivid {
+  id: string;
+  label: string;
+  h: string;
+  gate: string;
+  op: string;
+}
+const VIVIDS: Vivid[] = [
+  { id: "v1_4_ungated", label: "4px · ungated (what phase B shipped, minus the gate)", h: "4", gate: "off", op: "0" },
+  { id: "v2_12_ungated", label: "12px · ungated (what section 5.1 actually specified)", h: "12", gate: "off", op: "0" },
+  { id: "v3_4_gated", label: "4px · @supports-gated (exactly what phase B shipped)", h: "4", gate: "on", op: "0" },
+  { id: "v4_12_gated", label: "12px · @supports-gated", h: "12", gate: "on", op: "0" },
+  { id: "v5_12_visible", label: "12px · ungated · opacity 1 — a VISIBLE red band, the control", h: "12", gate: "off", op: "1" },
+];
+const REDNESS = ["RED", "brown — unchanged", "some other colour"];
+
+/* ── the four tests ───────────────────────────────────────────────────────── */
 type Field =
   | { id: string; label: string; type: "bool" }
   | { id: string; label: string; type: "text"; placeholder?: string }
@@ -171,6 +213,29 @@ const TESTS: Test[] = [
       { id: "notes", label: "Anything else (a flash, a wrong colour, a delay)?", type: "text" },
     ],
   },
+  {
+    n: 4,
+    id: "a4",
+    title: "Strip height and the @supports gate — with a colour you can name",
+    setup: "Five configurations, one per numbered button. Each sets the TOP strip to PURE RED and changes only its height (4px or 12px) and whether the `@supports (-webkit-touch-callout: none)` gate wraps it. Rail OFF throughout. Bottom strip off.",
+    ask: "Stay at the very TOP of the page, bars expanded. Press button 1, look at the ADDRESS BAR, answer row 1. Then 2, and so on. The only question is whether the bar goes RED. Configuration 5 paints a visible red band on the page on purpose — it is the control that proves the strip is where a colour would come from; if 5 shows no red band at all, something is wrong with the test itself and the other four rows mean nothing.",
+    decides: "Round 8 phase C: whether the chapter pages' address bar failed on HEIGHT (4px vs 12px) or on the GATE — and, run again on a Mac, whether ungating is what Mac Safari needed.",
+    fields: [
+      ...VIVIDS.map((v, i) => ({
+        id: v.id,
+        label: `${i + 1}. ${v.label} — what colour is the address bar at rest?`,
+        type: "choice" as const,
+        choices: REDNESS,
+      })),
+      { id: "first_red", label: "Which numbered configuration is the FIRST that turns the address bar red?", type: "text", placeholder: "e.g. 2 — or 'none'" },
+      { id: "control_ok", label: "Configuration 5 — could you see a red band ON THE PAGE itself (not the bar)?", type: "bool" },
+      { id: "height_matters", label: "Comparing 1 vs 2 (both ungated): did going from 4px to 12px change the bar?", type: "bool" },
+      { id: "gate_matters", label: "Comparing 2 vs 4 (both 12px): did the gate change anything? (A2 measured the gate FIRES on your phone, so the honest expected answer here is no)", type: "bool" },
+      { id: "visible_leak", label: "In configurations 1–4, can you see ANY red anywhere on the page? (These are all opacity 0 — a yes means something leaks and production would paint.)", type: "bool" },
+      { id: "where_run", label: "Which browser did you just answer for?", type: "choice", choices: ["iPhone Safari", "Mac Safari", "iPad Safari", "Chrome for Android"] },
+      { id: "notes", label: "Anything else?", type: "text" },
+    ],
+  },
 ];
 ---
 
@@ -231,8 +296,8 @@ const TESTS: Test[] = [
       ))}
     </section>
 
-    <div class="gl-strip gl-strip-top" id="gl-strip-top" data-mode="off" aria-hidden="true"></div>
-    <div class="gl-strip gl-strip-bottom" id="gl-strip-bottom" data-mode="off" aria-hidden="true"></div>
+    <div class="gl-strip gl-strip-top" id="gl-strip-top" data-mode="off" data-h="12" data-gate="off" aria-hidden="true"></div>
+    <div class="gl-strip gl-strip-bottom" id="gl-strip-bottom" data-mode="off" data-h="12" data-gate="off" aria-hidden="true"></div>
 
     <div class="gl-rail" id="gl-rail" data-on="false" aria-hidden="true">
       {[0, 1, 2, 3, 4].map(() => <span class="gl-rail-seg"></span>)}
@@ -257,6 +322,7 @@ const TESTS: Test[] = [
       )}
     />
     <script is:inline type="application/json" id="gl-combos" set:html={JSON.stringify(COMBOS)} />
+    <script is:inline type="application/json" id="gl-vivids" set:html={JSON.stringify(VIVIDS)} />
 
     <aside class="gl-panel" id="gl-panel" aria-label="Glass lab controls">
       <button type="button" class="gl-btn gl-tiny gl-fold" id="gl-fold" aria-expanded="true">hide panel</button>
@@ -266,7 +332,8 @@ const TESTS: Test[] = [
         <ol>
           <li>Settings › Apps › Safari › <b>Allow Website Tinting = ON</b>.</li>
           <li>Pick your tab layout below, then run tests 1–3 in order.</li>
-          <li>Test 1 has a <b>JUMP</b> button; test 2 has eight numbered buttons; test 3 has five curtain buttons. Use them — they set everything up.</li>
+          <li>Test 1 has a <b>JUMP</b> button; test 2 has eight numbered buttons; test 3 has five curtain buttons; test 4 has five numbered buttons. Use them — they set everything up.</li>
+          <li><b>Test 4 is the one this round turns on.</b> It probes in <b>pure red</b>, not another near-black, so the only question is "red or brown?". Run it in <b>Top</b> and <b>Compact</b> as usual — and if you can, once more in <b>Mac Safari</b>, where the gate rows are the ones that decide.</li>
           <li>Answer at rest (top of the page, bars expanded) and, where a test says so, scrolled.</li>
           <li><b>Copy results</b> and paste them back to Claude.</li>
           <li>Then switch the layout in Settings › Apps › Safari › Tabs, press the other layout button below, and run all three again.</li>
@@ -322,6 +389,17 @@ const TESTS: Test[] = [
           ))}
         </div>
         <p class="gl-sub" id="gl-combo-label">— press 1 to begin</p>
+      </div>
+
+      {/* Test 4's action: one tap per height/gate pair, in pure red. */}
+      <div class="gl-block gl-only" data-only="a4">
+        <p class="gl-lbl">Height &amp; gate (red probe)</p>
+        <div class="gl-seg gl-seg-wrap" role="group" aria-label="Red probe configuration">
+          {VIVIDS.map((v, i) => (
+            <button type="button" class="gl-btn gl-tiny" data-vivid={v.id}>{i + 1}</button>
+          ))}
+        </div>
+        <p class="gl-sub" id="gl-vivid-label">— press 1 to begin</p>
       </div>
 
       {/* Test 3's action: the control, then the four recoveries. */}
@@ -616,6 +694,29 @@ const TESTS: Test[] = [
   }
   .gl-strip[data-mode="solid"] {
     background-color: #100a06;
+  }
+  /* ── test 4: the red probe, its two heights and the gate ─────────────────
+     Pure red so the question is "red or brown?" rather than "which dark
+     brown?". Gated and ungated are two rules, not a toggle in script, because
+     the thing under test IS the @supports rule: script cannot fake whether
+     WebKit honours it. `[data-mode][data-gate]` carries one more attribute
+     than the rule inside @supports, so ungated always wins on specificity. */
+  .gl-strip[data-mode="vivid"] {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  @supports (-webkit-touch-callout: none) {
+    .gl-strip[data-mode="vivid"] {
+      background-color: #ff0000;
+    }
+  }
+  .gl-strip[data-mode="vivid"][data-gate="off"] {
+    background-color: #ff0000;
+  }
+  .gl-strip[data-h="4"] {
+    height: 4px;
+  }
+  .gl-strip[data-h="12"] {
+    height: 12px;
   }
 
   /* ── .walk-rail's box, copied ───────────────────────────────────────────── */
@@ -915,6 +1016,11 @@ const TESTS: Test[] = [
   const TESTS_META = JSON.parse($("gl-tests").textContent ?? "[]") as Meta[];
   type Combo = { id: string; label: string; top: string; rail: string; op: string };
   const COMBOS = JSON.parse($("gl-combos").textContent ?? "[]") as Combo[];
+  /* Declared inline rather than reusing the frontmatter's `Vivid`: the client
+     script is its own scope and does not see it (`Cfg` below is local for the
+     same reason). */
+  type Viv = { id: string; label: string; h: string; gate: string; op: string };
+  const VIVIDS = JSON.parse($("gl-vivids").textContent ?? "[]") as Viv[];
   const TEST_IDS = TESTS_META.map((t) => t.id);
 
   const root = document.querySelector<HTMLElement>(".gl-root")!;
@@ -931,6 +1037,7 @@ const TESTS: Test[] = [
     a1: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "on", x: 160, y: 160, op: "0", clip: "off" },
     a2: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
     a3: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
+    a4: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
   };
 
   /* ── state in the URL, answers per layout in localStorage ───────────────── */
@@ -978,8 +1085,16 @@ const TESTS: Test[] = [
     for (const el of all<HTMLElement>(sel)) el.setAttribute("aria-pressed", String(match(el)));
   }
   function setStrip(which: "top" | "bottom", mode: string) {
-    (which === "top" ? stripTop : stripBottom).dataset.mode = mode;
-    press(`[data-strip="${which}"]`, (el) => el.dataset.v === mode);
+    const el = which === "top" ? stripTop : stripBottom;
+    el.dataset.mode = mode;
+    /* Test 4 is the only thing that moves height or gate. Anything that sets a
+       non-vivid mode is leaving it, so put both back to the page's defaults —
+       otherwise a 4px gated strip rides the stepper into tests 1-3. */
+    if (mode !== "vivid") {
+      el.dataset.h = "12";
+      el.dataset.gate = "off";
+    }
+    press(`[data-strip="${which}"]`, (v) => v.dataset.v === mode);
   }
   function setOp(op: string) {
     root.style.setProperty("--gl-strip-op", op);
@@ -1050,6 +1165,27 @@ const TESTS: Test[] = [
   }
   for (const el of all<HTMLElement>("[data-combo]")) {
     el.addEventListener("click", () => applyCombo(el.dataset.combo!));
+  }
+
+  /* ── test 4: one tap per height/gate pair ───────────────────────────────── */
+  function applyVivid(id: string) {
+    const v = VIVIDS.find((k) => k.id === id);
+    if (!v) return;
+    /* Any inline colour left by test 2 would beat the stylesheet and silently
+       turn this into a re-run of test 2. */
+    stripTop.style.backgroundColor = "";
+    stripTop.dataset.h = v.h;
+    stripTop.dataset.gate = v.gate;
+    setStrip("top", "vivid");
+    setStrip("bottom", "off");
+    setOp(v.op);
+    setRail("false");
+    press("[data-vivid]", (el) => el.dataset.vivid === id);
+    const n = VIVIDS.indexOf(v) + 1;
+    $("gl-vivid-label").textContent = `${n}. ${v.label} — now answer row ${n}`;
+  }
+  for (const el of all<HTMLElement>("[data-vivid]")) {
+    el.addEventListener("click", () => applyVivid(el.dataset.vivid!));
   }
 
   /* ── test 1: put the sticky stage on screen ─────────────────────────────── */

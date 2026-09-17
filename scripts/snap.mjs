@@ -165,9 +165,21 @@ const rel = (p) => {
 function latestManifest() {
   const dir = join(ROOT, "docs", "rounds");
   if (!existsSync(dir)) return null;
+  /* Numerically by round, not lexically: a plain sort puts `-round-10` before
+     `-round-9`, which from the tenth manifest on would read allowedRoutes off
+     the WRONG round — the guard that decides which baselines may be refreshed.
+     scope-check.mjs carries the same fix. */
+  const key = (f) => {
+    const m = /^(.*)-round-(\d+)\.json$/.exec(f);
+    return [m[1], Number(m[2])];
+  };
   const files = readdirSync(dir)
     .filter((f) => /-round-\d+\.json$/.test(f))
-    .sort();
+    .sort((a, b) => {
+      const [da, na] = key(a);
+      const [db, nb] = key(b);
+      return da === db ? na - nb : da < db ? -1 : 1;
+    });
   return files.length ? join("docs", "rounds", files[files.length - 1]) : null;
 }
 const manifestArg = flag("manifest", latestManifest());

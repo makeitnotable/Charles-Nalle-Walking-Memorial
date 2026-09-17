@@ -74,9 +74,24 @@ const tryGit = (...a) => {
 function latestManifest() {
   const dir = join(ROOT, "docs", "rounds");
   if (!existsSync(dir)) return null;
+  /* Sort by date, then by the round number NUMERICALLY. A plain lexical sort
+     puts `-round-10` BEFORE `-round-9` ("1" < "9"), so from the tenth manifest
+     on, the latest round would never be the one discovered and a bare
+     `npm run qa:scope` would silently gate against the wrong round. Round 8
+     phase B already noticed the numbering trap this sits next to (its manifest
+     is called round-9 only because scope-check discovers by
+     `-round-<digits>.json`); this is the other half of it. */
+  const key = (f) => {
+    const m = /^(.*)-round-(\d+)\.json$/.exec(f);
+    return [m[1], Number(m[2])];
+  };
   const files = readdirSync(dir)
     .filter((f) => /-round-\d+\.json$/.test(f))
-    .sort();
+    .sort((a, b) => {
+      const [da, na] = key(a);
+      const [db, nb] = key(b);
+      return da === db ? na - nb : da < db ? -1 : 1;
+    });
   return files.length ? join("docs", "rounds", files[files.length - 1]) : null;
 }
 const manifestArg = flag("manifest", latestManifest());
