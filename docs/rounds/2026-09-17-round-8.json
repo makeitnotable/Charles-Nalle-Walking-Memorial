@@ -1,0 +1,14 @@
+{
+  "round": 8,
+  "phase": "A",
+  "date": "2026-09-17",
+  "plan": "docs/rounds/2026-09-17-round-8-plan.md",
+  "base": { "tag": "client-round-8-base", "commit": "056bf0c352a98d955e8707535927de9c491d2bfa", "branch": "v2" },
+  "allowed": [
+    "src/pages/glass-lab.astro",
+    "docs/rounds/2026-09-17-round-8-plan.md",
+    "docs/rounds/2026-09-17-round-8.json"
+  ],
+  "snap": { "allowedRoutes": [] },
+  "notes": "Phase A only: one new hidden, unlinked lab page (/glass-lab). No edit to global.css or any existing page or component, so no route may drift. Phase B gets its own manifest once Wil pastes the lab results. Base 056bf0c is the v2 tip (round 7)."
+}
