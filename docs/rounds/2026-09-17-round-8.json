@@ -1,14 +1,28 @@
 {
   "round": 8,
-  "phase": "A",
+  "phase": "A2",
   "date": "2026-09-17",
   "plan": "docs/rounds/2026-09-17-round-8-plan.md",
-  "base": { "tag": "client-round-8-base", "commit": "056bf0c352a98d955e8707535927de9c491d2bfa", "branch": "v2" },
+  "base": {
+    "tag": "client-round-8a2-base",
+    "commit": "578a5ac282cb703e49291c8f7d7cf1f03f6babfc",
+    "branch": "v2"
+  },
   "allowed": [
     "src/pages/glass-lab.astro",
     "docs/rounds/2026-09-17-round-8-plan.md",
     "docs/rounds/2026-09-17-round-8.json"
   ],
-  "snap": { "allowedRoutes": [] },
-  "notes": "Phase A only: one new hidden, unlinked lab page (/glass-lab). No edit to global.css or any existing page or component, so no route may drift. Phase B gets its own manifest once Wil pastes the lab results. Base 056bf0c is the v2 tip (round 7)."
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Phase A2: the same three files as Phase A — the lab page plus this round's two docs. A2 settles the three things Phase A left open (U4, test 4's minimum working configuration, and the stale curtain tint) and records Phase A's measurements in the plan's sections 3 and 4. No edit to global.css or any existing page or component, so no route may drift. Base 578a5ac is the Phase A commit.",
+  "phase_history": [
+    {
+      "phase": "A",
+      "tag": "client-round-8-base",
+      "commit": "056bf0c352a98d955e8707535927de9c491d2bfa",
+      "shipped": "578a5ac"
+    }
+  ]
 }

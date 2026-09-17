@@ -1,61 +1,97 @@
 ---
 /**
- * /glass-lab — round 8, Phase A (docs/rounds/2026-09-17-round-8-plan.md §5).
+ * /glass-lab — round 8, Phase A2 (docs/rounds/2026-09-17-round-8-plan.md §5).
  *
- * Round 7 stopped Safari 26 painting the old #100a06 slab, but what the bars
- * do NEXT can only be seen on Wil's phone: no instrument in this container has
- * browser chrome at all. Five of the round's six unknowns (U1–U6 in the plan)
- * are contradicted between sources, and every Phase B mechanism depends on
- * them. So this page puts each candidate in front of his iPhone under a guided
- * stepper, records his answers, and hands back JSON to paste into the next
- * session.
+ * Phase A answered four of the six unknowns on Wil's iPhone (iOS 26, Top
+ * layout, 390x844 @3) and overturned the round's premise:
  *
- * What it measures:
- *   U1  can the EXPANDED bars (at rest) ever show page content?
- *   U2  what does a semi-transparent / fully clear edge element do?
- *   U3  is the curtain's colour picked up, and why does the tint stay stale?
- *   U4  does content overflowing a STICKY box render under the bars?
- *   U5  how tall are the covered regions, at rest and scrolled?
- *   U6  does an opaque opacity-0 top strip beat the 3px .walk-rail?
+ *   U1/U2  THE BARS ARE ALREADY GLASS. With NO edge element at all (test 1:
+ *          both strips display:none, rail off) page content showed behind the
+ *          expanded bottom toolbar, and behind both bars once they minimize.
+ *          Round 7's --edge-glass strips are inert; they are not what makes
+ *          glass happen. The top bar at rest reads the page brown only because
+ *          nothing exists above document offset 0 — the root-background
+ *          fallback, not a tint.
+ *   U5     At rest the top bar covers 107px and the bottom bar 92px of the
+ *          844px screen (107 + 645 layout viewport + 92 = 844; lvh - svh =
+ *          198.98 confirms the pair). Minimized, nothing is covered.
+ *   U3     The stale near-black after a curtain is in ALL THREE variants —
+ *          C1 (round 7), C2 and C3 alike.
+ *
+ * Still open, and all three block Phase B:
+ *
+ *   U4     Does content that overflows a STICKY box render under the bars?
+ *          Test 6 was never reached: both screenshots were of the ruler.
+ *   U6     Test 4 came back backwards — rail ON gave a solid near-black bar at
+ *          rest, rail OFF did not — and neither held when scrolled. What is
+ *          the MINIMUM configuration that tints the top bar at rest?
+ *   U3'    Can a repaint of the edge region clear the stale tint, with the end
+ *          state being NO tint rather than a replacement colour?
+ *
+ * A2 asks exactly those three, with the failure mode of round A designed out:
+ * three tests instead of seven, a button that puts the sticky stage on screen
+ * so U4 cannot be missed, and a sub-stepper that applies each configuration of
+ * the test-4 matrix on one tap instead of asking for three controls to be set
+ * by hand.
+ *
+ * It also probes what Phase B must gate on. Every metrics block from Wil's
+ * phone carried a macOS user-agent while the screen, the safe-area insets and
+ * the bar behaviour were unmistakably an iPhone — "Request Desktop Website",
+ * most likely. Phase B therefore gates on CSS, never on the UA string, and
+ * `.gl-probe-supports` reads the actual `@supports (-webkit-touch-callout:
+ * none)` rule that round 7 already relies on, so we learn whether it fires.
+ * `.gl-probe-e` computes `min(110px, calc(100lvh - 100svh))` — the
+ * self-zeroing form Phase B wants for E — on the real device.
  *
  * Internal page — noIndex, noMenu, unlinked, like /styleguide and
  * /chrome-test. Every URL goes through withBase(). NOTHING here touches
  * global.css or any existing page or component: all CSS is page-scoped, all
  * DOM is rendered by this template (so the scope attribute applies), and the
  * script only toggles classes, inline styles and text. The static theme-color
- * meta stays #1d1411 (head-check): the ruler's vivid stripes sit at both edges,
- * so Base.astro's sampler would otherwise write a stripe colour into the meta —
- * `data-chrome-tint-lock` (Base's own documented hook, as /chrome-test uses it)
- * holds it off. iOS 26 ignores the meta anyway; this keeps Chrome for Android
- * predictable and leaves the lab measuring only the CSS-edge mechanism.
+ * meta stays #1d1411 (head-check): the ruler's vivid stripes sit at both
+ * edges, so Base.astro's sampler would otherwise write a stripe colour into
+ * the meta — `data-chrome-tint-lock` (Base's own documented hook, as
+ * /chrome-test uses it) holds it off.
  *
- * The control cluster is fixed at the right, vertically centred and never
- * wider than 46vw, exactly as /chrome-test reasons: that way the cluster can
- * never itself become one of the edge candidates Safari samples (it needs 80%
- * of the width), and the centre column the sampler reads stays clear of it.
+ * The control cluster is vertically centred with at least 70px of clear stripe
+ * above and below, which is what keeps it out of the bands Safari samples (an
+ * element must be within ~4px of the top or ~3px of the bottom to qualify);
+ * `gl-collapsed` folds it to one button whenever the screen must be clear.
  */
 import Base from "../layouts/Base.astro";
 import { withBase } from "../lib/url";
 
-/* ── the ruler ────────────────────────────────────────────────────────────────
-   Two in-flow sections of vivid 20px stripes, one before the sticky stage and
-   one after. The left column counts UP from the top of the document (filled at
-   runtime, since the offset depends on the rendered flow); the right column
-   counts DOWN to the end of that section. Wil reads numbers off it to answer
-   U5 — which document offsets sit under each bar. */
+/* ── the ruler ────────────────────────────────────────────────────────────── */
 const STEP = 20;
 const RULER_PX = 2400;
 const ROWS = RULER_PX / STEP;
-/* Six vivid hues, so a band is identifiable from a photo at any zoom. */
 const STRIPES = ["#ff0066", "#00e5ff", "#ffd400", "#00ff7b", "#ff7a00", "#b026ff"];
 const rows = Array.from({ length: ROWS }, (_, i) => ({
-  i,
   offset: i * STEP,
   down: RULER_PX - i * STEP,
   colour: STRIPES[i % STRIPES.length],
 }));
 
-/* ── the seven tests (plan §5, "The seven tests") ─────────────────────────── */
+/* ── test 2: the configuration matrix, walked one tap at a time ───────────── */
+interface Combo {
+  id: string;
+  label: string;
+  top: string;
+  rail: string;
+  op: string;
+}
+const COMBOS: Combo[] = [
+  { id: "c1_off_rail0", label: "strip OFF · rail OFF", top: "off", rail: "false", op: "0" },
+  { id: "c2_off_rail1", label: "strip OFF · rail ON", top: "off", rail: "true", op: "0" },
+  { id: "c3_solid_rail0_op0", label: "strip SOLID at opacity 0 · rail OFF", top: "solid", rail: "false", op: "0" },
+  { id: "c4_solid_rail1_op0", label: "strip SOLID at opacity 0 · rail ON", top: "solid", rail: "true", op: "0" },
+  { id: "c5_solid_rail0_op001", label: "strip SOLID at opacity 0.01 · rail OFF", top: "solid", rail: "false", op: "0.01" },
+  { id: "c6_solid_rail1_op001", label: "strip SOLID at opacity 0.01 · rail ON", top: "solid", rail: "true", op: "0.01" },
+  { id: "c7_solid_rail0_op004", label: "strip SOLID at opacity 0.04 · rail OFF", top: "solid", rail: "false", op: "0.04" },
+  { id: "c8_solid_rail0_op1", label: "strip SOLID at opacity 1 · rail OFF (visible band — the control)", top: "solid", rail: "false", op: "1" },
+];
+
+/* ── the three tests ──────────────────────────────────────────────────────── */
 type Field =
   | { id: string; label: string; type: "bool" }
   | { id: string; label: string; type: "text"; placeholder?: string }
@@ -65,120 +101,73 @@ interface Test {
   n: number;
   id: string;
   title: string;
-  /** What the stepper has just applied — so Wil can confirm the state. */
   setup: string;
-  /** What to look at. */
   ask: string;
   decides: string;
   fields: Field[];
 }
 
-/* The four-corner question every strip test asks: top and bottom area, at rest
-   (bars expanded) and scrolled (bars minimized). */
-const edgeFields = (): Field[] => [
-  { id: "top_rest", label: "AT REST (bars expanded) — stripes visible behind the ADDRESS BAR?", type: "bool" },
-  { id: "top_rest_colour", label: "If not, what colour is that area?", type: "text", placeholder: "e.g. flat brown #1d1411" },
-  { id: "bot_rest", label: "AT REST — stripes visible behind the BOTTOM TOOLBAR?", type: "bool" },
-  { id: "bot_rest_colour", label: "If not, what colour is that area?", type: "text", placeholder: "e.g. flat brown" },
-  { id: "top_scrolled", label: "SCROLLED (bar minimized to a pill) — stripes visible behind the address bar?", type: "bool" },
-  { id: "top_scrolled_colour", label: "If not, what colour?", type: "text" },
-  { id: "bot_scrolled", label: "SCROLLED — stripes visible behind the bottom toolbar?", type: "bool" },
-  { id: "bot_scrolled_colour", label: "If not, what colour?", type: "text" },
-];
+const TINT = ["no tint — the page shows through", "still near-black", "some other colour"];
 
 const TESTS: Test[] = [
   {
     n: 1,
-    id: "t1",
-    title: "No edge elements at all",
-    setup: "Both strips display:none · rail off · stage background none.",
-    ask: "Scroll to the very top. Look at the area behind the address bar, then behind the bottom toolbar. Then scroll a little so the bar minimizes and look again.",
-    decides: "U1, U2 — the baseline. bleedblend claims natural translucency needs NO edge element.",
-    fields: edgeFields(),
-  },
-  {
-    n: 2,
-    id: "t2",
-    title: "Round 7's glass strips",
-    setup: "Both strips 12px, opacity 0, background rgb(29 20 17 / .02) · rail off · stage background none.",
-    ask: "Same four readings as test 1.",
-    decides: "U2 — whether a near-clear edge element reads as glass or as a flat band.",
-    fields: edgeFields(),
-  },
-  {
-    n: 3,
-    id: "t3",
-    title: "Fully clear strips",
-    setup: "Both strips 12px, opacity 0, background rgba(29,20,17,0) · rail off · stage background none.",
-    ask: "Same four readings as test 1.",
-    decides: "U2 — WebKit treats the `transparent` keyword as black at alpha 0; rgba(...,0) is the safe spelling.",
-    fields: edgeFields(),
-  },
-  {
-    n: 4,
-    id: "t4",
-    title: "Opaque top strip vs the walk rail",
-    setup: "Top strip 12px, opacity 0, background #100a06 · bottom strip off · stage background none. The RAIL button toggles a 3px transparent fixed bar copying .walk-rail's box.",
-    ask: "Turn the rail ON and read the address bar at rest and scrolled. Then turn it OFF and read both again. Only the ADDRESS BAR matters here.",
-    decides: "The chapter-page mechanism, and U6 — whether the rail outranks the strip.",
+    id: "a1",
+    title: "Does a sticky box's overflow render under the bars?",
+    setup: "Bleed ON at X = 160 above and Y = 160 below · clip OFF (overflow permanently visible) · strips clear · rail off.",
+    ask: "Press JUMP TO STUCK STAGE. MAGENTA/CYAN checks are the stage box; the yellow lines are where the box ends; LIME/BLACK checks beyond them have bled out of it, in numbered bands. Answer the first pair with the bars MINIMIZED. Then scroll up very slightly — enough for the bars to re-expand while the stage is still stuck — and answer the second pair. Finally press CLIP: AUTO and answer the last pair.",
+    decides: "U4 — the whole of the /paintings corridor bleed, in the bar state the requests are actually about.",
     fields: [
-      { id: "rail_on_rest", label: "RAIL ON, at rest — is the address bar solid near-black (#100a06)?", type: "bool" },
-      { id: "rail_on_rest_colour", label: "If not, what colour is it?", type: "text" },
-      { id: "rail_on_scrolled", label: "RAIL ON, scrolled — solid near-black?", type: "bool" },
-      { id: "rail_off_rest", label: "RAIL OFF, at rest — solid near-black?", type: "bool" },
-      { id: "rail_off_rest_colour", label: "If not, what colour is it?", type: "text" },
-      { id: "rail_off_scrolled", label: "RAIL OFF, scrolled — solid near-black?", type: "bool" },
-      { id: "notes", label: "Anything else you notice (a visible line, a delay, a flicker)?", type: "text" },
-    ],
-  },
-  {
-    n: 5,
-    id: "t5",
-    title: "The sticky stage's own background",
-    setup: "Strips set to whichever mode you mark BEST below · rail off · scrolled into the sticky stage so the checkerboard fills the screen.",
-    ask: "Scroll until the checkerboard is stuck filling the screen. Press each of the three STAGE BG buttons in turn and read the area behind the BOTTOM TOOLBAR each time.",
-    decides: "The stage background for /paintings.",
-    fields: [
-      { id: "best_strip", label: "Which strip mode worked best in tests 1–3?", type: "choice", choices: ["off", "glass", "clear"] },
-      { id: "bg_none", label: "STAGE BG = NONE — checkerboard visible behind the bottom toolbar?", type: "bool" },
-      { id: "bg_none_colour", label: "If not, what colour?", type: "text" },
-      { id: "bg_glass", label: "STAGE BG = GLASS — checkerboard visible behind the bottom toolbar?", type: "bool" },
-      { id: "bg_glass_colour", label: "If not, what colour?", type: "text" },
-      { id: "bg_opaque", label: "STAGE BG = OPAQUE #1d1411 — checkerboard visible behind the bottom toolbar?", type: "bool" },
-      { id: "bg_opaque_colour", label: "If not, what colour?", type: "text" },
-      { id: "top_too", label: "Does the checkerboard show behind the ADDRESS BAR while stuck?", type: "bool" },
-    ],
-  },
-  {
-    n: 6,
-    id: "t6",
-    title: "Bleed out of the sticky box, and the ruler",
-    setup: "Bleed ON at X = 160 above and Y = 160 below · stage overflow visible · strips at your best mode.",
-    ask: "Scroll until the stage is stuck. MAGENTA/CYAN checks are the stage box; LIME/BLACK checks are what has bled out of it, past the yellow line, and each lime band is numbered. Then scroll back to the very top and read the ruler numbers that sit under each bar.",
-    decides: "U4 and U5 — whether overflow out of a sticky box renders under the bars, and how tall the covered regions are.",
-    fields: [
-      { id: "reach_top", label: "Stuck — is the LIME zone visible above the yellow line, right to the very top of the screen (no brown band)?", type: "bool" },
-      { id: "reach_bottom", label: "Stuck — is the LIME zone visible below the yellow line, right to the very bottom (no brown band)?", type: "bool" },
-      { id: "band_above", label: "Largest “BLEED +N ABOVE” number you can read — type just the number (blank if none)", type: "text", placeholder: "e.g. 80" },
-      { id: "band_below", label: "Largest “BLEED +N BELOW” number you can read — type just the number (blank if none)", type: "text", placeholder: "e.g. 60" },
-      { id: "ruler_top_rest", label: "AT REST, at the top of the page — smallest ruler number visible under the ADDRESS BAR (blank if none)", type: "text" },
-      { id: "ruler_bottom_rest", label: "AT REST — largest ruler number visible under the BOTTOM TOOLBAR (blank if none)", type: "text" },
-      { id: "ruler_scrolled", label: "SCROLLED — how many ruler numbers appear under each bar? (top / bottom)", type: "text", placeholder: "e.g. 3 / 2" },
+      { id: "min_top", label: "STUCK, bars MINIMIZED — does the LIME zone show above the yellow line, right to the very top of the screen?", type: "bool" },
+      { id: "min_bottom", label: "STUCK, bars MINIMIZED — LIME below the yellow line, right to the very bottom?", type: "bool" },
+      { id: "exp_top", label: "STUCK, bars EXPANDED (scrolled up slightly) — LIME above, behind the ADDRESS BAR, to the very top?", type: "bool" },
+      { id: "exp_bottom", label: "STUCK, bars EXPANDED — LIME below, behind the BOTTOM TOOLBAR, to the very bottom?", type: "bool" },
+      { id: "band_above", label: "Largest “BLEED +N ABOVE” number you can read (blank if none)", type: "text", placeholder: "e.g. 80" },
+      { id: "band_below", label: "Largest “BLEED +N BELOW” number you can read (blank if none)", type: "text", placeholder: "e.g. 60" },
+      { id: "colour_if_not", label: "Wherever the lime does NOT reach, what colour is that band?", type: "text", placeholder: "e.g. flat brown" },
+      { id: "clip_survives", label: "CLIP: AUTO (clipped while unstuck, released while stuck — the shape production will use) — does the bleed still reach the edges while stuck?", type: "bool" },
+      { id: "clip_flash", label: "With CLIP: AUTO, does anything FLASH or JUMP as it flips, scrolling in and out of the stuck state?", type: "bool" },
+      { id: "clip_notes", label: "If it flashes or jumps, describe it", type: "text" },
       { id: "notes", label: "Anything else?", type: "text" },
     ],
   },
   {
-    n: 7,
-    id: "t7",
-    title: "The curtain, three ways",
-    setup: "Strips at your best mode · rail off. Each button runs one cover-and-uncover with exactly curtain.ts's timing, then parks.",
-    ask: "Stay near the top of the page. Press C1, wait for it to clear, and read the BOTTOM TOOLBAR. Repeat for C2 and C3.",
-    decides: "U3 — which variant leaves no stale near-black tint after the transition.",
+    n: 2,
+    id: "a2",
+    title: "The minimum configuration that tints the address bar",
+    setup: "Eight configurations, one per numbered button. Each sets the top strip, its opacity and the rail together.",
+    ask: "Stay at the very TOP of the page. Press button 1, read the address bar, answer row 1. Then 2, and so on. Only the ADDRESS BAR matters. Configuration 8 paints a visible 12px band on purpose — it is the control that proves the strip is where the colour comes from.",
+    decides: "U6, and the chapter-page mechanism: which is the FIRST configuration that works.",
     fields: [
-      { id: "c1", label: "C1 (round 7: glass panel, colour on ::before, display:none at rest) — after it clears, the bottom toolbar is…", type: "choice", choices: ["near-black #100a06 (stale)", "back to the page", "something else"] },
-      { id: "c2", label: "C2 (colour on an absolutely positioned child) — after it clears…", type: "choice", choices: ["near-black #100a06 (stale)", "back to the page", "something else"] },
-      { id: "c3", label: "C3 (colour on the panel itself, bottom strip re-toggled after parking) — after it clears…", type: "choice", choices: ["near-black #100a06 (stale)", "back to the page", "something else"] },
-      { id: "during", label: "DURING each cover, does the bar go near-black as the panel rises?", type: "bool" },
+      ...COMBOS.map((c, i) => ({
+        id: c.id,
+        label: `${i + 1}. ${c.label} — is the address bar solid near-black (#100a06) at rest?`,
+        type: "bool" as const,
+      })),
+      { id: "min_config", label: "Which numbered configuration is the FIRST that gives a solid near-black bar?", type: "text", placeholder: "e.g. 4" },
+      { id: "rail_needed", label: "Does the rail have to be ON for any of them to work?", type: "bool" },
+      { id: "visible_line", label: "In the configuration you picked, can you see any line or band on the page itself?", type: "bool" },
+      { id: "notes", label: "Anything else?", type: "text" },
+    ],
+  },
+  {
+    n: 3,
+    id: "a3",
+    title: "Clearing the stale curtain tint",
+    setup: "Each button runs the live site's own curtain (C1: glass panel, colour on ::before, display:none at rest) and then tries one way of forcing the edge region to repaint.",
+    ask: "Stay near the top of the page. Press a button, let the curtain cover and clear completely, then read the BOTTOM TOOLBAR. The right answer is NO TINT — the page showing through, as it does before any curtain runs. Run C1 first as the control: it should reproduce the stale near-black.",
+    decides: "U3 — whether a repaint clears the tint, with no visible pixel changed.",
+    fields: [
+      { id: "c1_control", label: "C1 (control, the live site as it is) — after it clears, the bottom toolbar is…", type: "choice", choices: TINT },
+      { id: "c4a", label: "C4a (a persistent strip's colour animated from #100a06 to clear over 8 frames) — after it clears…", type: "choice", choices: TINT },
+      { id: "c4b", label: "C4b (the strip's alpha animated to 0 over 8 frames, then display:none) — after it clears…", type: "choice", choices: TINT },
+      { id: "c5", label: "C5 (a 1px scroll nudge down and back after the curtain parks) — after it clears…", type: "choice", choices: TINT },
+      { id: "c6", label: "C6 (body's background set one level off and back for two frames) — after it clears…", type: "choice", choices: TINT },
+      { id: "c1_edge", label: "On the C1 control, WHICH edge is stale?", type: "choice", choices: ["bottom only", "top only", "both", "neither — nothing was stale"] },
+      { id: "clears_on_scroll", label: "Leave C1's stale tint alone, then scroll down a little and back up — does it clear by itself?", type: "bool" },
+      { id: "residual_edge", label: "For your best variant, if any tint remains, which edge is it on?", type: "text", placeholder: "e.g. none / bottom" },
+      { id: "best", label: "Which one left NO tint? If more than one worked, which was cleanest?", type: "text", placeholder: "e.g. C4b" },
+      { id: "repeatable", label: "Run your winner twice more — does it work every time?", type: "bool" },
       { id: "notes", label: "Anything else (a flash, a wrong colour, a delay)?", type: "text" },
     ],
   },
@@ -202,7 +191,10 @@ const TESTS: Test[] = [
   <div class="gl-root">
     {/* Viewport probes. 1px wide, so they can never qualify as an edge element
         (Safari needs 80% of the width); their heights are the only way to read
-        lvh/svh/dvh, since env(safe-area-inset-*) reports 0 on iOS 26. */}
+        lvh/svh/dvh, since env(safe-area-inset-*) reports 0 on iOS 26.
+        `gl-probe-supports` is the important one: it reads the ACTUAL
+        @supports rule round 7 gates on, which a spoofed user-agent cannot
+        change. `gl-probe-e` computes Phase B's self-zeroing E. */}
     <div class="gl-probes" aria-hidden="true">
       <i id="gl-p-lvh" class="gl-probe gl-probe-lvh"></i>
       <i id="gl-p-svh" class="gl-probe gl-probe-svh"></i>
@@ -210,11 +202,10 @@ const TESTS: Test[] = [
       <i id="gl-p-vh" class="gl-probe gl-probe-vh"></i>
       <i id="gl-p-sat" class="gl-probe gl-probe-sat"></i>
       <i id="gl-p-sab" class="gl-probe gl-probe-sab"></i>
+      <i id="gl-p-supports" class="gl-probe gl-probe-supports"></i>
+      <i id="gl-p-e" class="gl-probe gl-probe-e"></i>
     </div>
 
-    {/* Ruler 1 — the document starts here, so these are the stripes behind the
-        bars at rest. No in-flow intro: the instructions live in the fixed
-        cluster, which is deliberately too narrow to be sampled. */}
     <section class="gl-ruler" id="gl-ruler-1" data-ruler="1" aria-label="Ruler, section 1">
       {rows.map((r) => (
         <div class="gl-row" style={`background:${r.colour}`}>
@@ -224,15 +215,13 @@ const TESTS: Test[] = [
       ))}
     </section>
 
-    {/* The sticky stage — the museum stage's box, with its own scene. */}
-    <div class="gl-stagewrap">
-      <div class="gl-stage" id="gl-stage" data-bg="none" data-bleed="off">
+    <div class="gl-stagewrap" id="gl-stagewrap">
+      <div class="gl-stage" id="gl-stage" data-bg="none" data-bleed="off" data-clip="off" data-stuck="false">
         <canvas id="gl-canvas" class="gl-canvas"></canvas>
         <p class="gl-stage-tag">STICKY STAGE · top:0 · height:100dvh</p>
       </div>
     </div>
 
-    {/* Ruler 2 — after the stage, so the bottom of the document is measurable too. */}
     <section class="gl-ruler" id="gl-ruler-2" data-ruler="2" aria-label="Ruler, section 2">
       {rows.map((r) => (
         <div class="gl-row" style={`background:${r.colour}`}>
@@ -242,16 +231,13 @@ const TESTS: Test[] = [
       ))}
     </section>
 
-    {/* The two edge candidates: 12px, full width, fixed, inert, opacity 0. */}
     <div class="gl-strip gl-strip-top" id="gl-strip-top" data-mode="off" aria-hidden="true"></div>
     <div class="gl-strip gl-strip-bottom" id="gl-strip-bottom" data-mode="off" aria-hidden="true"></div>
 
-    {/* A copy of .walk-rail's box: fixed, full width, 3px, transparent, inert. */}
     <div class="gl-rail" id="gl-rail" data-on="false" aria-hidden="true">
       {[0, 1, 2, 3, 4].map(() => <span class="gl-rail-seg"></span>)}
     </div>
 
-    {/* The curtain, in three variants (see the stylesheet for what differs). */}
     <div class="gl-curtain" id="gl-curtain" data-variant="c1" aria-hidden="true">
       <div class="gl-curtain-kid" id="gl-curtain-kid"></div>
     </div>
@@ -262,32 +248,37 @@ const TESTS: Test[] = [
       </div>
     </div>
 
-    {/* The stepper's copy, handed to the module script as data: `define:vars`
-        would force the script inline and forbid its `gsap` import. */}
-    <script is:inline type="application/json" id="gl-tests" set:html={JSON.stringify(
-      TESTS.map((t) => ({ id: t.id, title: t.title, setup: t.setup, ask: t.ask, decides: t.decides })),
-    )} />
+    <script
+      is:inline
+      type="application/json"
+      id="gl-tests"
+      set:html={JSON.stringify(
+        TESTS.map((t) => ({ id: t.id, title: t.title, setup: t.setup, ask: t.ask, decides: t.decides })),
+      )}
+    />
+    <script is:inline type="application/json" id="gl-combos" set:html={JSON.stringify(COMBOS)} />
 
     <aside class="gl-panel" id="gl-panel" aria-label="Glass lab controls">
-      <button type="button" class="gl-btn gl-tiny gl-fold" id="gl-fold" aria-expanded="true">
-        hide panel
-      </button>
+      <button type="button" class="gl-btn gl-tiny gl-fold" id="gl-fold" aria-expanded="true">hide panel</button>
+
       <details class="gl-how" open>
-        <summary>How to run this</summary>
+        <summary>How to run this — Phase A2, three tests</summary>
         <ol>
           <li>Settings › Apps › Safari › <b>Allow Website Tinting = ON</b>.</li>
-          <li>Pick your tab layout below, then run tests 1–7 in order.</li>
-          <li>
-            Each test says what it applied and what to look at. Answer at rest
-            (top of the page, bars expanded) <b>and</b> scrolled (bar minimized).
-          </li>
-          <li>When all seven are done, press <b>Copy results</b> and paste them back to Claude.</li>
-          <li>
-            Then change the layout in Settings › Apps › Safari › Tabs, switch the
-            layout button below, and run all seven again.
-          </li>
+          <li>Pick your tab layout below, then run tests 1–3 in order.</li>
+          <li>Test 1 has a <b>JUMP</b> button; test 2 has eight numbered buttons; test 3 has five curtain buttons. Use them — they set everything up.</li>
+          <li>Answer at rest (top of the page, bars expanded) and, where a test says so, scrolled.</li>
+          <li><b>Copy results</b> and paste them back to Claude.</li>
+          <li>Then switch the layout in Settings › Apps › Safari › Tabs, press the other layout button below, and run all three again.</li>
         </ol>
       </details>
+
+      {/* What Phase B may gate on, printed rather than inferred. Both values
+          are copied out with the results. */}
+      <div class="gl-block">
+        <p class="gl-lbl">Gate probes — read on this device</p>
+        <pre class="gl-metrics" id="gl-gates">—</pre>
+      </div>
 
       <div class="gl-block">
         <p class="gl-lbl">Safari tab layout</p>
@@ -298,9 +289,7 @@ const TESTS: Test[] = [
       </div>
 
       <div class="gl-block gl-step">
-        <p class="gl-lbl">
-          Test <span id="gl-step-n">1</span> of {TESTS.length} · <span id="gl-step-title"></span>
-        </p>
+        <p class="gl-lbl">Test <span id="gl-step-n">1</span> of {TESTS.length} · <span id="gl-step-title"></span></p>
         <div class="gl-row2">
           <button type="button" class="gl-btn" id="gl-prev">◀ Prev</button>
           <button type="button" class="gl-btn" id="gl-next">Next ▶</button>
@@ -309,6 +298,43 @@ const TESTS: Test[] = [
         <p class="gl-setup" id="gl-setup"></p>
         <p class="gl-ask" id="gl-ask"></p>
         <p class="gl-decides" id="gl-decides"></p>
+      </div>
+
+      {/* Test 1's action: put the sticky stage on screen. Phase A's test 6 was
+          missed because reaching it needed a blind scroll. */}
+      <div class="gl-block gl-only" data-only="a1">
+        <button type="button" class="gl-btn gl-wide gl-go" id="gl-jump">↓ Jump to stuck stage</button>
+        <button type="button" class="gl-btn gl-wide" id="gl-top">↑ Back to the top</button>
+        <p class="gl-sub">Clip — “auto” is the shape production will use: clipped while unstuck, released while stuck.</p>
+        <div class="gl-seg" role="group" aria-label="Clip">
+          <button type="button" class="gl-btn" data-clip="off">clip: off</button>
+          <button type="button" class="gl-btn" data-clip="auto">clip: auto</button>
+        </div>
+        <p class="gl-sub" id="gl-stuck-label">—</p>
+      </div>
+
+      {/* Test 2's action: one tap per configuration. */}
+      <div class="gl-block gl-only" data-only="a2">
+        <p class="gl-lbl">Configuration</p>
+        <div class="gl-seg gl-seg-wrap" role="group" aria-label="Configuration">
+          {COMBOS.map((c, i) => (
+            <button type="button" class="gl-btn gl-tiny" data-combo={c.id}>{i + 1}</button>
+          ))}
+        </div>
+        <p class="gl-sub" id="gl-combo-label">— press 1 to begin</p>
+      </div>
+
+      {/* Test 3's action: the control, then the four recoveries. */}
+      <div class="gl-block gl-only" data-only="a3">
+        <p class="gl-lbl">Curtain</p>
+        <div class="gl-seg gl-seg-wrap" role="group" aria-label="Curtain variant">
+          <button type="button" class="gl-btn" data-curtain="c1">C1 control</button>
+          <button type="button" class="gl-btn" data-curtain="c4a">C4a</button>
+          <button type="button" class="gl-btn" data-curtain="c4b">C4b</button>
+          <button type="button" class="gl-btn" data-curtain="c5">C5</button>
+          <button type="button" class="gl-btn" data-curtain="c6">C6</button>
+        </div>
+        <p class="gl-sub" id="gl-curtain-label">—</p>
       </div>
 
       <form class="gl-block gl-answers" id="gl-answers" aria-label="Answers">
@@ -348,8 +374,8 @@ const TESTS: Test[] = [
         ))}
       </form>
 
-      <div class="gl-block">
-        <p class="gl-lbl">Manual overrides</p>
+      <details class="gl-block gl-how">
+        <summary>Manual overrides</summary>
         <p class="gl-sub">Top strip</p>
         <div class="gl-seg" role="group" aria-label="Top strip mode">
           <button type="button" class="gl-btn" data-strip="top" data-v="off">off</button>
@@ -363,6 +389,13 @@ const TESTS: Test[] = [
           <button type="button" class="gl-btn" data-strip="bottom" data-v="glass">glass</button>
           <button type="button" class="gl-btn" data-strip="bottom" data-v="clear">clear</button>
           <button type="button" class="gl-btn" data-strip="bottom" data-v="solid">solid</button>
+        </div>
+        <p class="gl-sub">Strip opacity</p>
+        <div class="gl-seg" role="group" aria-label="Strip opacity">
+          <button type="button" class="gl-btn" data-op="0">0</button>
+          <button type="button" class="gl-btn" data-op="0.01">0.01</button>
+          <button type="button" class="gl-btn" data-op="0.04">0.04</button>
+          <button type="button" class="gl-btn" data-op="1">1</button>
         </div>
         <p class="gl-sub">Stage background</p>
         <div class="gl-seg" role="group" aria-label="Stage background">
@@ -384,13 +417,12 @@ const TESTS: Test[] = [
           <label class="gl-num">X above <input type="number" id="gl-x" value="0" min="0" max="600" step="10" /></label>
           <label class="gl-num">Y below <input type="number" id="gl-y" value="0" min="0" max="600" step="10" /></label>
         </div>
-        <p class="gl-sub">Curtain</p>
-        <div class="gl-seg" role="group" aria-label="Curtain variant">
-          <button type="button" class="gl-btn" data-curtain="c1">C1</button>
+        <p class="gl-sub">Older curtain variants</p>
+        <div class="gl-seg" role="group" aria-label="Older curtain variants">
           <button type="button" class="gl-btn" data-curtain="c2">C2</button>
           <button type="button" class="gl-btn" data-curtain="c3">C3</button>
         </div>
-      </div>
+      </details>
 
       <div class="gl-block">
         <p class="gl-lbl">Metrics <button type="button" class="gl-btn gl-tiny" id="gl-capture">capture</button></p>
@@ -399,7 +431,7 @@ const TESTS: Test[] = [
 
       <div class="gl-block">
         <div class="gl-row2">
-          <button type="button" class="gl-btn gl-wide" id="gl-copy">Copy results</button>
+          <button type="button" class="gl-btn gl-wide gl-go" id="gl-copy">Copy results</button>
           <button type="button" class="gl-btn" id="gl-reset">Reset layout</button>
         </div>
         <p class="gl-sub" id="gl-saved">—</p>
@@ -421,6 +453,7 @@ const TESTS: Test[] = [
     position: static;
     --gl-x: 0px;
     --gl-y: 0px;
+    --gl-strip-op: 0;
   }
 
   /* ── probes ─────────────────────────────────────────────────────────────── */
@@ -456,6 +489,20 @@ const TESTS: Test[] = [
   .gl-probe-sab {
     height: env(safe-area-inset-bottom, 0px);
   }
+  /* The actual rule round 7 gates on. A spoofed user-agent cannot change it,
+     which is the point: Phase B must gate on this, not on navigator.userAgent. */
+  .gl-probe-supports {
+    height: 0;
+  }
+  @supports (-webkit-touch-callout: none) {
+    .gl-probe-supports {
+      height: 7px;
+    }
+  }
+  /* Phase B's self-zeroing E: 110px where there are bars, 0 where lvh == svh. */
+  .gl-probe-e {
+    height: min(110px, calc(100lvh - 100svh));
+  }
 
   /* ── ruler ──────────────────────────────────────────────────────────────── */
   .gl-ruler {
@@ -476,13 +523,11 @@ const TESTS: Test[] = [
   }
   .gl-up,
   .gl-down {
-    /* Readable over any of the six hues, and legible in a phone photo. */
     background: rgba(255, 255, 255, 0.86);
     padding: 1px 4px;
     border-radius: 3px;
   }
   .gl-down {
-    /* The countdown column is quieter than the offset column. */
     opacity: 0.72;
   }
 
@@ -501,17 +546,23 @@ const TESTS: Test[] = [
   }
   /* data-bg="none" declares NOTHING on purpose: the element must offer Safari
      no background of its own, which is a different case from the "clear"
-     rgba(29,20,17,0) the strips can carry. That distinction is what tests 2, 3
-     and 5 exist to draw, so it must not be blurred here. */
+     rgba(29,20,17,0) the strips can carry. */
   .gl-stage[data-bg="glass"] {
     background-color: rgb(29 20 17 / 0.02);
   }
   .gl-stage[data-bg="opaque"] {
     background-color: #1d1411;
   }
-  /* Bleed: the canvas leaves the stage box by X above and Y below, and the box
-     stops clipping. This is the /paintings §5.2.3 candidate in miniature. */
-  .gl-stage[data-bleed="on"] {
+  /* clip:off — overflow permanently visible, which is how Phase A's test 6
+     was set up. clip:auto — the production shape: the box clips until it is
+     stuck, and only releases while stuck. */
+  .gl-stage[data-bleed="on"][data-clip="off"] {
+    overflow: visible;
+  }
+  .gl-stage[data-bleed="on"][data-clip="auto"] {
+    overflow: hidden;
+  }
+  .gl-stage[data-bleed="on"][data-clip="auto"][data-stuck="true"] {
     overflow: visible;
   }
   .gl-canvas {
@@ -543,7 +594,7 @@ const TESTS: Test[] = [
     inset-inline: 0;
     height: 12px;
     z-index: 950;
-    opacity: 0;
+    opacity: var(--gl-strip-op);
     pointer-events: none;
   }
   .gl-strip-top {
@@ -588,7 +639,7 @@ const TESTS: Test[] = [
     background-image: linear-gradient(to bottom, currentcolor 3px, transparent 3px);
   }
 
-  /* ── curtain, three variants ────────────────────────────────────────────── */
+  /* ── curtain ────────────────────────────────────────────────────────────── */
   .gl-curtain {
     position: fixed;
     inset: 0;
@@ -600,12 +651,21 @@ const TESTS: Test[] = [
   .gl-curtain.is-active {
     display: block;
   }
-  /* C1 — round 7 as shipped: the panel's own background is glass and the
-     opaque colour lives on ::before. */
-  .gl-curtain[data-variant="c1"] {
+  /* C1 — the live site as shipped: the panel's own background is glass and the
+     opaque colour lives on ::before. Every A2 recovery variant covers this
+     way, so each one is tested against the real cause. */
+  .gl-curtain[data-variant="c1"],
+  .gl-curtain[data-variant="c4a"],
+  .gl-curtain[data-variant="c4b"],
+  .gl-curtain[data-variant="c5"],
+  .gl-curtain[data-variant="c6"] {
     background-color: rgb(29 20 17 / 0.02);
   }
-  .gl-curtain[data-variant="c1"]::before {
+  .gl-curtain[data-variant="c1"]::before,
+  .gl-curtain[data-variant="c4a"]::before,
+  .gl-curtain[data-variant="c4b"]::before,
+  .gl-curtain[data-variant="c5"]::before,
+  .gl-curtain[data-variant="c6"]::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -651,13 +711,9 @@ const TESTS: Test[] = [
   }
 
   /* ── the control cluster ────────────────────────────────────────────────── */
-  /* The cluster is vertically centred with at least 70px of clear stripe above
-     and below it, which is what keeps it out of the bands Safari samples (an
-     element must be within ~4px of the top or ~3px of the bottom to qualify) —
-     its width is free, and it needs to be readable: eight questions a test at
-     46vw is a 179px column on a 390px phone. It stays under 80vw all the same,
-     so it cannot qualify on width either, and `gl-collapsed` folds it to a
-     single button whenever Wil wants the screen clear. */
+  /* Vertically centred with at least 70px of clear stripe above and below,
+     which is what keeps it out of the bands Safari samples; under 80vw as
+     well, so it cannot qualify on width either. */
   .gl-panel {
     position: fixed;
     right: 10px;
@@ -684,6 +740,9 @@ const TESTS: Test[] = [
     gap: 5px;
     padding-top: 6px;
     border-top: 1px solid rgba(254, 217, 204, 0.16);
+  }
+  .gl-only[hidden] {
+    display: none;
   }
   .gl-lbl {
     margin: 0;
@@ -743,11 +802,17 @@ const TESTS: Test[] = [
     cursor: pointer;
   }
   .gl-tiny {
-    min-height: 24px;
-    padding: 0 6px;
+    min-height: 28px;
+    padding: 0 9px;
   }
   .gl-wide {
     flex: 1;
+  }
+  /* The buttons a test tells Wil to press, so they read as the action. */
+  .gl-go {
+    background: var(--color-primary-10);
+    border-color: var(--color-primary-10);
+    color: var(--color-primary-2);
   }
   .gl-btn[aria-pressed="true"] {
     background: var(--color-primary-10);
@@ -842,37 +907,15 @@ const TESTS: Test[] = [
 <script>
   import gsap from "gsap";
 
-  /* ── the test table, mirrored from the frontmatter ────────────────────────
-     Only the ids and the applied configuration live here; every label is
-     already in the DOM, rendered (and scoped) by the template. */
-  const TEST_IDS = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"] as const;
-  type Cfg = {
-    top: string;
-    bottom: string;
-    rail: string;
-    bg: string;
-    bleed: string;
-    x: number;
-    y: number;
-  };
-  const CONFIG: Record<string, Cfg> = {
-    t1: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0 },
-    t2: { top: "glass", bottom: "glass", rail: "false", bg: "none", bleed: "off", x: 0, y: 0 },
-    t3: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "off", x: 0, y: 0 },
-    t4: { top: "solid", bottom: "off", rail: "true", bg: "none", bleed: "off", x: 0, y: 0 },
-    t5: { top: "glass", bottom: "glass", rail: "false", bg: "none", bleed: "off", x: 0, y: 0 },
-    t6: { top: "glass", bottom: "glass", rail: "false", bg: "none", bleed: "on", x: 160, y: 160 },
-    t7: { top: "glass", bottom: "glass", rail: "false", bg: "none", bleed: "off", x: 0, y: 0 },
-  };
-
-  /* 20px between the numbered bleed bands, as between the ruler's stripes. */
   const STEP_BAND = 20;
-
   const $ = (id: string) => document.getElementById(id)!;
   const all = <T extends Element>(sel: string) => Array.from(document.querySelectorAll<T>(sel));
 
   type Meta = { id: string; title: string; setup: string; ask: string; decides: string };
-  const TESTS_META = JSON.parse(document.getElementById("gl-tests")!.textContent ?? "[]") as Meta[];
+  const TESTS_META = JSON.parse($("gl-tests").textContent ?? "[]") as Meta[];
+  type Combo = { id: string; label: string; top: string; rail: string; op: string };
+  const COMBOS = JSON.parse($("gl-combos").textContent ?? "[]") as Combo[];
+  const TEST_IDS = TESTS_META.map((t) => t.id);
 
   const root = document.querySelector<HTMLElement>(".gl-root")!;
   const stage = $("gl-stage");
@@ -882,7 +925,15 @@ const TESTS: Test[] = [
   const xIn = $("gl-x") as HTMLInputElement;
   const yIn = $("gl-y") as HTMLInputElement;
 
-  /* ── state, persisted in the URL so a reload keeps the configuration ────── */
+  /* Each test's starting configuration. */
+  type Cfg = { top: string; bottom: string; rail: string; bg: string; bleed: string; x: number; y: number; op: string; clip: string };
+  const CONFIG: Record<string, Cfg> = {
+    a1: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "on", x: 160, y: 160, op: "0", clip: "off" },
+    a2: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
+    a3: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
+  };
+
+  /* ── state in the URL, answers per layout in localStorage ───────────────── */
   const params = new URLSearchParams(location.search);
   let step = Math.min(Math.max(parseInt(params.get("t") ?? "1", 10) || 1, 1), TEST_IDS.length);
   let layout = params.get("layout") === "compact" ? "compact" : "top";
@@ -894,8 +945,7 @@ const TESTS: Test[] = [
     history.replaceState(null, "", `${location.pathname}?${p.toString()}`);
   }
 
-  /* ── answers, persisted per layout ──────────────────────────────────────── */
-  const KEY = "cnwm-glass-lab-v1";
+  const KEY = "cnwm-glass-lab-a2";
   type Store = Record<string, Record<string, Record<string, string>>>;
   function load(): Store {
     try {
@@ -931,6 +981,10 @@ const TESTS: Test[] = [
     (which === "top" ? stripTop : stripBottom).dataset.mode = mode;
     press(`[data-strip="${which}"]`, (el) => el.dataset.v === mode);
   }
+  function setOp(op: string) {
+    root.style.setProperty("--gl-strip-op", op);
+    press("[data-op]", (el) => el.dataset.op === op);
+  }
   function setBg(mode: string) {
     stage.dataset.bg = mode;
     press("[data-bg]:not(.gl-stage)", (el) => el.dataset.bg === mode);
@@ -944,6 +998,23 @@ const TESTS: Test[] = [
     press("[data-bleed]:not(.gl-stage)", (el) => el.dataset.bleed === on);
     sizeCanvas();
   }
+  function setClip(mode: string) {
+    stage.dataset.clip = mode;
+    press("[data-clip]:not(.gl-stage)", (el) => el.dataset.clip === mode);
+    trackStuck();
+  }
+  /* Whether the sticky stage is currently stuck, which is what clip:auto keys
+     off — and what Museum's own scroll state will drive in production. */
+  function trackStuck() {
+    const r = stage.getBoundingClientRect();
+    const stuck = Math.round(r.top) <= 0 && Math.round(r.bottom) > 0;
+    stage.dataset.stuck = String(stuck);
+    const label = $("gl-stuck-label");
+    if (label) {
+      label.textContent = `stage ${stuck ? "STUCK" : "not stuck"} · clip ${stage.dataset.clip} · overflow ${getComputedStyle(stage).overflow}`;
+    }
+  }
+
   function setXY(x: number, y: number) {
     xIn.value = String(x);
     yIn.value = String(y);
@@ -952,24 +1023,58 @@ const TESTS: Test[] = [
     sizeCanvas();
   }
   function apply(cfg: Cfg) {
+    stripTop.style.backgroundColor = "";
+    stripBottom.style.backgroundColor = "";
     setStrip("top", cfg.top);
     setStrip("bottom", cfg.bottom);
+    setOp(cfg.op);
     setRail(cfg.rail);
     setBg(cfg.bg);
     setXY(cfg.x, cfg.y);
     setBleed(cfg.bleed);
+    setClip(cfg.clip);
   }
+
+  /* ── test 2: one tap per configuration ──────────────────────────────────── */
+  function applyCombo(id: string) {
+    const c = COMBOS.find((k) => k.id === id);
+    if (!c) return;
+    stripTop.style.backgroundColor = "";
+    setStrip("top", c.top);
+    setStrip("bottom", "off");
+    setOp(c.op);
+    setRail(c.rail);
+    press("[data-combo]", (el) => el.dataset.combo === id);
+    const n = COMBOS.indexOf(c) + 1;
+    $("gl-combo-label").textContent = `${n}. ${c.label} — now answer row ${n}`;
+  }
+  for (const el of all<HTMLElement>("[data-combo]")) {
+    el.addEventListener("click", () => applyCombo(el.dataset.combo!));
+  }
+
+  /* ── test 1: put the sticky stage on screen ─────────────────────────────── */
+  $("gl-jump").addEventListener("click", () => {
+    const wrap = $("gl-stagewrap");
+    const y = wrap.getBoundingClientRect().top + scrollY + Math.round(innerHeight * 0.9);
+    scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+    requestAnimationFrame(() => {
+      sizeCanvas();
+      captureMetrics();
+    });
+  });
+  $("gl-top").addEventListener("click", () => {
+    scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    requestAnimationFrame(captureMetrics);
+  });
 
   /* ── the stepper ────────────────────────────────────────────────────────── */
   const fieldsets = all<HTMLElement>(".gl-fs");
   function showStep() {
     const id = TEST_IDS[step - 1];
-    const fs = fieldsets.find((f) => f.dataset.test === id)!;
-    for (const f of fieldsets) f.hidden = f !== fs;
-    $("gl-step-n").textContent = String(step);
-    /* Every label is in the DOM already; the stepper reads the copy out of the
-       matching legend's siblings rather than duplicating it in script. */
+    for (const f of fieldsets) f.hidden = f.dataset.test !== id;
+    for (const b of all<HTMLElement>(".gl-only")) b.hidden = b.dataset.only !== id;
     const t = TESTS_META[step - 1];
+    $("gl-step-n").textContent = String(step);
     $("gl-step-title").textContent = t.title;
     $("gl-setup").textContent = t.setup;
     $("gl-ask").textContent = t.ask;
@@ -988,7 +1093,6 @@ const TESTS: Test[] = [
       else el.setAttribute("aria-pressed", String(el.dataset.v === v && v !== ""));
     }
   }
-
   $("gl-prev").addEventListener("click", () => {
     step = Math.max(1, step - 1);
     showStep();
@@ -1011,11 +1115,9 @@ const TESTS: Test[] = [
   }
   press("[data-layout]", (b) => b.dataset.layout === layout);
 
-  /* ── answer inputs ──────────────────────────────────────────────────────── */
   for (const el of all<HTMLElement>("button[data-k]")) {
     el.addEventListener("click", () => {
-      const key = el.dataset.k!;
-      setAnswer(key, el.dataset.v ?? "");
+      setAnswer(el.dataset.k!, el.dataset.v ?? "");
       restoreAnswers();
     });
   }
@@ -1027,24 +1129,37 @@ const TESTS: Test[] = [
   for (const el of all<HTMLElement>("[data-strip]")) {
     el.addEventListener("click", () => setStrip(el.dataset.strip as "top" | "bottom", el.dataset.v!));
   }
+  for (const el of all<HTMLElement>("[data-op]")) el.addEventListener("click", () => setOp(el.dataset.op!));
   for (const el of all<HTMLElement>("[data-bg]:not(.gl-stage)")) {
     el.addEventListener("click", () => setBg(el.dataset.bg!));
   }
-  for (const el of all<HTMLElement>("[data-rail]")) {
-    el.addEventListener("click", () => setRail(el.dataset.rail!));
-  }
+  for (const el of all<HTMLElement>("[data-rail]")) el.addEventListener("click", () => setRail(el.dataset.rail!));
   for (const el of all<HTMLElement>("[data-bleed]:not(.gl-stage)")) {
     el.addEventListener("click", () => setBleed(el.dataset.bleed!));
   }
+  for (const el of all<HTMLElement>("[data-clip]:not(.gl-stage)")) {
+    el.addEventListener("click", () => setClip(el.dataset.clip!));
+  }
+  /* clip:auto has to follow the scroll, so the flip Wil is asked about really
+     happens as he moves in and out of the stuck state. */
+  let stuckQueued = false;
+  addEventListener(
+    "scroll",
+    () => {
+      if (stuckQueued) return;
+      stuckQueued = true;
+      requestAnimationFrame(() => {
+        stuckQueued = false;
+        trackStuck();
+      });
+    },
+    { passive: true },
+  );
   const readXY = () => setXY(Math.max(0, +xIn.value || 0), Math.max(0, +yIn.value || 0));
   xIn.addEventListener("change", readXY);
   yIn.addEventListener("change", readXY);
 
-  /* ── the scene: a checkerboard, a centred rule, numbered bleed bands ─────
-     three.js (already a dependency, dynamically imported exactly as Museum.tsx
-     does) draws one full-screen quad textured from a 2D canvas, so the bands
-     can carry legible printed numbers. Rendered on demand — no rAF loop, so
-     this page costs nothing while Wil reads it. */
+  /* ── the scene ──────────────────────────────────────────────────────────── */
   const canvas = $("gl-canvas") as HTMLCanvasElement;
   const tex2d = document.createElement("canvas");
   let renderer: import("three").WebGLRenderer | null = null;
@@ -1080,20 +1195,17 @@ const TESTS: Test[] = [
       g.fillStyle = "#000";
       g.fillText(text, x, y);
     };
-    /* The stage box's own edges, so Wil can see where the bleed begins. */
     g.fillStyle = "#ffee00";
     g.fillRect(0, boxTop, w, 3);
     g.fillRect(0, boxBottom - 3, w, 3);
     label("STAGE BOX TOP", 8, boxTop + 14);
     label("STAGE BOX BOTTOM", 8, boxBottom - 14);
-    /* The centred rule — the middle of the stage BOX, not of the canvas. */
     const mid = (boxTop + boxBottom) / 2;
     g.fillStyle = "#000";
     g.fillRect(0, mid - 3, w, 6);
     g.fillStyle = "#fff";
     g.fillRect(0, mid - 1, w, 2);
     label("CENTRE OF THE STAGE BOX", 8, mid - 14);
-    /* Numbered bands in the bleed zones, counting away from the box. */
     for (let d = STEP_BAND; d <= xTop; d += STEP_BAND) {
       const y = boxTop - d;
       g.fillStyle = "#ff0000";
@@ -1132,9 +1244,91 @@ const TESTS: Test[] = [
     sizeCanvas();
   }
 
-  /* ── the curtain, with curtain.ts's timing exactly ──────────────────────── */
+  /* ── the curtain, and the five recoveries ───────────────────────────────── */
   const DUR = 0.6; // --dur-curtain
+  const RECOVERY: Record<string, string> = {
+    c1: "none",
+    c2: "none",
+    c3: "stripToggle",
+    c4a: "fadeColour",
+    c4b: "fadeAlphaThenHide",
+    c5: "scrollNudge",
+    c6: "bodyNudge",
+  };
+  const NOTE: Record<string, string> = {
+    c1: "C1 · the live site as shipped, no recovery — expect the stale near-black",
+    c2: "C2 · colour on an absolutely positioned child",
+    c3: "C3 · colour on the panel, bottom strip display toggled after parking",
+    c4a: "C4a · a persistent strip's colour animated #100a06 → clear over 8 frames",
+    c4b: "C4b · the strip's alpha animated to 0 over 8 frames, then display:none",
+    c5: "C5 · a 1px scroll nudge down and back after parking",
+    c6: "C6 · body background one level off and back for two frames",
+  };
   let curtainBusy = false;
+
+  /* 8 frames is long enough for WebKit's tint observer to see a change and
+     short enough to finish inside the curtain's own exit. */
+  function animateStrips(colourAt: (t: number) => string, done?: () => void, frames = 8) {
+    let i = 0;
+    const tick = () => {
+      i += 1;
+      const t = Math.min(1, i / frames);
+      const c = colourAt(t);
+      stripTop.style.backgroundColor = c;
+      stripBottom.style.backgroundColor = c;
+      if (t < 1) requestAnimationFrame(tick);
+      else done?.();
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function recover(kind: string) {
+    if (kind === "stripToggle") {
+      const mode = stripBottom.dataset.mode ?? "off";
+      stripBottom.dataset.mode = "off";
+      requestAnimationFrame(() => {
+        stripBottom.dataset.mode = mode;
+      });
+      return;
+    }
+    if (kind === "fadeColour") {
+      /* From the curtain's own fill to fully clear, on an element that never
+         leaves the tree — the one thing §3 records as reliably observed: the
+         tint follows a colour as it CHANGES. */
+      animateStrips((t) => `rgba(${16 + (29 - 16) * t}, ${10 + (20 - 10) * t}, ${6 + (17 - 6) * t}, ${1 - t})`);
+      return;
+    }
+    if (kind === "fadeAlphaThenHide") {
+      /* Same fade, but the end state is NO element at all: the bottom bar's
+         glass must come back, not be replaced by another colour. */
+      animateStrips(
+        (t) => `rgba(16, 10, 6, ${(1 - t).toFixed(3)})`,
+        () => {
+          stripTop.dataset.mode = "off";
+          stripBottom.dataset.mode = "off";
+          stripTop.style.backgroundColor = "";
+          stripBottom.style.backgroundColor = "";
+        },
+      );
+      return;
+    }
+    if (kind === "scrollNudge") {
+      scrollBy(0, 1);
+      requestAnimationFrame(() => requestAnimationFrame(() => scrollBy(0, -1)));
+      return;
+    }
+    if (kind === "bodyNudge") {
+      const body = document.body;
+      const was = body.style.background;
+      body.style.background = "#1e1512";
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          body.style.background = was;
+        }),
+      );
+    }
+  }
+
   function runCurtain(variant: string) {
     if (curtainBusy) return;
     curtainBusy = true;
@@ -1142,6 +1336,18 @@ const TESTS: Test[] = [
     const text = $("gl-curtain-text");
     panel.dataset.variant = variant;
     press("[data-curtain]", (el) => el.dataset.curtain === variant);
+    $("gl-curtain-label").textContent = NOTE[variant] ?? "";
+
+    /* Reset to this test's configuration, then — for the two strip-based
+       recoveries — hand the curtain's own colour to a persistent strip so
+       there is something live to animate afterwards. */
+    apply(CONFIG[TEST_IDS[step - 1]]);
+    const kind = RECOVERY[variant] ?? "none";
+    if (kind === "fadeColour" || kind === "fadeAlphaThenHide") {
+      setStrip("top", "solid");
+      setStrip("bottom", "solid");
+    }
+
     panel.classList.add("is-active");
     text.classList.add("is-active");
     gsap.set(panel, { y: "100%" });
@@ -1164,15 +1370,7 @@ const TESTS: Test[] = [
           panel.classList.remove("is-active");
           text.classList.remove("is-active");
           curtainBusy = false;
-          /* C3 only: force WebKit to re-read the bottom edge by taking the
-             strip out of the render tree for one frame. */
-          if (variant === "c3") {
-            const mode = stripBottom.dataset.mode ?? "off";
-            stripBottom.dataset.mode = "off";
-            requestAnimationFrame(() => {
-              stripBottom.dataset.mode = mode;
-            });
-          }
+          recover(kind);
         },
       });
   }
@@ -1180,7 +1378,7 @@ const TESTS: Test[] = [
     el.addEventListener("click", () => runCurtain(el.dataset.curtain!));
   }
 
-  /* ── metrics: the numbers CSS can report, for U5 ────────────────────────── */
+  /* ── metrics ────────────────────────────────────────────────────────────── */
   function metrics() {
     const h = (id: string) => Math.round($(id).getBoundingClientRect().height * 100) / 100;
     const vv = window.visualViewport;
@@ -1205,16 +1403,58 @@ const TESTS: Test[] = [
       "lvh-svh (both bars)": Math.round((lvh - svh) * 100) / 100,
       visualViewportH: vv ? Math.round(vv.height * 100) / 100 : null,
       visualViewportOffsetTop: vv ? Math.round(vv.offsetTop * 100) / 100 : null,
-      visualViewportScale: vv ? vv.scale : null,
       safeAreaInsetTop: h("gl-p-sat"),
       safeAreaInsetBottom: h("gl-p-sab"),
+      /* The two Phase B gates, read on the device. */
+      "@supports(-webkit-touch-callout) fires": h("gl-p-supports") === 7,
+      "E = min(110px, 100lvh - 100svh)": h("gl-p-e"),
+      "CSS.supports(-webkit-touch-callout)": CSS.supports("-webkit-touch-callout", "none"),
+      maxTouchPoints: navigator.maxTouchPoints,
+      ontouchstart: "ontouchstart" in window,
+      /* Diagnostic only. Desktop mode can change these, so Phase B gates on
+         @supports plus width and orientation queries and never on them. */
+      "pointer: coarse (diagnostic, NOT a gate)": matchMedia("(pointer: coarse)").matches,
+      "hover: hover (diagnostic, NOT a gate)": matchMedia("(hover: hover)").matches,
+      "orientation: portrait": matchMedia("(orientation: portrait)").matches,
+      platform: navigator.platform,
+      vendor: navigator.vendor,
       docHeight: document.documentElement.scrollHeight,
       ua: navigator.userAgent,
     };
   }
+  /* The two values Phase B may gate on, kept separate from the metrics blob so
+     they travel at the top level of the copied results. */
+  function probeSnapshot() {
+    const h = (id: string) => Math.round($(id).getBoundingClientRect().height * 100) / 100;
+    const lvh = h("gl-p-lvh");
+    const svh = h("gl-p-svh");
+    return {
+      "@supports (-webkit-touch-callout: none) fires": h("gl-p-supports") === 7,
+      "…its probe height (7 = fires, 0 = does not)": h("gl-p-supports"),
+      "E = min(110px, calc(100lvh - 100svh))": h("gl-p-e"),
+      lvh,
+      svh,
+      "lvh - svh (both bars)": Math.round((lvh - svh) * 100) / 100,
+      "safe-area-inset-top": h("gl-p-sat"),
+      "safe-area-inset-bottom": h("gl-p-sab"),
+      innerHeight,
+      clientHeight: document.documentElement.clientHeight,
+      screenH: screen.height,
+      dpr: window.devicePixelRatio,
+      userAgent: navigator.userAgent,
+    };
+  }
+  function showGates() {
+    const p = probeSnapshot();
+    $("gl-gates").textContent = Object.entries(p)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join("\n");
+  }
+
   let lastMetrics: Record<string, unknown> = {};
   function captureMetrics() {
     lastMetrics = metrics();
+    showGates();
     $("gl-metrics").textContent = Object.entries(lastMetrics)
       .filter(([k]) => k !== "ua")
       .map(([k, v]) => `${k}: ${v}`)
@@ -1238,16 +1478,15 @@ const TESTS: Test[] = [
   /* ── results out ────────────────────────────────────────────────────────── */
   function renderOut() {
     ($("gl-out") as HTMLTextAreaElement).value = JSON.stringify(
-      { page: "glass-lab", version: 1, answers: store },
+      { page: "glass-lab", phase: "A2", version: 2, probes: probeSnapshot(), answers: store },
       null,
       1,
     );
   }
   $("gl-copy").addEventListener("click", async () => {
     const out = $("gl-out") as HTMLTextAreaElement;
-    const text = out.value;
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(out.value);
       $("gl-saved").textContent = "copied to the clipboard ✓";
     } catch {
       out.focus();
@@ -1273,7 +1512,6 @@ const TESTS: Test[] = [
     }
   }
 
-  /* ── wiring ─────────────────────────────────────────────────────────────── */
   let queued = false;
   const onResize = () => {
     if (queued) return;
@@ -1291,6 +1529,8 @@ const TESTS: Test[] = [
 
   showStep();
   fillRuler();
+  trackStuck();
+  showGates();
   renderOut();
   void initScene();
 </script>
