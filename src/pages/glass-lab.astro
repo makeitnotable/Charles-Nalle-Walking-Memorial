@@ -133,6 +133,33 @@ const VIVIDS: Vivid[] = [
 ];
 const REDNESS = ["RED", "brown — unchanged", "some other colour"];
 
+/* ── test 5: the opacity ladder ───────────────────────────────────────────────
+ * Test 4 came back clean and it was not the answer anyone expected. On Wil's
+ * iPhone (iOS 26.6.1, Top) EVERY opacity-0 configuration read brown — 4px and
+ * 12px, gated and ungated alike — and the only one that turned the address bar
+ * red was v5, the visible band at opacity 1. Height: no. Gate: no. The one
+ * variable that separates v2 from v5 is OPACITY, and v5 differs from v2 in
+ * nothing else.
+ *
+ * So §3's "Still read: `opacity: 0` … elements" is WRONG on this build, and
+ * that single line is what §5.1 was designed on. A strip Safari will read has
+ * to be painted.
+ *
+ * Which leaves one question worth a device pass: is there an opacity that
+ * Safari READS but Wil cannot SEE? If the lowest opacity that tints is at or
+ * below the highest opacity that is invisible on the page, the chapter fill
+ * costs nothing visible after all. If it is not, the feature is a visible 12px
+ * band or it is nothing, and that is Wil's design call rather than a bug.
+ *
+ * Each rung asks BOTH questions, because the answer is the gap between them. */
+const OPACITIES = [
+  { id: "o_0p01", label: "opacity 0.01", op: "0.01" },
+  { id: "o_0p04", label: "opacity 0.04", op: "0.04" },
+  { id: "o_0p10", label: "opacity 0.10", op: "0.1" },
+  { id: "o_0p25", label: "opacity 0.25", op: "0.25" },
+  { id: "o_0p50", label: "opacity 0.50", op: "0.5" },
+];
+
 /* ── the four tests ───────────────────────────────────────────────────────── */
 type Field =
   | { id: string; label: string; type: "bool" }
@@ -236,6 +263,25 @@ const TESTS: Test[] = [
       { id: "notes", label: "Anything else?", type: "text" },
     ],
   },
+  {
+    n: 5,
+    id: "a5",
+    title: "The opacity ladder — the lowest that tints, the highest you cannot see",
+    setup: "The same 12px ungated RED strip test 4 used, at five opacities between the two you already answered: 0 read brown, 1 turned the bar red. Rail off, bottom strip off.",
+    ask: "Stay at the very TOP of the page, bars expanded. For each button answer TWO things: what colour the ADDRESS BAR is, and whether you can see the red band ON THE PAGE. They are different questions and the gap between them is the whole point — we need an opacity Safari reads but you cannot see. Take the page question seriously at the low rungs: look at the very top edge of the page, not the bar.",
+    decides: "Whether the chapter pages' section-coloured address bar can be had with no visible cost, or whether it is a visible 12px band or nothing.",
+    fields: [
+      ...OPACITIES.flatMap((o, i) => [
+        { id: `${o.id}_bar`, label: `${i + 1}. ${o.label} — the ADDRESS BAR is…`, type: "choice" as const, choices: REDNESS },
+        { id: `${o.id}_seen`, label: `${i + 1}. ${o.label} — can you see the red band ON THE PAGE?`, type: "bool" as const },
+      ]),
+      { id: "min_read", label: "LOWEST opacity that tints the address bar (the numbers, e.g. 0.10 — or 'none of them')", type: "text", placeholder: "e.g. 0.25" },
+      { id: "max_unseen", label: "HIGHEST opacity you CANNOT see on the page (e.g. 0.04 — or 'I can see all of them')", type: "text", placeholder: "e.g. 0.10" },
+      { id: "usable", label: "So: is there an opacity that tints the bar AND is invisible to you?", type: "bool" },
+      { id: "where_run", label: "Which browser did you just answer for?", type: "choice", choices: ["iPhone Safari", "Mac Safari", "iPad Safari", "Chrome for Android"] },
+      { id: "notes", label: "Anything else?", type: "text" },
+    ],
+  },
 ];
 ---
 
@@ -323,6 +369,7 @@ const TESTS: Test[] = [
     />
     <script is:inline type="application/json" id="gl-combos" set:html={JSON.stringify(COMBOS)} />
     <script is:inline type="application/json" id="gl-vivids" set:html={JSON.stringify(VIVIDS)} />
+    <script is:inline type="application/json" id="gl-opacities" set:html={JSON.stringify(OPACITIES)} />
 
     <aside class="gl-panel" id="gl-panel" aria-label="Glass lab controls">
       <button type="button" class="gl-btn gl-tiny gl-fold" id="gl-fold" aria-expanded="true">hide panel</button>
@@ -333,7 +380,8 @@ const TESTS: Test[] = [
           <li>Settings › Apps › Safari › <b>Allow Website Tinting = ON</b>.</li>
           <li>Pick your tab layout below, then run tests 1–3 in order.</li>
           <li>Test 1 has a <b>JUMP</b> button; test 2 has eight numbered buttons; test 3 has five curtain buttons; test 4 has five numbered buttons. Use them — they set everything up.</li>
-          <li><b>Test 4 is the one this round turns on.</b> It probes in <b>pure red</b>, not another near-black, so the only question is "red or brown?". Run it in <b>Top</b> and <b>Compact</b> as usual — and if you can, once more in <b>Mac Safari</b>, where the gate rows are the ones that decide.</li>
+          <li><b>Test 5 is the one this round turns on.</b> Test 4 already answered: on your phone, height and the gate made no difference — only the VISIBLE band at opacity 1 tinted the bar. Test 5 asks whether there is an opacity in between that Safari reads but you cannot see. Each rung has <b>two</b> questions: the bar, and the page.</li>
+          <li><b>Test 4</b> (already answered) It probes in <b>pure red</b>, not another near-black, so the only question is "red or brown?". Run it in <b>Top</b> and <b>Compact</b> as usual — and if you can, once more in <b>Mac Safari</b>, where the gate rows are the ones that decide.</li>
           <li>Answer at rest (top of the page, bars expanded) and, where a test says so, scrolled.</li>
           <li><b>Copy results</b> and paste them back to Claude.</li>
           <li>Then switch the layout in Settings › Apps › Safari › Tabs, press the other layout button below, and run all three again.</li>
@@ -400,6 +448,17 @@ const TESTS: Test[] = [
           ))}
         </div>
         <p class="gl-sub" id="gl-vivid-label">— press 1 to begin</p>
+      </div>
+
+      {/* Test 5's action: the same red strip, one tap per opacity rung. */}
+      <div class="gl-block gl-only" data-only="a5">
+        <p class="gl-lbl">Opacity ladder (12px, ungated, red)</p>
+        <div class="gl-seg gl-seg-wrap" role="group" aria-label="Opacity rung">
+          {OPACITIES.map((o, i) => (
+            <button type="button" class="gl-btn gl-tiny" data-opl={o.id}>{i + 1}</button>
+          ))}
+        </div>
+        <p class="gl-sub" id="gl-opl-label">— press 1 to begin</p>
       </div>
 
       {/* Test 3's action: the control, then the four recoveries. */}
@@ -1021,6 +1080,8 @@ const TESTS: Test[] = [
      same reason). */
   type Viv = { id: string; label: string; h: string; gate: string; op: string };
   const VIVIDS = JSON.parse($("gl-vivids").textContent ?? "[]") as Viv[];
+  type Rung = { id: string; label: string; op: string };
+  const OPACITIES = JSON.parse($("gl-opacities").textContent ?? "[]") as Rung[];
   const TEST_IDS = TESTS_META.map((t) => t.id);
 
   const root = document.querySelector<HTMLElement>(".gl-root")!;
@@ -1038,6 +1099,7 @@ const TESTS: Test[] = [
     a2: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
     a3: { top: "clear", bottom: "clear", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
     a4: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
+    a5: { top: "off", bottom: "off", rail: "false", bg: "none", bleed: "off", x: 0, y: 0, op: "0", clip: "off" },
   };
 
   /* ── state in the URL, answers per layout in localStorage ───────────────── */
@@ -1186,6 +1248,27 @@ const TESTS: Test[] = [
   }
   for (const el of all<HTMLElement>("[data-vivid]")) {
     el.addEventListener("click", () => applyVivid(el.dataset.vivid!));
+  }
+
+  /* ── test 5: the same red strip, one tap per opacity rung ───────────────── */
+  function applyRung(id: string) {
+    const o = OPACITIES.find((k) => k.id === id);
+    if (!o) return;
+    stripTop.style.backgroundColor = "";
+    /* Fixed at what test 4 proved irrelevant, so opacity is the only variable
+       left moving between the rungs. */
+    stripTop.dataset.h = "12";
+    stripTop.dataset.gate = "off";
+    setStrip("top", "vivid");
+    setStrip("bottom", "off");
+    setOp(o.op);
+    setRail("false");
+    press("[data-opl]", (el) => el.dataset.opl === id);
+    const n = OPACITIES.indexOf(o) + 1;
+    $("gl-opl-label").textContent = `${n}. ${o.label} — answer BOTH row ${n} questions`;
+  }
+  for (const el of all<HTMLElement>("[data-opl]")) {
+    el.addEventListener("click", () => applyRung(el.dataset.opl!));
   }
 
   /* ── test 1: put the sticky stage on screen ─────────────────────────────── */
