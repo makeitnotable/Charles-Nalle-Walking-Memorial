@@ -111,3 +111,19 @@ which uses `position: sticky` rather than a scroll handler.
   reduce rule flattens the transition and the children leave on the same
   commit — measured 0 intermediate opacities, 0 frames of anchor movement.
 
+
+## v18 additions (2026-09-18, client round 19)
+
+- **The map page's settle re-land (`map.astro`).** Since v16 the map shell
+  carries a runway of `T` (110px on an iPhone with iOS 26's bars, 0 wherever
+  there are none) above the box the reader sees, and the page rests at scroll
+  T so the map paints behind the address bar. That runway is scrollable, and a
+  flick back to the top parked the page at 0 with the whole composition T
+  lower. Now, 160ms after the last scroll event — never while a finger is
+  down — a page resting above T returns to T with `scrollTo({ behavior:
+  "smooth" })` (the browser's own smooth scroll, ~110px). The island's own
+  scrolls (a pin tap, the walk door) go to T the same way; a back/forward-
+  cache restore cuts there. Under `prefers-reduced-motion` every re-land is a
+  cut. Nothing else on the page is scroll-driven; this is the one scripted
+  scroll on `/map`, and it only ever moves the page from a position it was
+  never designed to rest at.

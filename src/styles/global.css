@@ -1143,6 +1143,17 @@ h3 {
   /* v9 V9-301: while the GL canvas is sizing the uncovered strip must read as
      the page, not as the canvas's black. */
   background: var(--color-primary-2);
+  /* v18 (round 19): the runway is the UI layer's `margin-top: T` (below), and
+     a first child's top margin collapses through a parent with no border or
+     padding above it — through this shell, through <main> and through <body>,
+     so once the island mounted all three started T further down the document
+     and the shell's own box ran T…T+height instead of 0…height. Nothing showed
+     on the phone (the canvas paints the runway either way), but Chromium's
+     scroll anchoring follows <main>'s top edge and moved the page by T a
+     second time, to 2T. A block formatting context keeps the margin INSIDE
+     the shell, where it was always meant to be. Flow-root is otherwise a
+     block: T is 0 wherever there are no bars, so nothing else can move. */
+  display: flow-root;
 }
 /* v14.5 (round 8 §5.3) — E, and the three rules that keep every pixel of UI
  * where it was.
@@ -1333,6 +1344,26 @@ h3 {
 .map-shell .mapboxgl-ctrl-bottom-left,
 .map-shell .mapboxgl-ctrl-bottom-right {
   padding-bottom: calc(var(--ui-inset) + var(--map-e));
+}
+/* v18 (round 19, Wil's screenshot 2): the walk door's gap to the toolbar.
+   On phones the door's bottom sat --ui-inset + 10px above the layout
+   viewport's bottom edge, which is where iOS 26's toolbar region begins; the
+   glass pill itself starts a further ~17px down, so the visible gap read as
+   ~47px against ~11px between the pill and the screen's edge — "still a bit
+   larger than that, but slightly smaller than it is now". The door now sits
+   ON the inset — the lane every floating control uses, bottom-aligned with
+   the (i) beside it (measured 20px above the box's edge for both; the Mapbox
+   logo's own box ends 4px lower): ~37px to the pill. `--map-door-lift` is
+   the tuning knob — `?cta=<px>`
+   on the live page writes it (map.astro), so the number can be dialled on the
+   device without a deploy per guess. Tablets and up keep inset + 12px. */
+.map-walk-door {
+  bottom: calc(var(--ui-inset) + var(--map-door-lift, 0px));
+}
+@media (min-width: 640px) {
+  .map-walk-door {
+    bottom: calc(var(--ui-inset) + 12px);
+  }
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,

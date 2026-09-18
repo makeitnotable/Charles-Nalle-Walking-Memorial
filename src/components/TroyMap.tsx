@@ -253,6 +253,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   const lensImgRef = useRef<HTMLImageElement>(null);
   const lensView = useRef({ s: 1, tx: 0, ty: 0 });
   const shellRef = useRef<HTMLElement | null>(null);
+  /* v18 (round 19): the UI layer — the box the reader actually sees at rest.
+     It is svh-sized (global.css), so it holds still while iOS shows and hides
+     its bars; `window.innerHeight` does not (645 at rest, 753 minimized on
+     Wil's phone), and a framing read from it depended on the bars' state at
+     the moment of load. Every framing decision reads this instead. */
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const uiHeight = () => rootRef.current?.clientHeight || window.innerHeight;
   const lensPointers = useRef(new Map<number, { x: number; y: number }>());
   const lensPinch = useRef(0);
 
@@ -614,11 +621,24 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }, []);
 
   // Pills re-render on breakpoint change so the ladder holds live
+  /* v18 (round 19, the reverse-scroll jitter): iOS fires `resize` every time
+     its bars expand or collapse (innerHeight 645 ↔ 753 on Wil's phone), and
+     each one used to rewrite all five pills' innerHTML 200 ms later although
+     no pill had changed. Now only a change of the ladder itself — the phone /
+     desktop variant, or the desktop font step — re-renders them. */
+  const pillKeyRef = useRef("");
   useEffect(() => {
+    const keyOf = () => `${window.innerWidth < 640 || window.innerHeight < 560}|${pillSizes().font}`;
+    pillKeyRef.current = keyOf();
     let t: ReturnType<typeof setTimeout> | null = null;
     const onResize = () => {
       if (t) clearTimeout(t);
-      t = setTimeout(() => setMarkers(activeLabelRef.current, true), 200);
+      t = setTimeout(() => {
+        const k = keyOf();
+        if (k === pillKeyRef.current) return;
+        pillKeyRef.current = k;
+        setMarkers(activeLabelRef.current, true);
+      }, 200);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -656,11 +676,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const gl = glRef.current;
     if (!map || !gl) return OVERVIEW;
     const w = window.innerWidth;
-    const h = window.innerHeight;
+    const h = uiHeight();
+    const t = mapT();
     /* v14.5: E is part of the viewport identity — it changes on rotation and
        the fit's padding depends on it, so a cached camera from the other
        orientation must not be reused. */
-    const key = `${w}x${h}x${Math.round(mapE())}x${Math.round(mapT())}`;
+    const key = `${w}x${h}x${Math.round(mapE())}x${Math.round(t)}`;
     if (camCache.current?.key === key) return camCache.current.cam;
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
     const b = new gl.LngLatBounds();
@@ -668,7 +689,17 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const short = h < 560;
     const narrow = w < 640 || short;
     // Safe box for LABELS: chip row on top, door/attribution row at the bottom.
-    const safe = { x0: inset, y0: inset + 56, x1: w - inset, y1: h - (inset + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
+    /* v18 (round 19, Wil's screenshot of the intended framing): this search
+       works in CONTAINER pixels — map.project and map.unproject are relative
+       to the canvas, and since v16 the canvas's top edge sits T above the UI
+       layer — so the safe box and the re-centring target below are written in
+       that same space. Written in window pixels, as they were, the box sat T
+       too high: on a phone every re-centring pass moved the group by T
+       instead of converging, no zoom satisfied the loop at any pitch, and the
+       fit fell through to the blind OVERVIEW constant — zoom 15.25 on the raw
+       centroid, pins 2 and 5 off the top (his screenshot 3). T is 0 wherever
+       there are no bars, where this reduces to the old arithmetic exactly. */
+    const safe = { x0: inset, y0: t + inset + 56, x1: w - inset, y1: t + h - (inset + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
     const labelRect = (pt: { x: number; y: number }, st: Stop) => {
       if (narrow) {
         /* v8 V8-207: phones carry pills now — model the pill's real box
@@ -758,7 +789,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             if (x1 - x0 > safe.x1 - safe.x0 || y1 - y0 > safe.y1 - safe.y0) break;
             const shift = { x: (safe.x0 + safe.x1) / 2 - (x0 + x1) / 2, y: (safe.y0 + safe.y1) / 2 - (y0 + y1) / 2 };
             if (Math.abs(shift.x) < 1 && Math.abs(shift.y) < 1) { ok = true; break; }
-            const c = map.unproject([w / 2 - shift.x, h / 2 - shift.y]);
+            /* v18: the PADDED centre, (w/2, T + h/2) in container pixels, is
+               the point jumpTo places `center` at — measure the shift from there. */
+            const c = map.unproject([w / 2 - shift.x, t + h / 2 - shift.y]);
             center = [c.lng, c.lat];
           }
           if (!ok) continue;
@@ -877,7 +910,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const w = window.innerWidth;
     const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
     // never so far that the active name plate meets the top edge (landscape phones)
-    return [0, -Math.round(Math.min(strip / 2, window.innerHeight / 2 - 100))];
+    return [0, -Math.round(Math.min(strip / 2, uiHeight() / 2 - 100))];
   };
 
   const flyToStop = useCallback(
@@ -931,19 +964,31 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     setWalk("paused");
   }, []);
 
+  /** v18 (round 19): the shell's resting scroll is T, not 0 — the top runway
+   *  (v16) sits above it, and the scroll-to-0 that used to live here and in
+   *  bringShellIntoView (pre-runway code) is what dropped the whole
+   *  composition by T after every pin tap and every walk: the 1858 pill 110px
+   *  low, the door under the toolbar, grey behind the address bar (Wil's
+   *  screenshot 1). From a scrolled index this brings the shell back to the
+   *  line; from above it (a flick to the very top parks the page at 0) it
+   *  lands the same way, so a tap never waits on map.astro's settle timer. */
+  const landShell = useCallback(() => {
+    const t = mapT();
+    if (Math.abs(window.scrollY - t) <= 4) return;
+    window.scrollTo({ top: t, behavior: reduced ? "instant" : "smooth" });
+  }, [reduced]);
+
   const focusStop = useCallback(
     (idx: number) => {
       pauseWalk();
-      if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
+      landShell();
       setFocused(true);
       setActiveIdx(idx);
       setHintOpen(false);
       flyToStop(idx);
-      const url = new URL(location.href);
-      url.searchParams.set("stop", stops[idx].slug);
-      history.replaceState(null, "", url);
+      /* v18 (round 19, Wil): the URL no longer follows the stop — see settle(). */
     },
-    [flyToStop, stops, pauseWalk],
+    [flyToStop, pauseWalk, landShell],
   );
 
   const backToOverview = useCallback(() => {
@@ -957,10 +1002,46 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const target = overviewCamera();
     if (reduced) map.jumpTo(target);
     else map.easeTo({ ...target, duration: 2000, essential: true });
-    const url = new URL(location.href);
-    url.searchParams.delete("stop");
-    history.replaceState(null, "", url);
   }, [reduced, setMarkers, overviewCamera]);
+
+  /* v18 (round 19, Wil): "every time the Map page is opened or refreshed, it
+     should load exactly the same way it does on a first visit." A Back or
+     Forward that restores this page from the browser's back-forward cache
+     keeps the island alive exactly as it was left — the focused card, the
+     walk's rotated camera, the lens, and the v7 X1 `leavingRef` latch that the
+     curtain set on the way out and nothing ever cleared, which silently
+     stopped the walk and the route draw from ever running again. A restore is
+     treated as an open: every state goes back to idle, the route is whole, the
+     camera cuts to the overview, and map.astro's own pageshow handler lands
+     the scroll. */
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (!e.persisted) return;
+      leavingRef.current = false;
+      tourRun.current++;
+      if (flyTimeout.current) clearTimeout(flyTimeout.current);
+      setWalk("idle");
+      setFocused(false);
+      setHintOpen(false);
+      setLens(false);
+      setLensClosing(false);
+      setMarkers(null);
+      const map = mapRef.current;
+      if (!map) return;
+      try {
+        map.stop();
+        const src = map.getSource("route") as MapboxGL.GeoJSONSource | undefined;
+        if (src) {
+          src.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: routeLine } });
+        }
+        map.jumpTo(overviewCamera());
+      } catch {
+        /* a style that never loaded has nothing to reset */
+      }
+    };
+    window.addEventListener("pageshow", onShow);
+    return () => window.removeEventListener("pageshow", onShow);
+  }, [overviewCamera, setMarkers]);
 
   // ——— Map lifecycle (single instance) ———
   useEffect(() => {
@@ -985,6 +1066,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const deepSlug = new URL(location.href).searchParams.get("stop");
     const deepIdx = stops.findIndex((s) => s.slug === deepSlug);
     const arriving = deepIdx >= 0;
+    /* v18 (round 19, Wil): an inbound deep link is consumed here and taken out
+       of the address bar at once, so a reload or a return lands on the
+       first-visit overview instead of replaying the arrival flight. Nothing on
+       the site writes the parameter any more (see settle()). */
+    if (deepSlug !== null) {
+      const clean = new URL(location.href);
+      clean.searchParams.delete("stop");
+      history.replaceState(null, "", clean);
+    }
 
     const map = new mapboxgl.Map({
       container: container.current,
@@ -1004,6 +1094,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
          pointers only: a plain wheel scrolls the page, ⌘/Ctrl + wheel zooms the
          map (drag, double-click and the walk are unchanged). Touch stays as it
          was — one finger explores, the bottom lane scrolls (M8/V7-023). */
+      /* v18 (round 19, the reverse-scroll jitter): mapbox-gl 3.27 also listens
+         to `window` resize and re-runs resize + render on every one. iOS fires
+         that event each time its bars expand or collapse, while the canvas —
+         svh-sized since v14.3 — has not changed by a pixel, so every bar
+         transition bought a full map re-render for nothing. Real size changes
+         (rotation, a desktop window) are caught by the ResizeObserver on the
+         container and the orientationchange handler below, which call
+         map.resize() themselves. */
+      trackResize: false,
       cooperativeGestures: typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches,
       locale: {
         "ScrollZoomBlocker.CmdMessage": "Hold ⌘ and scroll to zoom the map",
@@ -1033,9 +1132,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        is a no-op. It changes on rotation (lvh and svh both change), so it is
        re-applied on resize and orientationchange alongside map.resize(). */
     /* v16 item 1: and T above, for the same reason and by the same rule. */
+    /* v18 (round 19): the runways and the UI layer's height, cached here for
+       the per-frame reader (chipNudge) so it never asks getComputedStyle. */
+    const pad = { t: 0, e: 0, h: 0 };
     const applyPadding = () => {
       const e = mapE();
       const t = mapT();
+      pad.t = t;
+      pad.e = e;
+      pad.h = uiHeight();
       const p = map.getPadding?.();
       if (!p || p.bottom !== e || p.top !== t) map.setPadding({ top: t, right: 0, bottom: e, left: 0 });
     };
@@ -1103,7 +1208,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
           const w = window.innerWidth;
           const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
-          const limit = window.innerHeight - strip - 8;
+          /* v18 (round 19): map.project is container pixels, and the container's
+             top edge is T above the UI layer (v16), so the strip's line sits T
+             further down in that space; the height is the UI layer's, not the
+             window's, which the bars move. */
+          const limit = pad.t + (pad.h || uiHeight()) - strip - 8;
           const narrowNow = w < 640 || window.innerHeight < 560;
           msAll.forEach(({ marker, stop }) => {
             const el = marker.getElement();
@@ -1338,13 +1447,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       setActiveIdx(idx);
       if (focusedRef.current && walkRef.current !== "walking") followCamera(idx);
       else setMarkers(stops[idx]?.label ?? null);
-      /* v7 V7-095: the URL follows the card, so Back from a chapter (or a
-         reload) restores this stop instead of the plain overview. */
-      if (focusedRef.current && stops[idx]) {
-        const url = new URL(location.href);
-        url.searchParams.set("stop", stops[idx].slug);
-        history.replaceState(null, "", url);
-      }
+      /* v18 (round 19, Wil): the URL no longer follows the card. v7 V7-095
+         wrote `?stop=` here and in focusStop so Back from a chapter, or a
+         reload, restored the stop; the brief now says every open and every
+         reload is the first-visit overview, so nothing writes the parameter
+         any more. An inbound `?stop=` (a shared deep link) is still honoured
+         once, at arrival, and then taken out of the address bar. */
     },
     [followCamera, setMarkers, stops],
   );
@@ -1522,11 +1630,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
   }, [activeIdx, focused, sliderInstance]);
 
   // ——— The walk (v7 M4) — an abortable loop keyed on tourRun ———
-  /** The map shell is 100dvh at the top of the page; entering the walk or a
-   *  stop from a scrolled page would leave the fixed controls off-screen. */
-  const bringShellIntoView = () => {
-    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
-  };
+  /** The map shell sits at the top of the page; entering the walk or a stop
+   *  from a scrolled page would leave the fixed controls off-screen. v18: the
+   *  line it returns to is the landing at T, never 0 (landShell). */
+  const bringShellIntoView = () => landShell();
   const runTour = async (from: number) => {
     const map = mapRef.current;
     if (!map) return;
@@ -1708,6 +1815,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       ref={(el) => {
         /* v14.5: --map-e is declared on .map-shell (global.css). Read it from
            the shell itself rather than duplicating the expression here. */
+        rootRef.current = el;
         shellRef.current = el?.closest<HTMLElement>(".map-shell") ?? el;
       }}
       className="troymap-root relative h-full w-full bg-primary-2"
@@ -1953,7 +2061,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
                 Revert: restore the `<svg className="absolute bottom-1
                 left-1/2 h-3 w-3 …">` with the ICONS.arrow head path. */}
           </div>
-          <div className="absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center max-sm:bottom-[calc(var(--ui-inset)+10px)] sm:bottom-[calc(var(--ui-inset)+12px)]">
+          {/* v18 (round 19, Wil's screenshot 2): the door's bottom offset lives in
+              global.css (.map-walk-door) — phones sit ON the inset, bottom-aligned
+              with the (i) beside it; tablets and up keep inset + 12. */}
+          <div className="map-walk-door absolute left-1/2 z-20 flex -translate-x-1/2 items-center justify-center">
             <button type="button" onClick={() => runTour(0)} className="btn btn-solid">
               Take the walk
             </button>

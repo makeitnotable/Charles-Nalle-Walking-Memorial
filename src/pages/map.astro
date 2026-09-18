@@ -155,7 +155,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   <script is:inline>
     /* v16 item 1 (Wil, 2026-09-18): "Map page = area behind the top address bar
-       and bottom toolbar is always see through." Behind ?glass=1.
+       and bottom toolbar is always see through."
 
        The bottom already works, because the bottom toolbar covers document
        offsets 645-737 and the shell grows into them (E, round 8 section 5.3).
@@ -172,19 +172,38 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
        and nothing here runs. `scrollRestoration = manual` stops iOS restoring a
        back-navigation to 0 and undoing the landing; `scroll-behavior` is forced
        to auto for the jump because html sets `smooth` globally and this must not
-       animate. Re-landed on orientationchange, where T changes with lvh/svh. */
+       animate. Re-landed on orientationchange, where T changes with lvh/svh.
+
+       v18 (round 19, Wil's screenshot 1 — "the page always loads AND REMAINS
+       aligned to the very top"): the runway is ordinary scrollable content, so
+       the landing was only ever as durable as the next scroll. A flick back to
+       the top rests the page at 0, not T, and the whole composition then sits
+       T lower — the 1858 pill 110px down, the walk door under the toolbar, the
+       grey body fallback behind the address bar. So the page now RE-LANDS:
+       once a scroll settles (160 ms after the last scroll event, never while a
+       finger is down) with the page above T, it returns to T — smoothly, or as
+       a cut under reduced motion. A back/forward-cache restore re-lands too;
+       the island resets the map itself on that event. The island's own
+       scrolls (a pin tap, the walk door) target T directly (landShell). */
     (function () {
-      /* v17 (Wil): approved on the device, so the flag gate is gone. */
-      function land() {
+      var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function T() {
         var shell = document.querySelector(".map-shell");
-        if (!shell) return;
+        if (!shell) return 0;
         var t = parseFloat(getComputedStyle(shell).getPropertyValue("--map-t")) || 0;
-        if (t <= 0 || window.scrollY >= t) return;
+        return t > 0 ? t : 0;
+      }
+      function jump(y) {
         var root = document.documentElement;
         var prev = root.style.scrollBehavior;
         root.style.scrollBehavior = "auto";
-        window.scrollTo(0, t);
+        window.scrollTo(0, y);
         root.style.scrollBehavior = prev;
+      }
+      function land() {
+        var t = T();
+        if (t <= 0 || window.scrollY >= t) return;
+        jump(t);
       }
       try {
         if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -195,6 +214,42 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
       addEventListener("orientationchange", function () {
         setTimeout(land, 200);
       });
+      addEventListener("pageshow", function (e) {
+        if (e.persisted) land();
+      });
+
+      /* The settle re-land. */
+      var touching = false;
+      var timer = 0;
+      function settle() {
+        timer = 0;
+        if (touching) return;
+        var t = T();
+        if (t <= 0 || window.scrollY >= t - 0.5) return;
+        if (reduced) jump(t);
+        else window.scrollTo({ top: t, behavior: "smooth" });
+      }
+      function schedule() {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(settle, 160);
+      }
+      function released() {
+        touching = false;
+        schedule();
+      }
+      addEventListener("touchstart", function () { touching = true; }, { passive: true });
+      addEventListener("touchend", released, { passive: true });
+      addEventListener("touchcancel", released, { passive: true });
+      addEventListener("scroll", schedule, { passive: true });
+
+      /* v18 (round 19): `?cta=<px>` — the walk door's bottom offset relative to
+         the inset, for dialling the gap to the toolbar on the device
+         (global.css .map-walk-door). Review-only; the page carries no default
+         from here. */
+      try {
+        var m = /(^|[?&])cta=(-?\d{1,3})(&|$)/.exec(location.search);
+        if (m) document.documentElement.style.setProperty("--map-door-lift", m[2] + "px");
+      } catch (e) {}
     })();
   </script>
 </Base>

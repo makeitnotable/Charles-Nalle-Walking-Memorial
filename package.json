@@ -34,6 +34,7 @@
     "qa:scope": "node scripts/scope-check.mjs",
     "qa:snap": "node scripts/snap.mjs",
     "qa:snap:update": "node scripts/snap.mjs --update",
+    "qa:framing": "node scripts/map-framing.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },
