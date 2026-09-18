@@ -235,6 +235,58 @@ for (const vp of VPS) {
       const st2 = await page.evaluate(() => window.__troyMap.state);
       check("walk door lands at T, walking", Math.abs(y - T) <= 1 && st2.walk === "walking", `scrollY ${y} walk ${st2.walk}`);
       await page.keyboard.press("Escape");
+      await page.evaluate(() => document.querySelector('button[aria-label="Back to map"]')?.click());
+      await page.waitForTimeout(600);
+    }
+    /* The walk view (round 20), every viewport: the cards share the door's
+       lane, the (i) rides 8px above them, and the page cannot scroll while a
+       stop is focused — a real wheel over the strip must not move it — until
+       Back releases it. */
+    const walkView = await page.evaluate(async () => {
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      const door = [...document.querySelectorAll("button")].find((b) => /take the walk/i.test(b.textContent || ""));
+      if (!door) return { missing: true };
+      door.click();
+      await sleep(900);
+      const root = document.querySelector(".troymap-root").getBoundingClientRect();
+      const card = document.querySelector(".keen-slider__slide .origin-bottom > div");
+      /* The logo's wrapper, not the attribution: under the stub style the
+         attribution control renders empty (0×0) and its box means nothing. Both
+         corners take the same padding rule, so the logo row stands for both. */
+      const logoRow = document.querySelector(".mapboxgl-ctrl-bottom-left .mapboxgl-ctrl:last-child");
+      const cr = card ? card.getBoundingClientRect() : null;
+      return {
+        state: window.__troyMap.state,
+        cardsGap: cr ? +(root.bottom - cr.bottom).toFixed(1) : null,
+        attribAboveCards: logoRow && cr ? +(cr.top - logoRow.getBoundingClientRect().bottom).toFixed(1) : null,
+        lane: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--map-lane")),
+        scrollY: window.scrollY,
+        stripTouchAction: getComputedStyle(document.querySelector(".map-cards .keen-slider")).touchAction,
+      };
+    });
+    row.walkView = walkView;
+    if (walkView.missing) check("walk view", false, "no walk door");
+    else {
+      check("walk view: walking", walkView.state.walk === "walking" && walkView.state.focused, `walk ${walkView.state.walk}`);
+      check("cards share the door's lane", s.door && Math.abs(walkView.cardsGap - s.door.gapToBoxBottom) <= 0.5, `cards ${walkView.cardsGap} door ${s.door?.gapToBoxBottom} lane ${walkView.lane}`);
+      check("logo / (i) row rides 8px above the cards", walkView.attribAboveCards !== null && Math.abs(walkView.attribAboveCards - 8) <= 1, `${walkView.attribAboveCards}`);
+      check("strip touch-action none while focused", walkView.stripTouchAction === "none", walkView.stripTouchAction);
+      await page.mouse.move(Math.round(vp.w / 2), vp.h - 60);
+      await page.mouse.wheel(0, 600);
+      await page.waitForTimeout(500);
+      let y2 = await page.evaluate(() => window.scrollY);
+      check("locked: a wheel over the strip does not scroll", Math.abs(y2 - T) <= 1, `scrollY ${y2}`);
+      await page.keyboard.press("Escape"); // pauses the walk; still focused
+      await page.mouse.wheel(0, 600);
+      await page.waitForTimeout(500);
+      y2 = await page.evaluate(() => window.scrollY);
+      check("locked while paused too", Math.abs(y2 - T) <= 1, `scrollY ${y2}`);
+      await page.evaluate(() => document.querySelector('button[aria-label="Back to map"]')?.click());
+      await page.waitForTimeout(600);
+      await page.mouse.wheel(0, 600);
+      await page.waitForTimeout(700);
+      y2 = await page.evaluate(() => window.scrollY);
+      check("released after Back: the page scrolls again", y2 > T + 20, `scrollY ${y2}`);
     }
   } catch (err) {
     check("run", false, String(err.message || err));

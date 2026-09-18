@@ -260,6 +260,14 @@ export default function TroyMap({ stops, baseUrl }: Props) {
      the moment of load. Every framing decision reads this instead. */
   const rootRef = useRef<HTMLDivElement | null>(null);
   const uiHeight = () => rootRef.current?.clientHeight || window.innerHeight;
+  /* v19 (round 20): the lane the walk door and the card strip share — their
+     bottom offset from the UI layer's edge (global.css `--map-lane`, a
+     registered length: phones inset − 4, 640 and up inset + 12). The strip's
+     height is the card plus this. */
+  const mapLane = () => {
+    const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--map-lane"));
+    return Number.isFinite(v) ? v : 20;
+  };
   const lensPointers = useRef(new Map<number, { x: number; y: number }>());
   const lensPinch = useRef(0);
 
@@ -906,9 +914,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
    *  label pill — sit above the card strip: half the strip's height (card +
    *  its bottom padding) at every viewport, phones and landscape included. */
   const cardLift = (): [number, number] => {
-    const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+    const lane = mapLane();
     const w = window.innerWidth;
-    const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
+    const strip = w < 640 ? 128 + lane : w < 1024 ? 160 + lane : 192 + lane; /* v8 V8-201: the strip sits ON the inset; v19: on the lane */
     // never so far that the active name plate meets the top edge (landscape phones)
     return [0, -Math.round(Math.min(strip / 2, uiHeight() / 2 - 100))];
   };
@@ -1205,9 +1213,9 @@ export default function TroyMap({ stops, baseUrl }: Props) {
            any marker whose point falls under it fades (a label under a card is
            useless, and it read as a collision — juror pass 2). */
         if (focusedRef.current && shellVisibleRef.current) {
-          const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+          const lane = mapLane();
           const w = window.innerWidth;
-          const strip = w < 640 ? 128 + inset : w < 1024 ? 160 + inset : 192 + inset; /* v8 V8-201: the strip sits ON the inset */
+          const strip = w < 640 ? 128 + lane : w < 1024 ? 160 + lane : 192 + lane; /* v8 V8-201: the strip sits ON the inset; v19: on the lane */
           /* v18 (round 19): map.project is container pixels, and the container's
              top edge is T above the UI layer (v16), so the strip's line sits T
              further down in that space; the height is the UI layer's, not the
@@ -1706,9 +1714,16 @@ export default function TroyMap({ stops, baseUrl }: Props) {
      pauses the walk by design, is untouched. touchmove is captured, not
      bubbled: keen stopPropagation()s every touchmove on its container
      (measured 12/12), so a bubble listener here would never see a finger on
-     the cards. Neither library reads the native defaultPrevented. */
+     the cards. Neither library reads the native defaultPrevented.
+
+     v19 (round 20, Wil): "after they click this button and take the walk then
+     the scrolling down into the next section of this screen should not be
+     possible." The lock's lifetime is now the whole FOCUSED state — the view
+     with the cards, whether the walk is running, paused or done — released by
+     Back, Escape from a paused walk, or a navigation, exactly the exits that
+     leave `focused`. The index below the map is reached from the overview. */
   useEffect(() => {
-    if (walk !== "walking") return;
+    if (!focused) return;
     const block = (e: Event) => {
       if (e.cancelable) e.preventDefault();
     };
@@ -1729,7 +1744,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       window.removeEventListener("touchmove", block, true);
       window.removeEventListener("keydown", onKey);
     };
-  }, [walk]);
+  }, [focused]);
 
   /* v7 M9: on phones the ☰ retreats while a stop is focused (a 360px top row
      cannot hold Back + Stop the walk + ☰); `Back` is the exit that brings it
@@ -2094,10 +2109,13 @@ export default function TroyMap({ stops, baseUrl }: Props) {
       {/* ——— The overlap carousel (approved) ———
           Always mounted: keen-slider re-initialization on remount landed on
           the wrong card (QA final defect 2); a live, measured instance obeys
-          moveToIdx reliably. Visibility is opacity/pointer-events only. */}
+          moveToIdx reliably. Visibility is opacity/pointer-events only.
+          v19 (round 20): `.map-cards` — the strip's bottom padding is the
+          door's lane (global.css `--map-lane`), so the cards sit where the
+          walk door sat, at every width. */}
       {
         <div
-          className="fixed right-0 bottom-0 left-0 z-10 pb-[var(--ui-inset)] transition-opacity duration-300"
+          className="map-cards fixed right-0 bottom-0 left-0 z-10 transition-opacity duration-300"
           style={{
             opacity: focused && shellVisible ? 1 : 0,
             pointerEvents: focused && shellVisible ? "auto" : "none",
@@ -2109,8 +2127,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
             className="keen-slider location-cards-slider"
             role="region"
             aria-label="Stop cards"
-            /* v14 E22: keen's own `touch-action: pan-y` returns the instant the walk is not running. */
-            style={{ touchAction: walk === "walking" ? "none" : undefined }}
+            /* v14 E22: keen's own `touch-action: pan-y` returns the instant the
+               strip is not in use. v19: for the whole focused state (the lock's
+               lifetime), not only while the walk is running. */
+            style={{ touchAction: focused ? "none" : undefined }}
           >
             {stops.map((stop, index) => {
               const isActive = index === activeIdx;

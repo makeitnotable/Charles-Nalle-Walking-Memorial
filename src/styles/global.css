@@ -1356,14 +1356,39 @@ h3 {
    logo's own box ends 4px lower): ~37px to the pill. `--map-door-lift` is
    the tuning knob — `?cta=<px>`
    on the live page writes it (map.astro), so the number can be dialled on the
-   device without a deploy per guess. Tablets and up keep inset + 12px. */
-.map-walk-door {
-  bottom: calc(var(--ui-inset) + var(--map-door-lift, 0px));
+   device without a deploy per guess. Tablets and up keep inset + 12px.
+
+   v19 (round 20, Wil): −4px is the offset he chose on the device (`?cta=-4`),
+   so it is the property's initial value; the flag still overrides it inline.
+   And the chapter cards "inherit the same vertical spacing": ONE token,
+   `--map-lane`, is the door's bottom offset AND the card strip's bottom
+   padding at every width — phones inset + lift (16px), 640 and up inset +
+   12px, the door's existing offset there — so the cards sit exactly where
+   the door sat. Registered because TroyMap parseFloat()s it for the camera's
+   card lift and the strip-fade line. */
+@property --map-door-lift {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -4px;
+}
+@property --map-lane {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
+:root {
+  --map-lane: calc(var(--ui-inset) + var(--map-door-lift));
 }
 @media (min-width: 640px) {
-  .map-walk-door {
-    bottom: calc(var(--ui-inset) + 12px);
+  :root {
+    --map-lane: calc(var(--ui-inset) + 12px);
   }
+}
+.map-walk-door {
+  bottom: var(--map-lane);
+}
+.map-cards {
+  padding-bottom: var(--map-lane);
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
@@ -1660,20 +1685,26 @@ h3 {
 /* v8 V8-201: while a stop is focused the card strip sits ON the bottom inset
    (bottom-aligned with the ☰'s axis), so the (i) attribution — a licence
    requirement — rides just above the strip. Card heights 128/160/192. */
+/* v19 (round 20): the strip now sits on `--map-lane` (the door's lane), so the
+   row above it follows — card height + 8px above the lane. And `+ E`: these
+   controls live in the canvas, which runs E below the UI layer since round 9,
+   and this focused-state rule had never taken E back the way the rest-state
+   rule above does — so on an iPhone the (i) and the logo sat E lower than
+   intended while a stop was focused, behind the cards. E is 0 off iOS. */
 .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
 .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-  padding-bottom: calc(var(--ui-inset) + 136px);
+  padding-bottom: calc(var(--map-lane) + 136px + var(--map-e));
 }
 @media (min-width: 640px) {
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-    padding-bottom: calc(var(--ui-inset) + 168px);
+    padding-bottom: calc(var(--map-lane) + 168px + var(--map-e));
   }
 }
 @media (min-width: 1024px) {
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
   .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
-    padding-bottom: calc(var(--ui-inset) + 200px);
+    padding-bottom: calc(var(--map-lane) + 200px + var(--map-e));
   }
 }
 /* v8 V8-203 tucked the phone's (i) beside a bottom-right ☰ (+84px of right
