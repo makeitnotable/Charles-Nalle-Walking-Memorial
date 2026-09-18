@@ -35,6 +35,28 @@ interface Props {
    * page-side mechanism can hold a fill in the minimized state).
    */
   topBar?: "section";
+  /**
+   * v14.7 (round 8 phase D). The colour the ROOT ELEMENT takes, which is what
+   * iOS 26 paints behind the address bar AT REST.
+   *
+   * This is the one mechanism this round measured rather than assumed. Phase A:
+   * "the top bar at rest is not a tint — it reads the page brown because
+   * nothing exists above document offset 0, the root-background fallback."
+   * That brown is `html { background: var(--color-primary-2) }` in global.css,
+   * so changing the root background per route changes the bar, with no strip
+   * and no opacity involved. Phase C proved the opposite about the 12px strip:
+   * Safari does NOT read an `opacity: 0` element, and every opacity it does
+   * read is one Wil can see.
+   *
+   * It cannot make the bar see-through — at rest the page's render surface
+   * starts at document offset 0, which sits BELOW the bar, so there is nothing
+   * there to show through on any page. A matched colour is the ceiling.
+   *
+   * Invisible on the page: <body> keeps its own background and paints every
+   * pixel inside its box, so only the region outside it — the bar, and
+   * overscroll — takes this.
+   */
+  rootFill?: "map";
 }
 
 const {
@@ -46,6 +68,7 @@ const {
   preloadImage,
   preloadImages = [],
   topBar,
+  rootFill,
 } = Astro.props;
 // File-format builds report pathnames like /base/bakery.html — canonicalize
 // to the extensionless URLs that GH Pages actually serves.
@@ -56,7 +79,7 @@ const canonical = new URL(
 ---
 
 <!doctype html>
-<html lang="en" data-top-bar={topBar}>
+<html lang="en" data-top-bar={topBar} data-root-fill={rootFill}>
   <head>
     <meta charset="utf-8" />
     {/* v9 V9-301 (Wil, 8/21: "there shouldn't be a black bar at the bottom or

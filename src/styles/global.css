@@ -1989,6 +1989,43 @@ a.walk-seg:hover {
   bottom: 0;
 }
 
+/* ── v14.7 (round 8 phase D): the root background IS the bar at rest ─────────
+   Wil's annotated device pass, 2026-09-18. Two of his three asks reduce to one
+   mechanism, and it is the only one this round MEASURED rather than assumed.
+
+   Phase A, on his iPhone: "the top bar at rest is not a tint — it reads the
+   page brown because nothing exists above document offset 0, the
+   root-background fallback." That brown is `html`'s background, 60 lines up.
+   So the root background is already driving the bar; naming a different colour
+   per route is all that is needed. No strip, no opacity, nothing Safari has to
+   agree to read — phase C proved it will NOT read an opacity-0 strip, and that
+   every opacity it does read is one Wil can see.
+
+   WHAT THIS CANNOT DO. It cannot make the bar see-through. At rest the page's
+   render surface begins at document offset 0, which sits BELOW the address bar,
+   so on every page there is simply nothing there to show through. A matched
+   colour is the ceiling, and that is what these two rules buy.
+
+   WHY IT PAINTS NOTHING ON THE PAGE. `body` keeps its own background and covers
+   its whole box, so these colours reach only what lies outside it: the bar
+   region above offset 0, and overscroll. The visual gate holds at 0 drift.
+
+   REVERT: delete this block. */
+
+/* The five chapter routes: Wil's own stated fallback — "use the default brown
+   that is the section background color for the hero section". The hero is
+   `bg-neutral-2` #100a06; the bar has been showing the page ground #1d1411. */
+html[data-top-bar="section"] {
+  background-color: var(--color-neutral-2);
+}
+
+/* /map: #353535, the Mapbox style's own ground — the same value map.astro
+   already declares on `data-edge-*`, so the band matches the canvas beneath it
+   instead of reading as a brown slab. Matched, NOT see-through (see above). */
+html[data-root-fill="map"] {
+  background-color: #353535;
+}
+
 /* v7 C7 — the hero still reads the portrait focus below md and the landscape
    focus at md+ (the <picture> swaps the source at the same breakpoint). */
 .hero-still {
