@@ -2012,17 +2012,56 @@ a.walk-seg:hover {
 
    REVERT: delete this block. */
 
+/* ── v14.8 (round 8 phase E): it is <body>, not <html> ───────────────────────
+   Phase D shipped the two colours below on <html> and they did nothing. /map
+   is the one route where the two elements differ enough to tell apart by eye,
+   and Wil's device pass discriminated cleanly: html declares #353535 (present
+   in the emitted CSS and on the built page, both checked) and his address bar
+   still read #1d1411 — the BODY ground. Safari reads <body>.
+
+   Phase A could not have caught this. html and body were BOTH #1d1411 then, so
+   "the root-background fallback" and the body fallback were the same colour and
+   phase D built on the ambiguity. The client brief said <body> all along.
+
+   WHY THE GROUND MOVES TO <main>. body's background-color IS the visible page
+   ground — .sec, .shell, main and section paint nothing — so simply recolouring
+   body would have repainted the page, and /map's index section would have gone
+   mid-grey. <main id="main"> wraps all page content including the footer
+   (verified on the built pages), so painting the ground there puts exactly the
+   same pixels on screen and leaves body's own colour visible only where main
+   does not reach: the bar region and overscroll.
+
+   THE ACCEPTED COST. body drives rubber-band overscroll at BOTH ends, so
+   overscroll on these routes takes the bar colour, and each route's bottom
+   toolbar takes the same colour as its top. That is why the brief listed a body
+   background change as stop-and-report; it was reported and approved.
+
+   WHAT THIS STILL CANNOT DO. A scrolled chapter page composites real content
+   through the bar and always will — that is phase A2's accepted glass-while-
+   scrolled split, and no mechanism reaches it. These colours govern the state
+   at rest, where nothing exists above document offset 0.
+
+   REVERT: delete this block and restore the two `html[...]` selectors. */
+main {
+  background: var(--ground);
+}
+
 /* The five chapter routes: Wil's own stated fallback — "use the default brown
    that is the section background color for the hero section". The hero is
-   `bg-neutral-2` #100a06; the bar has been showing the page ground #1d1411. */
-html[data-top-bar="section"] {
+   `bg-neutral-2` #100a06; the bar has been showing the page ground #1d1411.
+   v14.8 (Wil, 2026-09-18): STATIC. The colour is set once and holds for the
+   whole page. Tracking the section under the bar as the reader scrolls is
+   dropped at his instruction — it needs either the 12px strip phase C3 proved
+   visible over the hero, or writing body's colour on scroll, which would
+   retint the BOTTOM toolbar on these routes too. */
+html[data-top-bar="section"] body {
   background-color: var(--color-neutral-2);
 }
 
 /* /map: #353535, the Mapbox style's own ground — the same value map.astro
    already declares on `data-edge-*`, so the band matches the canvas beneath it
    instead of reading as a brown slab. Matched, NOT see-through (see above). */
-html[data-root-fill="map"] {
+html[data-root-fill="map"] body {
   background-color: #353535;
 }
 
