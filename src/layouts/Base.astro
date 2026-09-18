@@ -302,103 +302,14 @@ const canonical = new URL(
             var sc = sectionGroundAt(4);
             if (sc) {
               var strip = document.querySelector(".edge-glass-top");
-              /* The contrast probe forces a colour that CANNOT match what is
-                 under the strip; see labInit for why that is the only way
-                 dilution shows. It never runs without ?striplab. */
-              var want = docEl.dataset.stripProbe ? LAB_PROBE : sc;
-              if (strip && strip.style.backgroundColor !== want) strip.style.backgroundColor = want;
+              if (strip && strip.style.backgroundColor !== sc) strip.style.backgroundColor = sc;
               best = sc;
             }
-            if (docEl.dataset.stripLab) labUpdate(sc);
           }
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
           }
         }
-        /* ── round 8 phase C3: the strip lab (TEST INSTRUMENT, ?striplab=) ──────
-           Test 5 put the tint threshold between opacity 0.04 and 0.10, so the
-           strip has to be painted to be read. Two things then need answering
-           on the device, and Wil cannot read a computed style off a phone:
-           how visible the band is over the hero's artwork, and whether Safari
-           takes the DECLARED colour or a composite.
-
-           On the second: in the production shape the strip is painted the
-           SAME colour as the section beneath it, so declared and composited
-           are identical and dilution is undetectable — and harmless, since
-           either way the bar gets the right colour. It only bites over the
-           HERO, where the strip is #100a06 but the backdrop is a full-bleed
-           painting. That is what the contrast probe is for: it forces the
-           cream #f6f3ee, which cannot match the dark hero, so the bar reading
-           cream means declared, and the bar reading dark means composited.
-
-           Nothing here creates an element or runs a line without the query. */
-        /* "1.0", not "1": ?striplab=1 is the natural way to switch this on, and
-           a bare "1" in this list would be read as the opacity instead of the
-           default, handing Wil a fully painted band when he asked for 0.15. */
-        var LAB_OPS = ["0.10", "0.15", "0.25", "1.0"];
-        var LAB_PROBE = "#f6f3ee";
-        var labEls = null;
-        function labInit() {
-          var m = /[?&]striplab(?:=([^&]*))?/.exec(location.search);
-          if (!m) return;
-          var docEl = document.documentElement;
-          docEl.dataset.stripLab = "1";
-          var v = m[1] ? decodeURIComponent(m[1]) : "";
-          docEl.style.setProperty("--chapter-strip-op", LAB_OPS.indexOf(v) !== -1 ? v : "0.15");
-        }
-        labInit();
-        function labBuild() {
-          var d = document.createElement("div");
-          /* Parked well clear of both edges (the bottom toolbar is ~92px), so
-             this panel can never itself qualify as an element Safari samples. */
-          d.setAttribute("style",
-            "position:fixed;left:8px;right:8px;bottom:140px;z-index:9999;font:12px/1.45 ui-monospace,monospace;" +
-            "background:#000;color:#fff;border:1px solid #666;border-radius:8px;padding:8px 10px;");
-          d.innerHTML =
-            '<div style="opacity:.7">strip lab \u00b7 chapter routes \u00b7 test only</div>' +
-            '<div>opacity <b id="sl-op"></b> ' +
-            LAB_OPS.map(function (o) {
-              return '<button type="button" data-slop="' + o + '" style="min-width:44px;min-height:28px;margin:2px;' +
-                'background:#222;color:#fff;border:1px solid #777;border-radius:5px">' + o + "</button>";
-            }).join("") + "</div>" +
-            '<div>section <b id="sl-sc"></b><span id="sl-sw" style="display:inline-block;width:12px;height:12px;' +
-            'vertical-align:-2px;margin-left:6px;border:1px solid #888"></span></div>' +
-            '<div>strip &nbsp;&nbsp;<b id="sl-bg"></b></div>' +
-            '<button type="button" id="sl-probe" style="min-height:32px;margin-top:4px;background:#222;color:#fff;' +
-            'border:1px solid #777;border-radius:5px;padding:0 10px">contrast probe: OFF</button>';
-          document.body.appendChild(d);
-          labEls = {
-            op: d.querySelector("#sl-op"), sc: d.querySelector("#sl-sc"),
-            sw: d.querySelector("#sl-sw"), bg: d.querySelector("#sl-bg"),
-            probe: d.querySelector("#sl-probe"),
-          };
-          var docEl = document.documentElement;
-          for (var i = 0; i < LAB_OPS.length; i++) {
-            (function (btn) {
-              btn.addEventListener("click", function () {
-                docEl.style.setProperty("--chapter-strip-op", btn.dataset.slop);
-                schedule();
-              });
-            })(d.querySelectorAll("[data-slop]")[i]);
-          }
-          labEls.probe.addEventListener("click", function () {
-            if (docEl.dataset.stripProbe) delete docEl.dataset.stripProbe;
-            else docEl.dataset.stripProbe = "1";
-            labEls.probe.textContent = "contrast probe: " + (docEl.dataset.stripProbe ? "ON (" + LAB_PROBE + ")" : "OFF");
-            schedule();
-          });
-        }
-        function labUpdate(sc) {
-          if (!document.body) return;
-          if (!labEls) labBuild();
-          var strip = document.querySelector(".edge-glass-top");
-          var docEl = document.documentElement;
-          labEls.op.textContent = getComputedStyle(strip).opacity;
-          labEls.sc.textContent = sc || "(none)";
-          labEls.sw.style.background = sc || "transparent";
-          labEls.bg.textContent = (docEl.dataset.stripProbe ? LAB_PROBE + " (probe)" : strip.style.backgroundColor || "(none)");
-        }
-
         function schedule() {
           if (queued) return;
           var wait = SAMPLE_MS - (performance.now() - lastSample);

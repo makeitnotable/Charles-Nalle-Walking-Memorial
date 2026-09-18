@@ -1989,30 +1989,6 @@ a.walk-seg:hover {
   bottom: 0;
 }
 
-/* ── round 8 phase C3: the chapter strip's opacity, as a TEST INSTRUMENT ─────
-   APPROVED BY WIL (2026-09-18) as a test that MAY PAINT VISIBLE PIXELS on the
-   five chapter routes. Test 5 measured the tint threshold between opacity 0.04
-   and 0.10, so a strip Safari reads must be painted; this is how Wil judges
-   what that costs over the hero's artwork.
-
-   It paints ONLY when <html> carries data-strip-lab, which Base.astro sets
-   from a `?striplab=` query. An ordinary visitor never sees it, and neither
-   does the visual gate, whose URLs carry no query.
-
-   Why flag-gated and not on by default. Wil asked for 0.15 live on the chapter
-   routes AND for the gates as usual — allowedRoutes: [] and no baseline
-   refresh. All five chapter routes sit in the baseline set at 390/768/1440, so
-   a default-on strip drifts 15 shots, and the only ways to pass are refreshing
-   baselines (forbidden) or widening allowedRoutes (not what he asked for).
-   The query satisfies every constraint at once and costs him one parameter.
-
-   REVERT: delete this block (the strip returns to opacity 0 everywhere).
-   MAKE IT DEFAULT-ON: drop the `[data-strip-lab]` selector — one line, and
-   then the visual gate needs an answer of its own. */
-html[data-strip-lab][data-top-bar="section"] .edge-glass-top {
-  opacity: var(--chapter-strip-op, 0.15);
-}
-
 /* v7 C7 — the hero still reads the portrait focus below md and the landscape
    focus at md+ (the <picture> swaps the source at the same breakpoint). */
 .hero-still {
