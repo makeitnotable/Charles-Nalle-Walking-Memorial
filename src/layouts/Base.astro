@@ -214,6 +214,9 @@ const canonical = new URL(
         var SAMPLE_MS = 100;
         var lastSample = 0;
         var trailing = 0;
+        /* v19 (round 21): the last colour written to <body> on /map, so a
+           sample that resolves the same colour writes nothing. */
+        var lastBody = "";
 
         function hex(c) {
           var m = String(c).match(/[\d.]+/g);
@@ -356,6 +359,28 @@ const canonical = new URL(
           if (docEl.dataset.topBar === "section") {
             var sc = sectionGroundAt(4);
             if (sc) best = sc;
+          }
+          /* v19 (round 21, Wil, 2026-09-18): "the gray gradient overlay …
+             behind and around the top address bar does not disappear when
+             scrolling down into the section below the map." Safari 26 tints
+             its bars from <body>'s background-color (round 8 phase E, measured
+             on his phone; theme-color is parsed and ignored), and /map's body
+             has been the map's grey #353535 since phase D/E so the at-rest bar
+             matched the canvas. The tint outlives the map: minimized and
+             scrolled, it is still grey over the brown index. The page cannot
+             remove Safari's tint; it can hand it a colour, and phase A2 test
+             C4a measured that a live colour change on an element that stays
+             in the tree is the one thing that moves it. So on /map, and only
+             there, <body> follows the colour this sampler already resolves —
+             the map's grey while the map owns the screen, the ground's brown
+             once the index does ("if you have to use a color use this one").
+             Nothing paints on the page: <main> covers <body> (round 14), so
+             the colour reaches only the bar region and overscroll. One colour
+             for both bars is the accepted cost, as it was for the chapter
+             routes' static fill. Every other route keeps its static body. */
+          if (docEl.dataset.rootFill === "map" && best && best !== lastBody) {
+            lastBody = best;
+            document.body.style.backgroundColor = best;
           }
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);

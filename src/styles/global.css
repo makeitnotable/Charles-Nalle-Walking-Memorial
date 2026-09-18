@@ -2299,7 +2299,11 @@ html[data-top-bar="section"] body {
 
 /* /map: #353535, the Mapbox style's own ground — the same value map.astro
    already declares on `data-edge-*`, so the band matches the canvas beneath it
-   instead of reading as a brown slab. Matched, NOT see-through (see above). */
+   instead of reading as a brown slab. Matched, NOT see-through (see above).
+   v19 (round 21): this is the AT-REST value only. Once the index scrolls under
+   the minimized bar, Base.astro's edge sampler writes the section's brown to
+   <body> inline (and the grey back when the map returns), because Safari's
+   tint outlives the map otherwise — Wil's grey gradient over the brown index. */
 html[data-root-fill="map"] body {
   background-color: #353535;
 }
