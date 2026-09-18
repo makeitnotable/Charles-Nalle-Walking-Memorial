@@ -1,0 +1,20 @@
+{
+  "round": 22,
+  "label": "close-out — the mobile-chrome playbook, the ledger, the entry point (docs only)",
+  "date": "2026-09-18",
+  "base": {
+    "tag": "client-round-22-base",
+    "commit": "41f4a372e3d04c4285c86b881e1190de4d2fb998",
+    "branch": "v2"
+  },
+  "allowed": [
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/RUN-STATE.md",
+    "AGENTS.md",
+    "docs/rounds/2026-09-18-round-22.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-18, after round 21 on the live site: 'Looks and works great. I think the map page's edits are complete. Please make note of what we have done to find success because we will likely need to use similar solutions on future edits to different pages.' Docs only, no site change: the playbook records the measured geometry, the runway pattern and its three traps, the body-colour rule, the reset-on-open rule, the lane token, the scroll lock, how each was verified without a phone, and the round checklist; AGENTS.md points every future session at it; RUN-STATE.md's CURRENT PHASE / NEXT ACTION move from the v13 close to the client rounds. No route can drift, so the visual gate is not run for this round; qa:scope is."
+}

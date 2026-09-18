@@ -7,6 +7,30 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Client rounds 1–21 COMPLETE (2026-09-15 → 2026-09-18); the map page is
+signed off.** Wil, 2026-09-18 after round 21 on the live site: "Looks and
+works great. I think the map page's edits are complete." Every round has a
+manifest and a plan in `docs/rounds/` (revert tag per round; the SHA is in
+each manifest because this repo's tokens refuse tag pushes). What the rounds
+established about Safari 26's bars, the runway pattern, the `<body>`-colour
+rule, resets on open, lanes, scroll locks and how to verify them without a
+phone is written up once in **`docs/PLAYBOOK-MOBILE-CHROME.md`** — read that
+before touching any full-bleed stage or the bars. Live = `v2` = `41f4a37`
+(Actions run 246). Instruments added: `npm run qa:scope`, `qa:snap`,
+`qa:snap:update`, `qa:framing`.
+
+## CURRENT ITEM
+Nothing in flight.
+
+## NEXT ACTION
+Wil's open decisions, none blocking: the scrolled composition of `/map` (his
+screenshot 4 — proposal in the round-19 report, not shipped); the 14px shift
+of every corner control when the bars collapse (`--ui-inset` follows the
+safe-area inset); `/paintings`' bottom toolbar (behind `?glass=1`, round 18,
+untested on the device); the Compact address-bar layout was never measured.
+Previous close (v13) follows, superseded.
+
+## v13 PHASE (superseded 2026-09-18)
 **v13 COMPLETE (Wil's 8/26 eleven-item round).** All eleven closed — nine by
 code, V13-11 as "no change, by his own stop-condition" with the dvh table as
 its deliverable. Guide: `docs/v13/REVIEW-GUIDE.md`. Ledger: `docs/v13/AUDIT.md`.
@@ -44,11 +68,11 @@ full — root cause, fix, files and acceptance per item — in `docs/v13/BRIEF.m
 committed ahead of any code so the executing session starts from disk. No `src/`
 file has been touched for v13.
 
-## CURRENT ITEM
+## v13 CURRENT ITEM (superseded)
 Nothing in flight. v13 shipped on `v2`, mirrored to
 `claude/paintings-hall-museum-fixes-qufa6x`.
 
-## NEXT ACTION
+## v13 NEXT ACTION (superseded)
 Wil's device evidence for the browser-chrome bars — three screen recordings
 (iOS Safari, iOS Chrome, Android Chrome) on `/map`, `/paintings` and one
 chapter, in the DEFAULT UNSCROLLED state with the URL bar visible, then a short
@@ -136,7 +160,7 @@ RUN COMPLETE. Every item in docs/v8/AUDIT.md is implemented, measured and
 pushed; docs/v8/REVIEW-GUIDE.md carries the item-by-item report, the
 instrument bars, the judgement calls and the human queue.
 
-## NEXT ACTION
+## v8 NEXT ACTION (superseded)
 Nothing outstanding in this run. Waiting on Wil (REVIEW-GUIDE §3 and §5): the
 Mapbox-attribution decision, the ten painting titles, the high-res splash, and
 a look at the home page on his own phone — both screenshots he sent were

@@ -42,6 +42,15 @@ Non-negotiables inherited from the constitution's design baseline:
   `.env.production`, so `npm run dev` seeds one automatically (`predev` →
   `scripts/ensure-env.mjs`). Without it the map renders with an empty token.
 
+**Mobile browser chrome — Safari 26's glass bars, full-bleed stages, viewport
+units — is solved on `/map` and the solutions transfer.** Read
+`docs/PLAYBOOK-MOBILE-CHROME.md` before touching any full-bleed stage, the
+bars' colour, or anything sized in `lvh`/`svh`/`dvh`: the measured geometry,
+the runway pattern and its three traps, the `<body>`-colour rule, the
+reset-on-open rule, and how to verify each without a phone
+(`npm run qa:framing`). Client rounds 1–21 (2026-09-15 → 09-18) are in
+`docs/rounds/`, one manifest and plan per round.
+
 ## Client rounds — the discipline
 
 Rounds 1–2 shipped `lvh` stage sizing against a simulated browser bar, and Wil
