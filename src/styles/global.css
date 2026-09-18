@@ -1856,13 +1856,14 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
-/* v20 (round 23): the chapter cover's soft bottom edge. Registered so the
-   device flag `?feather=<px>` (Base.astro) can set it inline on <html> and
-   `calc(100% - var(--edge-cover-feather))` in the mask still resolves. */
+/* v20 (round 23): the chapter cover's bottom edge — 0 is a hard edge, the
+   default since Wil's device pass ("a solid fill not a gradient"). Registered
+   so the device flag `?feather=<px>` (Base.astro) can set it inline on <html>
+   and `calc(100% - var(--edge-cover-feather))` in the mask still resolves. */
 @property --edge-cover-feather {
   syntax: "<length>";
   inherits: true;
-  initial-value: 16px;
+  initial-value: 0px;
 }
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
@@ -2364,13 +2365,18 @@ html[data-root-fill="map"] body {
    bar. Its colour is the section at the top edge, from the same resolver that
    writes <body>, so the glass, Safari's tint and the cover agree.
 
-   THE SOFT EDGE. Scrolling is asynchronous on iOS: the compositor moves the
-   page and the main thread follows a frame later, so on a fast upward flick
-   the cover can trail by a frame's worth of scroll and poke that far into the
-   visible page. A 16px feather turns that into a faint haze under the pill
-   rather than a hard band, at the cost of the bottom 16px of the glass region
-   ghosting the content — the part the pill itself sits on. `?feather=0` shows
-   the hard edge on the device; `?cover=off` the page without the cover.
+   THE EDGE — HARD, BY HIS DEVICE PASS. Scrolling is asynchronous on iOS: the
+   compositor moves the page and the main thread follows a frame later, so on
+   a fast upward flick the cover can trail by a frame's worth of scroll and
+   poke that far into the visible page. The first push feathered the bottom
+   16px against that. Wil's device pass (2026-09-18, 15:13, the story
+   section): the cover IS composited through the pill — "almost perfect" —
+   and the feather read as exactly what it is, a gradient: through those 16px
+   the section above the viewport's top edge ghosted in (the dark player
+   ground above the cream transcript). "Just should be a solid fill not a
+   gradient." So the default is 0, a hard edge, and the mask stays only for
+   the flag: `?feather=<px>` softens it on the device if a flash ever shows on
+   a flick; `?cover=off` shows the page without the cover.
 
    WHERE IT CANNOT SHOW. `display: none` unless the platform has these bars —
    the `-webkit-touch-callout` gate the playbook records as firing on iOS and

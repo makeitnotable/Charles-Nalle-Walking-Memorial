@@ -99,22 +99,25 @@ the bottom toolbar follows it too — the accepted cost of a section-tracking
 bar. To give another page a tracking bar: gate the same write on that page's
 attribute and accept the bottom bar's share of the transition band.
 
-**Round 23 (2026-09-18, awaiting Wil's device pass — nothing in this
-paragraph is measured on a phone yet).** The chapter routes
-(`data-top-bar="section"`) track too, at his instruction, with the colour of
-the section at the TOP edge (`sectionGroundAt`, which now counts `<main>` and
-`.ground-cream` blocks as grounds). And because the minimized bar is glass
-over whatever the document holds above the viewport's top edge — what has
-just scrolled past — a tint alone leaves the content ghosting through it. The
-in-flow `.edge-cover` (a 320px absolute box in the document, translated on
-every scroll event so its bottom edge rides on the viewport's top edge,
-coloured by the sampler) is the first attempt to give that glass a solid
-ground: the one place in-flow paint reaches and fixed paint does not (§1). Its
-known risk is asynchronous scrolling — a fast upward flick can leave the cover
-a frame behind — so its bottom 16px are feathered (`?feather=<px>` on the
-device, `?cover=off` for a before/after). If he confirms it, record the
-geometry here; if he does not, the tint tracking stands on its own and the
-cover comes out (one CSS block, one element, one tracker).
+**Round 23 (2026-09-18).** The chapter routes (`data-top-bar="section"`)
+track too, at his instruction, with the colour of the section at the TOP
+edge (`sectionGroundAt`, which now counts `<main>` and `.ground-cream` blocks
+as grounds). And because the minimized bar is glass over whatever the
+document holds above the viewport's top edge — what has just scrolled past —
+a tint alone leaves the content ghosting through it. The in-flow
+`.edge-cover` (a 320px absolute box in the document, translated on every
+scroll event so its bottom edge rides on the viewport's top edge, coloured
+by the sampler) gives that glass a solid ground: the one place in-flow paint
+reaches and fixed paint does not (§1). **Measured on his phone (device pass
+1, 15:13): Safari composites the cover through the minimized pill** — the
+region read the transcript's cream, solid — so in-flow paint ABOVE the
+viewport's top edge reaches the bar region exactly as the runway's does
+below it. A feathered edge does not help: through it the section above the
+top edge ghosts in and the glass reads as a gradient, which he rejected; the
+edge is hard by default (`?feather=<px>` softens it on the device,
+`?cover=off` removes it). Still unmeasured: how far a fast upward flick
+leaves the hard edge behind (asynchronous scrolling: the main thread trails
+the compositor by a frame).
 
 ## 4 · State resets on every open (round 19)
 

@@ -29,9 +29,13 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
-Round 23's device pass — Wil's verdict on the chapter cover's soft edge
-(`?feather=<px>`, `?cover=off` for a before/after), the bottom toolbar's
-share of Safari's one `<body>` tint, and the menu holding still.
+Round 23, after device pass 1 (2026-09-18, 15:13): the chapter cover is
+CONFIRMED on his phone — the minimized bar's region reads the section's
+colour, "almost perfect" — and the 16px feather read as a gradient (the
+section above the top edge ghosting through), so the edge is hard (0px) by
+default now; `?feather=<px>` softens it, `?cover=off` removes it. Awaiting
+his pass on the hard edge under a fast flick, the bottom toolbar's share of
+Safari's one `<body>` tint, the menu holding still and the hero inset.
 
 ## NEXT ACTION
 Wil's open decisions, none blocking: the scrolled composition of `/map` (his

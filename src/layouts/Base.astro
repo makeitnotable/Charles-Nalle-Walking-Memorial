@@ -108,8 +108,9 @@ const canonical = new URL(
           if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
           /* v20 (round 23): the chapter cover's device flags. `?cover=off`
              turns the cover off for a before/after on the phone; `?feather=<px>`
-             tries another soft edge (0 = a hard edge). Inline, one page load;
-             v2's defaults are untouched. */
+             softens the cover's bottom edge (the default is 0, a hard edge —
+             his device pass). Inline, one page load; v2's defaults are
+             untouched. */
           if (/(^|[?&])cover=off(&|$)/.test(q)) document.documentElement.dataset.cover = "off";
           var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
           if (f) document.documentElement.style.setProperty("--edge-cover-feather", f[2] + "px");
