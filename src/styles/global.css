@@ -1138,7 +1138,7 @@ h3 {
      bottom toolbar. See --map-e below for the value and why it is not a
      constant. `svh` (not dvh) still governs the part the reader sees at rest,
      so the jitter this note warns about is unchanged. */
-  height: calc(100svh + var(--map-e));
+  height: calc(100svh + var(--map-e) + var(--map-t));
   width: 100%;
   /* v9 V9-301: while the GL canvas is sizing the uncovered strip must read as
      the page, not as the canvas's black. */
@@ -1173,6 +1173,21 @@ h3 {
        grow, which is exactly today's behaviour. */
     --map-e: round(down, min(calc(100lvh - 100svh), 20svh), 1px);
   }
+  /* v16 item 1 (Wil, 2026-09-18): T — the mirror of E at the TOP edge, behind
+     the ?glass=1 flag. The top inset is document offsets −107→0 (phase A2), so
+     nothing can be there at scroll 0 by any mechanism; the only way to put map
+     under the address bar is for the page not to be at scroll 0. So the shell
+     grows by T as well as E, the page lands at scroll T (map.astro), and the
+     reader's window is the shell's rows T…T+svh — the same composition as
+     today, shifted off the document's top edge.
+
+     110px, not `20svh`: the measured top bar is 107. `min()` with
+     `100lvh − 100svh` self-zeroes it to 0 wherever there are no bars, so
+     desktop and tablet land at scroll 0 and nothing moves. Integer for the
+     same reason E is — overviewCamera's fit is a discrete search. */
+  html[data-glass] .map-shell {
+    --map-t: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+  }
 }
 /* The UI layer keeps the ORIGINAL box, so every element anchored to its bottom
    — the hint, the scroll handle, `Take the walk` — holds its screen position
@@ -1180,7 +1195,11 @@ h3 {
    the same element regardless of bundle order (the same reason .map-canvas
    below is written this way). */
 .map-shell .troymap-root {
-  height: calc(100% - var(--map-e));
+  height: calc(100% - var(--map-e) - var(--map-t));
+  /* v16 item 1: the UI layer sits BELOW the runway, so every element anchored
+     to its top or bottom holds the screen position it has today once the page
+     has landed at scroll T. */
+  margin-top: var(--map-t);
 }
 /* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
  * the utility bundle, silently overriding `.absolute` at equal specificity —
@@ -1196,6 +1215,9 @@ h3 {
      this computes to exactly the old `inset: 0; height: 100%`. */
   height: auto;
   bottom: calc(-1 * var(--map-e));
+  /* v16 item 1: and T ABOVE, so the canvas fills the grown shell at both ends.
+     T is 0 off the flag, so this computes to exactly the old `inset: 0`. */
+  top: calc(-1 * var(--map-t));
 }
 .reveal-frame {
   aspect-ratio: 3 / 2;
@@ -1754,6 +1776,14 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
+/* v16 item 1: T, the top mirror of E. Registered for the same reason — the
+   camera parseFloat()s it, and an unregistered custom property hands back the
+   token stream rather than a resolved length. */
+@property --map-t {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
      pinned to a viewport edge. An opaque colour there becomes a solid band
@@ -1767,6 +1797,8 @@ a.walk-seg:hover {
      ending where the toolbar starts and showing the index's brown behind it.
      0 everywhere by default; raised only on .map-shell, below. */
   --map-e: 0px;
+  /* v16 item 1: the top runway. 0 everywhere by default and off the flag. */
+  --map-t: 0px;
   --ui-inset: max(
     var(--gutter),
     env(safe-area-inset-top, 0px),

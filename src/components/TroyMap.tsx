@@ -274,6 +274,20 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const v = parseFloat(getComputedStyle(el).getPropertyValue("--map-e"));
     return Number.isFinite(v) && v > 0 ? v : 0;
   };
+  /* v16 item 1 (Wil, 2026-09-18): T — E's mirror at the top edge, behind the
+     ?glass=1 flag. The shell grows by T above the reader's window and the page
+     lands at scroll T (map.astro), so map continues under the address bar
+     instead of the bar showing the empty region above document offset 0. The
+     canvas is therefore T taller than the UI layer at the top, and the camera
+     takes that T back as padding exactly as it already does for E — so the
+     framing the reader sees is unchanged. 0 off the flag and wherever there
+     are no bars, which makes every expression below a no-op there. */
+  const mapT = () => {
+    const el = shellRef.current;
+    if (!el) return 0;
+    const v = parseFloat(getComputedStyle(el).getPropertyValue("--map-t"));
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  };
 
   const PLATE = 3431 / 4096;
   const lensMinScale = () => {
@@ -646,7 +660,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     /* v14.5: E is part of the viewport identity — it changes on rotation and
        the fit's padding depends on it, so a cached camera from the other
        orientation must not be reused. */
-    const key = `${w}x${h}x${Math.round(mapE())}`;
+    const key = `${w}x${h}x${Math.round(mapE())}x${Math.round(mapT())}`;
     if (camCache.current?.key === key) return camCache.current.cam;
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
     const b = new gl.LngLatBounds();
@@ -788,7 +802,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         const cam = map.cameraForBounds(b, {
           /* +E: an explicit padding REPLACES the map's own, so the strip under
              the toolbar has to be re-added here or the fit would frame into it. */
-          padding: { top: 120, bottom: 240 + mapE(), left: 140, right: 140 },
+          padding: { top: 120 + mapT(), bottom: 240 + mapE(), left: 140, right: 140 },
           bearing: OVERVIEW.bearing,
           pitch,
         } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
@@ -825,7 +839,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     if (!chosen && short) {
       const fit = map.cameraForBounds(b, {
         /* +E, for the same reason as the fit above. */
-        padding: { top: inset + 56, bottom: inset + 76 + mapE(), left: inset + 24, right: inset + 24 },
+        padding: { top: inset + 56 + mapT(), bottom: inset + 76 + mapE(), left: inset + 24, right: inset + 24 },
         bearing: OVERVIEW.bearing,
         pitch: PITCHES[PITCHES.length - 1],
       } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
@@ -1018,10 +1032,12 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        and the map simply continues underneath it. E is 0 off iOS, where this
        is a no-op. It changes on rotation (lvh and svh both change), so it is
        re-applied on resize and orientationchange alongside map.resize(). */
+    /* v16 item 1: and T above, for the same reason and by the same rule. */
     const applyPadding = () => {
       const e = mapE();
+      const t = mapT();
       const p = map.getPadding?.();
-      if (!p || p.bottom !== e) map.setPadding({ top: 0, right: 0, bottom: e, left: 0 });
+      if (!p || p.bottom !== e || p.top !== t) map.setPadding({ top: t, right: 0, bottom: e, left: 0 });
     };
     map.on("load", () => {
       map.resize();

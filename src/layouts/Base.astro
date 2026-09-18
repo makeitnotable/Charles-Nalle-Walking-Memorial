@@ -82,6 +82,26 @@ const canonical = new URL(
 <html lang="en" data-top-bar={topBar} data-root-fill={rootFill}>
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      /* v16 (Wil, 2026-09-18): the `?glass=1` review flag.
+
+         Wil asked for items 1 and 3 on a review branch so v2 stays shippable
+         while he checks them on his phone. This repo cannot do that: Pages
+         deploys only from main/v2 (`concurrency: group: pages`) and Vercel was
+         dropped for the zero-cost requirement, so a branch has no live URL.
+         A query flag is the same guarantee by the means the repo does have —
+         it is the `?striplab=` pattern phase C3 already used. Off the flag
+         every route is byte-identical to today, which is also what keeps
+         qa:snap a working safety net on the two riskiest pages.
+
+         Parser-blocking and first in <head> so the attribute is on <html>
+         before any rule that depends on it is matched. */
+      (function () {
+        try {
+          if (/(^|[?&])glass=1(&|$)/.test(location.search)) document.documentElement.dataset.glass = "1";
+        } catch (e) {}
+      })();
+    </script>
     {/* v9 V9-301 (Wil, 8/21: "there shouldn't be a black bar at the bottom or
         the top"). Without `viewport-fit=cover` iOS insets the page from the
         safe areas and paints those strips itself, which is what reads as bars

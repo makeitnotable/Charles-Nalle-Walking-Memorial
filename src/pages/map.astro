@@ -152,4 +152,49 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
   </script>
+
+  <script is:inline>
+    /* v16 item 1 (Wil, 2026-09-18): "Map page = area behind the top address bar
+       and bottom toolbar is always see through." Behind ?glass=1.
+
+       The bottom already works, because the bottom toolbar covers document
+       offsets 645-737 and the shell grows into them (E, round 8 section 5.3).
+       The top bar covers offsets -107 to 0 — above the document — so at scroll
+       0 there is nothing there to show, on any page, by any mechanism (phase
+       A2, measured twice). The only way to put map under it is for the page not
+       to be at scroll 0. So the shell also grows by T ABOVE the reader's
+       window (global.css), the camera takes T back as top padding exactly as it
+       already does for E (TroyMap.tsx), and this lands the page at scroll T —
+       the same composition as today, shifted off the document's top edge, with
+       T px of live map now occupying the strip the address bar covers.
+
+       T is 0 wherever there are no bars, so desktop and tablet land at scroll 0
+       and nothing here runs. `scrollRestoration = manual` stops iOS restoring a
+       back-navigation to 0 and undoing the landing; `scroll-behavior` is forced
+       to auto for the jump because html sets `smooth` globally and this must not
+       animate. Re-landed on orientationchange, where T changes with lvh/svh. */
+    (function () {
+      if (!document.documentElement.dataset.glass) return;
+      function land() {
+        var shell = document.querySelector(".map-shell");
+        if (!shell) return;
+        var t = parseFloat(getComputedStyle(shell).getPropertyValue("--map-t")) || 0;
+        if (t <= 0 || window.scrollY >= t) return;
+        var root = document.documentElement;
+        var prev = root.style.scrollBehavior;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, t);
+        root.style.scrollBehavior = prev;
+      }
+      try {
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      } catch (e) {}
+      if (document.readyState === "loading") addEventListener("DOMContentLoaded", land, { once: true });
+      else land();
+      addEventListener("load", land, { once: true });
+      addEventListener("orientationchange", function () {
+        setTimeout(land, 200);
+      });
+    })();
+  </script>
 </Base>
