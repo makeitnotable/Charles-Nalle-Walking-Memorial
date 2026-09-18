@@ -1,0 +1,20 @@
+{
+  "round": 16,
+  "label": "chapter pages — both bars solid hero brown",
+  "date": "2026-09-18",
+  "plan": "docs/rounds/2026-09-17-round-8-plan.md",
+  "base": {
+    "tag": "client-round-16-base",
+    "commit": "aad0177e646a3b317d03dfec296fe9916f328541",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/styles/global.css",
+    "docs/rounds/2026-09-17-round-8-plan.md",
+    "docs/rounds/2026-09-18-round-16.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil's per-page spec of 2026-09-18, item 2 only: the five chapter routes take the hero brown #100a06 behind BOTH bars, always. Phase F shipped the top; this mirrors it at the bottom with the same off-screen sampler (bottom:-12px, opaque, 12px tall), which the client brief's own example uses for a bottom edge. The opaque background extension Safari paints from a qualifying element is its own UI fill, so content scrolling under either bar cannot composite through it -- that is why this is the only mechanism that holds a solid colour at every scroll depth, and why /map and /paintings must keep their strips at opacity 0 instead. NOT IN THIS ROUND, and both reported to Wil rather than attempted: item 1 (/map's top bar see-through) and item 3 (/paintings' bottom see-through). Each needs a structural change to that page -- /map needs the shell grown upward by ~110px plus a matching camera padding change and a page landing at scroll 110, because the top inset is document offsets -107..0 and only a scroll can put content there; /paintings needs the corridor taken out of position:sticky, because a pinned box's paint is clipped at the visual viewport. Critically, NEITHER IS CERTIFIABLE BY THE VISUAL GATE: qa:snap captures every route at scroll 0, so a page that deliberately lands at scroll 110 drifts its own baselines by design and the instrument can no longer tell an intended shift from a broken one. Shipping either blind would violate 'do not break anything', so they are Wil's go/no-go. allowedRoutes stays empty."
+}

@@ -2033,8 +2033,24 @@ a.walk-seg:hover {
    changes and the page looks exactly as it does today.
 
    REVERT: delete this rule. */
+/* v15 (Wil, 2026-09-18): "All chapter pages = area behind the top address bar
+   AND bottom toolbar is always hero section brown." Both edges, same lever,
+   same colour. The bottom strip is the mirror image: parked at bottom: -12px
+   it is inside the bottom inset, unpaintable for the same measured reason, and
+   sampled for the same recorded one (the brief's own example is a bottom edge,
+   `bottom: -8px` with `min-height: 12px`).
+
+   This is the ONE page type where an opaque extension is what is wanted: it is
+   Safari's own UI fill, so page content scrolling under either bar cannot
+   composite through it. On /map and /paintings the same mechanism is what must
+   be kept AWAY from the edges, which is why their strips stay at opacity 0. */
 html[data-top-bar="section"] .edge-glass-top {
   top: -12px;
+  opacity: 1;
+  background-color: var(--color-neutral-2);
+}
+html[data-top-bar="section"] .edge-glass-bottom {
+  bottom: -12px;
   opacity: 1;
   background-color: var(--color-neutral-2);
 }
