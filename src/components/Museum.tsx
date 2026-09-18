@@ -338,6 +338,46 @@ export default function Museum({ works, slotId }: Props) {
 
       const renderer: WebGLRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      /* v17 item 3 (Wil, 2026-09-18): "the area behind the bottom address bar
+         should use the same styling and appearance as the solution applied to
+         the map page." Behind ?glass=1.
+
+         The map's bottom works because its in-flow shell grows past the
+         viewport edge while its UI LAYER KEEPS THE ORIGINAL BOX — only the
+         canvas extends, and the camera takes the extra back as padding. That
+         distinction is the whole reason this is safe here: `stage.clientHeight`
+         is this page's composition basis (it picks the FOV, the portrait and
+         phone thresholds, the walk's scroll total, the sheet-UI split), so the
+         STAGE must not change size. Only the canvas does.
+
+         setViewOffset is three.js's exact equivalent of the map camera's
+         padding. With `aspect` left at the stage's w/h, a view of
+         (w, h, 0, 0, w, h + B) multiplies the frustum height by (h+B)/h from
+         the SAME top edge — so the canvas's top h rows are framed pixel-for-
+         pixel as they are today and the extra B rows show more world BELOW.
+         Nothing about the corridor the reader already sees changes.
+
+         B is 0 off the flag and wherever there are no bars, which makes every
+         expression below reduce to exactly today's two lines. */
+      const museumB = () => {
+        if (!document.documentElement.dataset.glass) return 0;
+        const v = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-b"));
+        return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
+      };
+      const sizeToStage = () => {
+        const w = stage.clientWidth;
+        const h = stage.clientHeight;
+        const b = museumB();
+        renderer.setSize(w, h + b);
+        camera.aspect = w / h;
+        if (b > 0) camera.setViewOffset(w, h, 0, 0, w, h + b);
+        else camera.clearViewOffset();
+        camera.updateProjectionMatrix();
+        /* The canvas is B taller than the stage and hangs that much below it,
+           mirroring .map-canvas's `bottom: -E`. */
+        renderer.domElement.style.bottom = b > 0 ? `${-b}px` : "";
+        renderer.domElement.style.top = b > 0 ? "auto" : "";
+      };
       renderer.setSize(stage.clientWidth, stage.clientHeight);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       stage.appendChild(renderer.domElement);
@@ -373,6 +413,8 @@ export default function Museum({ works, slotId }: Props) {
          and far are untouched. */
       const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.3, 80);
       const BASE_FOV = fovFor();
+      /* v17 item 3: apply the bleed now that `camera` exists. No-op off the flag. */
+      sizeToStage();
 
       const lastZ = -works.length * SPACING; // last work
       const endZ = lastZ - END_GAP; // end wall
@@ -2012,9 +2054,7 @@ export default function Museum({ works, slotId }: Props) {
            visitor. That is not them walking away — hold the exit off. */
         settleUntil = performance.now() + 900;
         rehang();
-        renderer.setSize(stage.clientWidth, stage.clientHeight);
-        camera.aspect = stage.clientWidth / stage.clientHeight;
-        camera.updateProjectionMatrix();
+        sizeToStage();
         setChipBand();
       };
       window.addEventListener("resize", onResize);

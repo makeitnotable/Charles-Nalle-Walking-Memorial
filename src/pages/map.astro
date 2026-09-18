@@ -174,7 +174,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
        to auto for the jump because html sets `smooth` globally and this must not
        animate. Re-landed on orientationchange, where T changes with lvh/svh. */
     (function () {
-      if (!document.documentElement.dataset.glass) return;
+      /* v17 (Wil): approved on the device, so the flag gate is gone. */
       function land() {
         var shell = document.querySelector(".map-shell");
         if (!shell) return;

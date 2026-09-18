@@ -1185,7 +1185,9 @@ h3 {
      `100lvh − 100svh` self-zeroes it to 0 wherever there are no bars, so
      desktop and tablet land at scroll 0 and nothing moves. Integer for the
      same reason E is — overviewCamera's fit is a discrete search. */
-  html[data-glass] .map-shell {
+  /* v17 (Wil, 2026-09-18): "The map page is perfect." Approved on the device
+     behind ?glass=1, so it comes off the flag and ships as the default. */
+  .map-shell {
     --map-t: round(down, min(110px, calc(100lvh - 100svh)), 1px);
   }
 }
@@ -1784,6 +1786,14 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
+/* v17 item 3: B, the corridor canvas's bleed below the visual viewport —
+   /paintings' equivalent of the map's E. Registered because Museum.tsx
+   parseFloat()s it. */
+@property --museum-b {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
      pinned to a viewport edge. An opaque colour there becomes a solid band
@@ -1964,6 +1974,42 @@ a.walk-seg:hover {
  * change a visible pixel: every --edge-glass fill is either covered by an
  * opaque ::before or drawn at opacity 0. */
 
+/* ── v17 item 3 (Wil, 2026-09-18): the corridor under the bottom toolbar ────
+   "The area behind the bottom address bar should use the same styling and
+   appearance as the solution applied to the map page." Behind ?glass=1.
+
+   The map's shell grows past the viewport edge while its UI layer keeps the
+   original box; only the canvas extends, and the camera takes the extra back.
+   Here the STAGE keeps its box for the same reason the map's UI layer does,
+   and more urgently: `stage.clientHeight` picks the FOV, the portrait and
+   phone thresholds, the walk's scroll total and the sheet-UI split, so a
+   taller stage would move the composition. Only the canvas grows (Museum.tsx
+   sizeToStage + camera.setViewOffset), which needs the stage to stop clipping
+   it — hence `overflow: visible`, flag-gated so the default clip is untouched.
+
+   THE OPEN QUESTION, and Wil should know it: phase A2 measured a PINNED box's
+   overflow clipped at the visual viewport (160px requested, 21px rendered).
+   The stage is sticky, so this may be clipped the same way and show nothing.
+   What is different here is that the canvas is a real absolutely-positioned
+   child with its own box rather than bleed out of the stage's, which is the
+   configuration the map proves works in flow — untested while pinned. If it is
+   clipped, the answer is that only un-sticking the corridor can work, and that
+   is Wil's call with the framing untouched either way.
+
+   REVERT: delete this block and the sizeToStage bleed in Museum.tsx. */
+@supports (-webkit-touch-callout: none) {
+  html[data-glass] .museum-stage {
+    --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+    /* NOT `overflow: visible` — the stage's hidden overflow clips the corridor's
+       own children, and releasing it entirely could let the on-stage UI escape
+       on iOS, which nothing here can test. `clip` keeps that clipping and
+       `overflow-clip-margin` extends the clip box by exactly B, which is the
+       one thing that needs to get out. */
+    overflow: clip;
+    overflow-clip-margin: var(--museum-b);
+  }
+}
+
 /* The corridor stage is sticky and full-screen: its opaque ground moves to
    ::before (same colour, same box, painted beneath every child). */
 .museum-stage {
@@ -2076,15 +2122,48 @@ a.walk-seg:hover {
    Safari's own UI fill, so page content scrolling under either bar cannot
    composite through it. On /map and /paintings the same mechanism is what must
    be kept AWAY from the edges, which is why their strips stay at opacity 0. */
-html[data-top-bar="section"] .edge-glass-top {
-  top: -12px;
+/* v17 (Wil, 2026-09-18): "still transitions to a transparent area behind the
+   address bar on scroll … this is how it used to work."
+
+   HYPOTHESIS 1 FAILED ON THE DEVICE. Parking the strip fully off-screen
+   (top:-12px) made it invisible, but Safari did not sample it — so the brief's
+   section 8.2 note, that an element parked past the edge is still read, does
+   not hold for iOS 26.6.1. That is the third published claim about this build
+   to fail here, after "never draws content" and "opacity:0 is still read".
+
+   HYPOTHESIS 2, and it is the configuration that produced the bands nobody
+   could get rid of. The original unkillable dark bands on /map and /paintings
+   came from a full-width element AT the edge, ON screen, with an opaque
+   background-color. Phase C's strip had all of that and Wil could see it; the
+   off-screen one was invisible and inert. The one combination never tried is
+   both at once: on screen at the edge, so it qualifies, and BEHIND the page, so
+   it cannot be seen. `z-index: -1` puts it under <main>, which has carried an
+   opaque ground since round 14 — a negative-z child of <body> paints below
+   body's non-positioned in-flow descendants, so <main> covers it completely at
+   every scroll depth and on every route.
+
+   WHAT IS STILL UNKNOWN, and Wil should know it before looking: if the
+   transparency he sees is the bar MINIMIZING rather than the sampler declining,
+   no element can fix it — A2 measured that a minimized bar covers nothing and
+   the page runs edge to edge beneath it. This hypothesis is worth one device
+   check because it is free; if it fails the same way, that is the answer and
+   the fill can only exist in the bars' expanded state.
+
+   FAIL-SAFE: invisible either way, so a failure costs nothing but the look it
+   already has.
+
+   REVERT: delete this rule. */
+html[data-top-bar="section"] .edge-glass-top,
+html[data-top-bar="section"] .edge-glass-bottom {
   opacity: 1;
+  z-index: -1;
   background-color: var(--color-neutral-2);
 }
+html[data-top-bar="section"] .edge-glass-top {
+  top: 0;
+}
 html[data-top-bar="section"] .edge-glass-bottom {
-  bottom: -12px;
-  opacity: 1;
-  background-color: var(--color-neutral-2);
+  bottom: 0;
 }
 
 /* ── v14.7 (round 8 phase D): the root background IS the bar at rest ─────────
