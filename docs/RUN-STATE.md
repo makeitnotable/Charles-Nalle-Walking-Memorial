@@ -7,27 +7,39 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**Client rounds 1–21 COMPLETE (2026-09-15 → 2026-09-18); the map page is
-signed off.** Wil, 2026-09-18 after round 21 on the live site: "Looks and
-works great. I think the map page's edits are complete." Every round has a
-manifest and a plan in `docs/rounds/` (revert tag per round; the SHA is in
-each manifest because this repo's tokens refuse tag pushes). What the rounds
-established about Safari 26's bars, the runway pattern, the `<body>`-colour
-rule, resets on open, lanes, scroll locks and how to verify them without a
-phone is written up once in **`docs/PLAYBOOK-MOBILE-CHROME.md`** — read that
-before touching any full-bleed stage or the bars. Live = `v2` = `41f4a37`
-(Actions run 246). Instruments added: `npm run qa:scope`, `qa:snap`,
-`qa:snap:update`, `qa:framing`.
+**Client rounds 1–22 COMPLETE (2026-09-15 → 2026-09-18); the map page is
+signed off; round 23 (the chapter pages) is SHIPPED AND AWAITING WIL'S DEVICE
+PASS.** Wil, 2026-09-18 after round 21 on the live site: "Looks and works
+great. I think the map page's edits are complete." Round 23, the same day,
+from his four chapter screenshots: the minimized address bar takes the colour
+of the section at the top edge (`<body>` tracks it, and the new in-flow
+`.edge-cover` paints that colour over what has scrolled past the top edge —
+the first mechanism that can give the glass a solid ground, unverified on a
+phone until he looks); the corner menu no longer moves 14px with the bars
+(`--menu-inset`); the chapter hero's lockup sits one gutter above the
+toolbar on phones. Plan: `docs/rounds/2026-09-18-round-23-plan.md`. Every
+round has a manifest and a plan in `docs/rounds/` (revert tag per round; the
+SHA is in each manifest because this repo's tokens refuse tag pushes). What
+the rounds established about Safari 26's bars, the runway pattern, the
+`<body>`-colour rule, resets on open, lanes, scroll locks and how to verify
+them without a phone is written up once in **`docs/PLAYBOOK-MOBILE-CHROME.md`**
+— read that before touching any full-bleed stage or the bars. Live = `v2` =
+the round-23 commit once its Actions run lands (round 22's `4d13540` before
+it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
+`qa:framing`.
 
 ## CURRENT ITEM
-Nothing in flight.
+Round 23's device pass — Wil's verdict on the chapter cover's soft edge
+(`?feather=<px>`, `?cover=off` for a before/after), the bottom toolbar's
+share of Safari's one `<body>` tint, and the menu holding still.
 
 ## NEXT ACTION
 Wil's open decisions, none blocking: the scrolled composition of `/map` (his
 screenshot 4 — proposal in the round-19 report, not shipped); the 14px shift
-of every corner control when the bars collapse (`--ui-inset` follows the
-safe-area inset); `/paintings`' bottom toolbar (behind `?glass=1`, round 18,
-untested on the device); the Compact address-bar layout was never measured.
+of the OTHER corner controls when the bars collapse (round 23 took the menu
+off `--ui-inset`; the mini-player and the interlude credit still ride it);
+`/paintings`' bottom toolbar (behind `?glass=1`, round 18, untested on the
+device); the Compact address-bar layout was never measured.
 Previous close (v13) follows, superseded.
 
 ## v13 PHASE (superseded 2026-09-18)

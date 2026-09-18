@@ -29,10 +29,16 @@ interface Props {
   /**
    * v14.5 (round 8 §5.1). "section" makes the ADDRESS BAR take the background
    * colour of the section under it as the reader scrolls, instead of whatever
-   * Safari would fall back to. Only the five chapter routes ask for this; see
-   * the sampler below for the mechanism and its one accepted limit (it holds
-   * at rest and lets go once the bar minimizes — round 8 test 2 proved no
-   * page-side mechanism can hold a fill in the minimized state).
+   * Safari would fall back to. Only the five chapter routes ask for this.
+   *
+   * v20 (round 23, Wil, 2026-09-18). Two mechanisms carry it now, both in the
+   * sampler below: `<body>` follows the section at the top edge (the round-21
+   * rule from /map, so Safari's own tint on the minimized bar is the section's
+   * colour rather than a static brown), and the in-flow `.edge-cover` paints
+   * the same colour over whatever has scrolled past the top edge, so the glass
+   * bar has a solid ground to show instead of the content beneath it. Nothing
+   * is painted behind the bottom toolbar — his instruction — beyond the one
+   * tint Safari applies to both bars from `<body>`.
    */
   topBar?: "section";
   /**
@@ -98,7 +104,15 @@ const canonical = new URL(
          before any rule that depends on it is matched. */
       (function () {
         try {
-          if (/(^|[?&])glass=1(&|$)/.test(location.search)) document.documentElement.dataset.glass = "1";
+          var q = location.search;
+          if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
+          /* v20 (round 23): the chapter cover's device flags. `?cover=off`
+             turns the cover off for a before/after on the phone; `?feather=<px>`
+             tries another soft edge (0 = a hard edge). Inline, one page load;
+             v2's defaults are untouched. */
+          if (/(^|[?&])cover=off(&|$)/.test(q)) document.documentElement.dataset.cover = "off";
+          var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
+          if (f) document.documentElement.style.setProperty("--edge-cover-feather", f[2] + "px");
         } catch (e) {}
       })();
     </script>
@@ -214,8 +228,9 @@ const canonical = new URL(
         var SAMPLE_MS = 100;
         var lastSample = 0;
         var trailing = 0;
-        /* v19 (round 21): the last colour written to <body> on /map, so a
-           sample that resolves the same colour writes nothing. */
+        /* v19 (round 21): the last colour written to <body> on /map — and,
+           since round 23, on the chapter routes — so a sample that resolves
+           the same colour writes nothing. */
         var lastBody = "";
 
         function hex(c) {
@@ -260,7 +275,21 @@ const canonical = new URL(
            `data-edge-*` is deliberately ignored: those are sampled from the
            artwork, and what Wil asked for here is the section's own ground
            (#100a06 over the hero, the cream reading ground below it). */
-        var SECTION = /^(header|section|footer)$/;
+        var SECTION = /^(header|section|footer|main)$/;
+        /* v20 (round 23): what counts as a ground. The story transcript and
+           the history section paint their cream on a `.ground-cream` <div>
+           inside the <section>, not on the section itself, and the old walk
+           fell straight past it to <body> — so over the cream the answer was
+           the hero's brown. A register block counts now. So does <main>, which
+           has carried the page ground since round 14, and it is the fallback
+           ahead of <body>: on the chapter routes <body> is written FROM this
+           function, so reading it back would be circular. */
+        function isGround(n) {
+          if (SECTION.test(n.tagName.toLowerCase())) return true;
+          var parent = n.parentElement;
+          if (parent && parent.tagName.toLowerCase() === "main") return true;
+          return !!(n.classList && n.classList.contains("ground-cream"));
+        }
         function sectionGroundAt(y) {
           var x = (window.innerWidth / 2) | 0;
           var stack = document.elementsFromPoint
@@ -270,14 +299,13 @@ const canonical = new URL(
             var el = stack[i];
             if (!el || el === document.documentElement) break;
             for (var n = el; n && n !== document.body; n = n.parentElement) {
-              var parent = n.parentElement;
-              if (!SECTION.test(n.tagName.toLowerCase()) && !(parent && parent.tagName.toLowerCase() === "main"))
-                continue;
+              if (!isGround(n)) continue;
               var c = hex(getComputedStyle(n).backgroundColor);
               if (c) return c;
             }
           }
-          return hex(getComputedStyle(document.body).backgroundColor);
+          var main = document.getElementById("main");
+          return (main && hex(getComputedStyle(main).backgroundColor)) || hex(getComputedStyle(document.body).backgroundColor);
         }
         /* Returns the colour the bar at `side` should take behind the point
            (w/2, y): the nearest declared edge colour, else the first flat
@@ -378,14 +406,61 @@ const canonical = new URL(
              the colour reaches only the bar region and overscroll. One colour
              for both bars is the accepted cost, as it was for the chapter
              routes' static fill. Every other route keeps its static body. */
-          if (docEl.dataset.rootFill === "map" && best && best !== lastBody) {
+          /* v20 (round 23, Wil, 2026-09-18, his three chapter screenshots):
+             the five chapter routes join /map. Their static hero brown was his
+             round-8 instruction, taken when the alternative retinted the bottom
+             toolbar; today's ask is the section's colour behind the top bar,
+             and this tint is the only lever Safari offers for the bar itself,
+             so the bottom toolbar's share of it is the residue he was told
+             about — nothing is PAINTED behind the bottom toolbar (see
+             .edge-cover in global.css for what is painted, and where). At rest
+             this writes the hero's own #100a06, which the stylesheet already
+             carries, so nothing moves. */
+          var tracks = docEl.dataset.rootFill === "map" || docEl.dataset.topBar === "section";
+          if (tracks && best && best !== lastBody) {
             lastBody = best;
             document.body.style.backgroundColor = best;
           }
+          if (docEl.dataset.topBar === "section") paintCover(best);
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
           }
         }
+        /* v20 (round 23): the chapter cover (`.edge-cover`, global.css). A
+           320px block positioned in the document and moved with the scroll so
+           its bottom edge rides exactly on the viewport's top edge: it covers
+           only what has scrolled past, which the reader can see through
+           Safari's minimized bar and nowhere else. Moved on EVERY scroll event,
+           not at the sampler's 100 ms cadence — one transform write, no
+           layout, no paint — and coloured by the sampler at its own cadence.
+           Off wherever the stylesheet keeps it display:none (every browser
+           without collapsing glass bars), where no listener is attached at
+           all. Decided at `load`, when the stylesheet is certainly applied. */
+        var cover = null;
+        var coverH = 0;
+        var lastCover = "";
+        function coverTrack() {
+          cover.style.transform = "translate3d(0," + ((window.scrollY || 0) - coverH) + "px,0)";
+        }
+        function paintCover(c) {
+          if (!cover || !c || c === lastCover) return;
+          lastCover = c;
+          cover.style.backgroundColor = c;
+        }
+        function coverInit() {
+          var el = document.querySelector(".edge-cover");
+          if (!el || getComputedStyle(el).display === "none") return;
+          cover = el;
+          coverH = el.offsetHeight;
+          addEventListener("scroll", coverTrack, { passive: true });
+          addEventListener("resize", coverTrack, { passive: true });
+          addEventListener("orientationchange", coverTrack, { passive: true });
+          addEventListener("pageshow", coverTrack);
+          coverTrack();
+          schedule();
+        }
+        if (document.readyState === "complete") coverInit();
+        else addEventListener("load", coverInit, { once: true });
         function schedule() {
           if (queued) return;
           var wait = SAMPLE_MS - (performance.now() - lastSample);
@@ -528,6 +603,13 @@ const canonical = new URL(
     <main id="main">
       <slot />
     </main>
+    {/* v20 (round 23): the chapter cover — the section's ground painted over
+        what has scrolled past the top edge, which is what Safari's minimized
+        bar shows through its glass. In the document (an absolute box, not a
+        fixed one), so it reaches the bar region the way the map's runway does;
+        by construction never inside the viewport. Rendered only on the routes
+        that ask, displayed only where the bars exist (global.css). */}
+    {topBar === "section" && <div class="edge-cover" aria-hidden="true"></div>}
 
     <script>
       import { initCurtain } from "../lib/curtain";

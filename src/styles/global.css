@@ -1856,6 +1856,14 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
+/* v20 (round 23): the chapter cover's soft bottom edge. Registered so the
+   device flag `?feather=<px>` (Base.astro) can set it inline on <html> and
+   `calc(100% - var(--edge-cover-feather))` in the mask still resolves. */
+@property --edge-cover-feather {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
      pinned to a viewport edge. An opaque colour there becomes a solid band
@@ -1949,6 +1957,25 @@ a.walk-seg:hover {
    /map panel focuses Home instead, and it clips against the same top edge. */
 .cnwm-menu-panel :focus-visible {
   outline-offset: -3px;
+}
+
+/* v20 (round 23, Wil, 2026-09-18): "the menu animates by sliding from the
+   right to the left and from up to down slightly when the user scrolls … its
+   position is getting pushed." It was never animated: --ui-inset is one lane
+   for every corner and takes the deepest of the four safe areas, and
+   env(safe-area-inset-bottom) is 0 with Safari's bars expanded and 34px once
+   they collapse (docs/PLAYBOOK-MOBILE-CHROME.md §1) — so the top-right burger
+   jumped 14px down and 14px left on every scroll down and back on every
+   scroll up, in the same moment its retreat fade ran, which reads as a slide.
+   A corner needs only its own two edges: the top-right menu now takes the
+   gutter, the top inset and the right inset, and nothing at the bottom edge
+   can move it. The fade below is unchanged (his choice: keep it). Every page
+   that shows the menu places it top-right (the map moved there in round 1),
+   so this is the site-wide behaviour he asked for; the bottom-right variant,
+   unused today, keeps --ui-inset, where the bottom inset is the one that
+   matters. No other corner control changes. */
+.cnwm-menu[data-position="top-right"] {
+  --menu-inset: max(var(--gutter), env(safe-area-inset-top, 0px), env(safe-area-inset-right, 0px));
 }
 
 /* The corner menu retreats while the reader is moving forward. */
@@ -2215,18 +2242,16 @@ a.walk-seg:hover {
    already has.
 
    REVERT: delete this rule. */
-html[data-top-bar="section"] .edge-glass-top,
-html[data-top-bar="section"] .edge-glass-bottom {
-  opacity: 1;
-  z-index: -1;
-  background-color: var(--color-neutral-2);
-}
-html[data-top-bar="section"] .edge-glass-top {
-  top: 0;
-}
-html[data-top-bar="section"] .edge-glass-bottom {
-  bottom: 0;
-}
+/* v20 (round 23, Wil's screenshots of 2026-09-18): HYPOTHESIS 2 DID NOT TAKE
+   EITHER. His minimized address bar still showed the painting, the heading and
+   the cream through the glass, under <body>'s brown gradient — so the on-screen
+   strip beneath <main> was not read, and the chapter routes no longer force an
+   opaque extension at either edge: the strips return to the site-wide inert
+   state above (opacity 0), which also keeps the BOTTOM toolbar free of any fill,
+   as he now asks. What replaced them: <body> follows the section at the top
+   edge (the round-21 rule, extended from /map — see the body rules below) and
+   the in-flow `.edge-cover` paints that section's ground over whatever has
+   scrolled past the top edge, which is what the minimized bar shows. */
 
 /* ── v14.7 (round 8 phase D): the root background IS the bar at rest ─────────
    Wil's annotated device pass, 2026-09-18. Two of his three asks reduce to one
@@ -2292,7 +2317,14 @@ main {
    whole page. Tracking the section under the bar as the reader scrolls is
    dropped at his instruction — it needs either the 12px strip phase C3 proved
    visible over the hero, or writing body's colour on scroll, which would
-   retint the BOTTOM toolbar on these routes too. */
+   retint the BOTTOM toolbar on these routes too.
+   v20 (round 23, Wil, 2026-09-18): TRACKING, at his instruction this time —
+   his three screenshots ask for the section's colour behind the minimized bar
+   on every section. This is now the AT-REST and no-JS value only: Base.astro's
+   sampler writes the colour of the section at the top edge to <body> inline
+   as the reader scrolls (the round-21 rule from /map), and the `.edge-cover`
+   below paints the same colour over what has scrolled past. The bottom
+   toolbar's share of Safari's one tint is the residue he was told about. */
 html[data-top-bar="section"] body {
   background-color: var(--color-neutral-2);
 }
@@ -2306,6 +2338,71 @@ html[data-top-bar="section"] body {
    tint outlives the map otherwise — Wil's grey gradient over the brown index. */
 html[data-root-fill="map"] body {
   background-color: #353535;
+}
+
+/* ── v20 (round 23): the chapter cover ──────────────────────────────────────
+   Wil's screenshots, 2026-09-18, the chapter pages with the address bar
+   minimized: "set the area behind/around the browser's top UI to a solid fill
+   that matches the background color of the section currently visible at the
+   top of the viewport … the color should update as the user scrolls between
+   sections."
+
+   WHAT THE MINIMIZED BAR SHOWS. The playbook's measured geometry (§1): once
+   the bars minimize the layout viewport starts below the pill, and the region
+   above it — status bar and pill — is glass over whatever the document holds
+   ABOVE the viewport's top edge, i.e. what has just scrolled past, under a
+   short gradient of <body>'s colour. A fixed or sticky box cannot paint there
+   (A2: clipped at the visual viewport); in-flow content can (the map's
+   runway). So the only way to give that glass a solid ground is to put a
+   solid ground in the document, exactly where the scrolled-past content is.
+
+   THE COVER. One absolute box in the document (a child of <body>, so it lives
+   in the scrolling layer, not the viewport layer), 320px tall, moved by the
+   sampler script on every scroll event so its BOTTOM edge rides on the
+   viewport's top edge (translateY = scrollY − 320). Everything it covers is
+   above the viewport by construction; the reader sees it only through the
+   bar. Its colour is the section at the top edge, from the same resolver that
+   writes <body>, so the glass, Safari's tint and the cover agree.
+
+   THE SOFT EDGE. Scrolling is asynchronous on iOS: the compositor moves the
+   page and the main thread follows a frame later, so on a fast upward flick
+   the cover can trail by a frame's worth of scroll and poke that far into the
+   visible page. A 16px feather turns that into a faint haze under the pill
+   rather than a hard band, at the cost of the bottom 16px of the glass region
+   ghosting the content — the part the pill itself sits on. `?feather=0` shows
+   the hard edge on the device; `?cover=off` the page without the cover.
+
+   WHERE IT CANNOT SHOW. `display: none` unless the platform has these bars —
+   the `-webkit-touch-callout` gate the playbook records as firing on iOS and
+   nowhere else — so desktop, Android and the visual gate (Chromium at scroll
+   0) never see it, and the script attaches no listener there. Z 800: over
+   every z-index inside <main> (the moral's 10, the onward door's 5), under the
+   walk rail (900), the mini-player (999) and the menu (1000), which live
+   inside the viewport anyway. `pointer-events: none` keeps it out of the
+   sampler's hit tests and the reader's way; `overflow-anchor: none` keeps
+   Chromium's scroll anchoring off it. The bottom toolbar gets nothing from
+   this: Wil's instruction is no fill there.
+
+   REVERT: delete this block, the markup in Base.astro and its tracker. */
+.edge-cover {
+  display: none;
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 320px;
+  z-index: 800;
+  transform: translate3d(0, -320px, 0);
+  will-change: transform;
+  pointer-events: none;
+  overflow-anchor: none;
+  background-color: var(--color-neutral-2);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
+}
+@supports (-webkit-touch-callout: none) {
+  html[data-top-bar="section"]:not([data-cover="off"]) .edge-cover {
+    display: block;
+  }
 }
 
 /* v7 C7 — the hero still reads the portrait focus below md and the landscape

@@ -382,7 +382,7 @@ const focus =
     </div>
 
     <div class="absolute inset-x-0 bottom-0">
-      <div class="shell pb-[max(5svh,32px)]">
+      <div class="shell hero-lockup-shell">
         <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
           {/* Two authored lines below sm: the serif meta runs wider than the
               old sans and a single line walked under the fixed burger. */}
@@ -1021,6 +1021,60 @@ const focus =
   @media (max-width: 767px) {
     .chapter-hero-h1 {
       --fs-display: 52px;
+    }
+  }
+  /* v20 (round 23, Wil, 2026-09-18, his screenshot 4): "move the hero
+     section's text on all five chapter pages (excluding only part 2 of
+     chapter 2) down so that the vertical spacing between the bottom of the
+     chapter title and the top of the bottom toolbar feels optically the same
+     as the horizontal spacing between the left of the hero section text
+     elements and the left edge of the screen."
+
+     The hero is one small viewport tall, so at rest its bottom edge IS the
+     toolbar's top. The lockup's inset was `max(5svh, 32px)` — 32px on his
+     phone — and under the title's last baseline the line box (--lh-display
+     0.95) keeps another 0.123em of air (Libre Caslon Display: hhea ascent
+     0.970, descent 0.266, so (0.95 − 0.970 + 0.266) / 2), which at the phone
+     size is 6px: the eye read ~38px against a 20px gutter. Now the shell's
+     inset is the gutter itself and the title's negative margin takes the
+     slack out. Ink to ink, not box to box: on the left the eye measures the
+     gutter PLUS the capital's side bearing (~0.05em; the round-23 probe read
+     the first letter's ink at 22–23px from the edge at 390), so the margin
+     takes out 0.123 − 0.05 = 0.073em and the last line's ink sits 22–23px
+     above the edge as well — the same number both ways, on every chapter.
+     `var(--gutter)` rather than 20px, so a phone with a side inset (landscape,
+     the notch) keeps the two equal.
+
+     Phones (below 768) always. Tablets (768–1023) only in a browser with
+     collapsing bars, which is what "if the bottom toolbar is present" means
+     once CSS has to measure it: `100lvh − 100svh` is the bars' height on such
+     a browser and 0 on an iPad and every desktop (playbook §2). The trig cast
+     turns that length into a 0/1 switch; where the functions are unsupported
+     the @supports gate keeps the old inset. Desktop (1024 and up) and the
+     Part-2 hero (#hero-2) are untouched. */
+  .chapter-hero-h1 {
+    --hero-lockup-slack: 0.073em;
+  }
+  .hero-lockup-shell {
+    padding-bottom: max(5svh, 32px);
+  }
+  @media (max-width: 767px) {
+    .hero-lockup-shell {
+      padding-bottom: var(--gutter);
+    }
+    .hero-lockup-shell .chapter-hero-h1 {
+      margin-bottom: calc(-1 * var(--hero-lockup-slack));
+    }
+  }
+  @supports (padding: calc(1px * clamp(0, tan(atan2(1px, 1px)), 1))) {
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero-lockup-shell {
+        --hero-bars: clamp(0, tan(atan2(100lvh - 100svh, 1px)), 1);
+        padding-bottom: calc(max(5svh, 32px) * (1 - var(--hero-bars)) + var(--gutter) * var(--hero-bars));
+      }
+      .hero-lockup-shell .chapter-hero-h1 {
+        margin-bottom: calc(-1 * var(--hero-bars) * var(--hero-lockup-slack));
+      }
     }
   }
   /* v8 V8-278 (Wil, 01:08:21) — the portrait hero lift: phones show the

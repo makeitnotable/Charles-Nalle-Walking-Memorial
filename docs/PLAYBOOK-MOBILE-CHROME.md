@@ -91,15 +91,30 @@ overlapping", not bit-identity.
 ## 3 · The bars' colour follows the section (round 21)
 
 `Base.astro`'s edge sampler already resolves "what colour sits under each
-edge" for the `theme-color` meta (Chrome for Android's fill). On `/map`, and
-only there (`data-root-fill="map"`), it now writes that colour to `<body>`
-inline: the map's grey `#353535` while the map owns the screen, the ground's
-brown `#1d1411` once the index does. Safari animates the change. Chapter
-routes stay static at the hero brown by Wil's instruction (round 8 phase E),
-because `<body>` has one colour and the bottom toolbar follows it too — the
-accepted cost of a section-tracking bar. To give another page a tracking bar:
-gate the same write on that page's attribute and accept the bottom bar's
-share of the transition band.
+edge" for the `theme-color` meta (Chrome for Android's fill). On `/map`
+(`data-root-fill="map"`) it writes that colour to `<body>` inline: the map's
+grey `#353535` while the map owns the screen, the ground's brown `#1d1411`
+once the index does. Safari animates the change. `<body>` has one colour and
+the bottom toolbar follows it too — the accepted cost of a section-tracking
+bar. To give another page a tracking bar: gate the same write on that page's
+attribute and accept the bottom bar's share of the transition band.
+
+**Round 23 (2026-09-18, awaiting Wil's device pass — nothing in this
+paragraph is measured on a phone yet).** The chapter routes
+(`data-top-bar="section"`) track too, at his instruction, with the colour of
+the section at the TOP edge (`sectionGroundAt`, which now counts `<main>` and
+`.ground-cream` blocks as grounds). And because the minimized bar is glass
+over whatever the document holds above the viewport's top edge — what has
+just scrolled past — a tint alone leaves the content ghosting through it. The
+in-flow `.edge-cover` (a 320px absolute box in the document, translated on
+every scroll event so its bottom edge rides on the viewport's top edge,
+coloured by the sampler) is the first attempt to give that glass a solid
+ground: the one place in-flow paint reaches and fixed paint does not (§1). Its
+known risk is asynchronous scrolling — a fast upward flick can leave the cover
+a frame behind — so its bottom 16px are feathered (`?feather=<px>` on the
+device, `?cover=off` for a before/after). If he confirms it, record the
+geometry here; if he does not, the tint tracking stands on its own and the
+cover comes out (one CSS block, one element, one tracker).
 
 ## 4 · State resets on every open (round 19)
 
@@ -183,7 +198,9 @@ the stage. Programmatic landings are not events and still run.
   ~160px above the map's end and the index sits far below. Proposal made,
   not shipped: drop the empty section rule under the map and use the beat
   spacing there; the runway below is inherent while the map is in flow.
-- The 14px shift of every corner control when the bars collapse
-  (`--ui-inset` following the safe-area inset).
+- The 14px shift of the corner controls when the bars collapse (`--ui-inset`
+  following the safe-area inset). Round 23 took the top-right menu off the
+  shared lane (`--menu-inset`: the gutter and the top and right insets only);
+  the mini-player and the interlude credit still ride `--ui-inset`.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.

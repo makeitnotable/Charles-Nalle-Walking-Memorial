@@ -38,10 +38,15 @@ const chapters = (await getCollection("chapters"))
 /* One inset for every floating element on the site. The burger used to sit at
  * right:12px while page content sat on a 56px gutter — 124px adrift on a 1440
  * screen, anchored to nothing. It is on the gutter now. */
+/* v20 (round 23, Wil, 2026-09-18): the top-right corner reads its OWN inset
+ * (`--menu-inset`, global.css: the gutter and the top and right safe areas),
+ * not --ui-inset, whose bottom safe area grows by 34px when Safari's bars
+ * collapse and was moving this button 14px on every scroll. The bottom-right
+ * variant (unused today) keeps the shared lane. */
 const posClass =
   position === "bottom-right"
     ? "bottom-[var(--ui-inset)] right-[var(--ui-inset)]"
-    : "top-[var(--ui-inset)] right-[var(--ui-inset)]";
+    : "top-[var(--menu-inset)] right-[var(--menu-inset)]";
 const notchClass =
   position === "bottom-right"
     ? "rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-4xl"
