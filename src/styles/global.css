@@ -1989,6 +1989,56 @@ a.walk-seg:hover {
   bottom: 0;
 }
 
+/* ── v14.9 (round 8 phase F): the chapter fill, parked where it cannot be seen
+   Wil, 2026-09-18: "it is supposed to be the same color as the background color
+   of the hero section and it is supposed to remain this same solid fill color
+   as you are scrolling down … it currently transitions into a see-through fill
+   which it should never have done."
+
+   WHY PHASE C FAILED, and it was never the opacity. Phase A2 measured the
+   geometry on his phone: the top bar covers screen y 0–107, and document
+   offset 0 sits at screen y 107. So `top: 0` puts a strip BELOW the address
+   bar, in visible page area — phase C spent four commits sweeping the opacity
+   of an element that was never in the region it was meant to fill, and of
+   course he could see it.
+
+   PARKED IN THE INSET INSTEAD. At `top: -12px` the box spans viewport y −12→0,
+   inside the obscured region. It cannot paint there: a pinned box is clipped at
+   the visual viewport, which A2 measured directly (160px of requested bleed,
+   21px rendered, stopping dead at the viewport edge). It is still SAMPLED —
+   both the community suite and the client brief record an element parked
+   off-screen past the edge as read (`bottom: -8px` with `min-height: 12px`),
+   and the 12px height clears the 3px iOS floor and the 6px macOS one.
+
+   WHY THIS ONE SURVIVES SCROLLING, which nothing else has. What Safari paints
+   from a qualifying element is an opaque background extension across the whole
+   obscured inset — its own UI fill, not page paint. That is the same mechanism
+   that made the original dark bands on /map and /paintings, so it is proven on
+   this site in the opposite direction. Page content minimizing under the bar
+   cannot composite over Safari's own fill, which is exactly what the body
+   fallback could never do.
+
+   OPAQUE, STATIC, #100a06 — the hero's ground, held for the whole page. No
+   sampler, no JS, no transition; the inline strip write in Base.astro that used
+   to repaint this per section is gone with it.
+
+   WHERE IT CANNOT PAINT, WITH CERTAINTY. Anywhere there are no bars the visual
+   viewport IS the layout viewport, so a fixed box at `top: -12px` is simply
+   outside it. Desktop and Android are unaffected by construction, at every
+   breakpoint. NOTE FOR THE GATE: qa:snap captures the viewport at scroll 0, so
+   it cannot photograph this strip either way — the no-paint claim rests on the
+   clip A2 measured, and the iOS bar itself is Wil's check.
+
+   FAIL-SAFE: if Safari declines to sample an element fully off-screen, nothing
+   changes and the page looks exactly as it does today.
+
+   REVERT: delete this rule. */
+html[data-top-bar="section"] .edge-glass-top {
+  top: -12px;
+  opacity: 1;
+  background-color: var(--color-neutral-2);
+}
+
 /* ── v14.7 (round 8 phase D): the root background IS the bar at rest ─────────
    Wil's annotated device pass, 2026-09-18. Two of his three asks reduce to one
    mechanism, and it is the only one this round MEASURED rather than assumed.

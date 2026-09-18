@@ -321,13 +321,21 @@ const canonical = new URL(
              hit-tested, so this paints nothing: if Safari declines to read it,
              the page looks exactly as it does today. Everywhere else the
              two-edge rule above is untouched. */
+          /* v14.9 (round 8 phase F, Wil 2026-09-18): "it is supposed to remain
+             this same solid fill color as you are scrolling down … it currently
+             transitions into a see-through fill which it should never have
+             done." The strip write that lived here is GONE. It set an inline
+             background-color from the section under the top edge, and an inline
+             style beats the stylesheet — so the one element that is supposed to
+             hold the hero's #100a06 for the whole page was being repainted per
+             section on every scroll frame. The colour is now static in
+             global.css and nothing may overwrite it.
+             `best = sc` stays: that is the theme-color meta, which is Chrome
+             for Android's toolbar fill and the one device where a section-
+             matched bar is free (phase C4). It never touches the strip. */
           if (docEl.dataset.topBar === "section") {
             var sc = sectionGroundAt(4);
-            if (sc) {
-              var strip = document.querySelector(".edge-glass-top");
-              if (strip && strip.style.backgroundColor !== sc) strip.style.backgroundColor = sc;
-              best = sc;
-            }
+            if (sc) best = sc;
           }
           if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
             meta.setAttribute("content", best);
