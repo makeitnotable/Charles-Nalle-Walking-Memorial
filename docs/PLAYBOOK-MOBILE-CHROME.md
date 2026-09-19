@@ -136,7 +136,20 @@ check that fails in motion demotes a good path for good (that was his
 "flicker at different speeds") — and **a section's colour for the bars is
 the colour it fades INTO, not the `background-color` hidden under its
 artwork**: the heroes' ground is the page brown `#1d1411`, not the `#100a06`
-no one ever sees.
+no one ever sees. **Device pass 4 measured the limit of main-thread
+positioning**: his crop of the expanded bar mid-scroll had the cover ~30px
+above the rail — one frame of scroll — so on his phone the scroll timeline
+is not accelerated (or the script was driving), and any box moved from the
+main thread will jitter in the bar region by speed × a frame. The rule: what
+must hold still against the bars while the page moves has to be placed by
+the scrolling thread — `position: fixed` (clipped to the viewport, so never
+in the bar region) or `position: sticky` (in the scrolled contents, so
+possibly there). The cover is sticky now: first in `<body>`'s flow, 320px
+tall, a −320px bottom margin, drawn 319px above its layout box, `top: 0`.
+Whether WebKit paints a stuck box in the bar region is the open measurement
+— A2's "pinned overflow is clipped" came from a box that also carried
+`overflow: clip`, which Safari applies without Chrome's clip-margin, so it
+does not settle this.
 
 ## 4 · State resets on every open (round 19)
 

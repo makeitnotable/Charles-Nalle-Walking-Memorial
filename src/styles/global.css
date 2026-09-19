@@ -2394,6 +2394,20 @@ html[data-root-fill="map"] body {
    viewport's offset, re-reading for 600 ms after every scroll until the
    position stops changing. `?cover=js` forces that tracker on the device.
 
+   DEVICE PASS 4 (Wil, 2026-09-18, 20:14, a crop of the expanded bar
+   mid-scroll): the cover's edge sat ~30px above the rail with the archival
+   photo showing between them, and the whole region "buggy / jittery and not
+   smooth". That is a frame's lag at speed — so on his phone the timeline is
+   NOT running on the compositor (or the script was driving). Nothing placed
+   from the main thread can be smooth there; only what the scrolling thread
+   itself places can — and the one in-flow thing it places is `position:
+   sticky`. So the cover is a sticky box now (the rule below) and the tracked
+   variants are flags (`?cover=track` for pass 3's timeline, `?cover=js` for
+   the script). What the phone decides: whether WebKit paints a stuck box's
+   pixels in the bar region as it paints the runway's. If it does not, the
+   bar shows content again — the pass-0 look, tint tracking still on — and
+   `?cover=track` restores pass 3.
+
    THE EDGE — HARD, BY HIS DEVICE PASS. Scrolling is asynchronous on iOS: the
    compositor moves the page and the main thread follows a frame later, so on
    a fast upward flick the cover can trail by a frame's worth of scroll and
@@ -2421,16 +2435,36 @@ html[data-root-fill="map"] body {
    REVERT: delete this block, the markup in Base.astro and its tracker. */
 .edge-cover {
   display: none;
-  position: absolute;
+  /* Device pass 4: STICKY. The box sits first in <body>'s flow, 320px tall
+     with a −320px bottom margin so <main> still starts at 0, and is drawn
+     320px higher than it is laid out (the transform), i.e. at document
+     −320 → 0 at rest. `top: 0` then makes the scrolling thread hold its
+     layout box on the viewport's top edge from the first pixel of scroll,
+     so the painted box always spans the 320px above that edge — the bar
+     region — with no script, no timeline and no lag: whatever the
+     compositor draws behind the bars is drawn from this position. 319
+     rather than 320 leaves the last pixel inside the rail's line. */
+  position: sticky;
   top: 0;
-  inset-inline: 0;
   height: 320px;
+  margin-bottom: -320px;
   z-index: 800;
-  transform: translate3d(0, -320px, 0);
+  transform: translate3d(0, -319px, 0);
   will-change: transform;
   pointer-events: none;
   overflow-anchor: none;
   background-color: var(--color-primary-2);
+}
+/* The tracked variants of device passes 2–3, behind `?cover=track` (the
+   scroll timeline, self-checked) and `?cover=js` (the script): an absolute
+   box that the timeline or the script moves. */
+html[data-cover="track"] .edge-cover,
+html[data-cover="js"] .edge-cover {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  margin-bottom: 0;
+  transform: translate3d(0, -320px, 0);
 }
 /* Device pass 3 (Wil, 2026-09-18): no mask by default. With the feather at 0
    the mask was a degenerate two-stop gradient on a moving composited layer —
@@ -2446,7 +2480,8 @@ html[data-feather] .edge-cover {
     display: block;
   }
 }
-/* The compositor path (device pass 2, above). `from` is the rest position:
+/* The compositor path (device pass 2, above; behind `?cover=track` since
+   device pass 4). `from` is the rest position:
    the cover's bottom 1px inside the top of the rail's line, whose top sits at
    env(safe-area-inset-top) — 0 in a Safari tab. Device pass 3 (Wil,
    2026-09-18): "the solid extends slightly beyond the progress indicator" —
@@ -2477,7 +2512,7 @@ html[data-feather] .edge-cover {
      own still-sheet did exactly that. The tracker has no such failure mode,
      and the sampler's self-check would catch it anyway. */
   @media (prefers-reduced-motion: no-preference) {
-    html[data-top-bar="section"]:not([data-cover="js"]) .edge-cover {
+    html[data-top-bar="section"][data-cover="track"] .edge-cover {
       animation-name: edge-cover-track;
       animation-timing-function: linear;
       animation-fill-mode: both;

@@ -109,12 +109,14 @@ const canonical = new URL(
           /* v20 (round 23): the chapter cover's device flags. `?cover=off`
              turns the cover off for a before/after on the phone; `?cover=js`
              makes the scroll-event tracker drive it instead of the compositor
-             (device pass 2); `?cover=debug` adds a readout of which path is
-             driving and the viewport geometry (device pass 3); `?feather=<px>`
+             (device pass 2); `?cover=track` the scroll timeline of device
+             pass 3 (the default is a sticky box since device pass 4);
+             `?cover=debug` adds a readout of which path is driving and the
+             viewport geometry (device pass 3); `?feather=<px>`
              softens the cover's bottom edge (the default is 0, a hard edge —
              device pass 1). Inline, one page load; v2's defaults are
              untouched. */
-          var c = /(^|[?&])cover=(off|js|debug)(&|$)/.exec(q);
+          var c = /(^|[?&])cover=(off|js|track|debug)(&|$)/.exec(q);
           if (c) document.documentElement.dataset.cover = c[2];
           var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
           if (f) {
@@ -472,6 +474,7 @@ const canonical = new URL(
         var coverUntil = 0;
         var coverRaf = 0;
         var coverAnimated = false;
+        var coverSticky = false;
         var coverChecks = 0;
         var coverFailed = false;
         var checkTimer = 0;
@@ -547,7 +550,7 @@ const canonical = new URL(
           var cr = cover.getBoundingClientRect();
           var n = function (v) { return Math.round(v * 10) / 10; };
           debugBox.textContent =
-            (coverAnimated ? "compositor" : coverFailed ? "tracker (check failed)" : "tracker") +
+            (coverSticky ? "sticky" : coverAnimated ? "compositor" : coverFailed ? "tracker (check failed)" : "tracker") +
             " · checks " + coverChecks +
             "\nscrollY " + n(window.scrollY) +
             " · pageTop " + (vv ? n(vv.pageTop) : "-") +
@@ -562,7 +565,12 @@ const canonical = new URL(
           cover = el;
           coverH = el.offsetHeight;
           rail = document.querySelector(".walk-rail");
-          coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
+          /* Device pass 4: the default cover is a sticky box that the
+             scrolling thread holds in place — nothing here moves it; the
+             script only colours it. The tracked variants (`?cover=track`,
+             `?cover=js`) are absolute and take the listeners below. */
+          coverSticky = getComputedStyle(el).position === "sticky";
+          coverAnimated = !coverSticky && getComputedStyle(el).animationName === "edge-cover-track";
           if (document.documentElement.dataset.cover === "debug") {
             debugBox = document.createElement("pre");
             debugBox.setAttribute("aria-hidden", "true");
@@ -570,6 +578,10 @@ const canonical = new URL(
               "position:fixed;left:8px;bottom:120px;z-index:100002;margin:0;padding:8px 10px;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.75);border-radius:8px;pointer-events:none;white-space:pre";
             document.body.appendChild(debugBox);
             setInterval(debugPaint, 250);
+          }
+          if (coverSticky) {
+            schedule();
+            return;
           }
           var opts = { passive: true };
           addEventListener("scroll", coverWake, opts);
@@ -726,16 +738,19 @@ const canonical = new URL(
         tab stop (it is visually first); position:fixed makes DOM order free. */}
     {!noMenu && <Menu position={menuPosition} />}
 
+    {/* v20 (round 23): the chapter cover — the section's ground painted over
+        what has scrolled past the top edge, which is what Safari's minimized
+        bar shows through its glass. In the document, so it reaches the bar
+        region the way the map's runway does; by construction never inside the
+        viewport. Device pass 4: a STICKY box, first in the flow, so the
+        scrolling thread itself holds it on the viewport's top edge — the
+        tracked variants (absolute, moved by a scroll timeline or by script)
+        stay behind `?cover=track` and `?cover=js`; see global.css. Rendered
+        only on the routes that ask, displayed only where the bars exist. */}
+    {topBar === "section" && <div class="edge-cover" aria-hidden="true"></div>}
     <main id="main">
       <slot />
     </main>
-    {/* v20 (round 23): the chapter cover — the section's ground painted over
-        what has scrolled past the top edge, which is what Safari's minimized
-        bar shows through its glass. In the document (an absolute box, not a
-        fixed one), so it reaches the bar region the way the map's runway does;
-        by construction never inside the viewport. Rendered only on the routes
-        that ask, displayed only where the bars exist (global.css). */}
-    {topBar === "section" && <div class="edge-cover" aria-hidden="true"></div>}
 
     <script>
       import { initCurtain } from "../lib/curtain";

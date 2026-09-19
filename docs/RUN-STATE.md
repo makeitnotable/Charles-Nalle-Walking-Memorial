@@ -29,6 +29,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 4 (2026-09-18, 20:14): his crop of the expanded
+bar mid-scroll showed the cover a frame behind the compositor (~30px above
+the rail at speed) — main-thread positioning cannot be smooth in the bar
+region on his phone, whether the timeline or the script drives. Fifth push:
+the cover is a STICKY box (first in body's flow, −320px bottom margin, drawn
+319px above its layout box), which the scrolling thread itself holds on the
+viewport's top edge; the timeline and the script are flags (`?cover=track`,
+`?cover=js`). The open measurement is whether WebKit paints a stuck box in
+the bar region as it paints the runway; if not, `?cover=track` is pass 3.
+Pass-3 record follows.
 Round 23, after device pass 3 (2026-09-18, evening): the cover holds at rest
 and the colour tracking works; he saw speed-dependent flicker (the self-check
 could fail in motion and demote the cover to the lagging tracker — it checks
