@@ -204,3 +204,37 @@ the same `wide` flag as the shift, and 390/768 measure byte-identical to HEAD.
 `detailsChanged`, and the `@media (min-width: 1024px)` mask rule in
 `global.css`.
 
+## Round 23 (Wil's 9/18–9/19 round) — the chapter pages scroll inside `<main>` on iOS
+
+**Evidence.** Wil's ask, from four screenshots on 9/18: the area behind and
+around Safari's top address bar must be a solid fill in the colour of the
+section at the top of the viewport, changing as the page scrolls. Eight device
+passes (`docs/rounds/2026-09-18-round-23-plan.md`, `docs/PLAYBOOK-MOBILE-
+CHROME.md` §3) measured that Safari paints only scrolled page content in that
+region — fixed and sticky boxes are clipped at the viewport — so any fill there
+is a piece of the page moved into place by script, one frame behind the
+compositor, and that frame showed as a moving edge on his phone at every speed
+("flicker … buggy … the fill changes size"). The one static paint Safari makes
+there is the canvas, `<body>`'s colour, which shows only where the document has
+not scrolled past it.
+
+**Decision (Wil, 9/19, of the `?scroll=inner` link: "It's exactly what I
+wanted. Please apply it to all the remaining chapter pages").** On every
+chapter route, wherever the bars exist (the `-webkit-touch-callout` gate, iOS
+and iPadOS), the document does not scroll: `<html>` clips at the viewport and
+`<main>` is the scroller, extended under the bottom toolbar by the runway's E
+so content still shows through its glass. `<body>` carries the section at the
+top edge (the sampler), so the bar region is a static solid fill that switches
+colour at each section — no cover, no visor, no tracker. **The cost he
+accepted:** Safari's bars collapse only when the document scrolls, so on the
+chapter pages the address bar and the bottom toolbar stay expanded while
+reading (199px of a 390×844 screen). The other side of it: nothing re-lays out
+or re-tints because a bar moved. Desktop, Android and every other route are
+unchanged. `?scroll=doc` restores the document scroller and the pass-7 cover
+on one page load.
+
+**Revert:** in `src/layouts/Base.astro`, delete the `else if (…) dataset.scroll
+= "inner"` branch in the head flags script (the `?scroll=` flags may stay);
+the chapter pages then scroll as a document again with pass 7's cover and
+16px band. To undo the whole round: `git reset --hard client-round-23-base`
+(= `4d13540`) and push `v2`.

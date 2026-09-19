@@ -123,11 +123,23 @@ const canonical = new URL(
              and leaves the document still, so the region behind the top bar
              shows the canvas — <body>'s colour, the section at the top edge —
              static, painted by Safari itself, with no cover and no visor.
-             `?scroll=doc` forces the document scroller. global.css has the
+             Device pass 9 (Wil, 2026-09-19: "exactly what I wanted"): that is
+             the DEFAULT on every chapter route wherever the bars exist — the
+             same iOS gate as the cover's, `-webkit-touch-callout`, decided
+             here so the attribute is on <html> before a rule is matched.
+             `?scroll=doc` is the way back to the document scroller and the
+             pass-7 cover, for a comparison on the phone. global.css has the
              rules and the trade (Safari's bars collapse only when the
-             document scrolls). */
+             document scrolls, so here they stay expanded while reading). */
           var sm = /(^|[?&])scroll=(inner|doc)(&|$)/.exec(q);
           if (sm) document.documentElement.dataset.scroll = sm[2];
+          else if (
+            document.documentElement.dataset.topBar === "section" &&
+            window.CSS &&
+            CSS.supports &&
+            CSS.supports("-webkit-touch-callout", "none")
+          )
+            document.documentElement.dataset.scroll = "inner";
         } catch (e) {}
       })();
     </script>
@@ -841,8 +853,10 @@ const canonical = new URL(
       <slot />
     </main>
     <script is:inline>
-      /* Device pass 8 (round 23): in the inner-scroll mode (`?scroll=inner`,
-         global.css) <main> is the scroller and the document never moves.
+      /* Device pass 8 (round 23): in the inner-scroll mode (the chapter
+         default on iOS since pass 9; `?scroll=inner` elsewhere, `?scroll=doc`
+         to leave it; global.css) <main> is the scroller and the document
+         never moves.
          Everything that listens for the page scrolling on `window` — the
          sampler above, the corner menu, the narration's mini player — hears
          <main>'s scroll re-sent on window, so none of it changes; the menu

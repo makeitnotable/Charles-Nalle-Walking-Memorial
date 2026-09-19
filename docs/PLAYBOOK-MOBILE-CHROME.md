@@ -190,7 +190,11 @@ sampler's `<body>` write is the fill, and nothing lags because nothing
 moves. Its cost is fixed by Safari: bars collapse only on document scroll,
 so they stay expanded while reading. Two designs, one trade — collapsing
 bars with a page-placed edge, or a still document with a static fill — and
-the choice is the client's, not a measurement's.
+the choice is the client's, not a measurement's. **Wil chose the still
+document (9/19: "exactly what I wanted"), and it is the chapter default
+wherever the bars exist** — `data-scroll="inner"` from the head script on
+every `data-top-bar="section"` route, `?scroll=doc` to compare. Logged with
+its revert in `docs/v4/DECISIONS.md`.
 
 ## 4 · State resets on every open (round 19)
 

@@ -2520,8 +2520,16 @@ html[data-root-fill="map"] body {
    its bars collapse only when the DOCUMENT scrolls, so here they stay
    expanded while reading (the address bar and the toolbar, 199px of his
    screen) — and, the other side of the same coin, nothing on the page ever
-   re-lays out or re-tints because a bar moved. `?scroll=inner` on the phone;
-   whether it becomes the chapter default on iOS is his decision. */
+   re-lays out or re-tints because a bar moved. Device pass 9 (Wil,
+   2026-09-19, of the ?scroll=inner link: "It's exactly what I wanted. Please
+   apply it to all the remaining chapter pages"): this IS the chapter default
+   wherever the bars exist — the head script in Base.astro sets
+   `data-scroll="inner"` on every `data-top-bar="section"` route behind the
+   same `-webkit-touch-callout` gate as the cover's, so the cover, the visor
+   and the tracker are off there. `?scroll=doc` restores the document
+   scroller and pass 7's cover for a comparison; nothing else on the site
+   changes. The rules below key on the attribute alone, so `?scroll=inner`
+   still exercises them in Chromium. */
 html[data-scroll="inner"] {
   height: 100%;
   overflow: hidden;

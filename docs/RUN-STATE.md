@@ -29,6 +29,15 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23 CLOSED (2026-09-19). Wil, of `?scroll=inner`: "exactly what I
+wanted. Please apply it to all the remaining chapter pages." Tenth push: the
+still document is the chapter default wherever the bars exist (head script
+sets `data-scroll="inner"` on `data-top-bar="section"` routes behind the
+`-webkit-touch-callout` gate); cover, visor and tracker inert there;
+`?scroll=doc` is the way back. Decision + revert logged in
+docs/v4/DECISIONS.md. Items 2 and 3 shipped in c1a5a83. Unverified on his
+phone: the four other chapters under the default (same template) and the
+bottom toolbar's glass in this mode. Pass-8 record follows.
 Round 23, after device pass 8 (2026-09-19, 16:38): the flicker and the
 size change persist at every speed — the moving edge is the signature of
 any fill placed by the page, and he asked why the fill cannot simply be
