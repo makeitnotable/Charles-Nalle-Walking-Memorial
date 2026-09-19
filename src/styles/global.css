@@ -2563,6 +2563,56 @@ html[data-scroll="inner"] main#main {
     scroll-behavior: auto;
   }
 }
+/* ── Device pass 10 (Wil, 2026-09-19, two crops of the Bakery hero at rest):
+   "a very thin, faint orange line at the bottom of the hero section … hide
+   this line so that it is not visible until you scroll down to that next
+   section", and "decrease the vertical spacing between the text and the
+   bottom toolbar … across all mobile and potentially tablet screen sizes."
+
+   THE LINE. In the still document <main> runs `--reader-e` under the bottom
+   toolbar so content shows through its glass while reading (pass 8), which
+   at rest puts the first 129px of the scene after the hero under the
+   toolbar — and its hairline (`.sec-head`, the numbered section's rule,
+   inset by the gutter) in the strip between the toolbar's capsule and the
+   screen's edge. The hero now carries the same E as margin below it, so
+   the next section begins where the toolbar's run ends and nothing but the
+   page ground sits under the toolbar until the reader scrolls. The hero
+   itself, its scrim and its media are untouched.
+
+   THE INSET. Item 3 set the lockup one gutter above the LAYOUT VIEWPORT's
+   bottom (22px of ink gap, verified 9/18). In the still document the bars
+   never collapse, and iOS 26's toolbar is a capsule floating ~18px below
+   that edge, so the gap he sees — ink to capsule — read as ~40px in his
+   crop, against the ~25px of his mock-up. The inset is therefore taken
+   from the capsule, not the edge: `--hero-lockup-inset`, 5px on phones
+   (ink ≈ 7px above the edge, one gutter above the capsule), the gutter on
+   tablets (no bottom toolbar there; the line's slack removed as on phones),
+   and desktop untouched, as item 3 promised. `?lockup=<px>` tries another
+   value on the phone. Only in the still document; the document scroller
+   keeps item 3's rule. Specificity: the chapter's scoped rules carry the
+   scope attribute on every compound, so these lead with the hero's id. */
+html[data-scroll="inner"] #hero {
+  margin-bottom: var(--reader-e, 0px);
+}
+html[data-scroll="inner"] #hero .hero-lockup-shell {
+  padding-bottom: var(--hero-lockup-inset, 5px);
+}
+html[data-scroll="inner"] #hero .hero-lockup-shell .chapter-hero-h1 {
+  margin-bottom: calc(-1 * var(--hero-lockup-slack));
+}
+@media (min-width: 768px) {
+  html[data-scroll="inner"] #hero .hero-lockup-shell {
+    padding-bottom: var(--hero-lockup-inset, var(--gutter));
+  }
+}
+@media (min-width: 1024px) {
+  html[data-scroll="inner"] #hero .hero-lockup-shell {
+    padding-bottom: max(5svh, 32px);
+  }
+  html[data-scroll="inner"] #hero .hero-lockup-shell .chapter-hero-h1 {
+    margin-bottom: 0;
+  }
+}
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
    edge smooth on the phone, it becomes the default again). Since device pass

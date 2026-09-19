@@ -140,6 +140,11 @@ const canonical = new URL(
             CSS.supports("-webkit-touch-callout", "none")
           )
             document.documentElement.dataset.scroll = "inner";
+          /* Device pass 10: `?lockup=<px>` tries another inset for the
+             chapter hero's lockup above the viewport's bottom in the
+             still-document mode (global.css, `--hero-lockup-inset`). */
+          var lk = /(^|[?&])lockup=(\d{1,3})(&|$)/.exec(q);
+          if (lk) document.documentElement.style.setProperty("--hero-lockup-inset", lk[2] + "px");
         } catch (e) {}
       })();
     </script>

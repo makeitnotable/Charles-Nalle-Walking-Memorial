@@ -29,6 +29,14 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, device pass 10 (2026-09-19, after the close): two hero asks in the
+still document. The hairline of `#scene-0` showed under the toolbar's
+capsule at rest (main runs E under the toolbar) — `#hero` now carries E as
+margin-bottom in inner mode, so the next section starts below the toolbar's
+run. The lockup's inset is taken from the toolbar's capsule (~18px below
+the viewport's edge on iOS 26), `--hero-lockup-inset` 5px on phones, the
+gutter on tablets, desktop untouched; `?lockup=<px>` tunes it. Awaiting his
+read of the inset. Closeout record follows.
 Round 23 CLOSED (2026-09-19). Wil, of `?scroll=inner`: "exactly what I
 wanted. Please apply it to all the remaining chapter pages." Tenth push: the
 still document is the chapter default wherever the bars exist (head script
