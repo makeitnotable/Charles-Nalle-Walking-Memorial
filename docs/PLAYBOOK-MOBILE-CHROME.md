@@ -128,7 +128,15 @@ offset rather than the page's 0–100%, which would depend on the scrollport's
 height and change as the bars collapse. The script self-checks the mapping on
 the first scroll events and falls back to a rail-anchored tracker that keeps
 re-reading for 600 ms after every scroll (`?cover=js` forces it). Whether
-Safari runs that timeline on its compositor is the open measurement.
+Safari runs that timeline on its compositor is the open measurement;
+`?cover=debug` prints which path is driving and the visual/layout viewport
+numbers. Device pass 3 added two rules: **check a compositor-driven position
+only at rest** — in motion the main thread reads it a frame behind, and a
+check that fails in motion demotes a good path for good (that was his
+"flicker at different speeds") — and **a section's colour for the bars is
+the colour it fades INTO, not the `background-color` hidden under its
+artwork**: the heroes' ground is the page brown `#1d1411`, not the `#100a06`
+no one ever sees.
 
 ## 4 · State resets on every open (round 19)
 

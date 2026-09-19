@@ -29,6 +29,15 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 3 (2026-09-18, evening): the cover holds at rest
+and the colour tracking works; he saw speed-dependent flicker (the self-check
+could fail in motion and demote the cover to the lagging tracker — it checks
+at rest only now; the idle mask is gone), the fill running 3px past the rail
+(it ends 1px inside the line's top now) and the hero's bar too dark (the
+heroes' ground is #1d1411 now, the brown he means; #100a06 was never seen).
+`?cover=debug` prints the driving path and the viewport geometry for the next
+pass — one screenshot of it settles the visual/layout split and whether
+Safari runs the scroll timeline on its compositor. Pass-2 record follows.
 Round 23, after device pass 2 (2026-09-18, 17:41): the cover is CONFIRMED on
 his phone (pass 1: the minimized bar's region reads the section's colour;
 the 16px feather read as a gradient, so the edge is hard by default), and

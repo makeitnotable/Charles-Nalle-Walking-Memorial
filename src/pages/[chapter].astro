@@ -307,9 +307,14 @@ const focus =
       nothing above the reader resizes mid-gesture. Same for the lockup's
       `5svh` inset and Ch2's Part-2 hero below. Not `lvh`: round 2 tried that
       and it broke his phone (docs/rounds/2026-09-16-round-3-plan.md). */}
+  {/* Device pass 3 (Wil, 2026-09-18): the hero's ground is the page brown
+      #1d1411, not the near-black #100a06 — nobody sees the colour under the
+      painting, but the browser bars and the chapter cover take THIS value
+      ("the same as the hero section brown"), and the scrim already ends in
+      it. Same on the Part-2 hero below. */}
   <header
     id="hero"
-    class="relative h-svh overflow-hidden bg-neutral-2"
+    class="relative h-svh overflow-hidden bg-primary-2"
     data-edge-top={edgeOf(vKey)}
     data-edge-top-wide={edgeOf(hKey)}
     data-edge-bottom="#1d1411"
@@ -436,7 +441,7 @@ const focus =
             up. */}
         {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
           <section
-            class="sec relative h-svh overflow-hidden bg-neutral-2"
+            class="sec relative h-svh overflow-hidden bg-primary-2"
             id={`hero-${b.i + 1}`}
             aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
             data-edge-top={edgeOf(c.scenes[b.i].reveal!.videoVertical)}

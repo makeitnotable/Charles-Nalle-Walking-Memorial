@@ -2326,8 +2326,15 @@ main {
    as the reader scrolls (the round-21 rule from /map), and the `.edge-cover`
    below paints the same colour over what has scrolled past. The bottom
    toolbar's share of Safari's one tint is the residue he was told about. */
+/* Device pass 3 (Wil, 2026-09-18): "the hero section fill on the address bar
+   is too dark; it should be the same as the hero section brown." The heroes'
+   own `background-color` was --color-neutral-2 #100a06, a near-black no one
+   ever sees — the painting covers it — while the scrim beneath the lockup
+   ends in the page ground #1d1411, which IS the brown he means. The heroes
+   carry `bg-primary-2` now ([chapter].astro), so the resolver, the cover,
+   this at-rest value and the page ground agree on #1d1411. */
 html[data-top-bar="section"] body {
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-primary-2);
 }
 
 /* /map: #353535, the Mapbox style's own ground — the same value map.astro
@@ -2361,8 +2368,8 @@ html[data-root-fill="map"] body {
    in the scrolling layer, not the viewport layer), 320px tall, moved with the
    scroll so its BOTTOM edge sits on the walk rail — the 3px progress readout
    fixed at the viewport's top (`.walk-rail`, z 900, over this at 800): the
-   last 3px of the cover lie behind the rail's line, so the fill ends exactly
-   where the rail is, with no slit above it and nothing below it. Everything
+   cover ends 1px inside the top of the rail's line, so the fill ends exactly
+   where the rail begins, with no slit above it and nothing below it. Everything
    the cover paints is above the viewport by construction; the reader sees it
    only through the bar. Its colour is the section at the top edge, from the
    same resolver that writes <body>, so the glass, Safari's tint and the cover
@@ -2423,7 +2430,14 @@ html[data-root-fill="map"] body {
   will-change: transform;
   pointer-events: none;
   overflow-anchor: none;
-  background-color: var(--color-neutral-2);
+  background-color: var(--color-primary-2);
+}
+/* Device pass 3 (Wil, 2026-09-18): no mask by default. With the feather at 0
+   the mask was a degenerate two-stop gradient on a moving composited layer —
+   one more thing to rasterise for nothing, and a candidate for the
+   "distortion" he saw at speed. The soft edge exists only while
+   `?feather=<px>` asks for it (the flag also marks <html> with data-feather). */
+html[data-feather] .edge-cover {
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
   mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
 }
@@ -2433,8 +2447,13 @@ html[data-root-fill="map"] body {
   }
 }
 /* The compositor path (device pass 2, above). `from` is the rest position:
-   the cover's bottom 3px behind the rail, whose line sits at
-   env(safe-area-inset-top) — 0 in a Safari tab. `to` is the same 100000px
+   the cover's bottom 1px inside the top of the rail's line, whose top sits at
+   env(safe-area-inset-top) — 0 in a Safari tab. Device pass 3 (Wil,
+   2026-09-18): "the solid extends slightly beyond the progress indicator" —
+   the 3px it used to run behind the line showed through the line's 2px gaps
+   and its translucent "ahead" segments as fill reaching the line's bottom.
+   Now the indicators sit BELOW the fill, touching it, and a sub-pixel edge
+   still lands under the line rather than above it. `to` is the same 100000px
    further, and the range says those two keyframes span scroll offsets 0 to
    100000px exactly, so every offset in between maps one-to-one. Longhands,
    not the shorthand: the timeline must come after `animation` or the
@@ -2444,10 +2463,10 @@ html[data-root-fill="map"] body {
 @supports (animation-timeline: scroll()) {
   @keyframes edge-cover-track {
     from {
-      transform: translate3d(0, calc(3px + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(1px + env(safe-area-inset-top, 0px) - 320px), 0);
     }
     to {
-      transform: translate3d(0, calc(100000px + 3px + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(100000px + 1px + env(safe-area-inset-top, 0px) - 320px), 0);
     }
   }
   /* Under `prefers-reduced-motion: reduce` the script's tracker drives the
