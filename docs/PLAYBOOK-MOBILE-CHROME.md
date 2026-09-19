@@ -168,7 +168,18 @@ Safari version; `?cover=track&debug=1` is the one screenshot that settles
 whether a compositor-run timeline is available on the phone. The only design
 that removes the frame altogether — an inner scroll container, so the
 document never moves and the bar region shows the canvas — most likely stops
-Safari's bars from collapsing, and is Wil's call.
+Safari's bars from collapsing, and is Wil's call. Device pass 7 ("too tall",
+and a flicker both fast and slow) refined the rule: **aim the scrolled paint
+at the band's FOOT, not its middle, and bias the lead toward the page.** The
+band's height is the tolerance, and only one direction of error is visible
+(the edge rising into the bar region); an edge that dips runs behind the
+line and over the page in the section's own colour. So the cover aims at the
+top of the visor's line and the lead is one frame of motion plus half a
+frame downward whichever way the page moves — a symmetric lead sits half a
+frame toward exposure on every scroll up, which at 1–2px/ms is the whole of
+a 16px half-band. Default `--edge-visor` is 16px (13px of room). What no
+lead covers is a dropped main-thread frame (~8px of room per frame at
+1px/ms); only a compositor-run timeline has none.
 
 ## 4 · State resets on every open (round 19)
 

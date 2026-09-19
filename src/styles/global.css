@@ -2463,11 +2463,25 @@ html[data-root-fill="map"] body {
    design he described from the start: a solid fill that ends at the
    progress indicators. `?visor=<px>` tries another height on the phone.
    Only where the cover is (iOS, the chapter routes); Chromium and every
-   other route never see it. */
+   other route never see it.
+
+   DEVICE PASS 7 (Wil, 2026-09-19, 06:15: "even better but now it's too
+   tall", and "a little flicker … both fast and slow"). The band's height
+   was the tolerance twice over — half above the middle for lag, half below
+   for the lead — so the cover now aims at the TOP OF THE LINE, the visor's
+   foot, and the whole band above the line is room for the edge to lag
+   upward before the bar region shows anything. An edge that overshoots
+   downward runs behind the line (the rail is z-index 900, above the cover's
+   800, and the band's colour is already behind the line's gaps) and then
+   over the page's first rows in the section's own colour: never
+   see-through. The script's lead is biased the same way (Base.astro). With
+   the tolerance no longer halved, the default is 16px — 13px of room above
+   the line, against pass 6's 16 from a 32px band — and `?visor=` still
+   tunes it; `?visor=3` is the bare line of pass 3, with no room at all. */
 @property --edge-visor {
   syntax: "<length>";
   inherits: true;
-  initial-value: 32px;
+  initial-value: 16px;
 }
 @supports (-webkit-touch-callout: none) {
   html[data-top-bar="section"]:not([data-cover="off"]) .walk-rail-static {
@@ -2487,10 +2501,10 @@ html[data-root-fill="map"] body {
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
    edge smooth on the phone, it becomes the default again). Since device pass
-   6 it aims at the visor's middle like the script does. `from` is the rest
-   position:
-   the cover's bottom at the visor's middle, whose top sits at
-   env(safe-area-inset-top) — 0 in a Safari tab. Device pass 3 (Wil,
+   7 it aims at the top of the visor's line like the script does. `from` is
+   the rest position: the cover's bottom `--edge-visor` − 3px below the
+   visor's top, which sits at env(safe-area-inset-top) — 0 in a Safari tab.
+   Device pass 3 (Wil,
    2026-09-18): "the solid extends slightly beyond the progress indicator" —
    the 3px it used to run behind the line showed through the line's 2px gaps
    and its translucent "ahead" segments as fill reaching the line's bottom.
@@ -2505,10 +2519,10 @@ html[data-root-fill="map"] body {
 @supports (animation-timeline: scroll()) {
   @keyframes edge-cover-track {
     from {
-      transform: translate3d(0, calc(var(--edge-visor) / 2 + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(var(--edge-visor) - 3px + env(safe-area-inset-top, 0px) - 320px), 0);
     }
     to {
-      transform: translate3d(0, calc(100000px + var(--edge-visor) / 2 + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(100000px + var(--edge-visor) - 3px + env(safe-area-inset-top, 0px) - 320px), 0);
     }
   }
   /* Under `prefers-reduced-motion: reduce` the script's tracker drives the

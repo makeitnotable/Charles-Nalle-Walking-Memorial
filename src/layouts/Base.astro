@@ -447,8 +447,8 @@ const canonical = new URL(
 
            Pass 6, the answer: aim the cover INSIDE the page, not at its edge.
            The walk rail is now the VISOR — a fixed, opaque band of the
-           section's colour, `--edge-visor` (32px) tall, its 3px line at the
-           bottom — and the cover's bottom edge is aimed at the visor's
+           section's colour, `--edge-visor` tall (32px then), its 3px line at
+           the bottom — and the cover's bottom edge is aimed at the visor's
            middle. A frame of lag in either direction moves that edge up or
            down INSIDE the visor, where the fixed band hides it; the bar
            region above and the page below are the only things visible, and
@@ -460,10 +460,38 @@ const canonical = new URL(
            the cover and the visor alike, instantly, as he asked; Safari's
            animated tint over them is the same colour.
 
+           Pass 7 (Wil, 2026-09-19, 06:15: "even better but now it's too
+           tall", and "a little flicker … both fast and slow"). The two asks
+           pull against each other — the band's height WAS the tolerance,
+           half above the aim for lag and half below for the lead — so the
+           geometry now spends all of it on the one failure he can see. The
+           cover aims at the TOP OF THE VISOR'S LINE (its foot), not its
+           middle: the whole band above the line is room for the edge to lag
+           upward before the bar region shows content, and an edge that
+           overshoots downward only runs behind the line (the rail, z-index
+           900, stays above the cover, and the band's colour is already
+           behind the line's gaps) and then over the first rows of the page
+           in the section's own colour — never see-through. The lead is
+           biased the same way: one frame of motion (the compositor's head
+           start on anything the main thread places) plus half a frame
+           DOWNWARD whichever way the page moves, so the steady state sits
+           half a frame below the aim in both directions. Pass 6's symmetric
+           frame-and-a-half lifted the edge half a frame ABOVE the aim on
+           every scroll UP — at a moderate speed, the slit he saw — and its
+           smoothing carried the old direction across a reversal for a
+           frame; a reversal now takes the new sign at once. With the
+           tolerance no longer halved, the default band is 16px (13px of room
+           above the line, against pass 6's 16 from a 32px band); `?visor=`
+           tunes it. What no lead can absorb is a dropped main-thread frame
+           (at 1px/ms one costs ~8px of room, two ~25px); the compositor
+           path, `?cover=track`, has no such frame IF his Safari accelerates
+           it — the one question only his eyes can answer.
+
            `?cover=track` drives the cover with the scroll timeline instead
            (self-checked at rest); `?cover=off` removes cover and visor;
-           `?visor=<px>` tries another visor height; `?debug=1` prints the
-           path, the browser's support and the geometry. */
+           `?visor=<px>` tries another visor height (3 is the bare line, the
+           pass-3 look, with no room for lag); `?debug=1` prints the path,
+           the browser's support and the geometry. */
         var cover = null;
         var coverH = 0;
         var lastCover = "";
@@ -486,12 +514,23 @@ const canonical = new URL(
         function layoutScrollY() {
           return vv ? vv.pageTop - vv.offsetTop : window.scrollY || 0;
         }
-        /* The aim point in layout-viewport coordinates: the visor's middle,
-           or the top edge itself on a page with no rail. */
-        function coverAim() {
-          if (!rail) return 0;
+        /* The aim point in layout-viewport coordinates: the top of the
+           visor's 3px line (pass 7 — its foot, so the whole band above it is
+           room for lag), the rail's own top where the rail is only the line,
+           or the top edge itself on a page with no rail. The rail is fixed,
+           so its rect changes only with the layout: measured at init and on
+           resize, never per frame (a layout read inside every scroll event
+           is a forced layout on a busy page). */
+        var railTop = 0;
+        var railH = 0;
+        function coverMeasure() {
+          if (!rail) return;
           var r = rail.getBoundingClientRect();
-          return r.height > 0 ? r.top + r.height / 2 : 0;
+          railTop = r.top;
+          railH = r.height;
+        }
+        function coverAim() {
+          return railH > 0 ? railTop + Math.max(0, railH - 3) : 0;
         }
         function coverTrack() {
           var s = layoutScrollY();
@@ -507,13 +546,25 @@ const canonical = new URL(
               lastS = s;
             } else if (dt >= 4) {
               /* px per ms, smoothed over two samples; same-frame duplicates
-                 (a scroll event and the frame's own tick) are skipped */
-              vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+                 (a scroll event and the frame's own tick) are skipped. A
+                 reversal takes the new sign at once — the smoothing would
+                 carry the old direction for a frame, a frame of exposure on
+                 the way down→up. Capped at 8px/ms: faster than any flick,
+                 slower than a wheel's jump. */
+              var raw = Math.max(-8, Math.min(8, (s - lastS) / dt));
+              vel = raw && vel && (raw > 0) !== (vel > 0) ? raw : vel * 0.5 + raw * 0.5;
               lastT = now;
               lastS = s;
             }
           }
-          lead = Math.abs(vel) < 0.05 ? 0 : vel * Math.min(40, Math.max(8, frameMs * 1.5));
+          /* The lead (pass 7): one frame of motion plus half a frame in the
+             DEEP direction whichever way the page moves — down, the lag
+             lifts the edge and the lead lowers it a frame and a half; up,
+             the lag lowers it and the lead lifts it only half a frame — so
+             the steady state sits half a frame below the aim, behind the
+             line, in both directions. Below a slow drift it is 0. */
+          var f = Math.min(34, Math.max(6, frameMs));
+          lead = Math.abs(vel) < 0.05 ? 0 : (vel + 0.5 * Math.abs(vel)) * f;
           var t = Math.round((s + lead + coverAim() - coverH) * 10) / 10;
           if (t === coverY) return false;
           coverY = t;
@@ -531,7 +582,7 @@ const canonical = new URL(
         }
         /* The compositor path's self-check (`?cover=track` only), AT REST:
            300 ms after the last scroll or resize event, the cover's rendered
-           bottom must sit at the visor's middle; if it does not (a browser
+           bottom must sit at the aim (the top of the visor's line); if not (a browser
            mapping the range differently, or a stylesheet forcing the duration
            to 0s), the animation is switched off and the tracker takes over.
            A failure is visible at any offset; a pass is uninformative at 0,
@@ -560,6 +611,12 @@ const canonical = new URL(
           coverTrack();
           if (!coverRaf) coverRaf = requestAnimationFrame(coverLoop);
         }
+        /* The layout changed (the bars, a rotation): re-measure the rail,
+           then place the cover. */
+        function coverResize() {
+          coverMeasure();
+          coverWake();
+        }
         /* The section's colour, to the cover and the visor alike — instantly,
            no transition (his instruction, pass 6). */
         function paintCover(c) {
@@ -586,7 +643,7 @@ const canonical = new URL(
             " · pageTop " + (vv ? n(vv.pageTop) : "-") +
             " · offsetTop " + (vv ? n(vv.offsetTop) : "-") +
             "\ninnerHeight " + window.innerHeight + " · vv.height " + (vv ? n(vv.height) : "-") + " · frame " + n(frameMs) + "ms" +
-            "\nvisor " + n(r.top) + "→" + n(r.top + r.height) + " · cover bottom " + n(cr.bottom) + " · lead " + n(lead) +
+            "\nvisor " + n(r.top) + "→" + n(r.top + r.height) + " · aim " + n(coverAim()) + " · cover bottom " + n(cr.bottom) + " · lead " + n(lead) +
             "\ncolour " + lastCover;
         }
         function coverInit() {
@@ -595,6 +652,7 @@ const canonical = new URL(
           cover = el;
           coverH = el.offsetHeight;
           rail = document.querySelector(".walk-rail");
+          coverMeasure();
           lastCover = "";
           coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
           if (document.documentElement.dataset.debug === "1") {
@@ -608,13 +666,13 @@ const canonical = new URL(
           var opts = { passive: true };
           addEventListener("scroll", coverWake, opts);
           addEventListener("scrollend", coverWake, opts);
-          addEventListener("resize", coverWake, opts);
-          addEventListener("orientationchange", coverWake, opts);
+          addEventListener("resize", coverResize, opts);
+          addEventListener("orientationchange", coverResize, opts);
           addEventListener("touchend", coverWake, opts);
-          addEventListener("pageshow", coverWake);
+          addEventListener("pageshow", coverResize);
           if (vv) {
             vv.addEventListener("scroll", coverWake, opts);
-            vv.addEventListener("resize", coverWake, opts);
+            vv.addEventListener("resize", coverResize, opts);
           }
           coverWake();
           schedule();

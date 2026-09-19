@@ -29,6 +29,18 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 7 (2026-09-19, 06:15): "even better but now
+it's too tall", plus a flicker of content "both fast and slow". Eighth
+push: the cover aims at the TOP OF THE VISOR'S LINE (its foot), so the whole
+band above the line is room for upward lag and a downward overshoot only
+runs behind the line and over the page in the section's colour; the lead is
+one frame plus half a frame DOWNWARD in both directions (pass 6's symmetric
+lead sat half a frame toward exposure on every scroll up — the slit), and a
+reversal takes the new sign at once; `--edge-visor` defaults to 16px (13px
+of room, against pass 6's 16 from 32px). Rail rect cached, `?debug=1` prints
+the aim. Still unanswered and decisive: whether his Safari accelerates the
+scroll timeline (`?cover=track` beside the default; `?cover=track&debug=1`
+readout). Pass-6 record follows.
 Round 23, after device pass 6 (2026-09-18, 22:42): his three crops showed
 the frame of lag exposed in the bar region in both directions, feather or
 not — "never see-through … one colour, no transitions". Seventh push, THE
