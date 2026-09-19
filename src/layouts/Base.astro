@@ -107,22 +107,18 @@ const canonical = new URL(
           var q = location.search;
           if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
           /* v20 (round 23): the chapter cover's device flags. `?cover=off`
-             turns the cover off for a before/after on the phone; `?cover=track`
-             drives it with the scroll timeline of device passes 2–4 instead
-             of the script (`?cover=js` is the script, the default since
-             device pass 5); `?debug=1` adds a readout of which path is
-             driving, what the browser supports and the viewport geometry;
-             `?feather=<px>` holds the cover's bottom edge at a constant
-             softness (the default is speed-proportional: hard at rest).
-             Inline, one page load; v2's defaults are untouched. */
+             removes the cover and the visor for a before/after on the phone;
+             `?cover=track` drives the cover with the scroll timeline of device
+             passes 2–4 instead of the script (`?cover=js` is the script, the
+             default); `?visor=<px>` tries another height for the visor band
+             (device pass 6; the default is 32); `?debug=1` adds a readout of
+             which path is driving, what the browser supports and the viewport
+             geometry. Inline, one page load; v2's defaults are untouched. */
           var c = /(^|[?&])cover=(off|js|track)(&|$)/.exec(q);
           if (c) document.documentElement.dataset.cover = c[2];
           if (/(^|[?&])debug=1(&|$)/.test(q)) document.documentElement.dataset.debug = "1";
-          var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
-          if (f) {
-            document.documentElement.dataset.feather = f[2];
-            document.documentElement.style.setProperty("--edge-cover-feather", f[2] + "px");
-          }
+          var vz = /(^|[?&])visor=(\d{1,3})(&|$)/.exec(q);
+          if (vz) document.documentElement.style.setProperty("--edge-visor", vz[2] + "px");
         } catch (e) {}
       })();
     </script>
@@ -440,30 +436,34 @@ const canonical = new URL(
            section's ground painted over what has scrolled past the top edge,
            which is what Safari's minimized bar shows through its glass.
 
-           What five device passes established (2026-09-18/19, Wil's iPhone,
-           iOS 26.6): the region behind the bars shows only SCROLLED content;
-           a pinned box — fixed or sticky — is clipped at the viewport and
-           never paints there; a box moved from the main thread sits a frame
-           behind the compositor while the page moves, by speed × a frame
-           (~30px on a flick), which shows as a slit or a jump at the cover's
-           edge; and Safari's own tint from <body> is a gradient, not a fill.
-           So: the cover is an absolute box in the document, moved by this
-           script on every scroll event and on requestAnimationFrame until
-           the position settles, anchored to the walk rail (its bottom 1px
-           inside the rail's line, from the layout viewport's offset so a
-           visual/layout split cannot open a slit), and — the pass-5 change —
-           its bottom edge is FEATHERED IN PROPORTION TO SCROLL SPEED: at rest
-           the edge is hard and exact; in motion the last F px fade out, F
-           growing with speed, so the frame of lag reads as a soft edge under
-           the pill rather than a slit of content. Pass 1 shipped a fixed
-           16px feather and he called it "almost perfect"; the gradient he
-           then saw at rest is what the speed-proportional version removes.
+           Six device passes (2026-09-18/19, Wil's iPhone, iOS 26.6): the
+           region behind the bars shows only SCROLLED page paint; a pinned box
+           — fixed or sticky — is clipped at the viewport and never paints
+           there; Safari's own tint from <body> is a gradient, not a fill; and
+           a box moved from the main thread sits a frame behind the compositor
+           while the page moves, by speed × a frame (10–40px in his crops),
+           which no feather could hide: "there should never be a moment where
+           the area is see-through".
 
-           The scroll-driven-animation path of passes 2–4 (a `scroll(root)`
-           timeline the compositor could run) stays behind `?cover=track`
-           with its self-check, until the `?debug=1` readout shows whether
-           his Safari supports and accelerates it. `?cover=off` for a
-           before/after, `?feather=<px>` for a constant feather. */
+           Pass 6, the answer: aim the cover INSIDE the page, not at its edge.
+           The walk rail is now the VISOR — a fixed, opaque band of the
+           section's colour, `--edge-visor` (32px) tall, its 3px line at the
+           bottom — and the cover's bottom edge is aimed at the visor's
+           middle. A frame of lag in either direction moves that edge up or
+           down INSIDE the visor, where the fixed band hides it; the bar
+           region above and the page below are the only things visible, and
+           both stay solid. The script also LEADS the scroll by its measured
+           speed × about a frame and a half, so the edge stays near the
+           middle at speed and the visor's half-height absorbs the residual.
+           At rest the edge settles in the middle, and nothing depends on
+           where exactly. Colour: the sampler writes the section's colour to
+           the cover and the visor alike, instantly, as he asked; Safari's
+           animated tint over them is the same colour.
+
+           `?cover=track` drives the cover with the scroll timeline instead
+           (self-checked at rest); `?cover=off` removes cover and visor;
+           `?visor=<px>` tries another visor height; `?debug=1` prints the
+           path, the browser's support and the geometry. */
         var cover = null;
         var coverH = 0;
         var lastCover = "";
@@ -479,43 +479,42 @@ const canonical = new URL(
         var debugBox = null;
         var lastT = 0;
         var lastS = 0;
+        var lastRaf = 0;
         var vel = 0;
-        var feather = 0;
-        var featherFixed = -1;
+        var frameMs = 16.7;
+        var lead = 0;
         function layoutScrollY() {
           return vv ? vv.pageTop - vv.offsetTop : window.scrollY || 0;
         }
-        /* The cover's bottom edge in layout-viewport coordinates: 1px inside
-           the top of the rail's line (device pass 3), or the top edge itself
-           on a page with no rail. */
-        function coverEdge() {
+        /* The aim point in layout-viewport coordinates: the visor's middle,
+           or the top edge itself on a page with no rail. */
+        function coverAim() {
           if (!rail) return 0;
           var r = rail.getBoundingClientRect();
-          return r.height > 0 ? r.top + 1 : 0;
-        }
-        /* Speed → feather. `vel` is px/ms, smoothed; the frame of lag is about
-           vel × 20–33 ms, so F = vel × 40 ms covers it with margin, capped at
-           64px (about the pill's own height), and 0 below a slow drift. */
-        function setFeather(f) {
-          f = Math.round(f);
-          if (f === feather) return;
-          feather = f;
-          cover.style.setProperty("--edge-cover-feather", f + "px");
-          cover.classList.toggle("is-soft", f > 0);
+          return r.height > 0 ? r.top + r.height / 2 : 0;
         }
         function coverTrack() {
           var s = layoutScrollY();
           var now = performance.now();
-          if (lastT) {
+          if (!lastT) {
+            lastT = now;
+            lastS = s;
+          } else {
             var dt = now - lastT;
-            if (dt >= 250) vel = 0;
-            else if (dt > 0) vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+            if (dt >= 250) {
+              vel = 0;
+              lastT = now;
+              lastS = s;
+            } else if (dt >= 4) {
+              /* px per ms, smoothed over two samples; same-frame duplicates
+                 (a scroll event and the frame's own tick) are skipped */
+              vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+              lastT = now;
+              lastS = s;
+            }
           }
-          lastT = now;
-          lastS = s;
-          var speed = Math.abs(vel);
-          setFeather(featherFixed >= 0 ? featherFixed : speed < 0.15 ? 0 : Math.min(64, speed * 40));
-          var t = s + coverEdge() - coverH;
+          lead = Math.abs(vel) < 0.05 ? 0 : vel * Math.min(40, Math.max(8, frameMs * 1.5));
+          var t = Math.round((s + lead + coverAim() - coverH) * 10) / 10;
           if (t === coverY) return false;
           coverY = t;
           cover.style.transform = "translate3d(0," + t + "px,0)";
@@ -524,24 +523,23 @@ const canonical = new URL(
         function coverLoop() {
           coverRaf = 0;
           var now = performance.now();
+          if (lastRaf && now - lastRaf < 60) frameMs = frameMs * 0.9 + (now - lastRaf) * 0.1;
+          lastRaf = now;
           if (coverTrack()) coverUntil = now + 600;
           if (now < coverUntil) coverRaf = requestAnimationFrame(coverLoop);
-          else if (featherFixed < 0) {
-            vel = 0;
-            setFeather(0);
-          }
+          else lastRaf = 0;
         }
         /* The compositor path's self-check (`?cover=track` only), AT REST:
            300 ms after the last scroll or resize event, the cover's rendered
-           bottom must sit 1px inside the rail's line; if it does not (a
-           browser mapping the range differently, or a stylesheet forcing the
-           duration to 0s), the animation is switched off and the tracker
-           takes over. A failure is visible at any offset; a pass is
-           uninformative at 0, so passes count from 60px. */
+           bottom must sit at the visor's middle; if it does not (a browser
+           mapping the range differently, or a stylesheet forcing the duration
+           to 0s), the animation is switched off and the tracker takes over.
+           A failure is visible at any offset; a pass is uninformative at 0,
+           so passes count from 60px. */
         function coverCheck() {
           checkTimer = 0;
           if (!coverAnimated || coverChecks >= 12) return;
-          if (Math.abs(cover.getBoundingClientRect().bottom - coverEdge()) > 8) {
+          if (Math.abs(cover.getBoundingClientRect().bottom - coverAim()) > 8) {
             coverAnimated = false;
             coverFailed = true;
             cover.style.animation = "none";
@@ -562,16 +560,19 @@ const canonical = new URL(
           coverTrack();
           if (!coverRaf) coverRaf = requestAnimationFrame(coverLoop);
         }
+        /* The section's colour, to the cover and the visor alike — instantly,
+           no transition (his instruction, pass 6). */
         function paintCover(c) {
-          if (!cover || !c || c === lastCover) return;
+          if (!c || c === lastCover) return;
           lastCover = c;
-          cover.style.backgroundColor = c;
+          if (cover) cover.style.backgroundColor = c;
+          if (rail) rail.style.backgroundColor = c;
         }
         /* `?debug=1`: a readout for the device pass — which path drives the
            cover, what the browser says it supports, and the geometry only
            the phone can report. */
         function debugPaint() {
-          var r = rail ? rail.getBoundingClientRect() : { top: 0 };
+          var r = rail ? rail.getBoundingClientRect() : { top: 0, height: 0 };
           var cr = cover.getBoundingClientRect();
           var cs = getComputedStyle(cover);
           var n = function (v) { return Math.round(v * 10) / 10; };
@@ -584,8 +585,8 @@ const canonical = new URL(
             "\nscrollY " + n(window.scrollY) +
             " · pageTop " + (vv ? n(vv.pageTop) : "-") +
             " · offsetTop " + (vv ? n(vv.offsetTop) : "-") +
-            "\ninnerHeight " + window.innerHeight + " · vv.height " + (vv ? n(vv.height) : "-") +
-            "\nrail top " + n(r.top) + " · cover bottom " + n(cr.bottom) + " · feather " + feather +
+            "\ninnerHeight " + window.innerHeight + " · vv.height " + (vv ? n(vv.height) : "-") + " · frame " + n(frameMs) + "ms" +
+            "\nvisor " + n(r.top) + "→" + n(r.top + r.height) + " · cover bottom " + n(cr.bottom) + " · lead " + n(lead) +
             "\ncolour " + lastCover;
         }
         function coverInit() {
@@ -594,12 +595,8 @@ const canonical = new URL(
           cover = el;
           coverH = el.offsetHeight;
           rail = document.querySelector(".walk-rail");
+          lastCover = "";
           coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
-          var ff = parseInt(document.documentElement.dataset.feather || "", 10);
-          if (ff >= 0) {
-            featherFixed = ff;
-            setFeather(ff);
-          }
           if (document.documentElement.dataset.debug === "1") {
             debugBox = document.createElement("pre");
             debugBox.setAttribute("aria-hidden", "true");

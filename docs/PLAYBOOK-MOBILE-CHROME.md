@@ -153,14 +153,22 @@ and Safari's own tint, nothing else — and an element Safari reads for its
 own fill (round 8, tests 4–5) has to be a VISIBLE opaque strip, read as a
 tint source. A solid fill there is scrolled page paint or nothing, and page
 paint is positioned by the page, one frame behind the compositor at speed.
-The chapter cover therefore lives with that frame instead of hiding it:
-hard and exact at rest, feathered in proportion to scroll speed while the
-page moves (`.edge-cover.is-soft`, feather = speed × 40 ms, ≤ 64px), which
-the eye reads as motion rather than as a slit. `?debug=1` on a chapter
-prints the driving path, `animation-timeline` support, the parsed
-`animation-range-end` and the Safari version; `?cover=track&debug=1` is
-the one screenshot that settles whether a compositor-run timeline is
-available on the phone.
+Device pass 6 showed that a feather only blurs that frame; the rule that
+finally holds is **aim scrolled paint at a point a fixed box can hide, never
+at the viewport's edge**: the walk rail is a fixed, opaque band of the
+section colour (`--edge-visor`, 32px, its line at the foot), the cover's
+edge aims at the band's middle, and the frame of lag moves inside the band
+instead of in the bar region. The script leads the scroll by its measured
+speed × ~1.5 frames (the frame interval is measured from rAF), and the
+half-band absorbs the residual. The cost is the band: the fill ends 32px
+below the viewport's top edge, with the indicators at its foot. `?visor=<px>`
+tunes it on the phone; `?debug=1` on a chapter prints the driving path,
+`animation-timeline` support, the parsed `animation-range-end` and the
+Safari version; `?cover=track&debug=1` is the one screenshot that settles
+whether a compositor-run timeline is available on the phone. The only design
+that removes the frame altogether — an inner scroll container, so the
+document never moves and the bar region shows the canvas — most likely stops
+Safari's bars from collapsing, and is Wil's call.
 
 ## 4 · State resets on every open (round 19)
 

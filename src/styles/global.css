@@ -1856,15 +1856,6 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
-/* v20 (round 23): the chapter cover's bottom edge — 0 is a hard edge, the
-   default since Wil's device pass ("a solid fill not a gradient"). Registered
-   so the device flag `?feather=<px>` (Base.astro) can set it inline on <html>
-   and `calc(100% - var(--edge-cover-feather))` in the mask still resolves. */
-@property --edge-cover-feather {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
 :root {
   /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
      pinned to a viewport edge. An opaque colour there becomes a solid band
@@ -2452,15 +2443,41 @@ html[data-root-fill="map"] body {
   overflow-anchor: none;
   background-color: var(--color-primary-2);
 }
-/* The soft edge (device pass 5): the script adds `is-soft` and sets the
-   feather while the page is moving, in proportion to its speed, and removes
-   both at rest — so the mask exists only while it hides something (the frame
-   of lag) and the edge at rest is a hard line 1px inside the rail. Device
-   pass 3 had found the idle, zero-width mask worth removing; it still is.
-   `?feather=<px>` holds a constant softness for a comparison on the phone. */
-.edge-cover.is-soft {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
+/* ── Device pass 6 (Wil, 2026-09-18, 22:42): THE VISOR ─────────────────────
+   Three crops, both scroll directions, both bar states: the content behind
+   the bar showed in a 10–40px band above the rail whenever the page moved —
+   the frame of lag, which pass 5's speed feather only blurred. "There should
+   never be a moment where the area behind or around the top address bar is
+   see-through … just one color that fills the area … and changes based on
+   the section color." A cover aimed at the viewport's top edge exposes its
+   lag in the bar region, where nothing fixed can hide it. So the cover is
+   aimed INSIDE the page, at the middle of a fixed, opaque band that can:
+   the walk rail, now `--edge-visor` tall with its 3px line at the bottom and
+   the section's colour written to it by the sampler, instantly, as the
+   cover's is. The frame of lag moves the cover's edge up or down inside the
+   visor, hidden; above it the bar region is solid cover, below it the page.
+   The script leads the scroll by its measured speed so the edge stays near
+   the middle at speed; the visor's half-height absorbs the rest. The cost is
+   the band itself — the fill ends `--edge-visor` below the viewport's top
+   edge rather than at it, and the indicators sit at its foot — which is the
+   design he described from the start: a solid fill that ends at the
+   progress indicators. `?visor=<px>` tries another height on the phone.
+   Only where the cover is (iOS, the chapter routes); Chromium and every
+   other route never see it. */
+@property --edge-visor {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 32px;
+}
+@supports (-webkit-touch-callout: none) {
+  html[data-top-bar="section"]:not([data-cover="off"]) .walk-rail-static {
+    height: var(--edge-visor);
+    align-items: flex-end;
+    background-color: var(--color-primary-2);
+  }
+  html[data-top-bar="section"]:not([data-cover="off"]) .walk-rail-static .walk-seg {
+    height: 3px;
+  }
 }
 @supports (-webkit-touch-callout: none) {
   html[data-top-bar="section"]:not([data-cover="off"]) .edge-cover {
@@ -2469,9 +2486,10 @@ html[data-root-fill="map"] body {
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
-   edge smooth on the phone, it becomes the default again). `from` is the
-   rest position:
-   the cover's bottom 1px inside the top of the rail's line, whose top sits at
+   edge smooth on the phone, it becomes the default again). Since device pass
+   6 it aims at the visor's middle like the script does. `from` is the rest
+   position:
+   the cover's bottom at the visor's middle, whose top sits at
    env(safe-area-inset-top) — 0 in a Safari tab. Device pass 3 (Wil,
    2026-09-18): "the solid extends slightly beyond the progress indicator" —
    the 3px it used to run behind the line showed through the line's 2px gaps
@@ -2487,10 +2505,10 @@ html[data-root-fill="map"] body {
 @supports (animation-timeline: scroll()) {
   @keyframes edge-cover-track {
     from {
-      transform: translate3d(0, calc(1px + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(var(--edge-visor) / 2 + env(safe-area-inset-top, 0px) - 320px), 0);
     }
     to {
-      transform: translate3d(0, calc(100000px + 1px + env(safe-area-inset-top, 0px) - 320px), 0);
+      transform: translate3d(0, calc(100000px + var(--edge-visor) / 2 + env(safe-area-inset-top, 0px) - 320px), 0);
     }
   }
   /* Under `prefers-reduced-motion: reduce` the script's tracker drives the

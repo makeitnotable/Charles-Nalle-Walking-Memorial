@@ -29,6 +29,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 6 (2026-09-18, 22:42): his three crops showed
+the frame of lag exposed in the bar region in both directions, feather or
+not — "never see-through … one colour, no transitions". Seventh push, THE
+VISOR: the walk rail is a fixed opaque band of the section colour
+(`--edge-visor` 32px, line at the foot) and the cover aims at its MIDDLE, so
+the lag moves the cover's edge inside a fixed box that hides it; the script
+leads the scroll by speed × ~1.5 frames; colour writes are instant on both.
+The fill now ends 32px below the viewport's top edge. `?visor=<px>` tunes
+it; `?cover=track&debug=1` still reports the timeline. Awaiting his read on
+the band and on any residual at flick speed. Pass-5 record follows.
 Round 23, after device pass 5 (2026-09-18, 20:35): a sticky box is clipped
 at the viewport like a fixed one — measured, "now it's transparent" — so the
 bar region can only be solid through scrolled page paint, positioned by the
