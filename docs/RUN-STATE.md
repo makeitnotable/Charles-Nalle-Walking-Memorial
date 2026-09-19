@@ -29,13 +29,19 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
-Round 23, after device pass 1 (2026-09-18, 15:13): the chapter cover is
-CONFIRMED on his phone — the minimized bar's region reads the section's
-colour, "almost perfect" — and the 16px feather read as a gradient (the
-section above the top edge ghosting through), so the edge is hard (0px) by
-default now; `?feather=<px>` softens it, `?cover=off` removes it. Awaiting
-his pass on the hard edge under a fast flick, the bottom toolbar's share of
-Safari's one `<body>` tint, the menu holding still and the hero inset.
+Round 23, after device pass 2 (2026-09-18, 17:41): the cover is CONFIRMED on
+his phone (pass 1: the minimized bar's region reads the section's colour;
+the 16px feather read as a gradient, so the edge is hard by default), and
+pass 2 found it 3–6px short of the rail at rest, a different amount after
+every scroll — the last scroll event's position is not where iOS settles.
+Third push: the cover's bottom edge sits on the walk rail (3px behind its
+line), the compositor moves it through a scroll-driven animation with an
+absolute 0–100000px range (self-checked; `?cover=js` forces the rail-anchored
+scroll-event tracker, which now re-reads for 600 ms after every scroll).
+Awaiting his pass: the fill's edge on the rail at rest and in motion, the
+hero inset AT REST (verified in the build at 22–23px; the lockup's scroll
+scrub lifts it 60px once the page moves, which is what a scrolled shot
+shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
 Wil's open decisions, none blocking: the scrolled composition of `/map` (his

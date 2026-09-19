@@ -115,9 +115,20 @@ viewport's top edge reaches the bar region exactly as the runway's does
 below it. A feathered edge does not help: through it the section above the
 top edge ghosts in and the glass reads as a gradient, which he rejected; the
 edge is hard by default (`?feather=<px>` softens it on the device,
-`?cover=off` removes it). Still unmeasured: how far a fast upward flick
-leaves the hard edge behind (asynchronous scrolling: the main thread trails
-the compositor by a frame).
+`?cover=off` removes it). **Device pass 2 (17:41): a scroll-event tracker is
+not enough.** Set from `scrollY` on each scroll event, the cover sat 3–6px
+short of the rail at rest, a different amount after every scroll — the last
+scroll event the main thread sees is not where iOS finally settles, and
+nothing re-read it. Two rules from that: anchor a scroll-tracked edge to the
+fixed element it must meet (here the walk rail's bottom, 3px behind its
+line), never to "the viewport top"; and let the compositor drive it where it
+can — `.edge-cover` now rides a scroll-driven animation (`animation-timeline:
+scroll(root)`) whose `animation-range` is an absolute `0px 100000px` of scroll
+offset rather than the page's 0–100%, which would depend on the scrollport's
+height and change as the bars collapse. The script self-checks the mapping on
+the first scroll events and falls back to a rail-anchored tracker that keeps
+re-reading for 600 ms after every scroll (`?cover=js` forces it). Whether
+Safari runs that timeline on its compositor is the open measurement.
 
 ## 4 · State resets on every open (round 19)
 

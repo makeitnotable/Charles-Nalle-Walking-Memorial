@@ -107,11 +107,13 @@ const canonical = new URL(
           var q = location.search;
           if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
           /* v20 (round 23): the chapter cover's device flags. `?cover=off`
-             turns the cover off for a before/after on the phone; `?feather=<px>`
-             softens the cover's bottom edge (the default is 0, a hard edge —
-             his device pass). Inline, one page load; v2's defaults are
-             untouched. */
-          if (/(^|[?&])cover=off(&|$)/.test(q)) document.documentElement.dataset.cover = "off";
+             turns the cover off for a before/after on the phone; `?cover=js`
+             makes the scroll-event tracker drive it instead of the compositor
+             (device pass 2); `?feather=<px>` softens the cover's bottom edge
+             (the default is 0, a hard edge — device pass 1). Inline, one page
+             load; v2's defaults are untouched. */
+          var c = /(^|[?&])cover=(off|js)(&|$)/.exec(q);
+          if (c) document.documentElement.dataset.cover = c[2];
           var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
           if (f) document.documentElement.style.setProperty("--edge-cover-feather", f[2] + "px");
         } catch (e) {}
@@ -428,20 +430,88 @@ const canonical = new URL(
           }
         }
         /* v20 (round 23): the chapter cover (`.edge-cover`, global.css). A
-           320px block positioned in the document and moved with the scroll so
-           its bottom edge rides exactly on the viewport's top edge: it covers
-           only what has scrolled past, which the reader can see through
-           Safari's minimized bar and nowhere else. Moved on EVERY scroll event,
-           not at the sampler's 100 ms cadence — one transform write, no
-           layout, no paint — and coloured by the sampler at its own cadence.
-           Off wherever the stylesheet keeps it display:none (every browser
-           without collapsing glass bars), where no listener is attached at
-           all. Decided at `load`, when the stylesheet is certainly applied. */
+           320px block positioned in the document whose BOTTOM edge must sit
+           on the walk rail — the 3px readout fixed at the viewport's top — so
+           it covers exactly what has scrolled past the top edge, which the
+           reader sees through Safari's minimized bar and nowhere else.
+
+           Device pass 2 (Wil, 2026-09-18, 17:41): the first tracker set the
+           transform from `scrollY` on each scroll event, and at rest the
+           cover sat 3–6px above the rail, a different amount after every
+           scroll — the last scroll event's position is not where iOS finally
+           settles, and nothing re-read it. Two changes. (1) Where the
+           stylesheet's scroll-driven animation applies (`animationName` is
+           `edge-cover-track`), the COMPOSITOR moves the cover from the true
+           scroll offset every frame, and this script only checks it: at
+           rest and on the first scroll events the cover's rendered bottom
+           must sit on the rail's; if it does not (a browser mapping the
+           range differently, or a stylesheet forcing the duration to 0s),
+           the animation is switched off and the tracker below takes over.
+           (2) The tracker anchors to the rail rather than the
+           viewport top — the layout viewport's scroll offset (`pageTop −
+           offsetTop`, so a visual/layout split cannot open a slit) plus the
+           rail's own bottom edge — and after any scroll, resize or bar
+           change it keeps re-reading on requestAnimationFrame for 600 ms
+           after the position last changed, so the settled state is always
+           the one painted. Coloured by the sampler at its own cadence. Off
+           wherever the stylesheet keeps it display:none (every browser
+           without collapsing glass bars): no listener is attached there.
+           Decided at `load`, when the stylesheet is certainly applied. */
         var cover = null;
         var coverH = 0;
         var lastCover = "";
+        var rail = null;
+        var vv = window.visualViewport;
+        var coverY = null;
+        var coverUntil = 0;
+        var coverRaf = 0;
+        var coverAnimated = false;
+        var coverChecks = 0;
+        function layoutScrollY() {
+          return vv ? vv.pageTop - vv.offsetTop : window.scrollY || 0;
+        }
+        function railBottom() {
+          if (!rail) return 0;
+          var r = rail.getBoundingClientRect();
+          return r.height > 0 ? r.bottom : 0;
+        }
         function coverTrack() {
-          cover.style.transform = "translate3d(0," + ((window.scrollY || 0) - coverH) + "px,0)";
+          var t = layoutScrollY() + railBottom() - coverH;
+          if (t === coverY) return false;
+          coverY = t;
+          cover.style.transform = "translate3d(0," + t + "px,0)";
+          return true;
+        }
+        function coverLoop() {
+          coverRaf = 0;
+          var now = performance.now();
+          if (coverTrack()) coverUntil = now + 600;
+          if (now < coverUntil) coverRaf = requestAnimationFrame(coverLoop);
+        }
+        function coverCheck() {
+          if (coverChecks >= 12) return;
+          /* A failure is visible at ANY offset, at rest included: a duration
+             forced to 0s (a probe's still-sheet did exactly this) parks the
+             animation on its end keyframe, 100000px down the page. Only a
+             pass is uninformative at rest — at offset 0 the `from` keyframe
+             holds whatever the range mapping — so passes count from 60px. */
+          if (Math.abs(cover.getBoundingClientRect().bottom - railBottom()) > 8) {
+            coverAnimated = false;
+            cover.style.animation = "none";
+            coverY = null;
+            coverWake();
+            return;
+          }
+          if (layoutScrollY() >= 60) coverChecks++;
+        }
+        function coverWake() {
+          if (coverAnimated) {
+            coverCheck();
+            return;
+          }
+          coverUntil = performance.now() + 600;
+          coverTrack();
+          if (!coverRaf) coverRaf = requestAnimationFrame(coverLoop);
         }
         function paintCover(c) {
           if (!cover || !c || c === lastCover) return;
@@ -453,11 +523,20 @@ const canonical = new URL(
           if (!el || getComputedStyle(el).display === "none") return;
           cover = el;
           coverH = el.offsetHeight;
-          addEventListener("scroll", coverTrack, { passive: true });
-          addEventListener("resize", coverTrack, { passive: true });
-          addEventListener("orientationchange", coverTrack, { passive: true });
-          addEventListener("pageshow", coverTrack);
-          coverTrack();
+          rail = document.querySelector(".walk-rail");
+          coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
+          var opts = { passive: true };
+          addEventListener("scroll", coverWake, opts);
+          addEventListener("scrollend", coverWake, opts);
+          addEventListener("resize", coverWake, opts);
+          addEventListener("orientationchange", coverWake, opts);
+          addEventListener("touchend", coverWake, opts);
+          addEventListener("pageshow", coverWake);
+          if (vv) {
+            vv.addEventListener("scroll", coverWake, opts);
+            vv.addEventListener("resize", coverWake, opts);
+          }
+          coverWake();
           schedule();
         }
         if (document.readyState === "complete") coverInit();

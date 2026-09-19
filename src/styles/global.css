@@ -2358,12 +2358,34 @@ html[data-root-fill="map"] body {
    solid ground in the document, exactly where the scrolled-past content is.
 
    THE COVER. One absolute box in the document (a child of <body>, so it lives
-   in the scrolling layer, not the viewport layer), 320px tall, moved by the
-   sampler script on every scroll event so its BOTTOM edge rides on the
-   viewport's top edge (translateY = scrollY − 320). Everything it covers is
-   above the viewport by construction; the reader sees it only through the
-   bar. Its colour is the section at the top edge, from the same resolver that
-   writes <body>, so the glass, Safari's tint and the cover agree.
+   in the scrolling layer, not the viewport layer), 320px tall, moved with the
+   scroll so its BOTTOM edge sits on the walk rail — the 3px progress readout
+   fixed at the viewport's top (`.walk-rail`, z 900, over this at 800): the
+   last 3px of the cover lie behind the rail's line, so the fill ends exactly
+   where the rail is, with no slit above it and nothing below it. Everything
+   the cover paints is above the viewport by construction; the reader sees it
+   only through the bar. Its colour is the section at the top edge, from the
+   same resolver that writes <body>, so the glass, Safari's tint and the cover
+   agree.
+
+   HOW IT MOVES — device pass 2 (Wil, 2026-09-18, 17:41: the fill "changes
+   height as you scroll", and a slit of content showed between it and the
+   rail). The first push set the transform from `scrollY` on each scroll
+   event, and at rest the cover sat 3–6px above the rail, a different amount
+   after every scroll: the last scroll event's position is not where iOS
+   finally settles, and nothing re-read it. So, where a browser supports
+   scroll-driven animations, the COMPOSITOR moves it: `edge-cover-track`
+   below is a linear animation on a `scroll(root)` timeline whose range is
+   an absolute 0–100000px of scroll offset (not the page's own 0–100%, which
+   would depend on the scrollport's height and change as the bars collapse),
+   so translateY = scrollOffset + rail − 320 at every frame, from the true
+   offset, with no main-thread lag and no stale value. The sampler script
+   self-checks it on the first scroll events (the cover's rendered bottom
+   must sit on the rail's; had a browser mapped the range differently the
+   cover would be a slab sweeping the page, so the check switches the
+   animation off) and otherwise tracks the rail itself from the layout
+   viewport's offset, re-reading for 600 ms after every scroll until the
+   position stops changing. `?cover=js` forces that tracker on the device.
 
    THE EDGE — HARD, BY HIS DEVICE PASS. Scrolling is asynchronous on iOS: the
    compositor moves the page and the main thread follows a frame later, so on
@@ -2408,6 +2430,41 @@ html[data-root-fill="map"] body {
 @supports (-webkit-touch-callout: none) {
   html[data-top-bar="section"]:not([data-cover="off"]) .edge-cover {
     display: block;
+  }
+}
+/* The compositor path (device pass 2, above). `from` is the rest position:
+   the cover's bottom 3px behind the rail, whose line sits at
+   env(safe-area-inset-top) — 0 in a Safari tab. `to` is the same 100000px
+   further, and the range says those two keyframes span scroll offsets 0 to
+   100000px exactly, so every offset in between maps one-to-one. Longhands,
+   not the shorthand: the timeline must come after `animation` or the
+   shorthand resets it, and the duration stays at its initial `auto`, which is
+   what a scroll timeline needs. Not a motion effect (docs/v4/MOTION.md): the
+   cover is never inside the viewport, so nothing the reader sees moves. */
+@supports (animation-timeline: scroll()) {
+  @keyframes edge-cover-track {
+    from {
+      transform: translate3d(0, calc(3px + env(safe-area-inset-top, 0px) - 320px), 0);
+    }
+    to {
+      transform: translate3d(0, calc(100000px + 3px + env(safe-area-inset-top, 0px) - 320px), 0);
+    }
+  }
+  /* Under `prefers-reduced-motion: reduce` the script's tracker drives the
+     cover instead. Not because this is motion (it is not — nothing the reader
+     sees moves), but because the common reduced-motion idiom forces every
+     `animation-duration` to 0s, and a scroll-driven animation with a 0s
+     duration parks on its END keyframe, 100000px down the page; the probe's
+     own still-sheet did exactly that. The tracker has no such failure mode,
+     and the sampler's self-check would catch it anyway. */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-top-bar="section"]:not([data-cover="js"]) .edge-cover {
+      animation-name: edge-cover-track;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 100000px;
+    }
   }
 }
 
