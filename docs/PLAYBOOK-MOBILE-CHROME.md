@@ -146,10 +146,21 @@ the scrolling thread — `position: fixed` (clipped to the viewport, so never
 in the bar region) or `position: sticky` (in the scrolled contents, so
 possibly there). The cover is sticky now: first in `<body>`'s flow, 320px
 tall, a −320px bottom margin, drawn 319px above its layout box, `top: 0`.
-Whether WebKit paints a stuck box in the bar region is the open measurement
-— A2's "pinned overflow is clipped" came from a box that also carried
-`overflow: clip`, which Safari applies without Chrome's clip-margin, so it
-does not settle this.
+**Device pass 5 measured it: a stuck box is clipped at the viewport exactly
+like a fixed one and never paints in the bar region** ("now it's
+transparent"). So the list is closed: that region shows scrolled page paint
+and Safari's own tint, nothing else — and an element Safari reads for its
+own fill (round 8, tests 4–5) has to be a VISIBLE opaque strip, read as a
+tint source. A solid fill there is scrolled page paint or nothing, and page
+paint is positioned by the page, one frame behind the compositor at speed.
+The chapter cover therefore lives with that frame instead of hiding it:
+hard and exact at rest, feathered in proportion to scroll speed while the
+page moves (`.edge-cover.is-soft`, feather = speed × 40 ms, ≤ 64px), which
+the eye reads as motion rather than as a slit. `?debug=1` on a chapter
+prints the driving path, `animation-timeline` support, the parsed
+`animation-range-end` and the Safari version; `?cover=track&debug=1` is
+the one screenshot that settles whether a compositor-run timeline is
+available on the phone.
 
 ## 4 · State resets on every open (round 19)
 

@@ -29,6 +29,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 5 (2026-09-18, 20:35): a sticky box is clipped
+at the viewport like a fixed one — measured, "now it's transparent" — so the
+bar region can only be solid through scrolled page paint, positioned by the
+page, a frame behind at speed. Sixth push: the rail-anchored tracker is the
+default again with a SPEED-PROPORTIONAL feather (hard and exact at rest,
+soft only in motion, so the frame of lag reads as a soft edge instead of a
+slit); the timeline is `?cover=track`; `?debug=1` reports the driving path,
+timeline support, the parsed range and the Safari version. Awaiting his read
+on the soft edge, and one `?cover=track&debug=1` screenshot. Pass-4 record
+follows.
 Round 23, after device pass 4 (2026-09-18, 20:14): his crop of the expanded
 bar mid-scroll showed the cover a frame behind the compositor (~30px above
 the rail at speed) — main-thread positioning cannot be smooth in the bar

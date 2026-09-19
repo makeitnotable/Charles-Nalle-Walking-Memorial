@@ -2398,15 +2398,21 @@ html[data-root-fill="map"] body {
    mid-scroll): the cover's edge sat ~30px above the rail with the archival
    photo showing between them, and the whole region "buggy / jittery and not
    smooth". That is a frame's lag at speed — so on his phone the timeline is
-   NOT running on the compositor (or the script was driving). Nothing placed
-   from the main thread can be smooth there; only what the scrolling thread
-   itself places can — and the one in-flow thing it places is `position:
-   sticky`. So the cover is a sticky box now (the rule below) and the tracked
-   variants are flags (`?cover=track` for pass 3's timeline, `?cover=js` for
-   the script). What the phone decides: whether WebKit paints a stuck box's
-   pixels in the bar region as it paints the runway's. If it does not, the
-   bar shows content again — the pass-0 look, tint tracking still on — and
-   `?cover=track` restores pass 3.
+   NOT running on the compositor (or the script was driving). The fifth push
+   tried the one in-flow thing the scrolling thread places itself, a sticky
+   box; DEVICE PASS 5 (20:35) measured the answer: a stuck box is clipped at
+   the viewport exactly like a fixed one and never paints in the bar region
+   — "now it's transparent". And round 8's tests 4 and 5 already showed that
+   an element Safari reads for its own fill has to be a VISIBLE opaque strip,
+   read as a tint source. So the region can only be solid through scrolled
+   page paint, positioned by the page, a frame behind at speed. Pass 5's
+   answer is to make that frame invisible rather than pretend it away: the
+   tracker is the default again, and the cover's bottom edge is feathered in
+   proportion to scroll speed — hard and exact at rest (the state pass 1 got
+   right), soft only while the page moves, when the eye reads a soft edge
+   under the pill as motion and a hard, lagging one as a slit. The timeline
+   stays behind `?cover=track` with `?debug=1` reporting whether his Safari
+   supports and accelerates it.
 
    THE EDGE — HARD, BY HIS DEVICE PASS. Scrolling is asynchronous on iOS: the
    compositor moves the page and the main thread follows a frame later, so on
@@ -2435,43 +2441,24 @@ html[data-root-fill="map"] body {
    REVERT: delete this block, the markup in Base.astro and its tracker. */
 .edge-cover {
   display: none;
-  /* Device pass 4: STICKY. The box sits first in <body>'s flow, 320px tall
-     with a −320px bottom margin so <main> still starts at 0, and is drawn
-     320px higher than it is laid out (the transform), i.e. at document
-     −320 → 0 at rest. `top: 0` then makes the scrolling thread hold its
-     layout box on the viewport's top edge from the first pixel of scroll,
-     so the painted box always spans the 320px above that edge — the bar
-     region — with no script, no timeline and no lag: whatever the
-     compositor draws behind the bars is drawn from this position. 319
-     rather than 320 leaves the last pixel inside the rail's line. */
-  position: sticky;
+  position: absolute;
   top: 0;
+  inset-inline: 0;
   height: 320px;
-  margin-bottom: -320px;
   z-index: 800;
-  transform: translate3d(0, -319px, 0);
+  transform: translate3d(0, -320px, 0);
   will-change: transform;
   pointer-events: none;
   overflow-anchor: none;
   background-color: var(--color-primary-2);
 }
-/* The tracked variants of device passes 2–3, behind `?cover=track` (the
-   scroll timeline, self-checked) and `?cover=js` (the script): an absolute
-   box that the timeline or the script moves. */
-html[data-cover="track"] .edge-cover,
-html[data-cover="js"] .edge-cover {
-  position: absolute;
-  top: 0;
-  inset-inline: 0;
-  margin-bottom: 0;
-  transform: translate3d(0, -320px, 0);
-}
-/* Device pass 3 (Wil, 2026-09-18): no mask by default. With the feather at 0
-   the mask was a degenerate two-stop gradient on a moving composited layer —
-   one more thing to rasterise for nothing, and a candidate for the
-   "distortion" he saw at speed. The soft edge exists only while
-   `?feather=<px>` asks for it (the flag also marks <html> with data-feather). */
-html[data-feather] .edge-cover {
+/* The soft edge (device pass 5): the script adds `is-soft` and sets the
+   feather while the page is moving, in proportion to its speed, and removes
+   both at rest — so the mask exists only while it hides something (the frame
+   of lag) and the edge at rest is a hard line 1px inside the rail. Device
+   pass 3 had found the idle, zero-width mask worth removing; it still is.
+   `?feather=<px>` holds a constant softness for a comparison on the phone. */
+.edge-cover.is-soft {
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
   mask-image: linear-gradient(to bottom, #000 calc(100% - var(--edge-cover-feather)), transparent 100%);
 }
@@ -2481,7 +2468,9 @@ html[data-feather] .edge-cover {
   }
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
-   device pass 4). `from` is the rest position:
+   device pass 4 — if the `?debug=1` readout ever shows it supported and the
+   edge smooth on the phone, it becomes the default again). `from` is the
+   rest position:
    the cover's bottom 1px inside the top of the rail's line, whose top sits at
    env(safe-area-inset-top) — 0 in a Safari tab. Device pass 3 (Wil,
    2026-09-18): "the solid extends slightly beyond the progress indicator" —

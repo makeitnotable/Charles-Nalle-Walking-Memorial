@@ -107,17 +107,17 @@ const canonical = new URL(
           var q = location.search;
           if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
           /* v20 (round 23): the chapter cover's device flags. `?cover=off`
-             turns the cover off for a before/after on the phone; `?cover=js`
-             makes the scroll-event tracker drive it instead of the compositor
-             (device pass 2); `?cover=track` the scroll timeline of device
-             pass 3 (the default is a sticky box since device pass 4);
-             `?cover=debug` adds a readout of which path is driving and the
-             viewport geometry (device pass 3); `?feather=<px>`
-             softens the cover's bottom edge (the default is 0, a hard edge —
-             device pass 1). Inline, one page load; v2's defaults are
-             untouched. */
-          var c = /(^|[?&])cover=(off|js|track|debug)(&|$)/.exec(q);
+             turns the cover off for a before/after on the phone; `?cover=track`
+             drives it with the scroll timeline of device passes 2–4 instead
+             of the script (`?cover=js` is the script, the default since
+             device pass 5); `?debug=1` adds a readout of which path is
+             driving, what the browser supports and the viewport geometry;
+             `?feather=<px>` holds the cover's bottom edge at a constant
+             softness (the default is speed-proportional: hard at rest).
+             Inline, one page load; v2's defaults are untouched. */
+          var c = /(^|[?&])cover=(off|js|track)(&|$)/.exec(q);
           if (c) document.documentElement.dataset.cover = c[2];
+          if (/(^|[?&])debug=1(&|$)/.test(q)) document.documentElement.dataset.debug = "1";
           var f = /(^|[?&])feather=(\d{1,3})(&|$)/.exec(q);
           if (f) {
             document.documentElement.dataset.feather = f[2];
@@ -436,35 +436,34 @@ const canonical = new URL(
             meta.setAttribute("content", best);
           }
         }
-        /* v20 (round 23): the chapter cover (`.edge-cover`, global.css). A
-           320px block positioned in the document whose BOTTOM edge must sit
-           on the walk rail — the 3px readout fixed at the viewport's top — so
-           it covers exactly what has scrolled past the top edge, which the
-           reader sees through Safari's minimized bar and nowhere else.
+        /* v20 (round 23): the chapter cover (`.edge-cover`, global.css) — the
+           section's ground painted over what has scrolled past the top edge,
+           which is what Safari's minimized bar shows through its glass.
 
-           Device pass 2 (Wil, 2026-09-18, 17:41): the first tracker set the
-           transform from `scrollY` on each scroll event, and at rest the
-           cover sat 3–6px above the rail, a different amount after every
-           scroll — the last scroll event's position is not where iOS finally
-           settles, and nothing re-read it. Two changes. (1) Where the
-           stylesheet's scroll-driven animation applies (`animationName` is
-           `edge-cover-track`), the COMPOSITOR moves the cover from the true
-           scroll offset every frame, and this script only checks it — at
-           rest, 300 ms after the last scroll or resize event (device pass
-           3): the cover's rendered bottom must sit 1px inside the top of
-           the rail's line; if it does not (a browser mapping the range
-           differently, or a stylesheet forcing the duration to 0s), the
-           animation is switched off and the tracker below takes over.
-           (2) The tracker anchors to the rail rather than the
-           viewport top — the layout viewport's scroll offset (`pageTop −
-           offsetTop`, so a visual/layout split cannot open a slit) plus the
-           rail's own top edge, 1px in — and after any scroll, resize or bar
-           change it keeps re-reading on requestAnimationFrame for 600 ms
-           after the position last changed, so the settled state is always
-           the one painted. Coloured by the sampler at its own cadence. Off
-           wherever the stylesheet keeps it display:none (every browser
-           without collapsing glass bars): no listener is attached there.
-           Decided at `load`, when the stylesheet is certainly applied. */
+           What five device passes established (2026-09-18/19, Wil's iPhone,
+           iOS 26.6): the region behind the bars shows only SCROLLED content;
+           a pinned box — fixed or sticky — is clipped at the viewport and
+           never paints there; a box moved from the main thread sits a frame
+           behind the compositor while the page moves, by speed × a frame
+           (~30px on a flick), which shows as a slit or a jump at the cover's
+           edge; and Safari's own tint from <body> is a gradient, not a fill.
+           So: the cover is an absolute box in the document, moved by this
+           script on every scroll event and on requestAnimationFrame until
+           the position settles, anchored to the walk rail (its bottom 1px
+           inside the rail's line, from the layout viewport's offset so a
+           visual/layout split cannot open a slit), and — the pass-5 change —
+           its bottom edge is FEATHERED IN PROPORTION TO SCROLL SPEED: at rest
+           the edge is hard and exact; in motion the last F px fade out, F
+           growing with speed, so the frame of lag reads as a soft edge under
+           the pill rather than a slit of content. Pass 1 shipped a fixed
+           16px feather and he called it "almost perfect"; the gradient he
+           then saw at rest is what the speed-proportional version removes.
+
+           The scroll-driven-animation path of passes 2–4 (a `scroll(root)`
+           timeline the compositor could run) stays behind `?cover=track`
+           with its self-check, until the `?debug=1` readout shows whether
+           his Safari supports and accelerates it. `?cover=off` for a
+           before/after, `?feather=<px>` for a constant feather. */
         var cover = null;
         var coverH = 0;
         var lastCover = "";
@@ -474,11 +473,15 @@ const canonical = new URL(
         var coverUntil = 0;
         var coverRaf = 0;
         var coverAnimated = false;
-        var coverSticky = false;
         var coverChecks = 0;
         var coverFailed = false;
         var checkTimer = 0;
         var debugBox = null;
+        var lastT = 0;
+        var lastS = 0;
+        var vel = 0;
+        var feather = 0;
+        var featherFixed = -1;
         function layoutScrollY() {
           return vv ? vv.pageTop - vv.offsetTop : window.scrollY || 0;
         }
@@ -490,8 +493,29 @@ const canonical = new URL(
           var r = rail.getBoundingClientRect();
           return r.height > 0 ? r.top + 1 : 0;
         }
+        /* Speed → feather. `vel` is px/ms, smoothed; the frame of lag is about
+           vel × 20–33 ms, so F = vel × 40 ms covers it with margin, capped at
+           64px (about the pill's own height), and 0 below a slow drift. */
+        function setFeather(f) {
+          f = Math.round(f);
+          if (f === feather) return;
+          feather = f;
+          cover.style.setProperty("--edge-cover-feather", f + "px");
+          cover.classList.toggle("is-soft", f > 0);
+        }
         function coverTrack() {
-          var t = layoutScrollY() + coverEdge() - coverH;
+          var s = layoutScrollY();
+          var now = performance.now();
+          if (lastT) {
+            var dt = now - lastT;
+            if (dt >= 250) vel = 0;
+            else if (dt > 0) vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+          }
+          lastT = now;
+          lastS = s;
+          var speed = Math.abs(vel);
+          setFeather(featherFixed >= 0 ? featherFixed : speed < 0.15 ? 0 : Math.min(64, speed * 40));
+          var t = s + coverEdge() - coverH;
           if (t === coverY) return false;
           coverY = t;
           cover.style.transform = "translate3d(0," + t + "px,0)";
@@ -502,18 +526,18 @@ const canonical = new URL(
           var now = performance.now();
           if (coverTrack()) coverUntil = now + 600;
           if (now < coverUntil) coverRaf = requestAnimationFrame(coverLoop);
+          else if (featherFixed < 0) {
+            vel = 0;
+            setFeather(0);
+          }
         }
-        /* The compositor path's self-check, AT REST ONLY (device pass 3): it
-           runs 300 ms after the last scroll or resize event, when the main
-           thread's view of the animation and of the rail agree with what is
-           on screen. Checked in motion — device pass 2's version — it could
-           read the main thread a frame behind the compositor, call that a
-           failure, and hand the cover to the tracker for good, after which
-           every scroll lagged: his "flicker at different speeds". A failure
-           is visible at ANY offset, at rest included (a duration forced to
-           0s parks the animation on its end keyframe, 100000px down the
-           page); a pass is uninformative at offset 0, where the `from`
-           keyframe holds whatever the mapping, so passes count from 60px. */
+        /* The compositor path's self-check (`?cover=track` only), AT REST:
+           300 ms after the last scroll or resize event, the cover's rendered
+           bottom must sit 1px inside the rail's line; if it does not (a
+           browser mapping the range differently, or a stylesheet forcing the
+           duration to 0s), the animation is switched off and the tracker
+           takes over. A failure is visible at any offset; a pass is
+           uninformative at 0, so passes count from 60px. */
         function coverCheck() {
           checkTimer = 0;
           if (!coverAnimated || coverChecks >= 12) return;
@@ -543,20 +567,25 @@ const canonical = new URL(
           lastCover = c;
           cover.style.backgroundColor = c;
         }
-        /* `?cover=debug` (device pass 3): a readout for the device pass — which
-           path drives the cover, and the geometry only the phone can report. */
+        /* `?debug=1`: a readout for the device pass — which path drives the
+           cover, what the browser says it supports, and the geometry only
+           the phone can report. */
         function debugPaint() {
           var r = rail ? rail.getBoundingClientRect() : { top: 0 };
           var cr = cover.getBoundingClientRect();
+          var cs = getComputedStyle(cover);
           var n = function (v) { return Math.round(v * 10) / 10; };
+          var ua = (navigator.userAgent.match(/Version\/[\d.]+/) || [""])[0];
           debugBox.textContent =
-            (coverSticky ? "sticky" : coverAnimated ? "compositor" : coverFailed ? "tracker (check failed)" : "tracker") +
-            " · checks " + coverChecks +
+            (coverAnimated ? "compositor" : coverFailed ? "tracker (timeline check failed)" : "tracker") +
+            " · checks " + coverChecks + " · " + ua +
+            "\ntimeline " + (window.CSS && CSS.supports("animation-timeline: scroll()") ? "supported" : "unsupported") +
+            " · range-end " + (cs.animationRangeEnd || "-") + " · anims " + cover.getAnimations().length +
             "\nscrollY " + n(window.scrollY) +
             " · pageTop " + (vv ? n(vv.pageTop) : "-") +
             " · offsetTop " + (vv ? n(vv.offsetTop) : "-") +
             "\ninnerHeight " + window.innerHeight + " · vv.height " + (vv ? n(vv.height) : "-") +
-            "\nrail top " + n(r.top) + " · cover bottom " + n(cr.bottom) +
+            "\nrail top " + n(r.top) + " · cover bottom " + n(cr.bottom) + " · feather " + feather +
             "\ncolour " + lastCover;
         }
         function coverInit() {
@@ -565,23 +594,19 @@ const canonical = new URL(
           cover = el;
           coverH = el.offsetHeight;
           rail = document.querySelector(".walk-rail");
-          /* Device pass 4: the default cover is a sticky box that the
-             scrolling thread holds in place — nothing here moves it; the
-             script only colours it. The tracked variants (`?cover=track`,
-             `?cover=js`) are absolute and take the listeners below. */
-          coverSticky = getComputedStyle(el).position === "sticky";
-          coverAnimated = !coverSticky && getComputedStyle(el).animationName === "edge-cover-track";
-          if (document.documentElement.dataset.cover === "debug") {
+          coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
+          var ff = parseInt(document.documentElement.dataset.feather || "", 10);
+          if (ff >= 0) {
+            featherFixed = ff;
+            setFeather(ff);
+          }
+          if (document.documentElement.dataset.debug === "1") {
             debugBox = document.createElement("pre");
             debugBox.setAttribute("aria-hidden", "true");
             debugBox.style.cssText =
               "position:fixed;left:8px;bottom:120px;z-index:100002;margin:0;padding:8px 10px;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.75);border-radius:8px;pointer-events:none;white-space:pre";
             document.body.appendChild(debugBox);
             setInterval(debugPaint, 250);
-          }
-          if (coverSticky) {
-            schedule();
-            return;
           }
           var opts = { passive: true };
           addEventListener("scroll", coverWake, opts);
