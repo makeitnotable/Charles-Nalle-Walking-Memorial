@@ -901,6 +901,10 @@ const focus =
          the reader grows any more; this stays because the refresh itself —
          every trigger re-measured mid-thumb — is the other half of the freeze. */
       ScrollTrigger.config({ ignoreMobileResize: true });
+      /* Round 23, device pass 8: in the inner-scroll mode (`?scroll=inner`,
+         Base.astro / global.css) <main> is the scroller and the document
+         never moves, so every trigger below measures against <main>. */
+      if (document.documentElement.dataset.scroll === "inner") ScrollTrigger.defaults({ scroller: "#main" });
 
       /* v7 C2 — the moral's ground drifts against the reader (±6% travel,
          scrubbed, the image oversized so no edge ever shows). Meaningful:

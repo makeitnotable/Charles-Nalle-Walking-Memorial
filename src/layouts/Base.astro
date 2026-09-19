@@ -119,6 +119,15 @@ const canonical = new URL(
           if (/(^|[?&])debug=1(&|$)/.test(q)) document.documentElement.dataset.debug = "1";
           var vz = /(^|[?&])visor=(\d{1,3})(&|$)/.exec(q);
           if (vz) document.documentElement.style.setProperty("--edge-visor", vz[2] + "px");
+          /* Device pass 8: `?scroll=inner` scrolls the chapter inside <main>
+             and leaves the document still, so the region behind the top bar
+             shows the canvas — <body>'s colour, the section at the top edge —
+             static, painted by Safari itself, with no cover and no visor.
+             `?scroll=doc` forces the document scroller. global.css has the
+             rules and the trade (Safari's bars collapse only when the
+             document scrolls). */
+          var sm = /(^|[?&])scroll=(inner|doc)(&|$)/.exec(q);
+          if (sm) document.documentElement.dataset.scroll = sm[2];
         } catch (e) {}
       })();
     </script>
@@ -831,6 +840,28 @@ const canonical = new URL(
     <main id="main">
       <slot />
     </main>
+    <script is:inline>
+      /* Device pass 8 (round 23): in the inner-scroll mode (`?scroll=inner`,
+         global.css) <main> is the scroller and the document never moves.
+         Everything that listens for the page scrolling on `window` — the
+         sampler above, the corner menu, the narration's mini player — hears
+         <main>'s scroll re-sent on window, so none of it changes; the menu
+         and the chapter's scroll triggers read <main>'s own offset (Menu.astro,
+         [chapter].astro). The cover's tracker never starts here: the cover is
+         display:none in this mode, and coverInit returns on that. */
+      (function () {
+        if (document.documentElement.dataset.scroll !== "inner") return;
+        var m = document.getElementById("main");
+        if (!m) return;
+        m.addEventListener(
+          "scroll",
+          function () {
+            window.dispatchEvent(new Event("scroll"));
+          },
+          { passive: true }
+        );
+      })();
+    </script>
 
     <script>
       import { initCurtain } from "../lib/curtain";

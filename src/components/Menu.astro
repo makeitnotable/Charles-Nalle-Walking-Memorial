@@ -258,7 +258,12 @@ const notchClass =
   (() => {
     const menus = Array.from(document.querySelectorAll<HTMLElement>(".cnwm-menu"));
     if (!menus.length) return;
-    let last = window.scrollY;
+    /* Round 23, device pass 8: in the inner-scroll mode (`?scroll=inner`,
+       Base.astro) <main> is the scroller and the document sits at 0, so the
+       offset is read from <main>; its scroll events reach window re-sent. */
+    const inner = document.documentElement.dataset.scroll === "inner" ? document.getElementById("main") : null;
+    const pos = () => (inner ? inner.scrollTop : window.scrollY);
+    let last = pos();
     /* v7 N2: touch scrolling fires many small scroll events (5–15px each), so
        the old "one event moved 24px" test never fired on a phone and the
        burger rode over the art all page long. Travel is now ACCUMULATED per
@@ -274,7 +279,7 @@ const notchClass =
     window.addEventListener(
       "scroll",
       () => {
-        const y = window.scrollY;
+        const y = pos();
         const dy = y - last;
         last = y;
         if (dy > 0) {
@@ -303,7 +308,7 @@ const notchClass =
       const guard = () => {
         if (performance.now() < until) {
           down = 0;
-          last = window.scrollY;
+          last = pos();
           set(false);
           requestAnimationFrame(guard);
         }

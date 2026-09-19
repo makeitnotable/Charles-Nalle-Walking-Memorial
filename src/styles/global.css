@@ -2484,18 +2484,75 @@ html[data-root-fill="map"] body {
   initial-value: 16px;
 }
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"]:not([data-cover="off"]) .walk-rail-static {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static {
     height: var(--edge-visor);
     align-items: flex-end;
     background-color: var(--color-primary-2);
   }
-  html[data-top-bar="section"]:not([data-cover="off"]) .walk-rail-static .walk-seg {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static .walk-seg {
     height: 3px;
   }
 }
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"]:not([data-cover="off"]) .edge-cover {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .edge-cover {
     display: block;
+  }
+}
+/* ── Device pass 8 (Wil, 2026-09-19, 16:38): THE STILL DOCUMENT ─────────────
+   "Why does the solid fill behind and around the address bar need to change
+   size at all when scrolling? Why can't it just be a solid fill that is
+   static and changes color when the section changes color?" Because the
+   region behind Safari's top bar shows scrolled page paint and nothing else
+   (playbook §1: fixed and sticky boxes are clipped at the viewport), so a
+   fill there had to be a piece of the page moved into place every frame,
+   and a frame behind the compositor is what he saw in seven passes. The one
+   STATIC thing Safari paints in that region is the canvas — <body>'s colour
+   — and it shows only where the document has not scrolled past it. So in
+   this mode the document never scrolls: <html> is the viewport's height and
+   clips; <main> is the scroller, exactly the layout viewport plus
+   `--reader-e` under the bottom toolbar (the runway's E from /map, so
+   content still shows through the bottom bar's glass, which he asked to
+   keep), with the same E of padding at its end so the last line can still
+   clear the toolbar. Above the viewport there is nothing but canvas, and
+   <body> already carries the section at the top edge (the sampler), so the
+   bar region is a solid, static fill that switches colour at each section:
+   no cover, no visor, no tracker, nothing to lag. The trade is Safari's own:
+   its bars collapse only when the DOCUMENT scrolls, so here they stay
+   expanded while reading (the address bar and the toolbar, 199px of his
+   screen) — and, the other side of the same coin, nothing on the page ever
+   re-lays out or re-tints because a bar moved. `?scroll=inner` on the phone;
+   whether it becomes the chapter default on iOS is his decision. */
+html[data-scroll="inner"] {
+  height: 100%;
+  overflow: hidden;
+}
+html[data-scroll="inner"] body {
+  height: 100%;
+  min-height: 0;
+}
+html[data-scroll="inner"] main#main {
+  --reader-e: 0px;
+  /* the containing block for its own absolutely positioned descendants (the
+     sr-only spans are `position: absolute`): with <main> static they would
+     resolve to the initial containing block and give the still document a
+     scrollable overflow of their own, which a focus() could scroll */
+  position: relative;
+  box-sizing: border-box;
+  height: calc(100% + var(--reader-e));
+  padding-bottom: var(--reader-e);
+  overflow-y: auto;
+  overflow-x: clip;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+}
+@supports (-webkit-touch-callout: none) {
+  html[data-scroll="inner"] main#main {
+    --reader-e: round(down, min(calc(100lvh - 100svh), 20svh), 1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-scroll="inner"] main#main {
+    scroll-behavior: auto;
   }
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since

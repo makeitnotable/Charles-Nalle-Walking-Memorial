@@ -29,6 +29,18 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, after device pass 8 (2026-09-19, 16:38): the flicker and the
+size change persist at every speed — the moving edge is the signature of
+any fill placed by the page, and he asked why the fill cannot simply be
+static. Ninth push, THE STILL DOCUMENT behind `?scroll=inner`: <html> clips
+at the viewport, <main> is the scroller (plus the runway's E under the
+bottom toolbar, `position: relative`), so the bar region shows the canvas —
+<body>, the section at the top edge — static, no cover/visor/tracker;
+<main>'s scroll is re-sent on window, the menu and ScrollTrigger read
+<main>. Trade: Safari's bars stay expanded while reading (they collapse only
+on document scroll). His decision: inner as the iOS chapter default, or
+collapsing bars with the moving edge. Default untouched. Pass-7 record
+follows.
 Round 23, after device pass 7 (2026-09-19, 06:15): "even better but now
 it's too tall", plus a flicker of content "both fast and slow". Eighth
 push: the cover aims at the TOP OF THE VISOR'S LINE (its foot), so the whole

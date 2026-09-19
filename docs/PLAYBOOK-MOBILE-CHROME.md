@@ -179,7 +179,18 @@ frame downward whichever way the page moves — a symmetric lead sits half a
 frame toward exposure on every scroll up, which at 1–2px/ms is the whole of
 a 16px half-band. Default `--edge-visor` is 16px (13px of room). What no
 lead covers is a dropped main-thread frame (~8px of room per frame at
-1px/ms); only a compositor-run timeline has none.
+1px/ms); only a compositor-run timeline has none. Device pass 8 closed the
+loop with the rule the whole round was circling: **a STATIC fill behind the
+top bar exists only where the document has not scrolled past it** — the
+canvas, `<body>`'s colour, is the one thing Safari paints there that no
+script places. So the still document (`?scroll=inner`): `<html>` clips at the
+viewport, `<main>` is the scroller (`position: relative`, plus the runway's
+E under the bottom toolbar so content still shows through its glass), the
+sampler's `<body>` write is the fill, and nothing lags because nothing
+moves. Its cost is fixed by Safari: bars collapse only on document scroll,
+so they stay expanded while reading. Two designs, one trade — collapsing
+bars with a page-placed edge, or a still document with a static fill — and
+the choice is the client's, not a measurement's.
 
 ## 4 · State resets on every open (round 19)
 
