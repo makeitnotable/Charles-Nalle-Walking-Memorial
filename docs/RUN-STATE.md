@@ -29,6 +29,13 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23 DONE and closed out (2026-09-20, Wil: "everything is perfect …
+close this out"). Pass 12: the closeout probe measured all five chapters
+identical under the still document (gate and E stood in), and pinned the
+root at 0 against programmatic scrolls (a focus into <main>'s run under the
+toolbar could have scrolled the document by E). Live on v2. Next round
+starts from the v2 tip with a new base tag; the cover/visor/tracker code
+behind `?scroll=doc` is a candidate for removal then.
 Round 23 DONE (2026-09-20, Wil: "we will call this done"). Pass 11 put the
 hero lockup back to item 3's rule (one gutter above the viewport's bottom;
 pass 10's capsule inset and `?lockup=` removed); the hero's margin below

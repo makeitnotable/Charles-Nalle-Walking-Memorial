@@ -874,6 +874,19 @@ const canonical = new URL(
           },
           { passive: true }
         );
+        /* Closeout (pass 12): the root is overflow:hidden, which stops the
+           reader scrolling it but not a script — a focus() or scrollIntoView
+           on something in <main>'s run under the toolbar would scroll the
+           document by up to E and put page paint back behind the bar. The
+           document stays at 0. (The re-sent events above arrive here too,
+           with scrollY 0, and do nothing.) */
+        addEventListener(
+          "scroll",
+          function () {
+            if (window.scrollY || window.scrollX) window.scrollTo(0, 0);
+          },
+          { passive: true }
+        );
       })();
     </script>
 
