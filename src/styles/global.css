@@ -2579,39 +2579,16 @@ html[data-scroll="inner"] main#main {
    page ground sits under the toolbar until the reader scrolls. The hero
    itself, its scrim and its media are untouched.
 
-   THE INSET. Item 3 set the lockup one gutter above the LAYOUT VIEWPORT's
-   bottom (22px of ink gap, verified 9/18). In the still document the bars
-   never collapse, and iOS 26's toolbar is a capsule floating ~18px below
-   that edge, so the gap he sees — ink to capsule — read as ~40px in his
-   crop, against the ~25px of his mock-up. The inset is therefore taken
-   from the capsule, not the edge: `--hero-lockup-inset`, 5px on phones
-   (ink ≈ 7px above the edge, one gutter above the capsule), the gutter on
-   tablets (no bottom toolbar there; the line's slack removed as on phones),
-   and desktop untouched, as item 3 promised. `?lockup=<px>` tries another
-   value on the phone. Only in the still document; the document scroller
-   keeps item 3's rule. Specificity: the chapter's scoped rules carry the
-   scope attribute on every compound, so these lead with the hero's id. */
+   THE INSET — tried and taken back. Pass 10 moved the lockup down to sit
+   one gutter above the toolbar's floating capsule (a 5px inset from the
+   viewport's edge) after his two crops; device pass 11 (2026-09-20: "I've
+   decided that I like the text higher where it was originally, please put
+   it back in that spot") restored item 3's rule — one gutter above the
+   layout viewport's bottom on phones, the collapsing-bars rule on tablets,
+   desktop untouched — which lives in [chapter].astro and needs nothing
+   here. Only the margin below remains of pass 10. */
 html[data-scroll="inner"] #hero {
   margin-bottom: var(--reader-e, 0px);
-}
-html[data-scroll="inner"] #hero .hero-lockup-shell {
-  padding-bottom: var(--hero-lockup-inset, 5px);
-}
-html[data-scroll="inner"] #hero .hero-lockup-shell .chapter-hero-h1 {
-  margin-bottom: calc(-1 * var(--hero-lockup-slack));
-}
-@media (min-width: 768px) {
-  html[data-scroll="inner"] #hero .hero-lockup-shell {
-    padding-bottom: var(--hero-lockup-inset, var(--gutter));
-  }
-}
-@media (min-width: 1024px) {
-  html[data-scroll="inner"] #hero .hero-lockup-shell {
-    padding-bottom: max(5svh, 32px);
-  }
-  html[data-scroll="inner"] #hero .hero-lockup-shell .chapter-hero-h1 {
-    margin-bottom: 0;
-  }
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the

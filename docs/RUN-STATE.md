@@ -29,6 +29,13 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23 DONE (2026-09-20, Wil: "we will call this done"). Pass 11 put the
+hero lockup back to item 3's rule (one gutter above the viewport's bottom;
+pass 10's capsule inset and `?lockup=` removed); the hero's margin below
+(the toolbar's run) stays so the next section's hairline waits for the
+scroll. Items 1–3 shipped and approved on his phone. The still document is
+the chapter default on iOS (docs/v4/DECISIONS.md). Next round starts from
+`v2` tip with a new base tag. Pass-10 record follows.
 Round 23, device pass 10 (2026-09-19, after the close): two hero asks in the
 still document. The hairline of `#scene-0` showed under the toolbar's
 capsule at rest (main runs E under the toolbar) — `#hero` now carries E as
