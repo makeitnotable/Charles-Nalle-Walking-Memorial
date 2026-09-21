@@ -239,40 +239,36 @@ the chapter pages then scroll as a document again with pass 7's cover and
 16px band. To undo the whole round: `git reset --hard client-round-23-base`
 (= `4d13540`) and push `v2`.
 
-## Round 24 (Wil's 9/21 round) — `/paintings`: the hall through Safari's bars, behind `?glass=1`
+## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars take the hall's own colour
 
 **Evidence.** Wil's two screenshots of 2026-09-21: at rest the bottom
-toolbar sits on a flat band where the hall's floor should continue; walking,
-the minimized address bar's region shows the same flat brown over the
-ceiling. One cause: the corridor stage is `position: sticky`, and Safari 26
-clips a pinned box's paint at the layout viewport whether or not it is stuck
-(rounds 8 and 23, `docs/PLAYBOOK-MOBILE-CHROME.md` §1, §3, §11). Round 8 had
-closed the bottom band as a platform limit and Wil accepted it then; round 18
-built a bleed behind `?glass=1` that could never have painted through the
-stage. His answers to the diagnosis report: the bars must keep collapsing
-(so not the chapters' still document), live see-through first and a gradient
-only if it cannot be achieved, `/paintings` only, the at-rest top bar stays.
+toolbar sits on a flat band where the hall's floor should continue;
+walking, the minimized address bar's region shows the same flat brown over
+the ceiling. His answers: the bars keep collapsing, live see-through first
+and a gradient only if it cannot be done, `/paintings` only, the at-rest
+top bar stays. Three device passes of an in-flow runway — the corridor's
+bleed copied into strips placed in the bar regions, then a lab of five
+element types — measured that Safari 26 draws nothing the page renders
+beyond the layout viewport's edges, whatever the element (playbook §1,
+corrected). The bar regions show Safari's glass tinted from `<body>`'s
+colour; the map's toolbar reads as the map because `/map`'s `<body>` is the
+map's grey.
 
-**Decision.** The stage stays exactly as it is — its scroll mechanic, its
-box, its `overflow: hidden`. The canvas renders B = 110 extra rows above and
-below through `camera.setViewOffset`, which leaves the stage's band framed to
-the pixel (measured), and two in-flow `<canvas>` strips in the slot carry
-those rows into the bar regions as page paint, placed each frame: the top
-strip above the viewport while the stage is stuck, the bottom strip below
-svh whenever the stage's box reaches it, each overlapping the stage by 48px
-and padded 48px past the bar so a frame of lag never opens a slit. It ships
-**behind `?glass=1`** (iOS only by construction; nothing exists where
-lvh == svh) because the bars, the seam in motion and the phone's frame rate
-are device-only measurements; `?runway=track` and `?runway=off` are the
-comparison flags, `?debug=1` the readout. Off the flag every route is
-byte-identical (`qa:snap` 36/36, 0 drift). When Wil approves on the device it
-comes off the flag as the map's T did: drop `[data-glass]` from the
-`--museum-b` selector in `global.css` and the `dataset.glass` test in
-`museumB()`.
+**Decision.** The hall does what the map does: Museum.tsx writes the
+colour of the canvas rows that meet the bar to `<body>`, live — the floor's
+above the toolbar while the bars are expanded, the ceiling's at the top
+edge once they minimize — and the page brown returns when the hall leaves
+the screen. Default on wherever the bars collapse (`--museum-bars` is 0
+elsewhere, so no other device and no other route changes), because the
+mechanism is the measured one and a flag would cost him another pass;
+`?tint=off` is the static brown of before. The cost he should know: Safari
+gives both bars one colour, so at rest the top bar over the header carries
+the floor's colour. The strips and the round-18 bleed are removed, not
+flagged: nothing rendered past the edge can show.
 
-**Revert:** `git reset --hard client-round-24-base` (= `1e5b07d`), or delete
-the round-24 block in `global.css` (the `--museum-b` rule, `--museum-svh`,
-`.museum-runway`, the track keyframes) and in `Museum.tsx` everything from
-`RUN_IN` through `runwayProbe`, the `paintRunways(now)` call, the
-`probeCam.clearViewOffset()` line and the `strips` removals in `dispose`;
-`sizeToStage` returns to the two lines of round 18 or of v13.
+**Revert:** `git reset --hard client-round-24-base` (= `1e5b07d`); or in
+`Museum.tsx` delete the block from `RUNWAY_BUILD` through `debugPaint`, the
+`paintTint(now)` call, the `tintRestore()` calls and the `tint` hook state,
+and in `global.css` the `--museum-bars` / `--museum-svh` properties and the
+round-24 `.museum-stage` rules; `qa:tint` and `scripts/museum-tint.mjs` go
+with them.

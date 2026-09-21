@@ -33,6 +33,19 @@ Detailed history: `docs/rounds/2026-09-17-round-8-plan.md` (the bars),
   the visual viewport and never reaches the bars (measured: 160px requested,
   21px rendered). So a stage that must show under the bars has to be
   **in flow** and **physically extend** under them.
+- **Correction, round 24 (2026-09-21, three device passes on `/paintings`):
+  nothing the page renders beyond the layout viewport's edges is drawn at
+  all — not in-flow paint, not a div, not a 2D or a WebGL canvas, placed by
+  layout or by transform, above or below a sticky stage, in `<main>` or in
+  `<body>`, with the bars expanded or minimized.** Five colour columns and a
+  magenta strip ran to the viewport's edge to the pixel and stopped. What
+  the bar regions show is Safari's own glass, tinted from `<body>`'s colour
+  (the rule below), and nothing else. The map's toolbar reads as the map
+  continuing because `/map`'s `<body>` is the map's grey; round 8's band
+  measurement ran from grey to the page brown within a few pixels of the
+  edge. The runway pattern of §2 still buys the geometry it was built for
+  (a page landed at scroll T, the UI box held) but not pixels under the
+  bars; the colour does that. §11 has the pattern that follows.
 - **Nothing exists above document offset 0.** At scroll 0 the top bar shows
   the fallback colour, whatever the page paints. The only way to put content
   under the top bar at rest is for the page not to rest at scroll 0.
@@ -285,70 +298,40 @@ the stage. Programmatic landings are not events and still run.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
 
-## 11 · A pinned stage under the bars: `/paintings` and the runway strips (round 24)
+## 11 · `/paintings`: the bars take the hall's own edge colour (round 24)
 
-*Round 24 (2026-09-21), Wil's two `/paintings` screenshots and his four
-answers: the bars keep collapsing while walking; the hall itself through the
-bars is the ask and a gradient only the fallback; `/paintings` only; the
-at-rest top bar stays. Shipped behind `?glass=1` for his device pass. Plan:
-`docs/rounds/2026-09-21-round-24-plan.md`; instrument `npm run qa:runway`.*
+*Round 24 (2026-09-21), Wil's two `/paintings` screenshots and four device
+passes. Plan and the passes' readouts: `docs/rounds/2026-09-21-round-24-plan.md`;
+instrument `npm run qa:tint`.*
 
-- **§1's rule holds for a sticky box stuck or not.** The corridor stage is
-  `position: sticky`, one viewport tall, its canvas absolutely positioned
-  inside it. At rest its box reaches ~200px past the toolbar band and his
-  screenshot still shows the band flat (round 8 measured the cut at the
-  viewport's edge to the pixel); stuck, pass 5 covered it. Nothing a pinned
-  stage renders reaches either bar region, and un-sticking it is the page's
-  scroll mechanic. So the hall reaches the bars only as **page paint**.
-- **The runway strips.** The WebGL canvas renders B = 110 rows above and
-  below the stage (`camera.setViewOffset(w, h, 0, −B, w, h + 2B)` — the
-  stage's band stays framed to the pixel: measured, the canonical projection
-  of a work and `--cnwm-chip-y` are identical with and without B), the stage
-  keeps its box and its `overflow: hidden`, and two in-flow `<canvas>` strips
-  in the slot — siblings placed BEFORE the stage so its opaque ground paints
-  over them — are fed those rows every frame, in the same task as the render
-  (the drawing buffer is not preserved past it), and placed by transform:
-  the top strip above the viewport's top edge while the stage is stuck (and
-  as it scrolls out at the end), the bottom strip below **svh** whenever the
-  stage's box reaches it. svh, never innerHeight: the toolbar band is only
-  ever there with the bars expanded, when the layout viewport is svh tall,
-  and with the bars minimized the strip sits behind the stage and below the
-  screen, harmless. B is the map's T expression, so it is 0 wherever
-  lvh == svh and the strips are never created there.
-- **Lag, handled by geometry rather than a visor.** A strip is page paint
-  moved by the main thread, so §3's frame of lag applies. Each strip overlaps
-  the stage by 48px on the viewport side (hidden behind the opaque stage) and
-  is padded 48px past the bar region with the nearest rendered row stretched,
-  so a lag in either direction moves the seam inside the overlap or the
-  padding and never opens a slit of page ground; a one-frame velocity lead
-  centres it. What remains is a texture phase of a few pixels in a blurred,
-  dark band — the thing only his phone can judge. `?runway=track` hands the
-  placement to a scroll timeline (§3's open measurement, self-checked at
-  rest only); `?runway=off` renders the bleed with no strip (the cost split);
-  `?debug=1` prints the path, timeline support and the geometry.
-- **The top strip fades in** over the first 100px after the stage sticks: at
-  that moment what has just scrolled past the top edge is the header's tail,
-  and the ceiling arrives over it as a fade, not a cut. A paused render loop
-  (stage out of view, tab hidden, curtain) hides both strips so none is left
-  parked in the document for the reader to scroll back into.
-- **Cost, measured here and not on a phone:** a 645px viewport renders 865
-  rows, and the walk's median frame interval rose from ~25 to ~35ms in this
-  container's GL (`qa:runway`'s walk table, with the bleed-only split). If
-  his phone drops frames, the levers are: blit the bottom strip only while
-  the bars are expanded (`innerHeight` is svh then), halve the blit rate, or
-  trim B toward the bars' measured heights (107 / 92).
-- **Device pass 1 (his crops of 12:58): both regions still flat.** With the
-  strips measured in place here, that is what a missing or blank strip looks
-  like, and the readout was not on to say which. Two rules from it: a
-  device flag's readout must name the BUILD (a cached bundle and a broken
-  one are the same screenshot), and a copy from a WebGL canvas needs a
-  self-check and a second path (`drawImage` is checked once; a transparent
-  result or a throw switches to `gl.readPixels` + `putImageData`). And one
-  reading round 8 never separated: the stage's own `::before` background may
-  paint under the toolbar while its canvas is clipped — the two are the same
-  brown — so the ground leaves after the first frame (`data-rendered`).
-- **The desktop guarantee is the gate.** `qa:runway` at 1440×900 with the
-  flag and no bars: no strip, canvas equal to the stage; `qa:snap` 36/36 at
-  0 drift. The instrument stands B in through an init-script `<style>` with
-  `!important` on `html[data-glass] .museum-stage`, exactly as
-  `map-framing.mjs` stands T and E in.
+- **What was tried, and measured not to draw.** The corridor's WebGL canvas
+  rendering 110 rows above and below the stage (`camera.setViewOffset`, the
+  stage's band framed to the pixel), copied every frame into two in-flow
+  `<canvas>` strips placed in the bar regions — first by transform with
+  `will-change`, then by `top` like the map's canvas — with a readback copy
+  path, a build id in the readout, and a lab of five element types beside
+  them. Every readout was right (the flag on, the strips placed to the
+  pixel, thousands of copies, no error) and every screenshot showed the bar
+  regions flat. The lab settled it: all five columns render inside the
+  viewport and none past its edge. §1's correction is the rule.
+- **The pattern that works is the map's.** Safari tints its bars from
+  `<body>`'s background-color (§1, round 8 phase E) and animates a change
+  (round 21). Museum.tsx averages the canvas rows that meet the bar — the
+  48 above the toolbar while the bars are expanded, the 48 at the top edge
+  once they minimize — ten times a second through a 4×1 canvas, in the same
+  task as the render (the drawing buffer is not preserved past it), and
+  writes `<body>` when the colour has moved four levels or more. The page
+  brown returns when the hall leaves the screen. One colour for both bars is
+  Safari's rule, so the toolbar's colour also tints the top bar at rest.
+- **Gate and flags.** `--museum-bars`, the map's T expression, is 0 wherever
+  lvh == svh, so the tint runs only where the bars collapse and the visual
+  gate holds (`<main>` covers `<body>`). `?tint=off` is today's static
+  brown; `?tint=<0.3–2>` scales the sample; `?debug=1` prints the edge, the
+  sample and the colour written. `qa:tint` stands the bars in at 110 and
+  asserts the writes, the clear past the hall, the off flag and the
+  desktop guarantee.
+- **Rules kept from the passes.** A device flag's readout must name the
+  build — a cached bundle and a broken one are the same screenshot. A copy
+  from a WebGL canvas needs a self-check and a second path. And a colour
+  match can pass for transparency: what "works" on one page must be
+  measured in a colour that cannot be mistaken for the tint.

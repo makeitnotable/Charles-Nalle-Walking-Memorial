@@ -338,232 +338,58 @@ export default function Museum({ works, slotId }: Props) {
 
       const renderer: WebGLRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      /* v17 item 3 (Wil, 2026-09-18): "the area behind the bottom address bar
-         should use the same styling and appearance as the solution applied to
-         the map page." Behind ?glass=1.
-
-         The map's bottom works because its in-flow shell grows past the
-         viewport edge while its UI LAYER KEEPS THE ORIGINAL BOX — only the
-         canvas extends, and the camera takes the extra back as padding. That
-         distinction is the whole reason this is safe here: `stage.clientHeight`
-         is this page's composition basis (it picks the FOV, the portrait and
-         phone thresholds, the walk's scroll total, the sheet-UI split), so the
-         STAGE must not change size. Only the canvas does.
-
-         setViewOffset is three.js's exact equivalent of the map camera's
-         padding. With `aspect` left at the stage's w/h, a view of
-         (w, h, 0, −B, w, h + 2B) multiplies the frustum height by (h+2B)/h
-         and starts it B rows ABOVE the same top edge — so the canvas's middle
-         h rows are framed pixel-for-pixel as they are today, and B rows of
-         world show above and below. Nothing about the corridor the reader
-         already sees changes.
-
-         Round 24 (Wil, 2026-09-21): the bleed now runs ABOVE as well as
-         below, and it is never shown through the stage. The stage is
-         `position: sticky`, and Safari 26 clips a pinned box's paint at the
-         layout viewport whether or not it is stuck (playbook §1 and §3, and
-         his two screenshots): the bleed rows reach the toolbar band at rest
-         and the bar region while walking only through the RUNWAY strips
-         below — in-flow <canvas> copies of those rows, which are page paint
-         and so composite into the bar regions exactly as the map's runway
-         does. The stage's own `overflow: hidden` clips both bleeds, which is
-         right.
-
-         B is 0 off the flag and wherever there are no bars, which makes every
-         expression below reduce to exactly today's two lines. */
-      const museumB = () => {
-        if (!document.documentElement.dataset.glass) return 0;
-        const v = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-b"));
-        return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
-      };
       const sizeToStage = () => {
         const w = stage.clientWidth;
         const h = stage.clientHeight;
-        const b = museumB();
-        renderer.setSize(w, h + 2 * b);
+        renderer.setSize(w, h);
         camera.aspect = w / h;
-        if (b > 0) camera.setViewOffset(w, h, 0, -b, w, h + 2 * b);
-        else camera.clearViewOffset();
         camera.updateProjectionMatrix();
-        /* The canvas is 2B taller than the stage and starts B above it. */
-        renderer.domElement.style.top = b > 0 ? `${-b}px` : "";
-        renderer.domElement.style.bottom = b > 0 ? "auto" : "";
-        runwayResize(b);
+        tintRead();
       };
-      /* ── Round 24 (Wil, 2026-09-21): the runway strips ───────────────────
-         Two in-flow <canvas> strips in the slot, siblings of the stage and
-         BEFORE it in the tree so the opaque stage paints over them. Each
-         frame, after the render, the corridor's bleed rows are copied into
-         them and they are placed to sit exactly in the regions Safari's bars
-         cover — page paint, never pinned, so Safari composites it there the
-         way it does the map's runway (playbook §1):
+      /* ── Round 24 (Wil, 2026-09-21), device pass 3: the bars take the hall's
+         own edge colour ────────────────────────────────────────────────────
+         Three device passes measured that Safari 26 draws NOTHING the page
+         renders beyond the layout viewport's edges — not in-flow paint, not
+         a div, not a 2D or a WebGL canvas, whatever their placement or
+         z-order (docs/rounds/2026-09-21-round-24-plan.md; playbook §1 and
+         §11). The bar regions show Safari's own glass, tinted from <body>'s
+         background-color, and nothing else. The map's toolbar reads as the
+         map continuing because its <body> is the map's grey (rounds 8 and
+         21). So the hall does the same, live: the colour of the canvas rows
+         that meet the bar — the floor's above the toolbar while the bars are
+         expanded, the ceiling's at the top edge once they minimize — is
+         averaged ten times a second and written to <body>, and Safari's tint
+         follows it (it animates the change itself). One colour for both bars
+         is Safari's rule, as on the map; the toolbar's colour wins while it
+         is there, since that is the band he asked about.
 
-           top    — above the layout viewport's top edge while the stage is
-                    stuck (and while it scrolls out at the end of the walk):
-                    the minimized bar's glass (~91px on his phone) and the
-                    expanded address bar (107px) both show what the document
-                    holds there.
-           bottom — below svh, the bars-expanded viewport height, which holds
-                    still (never innerHeight, which moves with the bars),
-                    whenever the stage's box reaches it: the toolbar band at
-                    rest, and again whenever a scroll up re-expands it. With
-                    the bars minimized it sits behind the stage and below
-                    the screen, harmless.
-
-         Each strip overlaps the stage by RUN_IN on the viewport side, hidden
-         behind the opaque stage, and is padded RUN_OUT past the bar region
-         with the nearest rendered row stretched — so a frame of main-thread
-         lag (playbook §3: a box the page places sits speed × a frame behind
-         the compositor) moves the seam INSIDE the overlap or the padding and
-         never opens a slit of page ground. A velocity lead of about a frame
-         covers the residual; what remains is a texture phase of a few pixels
-         in a blurred, dark band, which only his phone can judge.
-         `?runway=track` hands the placement to a scroll-driven animation
-         instead (global.css) and self-checks it at rest — the one path with
-         no frame of lag, if this Safari runs it on the compositor (the
-         round-23 open measurement). `?debug=1` prints which path is driving
-         and the geometry.
-
-         Cost: the render target is 2B rows taller (220 on a 645 viewport),
-         plus two small blits a frame. Nothing here exists where B is 0. */
-      const RUN_IN = 48;
-      const RUN_OUT = 48;
-      /* The top strip fades in over the first RUN_FADE px of the stuck scroll:
-         at the moment the stage sticks, what has just scrolled past the top
-         edge is the header's tail, and the ceiling arrives over it as a fade
-         rather than a cut. */
-      const RUN_FADE = 100;
-      const runwayTrackWanted = /(^|[?&])runway=track(&|$)/.test(location.search);
-      /* `?runway=off`: the bleed renders, no strip exists — the diagnostic
-         that splits the cost of the taller render target from the copies. */
-      const runwayOff = /(^|[?&])runway=off(&|$)/.test(location.search);
-      /* `?runway=readpixels`: the copy takes the readback path from the
-         start (the fallback in blitStrip), for a comparison on the phone. */
-      const runwayReadPixels = /(^|[?&])runway=readpixels(&|$)/.test(location.search);
-      /* `?lab=1` (device pass 2): the strips move above the stage so their
-         overlap shows inside the viewport, and five candidate elements sit
-         beside them in the same bar regions, one colour each — which of them
-         Safari draws under the bars is what the next screenshot answers. */
-      const runwayLab = /(^|[?&])lab=1(&|$)/.test(location.search);
-      type LabEl = { el: HTMLElement; body: boolean; mode: "top" | "transform" };
-      const lab: { top: LabEl[]; bottom: LabEl[] } = { top: [], bottom: [] };
-      /* printed by the `?debug=1` readout, so a screenshot says which build
-         it is of — a cached bundle looks exactly like a broken one */
-      const RUNWAY_BUILD = "r24.3";
-      let runCopy: "drawImage" | "readPixels" = runwayReadPixels ? "readPixels" : "drawImage";
-      let runCopyChecked = false;
-      let runBlits = 0;
-      let runError = "";
-      const strips: { top: HTMLCanvasElement | null; bottom: HTMLCanvasElement | null } = { top: null, bottom: null };
-      let runB = 0;
-      let runPR = 1;
-      let runSvh = 0;
-      let runTrack = false;
-      let runTrackFailed = false;
-      let runChecks = 0;
-      let runRestSince = 0;
-      let runLastS: number | null = null;
-      let runLastT = 0;
-      let runVel = 0;
-      let runLead = 0;
-      let runFrameMs = 16.7;
-      let runLastRaf = 0;
-      const runLast = {
-        top: { s0: 0, rows: 0, on: false, y: NaN },
-        bottom: { s0: 0, rows: 0, on: false, y: NaN },
-      };
+         Only where Safari's bars collapse: --museum-bars is 0 wherever
+         lvh == svh, and nothing here runs then. `?tint=off` restores the
+         static page brown; `?tint=<0.3–2>` scales the sample for a device
+         pass; `?debug=1` prints the edge, the sample and the writes. The
+         round-18 bleed behind ?glass=1 is gone: nothing rendered past the
+         edge can ever show. */
+      const RUNWAY_BUILD = "r24.4";
+      const tintParam = /(^|[?&])tint=([a-z0-9.]+)(&|$)/.exec(location.search);
+      const tintOff = !!tintParam && tintParam[2] === "off";
+      const tintMul = tintParam && !tintOff ? Math.max(0.3, Math.min(2, parseFloat(tintParam[2]) || 1)) : 1;
+      const TINT_ROWS = 48;
+      let barsPx = 0;
+      let tintSvh = 0;
+      let tintLast = "";
+      let tintAt = 0;
+      let tintWrites = 0;
+      let tintEdge = "none";
+      let tintSample = "";
+      let tintCanvas: HTMLCanvasElement | null = null;
       let debugBox: HTMLPreElement | null = null;
       let debugAt = 0;
-      const mkStrip = (name: "top" | "bottom") => {
-        const c = document.createElement("canvas");
-        c.className = "museum-runway";
-        c.dataset.runway = name;
-        c.setAttribute("aria-hidden", "true");
-        wrap.insertBefore(c, stage);
-        return c;
-      };
-      const runwayResize = (b: number) => {
-        runB = b;
-        if (b <= 0) {
-          if (strips.top) strips.top.style.display = "none";
-          if (strips.bottom) strips.bottom.style.display = "none";
-          runLast.top.on = runLast.bottom.on = false;
-          return;
-        }
-        if (runwayOff) return;
-        if (!strips.top) strips.top = mkStrip("top");
-        if (!strips.bottom) strips.bottom = mkStrip("bottom");
-        runPR = renderer.getPixelRatio();
+      const tintRead = () => {
+        const bars = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-bars"));
+        barsPx = Number.isFinite(bars) && bars > 0 ? bars : 0;
         const svh = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-svh"));
-        runSvh = Number.isFinite(svh) && svh > 0 ? svh : stage.clientHeight;
-        const w = stage.clientWidth;
-        /* only when the box really changes: iOS fires `resize` on every bar
-           transition, and a canvas re-sized to the same numbers still clears
-           — a blank strip for a frame, exactly when the bar is arriving */
-        const size = (c: HTMLCanvasElement, rows: number) => {
-          /* the GL canvas's own backing width (three.js floors w × pr), so a
-             readback row and a strip row are the same length */
-          const pw = renderer.domElement.width;
-          const ph = Math.round(rows * runPR);
-          if (c.width === pw && c.height === ph) return;
-          c.width = pw;
-          c.height = ph;
-          c.style.width = `${w}px`;
-          c.style.height = `${rows}px`;
-        };
-        size(strips.top, RUN_OUT + b + RUN_IN);
-        size(strips.bottom, RUN_IN + b + RUN_OUT);
-        if (runwayLab && !lab.top.length) {
-          strips.top.style.zIndex = strips.bottom.style.zIndex = "5";
-          const rows = RUN_OUT + b + RUN_IN;
-          const LW = 39;
-          const mk = (i: number, kind: "div" | "canvas2d" | "webgl", colour: string, mode: "top" | "transform", body: boolean): LabEl => {
-            const el = document.createElement(kind === "div" ? "div" : "canvas") as HTMLElement;
-            el.className = "museum-runway-lab";
-            el.setAttribute("aria-hidden", "true");
-            el.style.cssText = `position:absolute;left:${i * LW}px;top:0;width:${LW}px;height:${rows}px;display:none;pointer-events:none;z-index:${body ? 800 : 5};${mode === "transform" ? "will-change:transform;" : ""}`;
-            if (kind === "div") el.style.background = colour;
-            else {
-              const c = el as HTMLCanvasElement;
-              c.width = LW;
-              c.height = rows;
-              if (kind === "canvas2d") {
-                const ctx = c.getContext("2d");
-                if (ctx) {
-                  ctx.fillStyle = colour;
-                  ctx.fillRect(0, 0, LW, rows);
-                }
-              } else {
-                const gl = c.getContext("webgl", { preserveDrawingBuffer: true });
-                if (gl) {
-                  gl.clearColor(1, 0.5, 0, 1);
-                  gl.clear(gl.COLOR_BUFFER_BIT);
-                }
-              }
-            }
-            (body ? document.body : wrap).appendChild(el);
-            return { el, body, mode };
-          };
-          const build = () => [
-            mk(0, "div", "#ff2020", "top", false) /* red: a div placed by top */,
-            mk(1, "div", "#20ff20", "transform", false) /* green: a div, will-change + translate3d */,
-            mk(2, "canvas2d", "#2060ff", "transform", false) /* blue: a 2d canvas, will-change + translate3d (the first push's strips) */,
-            mk(3, "webgl", "", "top", false) /* orange: a WebGL canvas placed by top (the map's kind) */,
-            mk(4, "div", "#20ffff", "transform", true) /* cyan: a div in <body>, z 800, translate3d (round 23's cover) */,
-          ];
-          lab.top = build();
-          lab.bottom = build();
-        }
-        runTrack =
-          runwayTrackWanted &&
-          !runTrackFailed &&
-          !!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"));
-        for (const c of [strips.top, strips.bottom]) {
-          if (runTrack) c.dataset.track = "1";
-          else delete c.dataset.track;
-        }
-        runLast.top.y = runLast.bottom.y = NaN;
-        if (document.documentElement.dataset.debug === "1" && !debugBox) {
+        tintSvh = Number.isFinite(svh) && svh > 0 ? svh : stage.clientHeight;
+        if (barsPx > 0 && document.documentElement.dataset.debug === "1" && !debugBox) {
           debugBox = document.createElement("pre");
           debugBox.setAttribute("aria-hidden", "true");
           debugBox.style.cssText =
@@ -571,307 +397,87 @@ export default function Museum({ works, slotId }: Props) {
           document.body.appendChild(debugBox);
         }
       };
-      /* s0: the canvas CSS row that lands on the strip's first row. Rows the
-         canvas has are copied 1:1 (in the same task as the render — the
-         drawing buffer is not preserved past it); rows beyond its extent take
-         the nearest rendered row, stretched. Two copy paths: drawImage from
-         the WebGL canvas (the cheap one, a GPU blit where the browser allows
-         it) and gl.readPixels + putImageData (a readback, works anywhere).
-         The first drawImage is checked once — a copy that leaves the strip
-         transparent switches to the readback for good, and so does a throw —
-         and the readout says which path is driving and why. Wil's crops of
-         2026-09-21 (both bar regions flat with the strips placed) are exactly
-         what a blank strip looks like. */
-      const blitStrip = (c: HTMLCanvasElement, s0: number, rows: number) => {
-        const ctx = c.getContext("2d");
-        if (!ctx) {
-          runError = "no 2d context";
+      const tintRestore = () => {
+        if (!tintLast) return;
+        tintLast = "";
+        tintEdge = "none";
+        document.body.style.backgroundColor = "";
+      };
+      const hex2 = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
+      const paintTint = (now: number) => {
+        if (tintOff || barsPx <= 0) return;
+        if (now - tintAt < 100) return;
+        tintAt = now;
+        const sr = stage.getBoundingClientRect();
+        const h = stage.clientHeight;
+        /* the hall off the screen: the page brown, as before */
+        if (sr.bottom <= 0 || sr.top >= tintSvh) {
+          tintRestore();
           return;
         }
+        const expanded = window.innerHeight <= tintSvh + 2;
+        let r0: number;
+        if (expanded) {
+          /* the rows that meet the toolbar: the stage's last rows once it is
+             stuck, the rows at the viewport's bottom edge before */
+          const edge = Math.min(h, tintSvh - sr.top);
+          r0 = Math.max(0, edge - TINT_ROWS);
+          tintEdge = "bottom";
+        } else {
+          r0 = 0;
+          tintEdge = "top";
+        }
+        const rows = Math.min(TINT_ROWS, h - r0);
+        if (rows <= 0) return;
+        if (!tintCanvas) {
+          tintCanvas = document.createElement("canvas");
+          tintCanvas.width = 4;
+          tintCanvas.height = 1;
+        }
+        const ctx = tintCanvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return;
         const src = renderer.domElement;
-        const H = stage.clientHeight + 2 * runB;
-        const pr = runPR;
-        const a = Math.max(0, s0);
-        const z = Math.min(H, s0 + rows);
-        if (z <= a) {
-          ctx.fillStyle = "#1d1411";
-          ctx.fillRect(0, 0, c.width, c.height);
-          return;
-        }
-        const pw = c.width;
-        const dy = Math.round((a - s0) * pr);
-        const dh = Math.max(1, Math.round((z - a) * pr));
+        const pr = renderer.getPixelRatio();
         try {
-          if (runCopy === "drawImage") {
-            ctx.drawImage(src, 0, a * pr, src.width, (z - a) * pr, 0, dy, pw, dh);
-            if (!runCopyChecked) {
-              runCopyChecked = true;
-              const px = ctx.getImageData(pw >> 1, Math.min(c.height - 1, dy + (dh >> 1)), 1, 1).data;
-              if (px[3] === 0) {
-                runCopy = "readPixels";
-                runError = "drawImage left the strip transparent";
-              }
-            }
-          }
-          if (runCopy === "readPixels") {
-            const gl = renderer.getContext() as WebGLRenderingContext;
-            const ph = src.height;
-            const y0 = Math.max(0, Math.round(a * pr));
-            const y1 = Math.min(ph, y0 + dh);
-            const n = y1 - y0;
-            if (n > 0) {
-              const buf = new Uint8ClampedArray(pw * n * 4);
-              /* GL rows run bottom-up: top-down rows [y0, y1) are GL rows
-                 [ph − y1, ph − y0), and the block is flipped on the way in */
-              gl.readPixels(0, ph - y1, pw, n, gl.RGBA, gl.UNSIGNED_BYTE, buf);
-              const img = ctx.createImageData(pw, n);
-              for (let r = 0; r < n; r++) img.data.set(buf.subarray((n - 1 - r) * pw * 4, (n - r) * pw * 4), r * pw * 4);
-              ctx.putImageData(img, 0, dy);
-            }
-          }
-        } catch (e) {
-          runError = String(e && (e as Error).message ? (e as Error).message : e).slice(0, 80);
-          if (runCopy === "drawImage") runCopy = "readPixels";
+          /* in the same task as the render — the drawing buffer is not
+             preserved past it; a 4×1 target averages the band on the way in */
+          ctx.drawImage(src, 0, r0 * pr, src.width, rows * pr, 0, 0, 4, 1);
+        } catch {
           return;
         }
-        /* the padding past the canvas's extent: the nearest row, stretched,
-           copied from the strip itself so both paths share it */
-        if (dy > 0) ctx.drawImage(c, 0, dy, pw, 1, 0, 0, pw, dy);
-        const end = dy + dh;
-        if (end < c.height) ctx.drawImage(c, 0, end - 1, pw, 1, 0, end, pw, c.height - end);
-        /* `?debug=1`: a magenta cast on every strip, so a screenshot shows
-           where Safari composites them even when their rows are wrong */
-        if (debugBox) {
-          ctx.fillStyle = "rgba(255,0,255,.35)";
-          ctx.fillRect(0, 0, pw, c.height);
+        const d = ctx.getImageData(0, 0, 4, 1).data;
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        for (let k = 0; k < 16; k += 4) {
+          r += d[k];
+          g += d[k + 1];
+          b += d[k + 2];
         }
-        runBlits++;
+        const c = `#${hex2((r / 4) * tintMul)}${hex2((g / 4) * tintMul)}${hex2((b / 4) * tintMul)}`;
+        tintSample = c;
+        if (c === tintLast) return;
+        if (tintLast) {
+          /* a write only for a visible step: Safari animates each one */
+          const was = parseInt(tintLast.slice(1), 16);
+          const is = parseInt(c.slice(1), 16);
+          const dr = Math.abs((was >> 16) - (is >> 16));
+          const dg = Math.abs(((was >> 8) & 255) - ((is >> 8) & 255));
+          const db = Math.abs((was & 255) - (is & 255));
+          if (Math.max(dr, dg, db) < 4) return;
+        }
+        tintLast = c;
+        tintWrites++;
+        document.body.style.backgroundColor = c;
       };
-      const placeStrip = (c: HTMLCanvasElement, key: "top" | "bottom", screenTop: number, wrTop: number, scrollY: number) => {
-        const st = runLast[key];
-        if (!st.on) {
-          st.on = true;
-          c.style.display = "block";
-        }
-        if (runTrack) {
-          /* the animation adds the scroll offset; ry0 is the screen target
-             less the slot's document offset (refreshed if the layout above
-             the slot ever moves) */
-          const ry0 = Math.round((screenTop - (wrTop + scrollY)) * 10) / 10;
-          if (st.y !== ry0) {
-            st.y = ry0;
-            c.style.setProperty("--museum-ry0", `${ry0}px`);
-          }
-          return;
-        }
-        /* device pass 2: placed by `top`, not by a transform — the map's
-           canvas, the one element measured under the toolbar, is positioned
-           by layout and carries no will-change; the first push's transformed
-           strips were not drawn there */
-        const y = Math.round((screenTop - wrTop + runLead) * 10) / 10;
-        if (st.y !== y) {
-          st.y = y;
-          c.style.top = `${y}px`;
-        }
-      };
-      const placeLab = (list: LabEl[], on: boolean, screenTop: number, wrTop: number, scrollY: number) => {
-        for (const l of list) {
-          if (!on) {
-            if (l.el.style.display !== "none") l.el.style.display = "none";
-            continue;
-          }
-          if (l.el.style.display !== "block") l.el.style.display = "block";
-          const y = l.body ? screenTop + scrollY : screenTop - wrTop;
-          if (l.mode === "top") l.el.style.top = `${y}px`;
-          else l.el.style.transform = `translate3d(0,${y}px,0)`;
-        }
-      };
-      const hideStrip = (c: HTMLCanvasElement, key: "top" | "bottom") => {
-        const st = runLast[key];
-        if (st.on) {
-          st.on = false;
-          c.style.display = "none";
-        }
-      };
-      const demoteTrack = () => {
-        runTrack = false;
-        runTrackFailed = true;
-        for (const c of [strips.top, strips.bottom]) {
-          if (!c) continue;
-          delete c.dataset.track;
-          c.style.animation = "none";
-          c.style.transform = "";
-        }
-        runLast.top.y = runLast.bottom.y = NaN;
-      };
-      /* The compositor path's self-check, AT REST only (playbook §3, device
-         pass 3: a check that fails in motion demotes a good path for good):
-         300 ms into a rest the strip's rendered top must sit at its target.
-         A pass is uninformative at scroll 0, so passes count from 60px. */
-      const runwayCheck = (now: number) => {
-        if (runChecks >= 12) return;
-        if (Math.abs(runVel) >= 0.05) {
-          runRestSince = now;
-          return;
-        }
-        if (now - runRestSince < 300) return;
-        const key = runLast.top.on ? "top" : runLast.bottom.on ? "bottom" : null;
-        if (!key) return;
-        const c = strips[key]!;
-        const want = key === "top" ? -(RUN_OUT + runB) : runSvh - RUN_IN;
-        if (Math.abs(c.getBoundingClientRect().top - want) > 8) {
-          demoteTrack();
-          return;
-        }
-        if ((window.scrollY || 0) >= 60) runChecks++;
-        runRestSince = now;
-      };
-      const debugPaint = (sr: DOMRect, wr: DOMRect) => {
+      const debugPaint = () => {
         if (!debugBox) return;
         const n = (v: number) => Math.round(v * 10) / 10;
-        const rt = strips.top && runLast.top.on ? strips.top.getBoundingClientRect() : null;
-        const rb = strips.bottom && runLast.bottom.on ? strips.bottom.getBoundingClientRect() : null;
-        const timeline = window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()") ? "supported" : "unsupported";
-        const path = runTrack
-          ? "track (compositor)"
-          : runTrackFailed
-            ? "script (timeline check failed)"
-            : runwayTrackWanted
-              ? "script (timeline unsupported)"
-              : "script";
-        debugBox.textContent =
-          `${RUNWAY_BUILD} · glass ${document.documentElement.dataset.glass || "off"} · ${path} · timeline ${timeline} · checks ${runChecks}` +
-          `\ncopy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""} · place ${runTrack ? "timeline" : "top"} · lab ${runwayLab ? "on" : "off"}` +
-          `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
-          `\nstage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)} · frame ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)}` +
-          `\ntop ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"}`;
-      };
-      const paintRunways = (now: number) => {
-        if (runB <= 0 || !strips.top || !strips.bottom) return;
-        const wr = wrap.getBoundingClientRect();
         const sr = stage.getBoundingClientRect();
-        const scrollY = window.scrollY || 0;
-        /* the page's speed in px/ms, positive scrolling down, smoothed over
-           two frames, a reversal taking the new sign at once; the lead is
-           about a frame of it */
-        const s = -wr.top;
-        const dt = runLastT ? now - runLastT : 0;
-        if (runLastS === null) {
-          runLastS = s;
-          runLastT = now;
-        } else if (dt >= 4) {
-          const raw = dt >= 250 ? 0 : Math.max(-8, Math.min(8, (s - runLastS) / dt));
-          runVel = raw && runVel && raw > 0 !== runVel > 0 ? raw : runVel * 0.5 + raw * 0.5;
-          runLastS = s;
-          runLastT = now;
-        }
-        if (runLastRaf && now - runLastRaf < 60) runFrameMs = runFrameMs * 0.9 + (now - runLastRaf) * 0.1;
-        runLastRaf = now;
-        runLead = runTrack || Math.abs(runVel) < 0.05 ? 0 : runVel * Math.min(34, Math.max(6, runFrameMs));
-        const hTop = RUN_OUT + runB + RUN_IN;
-        const hBot = RUN_IN + runB + RUN_OUT;
-        /* top: while the stage's top edge is at or above the viewport's */
-        if (sr.top <= 0.5 && sr.bottom > 0) {
-          const screenTop = -(RUN_OUT + runB);
-          placeStrip(strips.top, "top", screenTop, wr.top, scrollY);
-          const fade = String(Math.round(Math.min(1, Math.max(0, -wr.top / RUN_FADE)) * 100) / 100);
-          if (strips.top.style.opacity !== fade) strips.top.style.opacity = fade;
-          const s0 = screenTop - sr.top + runB;
-          blitStrip(strips.top, s0, hTop);
-          runLast.top.s0 = s0;
-          runLast.top.rows = hTop;
-          placeLab(lab.top, true, screenTop, wr.top, scrollY);
-        } else {
-          hideStrip(strips.top, "top");
-          placeLab(lab.top, false, 0, 0, 0);
-        }
-        /* bottom: the stage's box reaches svh, and the strip stays inside the
-           slot's box so it never paints over the stills below */
-        if (sr.bottom >= runSvh - 0.5 && wr.bottom >= runSvh + runB + RUN_OUT - 0.5) {
-          const screenTop = runSvh - RUN_IN;
-          placeStrip(strips.bottom, "bottom", screenTop, wr.top, scrollY);
-          const s0 = screenTop - sr.top + runB;
-          blitStrip(strips.bottom, s0, hBot);
-          runLast.bottom.s0 = s0;
-          runLast.bottom.rows = hBot;
-          placeLab(lab.bottom, true, screenTop, wr.top, scrollY);
-        } else {
-          hideStrip(strips.bottom, "bottom");
-          placeLab(lab.bottom, false, 0, 0, 0);
-        }
-        if (runTrack) runwayCheck(now);
-        if (debugBox && now - debugAt > 250) {
-          debugAt = now;
-          debugPaint(sr, wr);
-        }
-      };
-      /* scripts/museum-runway.mjs: one fresh frame, then each visible strip's
-         rows against the same frame's canvas rows (read in the same task, as
-         the blit is), and the strip's spread so a flat fill cannot pass. */
-      const runwayProbe = () => {
-        renderer.render(scene, camera);
-        paintRunways(performance.now());
-        const W = stage.clientWidth;
-        const H = stage.clientHeight + 2 * runB;
-        const pr = runPR;
-        const scratch = document.createElement("canvas");
-        scratch.width = Math.round(W * pr);
-        scratch.height = Math.round(H * pr);
-        const sctx = scratch.getContext("2d")!;
-        sctx.drawImage(renderer.domElement, 0, 0);
-        const stats = (c: HTMLCanvasElement, s0: number, rows: number) => {
-          const ctx = c.getContext("2d")!;
-          const w = c.width;
-          let diff = 0;
-          let n = 0;
-          let compared = 0;
-          for (let k = 1; k <= 4; k++) {
-            const r = Math.round(((rows * k) / 5) * pr);
-            const cy = Math.round(s0 * pr) + r;
-            if (r < 0 || r >= c.height || cy < 0 || cy >= scratch.height) continue;
-            const a = ctx.getImageData(0, r, w, 1).data;
-            const b = sctx.getImageData(0, cy, w, 1).data;
-            for (let i = 0; i < a.length; i += 4) {
-              diff += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
-              n += 3;
-            }
-            compared++;
-          }
-          const d = ctx.getImageData(0, 0, w, c.height).data;
-          let sum = 0;
-          let sq = 0;
-          let m = 0;
-          for (let i = 0; i < d.length; i += 16) {
-            const l = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
-            sum += l;
-            sq += l * l;
-            m++;
-          }
-          const mean = sum / m;
-          return { rowsCompared: compared, meanAbsDiff: n ? diff / n : null, stddev: Math.sqrt(Math.max(0, sq / m - mean * mean)), mean };
-        };
-        const rect = (el: Element) => {
-          const r = el.getBoundingClientRect();
-          return { top: r.top, bottom: r.bottom, left: r.left, width: r.width, height: r.height };
-        };
-        return {
-          b: runB,
-          in: RUN_IN,
-          out: RUN_OUT,
-          svh: runSvh,
-          pr,
-          path: runTrack ? "track" : "script",
-          trackFailed: runTrackFailed,
-          copy: runCopy,
-          blits: runBlits,
-          error: runError,
-          rendered: stage.dataset.rendered === "1",
-          canvas: rect(renderer.domElement),
-          stage: rect(stage),
-          wrap: rect(wrap),
-          top: runLast.top.on && strips.top ? { rect: rect(strips.top), s0: runLast.top.s0, ...stats(strips.top, runLast.top.s0, runLast.top.rows) } : null,
-          bottom: runLast.bottom.on && strips.bottom ? { rect: rect(strips.bottom), s0: runLast.bottom.s0, ...stats(strips.bottom, runLast.bottom.s0, runLast.bottom.rows) } : null,
-        };
+        debugBox.textContent =
+          `${RUNWAY_BUILD} · tint ${tintOff ? "off" : "on"} ×${tintMul} · bars ${barsPx} · svh ${n(tintSvh)} · innerHeight ${window.innerHeight}` +
+          `\nedge ${tintEdge} · sample ${tintSample || "-"} · body ${tintLast || "(page brown)"} · writes ${tintWrites}` +
+          `\nstage ${n(sr.top)}→${n(sr.bottom)} · scrollY ${n(window.scrollY || 0)}`;
       };
       renderer.setSize(stage.clientWidth, stage.clientHeight);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -908,7 +514,7 @@ export default function Museum({ works, slotId }: Props) {
          and far are untouched. */
       const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.3, 80);
       const BASE_FOV = fovFor();
-      /* v17 item 3: apply the bleed now that `camera` exists. No-op off the flag. */
+      /* size the canvas now that `camera` exists; reads the bar numbers too */
       sizeToStage();
 
       const lastZ = -works.length * SPACING; // last work
@@ -2346,14 +1952,10 @@ export default function Museum({ works, slotId }: Props) {
       let lastT = performance.now();
       let lookedFlag = false;
       let rectTick = 0;
-      let renderedOnce = false;
       const tick = () => {
         raf = requestAnimationFrame(tick);
         if (!(inView && visible && !covered)) {
-          /* round 24: a paused loop must not leave a strip parked at its last
-             document position for the reader to scroll back into */
-          if (strips.top) hideStrip(strips.top, "top");
-          if (strips.bottom) hideStrip(strips.bottom, "bottom");
+          if (!inView) tintRestore();
           return;
         }
         const now = performance.now();
@@ -2398,14 +2000,11 @@ export default function Museum({ works, slotId }: Props) {
         camera.position.set(cur.x, cur.y, cur.z);
         camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
         renderer.render(scene, camera);
-        /* round 24: from the first frame the opaque canvas is the stage's
-           ground, and the ::before leaves (global.css) so it can never cover
-           a runway strip where the canvas is clipped and it is not */
-        if (!renderedOnce) {
-          renderedOnce = true;
-          stage.dataset.rendered = "1";
+        paintTint(now);
+        if (debugBox && now - debugAt > 250) {
+          debugAt = now;
+          debugPaint();
         }
-        paintRunways(now);
 
         // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer
         // slides — set here (rAF runs after React's commits, so a 4Hz
@@ -2498,9 +2097,6 @@ export default function Museum({ works, slotId }: Props) {
          and would drag the chip with it), and hand the midpoint to CSS. Once
          per layout: the band only moves when the viewport does. */
       const probeCam = camera.clone();
-      /* round 24: clone() copies the bleed's view offset (sizeToStage); the
-         arch is projected against the STAGE, so clear it here. */
-      probeCam.clearViewOffset();
       const setChipBand = () => {
         const H = stage.clientHeight;
         if (!H) return;
@@ -2648,17 +2244,8 @@ export default function Museum({ works, slotId }: Props) {
             ceilY: CEIL_Y,
             corridorHalf: CH,
             endZ,
-            /* round 24: the runway strips (scripts/museum-runway.mjs) */
-            runway: {
-              b: runB,
-              path: runTrack ? "track" : "script",
-              trackFailed: runTrackFailed,
-              svh: runSvh,
-              lead: runLead,
-              vel: runVel,
-              top: runLast.top.on ? { s0: runLast.top.s0, rows: runLast.top.rows, y: runLast.top.y } : null,
-              bottom: runLast.bottom.on ? { s0: runLast.bottom.s0, rows: runLast.bottom.rows, y: runLast.bottom.y } : null,
-            },
+            /* round 24: the bars' tint (scripts/museum-tint.mjs) */
+            tint: { on: !tintOff && barsPx > 0, bars: barsPx, svh: tintSvh, edge: tintEdge, sample: tintSample, written: tintLast, writes: tintWrites },
             running: inView && visible && !covered,
             works: works.length,
             spacing: SPACING,
@@ -2678,7 +2265,6 @@ export default function Museum({ works, slotId }: Props) {
         setSheet: (s: "peek" | "full") => snapSheetFn.current(s),
         paintingRect,
         placements,
-        runwayProbe,
         get info() {
           return renderer.info;
         },
@@ -2726,9 +2312,7 @@ export default function Museum({ works, slotId }: Props) {
             if (m) (Array.isArray(m) ? m : [m]).forEach((mm: any) => { mm.map?.dispose?.(); mm.dispose?.(); });
           });
           renderer.domElement.remove();
-          strips.top?.remove();
-          strips.bottom?.remove();
-          for (const l of [...lab.top, ...lab.bottom]) l.el.remove();
+          tintRestore();
           debugBox?.remove();
         },
       };

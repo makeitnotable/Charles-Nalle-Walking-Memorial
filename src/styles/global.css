@@ -1848,10 +1848,15 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
-/* v17 item 3: B, the corridor canvas's bleed below the visual viewport —
-   /paintings' equivalent of the map's E. Registered because Museum.tsx
-   parseFloat()s it. */
-@property --museum-b {
+/* Round 24: the bars' height where Safari's bars collapse (the map's T
+   expression; 0 wherever lvh == svh), and svh as a number — both read by
+   Museum.tsx with parseFloat, so registered as lengths like --ui-inset. */
+@property --museum-bars {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --museum-svh {
   syntax: "<length>";
   inherits: true;
   initial-value: 0px;
@@ -2055,104 +2060,27 @@ a.walk-seg:hover {
  * change a visible pixel: every --edge-glass fill is either covered by an
  * opaque ::before or drawn at opacity 0. */
 
-/* ── v17 item 3 (Wil, 2026-09-18) → round 24 (2026-09-21): the corridor
-   under Safari's bars, behind ?glass=1 ─────────────────────────────────────
-   "The area behind the bottom address bar should use the same styling and
-   appearance as the solution applied to the map page." And on 2026-09-21,
-   from his two /paintings screenshots: the hall must show through the
-   bottom toolbar at rest AND through the top bar while walking, with the
-   bars still collapsing; a gradient is the fallback only if that cannot be
-   done.
-
-   The map's shell grows past the viewport edge while its UI layer keeps the
-   original box; only the canvas extends, and the camera takes the extra
-   back. Here the STAGE keeps its box for the same reason the map's UI layer
-   does, and more urgently: `stage.clientHeight` picks the FOV, the portrait
-   and phone thresholds, the walk's scroll total and the sheet-UI split, so
-   a taller stage would move the composition. Only the canvas grows, by B
-   above and B below (Museum.tsx sizeToStage + camera.setViewOffset).
-
-   What round 18 left open — whether a pinned box's overflow paints in the
-   bar region — is answered: it does not. Round 23's device pass 5 measured
-   a stuck sticky box clipped at the viewport exactly like a fixed one, and
-   round 8 measured the stage's own rows unpainted under the toolbar at
-   rest. So the bleed is never shown through the stage (its `overflow:
-   hidden` stays; round 18's clip-margin is gone). It is shown through the
-   RUNWAY STRIPS below: two in-flow <canvas> elements in the slot, fed the
-   bleed rows every frame and placed in the bar regions by Museum.tsx — page
-   paint, which Safari composites there exactly as it does the map's shell.
-
-   B is the map's T: 110px, min()'d against the bars' height so it is 0
-   wherever lvh == svh — every desktop, Android, iPad, and Chromium here —
-   and the strips are never even created there.
-
-   REVERT: delete this block, the .museum-runway rules below, and the runway
-   code in Museum.tsx (sizeToStage's bleed and everything from `RUN_IN`). */
-@supports (-webkit-touch-callout: none) {
-  html[data-glass] .museum-stage {
-    --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
-  }
-}
-/* svh as a number for Museum.tsx: the bars-expanded viewport height, which
-   holds still while the bars move (playbook §1) — the bottom strip is
-   anchored to it, never to innerHeight. Registered so parseFloat gets a
-   resolved length, like --ui-inset and --museum-b. */
-@property --museum-svh {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
+/* ── Round 24 (Wil, 2026-09-21): the hall under Safari's bars ─────────────
+   His two screenshots asked for the hall through the bottom toolbar at rest
+   and through the address bar while walking. Three device passes measured
+   that nothing the page renders beyond the layout viewport's edges is drawn
+   by Safari 26 — not in-flow paint, not a div, not a 2D or a WebGL canvas,
+   placed by layout or by transform, above or below the stage, in <main> or
+   in <body> (docs/rounds/2026-09-21-round-24-plan.md, passes 1–3). The bar
+   regions show Safari's glass tinted from <body>'s colour and nothing else;
+   the map's toolbar reads as the map because its <body> is the map's grey.
+   So Museum.tsx writes the hall's own edge colour to <body>, live, and the
+   round-18 bleed behind ?glass=1 is gone with the strips that never showed.
+   These two numbers are what it reads: the bars' height, 0 wherever the
+   bars do not collapse (so nothing runs on desktop, Android, iPad or in
+   Chromium, and the visual gate holds), and svh, which holds still while
+   the bars move. */
 .museum-stage {
   --museum-svh: 100svh;
 }
-/* The runway strips: absolutely positioned in the slot (the island's wrap is
-   `relative`), BEFORE the stage in the tree so the stage's opaque ground and
-   canvas paint over their overlap. Placed by transform, never by top, so a
-   frame costs no layout. Hidden until Museum.tsx has something for them. */
-.museum-runway {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-  pointer-events: none;
-}
-/* Device pass 2 (2026-09-21, 14:00): with the strips placed, filled and
-   cast magenta, Safari drew nothing of them in either bar region. The map's
-   canvas — the one element measured under the toolbar — is placed by layout
-   and carries no will-change, so the script path now places the strips by
-   `top` and the compositing hint stays on the timeline path alone. */
-.museum-runway[data-track] {
-  will-change: transform;
-}
-/* `?runway=track`: the compositor places the strips — translateY = ry0 +
-   the scroll offset, over an absolute 0–100000px range so the mapping does
-   not depend on the scrollport's height (which changes as the bars collapse;
-   the round-23 cover's lesson). Museum.tsx writes `--museum-ry0` per strip
-   (the screen target less the slot's document offset) and self-checks the
-   rendered position at rest, falling back to its own tracker. Reduced motion
-   never mounts the hall, so the cover's media query is not needed here.
-   Longhands: the timeline must follow the animation shorthand or the
-   shorthand resets it. */
-@property --museum-ry0 {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@supports (animation-timeline: scroll()) {
-  @keyframes museum-runway-track {
-    from {
-      transform: translate3d(0, var(--museum-ry0), 0);
-    }
-    to {
-      transform: translate3d(0, calc(var(--museum-ry0) + 100000px), 0);
-    }
-  }
-  html[data-glass] .museum-runway[data-track] {
-    animation-name: museum-runway-track;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: scroll(root block);
-    animation-range: 0px 100000px;
+@supports (-webkit-touch-callout: none) {
+  .museum-stage {
+    --museum-bars: round(down, min(110px, calc(100lvh - 100svh)), 1px);
   }
 }
 
@@ -2167,18 +2095,6 @@ a.walk-seg:hover {
   inset: 0;
   z-index: -1;
   background: var(--color-primary-2);
-}
-/* Round 24 (Wil's crops of 2026-09-21): once the corridor has drawn a frame
-   the opaque canvas IS the stage's ground inside the viewport, and the
-   ::before has nothing left to do there — but it may still paint where the
-   canvas cannot. His toolbar band was flat with the runway strip placed
-   under it; if Safari clips the sticky stage's canvas at the viewport but
-   not the stage's own background (the two were never distinguishable by
-   colour), the ::before was covering the strip. So it leaves after the
-   first frame (Museum.tsx sets data-rendered); the slot's ground behind it
-   is the same brown for the moment before. */
-.museum-stage[data-rendered]::before {
-  display: none;
 }
 /* One invisible reading per edge, on every page. Opacity 0, inert, never
    hit-tested, and out of the Base.astro sampler's reach: `pointer-events:

@@ -1,6 +1,6 @@
 {
   "round": 24,
-  "label": "/paintings — the hall shows through Safari's bars: an in-flow runway fed from the corridor's bleed, behind ?glass=1",
+  "label": "/paintings — Safari's bars take the hall's own edge colour, live (the strips that never showed are gone)",
   "date": "2026-09-21",
   "plan": "docs/rounds/2026-09-21-round-24-plan.md",
   "base": {
@@ -12,15 +12,20 @@
     "src/components/Museum.tsx",
     "src/styles/global.css",
     "package.json",
-    "scripts/museum-runway.mjs",
     "docs/RUN-STATE.md",
     "docs/PLAYBOOK-MOBILE-CHROME.md",
     "docs/v4/DECISIONS.md",
     "docs/rounds/2026-09-21-round-24.json",
-    "docs/rounds/2026-09-21-round-24-plan.md"
+    "docs/rounds/2026-09-21-round-24-plan.md",
+    "scripts/museum-runway.mjs",
+    "scripts/museum-tint.mjs"
   ],
   "constraints": {
-    "package.json": { "jsonKeys": ["scripts"] }
+    "package.json": {
+      "jsonKeys": [
+        "scripts"
+      ]
+    }
   },
   "snap": {
     "allowedRoutes": []

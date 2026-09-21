@@ -45,6 +45,17 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 24, device pass 3 (2026-09-21, 14:24): the lab of five element
+types rendered inside the viewport to the pixel and nothing past its edge,
+in either bar state — Safari 26 draws no page content under its bars; the
+regions show its glass tinted from `<body>` (the map "continues" because
+its body is the map's grey). Fourth push (live on `v2`, `r24.4`): the
+strips and the bleed are gone; Museum.tsx writes the hall's own edge
+colour to `<body>` live (the floor's above the toolbar, the ceiling's at
+the top edge once the bars minimize), default on where the bars collapse,
+`?tint=off` for the static brown, `?tint=<mul>` to scale, `?debug=1` the
+readout. Playbook §1 corrected, §11 rewritten; DECISIONS round 24
+rewritten. Awaiting his read of the band's colour. Pass-2 record follows.
 Round 24, device pass 2 (2026-09-21, 14:00): the readouts prove the
 strips exist, are placed to the pixel and are filled (r24.2, glass 1,
 B 110, drawImage, no error) — and Safari draws none of it in either bar
