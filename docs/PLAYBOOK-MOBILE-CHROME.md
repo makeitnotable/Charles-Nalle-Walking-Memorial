@@ -284,3 +284,61 @@ the stage. Programmatic landings are not events and still run.
   the mini-player and the interlude credit still ride `--ui-inset`.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
+
+## 11 · A pinned stage under the bars: `/paintings` and the runway strips (round 24)
+
+*Round 24 (2026-09-21), Wil's two `/paintings` screenshots and his four
+answers: the bars keep collapsing while walking; the hall itself through the
+bars is the ask and a gradient only the fallback; `/paintings` only; the
+at-rest top bar stays. Shipped behind `?glass=1` for his device pass. Plan:
+`docs/rounds/2026-09-21-round-24-plan.md`; instrument `npm run qa:runway`.*
+
+- **§1's rule holds for a sticky box stuck or not.** The corridor stage is
+  `position: sticky`, one viewport tall, its canvas absolutely positioned
+  inside it. At rest its box reaches ~200px past the toolbar band and his
+  screenshot still shows the band flat (round 8 measured the cut at the
+  viewport's edge to the pixel); stuck, pass 5 covered it. Nothing a pinned
+  stage renders reaches either bar region, and un-sticking it is the page's
+  scroll mechanic. So the hall reaches the bars only as **page paint**.
+- **The runway strips.** The WebGL canvas renders B = 110 rows above and
+  below the stage (`camera.setViewOffset(w, h, 0, −B, w, h + 2B)` — the
+  stage's band stays framed to the pixel: measured, the canonical projection
+  of a work and `--cnwm-chip-y` are identical with and without B), the stage
+  keeps its box and its `overflow: hidden`, and two in-flow `<canvas>` strips
+  in the slot — siblings placed BEFORE the stage so its opaque ground paints
+  over them — are fed those rows every frame, in the same task as the render
+  (the drawing buffer is not preserved past it), and placed by transform:
+  the top strip above the viewport's top edge while the stage is stuck (and
+  as it scrolls out at the end), the bottom strip below **svh** whenever the
+  stage's box reaches it. svh, never innerHeight: the toolbar band is only
+  ever there with the bars expanded, when the layout viewport is svh tall,
+  and with the bars minimized the strip sits behind the stage and below the
+  screen, harmless. B is the map's T expression, so it is 0 wherever
+  lvh == svh and the strips are never created there.
+- **Lag, handled by geometry rather than a visor.** A strip is page paint
+  moved by the main thread, so §3's frame of lag applies. Each strip overlaps
+  the stage by 48px on the viewport side (hidden behind the opaque stage) and
+  is padded 48px past the bar region with the nearest rendered row stretched,
+  so a lag in either direction moves the seam inside the overlap or the
+  padding and never opens a slit of page ground; a one-frame velocity lead
+  centres it. What remains is a texture phase of a few pixels in a blurred,
+  dark band — the thing only his phone can judge. `?runway=track` hands the
+  placement to a scroll timeline (§3's open measurement, self-checked at
+  rest only); `?runway=off` renders the bleed with no strip (the cost split);
+  `?debug=1` prints the path, timeline support and the geometry.
+- **The top strip fades in** over the first 100px after the stage sticks: at
+  that moment what has just scrolled past the top edge is the header's tail,
+  and the ceiling arrives over it as a fade, not a cut. A paused render loop
+  (stage out of view, tab hidden, curtain) hides both strips so none is left
+  parked in the document for the reader to scroll back into.
+- **Cost, measured here and not on a phone:** a 645px viewport renders 865
+  rows, and the walk's median frame interval rose from ~25 to ~35ms in this
+  container's GL (`qa:runway`'s walk table, with the bleed-only split). If
+  his phone drops frames, the levers are: blit the bottom strip only while
+  the bars are expanded (`innerHeight` is svh then), halve the blit rate, or
+  trim B toward the bars' measured heights (107 / 92).
+- **The desktop guarantee is the gate.** `qa:runway` at 1440×900 with the
+  flag and no bars: no strip, canvas equal to the stage; `qa:snap` 36/36 at
+  0 drift. The instrument stands B in through an init-script `<style>` with
+  `!important` on `html[data-glass] .museum-stage`, exactly as
+  `map-framing.mjs` stands T and E in.

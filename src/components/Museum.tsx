@@ -352,10 +352,22 @@ export default function Museum({ works, slotId }: Props) {
 
          setViewOffset is three.js's exact equivalent of the map camera's
          padding. With `aspect` left at the stage's w/h, a view of
-         (w, h, 0, 0, w, h + B) multiplies the frustum height by (h+B)/h from
-         the SAME top edge — so the canvas's top h rows are framed pixel-for-
-         pixel as they are today and the extra B rows show more world BELOW.
-         Nothing about the corridor the reader already sees changes.
+         (w, h, 0, −B, w, h + 2B) multiplies the frustum height by (h+2B)/h
+         and starts it B rows ABOVE the same top edge — so the canvas's middle
+         h rows are framed pixel-for-pixel as they are today, and B rows of
+         world show above and below. Nothing about the corridor the reader
+         already sees changes.
+
+         Round 24 (Wil, 2026-09-21): the bleed now runs ABOVE as well as
+         below, and it is never shown through the stage. The stage is
+         `position: sticky`, and Safari 26 clips a pinned box's paint at the
+         layout viewport whether or not it is stuck (playbook §1 and §3, and
+         his two screenshots): the bleed rows reach the toolbar band at rest
+         and the bar region while walking only through the RUNWAY strips
+         below — in-flow <canvas> copies of those rows, which are page paint
+         and so composite into the bar regions exactly as the map's runway
+         does. The stage's own `overflow: hidden` clips both bleeds, which is
+         right.
 
          B is 0 off the flag and wherever there are no bars, which makes every
          expression below reduce to exactly today's two lines. */
@@ -368,15 +380,354 @@ export default function Museum({ works, slotId }: Props) {
         const w = stage.clientWidth;
         const h = stage.clientHeight;
         const b = museumB();
-        renderer.setSize(w, h + b);
+        renderer.setSize(w, h + 2 * b);
         camera.aspect = w / h;
-        if (b > 0) camera.setViewOffset(w, h, 0, 0, w, h + b);
+        if (b > 0) camera.setViewOffset(w, h, 0, -b, w, h + 2 * b);
         else camera.clearViewOffset();
         camera.updateProjectionMatrix();
-        /* The canvas is B taller than the stage and hangs that much below it,
-           mirroring .map-canvas's `bottom: -E`. */
-        renderer.domElement.style.bottom = b > 0 ? `${-b}px` : "";
-        renderer.domElement.style.top = b > 0 ? "auto" : "";
+        /* The canvas is 2B taller than the stage and starts B above it. */
+        renderer.domElement.style.top = b > 0 ? `${-b}px` : "";
+        renderer.domElement.style.bottom = b > 0 ? "auto" : "";
+        runwayResize(b);
+      };
+      /* ── Round 24 (Wil, 2026-09-21): the runway strips ───────────────────
+         Two in-flow <canvas> strips in the slot, siblings of the stage and
+         BEFORE it in the tree so the opaque stage paints over them. Each
+         frame, after the render, the corridor's bleed rows are copied into
+         them and they are placed to sit exactly in the regions Safari's bars
+         cover — page paint, never pinned, so Safari composites it there the
+         way it does the map's runway (playbook §1):
+
+           top    — above the layout viewport's top edge while the stage is
+                    stuck (and while it scrolls out at the end of the walk):
+                    the minimized bar's glass (~91px on his phone) and the
+                    expanded address bar (107px) both show what the document
+                    holds there.
+           bottom — below svh, the bars-expanded viewport height, which holds
+                    still (never innerHeight, which moves with the bars),
+                    whenever the stage's box reaches it: the toolbar band at
+                    rest, and again whenever a scroll up re-expands it. With
+                    the bars minimized it sits behind the stage and below
+                    the screen, harmless.
+
+         Each strip overlaps the stage by RUN_IN on the viewport side, hidden
+         behind the opaque stage, and is padded RUN_OUT past the bar region
+         with the nearest rendered row stretched — so a frame of main-thread
+         lag (playbook §3: a box the page places sits speed × a frame behind
+         the compositor) moves the seam INSIDE the overlap or the padding and
+         never opens a slit of page ground. A velocity lead of about a frame
+         covers the residual; what remains is a texture phase of a few pixels
+         in a blurred, dark band, which only his phone can judge.
+         `?runway=track` hands the placement to a scroll-driven animation
+         instead (global.css) and self-checks it at rest — the one path with
+         no frame of lag, if this Safari runs it on the compositor (the
+         round-23 open measurement). `?debug=1` prints which path is driving
+         and the geometry.
+
+         Cost: the render target is 2B rows taller (220 on a 645 viewport),
+         plus two small blits a frame. Nothing here exists where B is 0. */
+      const RUN_IN = 48;
+      const RUN_OUT = 48;
+      /* The top strip fades in over the first RUN_FADE px of the stuck scroll:
+         at the moment the stage sticks, what has just scrolled past the top
+         edge is the header's tail, and the ceiling arrives over it as a fade
+         rather than a cut. */
+      const RUN_FADE = 100;
+      const runwayTrackWanted = /(^|[?&])runway=track(&|$)/.test(location.search);
+      /* `?runway=off`: the bleed renders, no strip exists — the diagnostic
+         that splits the cost of the taller render target from the copies. */
+      const runwayOff = /(^|[?&])runway=off(&|$)/.test(location.search);
+      const strips: { top: HTMLCanvasElement | null; bottom: HTMLCanvasElement | null } = { top: null, bottom: null };
+      let runB = 0;
+      let runPR = 1;
+      let runSvh = 0;
+      let runTrack = false;
+      let runTrackFailed = false;
+      let runChecks = 0;
+      let runRestSince = 0;
+      let runLastS: number | null = null;
+      let runLastT = 0;
+      let runVel = 0;
+      let runLead = 0;
+      let runFrameMs = 16.7;
+      let runLastRaf = 0;
+      const runLast = {
+        top: { s0: 0, rows: 0, on: false, y: NaN },
+        bottom: { s0: 0, rows: 0, on: false, y: NaN },
+      };
+      let debugBox: HTMLPreElement | null = null;
+      let debugAt = 0;
+      const mkStrip = (name: "top" | "bottom") => {
+        const c = document.createElement("canvas");
+        c.className = "museum-runway";
+        c.dataset.runway = name;
+        c.setAttribute("aria-hidden", "true");
+        wrap.insertBefore(c, stage);
+        return c;
+      };
+      const runwayResize = (b: number) => {
+        runB = b;
+        if (b <= 0) {
+          if (strips.top) strips.top.style.display = "none";
+          if (strips.bottom) strips.bottom.style.display = "none";
+          runLast.top.on = runLast.bottom.on = false;
+          return;
+        }
+        if (runwayOff) return;
+        if (!strips.top) strips.top = mkStrip("top");
+        if (!strips.bottom) strips.bottom = mkStrip("bottom");
+        runPR = renderer.getPixelRatio();
+        const svh = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-svh"));
+        runSvh = Number.isFinite(svh) && svh > 0 ? svh : stage.clientHeight;
+        const w = stage.clientWidth;
+        /* only when the box really changes: iOS fires `resize` on every bar
+           transition, and a canvas re-sized to the same numbers still clears
+           — a blank strip for a frame, exactly when the bar is arriving */
+        const size = (c: HTMLCanvasElement, rows: number) => {
+          const pw = Math.round(w * runPR);
+          const ph = Math.round(rows * runPR);
+          if (c.width === pw && c.height === ph) return;
+          c.width = pw;
+          c.height = ph;
+          c.style.width = `${w}px`;
+          c.style.height = `${rows}px`;
+        };
+        size(strips.top, RUN_OUT + b + RUN_IN);
+        size(strips.bottom, RUN_IN + b + RUN_OUT);
+        runTrack =
+          runwayTrackWanted &&
+          !runTrackFailed &&
+          !!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"));
+        for (const c of [strips.top, strips.bottom]) {
+          if (runTrack) c.dataset.track = "1";
+          else delete c.dataset.track;
+        }
+        runLast.top.y = runLast.bottom.y = NaN;
+        if (document.documentElement.dataset.debug === "1" && !debugBox) {
+          debugBox = document.createElement("pre");
+          debugBox.setAttribute("aria-hidden", "true");
+          debugBox.style.cssText =
+            "position:fixed;left:8px;bottom:120px;z-index:100002;margin:0;padding:8px 10px;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.75);border-radius:8px;pointer-events:none;white-space:pre";
+          document.body.appendChild(debugBox);
+        }
+      };
+      /* s0: the canvas CSS row that lands on the strip's first row. Rows the
+         canvas has are copied 1:1 (in the same task as the render — the
+         drawing buffer is not preserved past it); rows beyond its extent take
+         the nearest rendered row, stretched. */
+      const blitStrip = (c: HTMLCanvasElement, s0: number, rows: number) => {
+        const ctx = c.getContext("2d");
+        if (!ctx) return;
+        const src = renderer.domElement;
+        const W = stage.clientWidth;
+        const H = stage.clientHeight + 2 * runB;
+        const pr = runPR;
+        const a = Math.max(0, s0);
+        const z = Math.min(H, s0 + rows);
+        if (z <= a) {
+          ctx.fillStyle = "#1d1411";
+          ctx.fillRect(0, 0, c.width, c.height);
+          return;
+        }
+        ctx.drawImage(src, 0, a * pr, W * pr, (z - a) * pr, 0, (a - s0) * pr, W * pr, (z - a) * pr);
+        if (a > s0) ctx.drawImage(src, 0, a * pr, W * pr, pr, 0, 0, W * pr, (a - s0) * pr);
+        if (s0 + rows > z) ctx.drawImage(src, 0, (z - 1) * pr, W * pr, pr, 0, (z - s0) * pr, W * pr, (s0 + rows - z) * pr);
+      };
+      const placeStrip = (c: HTMLCanvasElement, key: "top" | "bottom", screenTop: number, wrTop: number, scrollY: number) => {
+        const st = runLast[key];
+        if (!st.on) {
+          st.on = true;
+          c.style.display = "block";
+        }
+        if (runTrack) {
+          /* the animation adds the scroll offset; ry0 is the screen target
+             less the slot's document offset (refreshed if the layout above
+             the slot ever moves) */
+          const ry0 = Math.round((screenTop - (wrTop + scrollY)) * 10) / 10;
+          if (st.y !== ry0) {
+            st.y = ry0;
+            c.style.setProperty("--museum-ry0", `${ry0}px`);
+          }
+          return;
+        }
+        const y = Math.round((screenTop - wrTop + runLead) * 10) / 10;
+        if (st.y !== y) {
+          st.y = y;
+          c.style.transform = `translate3d(0,${y}px,0)`;
+        }
+      };
+      const hideStrip = (c: HTMLCanvasElement, key: "top" | "bottom") => {
+        const st = runLast[key];
+        if (st.on) {
+          st.on = false;
+          c.style.display = "none";
+        }
+      };
+      const demoteTrack = () => {
+        runTrack = false;
+        runTrackFailed = true;
+        for (const c of [strips.top, strips.bottom]) {
+          if (!c) continue;
+          delete c.dataset.track;
+          c.style.animation = "none";
+        }
+        runLast.top.y = runLast.bottom.y = NaN;
+      };
+      /* The compositor path's self-check, AT REST only (playbook §3, device
+         pass 3: a check that fails in motion demotes a good path for good):
+         300 ms into a rest the strip's rendered top must sit at its target.
+         A pass is uninformative at scroll 0, so passes count from 60px. */
+      const runwayCheck = (now: number) => {
+        if (runChecks >= 12) return;
+        if (Math.abs(runVel) >= 0.05) {
+          runRestSince = now;
+          return;
+        }
+        if (now - runRestSince < 300) return;
+        const key = runLast.top.on ? "top" : runLast.bottom.on ? "bottom" : null;
+        if (!key) return;
+        const c = strips[key]!;
+        const want = key === "top" ? -(RUN_OUT + runB) : runSvh - RUN_IN;
+        if (Math.abs(c.getBoundingClientRect().top - want) > 8) {
+          demoteTrack();
+          return;
+        }
+        if ((window.scrollY || 0) >= 60) runChecks++;
+        runRestSince = now;
+      };
+      const debugPaint = (sr: DOMRect, wr: DOMRect) => {
+        if (!debugBox) return;
+        const n = (v: number) => Math.round(v * 10) / 10;
+        const rt = strips.top && runLast.top.on ? strips.top.getBoundingClientRect() : null;
+        const rb = strips.bottom && runLast.bottom.on ? strips.bottom.getBoundingClientRect() : null;
+        const timeline = window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()") ? "supported" : "unsupported";
+        const path = runTrack
+          ? "track (compositor)"
+          : runTrackFailed
+            ? "script (timeline check failed)"
+            : runwayTrackWanted
+              ? "script (timeline unsupported)"
+              : "script";
+        debugBox.textContent =
+          `${path} · checks ${runChecks} · timeline ${timeline}` +
+          `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
+          `\nstage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)} · frame ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)}` +
+          `\ntop ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"}`;
+      };
+      const paintRunways = (now: number) => {
+        if (runB <= 0 || !strips.top || !strips.bottom) return;
+        const wr = wrap.getBoundingClientRect();
+        const sr = stage.getBoundingClientRect();
+        const scrollY = window.scrollY || 0;
+        /* the page's speed in px/ms, positive scrolling down, smoothed over
+           two frames, a reversal taking the new sign at once; the lead is
+           about a frame of it */
+        const s = -wr.top;
+        const dt = runLastT ? now - runLastT : 0;
+        if (runLastS === null) {
+          runLastS = s;
+          runLastT = now;
+        } else if (dt >= 4) {
+          const raw = dt >= 250 ? 0 : Math.max(-8, Math.min(8, (s - runLastS) / dt));
+          runVel = raw && runVel && raw > 0 !== runVel > 0 ? raw : runVel * 0.5 + raw * 0.5;
+          runLastS = s;
+          runLastT = now;
+        }
+        if (runLastRaf && now - runLastRaf < 60) runFrameMs = runFrameMs * 0.9 + (now - runLastRaf) * 0.1;
+        runLastRaf = now;
+        runLead = runTrack || Math.abs(runVel) < 0.05 ? 0 : runVel * Math.min(34, Math.max(6, runFrameMs));
+        const hTop = RUN_OUT + runB + RUN_IN;
+        const hBot = RUN_IN + runB + RUN_OUT;
+        /* top: while the stage's top edge is at or above the viewport's */
+        if (sr.top <= 0.5 && sr.bottom > 0) {
+          const screenTop = -(RUN_OUT + runB);
+          placeStrip(strips.top, "top", screenTop, wr.top, scrollY);
+          const fade = String(Math.round(Math.min(1, Math.max(0, -wr.top / RUN_FADE)) * 100) / 100);
+          if (strips.top.style.opacity !== fade) strips.top.style.opacity = fade;
+          const s0 = screenTop - sr.top + runB;
+          blitStrip(strips.top, s0, hTop);
+          runLast.top.s0 = s0;
+          runLast.top.rows = hTop;
+        } else hideStrip(strips.top, "top");
+        /* bottom: the stage's box reaches svh, and the strip stays inside the
+           slot's box so it never paints over the stills below */
+        if (sr.bottom >= runSvh - 0.5 && wr.bottom >= runSvh + runB + RUN_OUT - 0.5) {
+          const screenTop = runSvh - RUN_IN;
+          placeStrip(strips.bottom, "bottom", screenTop, wr.top, scrollY);
+          const s0 = screenTop - sr.top + runB;
+          blitStrip(strips.bottom, s0, hBot);
+          runLast.bottom.s0 = s0;
+          runLast.bottom.rows = hBot;
+        } else hideStrip(strips.bottom, "bottom");
+        if (runTrack) runwayCheck(now);
+        if (debugBox && now - debugAt > 250) {
+          debugAt = now;
+          debugPaint(sr, wr);
+        }
+      };
+      /* scripts/museum-runway.mjs: one fresh frame, then each visible strip's
+         rows against the same frame's canvas rows (read in the same task, as
+         the blit is), and the strip's spread so a flat fill cannot pass. */
+      const runwayProbe = () => {
+        renderer.render(scene, camera);
+        paintRunways(performance.now());
+        const W = stage.clientWidth;
+        const H = stage.clientHeight + 2 * runB;
+        const pr = runPR;
+        const scratch = document.createElement("canvas");
+        scratch.width = Math.round(W * pr);
+        scratch.height = Math.round(H * pr);
+        const sctx = scratch.getContext("2d")!;
+        sctx.drawImage(renderer.domElement, 0, 0);
+        const stats = (c: HTMLCanvasElement, s0: number, rows: number) => {
+          const ctx = c.getContext("2d")!;
+          const w = c.width;
+          let diff = 0;
+          let n = 0;
+          let compared = 0;
+          for (let k = 1; k <= 4; k++) {
+            const r = Math.round(((rows * k) / 5) * pr);
+            const cy = Math.round(s0 * pr) + r;
+            if (r < 0 || r >= c.height || cy < 0 || cy >= scratch.height) continue;
+            const a = ctx.getImageData(0, r, w, 1).data;
+            const b = sctx.getImageData(0, cy, w, 1).data;
+            for (let i = 0; i < a.length; i += 4) {
+              diff += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
+              n += 3;
+            }
+            compared++;
+          }
+          const d = ctx.getImageData(0, 0, w, c.height).data;
+          let sum = 0;
+          let sq = 0;
+          let m = 0;
+          for (let i = 0; i < d.length; i += 16) {
+            const l = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+            sum += l;
+            sq += l * l;
+            m++;
+          }
+          const mean = sum / m;
+          return { rowsCompared: compared, meanAbsDiff: n ? diff / n : null, stddev: Math.sqrt(Math.max(0, sq / m - mean * mean)), mean };
+        };
+        const rect = (el: Element) => {
+          const r = el.getBoundingClientRect();
+          return { top: r.top, bottom: r.bottom, left: r.left, width: r.width, height: r.height };
+        };
+        return {
+          b: runB,
+          in: RUN_IN,
+          out: RUN_OUT,
+          svh: runSvh,
+          pr,
+          path: runTrack ? "track" : "script",
+          trackFailed: runTrackFailed,
+          canvas: rect(renderer.domElement),
+          stage: rect(stage),
+          wrap: rect(wrap),
+          top: runLast.top.on && strips.top ? { rect: rect(strips.top), s0: runLast.top.s0, ...stats(strips.top, runLast.top.s0, runLast.top.rows) } : null,
+          bottom: runLast.bottom.on && strips.bottom ? { rect: rect(strips.bottom), s0: runLast.bottom.s0, ...stats(strips.bottom, runLast.bottom.s0, runLast.bottom.rows) } : null,
+        };
       };
       renderer.setSize(stage.clientWidth, stage.clientHeight);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -1853,7 +2204,13 @@ export default function Museum({ works, slotId }: Props) {
       let rectTick = 0;
       const tick = () => {
         raf = requestAnimationFrame(tick);
-        if (!(inView && visible && !covered)) return;
+        if (!(inView && visible && !covered)) {
+          /* round 24: a paused loop must not leave a strip parked at its last
+             document position for the reader to scroll back into */
+          if (strips.top) hideStrip(strips.top, "top");
+          if (strips.bottom) hideStrip(strips.bottom, "bottom");
+          return;
+        }
         const now = performance.now();
         const dt = Math.min((now - lastT) / 1000, 0.05);
         lastT = now;
@@ -1896,6 +2253,7 @@ export default function Museum({ works, slotId }: Props) {
         camera.position.set(cur.x, cur.y, cur.z);
         camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
         renderer.render(scene, camera);
+        paintRunways(now);
 
         // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer
         // slides — set here (rAF runs after React's commits, so a 4Hz
@@ -1988,6 +2346,9 @@ export default function Museum({ works, slotId }: Props) {
          and would drag the chip with it), and hand the midpoint to CSS. Once
          per layout: the band only moves when the viewport does. */
       const probeCam = camera.clone();
+      /* round 24: clone() copies the bleed's view offset (sizeToStage); the
+         arch is projected against the STAGE, so clear it here. */
+      probeCam.clearViewOffset();
       const setChipBand = () => {
         const H = stage.clientHeight;
         if (!H) return;
@@ -2135,6 +2496,17 @@ export default function Museum({ works, slotId }: Props) {
             ceilY: CEIL_Y,
             corridorHalf: CH,
             endZ,
+            /* round 24: the runway strips (scripts/museum-runway.mjs) */
+            runway: {
+              b: runB,
+              path: runTrack ? "track" : "script",
+              trackFailed: runTrackFailed,
+              svh: runSvh,
+              lead: runLead,
+              vel: runVel,
+              top: runLast.top.on ? { s0: runLast.top.s0, rows: runLast.top.rows, y: runLast.top.y } : null,
+              bottom: runLast.bottom.on ? { s0: runLast.bottom.s0, rows: runLast.bottom.rows, y: runLast.bottom.y } : null,
+            },
             running: inView && visible && !covered,
             works: works.length,
             spacing: SPACING,
@@ -2154,6 +2526,7 @@ export default function Museum({ works, slotId }: Props) {
         setSheet: (s: "peek" | "full") => snapSheetFn.current(s),
         paintingRect,
         placements,
+        runwayProbe,
         get info() {
           return renderer.info;
         },
@@ -2201,6 +2574,9 @@ export default function Museum({ works, slotId }: Props) {
             if (m) (Array.isArray(m) ? m : [m]).forEach((mm: any) => { mm.map?.dispose?.(); mm.dispose?.(); });
           });
           renderer.domElement.remove();
+          strips.top?.remove();
+          strips.bottom?.remove();
+          debugBox?.remove();
         },
       };
     })();

@@ -2055,39 +2055,97 @@ a.walk-seg:hover {
  * change a visible pixel: every --edge-glass fill is either covered by an
  * opaque ::before or drawn at opacity 0. */
 
-/* ── v17 item 3 (Wil, 2026-09-18): the corridor under the bottom toolbar ────
+/* ── v17 item 3 (Wil, 2026-09-18) → round 24 (2026-09-21): the corridor
+   under Safari's bars, behind ?glass=1 ─────────────────────────────────────
    "The area behind the bottom address bar should use the same styling and
-   appearance as the solution applied to the map page." Behind ?glass=1.
+   appearance as the solution applied to the map page." And on 2026-09-21,
+   from his two /paintings screenshots: the hall must show through the
+   bottom toolbar at rest AND through the top bar while walking, with the
+   bars still collapsing; a gradient is the fallback only if that cannot be
+   done.
 
    The map's shell grows past the viewport edge while its UI layer keeps the
-   original box; only the canvas extends, and the camera takes the extra back.
-   Here the STAGE keeps its box for the same reason the map's UI layer does,
-   and more urgently: `stage.clientHeight` picks the FOV, the portrait and
-   phone thresholds, the walk's scroll total and the sheet-UI split, so a
-   taller stage would move the composition. Only the canvas grows (Museum.tsx
-   sizeToStage + camera.setViewOffset), which needs the stage to stop clipping
-   it — hence `overflow: visible`, flag-gated so the default clip is untouched.
+   original box; only the canvas extends, and the camera takes the extra
+   back. Here the STAGE keeps its box for the same reason the map's UI layer
+   does, and more urgently: `stage.clientHeight` picks the FOV, the portrait
+   and phone thresholds, the walk's scroll total and the sheet-UI split, so
+   a taller stage would move the composition. Only the canvas grows, by B
+   above and B below (Museum.tsx sizeToStage + camera.setViewOffset).
 
-   THE OPEN QUESTION, and Wil should know it: phase A2 measured a PINNED box's
-   overflow clipped at the visual viewport (160px requested, 21px rendered).
-   The stage is sticky, so this may be clipped the same way and show nothing.
-   What is different here is that the canvas is a real absolutely-positioned
-   child with its own box rather than bleed out of the stage's, which is the
-   configuration the map proves works in flow — untested while pinned. If it is
-   clipped, the answer is that only un-sticking the corridor can work, and that
-   is Wil's call with the framing untouched either way.
+   What round 18 left open — whether a pinned box's overflow paints in the
+   bar region — is answered: it does not. Round 23's device pass 5 measured
+   a stuck sticky box clipped at the viewport exactly like a fixed one, and
+   round 8 measured the stage's own rows unpainted under the toolbar at
+   rest. So the bleed is never shown through the stage (its `overflow:
+   hidden` stays; round 18's clip-margin is gone). It is shown through the
+   RUNWAY STRIPS below: two in-flow <canvas> elements in the slot, fed the
+   bleed rows every frame and placed in the bar regions by Museum.tsx — page
+   paint, which Safari composites there exactly as it does the map's shell.
 
-   REVERT: delete this block and the sizeToStage bleed in Museum.tsx. */
+   B is the map's T: 110px, min()'d against the bars' height so it is 0
+   wherever lvh == svh — every desktop, Android, iPad, and Chromium here —
+   and the strips are never even created there.
+
+   REVERT: delete this block, the .museum-runway rules below, and the runway
+   code in Museum.tsx (sizeToStage's bleed and everything from `RUN_IN`). */
 @supports (-webkit-touch-callout: none) {
   html[data-glass] .museum-stage {
     --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
-    /* NOT `overflow: visible` — the stage's hidden overflow clips the corridor's
-       own children, and releasing it entirely could let the on-stage UI escape
-       on iOS, which nothing here can test. `clip` keeps that clipping and
-       `overflow-clip-margin` extends the clip box by exactly B, which is the
-       one thing that needs to get out. */
-    overflow: clip;
-    overflow-clip-margin: var(--museum-b);
+  }
+}
+/* svh as a number for Museum.tsx: the bars-expanded viewport height, which
+   holds still while the bars move (playbook §1) — the bottom strip is
+   anchored to it, never to innerHeight. Registered so parseFloat gets a
+   resolved length, like --ui-inset and --museum-b. */
+@property --museum-svh {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+.museum-stage {
+  --museum-svh: 100svh;
+}
+/* The runway strips: absolutely positioned in the slot (the island's wrap is
+   `relative`), BEFORE the stage in the tree so the stage's opaque ground and
+   canvas paint over their overlap. Placed by transform, never by top, so a
+   frame costs no layout. Hidden until Museum.tsx has something for them. */
+.museum-runway {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  pointer-events: none;
+  will-change: transform;
+}
+/* `?runway=track`: the compositor places the strips — translateY = ry0 +
+   the scroll offset, over an absolute 0–100000px range so the mapping does
+   not depend on the scrollport's height (which changes as the bars collapse;
+   the round-23 cover's lesson). Museum.tsx writes `--museum-ry0` per strip
+   (the screen target less the slot's document offset) and self-checks the
+   rendered position at rest, falling back to its own tracker. Reduced motion
+   never mounts the hall, so the cover's media query is not needed here.
+   Longhands: the timeline must follow the animation shorthand or the
+   shorthand resets it. */
+@property --museum-ry0 {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@supports (animation-timeline: scroll()) {
+  @keyframes museum-runway-track {
+    from {
+      transform: translate3d(0, var(--museum-ry0), 0);
+    }
+    to {
+      transform: translate3d(0, calc(var(--museum-ry0) + 100000px), 0);
+    }
+  }
+  html[data-glass] .museum-runway[data-track] {
+    animation-name: museum-runway-track;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px 100000px;
   }
 }
 

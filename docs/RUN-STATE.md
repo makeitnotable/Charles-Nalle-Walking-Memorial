@@ -7,6 +7,22 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Client rounds 1–23 COMPLETE (2026-09-15 → 2026-09-20); the map page and
+the chapter pages are signed off; round 24 (`/paintings`, the hall through
+Safari's bars) is BUILT BEHIND `?glass=1` AND AWAITING WIL'S DEVICE PASS.**
+Round 24 (2026-09-21), from his two `/paintings` screenshots and four
+answers (bars keep collapsing; live see-through first, a gradient only as
+the fallback; this page only; the at-rest top bar stays): the corridor
+stage is sticky and Safari clips its paint at the viewport, so the hall
+reaches the bar regions only as page paint — the canvas now renders B = 110
+rows above and below the stage (`setViewOffset`, the framing measured
+identical) and two in-flow `<canvas>` strips in the slot carry those rows
+into the bar regions every frame, overlapping the stage by 48px and padded
+48px so a frame of lag never opens a slit. Plan and device-pass list:
+`docs/rounds/2026-09-21-round-24-plan.md`; playbook §11; DECISIONS.md.
+Instrument: `npm run qa:runway` (161 checks). `qa:snap` 36/36 at 0 drift
+(the base build measured 36/36 here first). Off the flag v2 is byte-
+identical. Previous phase text follows.
 **Client rounds 1–22 COMPLETE (2026-09-15 → 2026-09-18); the map page is
 signed off; round 23 (the chapter pages) is SHIPPED AND AWAITING WIL'S DEVICE
 PASS.** Wil, 2026-09-18 after round 21 on the live site: "Looks and works
@@ -29,6 +45,19 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 24 BUILT (2026-09-21), behind `?glass=1`, on the session branch —
+awaiting the fast-forward of `v2` and Wil's device pass on
+`/paintings?glass=1` (and `&runway=track`, `&runway=off`, `&debug=1`).
+Verified here: astro check 0/0; build + check-css; qa:scope 9 files;
+qa:snap 36/36 0 drift; qa:runway 161/161 (stage box and the canonical
+projection identical with and without B; strips placed to the pixel and
+carrying the canvas's own rows; 1440 with the flag unchanged). Measured
+cost in this container's GL: the walk's median frame interval 25 → 30 ms
+(bleed) → 36 ms (strips) at 390×645 — the phone decides. Unverified: the
+bars, the seam in motion, the frame rate, the timeline path. When he
+approves: drop `[data-glass]` from the `--museum-b` rule and the
+`dataset.glass` test in `museumB()`; if the first idea fails, plan §5 is
+the fallback he named. Round-23 record follows.
 Round 23 DONE and closed out (2026-09-20, Wil: "everything is perfect …
 close this out"). Pass 12: the closeout probe measured all five chapters
 identical under the still document (gate and E stood in), and pinned the
@@ -138,12 +167,16 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
-Wil's open decisions, none blocking: the scrolled composition of `/map` (his
-screenshot 4 — proposal in the round-19 report, not shipped); the 14px shift
-of the OTHER corner controls when the bars collapse (round 23 took the menu
-off `--ui-inset`; the mini-player and the interlude credit still ride it);
-`/paintings`' bottom toolbar (behind `?glass=1`, round 18, untested on the
-device); the Compact address-bar layout was never measured.
+Wil's device pass on round 24 (`docs/rounds/2026-09-21-round-24-plan.md`
+§4): `/paintings?glass=1` at rest, walking, scrolled up mid-walk, a fast
+flick, the frame rate, then `&runway=track` and one `&debug=1` screenshot.
+Approved → off the flag (one selector, one test). Failed → §5's fallback.
+Also open, none blocking: the scrolled composition of `/map` (his screenshot
+4 — proposal in the round-19 report, not shipped); the 14px shift of the
+OTHER corner controls when the bars collapse (round 23 took the menu off
+`--ui-inset`; the mini-player and the interlude credit still ride it); the
+Compact address-bar layout was never measured (B = 110 covers a toolbar up
+to 110px).
 Previous close (v13) follows, superseded.
 
 ## v13 PHASE (superseded 2026-09-18)
