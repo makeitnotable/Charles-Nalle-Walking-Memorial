@@ -45,6 +45,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 24, device pass 2 (2026-09-21, 14:00): the readouts prove the
+strips exist, are placed to the pixel and are filled (r24.2, glass 1,
+B 110, drawImage, no error) — and Safari draws none of it in either bar
+region, while it draws the map's WebGL canvas and round 23's cover there.
+Third push (live on `v2`, `r24.3`): the strips are placed by `top` like
+the map's canvas, and `?lab=1` puts five candidate element types beside
+them in the bar regions, one colour each (div/top, div/transform,
+2D-canvas/transform, WebGL/top, body-div/transform). Awaiting two
+`?glass=1&debug=1&lab=1` screenshots; the colours that reach the bars
+decide what the strips are rebuilt from. Pass-1 record follows.
 Round 24, device pass 1 (2026-09-21, 12:58): both bar regions still flat
 on his phone — what a missing or blank strip looks like; the readout was
 not on. Second push (live on `v2`): the readout names the build (`r24.2`),

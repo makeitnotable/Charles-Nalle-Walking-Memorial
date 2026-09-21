@@ -440,9 +440,16 @@ export default function Museum({ works, slotId }: Props) {
       /* `?runway=readpixels`: the copy takes the readback path from the
          start (the fallback in blitStrip), for a comparison on the phone. */
       const runwayReadPixels = /(^|[?&])runway=readpixels(&|$)/.test(location.search);
+      /* `?lab=1` (device pass 2): the strips move above the stage so their
+         overlap shows inside the viewport, and five candidate elements sit
+         beside them in the same bar regions, one colour each — which of them
+         Safari draws under the bars is what the next screenshot answers. */
+      const runwayLab = /(^|[?&])lab=1(&|$)/.test(location.search);
+      type LabEl = { el: HTMLElement; body: boolean; mode: "top" | "transform" };
+      const lab: { top: LabEl[]; bottom: LabEl[] } = { top: [], bottom: [] };
       /* printed by the `?debug=1` readout, so a screenshot says which build
          it is of — a cached bundle looks exactly like a broken one */
-      const RUNWAY_BUILD = "r24.2";
+      const RUNWAY_BUILD = "r24.3";
       let runCopy: "drawImage" | "readPixels" = runwayReadPixels ? "readPixels" : "drawImage";
       let runCopyChecked = false;
       let runBlits = 0;
@@ -506,6 +513,47 @@ export default function Museum({ works, slotId }: Props) {
         };
         size(strips.top, RUN_OUT + b + RUN_IN);
         size(strips.bottom, RUN_IN + b + RUN_OUT);
+        if (runwayLab && !lab.top.length) {
+          strips.top.style.zIndex = strips.bottom.style.zIndex = "5";
+          const rows = RUN_OUT + b + RUN_IN;
+          const LW = 39;
+          const mk = (i: number, kind: "div" | "canvas2d" | "webgl", colour: string, mode: "top" | "transform", body: boolean): LabEl => {
+            const el = document.createElement(kind === "div" ? "div" : "canvas") as HTMLElement;
+            el.className = "museum-runway-lab";
+            el.setAttribute("aria-hidden", "true");
+            el.style.cssText = `position:absolute;left:${i * LW}px;top:0;width:${LW}px;height:${rows}px;display:none;pointer-events:none;z-index:${body ? 800 : 5};${mode === "transform" ? "will-change:transform;" : ""}`;
+            if (kind === "div") el.style.background = colour;
+            else {
+              const c = el as HTMLCanvasElement;
+              c.width = LW;
+              c.height = rows;
+              if (kind === "canvas2d") {
+                const ctx = c.getContext("2d");
+                if (ctx) {
+                  ctx.fillStyle = colour;
+                  ctx.fillRect(0, 0, LW, rows);
+                }
+              } else {
+                const gl = c.getContext("webgl", { preserveDrawingBuffer: true });
+                if (gl) {
+                  gl.clearColor(1, 0.5, 0, 1);
+                  gl.clear(gl.COLOR_BUFFER_BIT);
+                }
+              }
+            }
+            (body ? document.body : wrap).appendChild(el);
+            return { el, body, mode };
+          };
+          const build = () => [
+            mk(0, "div", "#ff2020", "top", false) /* red: a div placed by top */,
+            mk(1, "div", "#20ff20", "transform", false) /* green: a div, will-change + translate3d */,
+            mk(2, "canvas2d", "#2060ff", "transform", false) /* blue: a 2d canvas, will-change + translate3d (the first push's strips) */,
+            mk(3, "webgl", "", "top", false) /* orange: a WebGL canvas placed by top (the map's kind) */,
+            mk(4, "div", "#20ffff", "transform", true) /* cyan: a div in <body>, z 800, translate3d (round 23's cover) */,
+          ];
+          lab.top = build();
+          lab.bottom = build();
+        }
         runTrack =
           runwayTrackWanted &&
           !runTrackFailed &&
@@ -616,10 +664,26 @@ export default function Museum({ works, slotId }: Props) {
           }
           return;
         }
+        /* device pass 2: placed by `top`, not by a transform — the map's
+           canvas, the one element measured under the toolbar, is positioned
+           by layout and carries no will-change; the first push's transformed
+           strips were not drawn there */
         const y = Math.round((screenTop - wrTop + runLead) * 10) / 10;
         if (st.y !== y) {
           st.y = y;
-          c.style.transform = `translate3d(0,${y}px,0)`;
+          c.style.top = `${y}px`;
+        }
+      };
+      const placeLab = (list: LabEl[], on: boolean, screenTop: number, wrTop: number, scrollY: number) => {
+        for (const l of list) {
+          if (!on) {
+            if (l.el.style.display !== "none") l.el.style.display = "none";
+            continue;
+          }
+          if (l.el.style.display !== "block") l.el.style.display = "block";
+          const y = l.body ? screenTop + scrollY : screenTop - wrTop;
+          if (l.mode === "top") l.el.style.top = `${y}px`;
+          else l.el.style.transform = `translate3d(0,${y}px,0)`;
         }
       };
       const hideStrip = (c: HTMLCanvasElement, key: "top" | "bottom") => {
@@ -636,6 +700,7 @@ export default function Museum({ works, slotId }: Props) {
           if (!c) continue;
           delete c.dataset.track;
           c.style.animation = "none";
+          c.style.transform = "";
         }
         runLast.top.y = runLast.bottom.y = NaN;
       };
@@ -676,7 +741,7 @@ export default function Museum({ works, slotId }: Props) {
               : "script";
         debugBox.textContent =
           `${RUNWAY_BUILD} · glass ${document.documentElement.dataset.glass || "off"} · ${path} · timeline ${timeline} · checks ${runChecks}` +
-          `\ncopy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""}` +
+          `\ncopy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""} · place ${runTrack ? "timeline" : "top"} · lab ${runwayLab ? "on" : "off"}` +
           `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
           `\nstage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)} · frame ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)}` +
           `\ntop ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"}`;
@@ -715,7 +780,11 @@ export default function Museum({ works, slotId }: Props) {
           blitStrip(strips.top, s0, hTop);
           runLast.top.s0 = s0;
           runLast.top.rows = hTop;
-        } else hideStrip(strips.top, "top");
+          placeLab(lab.top, true, screenTop, wr.top, scrollY);
+        } else {
+          hideStrip(strips.top, "top");
+          placeLab(lab.top, false, 0, 0, 0);
+        }
         /* bottom: the stage's box reaches svh, and the strip stays inside the
            slot's box so it never paints over the stills below */
         if (sr.bottom >= runSvh - 0.5 && wr.bottom >= runSvh + runB + RUN_OUT - 0.5) {
@@ -725,7 +794,11 @@ export default function Museum({ works, slotId }: Props) {
           blitStrip(strips.bottom, s0, hBot);
           runLast.bottom.s0 = s0;
           runLast.bottom.rows = hBot;
-        } else hideStrip(strips.bottom, "bottom");
+          placeLab(lab.bottom, true, screenTop, wr.top, scrollY);
+        } else {
+          hideStrip(strips.bottom, "bottom");
+          placeLab(lab.bottom, false, 0, 0, 0);
+        }
         if (runTrack) runwayCheck(now);
         if (debugBox && now - debugAt > 250) {
           debugAt = now;
@@ -2655,6 +2728,7 @@ export default function Museum({ works, slotId }: Props) {
           renderer.domElement.remove();
           strips.top?.remove();
           strips.bottom?.remove();
+          for (const l of [...lab.top, ...lab.bottom]) l.el.remove();
           debugBox?.remove();
         },
       };

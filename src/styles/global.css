@@ -2115,6 +2115,13 @@ a.walk-seg:hover {
   left: 0;
   display: none;
   pointer-events: none;
+}
+/* Device pass 2 (2026-09-21, 14:00): with the strips placed, filled and
+   cast magenta, Safari drew nothing of them in either bar region. The map's
+   canvas — the one element measured under the toolbar — is placed by layout
+   and carries no will-change, so the script path now places the strips by
+   `top` and the compositing hint stays on the timeline path alone. */
+.museum-runway[data-track] {
   will-change: transform;
 }
 /* `?runway=track`: the compositor places the strips — translateY = ry0 +
