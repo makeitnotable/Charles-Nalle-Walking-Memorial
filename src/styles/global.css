@@ -2055,51 +2055,116 @@ a.walk-seg:hover {
  * change a visible pixel: every --edge-glass fill is either covered by an
  * opaque ::before or drawn at opacity 0. */
 
-/* ── Round 24 (Wil, 2026-09-21), device pass 4: the hall under Safari's bars
-   Four device passes and rounds 8, 18 and 23 fit one rule: Safari 26 draws
-   its bars as glass over the page unless a fixed or sticky element is what
-   its probe finds at that edge of the layout viewport — then the bar is an
-   opaque fill in the page's colour. The corridor stage is sticky and meets
-   the bottom edge at rest and both edges while walking, so both bars were
-   opaque and nothing under them could show; the map has no pinned element.
-   Museum.tsx keeps two ordinary page strips (`.museum-edge`, never fixed)
-   on the viewport's edges above the stage, so the probe finds them instead.
+/* ── Round 24 (Wil, 2026-09-21), device pass 5: the hall under Safari's bars
+   Two facts, both measured on his phone, and every pass of this round sat
+   on one without the other.
 
-   With glass back, the ceiling can reach behind the minimized bar: the
-   canvas renders B rows above the stage (Museum.tsx sizeToStage +
-   camera.setViewOffset, the stage's band framed to the pixel), and the
-   stage's clip is its box extended upward by B — `overflow: visible` with a
-   clip-path, not `overflow-clip-margin` (all sides, and it would let the
-   plaque sheet show below the stage through the toolbar). At rest the
-   stage's own box already runs under the toolbar. B is the map's T
-   expression: 0 wherever lvh == svh, so on desktop, Android, iPad and in
-   Chromium the stage keeps its `overflow-hidden` utility and the visual
-   gate holds. `html .museum-stage` outranks the utility. */
+   1. Safari 26 draws its bars as GLASS over the page unless a fixed or
+      sticky element is what its edge probe finds — a hit test a few px
+      inside the layout viewport's top and bottom edges, walked up to the
+      first pinned ancestor — and then the bar is an opaque fill in that
+      element's colour, so a pinned header or footer reads as one piece with
+      the bar (WebKit's LocalFrameView::fixedContainerEdges; rounds 8, 18,
+      23 and this one). The corridor stage was sticky and viewport-sized:
+      found at the bottom edge at rest, at both edges while walking, so both
+      bars were opaque fills and nothing placed under them — strips, colour
+      columns, a tint — could ever show (passes 1–3).
+   2. A pinned box's paint never reaches the bar regions: fixed or sticky,
+      stuck or not, it is clipped at the layout viewport (round 8 A2: 160px
+      of bleed, 21 rendered; round 23 pass 5: a stuck box "now it's
+      transparent"). Only IN-FLOW page paint does — the map's runway, the
+      chapter cover through the pill, the hero ghosting through it.
+
+   So two things, one per fact. THE PIN: the stage is no longer the sticky
+   element; a wrapper, `.museum-pin`, is — a viewport taller than the
+   viewport (`height: 100dvh + P`, P = 100svh where the bars collapse),
+   stuck at `top: −P` and pulled up by `margin-top: −P` so the stage's own
+   box, at the pin's foot, does not move by a pixel in any state. WebKit
+   ignores a pinned box that overshoots the viewport along the edge's axis
+   (its size test; the layout test
+   `color-sampling-ignores-large-sticky-container` skips a 2000px sticky at
+   the top and bottom), so the probe walks past it and both bars stay glass.
+   THE RUNWAY: the canvas renders B rows above and below the stage
+   (Museum.tsx sizeToStage + camera.setViewOffset — the stage's band framed
+   to the pixel, measured), and two in-flow <canvas> strips in the wrap
+   (`.museum-runway`, before the pin in the tree so the stage paints over
+   their overlap) are fed those rows every frame and placed by Museum.tsx in
+   the bar regions: above the viewport's top edge while the stage is stuck,
+   below svh whenever the stage's box reaches it. Page paint, never pinned,
+   so Safari composites it under its glass exactly as it does the map's
+   runway.
+
+   B is the map's T expression and P follows it: both 0 wherever lvh == svh,
+   so on desktop, Android, iPad and in Chromium every rule below reduces to
+   the boxes the stage had — the pin a viewport-tall sticky box with the
+   stage filling it — and the visual gate holds. The tokens live on the wrap
+   so the pin and the stage inherit them. */
 @supports (-webkit-touch-callout: none) {
-  html .museum-stage {
+  html .museum-wrap {
     --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
-    overflow: visible;
-    clip-path: inset(calc(-1 * var(--museum-b)) 0 0 0);
+    /* P: a whole viewport where B is anything, 0 where B is 0 (the ×1000
+       makes any B at all win the min); svh, so P holds still while the bars
+       move and only the pin's dvh part follows them, as the stage already
+       did */
+    --museum-pin: min(100svh, calc(var(--museum-b) * 1000));
   }
 }
-/* The edge strips: 8px, transparent, above the stage (z 30: over the stage's
-   own chrome, under the corner menu), placed by `top` from Museum.tsx. They
-   take pointer events only in the 8px under the bars themselves, and let a
-   vertical pan through. */
-.museum-edge {
+@property --museum-pin {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* the pin's negative margin stays inside the wrap (playbook §2, trap 2) */
+.museum-wrap {
+  display: flow-root;
+}
+.museum-pin {
+  position: sticky;
+  top: calc(-1 * var(--museum-pin));
+  height: calc(100dvh + var(--museum-pin));
+  margin-top: calc(-1 * var(--museum-pin));
+  /* an empty box above the stage: never in the way of the header it
+     overlaps at rest */
+  pointer-events: none;
+}
+/* svh as a number for Museum.tsx: the bars-expanded viewport height, which
+   holds still while the bars move (playbook §1) — the bottom strip is
+   anchored to it, never to innerHeight. Registered so parseFloat gets a
+   resolved length, like --ui-inset and --museum-b. */
+@property --museum-svh {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* The runway strips: absolutely positioned in the wrap, BEFORE the pin in
+   the tree so the stage's ground and canvas paint over their overlap.
+   Placed by `top` (the map's canvas, the one element measured under the
+   toolbar, is positioned by layout and carries no will-change). Hidden
+   until Museum.tsx has something for them; inert. */
+.museum-runway {
   position: absolute;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: 8px;
-  z-index: 30;
   display: none;
-  touch-action: pan-y;
+  pointer-events: none;
 }
 
-/* The corridor stage is sticky and full-screen: its opaque ground moves to
-   ::before (same colour, same box, painted beneath every child). */
+/* The corridor stage is full-screen at the pin's foot: its opaque ground
+   moves to ::before (same colour, same box, painted beneath every child). */
 .museum-stage {
+  --museum-svh: 100svh;
   background-color: var(--edge-glass);
+}
+html .museum-stage {
+  /* round 24: absolute at the pin's foot, one viewport tall (`h-dvh`) */
+  position: absolute;
+  top: var(--museum-pin);
+  left: 0;
+  pointer-events: auto;
+  /* sticky made the stage a stacking context; absolute does not, and its
+     ::before ground (z −1) and its chrome (z 10–30) must keep stacking
+     inside it */
+  isolation: isolate;
 }
 .museum-stage::before {
   content: "";

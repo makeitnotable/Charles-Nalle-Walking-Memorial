@@ -9,20 +9,25 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 ## CURRENT PHASE
 **Client rounds 1–23 COMPLETE (2026-09-15 → 2026-09-20); the map page and
 the chapter pages are signed off; round 24 (`/paintings`, the hall through
-Safari's bars) is BUILT BEHIND `?glass=1` AND AWAITING WIL'S DEVICE PASS.**
-Round 24 (2026-09-21), from his two `/paintings` screenshots and four
-answers (bars keep collapsing; live see-through first, a gradient only as
-the fallback; this page only; the at-rest top bar stays): the corridor
-stage is sticky and Safari clips its paint at the viewport, so the hall
-reaches the bar regions only as page paint — the canvas now renders B = 110
-rows above and below the stage (`setViewOffset`, the framing measured
-identical) and two in-flow `<canvas>` strips in the slot carry those rows
-into the bar regions every frame, overlapping the stage by 48px and padded
-48px so a frame of lag never opens a slit. Plan and device-pass list:
-`docs/rounds/2026-09-21-round-24-plan.md`; playbook §11; DECISIONS.md.
-Instrument: `npm run qa:runway` (161 checks). `qa:snap` 36/36 at 0 drift
-(the base build measured 36/36 here first). Off the flag v2 is byte-
-identical. Previous phase text follows.
+Safari's bars) is ON `v2` AT ITS SIXTH PUSH (r24.6) AND AWAITING WIL'S
+DEVICE PASS.** Round 24 (2026-09-21), from his two `/paintings` screenshots
+and four answers (bars keep collapsing; live see-through first, a gradient
+only as the fallback; this page only; the at-rest top bar stays), then
+"research this from a completely new perspective": two facts measured on
+his phone in earlier rounds, and every pass had honoured one without the
+other — Safari's bars are glass unless a pinned element is what its edge
+probe finds (the sticky, viewport-sized stage was: opaque fills), and a
+pinned box's paint never reaches the bar regions (only in-flow paint does).
+r24.6 does both: the sticky element is now a PIN a viewport taller than the
+viewport, which WebKit's probe skips as too large, with the stage absolute
+at its foot in exactly its old box; and the pass-0 RUNWAY is back — the
+canvas renders B = 110 rows above and below the stage and two in-flow
+`<canvas>` strips carry those rows into the bar regions every frame (48px
+overlap and padding against a frame of lag). Plan with every pass's record:
+`docs/rounds/2026-09-21-round-24-plan.md`; playbook §1 and §11;
+DECISIONS.md. Instrument `npm run qa:runway` (166 checks, 0 failed);
+`qa:snap` 36/36 at 0 drift; `qa:scope` clean. Nothing exists where
+lvh == svh. Previous phase text follows.
 **Client rounds 1–22 COMPLETE (2026-09-15 → 2026-09-18); the map page is
 signed off; round 23 (the chapter pages) is SHIPPED AND AWAITING WIL'S DEVICE
 PASS.** Wil, 2026-09-18 after round 21 on the live site: "Looks and works

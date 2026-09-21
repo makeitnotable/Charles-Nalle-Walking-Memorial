@@ -247,25 +247,32 @@ walking, the minimized address bar's region shows the same flat brown over
 the ceiling. His answers: the bars keep collapsing, live see-through first,
 `/paintings` only, the at-rest top bar stays; after four passes, "no solid
 fill behind or around either bar", "edge to edge like the map", "a simple
-solution". The rule that fits every measurement of rounds 8, 18, 23 and
-24 (playbook §1): Safari 26's bars are glass over the page unless a fixed
-or sticky element is what its probe finds at that edge, in which case the
-bar is an opaque fill. The sticky stage met the bottom edge at rest and
-both edges while walking.
+solution", "research this from a completely new perspective". Two facts
+measured on his phone in earlier rounds (playbook §1, §11): Safari 26's
+bars are glass unless a fixed or sticky element is what its edge probe
+finds — the sticky, viewport-sized stage was, so both bars were opaque
+fills; and a pinned box's paint never reaches the bar regions, only in-flow
+page paint does. Every earlier pass honoured one fact and not the other.
 
-**Decision.** Keep the probe off the stage: two 8px transparent page strips
-ride the viewport's edges above the stage, placed every frame; the canvas
-bleeds B rows above the stage and the stage's clip is extended upward by B
-so the ceiling reaches behind the minimized bar. The body tint of the
-fourth push is gone (he rejected the colour change). Default on wherever
-the bars collapse; `?edge=off` restores the opaque bars, `?edge=paint`
-draws the strips, `?bleed=off` removes the bleed. Nothing changes on any
-other device or route.
+**Decision.** Both at once. The pin: the sticky element is a wrapper a
+viewport taller than the viewport (WebKit's probe skips a pinned box that
+overshoots the viewport along the edge's axis), with the stage absolute at
+its foot in exactly its old box. The runway: the canvas renders 110 rows
+above and below the stage and two in-flow `<canvas>` strips carry those
+rows into the bar regions every frame — the pass-0 design. Default on
+wherever the bars collapse; nothing exists where lvh == svh. The body tint
+of the fourth push stays gone (he rejected the colour change).
+`?runway=off` leaves the pin alone, `?runway=readpixels` forces the
+readback copy, `?debug=1` prints the geometry. Nothing changes on any other
+device or route.
 
 **Revert:** `git reset --hard client-round-24-base` (= `1e5b07d`); or in
-`Museum.tsx` delete the block from `RUNWAY_BUILD` through `debugPaint`, the
-`placeEdges()` call, the `hideEdges()` and `probeCam.clearViewOffset()`
-lines, the `edge` hook state, the `visibility` lines in `applySheet` and
-`hideSheet`, and restore `sizeToStage` to the two lines of v13; in
-`global.css` delete the round-24 `html .museum-stage` and `.museum-edge`
-rules; `qa:edge` and `scripts/museum-edge.mjs` go with them.
+`Museum.tsx` delete the block from `RUNWAY_BUILD` through `runwayProbe`,
+the `paintRunways(now)` call and the `hideStrip` lines in the tick, the
+`probeCam.clearViewOffset()` line, the `runway` hook state and the
+`runwayProbe` export, the strip removals in dispose, restore `sizeToStage`
+to the two lines of v13, and in the JSX remove the `museum-pin` wrapper and
+give the stage back `sticky top-0`; in `global.css` delete the round-24
+block (`--museum-b`/`--museum-pin`, `.museum-wrap`, `.museum-pin`,
+`--museum-svh`, `.museum-runway`, `html .museum-stage`); `qa:runway` and
+`scripts/museum-runway.mjs` go with them.

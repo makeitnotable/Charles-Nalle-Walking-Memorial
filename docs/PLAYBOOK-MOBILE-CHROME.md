@@ -45,8 +45,13 @@ Detailed history: `docs/rounds/2026-09-17-round-8-plan.md` (the bars),
   corridor stage is sticky and meets the bottom edge at rest and both edges
   while walking, so `/paintings`' bars were opaque and nothing placed under
   them — strips, colour columns, a tint — could ever show (passes 1–3). The
-  map has no pinned element at rest, so its bars are glass. §11 has the
-  pattern that follows: keep the probe off the pinned element.
+  map has no pinned element at rest, so its bars are glass. The probe
+  (WebKit's `LocalFrameView::fixedContainerEdges`) skips a pinned box that
+  is hidden, narrower than 90% of the viewport, at a negative z-index when
+  viewport-sized, or **taller than the viewport along the edge's axis** —
+  the last is the lever §11 uses. And this rule composes with the one above
+  it: with the probe off the stage, what shows through the glass is still
+  only in-flow paint, never the pinned stage's own.
 - **Nothing exists above document offset 0.** At scroll 0 the top bar shows
   the fallback colour, whatever the page paints. The only way to put content
   under the top bar at rest is for the page not to rest at scroll 0.
@@ -299,36 +304,38 @@ the stage. Programmatic landings are not events and still run.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
 
-## 11 · `/paintings`: keep Safari's edge probe off the sticky stage (round 24)
+## 11 · `/paintings`: the pin and the runway (round 24)
 
 *Round 24 (2026-09-21), Wil's two `/paintings` screenshots and five device
 passes. Plan, with every pass's readout: `docs/rounds/2026-09-21-round-24-plan.md`;
-instrument `npm run qa:edge`.*
+instrument `npm run qa:runway`.*
 
-- **The mistake worth recording.** Three pushes put content under the bars
-  — the corridor's bleed copied into strips, five element types, a body
-  tint — and read the flat bar as "Safari draws nothing there". The record
-  said otherwise (round 23's own screenshots had content ghosting through
-  the pill). The bar was not glass at all: it was the opaque fill Safari
-  paints when a pinned element meets the edge. Test the state of the bar
-  before testing what is under it.
-- **The pattern.** Two 8px transparent strips, ordinary page elements in
-  the slot (absolute, never fixed or sticky), ride the viewport's top and
-  bottom edges above the stage in z-order, placed every frame from the main
-  thread's scroll position — the one the probe reads, so they are always
-  what it finds. Pointer events only in the 8px under the bars. With glass
-  back, the canvas renders B rows above the stage and the stage's clip is
-  extended upward by B (`overflow: visible` + `clip-path: inset(−B 0 0 0)`;
-  not `overflow-clip-margin`, which opens every side and would show the
-  plaque sheet below the stage through the toolbar; the sheet also leaves
-  the render by visibility once slid out). At rest the stage's own box
-  already runs under the toolbar.
-- **Gate and flags.** `--museum-b` is the map's T expression, 0 wherever
-  lvh == svh; the iOS rules sit under the `-webkit-touch-callout` gate, so
-  Chromium keeps the stage's `overflow-hidden` utility and the visual gate
-  holds. `?edge=off` puts the bars back to opaque (the proof of the rule);
-  `?edge=paint` draws the strips as a dark line, the fallback if the probe
-  counts only what paints; `?bleed=off`; `?debug=1`.
-- **Rules kept from the passes.** A device flag's readout must name the
-  build. A copy from a WebGL canvas needs a self-check. And a colour match
-  passes for transparency: measure in a colour the tint cannot produce.
+- **Two facts, and both are needed.** (1) The bars are glass unless a
+  pinned element is what Safari's edge probe finds (§1); the sticky,
+  viewport-sized stage was, so both bars were opaque fills and three
+  pushes of content under them could never show. (2) A pinned box's paint
+  never reaches the bar regions (§1: 160px of bleed, 21 rendered; round 23
+  pass 5); only in-flow page paint does. Pass 0 honoured (2) and not (1);
+  pass 4 honoured (1) and then bled the pinned canvas, against (2).
+- **The pin.** Make the sticky element a box the probe ignores: a wrapper
+  a viewport taller than the viewport (`height: 100dvh + 100svh`, `top:
+  −100svh`, `margin-top: −100svh`, the wrap `flow-root`), with the stage
+  absolute at its foot in exactly its old box. WebKit skips a pinned box
+  that overshoots the viewport along the edge's axis (its layout test
+  `color-sampling-ignores-large-sticky-container`); nothing else about the
+  page moves. Where lvh == svh both tokens are 0 and the pin is a
+  viewport-tall sticky box with the stage filling it.
+- **The runway.** The canvas renders B rows above and below the stage
+  (`setViewOffset`, the stage's band framed to the pixel); two in-flow
+  `<canvas>` strips before the pin in the tree are fed those rows every
+  frame and placed by `top` in the bar regions — above the viewport's top
+  edge while stuck, below svh whenever the stage's box reaches it — with
+  48px of overlap behind the stage and 48px of stretched padding so a
+  frame of main-thread lag never opens a slit. `?runway=off` splits the
+  two facts on the phone; `?debug=1` prints the pin's box and its ratio.
+- **Rules kept from the passes.** Test the state of the bar before testing
+  what is under it. A device flag's readout must name the build. A copy
+  from a WebGL canvas needs a self-check. A colour match passes for
+  transparency: measure in a colour the tint cannot produce. And read the
+  round record before the platform: both halves of this answer were
+  measured on his phone days earlier.
