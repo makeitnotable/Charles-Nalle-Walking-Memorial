@@ -437,6 +437,16 @@ export default function Museum({ works, slotId }: Props) {
       /* `?runway=off`: the bleed renders, no strip exists — the diagnostic
          that splits the cost of the taller render target from the copies. */
       const runwayOff = /(^|[?&])runway=off(&|$)/.test(location.search);
+      /* `?runway=readpixels`: the copy takes the readback path from the
+         start (the fallback in blitStrip), for a comparison on the phone. */
+      const runwayReadPixels = /(^|[?&])runway=readpixels(&|$)/.test(location.search);
+      /* printed by the `?debug=1` readout, so a screenshot says which build
+         it is of — a cached bundle looks exactly like a broken one */
+      const RUNWAY_BUILD = "r24.2";
+      let runCopy: "drawImage" | "readPixels" = runwayReadPixels ? "readPixels" : "drawImage";
+      let runCopyChecked = false;
+      let runBlits = 0;
+      let runError = "";
       const strips: { top: HTMLCanvasElement | null; bottom: HTMLCanvasElement | null } = { top: null, bottom: null };
       let runB = 0;
       let runPR = 1;
@@ -484,7 +494,9 @@ export default function Museum({ works, slotId }: Props) {
            transition, and a canvas re-sized to the same numbers still clears
            — a blank strip for a frame, exactly when the bar is arriving */
         const size = (c: HTMLCanvasElement, rows: number) => {
-          const pw = Math.round(w * runPR);
+          /* the GL canvas's own backing width (three.js floors w × pr), so a
+             readback row and a strip row are the same length */
+          const pw = renderer.domElement.width;
           const ph = Math.round(rows * runPR);
           if (c.width === pw && c.height === ph) return;
           c.width = pw;
@@ -514,12 +526,21 @@ export default function Museum({ works, slotId }: Props) {
       /* s0: the canvas CSS row that lands on the strip's first row. Rows the
          canvas has are copied 1:1 (in the same task as the render — the
          drawing buffer is not preserved past it); rows beyond its extent take
-         the nearest rendered row, stretched. */
+         the nearest rendered row, stretched. Two copy paths: drawImage from
+         the WebGL canvas (the cheap one, a GPU blit where the browser allows
+         it) and gl.readPixels + putImageData (a readback, works anywhere).
+         The first drawImage is checked once — a copy that leaves the strip
+         transparent switches to the readback for good, and so does a throw —
+         and the readout says which path is driving and why. Wil's crops of
+         2026-09-21 (both bar regions flat with the strips placed) are exactly
+         what a blank strip looks like. */
       const blitStrip = (c: HTMLCanvasElement, s0: number, rows: number) => {
         const ctx = c.getContext("2d");
-        if (!ctx) return;
+        if (!ctx) {
+          runError = "no 2d context";
+          return;
+        }
         const src = renderer.domElement;
-        const W = stage.clientWidth;
         const H = stage.clientHeight + 2 * runB;
         const pr = runPR;
         const a = Math.max(0, s0);
@@ -529,9 +550,54 @@ export default function Museum({ works, slotId }: Props) {
           ctx.fillRect(0, 0, c.width, c.height);
           return;
         }
-        ctx.drawImage(src, 0, a * pr, W * pr, (z - a) * pr, 0, (a - s0) * pr, W * pr, (z - a) * pr);
-        if (a > s0) ctx.drawImage(src, 0, a * pr, W * pr, pr, 0, 0, W * pr, (a - s0) * pr);
-        if (s0 + rows > z) ctx.drawImage(src, 0, (z - 1) * pr, W * pr, pr, 0, (z - s0) * pr, W * pr, (s0 + rows - z) * pr);
+        const pw = c.width;
+        const dy = Math.round((a - s0) * pr);
+        const dh = Math.max(1, Math.round((z - a) * pr));
+        try {
+          if (runCopy === "drawImage") {
+            ctx.drawImage(src, 0, a * pr, src.width, (z - a) * pr, 0, dy, pw, dh);
+            if (!runCopyChecked) {
+              runCopyChecked = true;
+              const px = ctx.getImageData(pw >> 1, Math.min(c.height - 1, dy + (dh >> 1)), 1, 1).data;
+              if (px[3] === 0) {
+                runCopy = "readPixels";
+                runError = "drawImage left the strip transparent";
+              }
+            }
+          }
+          if (runCopy === "readPixels") {
+            const gl = renderer.getContext() as WebGLRenderingContext;
+            const ph = src.height;
+            const y0 = Math.max(0, Math.round(a * pr));
+            const y1 = Math.min(ph, y0 + dh);
+            const n = y1 - y0;
+            if (n > 0) {
+              const buf = new Uint8ClampedArray(pw * n * 4);
+              /* GL rows run bottom-up: top-down rows [y0, y1) are GL rows
+                 [ph − y1, ph − y0), and the block is flipped on the way in */
+              gl.readPixels(0, ph - y1, pw, n, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+              const img = ctx.createImageData(pw, n);
+              for (let r = 0; r < n; r++) img.data.set(buf.subarray((n - 1 - r) * pw * 4, (n - r) * pw * 4), r * pw * 4);
+              ctx.putImageData(img, 0, dy);
+            }
+          }
+        } catch (e) {
+          runError = String(e && (e as Error).message ? (e as Error).message : e).slice(0, 80);
+          if (runCopy === "drawImage") runCopy = "readPixels";
+          return;
+        }
+        /* the padding past the canvas's extent: the nearest row, stretched,
+           copied from the strip itself so both paths share it */
+        if (dy > 0) ctx.drawImage(c, 0, dy, pw, 1, 0, 0, pw, dy);
+        const end = dy + dh;
+        if (end < c.height) ctx.drawImage(c, 0, end - 1, pw, 1, 0, end, pw, c.height - end);
+        /* `?debug=1`: a magenta cast on every strip, so a screenshot shows
+           where Safari composites them even when their rows are wrong */
+        if (debugBox) {
+          ctx.fillStyle = "rgba(255,0,255,.35)";
+          ctx.fillRect(0, 0, pw, c.height);
+        }
+        runBlits++;
       };
       const placeStrip = (c: HTMLCanvasElement, key: "top" | "bottom", screenTop: number, wrTop: number, scrollY: number) => {
         const st = runLast[key];
@@ -609,7 +675,8 @@ export default function Museum({ works, slotId }: Props) {
               ? "script (timeline unsupported)"
               : "script";
         debugBox.textContent =
-          `${path} · checks ${runChecks} · timeline ${timeline}` +
+          `${RUNWAY_BUILD} · glass ${document.documentElement.dataset.glass || "off"} · ${path} · timeline ${timeline} · checks ${runChecks}` +
+          `\ncopy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""}` +
           `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
           `\nstage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)} · frame ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)}` +
           `\ntop ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"}`;
@@ -722,6 +789,10 @@ export default function Museum({ works, slotId }: Props) {
           pr,
           path: runTrack ? "track" : "script",
           trackFailed: runTrackFailed,
+          copy: runCopy,
+          blits: runBlits,
+          error: runError,
+          rendered: stage.dataset.rendered === "1",
           canvas: rect(renderer.domElement),
           stage: rect(stage),
           wrap: rect(wrap),
@@ -2202,6 +2273,7 @@ export default function Museum({ works, slotId }: Props) {
       let lastT = performance.now();
       let lookedFlag = false;
       let rectTick = 0;
+      let renderedOnce = false;
       const tick = () => {
         raf = requestAnimationFrame(tick);
         if (!(inView && visible && !covered)) {
@@ -2253,6 +2325,13 @@ export default function Museum({ works, slotId }: Props) {
         camera.position.set(cur.x, cur.y, cur.z);
         camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
         renderer.render(scene, camera);
+        /* round 24: from the first frame the opaque canvas is the stage's
+           ground, and the ::before leaves (global.css) so it can never cover
+           a runway strip where the canvas is clipped and it is not */
+        if (!renderedOnce) {
+          renderedOnce = true;
+          stage.dataset.rendered = "1";
+        }
         paintRunways(now);
 
         // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer

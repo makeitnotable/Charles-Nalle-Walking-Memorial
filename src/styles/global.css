@@ -2161,6 +2161,18 @@ a.walk-seg:hover {
   z-index: -1;
   background: var(--color-primary-2);
 }
+/* Round 24 (Wil's crops of 2026-09-21): once the corridor has drawn a frame
+   the opaque canvas IS the stage's ground inside the viewport, and the
+   ::before has nothing left to do there — but it may still paint where the
+   canvas cannot. His toolbar band was flat with the runway strip placed
+   under it; if Safari clips the sticky stage's canvas at the viewport but
+   not the stage's own background (the two were never distinguishable by
+   colour), the ::before was covering the strip. So it leaves after the
+   first frame (Museum.tsx sets data-rendered); the slot's ground behind it
+   is the same brown for the moment before. */
+.museum-stage[data-rendered]::before {
+  display: none;
+}
 /* One invisible reading per edge, on every page. Opacity 0, inert, never
    hit-tested, and out of the Base.astro sampler's reach: `pointer-events:
    none` keeps the strip out of elementsFromPoint entirely, so it cannot be

@@ -45,6 +45,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 24, device pass 1 (2026-09-21, 12:58): both bar regions still flat
+on his phone — what a missing or blank strip looks like; the readout was
+not on. Second push (live on `v2`): the readout names the build (`r24.2`),
+the copy path and any error; a readPixels fallback the strips switch to
+when drawImage leaves them blank (`?runway=readpixels` forces it); a
+magenta cast on the strips in debug mode; the stage's opaque `::before`
+dropped after the first frame (it may have been covering the bottom strip
+at rest — round 8 never separated "stage clipped" from "stage background
+painted, canvas clipped"). Awaiting two `?glass=1&debug=1` screenshots.
+qa:runway 197/197, qa:snap 36/36. First-push record follows.
 Round 24 BUILT (2026-09-21), behind `?glass=1`, on the session branch —
 awaiting the fast-forward of `v2` and Wil's device pass on
 `/paintings?glass=1` (and `&runway=track`, `&runway=off`, `&debug=1`).

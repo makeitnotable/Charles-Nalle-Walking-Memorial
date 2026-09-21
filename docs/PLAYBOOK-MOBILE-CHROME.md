@@ -337,6 +337,16 @@ at-rest top bar stays. Shipped behind `?glass=1` for his device pass. Plan:
   his phone drops frames, the levers are: blit the bottom strip only while
   the bars are expanded (`innerHeight` is svh then), halve the blit rate, or
   trim B toward the bars' measured heights (107 / 92).
+- **Device pass 1 (his crops of 12:58): both regions still flat.** With the
+  strips measured in place here, that is what a missing or blank strip looks
+  like, and the readout was not on to say which. Two rules from it: a
+  device flag's readout must name the BUILD (a cached bundle and a broken
+  one are the same screenshot), and a copy from a WebGL canvas needs a
+  self-check and a second path (`drawImage` is checked once; a transparent
+  result or a throw switches to `gl.readPixels` + `putImageData`). And one
+  reading round 8 never separated: the stage's own `::before` background may
+  paint under the toolbar while its canvas is clipped — the two are the same
+  brown — so the ground leaves after the first frame (`data-rendered`).
 - **The desktop guarantee is the gate.** `qa:runway` at 1440×900 with the
   flag and no bars: no strip, canvas equal to the stage; `qa:snap` 36/36 at
   0 drift. The instrument stands B in through an init-script `<style>` with

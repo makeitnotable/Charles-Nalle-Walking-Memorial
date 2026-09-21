@@ -38,6 +38,9 @@
  *     the phone's.
  *   · BLEED (`?glass=1&runway=off`): the taller render target with no strip,
  *     so the walk's cost splits between the render and the copies.
+ *   · READPIXELS (`?glass=1&runway=readpixels`): the readback copy path,
+ *     the fallback the strips switch to when drawImage leaves them blank;
+ *     the same strip checks, and its walk cost.
  * At 1440×900 with `?glass=1` and no stand-in: no strip, canvas == stage.
  *
  *   node scripts/museum-runway.mjs [--base http://localhost:4331] [--b 110]
@@ -296,6 +299,8 @@ for (const vp of VPS) {
   if (!onRest.missing) {
     check(V, "on", "rest", `runway.b = ${B}`, onRest.runway && onRest.runway.b === B, JSON.stringify(onRest.runway && { b: onRest.runway.b, path: onRest.runway.path, svh: onRest.runway.svh }));
     check(V, "on", "rest", "path = script", onRest.runway && onRest.runway.path === "script", onRest.runway && onRest.runway.path);
+    check(V, "on", "rest", "copy = drawImage, no error", onRest.probe && onRest.probe.copy === "drawImage" && !onRest.probe.error, onRest.probe ? `${onRest.probe.copy} · blits ${onRest.probe.blits} · ${onRest.probe.error || "no error"}` : "no probe");
+    check(V, "on", "rest", "stage ground dropped after the first frame", onRest.probe && onRest.probe.rendered === true, onRest.probe ? `rendered ${onRest.probe.rendered}` : "no probe");
     framingAsserts(V, "on", "rest", offRest, onRest);
     stripAsserts(V, "on", "rest", onRest, false, true);
     await on.page.evaluate(SCROLL_TO_RAIL, 0.4);
@@ -346,6 +351,24 @@ for (const vp of VPS) {
     results.push({ vp: V, session: "walk", pos: "-", name: "frame intervals, bleed only", ok: true, detail: JSON.stringify(blWalk) });
   }
   await bl.ctx.close();
+
+  /* ── READPIXELS (?runway=readpixels): the readback copy path ── */
+  const rp = await open(vp, "?glass=1&runway=readpixels", true);
+  const rpRest = await rp.page.evaluate(SNAPSHOT);
+  check(V, "readpixels", "rest", "hall mounted", !rpRest.missing, rpRest.missing ? "no __museum" : "");
+  if (!rpRest.missing) {
+    check(V, "readpixels", "rest", "copy = readPixels, no error", rpRest.probe && rpRest.probe.copy === "readPixels" && !rpRest.probe.error, rpRest.probe ? `${rpRest.probe.copy} · ${rpRest.probe.error || "no error"}` : "no probe");
+    stripAsserts(V, "readpixels", "rest", rpRest, false, true);
+    await rp.page.evaluate(SCROLL_TO_RAIL, 0.4);
+    await rp.page.waitForTimeout(1800);
+    const rpStuck = await rp.page.evaluate(SNAPSHOT);
+    stripAsserts(V, "readpixels", "stuck", rpStuck, true, true);
+    const rpWalk = await rp.page.evaluate(WALK);
+    await rp.page.waitForTimeout(600);
+    check(V, "readpixels", "walk", "no page errors", rp.errs.length === 0, rp.errs.join(" | "));
+    md.push(`| ${V} | walk frame ms, readPixels copy (median / p95 / max) | ${r1(rpWalk.median)} / ${r1(rpWalk.p95)} / ${r1(rpWalk.max)} | |`);
+  }
+  await rp.ctx.close();
 
   /* ── TRACK ── */
   const tr = await open(vp, "?glass=1&runway=track", true);
