@@ -239,36 +239,33 @@ the chapter pages then scroll as a document again with pass 7's cover and
 16px band. To undo the whole round: `git reset --hard client-round-23-base`
 (= `4d13540`) and push `v2`.
 
-## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars take the hall's own colour
+## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall
 
 **Evidence.** Wil's two screenshots of 2026-09-21: at rest the bottom
 toolbar sits on a flat band where the hall's floor should continue;
 walking, the minimized address bar's region shows the same flat brown over
-the ceiling. His answers: the bars keep collapsing, live see-through first
-and a gradient only if it cannot be done, `/paintings` only, the at-rest
-top bar stays. Three device passes of an in-flow runway — the corridor's
-bleed copied into strips placed in the bar regions, then a lab of five
-element types — measured that Safari 26 draws nothing the page renders
-beyond the layout viewport's edges, whatever the element (playbook §1,
-corrected). The bar regions show Safari's glass tinted from `<body>`'s
-colour; the map's toolbar reads as the map because `/map`'s `<body>` is the
-map's grey.
+the ceiling. His answers: the bars keep collapsing, live see-through first,
+`/paintings` only, the at-rest top bar stays; after four passes, "no solid
+fill behind or around either bar", "edge to edge like the map", "a simple
+solution". The rule that fits every measurement of rounds 8, 18, 23 and
+24 (playbook §1): Safari 26's bars are glass over the page unless a fixed
+or sticky element is what its probe finds at that edge, in which case the
+bar is an opaque fill. The sticky stage met the bottom edge at rest and
+both edges while walking.
 
-**Decision.** The hall does what the map does: Museum.tsx writes the
-colour of the canvas rows that meet the bar to `<body>`, live — the floor's
-above the toolbar while the bars are expanded, the ceiling's at the top
-edge once they minimize — and the page brown returns when the hall leaves
-the screen. Default on wherever the bars collapse (`--museum-bars` is 0
-elsewhere, so no other device and no other route changes), because the
-mechanism is the measured one and a flag would cost him another pass;
-`?tint=off` is the static brown of before. The cost he should know: Safari
-gives both bars one colour, so at rest the top bar over the header carries
-the floor's colour. The strips and the round-18 bleed are removed, not
-flagged: nothing rendered past the edge can show.
+**Decision.** Keep the probe off the stage: two 8px transparent page strips
+ride the viewport's edges above the stage, placed every frame; the canvas
+bleeds B rows above the stage and the stage's clip is extended upward by B
+so the ceiling reaches behind the minimized bar. The body tint of the
+fourth push is gone (he rejected the colour change). Default on wherever
+the bars collapse; `?edge=off` restores the opaque bars, `?edge=paint`
+draws the strips, `?bleed=off` removes the bleed. Nothing changes on any
+other device or route.
 
 **Revert:** `git reset --hard client-round-24-base` (= `1e5b07d`); or in
 `Museum.tsx` delete the block from `RUNWAY_BUILD` through `debugPaint`, the
-`paintTint(now)` call, the `tintRestore()` calls and the `tint` hook state,
-and in `global.css` the `--museum-bars` / `--museum-svh` properties and the
-round-24 `.museum-stage` rules; `qa:tint` and `scripts/museum-tint.mjs` go
-with them.
+`placeEdges()` call, the `hideEdges()` and `probeCam.clearViewOffset()`
+lines, the `edge` hook state, the `visibility` lines in `applySheet` and
+`hideSheet`, and restore `sizeToStage` to the two lines of v13; in
+`global.css` delete the round-24 `html .museum-stage` and `.museum-edge`
+rules; `qa:edge` and `scripts/museum-edge.mjs` go with them.

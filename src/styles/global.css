@@ -1848,15 +1848,10 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 0px;
 }
-/* Round 24: the bars' height where Safari's bars collapse (the map's T
-   expression; 0 wherever lvh == svh), and svh as a number — both read by
-   Museum.tsx with parseFloat, so registered as lengths like --ui-inset. */
-@property --museum-bars {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
-@property --museum-svh {
+/* v17 item 3: B, the corridor canvas's bleed below the visual viewport —
+   /paintings' equivalent of the map's E. Registered because Museum.tsx
+   parseFloat()s it. */
+@property --museum-b {
   syntax: "<length>";
   inherits: true;
   initial-value: 0px;
@@ -2060,28 +2055,45 @@ a.walk-seg:hover {
  * change a visible pixel: every --edge-glass fill is either covered by an
  * opaque ::before or drawn at opacity 0. */
 
-/* ── Round 24 (Wil, 2026-09-21): the hall under Safari's bars ─────────────
-   His two screenshots asked for the hall through the bottom toolbar at rest
-   and through the address bar while walking. Three device passes measured
-   that nothing the page renders beyond the layout viewport's edges is drawn
-   by Safari 26 — not in-flow paint, not a div, not a 2D or a WebGL canvas,
-   placed by layout or by transform, above or below the stage, in <main> or
-   in <body> (docs/rounds/2026-09-21-round-24-plan.md, passes 1–3). The bar
-   regions show Safari's glass tinted from <body>'s colour and nothing else;
-   the map's toolbar reads as the map because its <body> is the map's grey.
-   So Museum.tsx writes the hall's own edge colour to <body>, live, and the
-   round-18 bleed behind ?glass=1 is gone with the strips that never showed.
-   These two numbers are what it reads: the bars' height, 0 wherever the
-   bars do not collapse (so nothing runs on desktop, Android, iPad or in
-   Chromium, and the visual gate holds), and svh, which holds still while
-   the bars move. */
-.museum-stage {
-  --museum-svh: 100svh;
-}
+/* ── Round 24 (Wil, 2026-09-21), device pass 4: the hall under Safari's bars
+   Four device passes and rounds 8, 18 and 23 fit one rule: Safari 26 draws
+   its bars as glass over the page unless a fixed or sticky element is what
+   its probe finds at that edge of the layout viewport — then the bar is an
+   opaque fill in the page's colour. The corridor stage is sticky and meets
+   the bottom edge at rest and both edges while walking, so both bars were
+   opaque and nothing under them could show; the map has no pinned element.
+   Museum.tsx keeps two ordinary page strips (`.museum-edge`, never fixed)
+   on the viewport's edges above the stage, so the probe finds them instead.
+
+   With glass back, the ceiling can reach behind the minimized bar: the
+   canvas renders B rows above the stage (Museum.tsx sizeToStage +
+   camera.setViewOffset, the stage's band framed to the pixel), and the
+   stage's clip is its box extended upward by B — `overflow: visible` with a
+   clip-path, not `overflow-clip-margin` (all sides, and it would let the
+   plaque sheet show below the stage through the toolbar). At rest the
+   stage's own box already runs under the toolbar. B is the map's T
+   expression: 0 wherever lvh == svh, so on desktop, Android, iPad and in
+   Chromium the stage keeps its `overflow-hidden` utility and the visual
+   gate holds. `html .museum-stage` outranks the utility. */
 @supports (-webkit-touch-callout: none) {
-  .museum-stage {
-    --museum-bars: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+  html .museum-stage {
+    --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+    overflow: visible;
+    clip-path: inset(calc(-1 * var(--museum-b)) 0 0 0);
   }
+}
+/* The edge strips: 8px, transparent, above the stage (z 30: over the stage's
+   own chrome, under the corner menu), placed by `top` from Museum.tsx. They
+   take pointer events only in the 8px under the bars themselves, and let a
+   vertical pan through. */
+.museum-edge {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  z-index: 30;
+  display: none;
+  touch-action: pan-y;
 }
 
 /* The corridor stage is sticky and full-screen: its opaque ground moves to

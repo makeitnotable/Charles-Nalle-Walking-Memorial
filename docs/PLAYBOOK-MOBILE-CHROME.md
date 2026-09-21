@@ -33,19 +33,20 @@ Detailed history: `docs/rounds/2026-09-17-round-8-plan.md` (the bars),
   the visual viewport and never reaches the bars (measured: 160px requested,
   21px rendered). So a stage that must show under the bars has to be
   **in flow** and **physically extend** under them.
-- **Correction, round 24 (2026-09-21, three device passes on `/paintings`):
-  nothing the page renders beyond the layout viewport's edges is drawn at
-  all — not in-flow paint, not a div, not a 2D or a WebGL canvas, placed by
-  layout or by transform, above or below a sticky stage, in `<main>` or in
-  `<body>`, with the bars expanded or minimized.** Five colour columns and a
-  magenta strip ran to the viewport's edge to the pixel and stopped. What
-  the bar regions show is Safari's own glass, tinted from `<body>`'s colour
-  (the rule below), and nothing else. The map's toolbar reads as the map
-  continuing because `/map`'s `<body>` is the map's grey; round 8's band
-  measurement ran from grey to the page brown within a few pixels of the
-  edge. The runway pattern of §2 still buys the geometry it was built for
-  (a page landed at scroll T, the UI box held) but not pixels under the
-  bars; the colour does that. §11 has the pattern that follows.
+- **The rule behind all of it (round 24, 2026-09-21, four device passes):
+  the bars are glass over the page unless a fixed or sticky element is what
+  Safari's probe finds at that edge of the layout viewport; then that bar is
+  an opaque fill in the page's colour**, so a pinned header or footer reads
+  as one piece with the bar. Everything measured before fits it: the fixed
+  walk rail made the address bar solid (round 8 U6); fixed strips on the
+  edges but under `<main>`'s opaque ground were never detected (round 18);
+  a sticky cover transformed away from the edge read as glass (round 23,
+  pass 5); an element parked off-screen is not found (rounds 15, 18). The
+  corridor stage is sticky and meets the bottom edge at rest and both edges
+  while walking, so `/paintings`' bars were opaque and nothing placed under
+  them — strips, colour columns, a tint — could ever show (passes 1–3). The
+  map has no pinned element at rest, so its bars are glass. §11 has the
+  pattern that follows: keep the probe off the pinned element.
 - **Nothing exists above document offset 0.** At scroll 0 the top bar shows
   the fallback colour, whatever the page paints. The only way to put content
   under the top bar at rest is for the page not to rest at scroll 0.
@@ -298,40 +299,36 @@ the stage. Programmatic landings are not events and still run.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
 
-## 11 · `/paintings`: the bars take the hall's own edge colour (round 24)
+## 11 · `/paintings`: keep Safari's edge probe off the sticky stage (round 24)
 
-*Round 24 (2026-09-21), Wil's two `/paintings` screenshots and four device
-passes. Plan and the passes' readouts: `docs/rounds/2026-09-21-round-24-plan.md`;
-instrument `npm run qa:tint`.*
+*Round 24 (2026-09-21), Wil's two `/paintings` screenshots and five device
+passes. Plan, with every pass's readout: `docs/rounds/2026-09-21-round-24-plan.md`;
+instrument `npm run qa:edge`.*
 
-- **What was tried, and measured not to draw.** The corridor's WebGL canvas
-  rendering 110 rows above and below the stage (`camera.setViewOffset`, the
-  stage's band framed to the pixel), copied every frame into two in-flow
-  `<canvas>` strips placed in the bar regions — first by transform with
-  `will-change`, then by `top` like the map's canvas — with a readback copy
-  path, a build id in the readout, and a lab of five element types beside
-  them. Every readout was right (the flag on, the strips placed to the
-  pixel, thousands of copies, no error) and every screenshot showed the bar
-  regions flat. The lab settled it: all five columns render inside the
-  viewport and none past its edge. §1's correction is the rule.
-- **The pattern that works is the map's.** Safari tints its bars from
-  `<body>`'s background-color (§1, round 8 phase E) and animates a change
-  (round 21). Museum.tsx averages the canvas rows that meet the bar — the
-  48 above the toolbar while the bars are expanded, the 48 at the top edge
-  once they minimize — ten times a second through a 4×1 canvas, in the same
-  task as the render (the drawing buffer is not preserved past it), and
-  writes `<body>` when the colour has moved four levels or more. The page
-  brown returns when the hall leaves the screen. One colour for both bars is
-  Safari's rule, so the toolbar's colour also tints the top bar at rest.
-- **Gate and flags.** `--museum-bars`, the map's T expression, is 0 wherever
-  lvh == svh, so the tint runs only where the bars collapse and the visual
-  gate holds (`<main>` covers `<body>`). `?tint=off` is today's static
-  brown; `?tint=<0.3–2>` scales the sample; `?debug=1` prints the edge, the
-  sample and the colour written. `qa:tint` stands the bars in at 110 and
-  asserts the writes, the clear past the hall, the off flag and the
-  desktop guarantee.
+- **The mistake worth recording.** Three pushes put content under the bars
+  — the corridor's bleed copied into strips, five element types, a body
+  tint — and read the flat bar as "Safari draws nothing there". The record
+  said otherwise (round 23's own screenshots had content ghosting through
+  the pill). The bar was not glass at all: it was the opaque fill Safari
+  paints when a pinned element meets the edge. Test the state of the bar
+  before testing what is under it.
+- **The pattern.** Two 8px transparent strips, ordinary page elements in
+  the slot (absolute, never fixed or sticky), ride the viewport's top and
+  bottom edges above the stage in z-order, placed every frame from the main
+  thread's scroll position — the one the probe reads, so they are always
+  what it finds. Pointer events only in the 8px under the bars. With glass
+  back, the canvas renders B rows above the stage and the stage's clip is
+  extended upward by B (`overflow: visible` + `clip-path: inset(−B 0 0 0)`;
+  not `overflow-clip-margin`, which opens every side and would show the
+  plaque sheet below the stage through the toolbar; the sheet also leaves
+  the render by visibility once slid out). At rest the stage's own box
+  already runs under the toolbar.
+- **Gate and flags.** `--museum-b` is the map's T expression, 0 wherever
+  lvh == svh; the iOS rules sit under the `-webkit-touch-callout` gate, so
+  Chromium keeps the stage's `overflow-hidden` utility and the visual gate
+  holds. `?edge=off` puts the bars back to opaque (the proof of the rule);
+  `?edge=paint` draws the strips as a dark line, the fallback if the probe
+  counts only what paints; `?bleed=off`; `?debug=1`.
 - **Rules kept from the passes.** A device flag's readout must name the
-  build — a cached bundle and a broken one are the same screenshot. A copy
-  from a WebGL canvas needs a self-check and a second path. And a colour
-  match can pass for transparency: what "works" on one page must be
-  measured in a colour that cannot be mistaken for the tint.
+  build. A copy from a WebGL canvas needs a self-check. And a colour match
+  passes for transparency: measure in a colour the tint cannot produce.

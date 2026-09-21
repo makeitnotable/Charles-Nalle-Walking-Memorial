@@ -1,6 +1,6 @@
 {
   "round": 24,
-  "label": "/paintings — Safari's bars take the hall's own edge colour, live (the strips that never showed are gone)",
+  "label": "/paintings — Safari's bars stay glass: two page strips keep its edge probe off the sticky stage, and the canvas bleeds above it",
   "date": "2026-09-21",
   "plan": "docs/rounds/2026-09-21-round-24-plan.md",
   "base": {
@@ -18,7 +18,8 @@
     "docs/rounds/2026-09-21-round-24.json",
     "docs/rounds/2026-09-21-round-24-plan.md",
     "scripts/museum-runway.mjs",
-    "scripts/museum-tint.mjs"
+    "scripts/museum-tint.mjs",
+    "scripts/museum-edge.mjs"
   ],
   "constraints": {
     "package.json": {

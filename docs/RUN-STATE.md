@@ -45,6 +45,17 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 24, device pass 4 (2026-09-21, 14:50): the tint rejected ("the fill
+now changes colors"), and pass 3's reading corrected — Safari 26's bars are
+glass unless a fixed or sticky element is what its probe finds at that
+edge; then the bar is an opaque fill. The sticky stage meets the edges, so
+`/paintings`' bars were opaque and nothing under them could show. Fifth
+push (live on `v2`, `r24.5`): two 8px transparent page strips ride the
+viewport's edges above the stage so the probe finds them instead; the
+canvas bleeds B rows above the stage with the stage's clip extended by a
+clip-path; the body tint is gone. `?edge=off` / `?edge=paint` /
+`?bleed=off` / `?debug=1`. Awaiting his two screenshots. Pass-3 record
+follows.
 Round 24, device pass 3 (2026-09-21, 14:24): the lab of five element
 types rendered inside the viewport to the pixel and nothing past its edge,
 in either bar state — Safari 26 draws no page content under its bars; the

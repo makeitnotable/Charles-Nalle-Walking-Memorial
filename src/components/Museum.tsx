@@ -186,6 +186,10 @@ export default function Museum({ works, slotId }: Props) {
   const applySheet = (pos: number, animate: boolean) => {
     const el = sheetRef.current;
     if (!el || sheetHiddenRef.current) return;
+    /* round 24: on iOS the stage's clip extends above its box (global.css), so
+       a sheet translated below the stage is hidden by visibility once it has
+       slid out, not by the box — and made visible again before it returns */
+    el.style.visibility = "";
     /* a light rubber band past the ends — the hard clamp keeps the header on
        screen whatever the gesture does */
     const p = pos > 1 ? 1 + Math.min(0.06, (pos - 1) * 0.25) : pos < 0 ? Math.max(-0.06, pos * 0.25) : pos;
@@ -207,6 +211,9 @@ export default function Museum({ works, slotId }: Props) {
     if (el) {
       el.style.transition = "transform var(--dur-fast) var(--ease)";
       el.style.transform = `translateY(${Math.round(el.offsetHeight)}px)`;
+      window.setTimeout(() => {
+        if (sheetHiddenRef.current && sheetRef.current === el) el.style.visibility = "hidden";
+      }, 450);
     }
   };
   /** …and back, one step: the preview first, never straight to the full card. */
@@ -338,58 +345,80 @@ export default function Museum({ works, slotId }: Props) {
 
       const renderer: WebGLRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      /* ── Round 24 (Wil, 2026-09-21), device pass 4: keep Safari's edge probe
+         off the stage ──────────────────────────────────────────────────────
+         Every screenshot of four passes, and rounds 8, 18 and 23 before them,
+         fit one rule: Safari 26 draws its bars as glass over the page — unless
+         a fixed or sticky element is what its probe finds at that edge of the
+         layout viewport, in which case it paints the bar opaque in the page's
+         colour, so a fixed header or footer reads as one piece with the bar.
+         Round 18's strips hidden under <main>'s opaque ground were never
+         detected; the walk rail at the top edge was; a sticky cover drawn
+         away from the edge read as glass. The hall's stage is sticky: at rest
+         its box crosses the bottom edge, stuck it touches both — so both bars
+         were opaque, and nothing placed under them could ever show. The map
+         has no pinned element, so its bars stay glass and the map shows.
+
+         So: two 8px strips, ordinary page elements (absolute in the slot,
+         never fixed or sticky), sit on the viewport's top and bottom edges
+         above the stage in z-order, placed every frame from the main thread's
+         own scroll position — the one the probe reads too, so they are
+         always what it finds. Transparent, and pointer events only in the 8px
+         under the bars themselves. With the bars glass again, the canvas
+         renders B rows above the stage (setViewOffset; the stage's own band
+         is framed to the pixel, measured) and the stage's clip is extended
+         upward by B (global.css: overflow visible, clip-path), so the ceiling
+         reaches behind the pill while walking; at rest the stage's own box
+         already runs under the toolbar. Nothing here exists where the bars
+         do not collapse (--museum-b is 0 there). `?edge=off` removes the
+         strips, `?edge=paint` makes them a visible dark line (if a transparent
+         element is not what the probe counts), `?bleed=off` removes the
+         bleed; `?debug=1` prints the geometry and the build. */
+      const RUNWAY_BUILD = "r24.5";
+      const edgeMode = (/(^|[?&])edge=(off|paint)(&|$)/.exec(location.search) || [])[2] || "on";
+      const bleedOff = /(^|[?&])bleed=off(&|$)/.test(location.search);
+      const EDGE_H = 8;
+      const EDGE_OUT = 2;
+      const edges: { top: HTMLDivElement | null; bottom: HTMLDivElement | null } = { top: null, bottom: null };
+      let edgeOn = false;
+      let edgeB = 0;
+      let edgeBars = 0;
+      const edgeY = { top: NaN, bottom: NaN };
+      let debugBox: HTMLPreElement | null = null;
+      let debugAt = 0;
+      const readB = () => {
+        const v = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-b"));
+        return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
+      };
+      const mkEdge = (name: "top" | "bottom") => {
+        const d = document.createElement("div");
+        d.className = "museum-edge";
+        d.dataset.edge = name;
+        d.setAttribute("aria-hidden", "true");
+        if (edgeMode === "paint") d.style.background = "rgba(29, 20, 17, 0.6)";
+        wrap.appendChild(d);
+        return d;
+      };
       const sizeToStage = () => {
         const w = stage.clientWidth;
         const h = stage.clientHeight;
-        renderer.setSize(w, h);
+        edgeBars = readB();
+        const b = bleedOff ? 0 : edgeBars;
+        edgeB = b;
+        renderer.setSize(w, h + b);
         camera.aspect = w / h;
+        if (b > 0) camera.setViewOffset(w, h, 0, -b, w, h + b);
+        else camera.clearViewOffset();
         camera.updateProjectionMatrix();
-        tintRead();
-      };
-      /* ── Round 24 (Wil, 2026-09-21), device pass 3: the bars take the hall's
-         own edge colour ────────────────────────────────────────────────────
-         Three device passes measured that Safari 26 draws NOTHING the page
-         renders beyond the layout viewport's edges — not in-flow paint, not
-         a div, not a 2D or a WebGL canvas, whatever their placement or
-         z-order (docs/rounds/2026-09-21-round-24-plan.md; playbook §1 and
-         §11). The bar regions show Safari's own glass, tinted from <body>'s
-         background-color, and nothing else. The map's toolbar reads as the
-         map continuing because its <body> is the map's grey (rounds 8 and
-         21). So the hall does the same, live: the colour of the canvas rows
-         that meet the bar — the floor's above the toolbar while the bars are
-         expanded, the ceiling's at the top edge once they minimize — is
-         averaged ten times a second and written to <body>, and Safari's tint
-         follows it (it animates the change itself). One colour for both bars
-         is Safari's rule, as on the map; the toolbar's colour wins while it
-         is there, since that is the band he asked about.
-
-         Only where Safari's bars collapse: --museum-bars is 0 wherever
-         lvh == svh, and nothing here runs then. `?tint=off` restores the
-         static page brown; `?tint=<0.3–2>` scales the sample for a device
-         pass; `?debug=1` prints the edge, the sample and the writes. The
-         round-18 bleed behind ?glass=1 is gone: nothing rendered past the
-         edge can ever show. */
-      const RUNWAY_BUILD = "r24.4";
-      const tintParam = /(^|[?&])tint=([a-z0-9.]+)(&|$)/.exec(location.search);
-      const tintOff = !!tintParam && tintParam[2] === "off";
-      const tintMul = tintParam && !tintOff ? Math.max(0.3, Math.min(2, parseFloat(tintParam[2]) || 1)) : 1;
-      const TINT_ROWS = 48;
-      let barsPx = 0;
-      let tintSvh = 0;
-      let tintLast = "";
-      let tintAt = 0;
-      let tintWrites = 0;
-      let tintEdge = "none";
-      let tintSample = "";
-      let tintCanvas: HTMLCanvasElement | null = null;
-      let debugBox: HTMLPreElement | null = null;
-      let debugAt = 0;
-      const tintRead = () => {
-        const bars = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-bars"));
-        barsPx = Number.isFinite(bars) && bars > 0 ? bars : 0;
-        const svh = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-svh"));
-        tintSvh = Number.isFinite(svh) && svh > 0 ? svh : stage.clientHeight;
-        if (barsPx > 0 && document.documentElement.dataset.debug === "1" && !debugBox) {
+        /* the canvas is B taller than the stage and starts B above it */
+        renderer.domElement.style.top = b > 0 ? `${-b}px` : "";
+        renderer.domElement.style.bottom = b > 0 ? "auto" : "";
+        edgeOn = edgeMode !== "off" && edgeBars > 0;
+        if (edgeOn && !edges.top) {
+          edges.top = mkEdge("top");
+          edges.bottom = mkEdge("bottom");
+        }
+        if (edgeBars > 0 && document.documentElement.dataset.debug === "1" && !debugBox) {
           debugBox = document.createElement("pre");
           debugBox.setAttribute("aria-hidden", "true");
           debugBox.style.cssText =
@@ -397,87 +426,42 @@ export default function Museum({ works, slotId }: Props) {
           document.body.appendChild(debugBox);
         }
       };
-      const tintRestore = () => {
-        if (!tintLast) return;
-        tintLast = "";
-        tintEdge = "none";
-        document.body.style.backgroundColor = "";
+      const hideEdges = () => {
+        for (const el of [edges.top, edges.bottom]) if (el && el.style.display !== "none") el.style.display = "none";
+        edgeY.top = edgeY.bottom = NaN;
       };
-      const hex2 = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
-      const paintTint = (now: number) => {
-        if (tintOff || barsPx <= 0) return;
-        if (now - tintAt < 100) return;
-        tintAt = now;
+      /* every frame, from the main thread's scroll position: the strips ride
+         the viewport's edges while the stage is on screen — the only pinned
+         element the probe could find — and go when it is not */
+      const placeEdges = () => {
+        if (!edgeOn || !edges.top || !edges.bottom) return;
         const sr = stage.getBoundingClientRect();
-        const h = stage.clientHeight;
-        /* the hall off the screen: the page brown, as before */
-        if (sr.bottom <= 0 || sr.top >= tintSvh) {
-          tintRestore();
+        const H = window.innerHeight;
+        if (!(sr.bottom > 0 && sr.top < H)) {
+          hideEdges();
           return;
         }
-        const expanded = window.innerHeight <= tintSvh + 2;
-        let r0: number;
-        if (expanded) {
-          /* the rows that meet the toolbar: the stage's last rows once it is
-             stuck, the rows at the viewport's bottom edge before */
-          const edge = Math.min(h, tintSvh - sr.top);
-          r0 = Math.max(0, edge - TINT_ROWS);
-          tintEdge = "bottom";
-        } else {
-          r0 = 0;
-          tintEdge = "top";
-        }
-        const rows = Math.min(TINT_ROWS, h - r0);
-        if (rows <= 0) return;
-        if (!tintCanvas) {
-          tintCanvas = document.createElement("canvas");
-          tintCanvas.width = 4;
-          tintCanvas.height = 1;
-        }
-        const ctx = tintCanvas.getContext("2d", { willReadFrequently: true });
-        if (!ctx) return;
-        const src = renderer.domElement;
-        const pr = renderer.getPixelRatio();
-        try {
-          /* in the same task as the render — the drawing buffer is not
-             preserved past it; a 4×1 target averages the band on the way in */
-          ctx.drawImage(src, 0, r0 * pr, src.width, rows * pr, 0, 0, 4, 1);
-        } catch {
-          return;
-        }
-        const d = ctx.getImageData(0, 0, 4, 1).data;
-        let r = 0;
-        let g = 0;
-        let b = 0;
-        for (let k = 0; k < 16; k += 4) {
-          r += d[k];
-          g += d[k + 1];
-          b += d[k + 2];
-        }
-        const c = `#${hex2((r / 4) * tintMul)}${hex2((g / 4) * tintMul)}${hex2((b / 4) * tintMul)}`;
-        tintSample = c;
-        if (c === tintLast) return;
-        if (tintLast) {
-          /* a write only for a visible step: Safari animates each one */
-          const was = parseInt(tintLast.slice(1), 16);
-          const is = parseInt(c.slice(1), 16);
-          const dr = Math.abs((was >> 16) - (is >> 16));
-          const dg = Math.abs(((was >> 8) & 255) - ((is >> 8) & 255));
-          const db = Math.abs((was & 255) - (is & 255));
-          if (Math.max(dr, dg, db) < 4) return;
-        }
-        tintLast = c;
-        tintWrites++;
-        document.body.style.backgroundColor = c;
+        const wr = wrap.getBoundingClientRect();
+        const place = (el: HTMLDivElement, key: "top" | "bottom", y: number) => {
+          if (el.style.display !== "block") el.style.display = "block";
+          const t = Math.round((y - wr.top) * 10) / 10;
+          if (edgeY[key] !== t) {
+            edgeY[key] = t;
+            el.style.top = `${t}px`;
+          }
+        };
+        place(edges.top, "top", -EDGE_OUT);
+        place(edges.bottom, "bottom", H - EDGE_H + EDGE_OUT);
       };
       const debugPaint = () => {
         if (!debugBox) return;
         const n = (v: number) => Math.round(v * 10) / 10;
         const sr = stage.getBoundingClientRect();
+        const cr = renderer.domElement.getBoundingClientRect();
+        const r = (el: HTMLElement | null) => (el && el.style.display === "block" ? `${n(el.getBoundingClientRect().top)}→${n(el.getBoundingClientRect().bottom)}` : "off");
         debugBox.textContent =
-          `${RUNWAY_BUILD} · tint ${tintOff ? "off" : "on"} ×${tintMul} · bars ${barsPx} · svh ${n(tintSvh)} · innerHeight ${window.innerHeight}` +
-          `\nedge ${tintEdge} · sample ${tintSample || "-"} · body ${tintLast || "(page brown)"} · writes ${tintWrites}` +
-          `\nstage ${n(sr.top)}→${n(sr.bottom)} · scrollY ${n(window.scrollY || 0)}`;
+          `${RUNWAY_BUILD} · bars ${edgeBars} · B ${edgeB} · edges ${edgeMode}${edgeOn ? "" : " (inactive)"} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
+          `\nstage ${n(sr.top)}→${n(sr.bottom)} · canvas ${n(cr.top)}→${n(cr.bottom)} · top edge ${r(edges.top)} · bottom edge ${r(edges.bottom)}`;
       };
       renderer.setSize(stage.clientWidth, stage.clientHeight);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -514,7 +498,7 @@ export default function Museum({ works, slotId }: Props) {
          and far are untouched. */
       const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.3, 80);
       const BASE_FOV = fovFor();
-      /* size the canvas now that `camera` exists; reads the bar numbers too */
+      /* size the canvas now that `camera` exists; builds the edge strips too */
       sizeToStage();
 
       const lastZ = -works.length * SPACING; // last work
@@ -1955,7 +1939,7 @@ export default function Museum({ works, slotId }: Props) {
       const tick = () => {
         raf = requestAnimationFrame(tick);
         if (!(inView && visible && !covered)) {
-          if (!inView) tintRestore();
+          if (!inView) hideEdges();
           return;
         }
         const now = performance.now();
@@ -2000,7 +1984,7 @@ export default function Museum({ works, slotId }: Props) {
         camera.position.set(cur.x, cur.y, cur.z);
         camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
         renderer.render(scene, camera);
-        paintTint(now);
+        placeEdges();
         if (debugBox && now - debugAt > 250) {
           debugAt = now;
           debugPaint();
@@ -2097,6 +2081,9 @@ export default function Museum({ works, slotId }: Props) {
          and would drag the chip with it), and hand the midpoint to CSS. Once
          per layout: the band only moves when the viewport does. */
       const probeCam = camera.clone();
+      /* round 24: clone() copies the bleed's view offset; the arch is
+         projected against the STAGE, so clear it */
+      probeCam.clearViewOffset();
       const setChipBand = () => {
         const H = stage.clientHeight;
         if (!H) return;
@@ -2244,8 +2231,15 @@ export default function Museum({ works, slotId }: Props) {
             ceilY: CEIL_Y,
             corridorHalf: CH,
             endZ,
-            /* round 24: the bars' tint (scripts/museum-tint.mjs) */
-            tint: { on: !tintOff && barsPx > 0, bars: barsPx, svh: tintSvh, edge: tintEdge, sample: tintSample, written: tintLast, writes: tintWrites },
+            /* round 24: the edge strips and the bleed (scripts/museum-edge.mjs) */
+            edge: {
+              on: edgeOn,
+              mode: edgeMode,
+              bars: edgeBars,
+              b: edgeB,
+              top: edges.top && edges.top.style.display === "block" ? edges.top.getBoundingClientRect().toJSON() : null,
+              bottom: edges.bottom && edges.bottom.style.display === "block" ? edges.bottom.getBoundingClientRect().toJSON() : null,
+            },
             running: inView && visible && !covered,
             works: works.length,
             spacing: SPACING,
@@ -2312,7 +2306,8 @@ export default function Museum({ works, slotId }: Props) {
             if (m) (Array.isArray(m) ? m : [m]).forEach((mm: any) => { mm.map?.dispose?.(); mm.dispose?.(); });
           });
           renderer.domElement.remove();
-          tintRestore();
+          edges.top?.remove();
+          edges.bottom?.remove();
           debugBox?.remove();
         },
       };
