@@ -183,6 +183,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, device pass 17 (2026-09-22): the bottom toolbar opaque even
+with <main> transparent → the rule is a HIT: Safari paints a bar opaque
+when the element it hit-tests at the edge is inside a fixed/sticky box
+(pointer-events:none elements are never found). Phones now scroll as a
+plain document (`data-scroll="edge"`) with one fixed, invisible,
+hit-testable 8px strip on the top edge (`.edge-trigger`): the top bar is
+Safari's own opaque fill in <body>'s colour, the bottom toolbar glass over
+the text, nothing placed by script. `?scroll=sync|inner|doc` keep the
+runway, the still document and the cover. Awaiting his read. Pass-16
+record follows.
 Round 23, device pass 16 (2026-09-22): the bottom toolbar still an opaque
 brown over cream — Safari paints a bar opaque when a fixed element with an
 opaque background touches that edge (round 24's rule), and the runway's

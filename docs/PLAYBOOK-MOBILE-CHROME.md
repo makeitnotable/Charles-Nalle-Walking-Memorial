@@ -242,9 +242,19 @@ comes through a `chrome` slot after `</main>` — pass 15 found it riding
 away with the page). The runway itself is a colour map of the chapter, not
 one colour: the bottom toolbar shows the section arriving from below, and a
 cap above the viewport holds the top bar to the top-edge section's colour.
-And round 24's rule applies to the fixed `<main>` itself: a fixed box with
-an opaque background touching a bar's edge makes that bar an opaque fill, so
-the page ground rides on `#reader` and `<main>` is transparent (pass 16).
+And round 24's rule, sharpened by pass 16 (a transparent fixed `<main>`
+still made the bottom bar opaque) and used on purpose by pass 17: **Safari
+26 hit-tests each viewport edge; if the element it finds is inside a fixed
+or sticky box, that bar is an opaque fill in `<body>`'s colour, otherwise
+glass over the page's paint; elements with `pointer-events: none` are never
+found.** So the rail (none) never made the top bar opaque, the runway's
+`<main>` (auto) made both bars opaque, and the chapter pages now scroll as
+a plain document with one fixed, invisible, hit-testable 8px strip on the
+top edge (`.edge-trigger`): Safari paints the top bar solid in the section's
+colour, the bottom toolbar stays glass over the text, and nothing is placed
+by script. When a bar must be solid, give Safari a fixed hit at that edge
+and write the colour to `<body>`; when it must be glass, leave nothing
+fixed and hit-testable there.
 
 ## 4 · State resets on every open (round 19)
 

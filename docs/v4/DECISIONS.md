@@ -248,11 +248,23 @@ cap above the viewport holding the top bar to the top-edge section's
 colour. The still document stays on wider screens (the iPad's toolbar
 never collapses) and behind `?scroll=inner`.
 
+**Amended again 9/22 (device pass 17).** The runway's fixed `<main>` made
+the bottom toolbar an opaque fill whatever its colour: Safari 26 paints a
+bar opaque when the element it hit-tests at that edge is inside a fixed or
+sticky box, and glass otherwise. So on phones the chapter scrolls as a
+plain document again (`data-scroll="edge"`), natively, and one fixed,
+invisible, hit-testable 8px strip on the top edge (`.edge-trigger`) makes
+Safari paint the TOP bar as an opaque fill in `<body>`'s colour — the
+section at the top edge — while the bottom toolbar, with nothing fixed to
+find, is glass over the chapter's own text. No cover, visor or runway is in
+play; they remain behind `?scroll=doc`, `?scroll=sync` and, for the iPad's
+default, `?scroll=inner`.
+
 **Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
 dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
-stay); the chapter pages then scroll as a document again with pass 7's
-cover and 16px band. To keep the still document everywhere instead, make
-that branch assign `"inner"` unconditionally. To undo the whole round:
+stay); the chapter pages then scroll as a document with pass 7's cover and
+16px band. To choose another mode as the default, make that branch assign
+`"inner"`, `"sync"` or `"edge"` unconditionally. To undo the whole round:
 `git reset --hard client-round-23-base` (= `4d13540`) and push `v2`.
 
 ## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall
