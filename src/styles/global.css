@@ -2853,7 +2853,13 @@ html[data-scroll="inner"] #hero {
   top: 0;
   left: 0;
   right: 0;
-  height: 8px;
+  /* Round 41 (Wil's read of round 40, his screenshot: "weird transparency …
+     underneath the progress indicators"): the strip was 8px and the rail
+     covers only its first 3, so whatever treatment Safari gives the fixed
+     element it finds at the edge showed as a 5px band under the rail. The
+     strip is the rail's own 3px now, behind it (899 under 900): the probe
+     still finds it at y = 0, and nothing of it shows below the stripe. */
+  height: 3px;
   z-index: 899;
   background: transparent;
   pointer-events: auto;
@@ -2862,8 +2868,25 @@ html[data-scroll="edge"] .edge-trigger {
   display: block;
 }
 html[data-scroll="edge"][data-band] .edge-trigger {
-  height: var(--edge-band, 8px);
+  height: var(--edge-band, 3px);
   background-color: inherit;
+}
+/* Round 41: the rail and the menu keep their approved geometry while the
+   bars move. The rail is pinned at `env(safe-area-inset-top)` (v13, for the
+   home-screen app), and the menu's inset is a max() of the gutter and the
+   top and right insets (round 23). In the still document the top inset
+   never changes, so the menu sits one gutter below the rail. In a scrolling
+   document iOS 26 reports a top inset once its bars have moved — his
+   screenshot: the rail ~12px below the viewport's top, the menu still at
+   the gutter, so 8px below the rail instead of 20, and both shifting on
+   every transition ("the menu is in the wrong place", "flicker … underneath
+   the progress bars"). In this mode the menu's top is the gutter BELOW the
+   same inset the rail rides, so the two move together and their relation
+   is the approved one at every inset, 0 included (then this is byte for
+   byte round 23's rule). The right inset is unchanged. Only in this mode. */
+html[data-scroll="edge"] .cnwm-menu[data-position="top-right"] {
+  --menu-inset: max(var(--gutter), env(safe-area-inset-right, 0px));
+  top: calc(env(safe-area-inset-top, 0px) + var(--menu-inset));
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the

@@ -7,6 +7,30 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 41 (the second pass on `?scroll=edge`, Wil's choice: "Lets try B.
+If i do not like B, be prepared to go with A") IS ON `v2` FOR HIS DEVICE
+PASS; THE DEFAULT IS STILL UNTOUCHED.** His read of round 40 (a screenshot,
+14:27): the top bar "changes size" — inherent to collapsing bars, told, and
+he chose B; "the menu is now in the wrong place"; "a weird flicker at the
+bottom right underneath the progress bars"; "weird transparency in that
+area underneath the progress indicators". The shot, measured at 3x: the
+burger 20px from the right edge and ~8px below the rail. The burger is a
+72px box straight inside `.cnwm-menu`, its inset a `max()` that cannot go
+below the gutter, its retreat transform downward only — so the menu had not
+moved; the RAIL had, ~12px below the viewport's top, which is its
+`top: env(safe-area-inset-top)`: iOS 26 reports a top inset once its bars
+have moved in a scrolling document, and the still document never scrolls.
+Round 41, in the edge mode only: the menu's top is the gutter below the
+same inset the rail rides (round 23's rule byte for byte at inset 0), and
+the trigger strip is the rail's own 3px behind it instead of 8px (the 5px
+past the stripe were the band he saw). `qa:still` emulates the inset over
+CDP (top 12): the rail at 12, the menu at 32 under the flag and at 20 on
+the default. Gates: build + `check-css`; `astro check` 0 errors, 0 warnings; `qa:scope`
+clean; `qa:snap` 36/36 at 0 drift; `qa:still` 229 checks, 0 failed. Plan:
+`docs/rounds/2026-09-22-round-41-plan.md`. If he rejects B, the next round
+removes the edge flag (A: round 38 exactly). Revert of round 41:
+`git reset --hard client-round-41-base` (= `1dcd2ce`). Previous phase text
+follows.
 **ROUND 38 IS APPROVED ON HIS PHONE (Wil, 2026-09-22, on the live links:
 "Works great!"). ROUND 40 (the bottom toolbar collapsing on the way down,
 behind `?scroll=edge`) IS ON `v2` FOR HIS DEVICE PASS; THE DEFAULT IS
@@ -297,6 +321,13 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 41 (2026-09-22): his read of round 40 — the menu "in the wrong
+place", a flicker and a band under the rail — traced to the rail riding
+`env(safe-area-inset-top)`, which iOS 26 reports once its bars have moved
+in a scrolling document, while the menu's `max()` held at the gutter; in
+the edge mode the menu now follows the rail's inset (one gutter below it
+at every inset), and the strip is 3px behind the rail. Awaiting his read;
+B or A is his call. Round-40 record follows.
 Round 40 (2026-09-22): "the only thing I want is the bottom bar to
 disappear when the user scrolls down" — the edge trigger behind
 `?scroll=edge` (`&band=<px>` for the visible variant), the default
@@ -516,6 +547,15 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+Wil's device pass on round 41: `/bakery?scroll=edge` — the menu one gutter
+below the rail and holding there while the bars move, no band under the
+rail, the top bar solid in the section's colour when minimized, the
+toolbar glass over the text when it returns. B approved → a new round flips
+the head script's default from `"inner"` to `"edge"` (one word) and moves
+`qa:still`'s default checks to the edge mode. B rejected → a new round
+removes the edge flag's code (`.edge-trigger`, its rules, the `edge` branch
+of the flag regex, the round-41 menu rule) so the source is round 38
+exactly; off the flag it already is. Earlier text follows.
 Wil's device pass on round 40: `/bakery?scroll=edge` — scroll down (both
 bars collapse), scroll up (the toolbar returns, glass over the text; the
 top bar solid in the section's colour, no content through the pill). If

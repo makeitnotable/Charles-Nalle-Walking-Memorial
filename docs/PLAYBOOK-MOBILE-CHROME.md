@@ -381,6 +381,14 @@ only one.
   behind `?scroll=edge` (`&band=<px>` for the visible variant) — a plain
   document plus a fixed, hit-testable strip on the top edge so Safari paints
   the top bar opaque itself (§1's rule). His read decides the default.**
+  **Round 41 added a rule from his first read: in a scrolling document iOS
+  26 reports `env(safe-area-inset-top)` once its bars have moved (his
+  screenshot: the rail, pinned at that inset, ~12px below the viewport's
+  top), so anything pinned at the top must agree on whether it follows the
+  inset — the rail did, the menu's `max()` did not, and the two drifted
+  apart by 12px. In the edge mode the menu rides the same inset as the
+  rail, one gutter below it. The still document never sees this: its bars
+  never move.**
 
 ## 11 · `/paintings`: the pin and the runway (round 24)
 

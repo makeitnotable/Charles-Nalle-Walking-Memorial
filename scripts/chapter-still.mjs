@@ -148,6 +148,15 @@ const STATE = () => {
     bodyInline: document.body.style.backgroundColor,
     meta: meta ? meta.getAttribute("content") : "",
     menuHidden: (document.querySelector(".cnwm-menu") || {}).dataset ? document.querySelector(".cnwm-menu").dataset.hidden || "false" : "absent",
+    /* round 41: the corner menu's box (the burger is 72px straight inside it) */
+    menuTop: (() => {
+      const m = document.querySelector(".cnwm-menu");
+      return m ? rect(m).top : NaN;
+    })(),
+    menuRightGap: (() => {
+      const m = document.querySelector(".cnwm-menu");
+      return m ? window.innerWidth - rect(m).left - rect(m).width : NaN;
+    })(),
     lockupOpacity: (() => {
       const l = document.getElementById("hero-lockup");
       return l ? parseFloat(cs(l).opacity) : NaN;
@@ -445,7 +454,8 @@ try {
     check(session, "the hero carries no margin", near(s.heroMarginBottom, 0, 0.5), r1(s.heroMarginBottom));
     const t = s.trigger;
     check(session, "the trigger is a fixed strip on the top edge, full width", !!t && t.display === "block" && t.position === "fixed" && near(t.top, 0, 0.5) && near(t.width, 390, 0.5), t ? `${t.display} ${t.position} top ${r1(t.top)} w ${r1(t.width)}` : "absent");
-    check(session, `the trigger is ${variant.band || 8}px tall`, !!t && near(t.height, variant.band || 8, 0.5), t ? r1(t.height) : "absent");
+    check(session, `the trigger is ${variant.band || 3}px tall (round 41: the rail's own 3px, behind it)`, !!t && near(t.height, variant.band || 3, 0.5), t ? r1(t.height) : "absent");
+    check(session, "the menu sits one gutter below the rail (20px) with no top inset", near(s.menuTop - s.railTop, 20, 0.5) && near(s.menuRightGap, 20, 0.5), `top ${r1(s.menuTop)} rail ${r1(s.railTop)} rightGap ${r1(s.menuRightGap)}`);
     check(session, "the trigger is hit-testable", !!t && t.pointerEvents === "auto", t ? t.pointerEvents : "absent");
     check(session, "a hit at the top edge finds the trigger (not the rail)", /edge-trigger/.test(s.hitTop), s.hitTop);
     if (variant.band) check(session, "the band takes <body>'s colour (brown at rest)", !!t && t.bg === BROWN, t ? t.bg : "absent");
@@ -463,6 +473,32 @@ try {
     const h = await page.evaluate(STATE);
     check(session, "<body> is the brown again at the top", h.bodyBg === BROWN, h.bodyBg);
     check(session, "no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+    await ctx.close();
+  }
+  /* ── 7 · round 41: a top safe-area inset, as iOS 26 reports one once its
+     bars have moved in a scrolling document (Wil's screenshot: the rail ~12px
+     below the viewport's top). Emulated over CDP, the round-33/36 idiom. In
+     the edge mode the menu follows the rail's inset and stays one gutter
+     below it; the default keeps round 23's max(), which holds the menu at
+     the gutter while the rail moves — the geometry his screenshot showed. */
+  for (const variant of [
+    { q: "?scroll=edge", railTop: 12, menuTop: 32, name: "the menu follows the rail's inset (edge mode)" },
+    { q: "", railTop: 12, menuTop: 20, name: "the default keeps round 23's max() (unchanged)" },
+  ]) {
+    const session = `bakery${variant.q} 390 gate, top inset 12`;
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await ctx.addInitScript(GATE);
+    const page = await ctx.newPage();
+    const cdp = await ctx.newCDPSession(page);
+    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: { top: 12, right: 0, bottom: 0, left: 0 } });
+    await page.goto(`${BASE}/bakery${variant.q}`, { waitUntil: "load" });
+    await settle(page);
+    const s = await page.evaluate(STATE);
+    check(session, "the rail rides the top inset (12)", near(s.railTop, variant.railTop, 0.5), r1(s.railTop));
+    check(session, variant.name + ` — menu top ${variant.menuTop}`, near(s.menuTop, variant.menuTop, 0.5), r1(s.menuTop));
+    check(session, "the menu's right inset is the gutter (20)", near(s.menuRightGap, 20, 0.5), r1(s.menuRightGap));
+    if (variant.q) check(session, "the trigger still covers the viewport's top edge (top 0)", !!s.trigger && near(s.trigger.top, 0, 0.5) && /edge-trigger/.test(s.hitTop), s.trigger ? `top ${r1(s.trigger.top)} hit ${s.hitTop}` : "absent");
+    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: {} }).catch(() => {});
     await ctx.close();
   }
   {

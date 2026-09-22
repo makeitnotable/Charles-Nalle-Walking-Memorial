@@ -304,6 +304,26 @@ hit. It becomes the default only on his read: then the head script's
 (one word). **Revert** of round 40: `git reset --hard client-round-40-base`
 (= `3d9aa1c`); off the flag nothing changes anyway.
 
+**Round 41 (9/22, his read of round 40: "the menu is now in the wrong
+place … a weird flicker … underneath the progress bars … weird
+transparency in that area"; told the top bar's size change is inherent to
+collapsing bars, he chose B: "Lets try B. If i do not like B, be prepared
+to go with A").** Measured from his screenshot: the burger 20px from the
+right edge and ~8px below the rail. The burger is a 72px box straight
+inside `.cnwm-menu`, its inset a `max()` that cannot fall below the gutter,
+its retreat transform downward only — so the menu had not moved; the rail
+had, ~12px below the viewport's top, which is its `top:
+env(safe-area-inset-top)`. iOS 26 reports a top inset once its bars have
+moved in a scrolling document; the still document never scrolls, so the
+inset never showed. **Decision, edge mode only:** the menu's top is the
+gutter below the same inset the rail rides (round 23's rule byte for byte
+at inset 0, the approved 20px relation at every inset), and the trigger
+strip is the rail's own 3px behind it (the 8px strip's lower 5px were the
+band under the rail). The default is still the still document. If he
+rejects B, the next round removes the edge flag's code so the source is
+round 38 exactly. **Revert** of round 41: `git reset --hard
+client-round-41-base` (= `1dcd2ce`).
+
 **Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
 pass 17's tree back. To choose another mode as the chapter default, make the
 `else if (…) dataset.scroll = "inner"` branch in the head flags script
