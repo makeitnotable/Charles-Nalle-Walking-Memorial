@@ -7,9 +7,9 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**ROUND 38 (the chapter pages back at round 23's close) IS ON THE BRANCH
-`claude/chapter-pages-regression-fix-iuocgd`, AWAITING THE FAST-FORWARD OF
-`v2` AND WIL'S DEVICE PASS (2026-09-22).** Wil, of the session that ran round
+**ROUND 38 (the chapter pages back at round 23's close) IS LIVE ON `v2` —
+deploy run 294 published `076a688` at 20:03 UTC, 2026-09-22 — AWAITING WIL'S
+DEVICE PASS.** Wil, of the session that ran round
 23's device passes 13–17: it "went rogue because it auto compacted … There
 was a point that things were working perfectly on the live site, then the
 linked session broke everything that was working on the chapter pages, I
@@ -37,8 +37,9 @@ warnings; `qa:scope` clean against the round-38 manifest. Plan:
 bottom toolbar hiding on the way down — is OPEN BY HIS DECISION: Safari
 collapses its bars only when the document scrolls, and the static fill he
 approved exists only while the document is still (the trade he chose on
-9/19). Deploy = fast-forward `v2` to this branch's tip (this session pushes
-only its own branch). Revert: `git reset --hard client-round-38-base`
+9/19). Deployed by fast-forwarding `v2` to the round's commit at Wil's request
+("send me the review links with the updated live version"); the branch
+`claude/chapter-pages-regression-fix-iuocgd` holds the same commit. Revert: `git reset --hard client-round-38-base`
 (= `e38460d`, pass 17's tree). Previous phase text follows.
 **`/paintings` IS SIGNED OFF AGAIN — Wil, 2026-09-22, on round 36 live: "As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
 Rounds 24–31 and 36 are closed; nothing on `/paintings` is open. SHIPPED
@@ -274,9 +275,8 @@ exactly the close-out tree he approved (`1e5b07d`) plus the unrelated
 rounds since. The runway, the colour map, the `chrome` slot, the
 transparent `<main>`, the mini player's portal and the edge trigger are
 gone from the source. `qa:still` (new) 187 checks, 0 failed; `qa:snap` 36/36 at 0 drift;
-`qa:scope` clean; build, `check-css`, `astro check` clean. On the branch
-`claude/chapter-pages-regression-fix-iuocgd`; `v2` fast-forwards to it to
-deploy. Awaiting his read on the phone (the same behaviour he approved on
+`qa:scope` clean; build, `check-css`, `astro check` clean. Live on `v2`
+(deploy run 294, 20:03 UTC). Awaiting his read on the phone (the same behaviour he approved on
 9/19–9/20). The bottom-toolbar ask of pass 13 is open by his decision
 (DECISIONS.md, round 23). Pass-17 record follows.
 Round 23, device pass 17 (2026-09-22): the bottom toolbar opaque even
@@ -482,9 +482,9 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
-Round 38: fast-forward `v2` to `claude/chapter-pages-regression-fix-iuocgd`
-(plain `git push` from `v2`; the Actions run deploys), confirm live = HEAD,
-then Wil's device pass on any chapter: the top bar a solid fill in the
+Round 38 is live on `v2` (run 294, 2026-09-22 20:03 UTC; the live site
+cannot be fetched from this container, so the run's success is the record).
+Wil's device pass on any chapter: the top bar a solid fill in the
 section's colour at every scroll position, switching at each section, the
 bars expanded while reading (the still document he approved on 9/19); the
 menu holding still; the hero lockup one gutter above the toolbar. If he
