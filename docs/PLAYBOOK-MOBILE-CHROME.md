@@ -453,3 +453,8 @@ device px). Plan: `docs/rounds/2026-09-22-round-33-plan.md`; instrument
 - **Chrome with its address bar at the bottom** was not measured: there the
   page reaches the bar only when that toolbar collapses, so the inset — and
   the lane — moves with it (20 → 44), the counterpart of the 14px shift in §10.
+- **Signed off, 2026-09-22.** Wil, on the live site: "As far as i can see
+  these edits are done push to master and live site and document everything
+  and the final version that we are shipping to the client accordingly and
+  to best practices." The bottom lane is the pattern for a bar drawn over the
+  page: a new bottom control takes `--ui-inset-b`, never `--ui-inset`.

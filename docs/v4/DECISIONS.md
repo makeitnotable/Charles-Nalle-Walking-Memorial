@@ -438,6 +438,15 @@ whose tree is `v2`'s, pushed to `main` as a fast-forward, and
 `release/2026-09-22` moved to the same tip. Every later sign-off repeats
 this, so the mirror's history is one merge commit per sign-off, each
 pointing at the `v2` commit it carries. Revert as above.
+
+**Refreshed 2026-09-22, round 35, for the Android bottom lane's sign-off.**
+Wil, on round 33 live: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." The same
+procedure: a merge commit whose tree is round 35's `v2` tip's, its parents
+`main`'s tip at the moment of the push and that `v2` tip (both named in the
+mirror commit's own message), pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. When this round was written
+(18:22 UTC) the remote held `main` at `8095a82` and `release/2026-09-22` at
+`130a48c`; the tip this mirror carries: rounds 33–35 and, from the other sessions, round 34 and round 23's device passes up to the tip's own commit ("Client round 23, device pass 17: the edge trigger — Safari…"). Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
@@ -474,3 +483,8 @@ Plan: `docs/rounds/2026-09-22-round-33-plan.md`; playbook §12.
 two `:root` lines and the `@supports not` block, and put `--ui-inset` back for
 `--ui-inset-b` (and delete `+ var(--gesture-bar)`) in the round's files;
 `scripts/gesture-bar.mjs` and `qa:gesture` go with them.
+
+**Signed off, 2026-09-22.** Wil, on the live site: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." Shipped by round 35 (docs only): the handover's changelog and
+phone note, this log's "Ship" refresh, the round-33 plan's Closed line and
+playbook §12's sign-off; the `main` mirror and `release/2026-09-22` refreshed
+to that tip.

@@ -7,6 +7,21 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 33 (the bottom lane under Android's gesture bar) IS SIGNED OFF — Wil,
+2026-09-22, on the live site: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." SHIPPED
+(round 35, docs only, base `26fff0d`): the client-facing record joins the
+handover changelog (`docs/HANDOVER.md` §10; §8's phone note now names the
+Pixel 6; version 1.2), the round-33 plan takes its Closed line, playbook §12
+its sign-off, DECISIONS.md the approval and the refresh, and the `main`
+mirror is refreshed the way round 32 established — a merge commit carrying
+this tip's tree, pushed as a fast-forward — with `release/2026-09-22` moved to
+this tip. When this round was written (18:22 UTC) the remote held `main` at
+`8095a82` and `release/2026-09-22` at `130a48c`; the mirror commit's own message
+names what `main` held when this round's mirror was pushed. The tip it
+carries: rounds 33–35 and, from the other sessions, round 34 and round 23's device passes up to the tip's own commit ("Client round 23, device pass 17: the edge trigger — Safari…"). Every page Wil reviewed today — `/map`, `/paintings` and
+the bottom lane on the Pixel — is signed off; the chapter pages' round-23
+device passes (another session) are the open thread.** Previous phase text
+follows.
 **Round 33 (the bottom lane under Android's gesture bar) is ON `v2` — LIVE —
 AND AWAITING WIL'S DEVICE PASS ON THE PIXEL 6 AND THE IPHONE (2026-09-22).**
 Shipped at his instruction ("push them to the live site we are shipping to

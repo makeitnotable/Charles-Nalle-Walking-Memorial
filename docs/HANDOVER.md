@@ -2,7 +2,7 @@
 
 **For:** Rensselaer County Historical Society / Hart Cluett Museum, Troy NY
 **From:** Notable / WBM Enterprises
-**Version:** 1.1 · 22 September 2026
+**Version:** 1.2 · 22 September 2026
 
 This is the museum's operating manual for the memorial website. It is written
 for a non-technical reader. Nothing in it requires knowing how to code.
@@ -266,7 +266,7 @@ Stated plainly so nobody inherits a surprise.
 | **The plaque typo** | The Commissioner's Office proof reads "THIS BUILDING ONCE HOUSE THE" — must be "ONCE HOUSED THE". Confirm with Brian Tolle whether any bronze has already been cast. |
 | **Trailing slashes 404** | `/bakery` works, `/bakery/` does not. The QR chain carries no trailing slash so no plaque is affected. |
 | **`/styleguide` is publicly reachable** | An internal design proof sheet. Now marked "do not index" so it stays out of search results; it is not linked from anywhere. |
-| **Phone behaviour was proven on one phone** | Every mobile-browser behaviour in this document — the glass address bar and toolbar, the Paintings hall and its drawer, the map's lens — was verified on Wil's iPhone (iOS 26, Safari, the "Top" address-bar layout). Other iPhones and Safari's compact layout are expected to behave the same but were not measured; Android and desktop browsers have no such bars and take the plain layout, which the automated checks cover. If a reader reports something different on their phone, `docs/PLAYBOOK-MOBILE-CHROME.md` records what was measured and how. |
+| **Phone behaviour was proven on two phones** | Every Safari behaviour in this document — the glass address bar and toolbar, the Paintings hall and its drawer, the map's lens — was verified on Wil's iPhone (iOS 26, Safari, the "Top" address-bar layout), and the margin the site keeps above Android's swipe-up gesture bar (22 September, the changelog below) on his Google Pixel 6 in Chrome. Other iPhones, Safari's compact layout, other Android phones and tablets with a gesture bar are expected to behave the same but were not measured; Android phones with three-button navigation and desktop browsers draw no bar over the page and take the plain layout, which the automated checks cover. If a reader reports something different on their phone, `docs/PLAYBOOK-MOBILE-CHROME.md` records what was measured and how. |
 
 ---
 
@@ -284,6 +284,34 @@ Stated plainly so nobody inherits a surprise.
 ---
 
 ## 10 · Changelog
+
+**22 September 2026 — Android phones: every screen keeps its margin above the gesture bar (client round 33; signed off 22 Sep: "As far as i can see these edits are done")**
+
+Wil reviewed the site on his Google Pixel 6 in Chrome — the first review on an
+Android phone — from four screenshots: the title page's button, the 1858 map's
+"Back to today" button, a chapter's title and the Paintings hall's page dots
+all crowded the thin bar Android draws at the foot of the screen for its
+swipe-up gesture. The cause, measured from his screenshots: Chrome draws the
+page right down to the screen's edge, under that bar, and tells the page how
+tall the bar is (24 pixels on his phone); the site's spacing rule, written for
+the iPhone, took that height as the whole margin, so every bottom control sat
+exactly on the bar's top edge, ten pixels from the pill. The rule, recorded
+with its revert point in `docs/rounds/2026-09-22-round-33-plan.md`:
+
+- **Above a gesture bar, the site keeps its usual margin.** On any browser that
+  draws such a bar over the page, every control at the bottom of a screen —
+  the map's buttons and stop cards, the 1858 view's button, the hall's page
+  dots and its plaque drawer, the narration's mini player — now sits its
+  normal margin above the bar, and the title page's frame and each chapter's
+  title stand clear of it. On his Pixel that is 44 pixels from the screen's
+  edge instead of 24.
+- **iPhones and desktop browsers are untouched, byte for byte.** The change
+  exists only where a browser reports a bar drawn over the page; everywhere
+  else the automated picture comparison shows no difference on any page.
+- **A new automated check stands a 24-pixel bar in front of every page**
+  (`npm run qa:gesture`) and reads every margin with and without it, so the
+  rule cannot regress unnoticed. The method is recorded in
+  `docs/PLAYBOOK-MOBILE-CHROME.md` §12.
 
 **18–22 September 2026 — the Map page, client rounds 17–22, 27 and 29–30 (signed off 22 Sep: "As far as i can see map page is done")**
 
