@@ -875,6 +875,9 @@ const canonical = new URL(
         <slot />
       </div>
     </main>
+    {/* Device pass 15: fixed chrome that must not ride in #reader (the
+        chapter's walk rail) comes through this slot, after <main>. */}
+    <slot name="chrome" />
     <script is:inline>
       /* Device pass 13 (round 23, Wil, 2026-09-22: "the bottom toolbar should
          automatically hide when the user scrolls down and reappear when the
@@ -899,8 +902,93 @@ const canonical = new URL(
         var placed = null;
         var until = 0;
         var raf = 0;
+        /* Device pass 15 (Wil, 2026-09-22, his crop of the transcript over a
+           brown toolbar): the runway was one colour — <body>'s, the section
+           at the TOP edge — so whenever a section boundary was on screen the
+           bottom toolbar sat on the wrong colour. The runway is now a COLOUR
+           MAP of the chapter: one block per ground (the sampler's grounds —
+           header, section, footer, a direct child of #reader, .ground-cream)
+           at its own offset and height, in its own background colour, on
+           the page ground; the region under the bottom toolbar therefore
+           shows exactly the section arriving from below, with no script in
+           the loop. Above the viewport a CAP — one block from the top of the
+           document to the bottom of the section at the top edge, in that
+           section's colour — keeps the region behind the top bar ONE colour
+           and flips it the instant the top edge crosses a boundary, which is
+           the behaviour he approved in the still document; a crossing that
+           happens between two frames would show the next block for a frame,
+           so on the way down the cap leads by a frame of motion (the toolbar
+           is hidden on the way down; on the way up and at rest the cap ends
+           exactly at the section, so the bottom stays exact). <body> takes
+           the same colour at the same instant, for Safari's tint. */
+        var runway = document.createElement("div");
+        runway.id = "runway";
+        runway.setAttribute("aria-hidden", "true");
+        var cap = document.createElement("div");
+        cap.className = "runway-cap";
+        var main = document.getElementById("main");
+        main.parentNode.insertBefore(runway, main);
+        var grounds = [];
+        var base = "";
+        var capKey = "";
+        var lastS = null;
+        var lastT = 0;
+        var vel = 0;
+        function opaque(c) {
+          return c && c !== "transparent" && !/^rgba\(.*,\s*0\)$/.test(c);
+        }
+        function map() {
+          base = getComputedStyle(main).backgroundColor;
+          var rTop = reader.getBoundingClientRect().top;
+          var els = reader.querySelectorAll("header, section, footer, .ground-cream, #reader > *");
+          var seen = [];
+          var html = "";
+          grounds = [];
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (seen.indexOf(el) !== -1) continue;
+            seen.push(el);
+            var r = el.getBoundingClientRect();
+            if (!(r.height > 0)) continue;
+            var c = getComputedStyle(el).backgroundColor;
+            var own = opaque(c) && c !== base;
+            var top = r.top - rTop;
+            grounds.push({ top: top, bottom: top + r.height, colour: own ? c : base });
+            if (own) html += '<div style="top:' + top + "px;height:" + r.height + "px;background-color:" + c + '"></div>';
+          }
+          runway.style.backgroundColor = base;
+          runway.style.height = reader.offsetHeight + "px";
+          runway.innerHTML = html;
+          runway.appendChild(cap);
+          capKey = "";
+        }
+        function ground(y) {
+          var g = null;
+          for (var i = 0; i < grounds.length; i++) if (grounds[i].top <= y && y < grounds[i].bottom) g = grounds[i];
+          return g;
+        }
+        function capAt(s, lead) {
+          var g = ground(s + 4);
+          var bottom = g ? g.bottom + lead : 0;
+          var colour = g ? g.colour : base;
+          var key = colour + "|" + Math.round(bottom);
+          if (key === capKey) return;
+          capKey = key;
+          cap.style.height = Math.max(0, bottom) + "px";
+          cap.style.backgroundColor = colour;
+          if (document.body.style.backgroundColor !== colour) document.body.style.backgroundColor = colour;
+        }
         function place() {
           var s = window.scrollY || 0;
+          var now = performance.now();
+          if (lastS !== null) {
+            var dt = now - lastT;
+            if (dt >= 250) vel = 0;
+            else if (dt >= 4) vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+          }
+          lastS = s;
+          lastT = now;
+          capAt(s, vel > 0.05 ? Math.min(64, vel * 25) : 0);
           if (s === placed) return false;
           placed = s;
           reader.style.transform = "translate3d(0," + -s + "px,0)";
@@ -920,6 +1008,7 @@ const canonical = new URL(
         function size() {
           var h = reader.offsetHeight;
           if (h && document.body.style.height !== h + "px") document.body.style.height = h + "px";
+          map();
         }
         function land(hash, behavior) {
           var el = hash && hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;

@@ -2783,6 +2783,26 @@ html[data-scroll="sync"] #reader {
 html[data-scroll="sync"] body {
   min-height: 0;
 }
+/* Device pass 15: the runway is a colour map of the chapter (Base.astro):
+   one block per ground at its own offset, on the page ground, and a cap
+   above the viewport in the colour of the section at the top edge. It sits
+   in the document before <main>, so <main> covers it inside the viewport and
+   only the bar regions ever show it. */
+html[data-scroll="sync"] #runway {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+html[data-scroll="sync"] #runway > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+html[data-scroll="sync"] #runway > .runway-cap {
+  top: 0;
+}
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
    edge smooth on the phone, it becomes the default again). Since device pass

@@ -237,7 +237,11 @@ the viewport, so the bottom toolbar sits on the runway's colour; the page is
 placed a frame behind the finger; fragments are landed by scrolling the
 document (no engine scrolls a document for a box inside a fixed one — Chromium
 measured); and every `position: fixed` box inside the moving reader has to
-leave it (the narration's mini player is portaled to `<body>`).
+leave it (the narration's mini player is portaled to `<body>`; the walk rail
+comes through a `chrome` slot after `</main>` — pass 15 found it riding
+away with the page). The runway itself is a colour map of the chapter, not
+one colour: the bottom toolbar shows the section arriving from below, and a
+cap above the viewport holds the top bar to the top-edge section's colour.
 
 ## 4 · State resets on every open (round 19)
 

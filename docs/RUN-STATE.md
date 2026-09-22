@@ -115,6 +115,14 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, device pass 15 (2026-09-22): the runway live on his phone
+("closer") — the rail rode inside #reader (fixed inside a transform) and
+the bottom toolbar sat on <body>'s one colour (the top edge's). The rail
+now comes through a `chrome` slot after </main>; the runway is a COLOUR MAP
+of the chapter (a block per ground, from layout) with a CAP above the
+viewport in the top-edge section's colour, computed in the scroll handler
+(a frame of lead on the way down). Awaiting his read. Pass-14 record
+follows.
 Round 23, device pass 14 (2026-09-22): his crop showed the still document
 still on (text under the toolbar) — the head script's `innerWidth < 768`
 read iOS's pre-meta 980 and chose `inner`. The gate now reads the screen's

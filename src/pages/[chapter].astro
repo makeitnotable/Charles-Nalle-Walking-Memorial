@@ -279,7 +279,12 @@ const focus =
   ]}
   topBar="section"
 >
-  <WalkProgress current={c.order} />
+  {/* Round 23, device pass 15: outside <main>, through the layout's chrome
+      slot — the rail is position: fixed, and inside the runway's moving box
+      (#reader, translated by −scrollY) a fixed box travels with the page
+      instead of holding the top edge. It is decorative on the chapter
+      routes (spans, no text), so its place in the DOM order is free. */}
+  <WalkProgress current={c.order} slot="chrome" />
 
   {/* ══════ HERO — the finished animated painting, FULL-BLEED (items 2/16) ══════
       The painting owns every pixel of the fold; the lockup sits over its base

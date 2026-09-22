@@ -242,8 +242,11 @@ whose `#reader` the compositor moves by −scrollY. Safari's bars collapse and
 return as on any page. The costs he takes for that: the page is placed a
 frame behind the finger (a stalled main thread stalls the page for that
 moment), and when the bottom toolbar is up it sits on the section's colour,
-not on content. The still document stays on wider screens (the iPad's
-toolbar never collapses) and behind `?scroll=inner`.
+not on content — since pass 15 the colour of the section arriving from
+below, from a colour map of the chapter that the runway carries, with a
+cap above the viewport holding the top bar to the top-edge section's
+colour. The still document stays on wider screens (the iPad's toolbar
+never collapses) and behind `?scroll=inner`.
 
 **Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
 dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
