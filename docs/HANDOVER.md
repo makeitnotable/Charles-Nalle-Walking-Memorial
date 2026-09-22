@@ -2,7 +2,7 @@
 
 **For:** Rensselaer County Historical Society / Hart Cluett Museum, Troy NY
 **From:** Notable / WBM Enterprises
-**Version:** 1.0 · 7 August 2026
+**Version:** 1.1 · 22 September 2026
 
 This is the museum's operating manual for the memorial website. It is written
 for a non-technical reader. Nothing in it requires knowing how to code.
@@ -18,7 +18,7 @@ for a non-technical reader. Nothing in it requires knowing how to code.
 
 | Thing | Where it lives | Who owns it today |
 |---|---|---|
-| **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `v2` | Notable → **museum at handoff** |
+| **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `v2` — mirrored to `main` at each client sign-off (the retired 2024 app is kept on `legacy-spa`) | Notable → **museum at handoff** |
 | **Live address** | `makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` | GitHub Pages, free |
 | **Plaque addresses** | `hartcluett.org/nalle/*` | **The museum, permanently** |
 | **The map style** | Mapbox account `wbmdesign` | Notable → **museum at handoff** |
@@ -146,7 +146,7 @@ not hand-edit the generated files — replace the source and re-run the script.
 | Animation | GSAP | |
 | Map | Mapbox GL JS | The only third-party service the site depends on |
 | Hosting | GitHub Pages | Free, permanent, no account renewals |
-| Publishing | GitHub Actions | Every commit to `v2` rebuilds and republishes |
+| Publishing | GitHub Actions | Every commit to `v2` (or `main`, its mirror) rebuilds and republishes |
 
 **Mapbox is the one external dependency with an account attached.** Its free
 tier is far above anything this site will use, but it is the one thing that
@@ -266,6 +266,7 @@ Stated plainly so nobody inherits a surprise.
 | **The plaque typo** | The Commissioner's Office proof reads "THIS BUILDING ONCE HOUSE THE" — must be "ONCE HOUSED THE". Confirm with Brian Tolle whether any bronze has already been cast. |
 | **Trailing slashes 404** | `/bakery` works, `/bakery/` does not. The QR chain carries no trailing slash so no plaque is affected. |
 | **`/styleguide` is publicly reachable** | An internal design proof sheet. Now marked "do not index" so it stays out of search results; it is not linked from anywhere. |
+| **Phone behaviour was proven on one phone** | Every mobile-browser behaviour in this document — the glass address bar and toolbar, the Paintings hall and its drawer, the map's lens — was verified on Wil's iPhone (iOS 26, Safari, the "Top" address-bar layout). Other iPhones and Safari's compact layout are expected to behave the same but were not measured; Android and desktop browsers have no such bars and take the plain layout, which the automated checks cover. If a reader reports something different on their phone, `docs/PLAYBOOK-MOBILE-CHROME.md` records what was measured and how. |
 
 ---
 
@@ -283,6 +284,44 @@ Stated plainly so nobody inherits a surprise.
 ---
 
 ## 10 · Changelog
+
+**21–22 September 2026 — the Paintings page, client rounds 24–31 (signed off 22 Sep: "As far as I can see paintings page is done")**
+
+Wil reviewed `/paintings` on his iPhone against the new Safari, whose
+address bar and toolbar are glass, and eight rounds followed, each with a
+recorded revert point (`docs/rounds/2026-09-2*-round-2*` and `-31*`):
+
+- **The hall shows through Safari's bars** (round 24). The 3-D hall used to
+  end in a solid band behind the bottom toolbar at rest and behind the
+  address bar while walking. Two facts measured on the phone explain it and
+  fix it: Safari fills a bar solid whenever a pinned element sits at that
+  edge of the screen, and nothing pinned is ever drawn under a bar. The hall
+  now sits inside a wrapper Safari's probe ignores, and two ordinary page
+  strips carry the hall's own ceiling and floor rows into the bar regions
+  every frame, so the bars are glass over the hall — as the map already was.
+- **No painting flashes on load** (round 25). The page opens as the page
+  brown and goes straight to the hall; the stand-in painting for phones that
+  cannot run the hall appears only when the hall is not coming.
+- **The plaque drawer runs under the toolbar** (round 26) instead of ending
+  in a visible edge above it.
+- **The drawer expands on scroll, and Back returns you to where you tapped**
+  (round 28). With a painting open, iOS had started scrolling the hall
+  silently under the drawer; the scroll now drives the drawer, the page
+  cannot leave the hall while a painting is open, and closing the drawer
+  lands you where you were.
+- **The drawer's Close button unfolds with the drawer** (round 31) instead
+  of arriving a second after it.
+- Rounds 27, 29 and 30 (the map's 1858 lens) and further passes of round 23
+  (the chapter pages) shipped from parallel sessions the same days; each has
+  its own record in `docs/rounds/`.
+
+What was verified without a phone, for every round: type-check and build,
+36 screenshots across three widths at 0 drift, the page's own instruments
+(`npm run qa:runway`, `qa:lead`, `qa:drawer`), and the scope gate. What the
+phone alone could verify, Wil verified.
+
+**Shipped as:** the `v2` tip at this date (tag `ship-2026-09-22`), mirrored
+to `main`; the retired 2024 app is on `legacy-spa` (tag `legacy-spa-final`).
 
 **15–16 August 2026 — v7 "The Last Ten Percent" (Wil's page-by-page review)**
 

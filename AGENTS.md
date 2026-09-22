@@ -30,14 +30,17 @@ Non-negotiables inherited from the constitution's design baseline:
 - **This site is the `v2` branch.** Check out `v2`, work on `v2`, push `v2`
   (plain `git push`). Every push auto-deploys to GitHub Pages via
   `.github/workflows/deploy.yml`.
-- **`main` is NOT this site — do not touch it.** It holds a legacy Vite/React
-  SPA: a different application with unrelated git history (no common ancestor,
-  so the two can never be merged). Same for `match-figma-designs`, `feat/*`,
-  `fix/*`, `test-branch`. Never merge, build, deploy, or push to any of them.
-  GitHub Pages now publishes from Actions, so a push to `main` would build the
-  OLD app and replace the live memorial site. (A future cleanup may rename
-  `main` → `legacy-spa` and `v2` → `main`; until then the rule above stands, and
-  the legacy tip is frozen at tag `legacy-spa-final`.)
+- **`main` is a mirror of the shipped `v2` — never develop on it.** Since the
+  2026-09-22 sign-off (`docs/v4/DECISIONS.md`, "Ship"), `main` holds exactly the
+  `v2` commit that was shipped to the client, refreshed at each sign-off with
+  `git push --force origin v2:main` (its history is `v2`'s, so a force is the
+  only way to move it). The deploy workflow publishes on pushes to `main` as
+  well as `v2`, so a push to `main` republishes whatever `main` holds: only ever
+  push the `v2` tip there. The retired 2024 Vite/React app that `main` used to
+  hold — unrelated git history, no common ancestor with this site — lives on
+  `legacy-spa` (tip = tag `legacy-spa-final`); it, `match-figma-designs`,
+  `feat/*`, `fix/*` and `test-branch` are never merged, built, deployed or
+  pushed to. Shipped versions carry a tag (`ship-2026-09-22`).
 - A fresh clone has no `.env` (gitignored) and `astro dev` never reads
   `.env.production`, so `npm run dev` seeds one automatically (`predev` →
   `scripts/ensure-env.mjs`). Without it the map renders with an empty token.

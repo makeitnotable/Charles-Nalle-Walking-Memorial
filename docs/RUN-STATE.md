@@ -7,10 +7,20 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**`/paintings` IS SIGNED OFF — Wil, 2026-09-22, on round 31: "As far as I
+can see paintings page is done, push to master and live site and document
+everything." Rounds 24–31 are closed. SHIPPED (round 32, docs only): the
+`v2` tip is mirrored to `main` (the retired 2024 app kept on `legacy-spa`,
+tag `legacy-spa-final`), the shipped commit is tagged `ship-2026-09-22`, the
+client handover is at version 1.1 with the rounds in its changelog
+(`docs/HANDOVER.md` §10), and the branch rules in `CLAUDE.md` and the
+README say so. Nothing on `/paintings` is open. Other pages: the map and
+the chapter pages are worked from other sessions; their state is in their
+own rounds below and in `docs/rounds/`.** Previous phase text follows.
 **Round 28 (`/paintings`, the drawer expands on scroll) was APPROVED ON HIS
 PHONE, 2026-09-22 ("This is almost perfect. Nothing else needs to be
 changed except…"). Round 31 (`/paintings`, the drawer's X unfolds with the
-drawer) is ON `v2` AND AWAITING WIL'S DEVICE PASS.** Round 31 (2026-09-22),
+drawer) was APPROVED with the sign-off above.** Round 31 (2026-09-22),
 from his one note: the drawer's Close button arrived about a second after
 the drawer was up and popped in — it was mounted by the drawer's state,
 which the scroll path sets only once the scroll settles. Now mounted in both

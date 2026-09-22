@@ -389,3 +389,26 @@ drop `sheetCloseRef`, the `data-x` lines in `applySheet` and `hideSheet`,
 the X-less travel in `sheetTravel`, the end snaps in `scrollDrivesSheet` and
 the observer's live re-apply; in `global.css` delete the round-31 rule and
 its four transitions.
+
+## Ship, 2026-09-22 — `main` mirrors the shipped `v2`
+
+**Evidence.** Wil, 2026-09-22, after round 31: "As far as I can see
+paintings page is done, push to master and live site and document
+everything and the final version that we are shipping to the client
+accordingly and to best practices." `main` held the retired 2024 Vite/React
+app, an unrelated history the site's `v2` line can never merge with, and
+the deploy workflow publishes on pushes to both branches — which is why the
+rule was never to touch `main`.
+
+**Decision.** The retired app is preserved as the branch `legacy-spa` (its
+tip is also the tag `legacy-spa-final`), and `main` is made a mirror of the
+shipped `v2` tip, so the branch a reader expects to hold the site does, and
+a push to `main` can only ever republish the site. `v2` stays the working
+and deploy branch; `main` is refreshed at each client sign-off, never
+developed on. The shipped commit is tagged `ship-2026-09-22`. The client
+handover moves to version 1.1 with the rounds in its changelog.
+
+**Revert:** `git push --force origin legacy-spa:main` restores the retired
+app on `main` (and would publish it: run it only with the deploy workflow
+disabled or with `v2` pushed again right after); delete the tag and the
+`legacy-spa` branch if the old arrangement is wanted back.
