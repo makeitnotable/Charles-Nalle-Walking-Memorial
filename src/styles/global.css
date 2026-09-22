@@ -2820,6 +2820,51 @@ html[data-scroll="inner"] main#main {
 html[data-scroll="inner"] #hero {
   margin-bottom: var(--reader-e, 0px);
 }
+/* ── Round 40 (Wil, 2026-09-22): THE EDGE TRIGGER, behind `?scroll=edge` ────
+   "The only thing I want is the bottom bar to disappear when the user scrolls
+   down. No other changes." Safari collapses its bars only when the DOCUMENT
+   scrolls, and it collapses both bars together; the still document above
+   (the approved default) never scrolls, so its bars never move. In this mode
+   the chapter scrolls as a plain document again: the compositor moves the
+   page, the bars collapse and return natively, and the bottom toolbar is
+   glass over the chapter's own in-flow text when it returns (nothing fixed
+   and full-width touches the bottom edge — the mini player and the menu are
+   narrow corner boxes the probe skips). The top bar cannot be a static page
+   paint in a scrolling document (round 23, passes 1–8: any page-placed fill
+   lags a frame), so this strip asks Safari to paint it: 8px on the top edge,
+   fixed, invisible, hit-testable and covered by nothing. Round 24 measured
+   Safari 26 painting a bar as an OPAQUE FILL when a fixed or sticky element
+   is what its edge probe finds (the hall's sticky stage made both bars
+   opaque; non-fixed strips at the edges gave them back their glass), and
+   round 23's pass 16 saw the bottom bar stay opaque over a fixed <main> that
+   was transparent — so a hit, not a colour, seems to be what the probe
+   wants, and the fill it paints is <body>'s colour: the section at the top
+   edge, which the sampler already writes. Whether an 8px strip is enough of
+   a hit is the device's to say; `&band=<px>` makes the strip a visible band
+   of that height in the section's colour (`background-color: inherit` from
+   <body>, so the sampler's write reaches it with no script), the variant to
+   try if the invisible strip leaves the top bar glass. Below the rail (900)
+   and above the cover (800); the rail, `pointer-events: none`, is never the
+   hit. Off the flag this is `display: none` everywhere and nothing changes;
+   the default stays the still document until his read on the phone. */
+.edge-trigger {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  z-index: 899;
+  background: transparent;
+  pointer-events: auto;
+}
+html[data-scroll="edge"] .edge-trigger {
+  display: block;
+}
+html[data-scroll="edge"][data-band] .edge-trigger {
+  height: var(--edge-band, 8px);
+  background-color: inherit;
+}
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
    edge smooth on the phone, it becomes the default again). Since device pass

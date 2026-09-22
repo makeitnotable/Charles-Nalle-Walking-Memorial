@@ -286,6 +286,24 @@ the bar). It is the same trade he chose on 9/19; if he wants the other
 side of it, that is a new round with a device pass per push, never a
 default changed on assumption (CLAUDE.md, rule 4).
 
+**Round 40 (9/22, after "Works great!" on round 38 live): "The only thing
+I want is the bottom bar to disappear when the user scrolls down. No other
+changes."** Told that Safari collapses its bars only when the document
+scrolls and collapses both together — so the still document's static top
+fill and a collapsing toolbar cannot both be page paint — he reaffirmed.
+His decision, taken device-first: the mode ships behind `?scroll=edge`
+with the default untouched. The chapter scrolls as a plain document (the
+bars collapse and return; the toolbar is glass over the in-flow text), and
+a fixed, invisible, hit-testable 8px strip on the top edge (`.edge-trigger`)
+asks Safari to paint the top bar as an opaque fill in `<body>`'s colour —
+round 24's measured rule, extended by round 23 pass 16's observation that a
+transparent fixed element kept a bar opaque; `&band=<px>` is the visible
+variant in the section's colour if the invisible strip is not enough of a
+hit. It becomes the default only on his read: then the head script's
+`else if (…) dataset.scroll = "inner"` branch assigns `"edge"` instead
+(one word). **Revert** of round 40: `git reset --hard client-round-40-base`
+(= `3d9aa1c`); off the flag nothing changes anyway.
+
 **Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
 pass 17's tree back. To choose another mode as the chapter default, make the
 `else if (…) dataset.scroll = "inner"` branch in the head flags script

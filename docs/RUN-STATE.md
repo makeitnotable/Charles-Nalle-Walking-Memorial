@@ -7,6 +7,35 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 38 IS APPROVED ON HIS PHONE (Wil, 2026-09-22, on the live links:
+"Works great!"). ROUND 40 (the bottom toolbar collapsing on the way down,
+behind `?scroll=edge`) IS ON `v2` FOR HIS DEVICE PASS; THE DEFAULT IS
+UNTOUCHED.** His one ask after the approval: "The only thing I want is the
+bottom bar to disappear when the user scrolls down. No other changes." Told
+that Safari collapses its bars only when the document scrolls and collapses
+both together, so the still document's static top fill and a collapsing
+toolbar cannot both be page paint; he reaffirmed, so the mode is built the
+device-first way (CLAUDE.md rule 4): behind a flag, the approved default
+byte-identical. `?scroll=edge` on any chapter: a plain document (the bars
+collapse and return natively; the toolbar glass over the in-flow text) plus
+`.edge-trigger`, a fixed, invisible, hit-testable 8px strip on the top edge
+so Safari's edge probe finds a fixed element there and paints the top bar
+as an opaque fill in `<body>`'s colour — the section at the top edge, as the
+sampler writes it (round 24's measured rule; round 23 pass 16's
+transparent-fixed-main observation). `&band=<px>` is the visible variant:
+the strip a band of that height in the section's colour (inherited from
+`<body>`), to try if the invisible strip leaves the top bar glass. Plan:
+`docs/rounds/2026-09-22-round-40-plan.md`; DECISIONS.md (round 23, "Round
+40"); playbook §10. Gates on this tree: build + `check-css`; `astro check`
+0 errors, 0 warnings; `qa:scope` clean; `qa:snap` 36/36 at 0 drift; `qa:still` 220 checks, 0 failed (the default's
+checks unchanged, the flag's added). What only the phone can show: whether
+the strip makes the top bar opaque, and whether the toolbar is glass over
+the text when it returns. If he approves, the default flips by one word in
+the head script (`"inner"` → `"edge"`) in a new round. Round 39 (the map to
+the museum's Mapbox account) is committed on a local branch, held by
+GitHub's secret-scanning rule until the token is allowed. Revert of round
+40: `git reset --hard client-round-40-base` (= `3d9aa1c`). Previous phase
+text follows.
 **ROUND 38 (the chapter pages back at round 23's close) IS LIVE ON `v2` —
 deploy run 294 published `076a688` at 20:03 UTC, 2026-09-22 — AWAITING WIL'S
 DEVICE PASS.** Wil, of the session that ran round
@@ -268,6 +297,11 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 40 (2026-09-22): "the only thing I want is the bottom bar to
+disappear when the user scrolls down" — the edge trigger behind
+`?scroll=edge` (`&band=<px>` for the visible variant), the default
+untouched; awaiting his read on the phone. Round 38 approved live ("Works
+great!"). Round-38 record follows.
 Round 38 (2026-09-22): round 23's device passes 13–17 reverted at Wil's
 instruction ("broke everything that was working on the chapter pages, I
 need it fixed") — the still document is the chapter default on iOS again,
@@ -482,6 +516,14 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+Wil's device pass on round 40: `/bakery?scroll=edge` — scroll down (both
+bars collapse), scroll up (the toolbar returns, glass over the text; the
+top bar solid in the section's colour, no content through the pill). If
+the top bar is glass, `/bakery?scroll=edge&band=12`. Approved → a new round
+flips the head script's default from `"inner"` to `"edge"` (one word),
+`qa:still`'s default checks move to the edge mode, `qa:snap` must hold.
+Rejected → nothing to undo (off the flag nothing changed); the trade
+stands as on 9/19. Earlier text follows.
 Round 38 is live on `v2` (run 294, 2026-09-22 20:03 UTC; the live site
 cannot be fetched from this container, so the run's success is the record).
 Wil's device pass on any chapter: the top bar a solid fill in the

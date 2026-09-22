@@ -131,7 +131,29 @@ const canonical = new URL(
              pass-7 cover, for a comparison on the phone. global.css has the
              rules and the trade (Safari's bars collapse only when the
              document scrolls, so here they stay expanded while reading). */
-          var sm = /(^|[?&])scroll=(inner|doc)(&|$)/.exec(q);
+          /* Round 40 (Wil, 2026-09-22: "the only thing I want is the bottom
+             bar to disappear when the user scrolls down"): `?scroll=edge`,
+             for his phone first, the default untouched. The chapter scrolls
+             as a plain document again — Safari collapses its bars only when
+             the document scrolls, and it collapses both — and one fixed,
+             invisible, hit-testable strip on the top edge (`.edge-trigger`,
+             global.css) asks Safari to paint the TOP bar itself as an opaque
+             fill in <body>'s colour, the section at the top edge as the
+             sampler writes it (round 24 measured the opaque fill over a
+             fixed element at an edge; round 23 pass 16 saw it stay opaque
+             over a transparent one). Nothing fixed and full-width sits at
+             the bottom edge, so the toolbar is glass over the chapter's own
+             text when it returns. `&band=<px>` makes the strip a visible
+             band of that height in the section's colour, the variant to try
+             if the invisible strip leaves the top bar glass. */
+          var bd = /(^|[?&])band=(\d{1,2})(&|$)/.exec(q);
+          if (bd) {
+            document.documentElement.dataset.band = "1";
+            document.documentElement.style.setProperty("--edge-band", bd[2] + "px");
+          }
+          /* the flag first; the `else if` below is the iOS default and must
+             stay attached to this `if` — nothing may come between them */
+          var sm = /(^|[?&])scroll=(edge|inner|doc)(&|$)/.exec(q);
           if (sm) document.documentElement.dataset.scroll = sm[2];
           else if (
             document.documentElement.dataset.topBar === "section" &&
@@ -852,6 +874,14 @@ const canonical = new URL(
     <main id="main">
       <slot />
     </main>
+    {/* Round 40: the edge trigger — an invisible fixed strip on the viewport's
+        top edge that Safari's edge probe can hit, so the top bar is painted by
+        Safari as an opaque fill in <body>'s colour while the page scrolls
+        natively and the bars collapse. Rendered on the chapter routes,
+        displayed only under `?scroll=edge` (global.css); a child of <body> so
+        `background-color: inherit` gives the `&band=` variant the sampler's
+        colour with no script. */}
+    {topBar === "section" && <div class="edge-trigger" aria-hidden="true"></div>}
     <script is:inline>
       /* Device pass 8 (round 23): in the inner-scroll mode (the chapter
          default on iOS since pass 9; `?scroll=inner` elsewhere, `?scroll=doc`

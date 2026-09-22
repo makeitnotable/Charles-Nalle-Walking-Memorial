@@ -376,8 +376,11 @@ only one.
   scrolls, and the static fill behind the top bar that he approved (the
   still document, 9/19) exists only while the document is still; the five
   passes that tried to have both were retired by round 38 (§3). The two
-  designs and the one trade are as pass 8 stated them; his call, and a new
-  round with a device pass per push if he wants the other side.
+  designs and the one trade are as pass 8 stated them. **Round 40 (9/22):
+  he asked again, told of the trade, and the edge trigger is on his phone
+  behind `?scroll=edge` (`&band=<px>` for the visible variant) — a plain
+  document plus a fixed, hit-testable strip on the top edge so Safari paints
+  the top bar opaque itself (§1's rule). His read decides the default.**
 
 ## 11 · `/paintings`: the pin and the runway (round 24)
 
