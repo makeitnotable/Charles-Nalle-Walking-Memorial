@@ -115,6 +115,16 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23 reopened, device pass 13 (2026-09-22): "the bottom toolbar should
+automatically hide when the user scrolls down and reappear when the user
+scrolls up." Safari collapses bars only on document scroll, so phones now
+take THE RUNWAY (`data-scroll="sync"`): <body> sized to the chapter and
+carrying the section's colour (the static fill), <main> fixed + `overflow:
+clip` at 100lvh, #reader (new wrapper) translated by −scrollY on the
+compositor, fragments landed by scrolling the document, the narration's
+mini player portaled to <body>. iPad keeps the still document; `?scroll=`
+overrides. Costs stated: one-frame placement (stalls show), the bottom
+toolbar over the section colour. Awaiting his read on the phone.
 Round 24, device pass 4 (2026-09-21, 14:50): the tint rejected ("the fill
 now changes colors"), and pass 3's reading corrected — Safari 26's bars are
 glass unless a fixed or sticky element is what its probe finds at that

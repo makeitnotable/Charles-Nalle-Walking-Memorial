@@ -233,11 +233,24 @@ or re-tints because a bar moved. Desktop, Android and every other route are
 unchanged. `?scroll=doc` restores the document scroller and the pass-7 cover
 on one page load.
 
-**Revert:** in `src/layouts/Base.astro`, delete the `else if (…) dataset.scroll
-= "inner"` branch in the head flags script (the `?scroll=` flags may stay);
-the chapter pages then scroll as a document again with pass 7's cover and
-16px band. To undo the whole round: `git reset --hard client-round-23-base`
-(= `4d13540`) and push `v2`.
+**Amended 9/22 (device pass 13, Wil: "the bottom toolbar should
+automatically hide when the user scrolls down and reappear when the user
+scrolls up").** On phones the document scrolls again — as a solid RUNWAY:
+`<body>` sized to the chapter and carrying the section's colour, so the fill
+behind the bars stays static, and the chapter in a fixed, clipped `<main>`
+whose `#reader` the compositor moves by −scrollY. Safari's bars collapse and
+return as on any page. The costs he takes for that: the page is placed a
+frame behind the finger (a stalled main thread stalls the page for that
+moment), and when the bottom toolbar is up it sits on the section's colour,
+not on content. The still document stays on wider screens (the iPad's
+toolbar never collapses) and behind `?scroll=inner`.
+
+**Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
+dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
+stay); the chapter pages then scroll as a document again with pass 7's
+cover and 16px band. To keep the still document everywhere instead, make
+that branch assign `"inner"` unconditionally. To undo the whole round:
+`git reset --hard client-round-23-base` (= `4d13540`) and push `v2`.
 
 ## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall
 

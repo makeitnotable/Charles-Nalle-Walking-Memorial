@@ -227,7 +227,17 @@ the choice is the client's, not a measurement's. **Wil chose the still
 document (9/19: "exactly what I wanted"), and it is the chapter default
 wherever the bars exist** — `data-scroll="inner"` from the head script on
 every `data-top-bar="section"` route, `?scroll=doc` to compare. Logged with
-its revert in `docs/v4/DECISIONS.md`.
+its revert in `docs/v4/DECISIONS.md`. Device pass 13 (9/22: the bars must
+collapse after all) added the last rule, which is the runway pattern of §2
+turned into a reading page: **when the bars must move AND the fill must be
+static, the document scrolls a runway that holds nothing but colour, and
+the content rides in a fixed, clipped `<main>` that the compositor moves by
+−scrollY** (`data-scroll="sync"`, phones). A fixed box never paints beyond
+the viewport, so the bottom toolbar sits on the runway's colour; the page is
+placed a frame behind the finger; fragments are landed by scrolling the
+document (no engine scrolls a document for a box inside a fixed one — Chromium
+measured); and every `position: fixed` box inside the moving reader has to
+leave it (the narration's mini player is portaled to `<body>`).
 
 ## 4 · State resets on every open (round 19)
 

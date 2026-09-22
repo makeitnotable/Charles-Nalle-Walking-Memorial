@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import { ICONS } from "./icons";
 
 /**
@@ -433,8 +434,16 @@ export default function AudioStory({
         </div>
       </div>
 
-      {/* ——— Mini player — bottom LEFT; the corner menu owns the right ——— */}
-      {miniLatched && (
+      {/* ——— Mini player — bottom LEFT; the corner menu owns the right ———
+          Round 23, device pass 13: rendered into <body> through a portal. In
+          the runway mode the island's ancestor #reader carries a transform,
+          which would make this `position: fixed` box move with the chapter
+          instead of holding the corner; from <body> it is fixed to the
+          viewport in every mode, exactly where it always was. Client only:
+          the latch is false on the server, so nothing here is prerendered. */}
+      {miniLatched &&
+        typeof document !== "undefined" &&
+        createPortal(
         <div
           className="fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]"
           style={{
@@ -466,8 +475,9 @@ export default function AudioStory({
               </p>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+        document.body,
+        )}
     </div>
   );
 }
