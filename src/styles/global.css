@@ -2155,9 +2155,10 @@ a.walk-seg:hover {
   top: calc(-1 * var(--museum-pin));
   height: calc(100dvh + var(--museum-pin));
   margin-top: calc(-1 * var(--museum-pin));
-  /* an empty box above the stage: never in the way of the header it
-     overlaps at rest */
-  pointer-events: none;
+  /* Round 28: no `pointer-events: none` here. It only kept the pin's empty
+     top (over the header, at rest) from taking a tap the header does not
+     want anyway, and it is one more thing WebKit's touch regions might read
+     into while the drawer's gesture is failing on his phone. */
 }
 /* svh as a number for Museum.tsx: the bars-expanded viewport height, which
    holds still while the bars move (playbook §1) — the bottom strip is
@@ -2248,7 +2249,6 @@ html .museum-stage {
   position: absolute;
   top: var(--museum-pin);
   left: 0;
-  pointer-events: auto;
   /* sticky made the stage a stacking context; absolute does not, and its
      ::before ground (z −1) and its chrome (z 10–30) must keep stacking
      inside it */

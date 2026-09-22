@@ -1,0 +1,34 @@
+{
+  "round": 28,
+  "label": "/paintings — the drawer expands on scroll: with a painting open the document's own scroll drives the plaque drawer, the page cannot leave the hall's band, and Back returns to where the painting was tapped",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-28-plan.md",
+  "base": {
+    "tag": "client-round-28-base",
+    "commit": "a9de24fc4c30af1be13b4e5b6efa553a5900e7cd",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/Museum.tsx",
+    "src/styles/global.css",
+    "package.json",
+    "scripts/museum-drawer.mjs",
+    "docs/RUN-STATE.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/v4/DECISIONS.md",
+    "docs/rounds/2026-09-22-round-26-plan.md",
+    "docs/rounds/2026-09-22-round-28.json",
+    "docs/rounds/2026-09-22-round-28-plan.md"
+  ],
+  "constraints": {
+    "package.json": {
+      "jsonKeys": [
+        "scripts"
+      ]
+    }
+  },
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-22: with a painting open, swiping up no longer expands the drawer — the page scrolls the hall silently under it instead, and Back lands somewhere else. The approach-mode lock (v14 E7: touch-action none on the canvas and the drawer's handle, plus a document-level touchmove preventDefault) no longer holds on his iPhone since round 24's pin; the gesture code itself is unchanged since the base and works in Chromium with touch and mouse. This round makes the drawer robust to whichever way iOS routes the gesture: the document's scroll, when it happens with a painting open, drives the drawer exactly as a swipe does (down = expand, up = collapse, hidden = reveal; snapped when the scroll settles); the page is clamped to the hall's band so the stage never un-pins under the drawer; Back restores the scroll position of the tap. The drawer's handle no longer gets the 6px tap tolerance that let the first touchmove through unprevented, and the pin no longer declares pointer-events: none (its only role was the header overlap at rest; one fewer unknown for WebKit's touch regions). Nothing visible changes; no route may drift. Numbered 28: while this round was being built, another session shipped its own round 27 on v2 (the map's 1858 lens, a9de24f, based on round 26's tip); this round was rebased onto that tip and takes the next number. Base a9de24f."
+}

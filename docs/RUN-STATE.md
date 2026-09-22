@@ -23,9 +23,23 @@ rounds 23–26 shipped from other sessions while this one was open; rebased.
 Previous phase text follows.
 **Client rounds 1–25 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
 chapter pages, `/paintings`' bars (round 24: "Looks and works perfectly!")
-and its lead cover (round 25: "Looks good") are signed off. Round 26
-(`/paintings`, the drawer continues under the toolbar) is ON `v2` AND
-AWAITING WIL'S DEVICE PASS.** Round 26 (2026-09-22), from his screenshot
+and its lead cover (round 25: "Looks good") are signed off. Round 26 (the
+drawer under the toolbar) drew no objection to its look; round 28
+(`/paintings`, the drawer expands on scroll; numbered after another
+session's round 27, the map's 1858 lens, which shipped meanwhile) is ON `v2`
+AND AWAITING WIL'S DEVICE PASS.** Round 28 (2026-09-22), from his report that with a painting
+open a swipe scrolls the hall under the drawer instead of expanding it and
+Back lands elsewhere: v14 E7's lock no longer holds on his iPhone since the
+pin, for a reason not measurable here, so the drawer no longer depends on it
+— the document's scroll drives the drawer as the swipe does, the page is
+clamped to the hall's band so the stage never un-pins under the drawer, Back
+restores the tap's position, the handle loses its tap tolerance and the pin
+its `pointer-events: none`. Plan: `docs/rounds/2026-09-22-round-28-plan.md`;
+DECISIONS.md; playbook §7. Instrument `npm run qa:drawer` (17 checks, 0
+failed); `qa:runway` 182/182; `qa:snap` 36/36 at 0 drift; `qa:scope` clean.
+Previous phase text follows.
+**Round 26 (`/paintings`, the drawer continues under the toolbar) shipped
+2026-09-22.** Round 26 (2026-09-22), from his screenshot
 with a painting tapped: the plaque drawer stopped at the page area's bottom
 edge with the floor showing between it and the toolbar — its open bottom
 was designed for Safari's old solid fill, and the runway strip under the

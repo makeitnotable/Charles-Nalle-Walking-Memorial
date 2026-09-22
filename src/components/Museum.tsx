@@ -1489,6 +1489,14 @@ export default function Museum({ works, slotId }: Props) {
          visitor leaving: suppressed until it has settled, and across an
          orientation change, which is a resize and not a scroll. */
       let settleUntil = 0;
+      /* round 28 (declared here: onScroll runs once synchronously below and
+         writes lastScrollY) — see the note above `approach` */
+      let approachScrollY = 0;
+      let lastScrollY = 0; // the position the previous scroll event saw: a run's base, so its first step counts
+      let sheetScrollBase = 0;
+      let sheetScrollPos0 = 0;
+      let sheetScrollLive = false;
+      let sheetScrollTimer = 0;
       let dragYaw = 0;
       let dragPitch = 0;
       let yawVel = 0;
@@ -1514,7 +1522,51 @@ export default function Museum({ works, slotId }: Props) {
          cleared — the hint it dismisses is one-way now, so the v13 dead-stop
          reset (which brought the chip back at the top) is gone with it. */
       let walkFlag = false;
+      /* round 28: with a painting open the page may not leave the hall's
+         band — the stage would un-pin under the drawer (V13-10f) — so an
+         overshoot is taken back the same frame, before the un-pin check */
+      const clampApproachScroll = () => {
+        if (mode !== "approach" || performance.now() < settleUntil) return;
+        /* the stage itself, against the viewport: past either end of the band
+           it travels with the wrap, so its own edge is the measure (as in
+           checkUnpin) */
+        const sr = stage.getBoundingClientRect();
+        const H = window.innerHeight;
+        const over = sr.top > 0.5 ? sr.top : sr.bottom < H - 0.5 ? sr.bottom - H : 0;
+        if (over !== 0) window.scrollBy({ top: over, behavior: "instant" });
+      };
+      /* round 28: the document's scroll drives the drawer like the swipe does
+         — the same travel, the same snap once the scroll settles */
+      const scrollDrivesSheet = () => {
+        if (mode !== "approach" || !isPortraitNow() || !sheetRef.current) return;
+        const y = window.scrollY || 0;
+        if (performance.now() < settleUntil) {
+          sheetScrollBase = y;
+          sheetScrollPos0 = sheetHiddenRef.current ? 0 : sheetPosRef.current;
+          return;
+        }
+        if (!sheetScrollLive) {
+          sheetScrollLive = true;
+          sheetScrollBase = lastScrollY;
+          sheetScrollPos0 = sheetHiddenRef.current ? 0 : sheetPosRef.current;
+        }
+        const dy = y - sheetScrollBase; // + = scrolled down = finger up = opening
+        if (sheetHiddenRef.current) {
+          if (dy > 8) {
+            revealSheetFn.current();
+            sheetScrollBase = y;
+            sheetScrollPos0 = 0;
+          }
+        } else applySheetFn.current(sheetScrollPos0 + dy / sheetTravel(), false);
+        window.clearTimeout(sheetScrollTimer);
+        sheetScrollTimer = window.setTimeout(() => {
+          sheetScrollLive = false;
+          if (mode !== "approach" || sheetHiddenRef.current) return;
+          snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+        }, 160);
+      };
       const onScroll = () => {
+        clampApproachScroll();
         const r = wrap.getBoundingClientRect();
         const total = r.height - stage.clientHeight;
         railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
@@ -1523,6 +1575,8 @@ export default function Museum({ works, slotId }: Props) {
           setHintDismissed(true);
         }
         checkUnpin();
+        scrollDrivesSheet();
+        lastScrollY = window.scrollY || 0;
         const idx = Math.min(works.length - 1, Math.max(0, Math.round(-railZ() / SPACING) - 1));
         if (idx !== lastRailIdx) {
           lastRailIdx = idx;
@@ -1932,7 +1986,10 @@ export default function Museum({ works, slotId }: Props) {
         for (let i = 0; i < e.changedTouches.length; i++) {
           const t = e.changedTouches[i];
           const el = t.target instanceof Element ? t.target : null;
-          touchLock.set(t.identifier, { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: !!el?.closest('button, a[href], [role="button"]') });
+          /* round 28: the drawer's handle is a role=button but its tap is the
+             pointer path's (onSheetUp), so it needs no click and gets no
+             tolerance — the first move is prevented, where prevention holds */
+          touchLock.set(t.identifier, { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: !!el?.closest('button, a[href], [role="button"]') && !el?.closest(".museum-sheet-head") });
         }
       };
       const lockTouchEnd = (e: TouchEvent) => {
@@ -1994,6 +2051,27 @@ export default function Museum({ works, slotId }: Props) {
 
       // ——— Approach / return ———
       let approachedAt = 0;
+      /* ── Round 28 (Wil, 2026-09-22): the drawer expands on scroll ────────
+         "When you scroll down, you start scrolling through the hall. But you
+         do not know that you were scrolling through the hall and then when you
+         click the back to hall button you end up in a completely different
+         place. The drawer should expand when the user scrolls down after
+         selecting a painting." Since round 24's pin, v14 E7's lock (touch-
+         action: none on the canvas and the handle, the document-level
+         touchmove preventDefault) no longer holds on his iPhone: iOS pans the
+         page, the pointer drag that moved the drawer is cancelled, and the
+         hall walks on under the drawer. The gesture code is unchanged since
+         the base and works in Chromium with touch and mouse; which WebKit
+         rule now lets the pan through is not measurable here. So the drawer
+         no longer depends on it: with a painting open, the document's scroll
+         itself drives the drawer exactly as the swipe does (`scrollDrivesSheet`,
+         from onScroll) — down expands, up collapses, a hidden drawer is
+         revealed, and the position snaps when the scroll settles — the page is
+         clamped to the hall's band so the stage can never un-pin under the
+         drawer (`clampApproachScroll`), and Back returns the document to the
+         tap's position (`approachScrollY`). Where the lock does hold (Chromium,
+         desktop, an iOS that honours touch-action) nothing scrolls and the
+         pointer and wheel paths work as before. */
       const approach = (i: number | null) => {
         approachedIdx = i;
         if (i === null) {
@@ -2007,6 +2085,11 @@ export default function Museum({ works, slotId }: Props) {
           syncAlive();
           renderer.domElement.style.touchAction = "pan-y";
           lockDocument(false); // v14 E7: the page scrolls again — that is the walk
+          /* round 28: Back lands where the painting was tapped, whatever the
+             page did under the drawer */
+          window.clearTimeout(sheetScrollTimer);
+          sheetScrollLive = false;
+          if (Math.abs((window.scrollY || 0) - approachScrollY) > 0.5) window.scrollTo({ top: approachScrollY, behavior: "instant" });
           return;
         }
         loadWork(i);
@@ -2015,6 +2098,9 @@ export default function Museum({ works, slotId }: Props) {
         zoom = 1;
         recenter();
         approachedAt = performance.now();
+        approachScrollY = window.scrollY || 0;
+        lastScrollY = approachScrollY;
+        sheetScrollLive = false;
         /* Juror pass 7 P1: the composition is made for the WHOLE stage, so the
            stage must be whole on screen — from the page top (the hall peeks
            under the header) or past the end of the rail (the stage has
@@ -2028,6 +2114,8 @@ export default function Museum({ works, slotId }: Props) {
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
             settleUntil = performance.now() + (reduce ? 120 : 900);
+            approachScrollY = (window.scrollY || 0) + dy; // round 28: the flush is the tap's position
+            lastScrollY = approachScrollY;
           }
           /* Inspect mode locks the wheel, so the corner menu must be there
              when it opens: the scripted scroll is not "reading forward", and
@@ -2606,6 +2694,11 @@ export default function Museum({ works, slotId }: Props) {
             works: works.length,
             spacing: SPACING,
             sheet: sheetRefState.current,
+            /* round 28 (scripts/museum-drawer.mjs) */
+            sheetPos: sheetPosRef.current,
+            sheetHidden: sheetHiddenRef.current,
+            approachScrollY,
+            scrollDrivesSheet: sheetScrollLive,
           };
         },
         approach,

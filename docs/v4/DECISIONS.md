@@ -319,3 +319,32 @@ nothing else on the page changes; no route drifts.
 `Museum.tsx` delete the round-26 block (`blurCanvas` through `drawerOver`),
 the `drawerFrom` lines in `paintRunways`' bottom branch, and the `drawer`
 fields in the probe, the readout and the hook state.
+
+## Round 28 (Wil's 9/22 round) — `/paintings`: the drawer expands on scroll
+
+**Evidence.** Wil, 2026-09-22: with a painting open, swiping up no longer
+expands the drawer; the page scrolls the hall silently under it and Back
+lands somewhere else. "The drawer should expand when the user scrolls down
+after selecting a painting." The gesture code is unchanged since the
+round-24 base and works in Chromium with touch and mouse; v14 E7's lock
+(touch-action, a document-level touchmove preventDefault) no longer holds on
+his iPhone since the pin, for a reason WebKit's source does not show and no
+instrument here can measure.
+
+**Decision.** Make the drawer robust to whichever way iOS routes the
+gesture: with a painting open, the document's scroll drives the drawer
+exactly as the swipe does and snaps when it settles; the page is clamped to
+the hall's band so the stage never un-pins under the drawer; Back restores
+the tap's scroll position. The drawer's handle loses the 6px tap tolerance
+that let its first touchmove through, and the pin no longer declares
+`pointer-events: none`. The pointer and wheel paths stay. Nothing visible
+changes; no route drifts.
+
+**Revert:** `git reset --hard client-round-28-base` (= `a9de24f`); or in
+`Museum.tsx` delete `clampApproachScroll`, `scrollDrivesSheet` and their
+calls in `onScroll`, the round-28 state after `settleUntil`, the
+`approachScrollY` lines in `approach` and its restore, the handle clause in
+`lockTouchStart` and the four round-28 hook fields; in `global.css` restore
+`pointer-events: none` on `.museum-pin` and `pointer-events: auto` on
+`html .museum-stage`; `qa:drawer` with `scripts/museum-drawer.mjs` goes
+with them.

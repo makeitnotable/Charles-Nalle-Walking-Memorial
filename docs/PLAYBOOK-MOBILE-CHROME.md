@@ -267,6 +267,22 @@ owns the screen (the whole focused view, not only while an animation runs).
 Never `overflow: hidden` on `<html>`: hiding the desktop scrollbar resizes
 the stage. Programmatic landings are not events and still run.
 
+**Round 28 (2026-09-22): the lock is not a guarantee on iOS 26.** On
+`/paintings` the same lock (v14 E7: `touch-action: none` on the canvas and
+the drawer's handle, a document-level non-passive `touchmove` prevented)
+held for weeks and stopped holding on Wil's phone once the stage sat in a
+sticky pin — with no change to the gesture code, and while Chromium with
+touch emulation still honoured it. WebKit decides in the UI process whether
+a pan may start, from the composited layers' event regions under the touch
+(`RemoteLayerTreeViews.mm`), before the page sees a cancelable event; when
+that decision goes against the page, `preventDefault` arrives too late and
+`pointercancel` ends the drag. The rule that follows: **a view that must not
+scroll the document still has to survive the document scrolling.** Make the
+scroll itself do the right thing (on `/paintings` it now drives the drawer,
+the page is clamped to the stage's band, and leaving the view restores the
+position it was entered at), and keep the lock as the first line, not the
+only one.
+
 ## 8 · How it was verified without a phone
 
 - **`scripts/map-framing.mjs` (`npm run qa:framing`)** — the map's camera
