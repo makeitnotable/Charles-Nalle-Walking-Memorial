@@ -8,7 +8,8 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 
 ## CURRENT PHASE
 **Round 29 (`/map`, the 1858 lens's wash is see-through again, still edge to
-edge) is ON `v2` AND AWAITING WIL'S DEVICE PASS (2026-09-22).** On round 27's
+edge) shipped and was APPROVED ON HIS PHONE, 2026-09-22 ("Looks perfect"). The
+map page is signed off again; nothing on `/map` is open.** On round 27's
 opaque fill he asked for "a bit of transparency to it so you can see the map
 behind it just like before": the colour is the original 70% black again over
 round 27's canvas-box geometry, the shell declares the wash's result over the
