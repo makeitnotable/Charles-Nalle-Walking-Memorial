@@ -2,7 +2,7 @@
 
 **For:** Rensselaer County Historical Society / Hart Cluett Museum, Troy NY
 **From:** Notable / WBM Enterprises
-**Version:** 1.2 · 22 September 2026
+**Version:** 1.3 · 22 September 2026
 
 This is the museum's operating manual for the memorial website. It is written
 for a non-technical reader. Nothing in it requires knowing how to code.
@@ -363,11 +363,11 @@ show — the glass bars, their colour, the framing under the real address bar
 the branch `release/2026-09-22`, both refreshed for this sign-off (round 34).
 The map page as shipped is described in `docs/rounds/2026-09-22-round-34-plan.md`.
 
-**21–22 September 2026 — the Paintings page, client rounds 24–31 (signed off 22 Sep: "As far as I can see paintings page is done")**
+**21–22 September 2026 — the Paintings page, client rounds 24–31 and 36 (signed off 22 Sep: "As far as I can see paintings page is done" — after round 31, and again after round 36)**
 
 Wil reviewed `/paintings` on his iPhone against the new Safari, whose
-address bar and toolbar are glass, and eight rounds followed, each with a
-recorded revert point (`docs/rounds/2026-09-2*-round-2*` and `-31*`):
+address bar and toolbar are glass, and nine rounds followed, each with a
+recorded revert point (`docs/rounds/2026-09-2*-round-2*`, `-31*` and `-36*`):
 
 - **The hall shows through Safari's bars** (round 24). The 3-D hall used to
   end in a solid band behind the bottom toolbar at rest and behind the
@@ -389,13 +389,17 @@ recorded revert point (`docs/rounds/2026-09-2*-round-2*` and `-31*`):
   lands you where you were.
 - **The drawer's Close button unfolds with the drawer** (round 31) instead
   of arriving a second after it.
+- **The Skip button holds still while you look around the hall** (round 36,
+  after the first sign-off). It had shifted 14px whenever Safari's bars
+  collapsed under a pan; it now keeps to its corner whatever the bars do, as
+  the menu already did.
 - Rounds 27, 29 and 30 (the map's 1858 lens) and further passes of round 23
   (the chapter pages) shipped from parallel sessions the same days; each has
   its own record in `docs/rounds/`.
 
 What was verified without a phone, for every round: type-check and build,
 36 screenshots across three widths at 0 drift, the page's own instruments
-(`npm run qa:runway`, `qa:lead`, `qa:drawer`), and the scope gate. What the
+(`npm run qa:runway`, `qa:lead`, `qa:drawer`, `qa:skip`), and the scope gate. What the
 phone alone could verify, Wil verified.
 
 **Shipped as:** the `v2` tip at this date, marked by the branch

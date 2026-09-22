@@ -447,6 +447,16 @@ mirror commit's own message), pushed to `main` as a fast-forward, and
 `release/2026-09-22` moved to the same tip. When this round was written
 (18:22 UTC) the remote held `main` at `8095a82` and `release/2026-09-22` at
 `130a48c`; the tip this mirror carries: rounds 33–35 and, from the other sessions, round 34 and round 23's device passes up to the tip's own commit ("Client round 23, device pass 17: the edge trigger — Safari…"). Revert as above.
+
+**Refreshed 2026-09-22, round 37, for the Paintings page's second sign-off.**
+Wil, on round 36 live: "As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
+The same procedure: a merge commit whose tree is round 37's `v2` tip's, its
+parents `main`'s tip at the moment of the push and that `v2` tip (both named
+in the mirror commit's own message), pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. When this round was written the
+remote held `main` at `d3d827d` (the round-35 mirror) and `release/2026-09-22`
+at `e606214`; the tip this mirror carries: round 36 on top of everything
+round 35 shipped. Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
@@ -487,4 +497,51 @@ two `:root` lines and the `@supports not` block, and put `--ui-inset` back for
 **Signed off, 2026-09-22.** Wil, on the live site: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." Shipped by round 35 (docs only): the handover's changelog and
 phone note, this log's "Ship" refresh, the round-33 plan's Closed line and
 playbook §12's sign-off; the `main` mirror and `release/2026-09-22` refreshed
+to that tip.
+
+## Round 36 (Wil's 9/22 round) — `/paintings`: Skip holds still while the reader pans the hall
+
+**Evidence.** Wil, 2026-09-22, after the ship: "New problem, the skip
+button in the hall now moves its position when panning around the paintings
+hall, fix this, it should never happen do not change or break anything
+else." Skip was positioned on `--ui-inset`, the lane every corner shares,
+which takes the deepest of the four safe areas; `env(safe-area-inset-bottom)`
+is 0 with Safari's bars expanded and 34px once they collapse (playbook §1),
+and a pan on the hall with any vertical drift is a page scroll (the canvas
+keeps `touch-action: pan-y` — the walk), which moves the bars. So Skip
+jumped 14px right and 14px down on every pan and back on the next — round
+23's burger symptom on the other top corner, carried since as the
+playbook's open item ("Wil's call if it ever reads as jitter"). Reproduced
+here with the collapsed bars' inset emulated (CDP): Skip 20/20 → 34/34,
+the top-right menu (round 23's `--menu-inset`) holding beside it; nothing
+else a pan does moved it.
+
+**Decision.** Round 23's rule, mirrored for the top-left corner: Skip
+reads `--skip-inset` — the gutter, the top inset and the left inset — and
+nothing at the bottom edge can move it. Wherever no safe area is set the
+new inset is the gutter, exactly as the old one was, so nothing changes on
+desktop, tablet, Android, or the phone at rest. The chip row's band is
+measured from Skip's box and holds with it; the bottom-centre column
+(Face forward, the dot rail) keeps the bottom lane by design (round 33's
+`--ui-inset-b`, which is `--ui-inset` on iOS) — the bottom inset is the one
+that matters there — and the menu keeps `--menu-inset`.
+A new instrument, `qa:skip`, drives the hall with touch and asserts the
+corner holds through a look, a walk, a diagonal drag, a scroll, the
+minimized viewport and the collapsed bars' inset. Numbered 36: rounds 33
+(the bottom lane), 34 (the map's ship) and 35 (the bottom lane's ship) and
+round 23's device pass 17 landed on `v2` from other sessions while this was
+measured; rebased onto their tip, `e606214`. `main`
+and `release/2026-09-22` are refreshed at his sign-off, per the ship rule
+above.
+
+**Revert:** `git reset --hard client-round-36-base` (= `e606214`); or, by
+hand, delete `--skip-inset` from `.museum-stage` in `global.css` and put
+`--ui-inset` back in Skip's `top`/`left` in `Museum.tsx`, and remove
+`scripts/museum-skip.mjs` and the `qa:skip` script.
+
+**Signed off, 2026-09-22.** Wil, on the live site, after his device pass:
+"As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
+Recorded by round 37 (docs only): the handover's Paintings entry (version
+1.3), this log's "Ship" refresh, the playbook's §1 and §10, the round-36
+plan's Closed section; the `main` mirror and `release/2026-09-22` refreshed
 to that tip.

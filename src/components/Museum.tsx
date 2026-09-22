@@ -2958,9 +2958,13 @@ export default function Museum({ works, slotId }: Props) {
         {/* Face forward lives in the bottom-centre column with the dot rail
             (below) since v14.2. */}
 
-        {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
+        {/* Skip — top-LEFT on the inset (the menu owns top-right).
+            Round 36 (Wil, 2026-09-22): on `--skip-inset` — the gutter and the
+            top and left safe areas only (global.css) — not the shared
+            `--ui-inset`, whose bottom inset moved it 14px on every bar
+            transition, i.e. on every pan with vertical drift. */}
         {ready && !inApproach && (
-          <div ref={skipRef} className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
+          <div ref={skipRef} className="absolute z-10" style={{ top: "calc(var(--skip-inset) + env(safe-area-inset-top))", left: "var(--skip-inset)" }}>
             <button
               type="button"
               className="btn-sm btn-ghost btn-icon-end"

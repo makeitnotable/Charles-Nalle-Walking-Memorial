@@ -2295,6 +2295,26 @@ a.walk-seg:hover {
 .museum-stage {
   --museum-svh: 100svh;
   background-color: var(--edge-glass);
+  /* Round 36 (Wil, 2026-09-22): "the skip button in the hall now moves its
+     position when panning around the paintings hall … it should never
+     happen." Skip sat on --ui-inset, the lane every corner shares, which
+     takes the deepest of the four safe areas — and env(safe-area-inset-bottom)
+     is 0 with Safari's bars expanded and 34px once they collapse (playbook
+     §1) — so Skip jumped 14px right and 14px down whenever the bars went and
+     came back when they returned. A pan on the hall moves the bars: the
+     canvas keeps `touch-action: pan-y` so a vertical drag walks the rail,
+     which is a page scroll, so any pan with vertical drift collapsed the
+     toolbar and took Skip with it (measured here with the collapsed bars'
+     inset emulated: 20/20 → 34/34). Round 23's rule for the top-right menu,
+     mirrored for the top-left corner: a corner needs only its own two edges
+     — the gutter, the top inset and the left inset — and nothing at the
+     bottom edge can move it. The chip row's band is measured from Skip's
+     box, so it holds with it; the bottom-centre column (Face forward, the
+     dot rail) still rides the bottom lane (--ui-inset-b, --ui-inset on iOS),
+     where the bottom inset is the one that matters. Identical wherever no
+     safe area is set (desktop, Android, the
+     bars at rest): max(gutter, 0, 0) is the gutter, as --ui-inset was. */
+  --skip-inset: max(var(--gutter), env(safe-area-inset-top, 0px), env(safe-area-inset-left, 0px));
 }
 html .museum-stage {
   /* round 24: absolute at the pin's foot, one viewport tall (`h-dvh`) */
