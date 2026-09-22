@@ -30,6 +30,22 @@ rounds 31 (`/paintings`, the drawer's X) and 32 (the ship's docs) landed on
 `v2` while this one ran; rebased onto each, then onto round 23's device pass 16 (a third
 session), base `042518b`.
 Previous phase text follows.
+**`/map` IS SIGNED OFF — Wil, 2026-09-22, on round 29 live: "As far as i can
+see map page is done push to master and live site and document everything
+and the final version that we are shipping to the client accordingly and to
+best practices." Rounds 17–22, 27 and 29–30 are closed; nothing on `/map` is
+open. SHIPPED (round 34, docs only, base `35cf8cf`): the map's client-facing
+record joins the handover changelog (`docs/HANDOVER.md` §10, with the
+site-wide rounds 1–16 recorded under it), the map page as shipped is written
+up in `docs/rounds/2026-09-22-round-34-plan.md`, and the `main` mirror is
+refreshed the way round 32 established (a merge commit carrying this tip's
+tree, pushed as a fast-forward; `release/2026-09-22` moved to this tip). Both
+pages Wil reviewed today, `/map` and `/paintings`, are signed off; the
+chapter pages (round 23's device passes; pass 16 is in the shipped tree,
+awaiting his read) and round 33 (the bottom lane under Android's gesture
+bar, also in the shipped tree, awaiting his Pixel and iPhone pass; iOS is
+byte-identical by its plan) are the open threads, worked from other
+sessions.** Previous phase text follows.
 **`/paintings` IS SIGNED OFF — Wil, 2026-09-22, on round 31: "As far as I
 can see paintings page is done, push to master and live site and document
 everything." Rounds 24–31 are closed. SHIPPED (round 32, docs only): the

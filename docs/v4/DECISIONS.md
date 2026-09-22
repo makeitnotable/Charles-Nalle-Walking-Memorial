@@ -418,6 +418,14 @@ it only with the deploy workflow disabled or with `v2` pushed again right
 after. Deleting `release/2026-09-22` and `legacy-spa` returns the branches
 to the old arrangement.
 
+**Refreshed 2026-09-22, round 34, for the map's sign-off.** Wil, on round 29
+live: "As far as i can see map page is done push to master and live site and
+document everything…". The same procedure, an hour later: a merge commit
+with two parents — the mirror's tip `4e01f8f` and round 34's `v2` tip —
+whose tree is `v2`'s, pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. Every later sign-off repeats
+this, so the mirror's history is one merge commit per sign-off, each
+pointing at the `v2` commit it carries. Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)

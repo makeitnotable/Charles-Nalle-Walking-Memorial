@@ -285,6 +285,56 @@ Stated plainly so nobody inherits a surprise.
 
 ## 10 · Changelog
 
+**18–22 September 2026 — the Map page, client rounds 17–22, 27 and 29–30 (signed off 22 Sep: "As far as i can see map page is done")**
+
+Wil reviewed `/map` on his iPhone against the new Safari, whose address bar
+and toolbar are glass over the page — first inside the site-wide rounds, then
+on 18 September "with fresh eyes" from five annotated screenshots. The rounds
+that followed, each with a recorded revert point (`docs/rounds/2026-09-18-round-1[7-9]*`,
+`-round-2[0-2]*`, `2026-09-22-round-27*`, `-round-29*`, `-round-30*`):
+
+- **The map shows through both bars** (rounds 17–18). The page is made
+  taller than the screen by the height of Safari's two bars and opens
+  scrolled by exactly the top bar's height, so the map itself lies under the
+  glass of both bars instead of a solid band. Approved on the phone on 18
+  September ("the map page is perfect").
+- **All five stops are in view on every open** (round 19). The camera that
+  frames the route had been fitting the stops to the screen without allowing
+  for the map now under the address bar, so the first stop could sit behind
+  it. The fit accounts for that band now, at every phone size. The page also
+  lands on that framing every time — on reload, on return from a chapter,
+  after Safari's bars move — and no longer remembers a stop from a previous
+  visit in its address.
+- **"Take the walk" and the stop cards share one lane** (rounds 19–20). The
+  button sits at the offset Wil chose on the phone; the cards that replace it
+  in the walk view sit at the same height; and while a stop is open the page
+  cannot be scrolled away underneath it.
+- **Safari's bars take the colour of what is under them** (round 21).
+  Scrolled into the brown section below the map, the minimized address bar
+  is brown; over the map it is the map's grey. (Safari tints its bars from
+  the page's background, so the background follows the section at the top
+  edge.)
+- **The 1858 map is one wash, edge to edge** (rounds 27 and 29). Opening the
+  1858 map used to leave the live map undimmed in the strips behind the
+  address bar and the toolbar; the wash now covers the whole screen, bars
+  included, and stays see-through so the map reads behind it as before.
+  Approved on the phone ("Looks perfect"); round 30 recorded it.
+- **The method was written down** (round 22): `docs/PLAYBOOK-MOBILE-CHROME.md`
+  records the phone measurements, the pattern and its traps so the same
+  solutions transfer — the chapter pages (round 23) and the Paintings page
+  (rounds 24–31, below) were built on it.
+
+What was verified without a phone, for every round: type-check and build,
+36 screenshots across three widths at 0 drift, the map's own instrument
+(`npm run qa:framing`: the framing, the landing, the walk view and the lens,
+with Safari's bars stood in), and the scope gate. What the phone alone can
+show — the glass bars, their colour, the framing under the real address bar
+— Wil verified on his iPhone.
+
+**Shipped as:** the `v2` tip at this date, carried by `main` and marked by
+the branch `release/2026-09-22`, both refreshed for this sign-off (round 34).
+The map page as shipped is described in `docs/rounds/2026-09-22-round-34-plan.md`.
+
 **21–22 September 2026 — the Paintings page, client rounds 24–31 (signed off 22 Sep: "As far as I can see paintings page is done")**
 
 Wil reviewed `/paintings` on his iPhone against the new Safari, whose
@@ -323,6 +373,33 @@ phone alone could verify, Wil verified.
 **Shipped as:** the `v2` tip at this date, marked by the branch
 `release/2026-09-22` and carried by `main`; the retired 2024 app is on
 `legacy-spa` (tag `legacy-spa-final`).
+
+**15–18 September 2026 — site-wide client rounds 1–16 (Wil's review on his iPhone, iOS 26)**
+
+The first rounds of Wil's phone review, across every page:
+
+- **Under Safari's new bars** (rounds 1–2, 15 Sep): the pages' stages run
+  under the browser's bottom bar, and the Paintings page's "Face forward"
+  control gives way to the menu on phones.
+- **Eight review items** (round 3, 16 Sep): more air above the first stop in
+  the map's list; the museum drawer's radius, chevron and title spacing on
+  portrait screens; "Uri Gilbert Mansion" on two lines on the map's cards;
+  the chapter labels in the menu on phones and tablets; a mobile map
+  regression from round 2 undone (the map's shell, camera fit, card strip
+  and pins restored); mobile visual regressions; button text weight; the
+  Paintings page's controls. With it, the rule every round since has run
+  under: a written scope per round that a check enforces, and 36 reference
+  screenshots that must not drift.
+- **Buttons back to capitals at their original weight, "Face forward" ↔
+  dots, the drawer's stroke colour** (round 5); **a chapter Share bug fixed**
+  (round 6); **a first pass at Safari's bar colour** (round 7).
+- **The glass lab** (rounds 8–15, 17–18 Sep): a measurement page and a series
+  of device passes established, on the phone itself, how iOS 26 Safari
+  colours its bars — from the page body's background, not from a colour the
+  page declares, and never from anything parked off-screen — findings every
+  later round is built on and that `docs/PLAYBOOK-MOBILE-CHROME.md` records.
+- **The chapter pages take the hero's brown behind both bars** (round 16),
+  the starting point for round 23's chapter work.
 
 **15–16 August 2026 — v7 "The Last Ten Percent" (Wil's page-by-page review)**
 
