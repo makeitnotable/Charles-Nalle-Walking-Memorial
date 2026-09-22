@@ -7,6 +7,26 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Round 36 (`/paintings`, Skip holds still while the reader pans the hall)
+is ON `v2` AND AWAITING WIL'S DEVICE PASS (2026-09-22).** After the ship he
+reported "the skip button in the hall now moves its position when panning
+around the paintings hall … it should never happen." Skip sat on
+`--ui-inset`, the shared corner lane that takes the bottom safe area — 0
+with Safari's bars expanded, 34 once they collapse — and a pan with any
+vertical drift scrolls the page (`touch-action: pan-y`, the walk), moving
+the bars and Skip with them, 14px each way. Now on its own `--skip-inset`
+(the gutter, the top and left safe areas; round 23's rule for the menu,
+mirrored), identical wherever no safe area is set. Plan:
+`docs/rounds/2026-09-22-round-36-plan.md`; DECISIONS.md; playbook §1/§10.
+New `qa:skip`; `qa:snap` at 0 drift; `qa:runway`, `qa:drawer`, `qa:lead`,
+`qa:gesture`, `qa:scope` clean. Numbered 36: while this was measured, other
+sessions landed round 33 (the bottom lane under Android's gesture bar),
+round 34 (the map's ship), round 35 (the bottom lane's ship) and round 23's
+device pass 17 on `v2`; rebased onto their tip, base `e606214`, every gate
+re-run there. **`main` and `release/2026-09-22` are
+refreshed at his sign-off** (the ship rule: `main` mirrors `v2` at each
+sign-off) — until then the live site (`v2`) is one round ahead of `main`.
+Previous phase text follows.
 **ROUND 33 (the bottom lane under Android's gesture bar) IS SIGNED OFF — Wil,
 2026-09-22, on the live site: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." SHIPPED
 (round 35, docs only, base `26fff0d`): the client-facing record joins the

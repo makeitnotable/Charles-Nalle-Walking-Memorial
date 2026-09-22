@@ -488,3 +488,43 @@ two `:root` lines and the `@supports not` block, and put `--ui-inset` back for
 phone note, this log's "Ship" refresh, the round-33 plan's Closed line and
 playbook §12's sign-off; the `main` mirror and `release/2026-09-22` refreshed
 to that tip.
+
+## Round 36 (Wil's 9/22 round) — `/paintings`: Skip holds still while the reader pans the hall
+
+**Evidence.** Wil, 2026-09-22, after the ship: "New problem, the skip
+button in the hall now moves its position when panning around the paintings
+hall, fix this, it should never happen do not change or break anything
+else." Skip was positioned on `--ui-inset`, the lane every corner shares,
+which takes the deepest of the four safe areas; `env(safe-area-inset-bottom)`
+is 0 with Safari's bars expanded and 34px once they collapse (playbook §1),
+and a pan on the hall with any vertical drift is a page scroll (the canvas
+keeps `touch-action: pan-y` — the walk), which moves the bars. So Skip
+jumped 14px right and 14px down on every pan and back on the next — round
+23's burger symptom on the other top corner, carried since as the
+playbook's open item ("Wil's call if it ever reads as jitter"). Reproduced
+here with the collapsed bars' inset emulated (CDP): Skip 20/20 → 34/34,
+the top-right menu (round 23's `--menu-inset`) holding beside it; nothing
+else a pan does moved it.
+
+**Decision.** Round 23's rule, mirrored for the top-left corner: Skip
+reads `--skip-inset` — the gutter, the top inset and the left inset — and
+nothing at the bottom edge can move it. Wherever no safe area is set the
+new inset is the gutter, exactly as the old one was, so nothing changes on
+desktop, tablet, Android, or the phone at rest. The chip row's band is
+measured from Skip's box and holds with it; the bottom-centre column
+(Face forward, the dot rail) keeps the bottom lane by design (round 33's
+`--ui-inset-b`, which is `--ui-inset` on iOS) — the bottom inset is the one
+that matters there — and the menu keeps `--menu-inset`.
+A new instrument, `qa:skip`, drives the hall with touch and asserts the
+corner holds through a look, a walk, a diagonal drag, a scroll, the
+minimized viewport and the collapsed bars' inset. Numbered 36: rounds 33
+(the bottom lane), 34 (the map's ship) and 35 (the bottom lane's ship) and
+round 23's device pass 17 landed on `v2` from other sessions while this was
+measured; rebased onto their tip, `e606214`. `main`
+and `release/2026-09-22` are refreshed at his sign-off, per the ship rule
+above.
+
+**Revert:** `git reset --hard client-round-36-base` (= `e606214`); or, by
+hand, delete `--skip-inset` from `.museum-stage` in `global.css` and put
+`--ui-inset` back in Skip's `top`/`left` in `Museum.tsx`, and remove
+`scripts/museum-skip.mjs` and the `qa:skip` script.

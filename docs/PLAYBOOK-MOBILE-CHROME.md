@@ -26,8 +26,13 @@ Detailed history: `docs/rounds/2026-09-17-round-8-plan.md` (the bars),
   scroll jitter, and the framing defect of round 19.
 - **`env(safe-area-inset-bottom)` is 0 at rest and 34 minimized.**
   `--ui-inset` is a `max()` of the gutter and the four safe-area insets, so
-  every corner control moves 14px on every bar transition. Site-wide design
-  token; left as is (Wil's call if it ever reads as jitter).
+  every control on it moves 14px on every bar transition. Site-wide design
+  token; the bottom-edge controls stay on it (there the bottom inset is the
+  point). The two top corners are off it: the menu (round 23,
+  `--menu-inset`) and the hall's Skip (round 36, `--skip-inset`) take the
+  gutter and their own two edges only — a pan on the hall scrolls the page
+  and moved the bars, and Skip with them, until it did ("it should never
+  happen").
 - **The bars are glass.** In-flow content renders behind both bars once it
   exists there. A `position: fixed` or `sticky` box's overflow is clipped at
   the visual viewport and never reaches the bars (measured: 160px requested,
@@ -357,7 +362,12 @@ only one.
 - The 14px shift of the corner controls when the bars collapse (`--ui-inset`
   following the safe-area inset). Round 23 took the top-right menu off the
   shared lane (`--menu-inset`: the gutter and the top and right insets only);
-  the mini-player and the interlude credit still ride `--ui-inset`.
+  round 36 took the hall's Skip off it the same way (`--skip-inset`: the
+  gutter, top and left) after he saw it move on a pan. The mini-player, the
+  interlude credit and the hall's bottom-centre column (Face forward, the
+  dot rail) still ride the bottom lane (`--ui-inset-b`, round 33 — which is
+  `--ui-inset` on iOS); each sits at the bottom edge, where the inset is the
+  point, so this is by design unless he says otherwise.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
 
