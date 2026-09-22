@@ -37,6 +37,7 @@
  * RELATIVE TO THE UI LAYER'S TOP must agree to the pixel.
  */
 import { chromium } from "playwright";
+import sharp from "sharp";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -287,6 +288,71 @@ for (const vp of VPS) {
       await page.waitForTimeout(700);
       y2 = await page.evaluate(() => window.scrollY);
       check("released after Back: the page scrolls again", y2 > T + 20, `scrollY ${y2}`);
+      await page.evaluate((t) => window.scrollTo(0, t), T);
+      await page.waitForTimeout(400);
+    }
+    /* The 1858 lens (round 27): one opaque fill over the whole canvas box,
+       runways included; the plate's box stays inside the visible layer; <body>
+       follows the fill; the Mapbox controls leave. The edge colours are read
+       off a real capture, not inferred from styles. */
+    const lensProbe = await page.evaluate(async () => {
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      const door = [...document.querySelectorAll("button")].find((b) => /see troy in 1858/i.test(b.textContent || ""));
+      if (!door) return { missing: true };
+      door.click();
+      await sleep(1000);
+      const rect = (el) => {
+        const b = el.getBoundingClientRect();
+        return { top: +b.top.toFixed(1), bottom: +b.bottom.toFixed(1), left: +b.left.toFixed(1), right: +b.right.toFixed(1) };
+      };
+      const shell = document.querySelector(".lens-shell");
+      const box = document.querySelector(".lens-shell [role='application']");
+      const ctrl = document.querySelector(".mapboxgl-ctrl-bottom-left");
+      return {
+        state: window.__troyMap.state,
+        shell: rect(shell),
+        canvas: rect(document.querySelector(".map-canvas")),
+        root: rect(document.querySelector(".troymap-root")),
+        box: box ? rect(box) : null,
+        fill: getComputedStyle(shell).backgroundColor,
+        opacity: getComputedStyle(shell).opacity,
+        body: getComputedStyle(document.body).backgroundColor,
+        ctrlOpacity: ctrl ? getComputedStyle(ctrl).opacity : null,
+      };
+    });
+    row.lens = lensProbe;
+    if (lensProbe.missing) check("lens", false, "no 1858 door");
+    else {
+      const L = lensProbe;
+      const near = (a, b) => Math.abs(a - b) <= 0.5;
+      check("lens open", L.state.lens && L.opacity === "1", `lens ${L.state.lens} opacity ${L.opacity}`);
+      check(
+        "lens fill covers the canvas box, runways included",
+        near(L.shell.top, L.canvas.top) && near(L.shell.bottom, L.canvas.bottom) && near(L.shell.left, L.canvas.left) && near(L.shell.right, L.canvas.right),
+        `shell ${JSON.stringify(L.shell)} canvas ${JSON.stringify(L.canvas)}`,
+      );
+      check("lens fill is the opaque page ground", L.fill === "rgb(29, 20, 17)", L.fill);
+      check("body follows the fill", L.body === "rgb(29, 20, 17)", L.body);
+      check("Mapbox controls hidden under the lens", L.ctrlOpacity === "0", `${L.ctrlOpacity}`);
+      check("plate box inside the visible layer", !!L.box && L.box.top >= L.root.top - 0.5 && L.box.bottom <= L.root.bottom + 0.5, JSON.stringify(L.box));
+      const png = await page.screenshot({ type: "png" });
+      const { data, info } = await sharp(png).raw().toBuffer({ resolveWithObject: true });
+      const px = (x, y) => {
+        const i = (y * info.width + x) * info.channels;
+        return [data[i], data[i + 1], data[i + 2]];
+      };
+      const points = [[3, 3], [vp.w - 4, 3], [3, vp.h - 4], [vp.w - 4, vp.h - 4], [3, Math.round(vp.h / 2)], [vp.w - 4, Math.round(vp.h / 2)]];
+      const samples = points.map(([x, y]) => px(x, y));
+      const one = samples.every((c) => Math.abs(c[0] - 29) <= 2 && Math.abs(c[1] - 20) <= 2 && Math.abs(c[2] - 17) <= 2);
+      check("one fill colour at every edge of the capture", one, samples.map((c) => c.join(",")).join(" | "));
+      await page.evaluate(() => [...document.querySelectorAll("button")].find((b) => /back to today/i.test(b.textContent || ""))?.click());
+      await page.waitForTimeout(1000);
+      const after = await page.evaluate(() => ({
+        lens: window.__troyMap.state.lens,
+        body: getComputedStyle(document.body).backgroundColor,
+        ctrl: getComputedStyle(document.querySelector(".mapboxgl-ctrl-bottom-left")).opacity,
+      }));
+      check("closed: body and the controls return", !after.lens && after.body === "rgb(53, 53, 53)" && after.ctrl === "1", JSON.stringify(after));
     }
   } catch (err) {
     check("run", false, String(err.message || err));

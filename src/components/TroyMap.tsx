@@ -1833,7 +1833,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         rootRef.current = el;
         shellRef.current = el?.closest<HTMLElement>(".map-shell") ?? el;
       }}
-      className="troymap-root relative h-full w-full bg-primary-2"
+      /* v21 (round 27): `is-lens` while the lens is visible — the Mapbox
+         controls fade under the fill (global.css), and Base.astro's edge
+         sampler watches class changes, so <body> takes the fill's colour the
+         moment the lens opens even where no transition ends (reduced motion). */
+      className={`troymap-root relative h-full w-full bg-primary-2${lensVisible ? " is-lens" : ""}`}
       data-walk={focused && shellVisible ? "true" : "false"}
     >
       <div ref={container} className="map-canvas absolute inset-0" />
@@ -1848,17 +1852,33 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           the node — panning at 60fps must not re-render the map island. */}
       <div
         ref={lensShellRef}
-        className="lens-shell absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70"
+        /* v21 (round 27, Wil): "fully immersive … one fill color only … edge to
+           edge". The backdrop was `bg-black/70` over THIS layer's box; the
+           canvas runs T above and E below it (the runways), and the bars are
+           glass, so behind the address bar and the toolbar the live map showed
+           undimmed while everything else was washed. The shell now covers the
+           CANVAS's box with one opaque fill — geometry and colour in global.css
+           (.map-shell .lens-shell) — and the runways come back as padding so
+           the plate, caption and door keep exactly the geometry they had. */
+        className="lens-shell absolute z-10 flex flex-col items-center justify-center"
         style={{
           opacity: lens ? 1 : 0,
           pointerEvents: lens ? "auto" : "none",
           padding: "var(--ui-inset)",
-          paddingTop: "calc(var(--ui-inset) + 4px)",
+          paddingTop: "calc(var(--ui-inset) + 4px + var(--map-t))",
+          paddingBottom: "calc(var(--ui-inset) + var(--map-e))",
           transition: `opacity ${lensFadeMs}ms var(--ease)`,
         }}
         /* Not raised until the fade is over: while it runs, focus is still on
            the (kept-mounted) "Back to today" door inside this subtree. */
         aria-hidden={!lensVisible}
+        /* v21 (round 27): Base.astro's edge sampler prefers the NEAREST
+           declared edge colour over an element's own paint (v14.2), and the
+           map shell declares the canvas's grey — so the fill declares its own,
+           the way the curtain panel does. Closed, the shell is
+           pointer-events:none and the sampler never sees it. */
+        data-edge-top="#1d1411"
+        data-edge-bottom="#1d1411"
         /* v14 E25 (client): anything outside the plate closes the lens — the
            backdrop, the caption, the shell's own padding. A drag that starts
            ON the plate and ends outside must not: the box holds pointer

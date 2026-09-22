@@ -7,6 +7,20 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Round 27 (`/map`, the 1858 lens is one fill edge to edge) is ON `v2` AND
+AWAITING WIL'S DEVICE PASS (2026-09-22).** From his screenshot with the lens
+open: the live map showed undimmed behind the address bar and the toolbar
+while everything else sat under the lens's 70% wash — the wash covered the UI
+layer's box, not the canvas's (the runways). Now one opaque fill, the page
+ground, over the canvas's box; the runways come back as padding so the plate
+keeps its geometry; the root's `is-lens` class re-samples the edge sampler and
+the shell declares its own edge colour, so `<body>` (and Safari's bars) read
+the fill; the Mapbox controls fade under it. Plan:
+`docs/rounds/2026-09-22-round-27-plan.md`; playbook §2 rule 4. `qa:framing`
+at T=0 and T=110/E=129 with a new lens probe (26 checks per phone viewport,
+0 failed); `qa:snap` 36/36 at 0 drift; `qa:scope` clean. Numbered 27 because
+rounds 23–26 shipped from other sessions while this one was open; rebased.
+Previous phase text follows.
 **Client rounds 1–25 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
 chapter pages, `/paintings`' bars (round 24: "Looks and works perfectly!")
 and its lead cover (round 25: "Looks good") are signed off. Round 26

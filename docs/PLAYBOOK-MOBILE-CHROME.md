@@ -102,6 +102,16 @@ Three traps, all found in round 19, all transferable:
    re-lands after T changes. The one scripted scroll on the page, recorded in
    `docs/v4/MOTION.md`.
 
+4. **Anything meant to cover the map must cover the canvas's box, not the UI
+   layer's.** The 1858 lens's wash covered the visible box only, so the bars
+   showed the undimmed live map through the glass (round 27, found by Wil on
+   the device). The lens is now one opaque fill from `top: −T` to
+   `bottom: −E`, with the runways added back as padding so the content keeps
+   its geometry; the root takes an `is-lens` class so the edge sampler
+   re-samples (it watches class changes) and `<body>` and the bars read the
+   fill's colour; the Mapbox controls fade under it. Check every overlay
+   (scrims, hints, sheets) against the canvas's box, never the layer's.
+
 Accepted geometry: the camera under a taller canvas is not pixel-identical
 to the flat one (pitch foreshortening), so pins move by up to ~10px between
 T=0 and T=110. The invariant is "five pills inside the visible box, none

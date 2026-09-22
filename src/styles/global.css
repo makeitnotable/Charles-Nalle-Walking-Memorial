@@ -1218,6 +1218,38 @@ h3 {
  * the utility bundle, silently overriding `.absolute` at equal specificity —
  * the div collapsed to 0 height even with all utilities emitted. Two-class
  * specificity wins regardless of order. */
+/* v21 (round 27, Wil): "when a user clicks view the 1858 map, it is fully
+   immersive and there are no areas that are different colors. The background
+   needs to be one fill color only, edge to edge." The lens's backdrop was a
+   70% black wash over the UI layer's box; the canvas is T taller above it and
+   E below (the runways), and the bars are glass, so behind the address bar
+   and the toolbar the live map showed undimmed while everything else was
+   washed. Now: ONE opaque fill, the page ground, over the CANVAS's box — the
+   same top/bottom as .map-canvas below — so the paint under both bars, and
+   <body> (the edge sampler follows an opaque element at the edge; the root's
+   `is-lens` class re-samples it), all read the same colour. The plate, the
+   caption and the door keep their geometry: TroyMap adds the runways back as
+   the shell's top and bottom padding. Everything else about the lens — the
+   fade, the close-on-outside, the focus handling — is unchanged. */
+.map-shell .lens-shell {
+  inset: 0;
+  top: calc(-1 * var(--map-t));
+  bottom: calc(-1 * var(--map-e));
+  background: var(--color-primary-2);
+}
+/* The Mapbox logo and the (i) live inside the canvas, beneath the lens in
+   stacking order; they fade with it (520ms = LENS_FADE_MS) so nothing shows
+   through the fill, and return when it closes. Attribution is owed while the
+   map is shown; under the lens the map is fully covered. */
+.troymap-root .mapboxgl-ctrl-bottom-left,
+.troymap-root .mapboxgl-ctrl-bottom-right {
+  transition: opacity 520ms var(--ease);
+}
+.troymap-root.is-lens .mapboxgl-ctrl-bottom-left,
+.troymap-root.is-lens .mapboxgl-ctrl-bottom-right {
+  opacity: 0;
+  pointer-events: none;
+}
 .map-shell .map-canvas {
   position: absolute;
   inset: 0;
