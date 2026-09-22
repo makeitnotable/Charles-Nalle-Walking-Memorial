@@ -7,9 +7,31 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 42 — A. THE CHAPTER PAGES ARE THE WORKING VERSION HE APPROVED
+(ROUND 38), AND THE `?scroll=edge` FLAG'S CODE IS GONE.** Wil, on round
+41's link: "Nothing was changed or fixed. Go back to the working version I
+approved." Rounds 40–41's source changes are reverse-applied in one step
+and the instrument restored from round 38, so `src/` and
+`scripts/chapter-still.mjs` are byte-identical to `3d9aa1c` (round 38
+live, "Works great!"). Nothing a visitor sees changes — both flag rounds
+were byte-identical off the flag (`qa:snap` 36/36 at 0 drift each time) —
+this round removes the code and closes the thread. Gates: build +
+`check-css`; `astro check` 0 errors, 0 warnings; `qa:scope` clean; `qa:snap` 36/36 at 0 drift;
+`qa:still` 187 checks, 0 failed. Plan: `docs/rounds/2026-09-22-round-42-plan.md`. The
+bottom-toolbar ask is closed by his decision: the toolbar hides only when
+the document scrolls, which moves the top bar with it, and he chose the
+fixed bars. He also named "one other that I liked": the working version
+with the bottom toolbar carrying a SOLID fill when it reappears on a scroll
+up — that is round 23's runway (device passes 13–16, commit `042518b`),
+both bars collapsing and the toolbar's region painted in the section's
+colour; it is in the history and can come back behind a flag in one pass
+if he asks. NOT done here. Round 39 (the map to the museum's Mapbox
+account) is still on a local branch, held by GitHub's secret-scanning rule
+until the token is allowed. Revert of round 42: `git reset --hard
+client-round-42-base` (= `566dc62`). Previous phase text follows.
 **ROUND 41 (the second pass on `?scroll=edge`, Wil's choice: "Lets try B.
-If i do not like B, be prepared to go with A") IS ON `v2` FOR HIS DEVICE
-PASS; THE DEFAULT IS STILL UNTOUCHED.** His read of round 40 (a screenshot,
+If i do not like B, be prepared to go with A") WAS ON `v2` FOR HIS DEVICE
+PASS; THE DEFAULT WAS UNTOUCHED — rejected, see round 42.** His read of round 40 (a screenshot,
 14:27): the top bar "changes size" — inherent to collapsing bars, told, and
 he chose B; "the menu is now in the wrong place"; "a weird flicker at the
 bottom right underneath the progress bars"; "weird transparency in that
@@ -321,6 +343,12 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 42 (2026-09-22): A — "Nothing was changed or fixed. Go back to the
+working version I approved." The edge flag's code (rounds 40–41) removed;
+`src/` and the instrument byte-identical to round 38 (`3d9aa1c`). The
+chapter pages are done as approved; the runway variant he "liked" (round
+23 passes 13–16) is available on request, behind a flag. Round-41 record
+follows.
 Round 41 (2026-09-22): his read of round 40 — the menu "in the wrong
 place", a flicker and a band under the rail — traced to the rail riding
 `env(safe-area-inset-top)`, which iOS 26 reports once its bars have moved
@@ -547,6 +575,12 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+The chapter pages are closed at round 38's behaviour (round 42 removed the
+flag's code; live = `v2` = this round once its Actions run lands). Open
+only if he asks: the runway variant (round 23 passes 13–16, `042518b`) as a
+flag for his phone — both bars collapse, the toolbar's region a solid fill
+in the section's colour. Round 39 (Mapbox to the museum's account) waits
+on the secret-scanning exception. Earlier text follows.
 Wil's device pass on round 41: `/bakery?scroll=edge` — the menu one gutter
 below the rail and holding there while the bars move, no band under the
 rail, the top bar solid in the section's colour when minimized, the

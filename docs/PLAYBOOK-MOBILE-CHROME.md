@@ -381,6 +381,11 @@ only one.
   behind `?scroll=edge` (`&band=<px>` for the visible variant) — a plain
   document plus a fixed, hit-testable strip on the top edge so Safari paints
   the top bar opaque itself (§1's rule). His read decides the default.**
+  **Rounds 40–41 were rejected on his phone ("Nothing was changed or
+  fixed") and round 42 removed the flag's code: the chapter pages are the
+  still document, closed at round 38. The runway (round 23 passes 13–16)
+  is the variant he said he liked — both bars collapsing, the toolbar's
+  region a solid fill — should the ask return.**
   **Round 41 added a rule from his first read: in a scrolling document iOS
   26 reports `env(safe-area-inset-top)` once its bars have moved (his
   screenshot: the rail, pinned at that inset, ~12px below the viewport's

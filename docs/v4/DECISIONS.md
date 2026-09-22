@@ -324,6 +324,18 @@ rejects B, the next round removes the edge flag's code so the source is
 round 38 exactly. **Revert** of round 41: `git reset --hard
 client-round-41-base` (= `1dcd2ce`).
 
+**Round 42 (9/22): A.** Wil, on round 41's link: "Nothing was changed or
+fixed. Go back to the working version I approved." The edge flag's code
+(rounds 40–41) is removed; `src/` is byte-identical to round 38
+(`3d9aa1c`), the still document the iOS default, `?scroll=doc` the only
+comparison flag. The bottom-toolbar ask is closed by his decision: it hides
+only when the document scrolls, which moves the top bar with it, and the
+fixed bars are what he approved. He named "one other that I liked" — the
+working version with the toolbar carrying a solid fill when it reappears
+on a scroll up: that is the runway (this round's passes 13–16, `042518b`),
+in the history, available behind a flag on request. **Revert** of round
+42: `git reset --hard client-round-42-base` (= `566dc62`).
+
 **Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
 pass 17's tree back. To choose another mode as the chapter default, make the
 `else if (…) dataset.scroll = "inner"` branch in the head flags script

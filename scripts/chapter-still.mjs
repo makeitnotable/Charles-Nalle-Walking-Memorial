@@ -141,22 +141,11 @@ const STATE = () => {
     railPosition: rail ? cs(rail).position : "",
     railBg: rail ? cs(rail).backgroundColor : "",
     coverDisplay: cover ? cs(cover).display : "absent",
-    /* round 40 brought `.edge-trigger` back as a flag-gated element (checked
-       on its own below), so it is no longer residue */
-    residue: ["#reader", "#runway", ".runway-cap", "[slot='chrome']"].filter((s) => document.querySelector(s)),
+    residue: ["#reader", "#runway", ".edge-trigger", ".runway-cap"].filter((s) => document.querySelector(s)),
     bodyBg: cs(document.body).backgroundColor,
     bodyInline: document.body.style.backgroundColor,
     meta: meta ? meta.getAttribute("content") : "",
     menuHidden: (document.querySelector(".cnwm-menu") || {}).dataset ? document.querySelector(".cnwm-menu").dataset.hidden || "false" : "absent",
-    /* round 41: the corner menu's box (the burger is 72px straight inside it) */
-    menuTop: (() => {
-      const m = document.querySelector(".cnwm-menu");
-      return m ? rect(m).top : NaN;
-    })(),
-    menuRightGap: (() => {
-      const m = document.querySelector(".cnwm-menu");
-      return m ? window.innerWidth - rect(m).left - rect(m).width : NaN;
-    })(),
     lockupOpacity: (() => {
       const l = document.getElementById("hero-lockup");
       return l ? parseFloat(cs(l).opacity) : NaN;
@@ -168,29 +157,7 @@ const STATE = () => {
       const h = document.getElementById("history");
       return h ? rect(h).top : NaN;
     })(),
-    /* round 40: the edge trigger (`?scroll=edge`) and what a hit at the top
-       edge finds — the rail is pointer-events: none, so it is never the hit */
-    trigger: (() => {
-      const t = document.querySelector(".edge-trigger");
-      if (!t) return null;
-      const c = cs(t);
-      const r = rect(t);
-      return { display: c.display, position: c.position, top: r.top, height: r.height, width: r.width, pointerEvents: c.pointerEvents, bg: c.backgroundColor };
-    })(),
-    hitTop: (() => {
-      const el = document.elementFromPoint((window.innerWidth / 2) | 0, 2);
-      return el ? (el.className && typeof el.className === "string" ? el.className : el.tagName.toLowerCase()) : "none";
-    })(),
   };
-};
-/* The document scrolled so the transcript's cream block sits at the top edge
-   (the plain-document modes: `?scroll=edge`, `?scroll=doc`). */
-const DOC_TO_CREAM = () => {
-  const el = document.querySelector("#main .ground-cream");
-  if (!el) return null;
-  const top = el.getBoundingClientRect().top + window.scrollY + 60;
-  window.scrollTo({ top, behavior: "instant" });
-  return top;
 };
 /* Scroll the still document's <main> by steps, so the corner menu's
    direction counters see real events (a single jump is one event). */
@@ -432,86 +399,6 @@ try {
     await settle(page);
     const s = await page.evaluate(STATE);
     check(session, "the flag leaves the document scrolling under the gate", s.scroll === "doc" && s.mainOverflowY === "visible" && s.docScrollHeight > s.innerHeight + 2000, `${s.scroll} ${s.mainOverflowY} ${s.docScrollHeight}`);
-    await ctx.close();
-  }
-
-  /* ── 6 · round 40: the edge trigger, behind `?scroll=edge` ───────────── */
-  for (const variant of [
-    { q: "?scroll=edge", band: 0 },
-    { q: "?scroll=edge&band=12", band: 12 },
-  ]) {
-    const session = `bakery${variant.q} 390 gate`;
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
-    await ctx.addInitScript(GATE);
-    const page = await ctx.newPage();
-    const errors = errorsOf(page);
-    await page.goto(`${BASE}/bakery${variant.q}`, { waitUntil: "load" });
-    await settle(page);
-    const s = await page.evaluate(STATE);
-    check(session, "data-scroll is edge", s.scroll === "edge", s.scroll || "(none)");
-    check(session, "the document scrolls (a plain document)", s.docScrollHeight > s.innerHeight + 2000 && s.htmlOverflow !== "hidden" && s.mainOverflowY === "visible", `${s.docScrollHeight} ${s.htmlOverflow} ${s.mainOverflowY}`);
-    check(session, "the cover is display:none, the rail bare (3px)", s.coverDisplay === "none" && near(s.railHeight, 3, 0.5), `${s.coverDisplay} rail ${r1(s.railHeight)}`);
-    check(session, "the hero carries no margin", near(s.heroMarginBottom, 0, 0.5), r1(s.heroMarginBottom));
-    const t = s.trigger;
-    check(session, "the trigger is a fixed strip on the top edge, full width", !!t && t.display === "block" && t.position === "fixed" && near(t.top, 0, 0.5) && near(t.width, 390, 0.5), t ? `${t.display} ${t.position} top ${r1(t.top)} w ${r1(t.width)}` : "absent");
-    check(session, `the trigger is ${variant.band || 3}px tall (round 41: the rail's own 3px, behind it)`, !!t && near(t.height, variant.band || 3, 0.5), t ? r1(t.height) : "absent");
-    check(session, "the menu sits one gutter below the rail (20px) with no top inset", near(s.menuTop - s.railTop, 20, 0.5) && near(s.menuRightGap, 20, 0.5), `top ${r1(s.menuTop)} rail ${r1(s.railTop)} rightGap ${r1(s.menuRightGap)}`);
-    check(session, "the trigger is hit-testable", !!t && t.pointerEvents === "auto", t ? t.pointerEvents : "absent");
-    check(session, "a hit at the top edge finds the trigger (not the rail)", /edge-trigger/.test(s.hitTop), s.hitTop);
-    if (variant.band) check(session, "the band takes <body>'s colour (brown at rest)", !!t && t.bg === BROWN, t ? t.bg : "absent");
-    else check(session, "the strip is invisible (transparent)", !!t && /rgba\(0, 0, 0, 0\)|transparent/.test(t.bg), t ? t.bg : "absent");
-    check(session, "<body> is the brown at rest", s.bodyBg === BROWN, s.bodyBg);
-    const creamTop = await page.evaluate(DOC_TO_CREAM);
-    await sleep(600);
-    const c = await page.evaluate(STATE);
-    check(session, "<body> takes the cream with the transcript at the top edge", typeof creamTop === "number" && c.bodyBg === CREAM && c.scrollY > 1000, `${c.bodyBg} scrollY ${c.scrollY}`);
-    if (variant.band) check(session, "the band follows to the cream", !!c.trigger && c.trigger.bg === CREAM, c.trigger ? c.trigger.bg : "absent");
-    check(session, "the trigger holds the top edge while the document scrolls", !!c.trigger && near(c.trigger.top, 0, 0.5) && /edge-trigger/.test(c.hitTop), c.trigger ? `top ${r1(c.trigger.top)} hit ${c.hitTop}` : "absent");
-    check(session, "the menu retreated (the document scrolled forward)", c.menuHidden === "true", c.menuHidden);
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-    await sleep(600);
-    const h = await page.evaluate(STATE);
-    check(session, "<body> is the brown again at the top", h.bodyBg === BROWN, h.bodyBg);
-    check(session, "no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
-    await ctx.close();
-  }
-  /* ── 7 · round 41: a top safe-area inset, as iOS 26 reports one once its
-     bars have moved in a scrolling document (Wil's screenshot: the rail ~12px
-     below the viewport's top). Emulated over CDP, the round-33/36 idiom. In
-     the edge mode the menu follows the rail's inset and stays one gutter
-     below it; the default keeps round 23's max(), which holds the menu at
-     the gutter while the rail moves — the geometry his screenshot showed. */
-  for (const variant of [
-    { q: "?scroll=edge", railTop: 12, menuTop: 32, name: "the menu follows the rail's inset (edge mode)" },
-    { q: "", railTop: 12, menuTop: 20, name: "the default keeps round 23's max() (unchanged)" },
-  ]) {
-    const session = `bakery${variant.q} 390 gate, top inset 12`;
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
-    await ctx.addInitScript(GATE);
-    const page = await ctx.newPage();
-    const cdp = await ctx.newCDPSession(page);
-    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: { top: 12, right: 0, bottom: 0, left: 0 } });
-    await page.goto(`${BASE}/bakery${variant.q}`, { waitUntil: "load" });
-    await settle(page);
-    const s = await page.evaluate(STATE);
-    check(session, "the rail rides the top inset (12)", near(s.railTop, variant.railTop, 0.5), r1(s.railTop));
-    check(session, variant.name + ` — menu top ${variant.menuTop}`, near(s.menuTop, variant.menuTop, 0.5), r1(s.menuTop));
-    check(session, "the menu's right inset is the gutter (20)", near(s.menuRightGap, 20, 0.5), r1(s.menuRightGap));
-    if (variant.q) check(session, "the trigger still covers the viewport's top edge (top 0)", !!s.trigger && near(s.trigger.top, 0, 0.5) && /edge-trigger/.test(s.hitTop), s.trigger ? `top ${r1(s.trigger.top)} hit ${s.hitTop}` : "absent");
-    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: {} }).catch(() => {});
-    await ctx.close();
-  }
-  {
-    /* off the flag the trigger is inert: rendered on the chapter routes, never displayed */
-    const session = "bakery 390 gate (trigger off the flag)";
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
-    await ctx.addInitScript(GATE);
-    const page = await ctx.newPage();
-    await page.goto(`${BASE}/bakery`, { waitUntil: "load" });
-    await settle(page);
-    const s = await page.evaluate(STATE);
-    check(session, "the trigger is display:none under the default", !!s.trigger && s.trigger.display === "none", s.trigger ? s.trigger.display : "absent");
-    check(session, "a hit at the top edge does not find it", !/edge-trigger/.test(s.hitTop), s.hitTop);
     await ctx.close();
   }
 } finally {
