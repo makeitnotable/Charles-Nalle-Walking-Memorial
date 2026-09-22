@@ -16,7 +16,10 @@ Closed section, DECISIONS.md the approval and the "Ship" refresh, playbook
 is refreshed the way round 32 established — a merge commit carrying this
 tip's tree, pushed as a fast-forward — with `release/2026-09-22` moved to
 this tip. When this round was written the remote held `main` at `d3d827d`
-(the round-35 mirror) and `release/2026-09-22` at `e606214`. Both pages Wil
+(the round-35 mirror) and `release/2026-09-22` at `e606214`; the first
+mirror, `ef21898`, published the tree (the `v2` run was cancelled by the
+`main` run's concurrency — same tree), and the mirror was refreshed once more
+for this note. Both pages Wil
 reviewed today and the Android bottom lane are signed off; the chapter
 pages' round-23 device passes (another session) are the open thread.**
 Previous phase text follows.
