@@ -165,7 +165,7 @@ const museumWorks = works.map((w, wi) => {
   <div id="museum-slot" class="relative mt-16 h-svh">
     {/* One viewport tall regardless of how far the island expands the slot —
         the museum's opaque stage paints over it when active. */}
-    <div class="absolute inset-x-0 top-0 h-svh overflow-hidden">
+    <div class="museum-lead absolute inset-x-0 top-0 h-svh overflow-hidden">
       <picture>
         <source
           media="(max-width: 767px)"
@@ -187,6 +187,16 @@ const museumWorks = works.map((w, wi) => {
       >
       </div>
       <p class="t-meta absolute bottom-6 left-[var(--gutter)]">Mark Priest · Nalle Series</p>
+      {/* Round 25 (Wil, 2026-09-22): on a phone that can run the hall this
+          lead painting showed for the second between first paint and the
+          island's mount — "it looks like it's chapter page 2, which flashes
+          for just a second". The cover is the page ground over the painting;
+          it leaves on its own after 2.4s (global.css), or at once when the
+          island reports the hall cannot run (`data-hall="off"` on the slot),
+          and never exists without JS or under reduced motion, where the
+          painting IS the page. The painting still paints beneath it at the
+          same moment as before, so the LCP candidate is unchanged. */}
+      <div class="museum-lead-cover" aria-hidden="true"></div>
     </div>
     <Museum client:only="react" works={museumWorks} slotId="museum-slot" />
   </div>

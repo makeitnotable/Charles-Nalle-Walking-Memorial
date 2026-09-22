@@ -339,3 +339,7 @@ instrument `npm run qa:runway`.*
   transparency: measure in a colour the tint cannot produce. And read the
   round record before the platform: both halves of this answer were
   measured on his phone days earlier.
+- **Approved on the device, 2026-09-22.** Wil, on the sixth push: "Looks
+  and works perfectly!" The pin and the runway are the pattern for a pinned
+  stage under collapsing bars. His one note after the sign-off — the lead
+  painting flashing on a cold load — is round 25, and is not about the bars.

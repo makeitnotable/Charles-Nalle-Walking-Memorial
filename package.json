@@ -36,6 +36,7 @@
     "qa:snap:update": "node scripts/snap.mjs --update",
     "qa:framing": "node scripts/map-framing.mjs",
     "qa:runway": "node scripts/museum-runway.mjs",
+    "qa:lead": "node scripts/museum-lead.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },

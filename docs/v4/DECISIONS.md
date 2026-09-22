@@ -276,3 +276,24 @@ give the stage back `sticky top-0`; in `global.css` delete the round-24
 block (`--museum-b`/`--museum-pin`, `.museum-wrap`, `.museum-pin`,
 `--museum-svh`, `.museum-runway`, `html .museum-stage`); `qa:runway` and
 `scripts/museum-runway.mjs` go with them.
+
+## Round 25 (Wil's 9/22 round) — `/paintings`: the lead painting waits for the hall
+
+**Evidence.** Wil, 2026-09-22, after approving round 24 on his phone:
+"when the page initially loads, it looks like it's chapter page 2, which
+flashes for just a second and then the actual page loads"; "Proceed with
+that fix." The slot's server-rendered lead painting (Chapter 2's "The
+Altruist"), the fallback for readers whose hall never mounts, showed for the
+second between first paint and the island's mount.
+
+**Decision.** A page-ground cover over the painting, inside the lead box:
+gone on its own 2.4s after the styles apply (a 300ms fade), gone at once
+when the island marks the slot `data-hall="off"` because the hall cannot
+run, and never present without JS or under reduced motion. The painting
+still paints beneath it, so the LCP candidate and its timing are unchanged.
+Nothing else on the page changes; no route drifts.
+
+**Revert:** `git reset --hard client-round-25-base` (= `5bc92b9`); or delete
+the `.museum-lead-cover` div (and the `museum-lead` class) in
+`paintings.astro`, the round-25 block in `global.css`, the `data-hall` line
+in `Museum.tsx`, and `qa:lead` with `scripts/museum-lead.mjs`.

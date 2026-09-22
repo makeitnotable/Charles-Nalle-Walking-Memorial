@@ -252,6 +252,10 @@ export default function Museum({ works, slotId }: Props) {
   // Expand the server-rendered slot once we know the museum is coming.
   // ~90vh per work: a shorter hall walks at the same pace as before.
   useEffect(() => {
+    /* Round 25: the lead painting's cover (paintings.astro, global.css)
+       leaves at once when the hall is not coming — no WebGL, reduced motion,
+       a thin connection, a lost context — rather than after its 2.4s wait. */
+    if (capable === false && slotId) document.getElementById(slotId)?.setAttribute("data-hall", "off");
     if (!capable || !slotId) return;
     const slot = document.getElementById(slotId);
     if (!slot) return;

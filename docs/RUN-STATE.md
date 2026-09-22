@@ -7,10 +7,23 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**Client rounds 1–23 COMPLETE (2026-09-15 → 2026-09-20); the map page and
-the chapter pages are signed off; round 24 (`/paintings`, the hall through
-Safari's bars) is ON `v2` AT ITS SIXTH PUSH (r24.6) AND AWAITING WIL'S
-DEVICE PASS.** Round 24 (2026-09-21), from his two `/paintings` screenshots
+**Client rounds 1–24 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
+chapter pages and `/paintings`' bars are signed off — Wil, 2026-09-22, on
+round 24's sixth push: "Looks and works perfectly!" Round 25 (`/paintings`,
+the lead painting waits for the hall) is ON `v2` AND AWAITING WIL'S DEVICE
+PASS.** Round 25 (2026-09-22), from his one note after the sign-off ("when
+the page initially loads, it looks like it's chapter page 2, which flashes
+for just a second"): the slot's server-rendered lead painting, the fallback
+for readers whose hall never mounts, showed for the second before the
+island mounted. A page-ground cover now sits over it — gone on its own
+after 2.4s, gone at once when the island marks the slot `data-hall="off"`
+because the hall cannot run, never present without JS or under reduced
+motion; the painting still paints beneath it, so LCP is unchanged. Plan:
+`docs/rounds/2026-09-22-round-25-plan.md`; DECISIONS.md; MOTION.md.
+Instrument `npm run qa:lead` (27 checks, 0 failed); `qa:snap` 36/36 at 0
+drift; `qa:scope` clean. Previous phase text follows.
+**Round 24 (`/paintings`, the hall through Safari's bars) shipped its sixth
+push (r24.6) and was APPROVED ON HIS PHONE, 2026-09-22.** Round 24 (2026-09-21), from his two `/paintings` screenshots
 and four answers (bars keep collapsing; live see-through first, a gradient
 only as the fallback; this page only; the at-rest top bar stays), then
 "research this from a completely new perspective": two facts measured on

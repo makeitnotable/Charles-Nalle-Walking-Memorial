@@ -2149,6 +2149,62 @@ a.walk-seg:hover {
   pointer-events: none;
 }
 
+/* ── Round 25 (Wil, 2026-09-22): the hall's lead painting waits for the hall
+   "When the page initially loads, it looks like it's chapter page 2, which
+   flashes for just a second and then the actual page loads." The slot is
+   server-rendered with one full-bleed painting — Chapter 2's "The Altruist",
+   with the series caption — for readers whose hall never mounts (reduced
+   motion, no WebGL, a thin connection, JS off), and to hold the slot's height
+   so nothing shifts when the hall arrives. On a capable phone it showed for
+   the second between first paint and the island's mount, when the stage's
+   ground covered it: painting, brown, hall.
+
+   THE COVER. An opaque page-ground box over the painting, in the lead box
+   itself. It leaves on its own 2.4s after the page's styles apply (a 300ms
+   fade at the house curve), so a capable phone goes brown → hall and never
+   sees the painting, and a reader whose island never runs sees the page
+   ground for 2.4s and then the painting. When the island does run and finds
+   the hall cannot (Museum.tsx's capability gate: no WebGL, reduced motion,
+   a thin connection), it marks the slot `data-hall="off"` and the cover goes
+   at once — the painting is the page for that reader, and appears as soon
+   as the page knows. Without JS (no `.js` on <html>) and under reduced
+   motion the cover never exists: the painting IS the page there, and the
+   fade is motion. 2.4s is the island's mount on a slow phone with room to
+   spare; a mount after that shows the painting for the remainder, which is
+   today's behaviour, shorter.
+
+   WHY THE PAINTING IS NOT FADED ITSELF. Largest Contentful Paint ignores an
+   element at opacity 0 and counts it only once it is visible, so hiding the
+   painting would move the page's LCP candidate 2.4s later and put the M1
+   budget (LCP < 2.5s throttled) at risk. Covered, it still paints beneath
+   the cover at the same moment as before; LCP does not see occlusion.
+   Nothing else on the page changes, and the shots the visual gate takes
+   (reduced motion, and the hall mounted) cannot contain the cover.
+
+   REVERT: delete this block, the `.museum-lead-cover` div in paintings.astro
+   and the `data-hall` line in Museum.tsx. */
+.museum-lead-cover {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary-2);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js #museum-slot:not([data-hall="off"]) .museum-lead-cover {
+    display: block;
+    animation: museum-lead-cover-out var(--dur-fast) var(--ease) 2400ms both;
+  }
+}
+@keyframes museum-lead-cover-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* The corridor stage is full-screen at the pin's foot: its opaque ground
    moves to ::before (same colour, same box, painted beneath every child). */
 .museum-stage {

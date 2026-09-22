@@ -127,3 +127,13 @@ which uses `position: sticky` rather than a scroll handler.
   cut. Nothing else on the page is scroll-driven; this is the one scripted
   scroll on `/map`, and it only ever moves the page from a position it was
   never designed to rest at.
+
+## Round 25 (2026-09-22)
+
+- **The hall's lead cover (`/paintings`, `.museum-lead-cover`)** — the
+  page-ground box over the server-rendered lead painting fades out over
+  `--dur-fast` at `--ease` after a 2.4s wait (`animation-fill-mode: both`),
+  so a capable phone goes brown → hall and never sees the painting. The wait
+  is not motion; the fade is the house state tier. Under reduced motion,
+  and without JS, the cover does not exist at all — the painting is the page
+  there and is there at once.
