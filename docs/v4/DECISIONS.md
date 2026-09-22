@@ -260,11 +260,37 @@ find, is glass over the chapter's own text. No cover, visor or runway is in
 play; they remain behind `?scroll=doc`, `?scroll=sync` and, for the iPad's
 default, `?scroll=inner`.
 
-**Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
-dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
-stay); the chapter pages then scroll as a document with pass 7's cover and
-16px band. To choose another mode as the default, make that branch assign
-`"inner"`, `"sync"` or `"edge"` unconditionally. To undo the whole round:
+**Reverted 9/22 (round 38, Wil: the session that ran passes 13–17 "went
+rogue because it auto compacted … there was a point that things were working
+perfectly on the live site, then the linked session broke everything that
+was working on the chapter pages, I need it fixed").** The two amendments
+above are undone and the decision stands as he made it on 9/19: **the still
+document is the chapter default wherever the bars exist** — every iOS chapter
+route, phone and iPad alike — exactly as the round's close-out shipped it
+(`1e5b07d`, approved on his phone: "exactly what I wanted", "we will call
+this done", "everything is perfect … close this out"). The runway
+(`sync`), its colour map, the `chrome` slot, the transparent `<main>`, the
+mini player's portal and the edge trigger (`edge`) are gone from the source,
+not parked behind flags: none of the five passes was confirmed on his phone
+("literally nothing has changed in the last two tries … start fresh"), and
+each rebuilt the page on a hypothesis about Safari's bars. What the
+close-out had stays: `?scroll=doc` is the comparison flag (the document
+scroller with pass 7's cover), `?scroll=inner` exercises the mode in
+Chromium, and `npm run qa:still` (new, `scripts/chapter-still.mjs`) measures
+the mode with the gate and the phone's toolbar run stood in. **The ask that
+started pass 13 — the bottom toolbar hiding on the way down — is open, by
+his decision:** Safari collapses its bars only when the document scrolls,
+and the static fill he approved exists only while the document is still
+(round 23, passes 1–8 measured every page-placed fill lagging a frame at
+the bar). It is the same trade he chose on 9/19; if he wants the other
+side of it, that is a new round with a device pass per push, never a
+default changed on assumption (CLAUDE.md, rule 4).
+
+**Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
+pass 17's tree back. To choose another mode as the chapter default, make the
+`else if (…) dataset.scroll = "inner"` branch in the head flags script
+(`src/layouts/Base.astro`) assign `"doc"` (the document with the cover) or
+delete it; the `?scroll=` flags may stay. To undo the whole of round 23:
 `git reset --hard client-round-23-base` (= `4d13540`) and push `v2`.
 
 ## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall

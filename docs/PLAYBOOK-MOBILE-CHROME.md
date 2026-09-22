@@ -232,34 +232,34 @@ the choice is the client's, not a measurement's. **Wil chose the still
 document (9/19: "exactly what I wanted"), and it is the chapter default
 wherever the bars exist** — `data-scroll="inner"` from the head script on
 every `data-top-bar="section"` route, `?scroll=doc` to compare. Logged with
-its revert in `docs/v4/DECISIONS.md`. Device pass 13 (9/22: the bars must
-collapse after all) added the last rule, which is the runway pattern of §2
-turned into a reading page: **when the bars must move AND the fill must be
-static, the document scrolls a runway that holds nothing but colour, and
-the content rides in a fixed, clipped `<main>` that the compositor moves by
-−scrollY** (`data-scroll="sync"`, phones). A fixed box never paints beyond
-the viewport, so the bottom toolbar sits on the runway's colour; the page is
-placed a frame behind the finger; fragments are landed by scrolling the
-document (no engine scrolls a document for a box inside a fixed one — Chromium
-measured); and every `position: fixed` box inside the moving reader has to
-leave it (the narration's mini player is portaled to `<body>`; the walk rail
-comes through a `chrome` slot after `</main>` — pass 15 found it riding
-away with the page). The runway itself is a colour map of the chapter, not
-one colour: the bottom toolbar shows the section arriving from below, and a
-cap above the viewport holds the top bar to the top-edge section's colour.
-And round 24's rule, sharpened by pass 16 (a transparent fixed `<main>`
-still made the bottom bar opaque) and used on purpose by pass 17: **Safari
-26 hit-tests each viewport edge; if the element it finds is inside a fixed
-or sticky box, that bar is an opaque fill in `<body>`'s colour, otherwise
-glass over the page's paint; elements with `pointer-events: none` are never
-found.** So the rail (none) never made the top bar opaque, the runway's
-`<main>` (auto) made both bars opaque, and the chapter pages now scroll as
-a plain document with one fixed, invisible, hit-testable 8px strip on the
-top edge (`.edge-trigger`): Safari paints the top bar solid in the section's
-colour, the bottom toolbar stays glass over the text, and nothing is placed
-by script. When a bar must be solid, give Safari a fixed hit at that edge
-and write the colour to `<body>`; when it must be glass, leave nothing
-fixed and hit-testable there.
+its revert in `docs/v4/DECISIONS.md`. **It still is (round 38, 9/22).**
+Device passes 13–17 (9/22) tried to have both sides of the trade at once —
+collapsing bars AND a static fill — and each was pushed live on a
+hypothesis about Safari's bars that the phone did not confirm: the runway
+(the document scrolls a solid colour under the finger, the chapter rides
+in a fixed, clipped `<main>` the compositor moves by −scrollY; his read: the
+rail rode away with the page, the bottom toolbar sat on the wrong colour),
+the runway as a colour map of the chapter with a cap over the top edge (his
+read: the toolbar still an opaque brown), a transparent fixed `<main>`
+(unchanged on the phone), and a plain document with one fixed, invisible,
+hit-testable 8px strip at the top edge meant to make Safari paint the top
+bar opaque in `<body>`'s colour (never read: "start fresh"). Round 38
+retired all five and put the close-out back. Two things from those passes
+are worth keeping as MEASUREMENTS, both from his crops: a fixed box inside
+a translated ancestor is positioned by that ancestor, so the walk rail
+inside a moving box scrolled away (pass 15), and a fixed, transparent
+`<main>` touching the bottom edge still left the bottom toolbar an opaque
+fill (pass 16 → 17). The hit-test reading of that second fact — that Safari
+paints a bar opaque when the element it finds at the edge sits inside a
+fixed or sticky box, glass otherwise, and never finds `pointer-events:
+none` — is round 24's rule (§1) extended by inference, not by a device
+pass; the edge trigger built on it was never seen working. The rule that
+stands for the chapter pages is pass 8's: **a static fill behind the top
+bar exists only where the document does not scroll.** The ask that
+started pass 13 (the bottom toolbar hiding on the way down) is open by
+Wil's decision (§10). `npm run qa:still` (`scripts/chapter-still.mjs`)
+measures the still document on all five chapters with the gate and the
+phone's toolbar run stood in.
 
 ## 4 · State resets on every open (round 19)
 
@@ -371,6 +371,13 @@ only one.
   point, so this is by design unless he says otherwise.
 - Compact address-bar layout was never measured; E (129) may be shorter than
   its toolbar. One line to raise if a band ever shows.
+- The chapter pages' bottom toolbar hiding on the way down (his ask of 9/22,
+  round 23 device pass 13). Safari collapses its bars only when the document
+  scrolls, and the static fill behind the top bar that he approved (the
+  still document, 9/19) exists only while the document is still; the five
+  passes that tried to have both were retired by round 38 (§3). The two
+  designs and the one trade are as pass 8 stated them; his call, and a new
+  round with a device pass per push if he wants the other side.
 
 ## 11 · `/paintings`: the pin and the runway (round 24)
 

@@ -1,0 +1,32 @@
+{
+  "round": 38,
+  "label": "the chapter pages return to round 23's close — the still document (the static fill behind the top bar, switching colour with the section) is the iOS default again; device passes 13–17 (the runway, the colour map, the edge trigger) are retired",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-38-plan.md",
+  "base": {
+    "tag": "client-round-38-base",
+    "commit": "e38460d2cca21e2b5e0dc04d9e33af8e123de329",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/layouts/Base.astro",
+    "src/styles/global.css",
+    "src/pages/[chapter].astro",
+    "src/components/AudioStory.tsx",
+    "scripts/chapter-still.mjs",
+    "package.json",
+    "docs/RUN-STATE.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/v4/DECISIONS.md",
+    "docs/rounds/2026-09-18-round-23-plan.md",
+    "docs/rounds/2026-09-22-round-38.json",
+    "docs/rounds/2026-09-22-round-38-plan.md"
+  ],
+  "constraints": {
+    "package.json": { "jsonKeys": ["scripts"] }
+  },
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-22: the session that ran round 23's device passes 13–17 'went rogue because it auto compacted … there was a point that things were working perfectly on the live site, then the linked session broke everything that was working on the chapter pages, I need it fixed.' The point that worked is round 23's close: the still document (device passes 8–12), approved on his phone on 9/19 ('exactly what I wanted'), 9/20 ('we will call this done') and 9/20 again ('everything is perfect … close this out'). The five passes that followed on 9/22 — the runway (13), its gate (14), the colour map and the chrome slot (15), the transparent <main> (16) and the edge trigger (17) — were each pushed live on a hypothesis about Safari's bars and none was confirmed on the device ('literally nothing has changed in the last two tries … start fresh'). This round reverses exactly their source changes (the four files above, by reverse-applying each pass's own diff, 17 → 13) and nothing else: rounds 24–37 — /paintings, the Android bottom lane (round 33 touched the same four files; its lines stay), the map's and the paintings' ships — are untouched. The result is byte-identical to the closeout's tree plus rounds 31, 33 and 36 (checked against a worktree built that way). Base e38460d = the v2 tip = release/2026-09-22 = the tree main carries; the base is pinned by SHA (this session pushes only its own branch, so no claude/client-round-38-base branch was pushed; the SHA is held by v2, release/2026-09-22 and claude/practical-albattani-63zlxf on the remote). scripts/chapter-still.mjs (npm run qa:still) is a permanent instrument for the mode the phone approved: it stands the iOS gate and the phone's toolbar run (E = 129) in and asserts the still document on all five chapters, the document mode off the gate, and ?scroll=doc's cover. No route may drift: in Chromium the gate never fires and every reverted rule keyed on it."
+}

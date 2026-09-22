@@ -2713,21 +2713,18 @@ html[data-root-fill="map"] body {
   inherits: true;
   initial-value: 16px;
 }
-/* Since device pass 13 the cover and the visor exist only in the document
-   mode (`?scroll=doc`): the runway and the still document have nothing to
-   cover. */
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static {
     height: var(--edge-visor);
     align-items: flex-end;
     background-color: var(--color-primary-2);
   }
-  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static .walk-seg {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static .walk-seg {
     height: 3px;
   }
 }
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .edge-cover {
+  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .edge-cover {
     display: block;
   }
 }
@@ -2822,113 +2819,6 @@ html[data-scroll="inner"] main#main {
    here. Only the margin below remains of pass 10. */
 html[data-scroll="inner"] #hero {
   margin-bottom: var(--reader-e, 0px);
-}
-/* ── Device pass 13 (Wil, 2026-09-22): THE RUNWAY ───────────────────────────
-   "The bottom toolbar should automatically hide when the user scrolls down
-   and reappear when the user scrolls up. No other changes." Safari collapses
-   its bars only when the DOCUMENT scrolls; the still document never does.
-   So on phones the document scrolls again — as a solid runway: <body> is
-   sized by script to the chapter's height and carries the section's colour
-   (the sampler's write), and that colour is all that ever sits behind either
-   bar, static, as in the still document. The chapter itself rides in <main>,
-   fixed to the layout viewport and clipped at it (`overflow: clip`, so it is
-   not a scroller and a fragment scrolls the document), and #reader inside
-   it is translated by −scrollY (Base.astro) on a compositor layer. Two
-   costs, stated to him: the page is placed a frame behind the finger, as
-   any page-placed box is, and when the bottom toolbar is up it sits on the
-   section's colour rather than on the chapter's own content (a fixed box
-   never paints beyond the viewport — playbook §1). The still document
-   remains the default on wider screens (the iPad's toolbar never
-   collapses) and behind `?scroll=inner`; `?scroll=doc` is the document
-   scroller with pass 7's cover. Phones only — told from the screen's shorter
-   side in the head script, never the viewport, which iOS reports as 980px
-   until the viewport meta is parsed (pass 14). */
-html[data-scroll="sync"] main#main {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100lvh;
-  overflow: clip;
-  z-index: 0;
-}
-html[data-scroll="sync"] #reader {
-  will-change: transform;
-  /* Device pass 16 (Wil, 2026-09-22, his crop of the transcript over an
-     opaque brown toolbar, the runway's cream block nowhere in it): Safari 26
-     paints a bar as an OPAQUE FILL when a fixed or sticky element with an
-     opaque background is what it finds at that edge (round 24 measured it
-     on /paintings), and glass otherwise. The fixed <main>, brown, touched
-     the bottom edge, so the bottom toolbar was an opaque brown fill whatever
-     the runway said; the top edge was glass only because the transparent
-     rail sits above <main> there. So the page ground moves from <main> to
-     #reader — the box the compositor moves, which spans every section and
-     paints the same brown behind them — and <main> itself is transparent:
-     nothing fixed and opaque touches either edge, both bars are glass, and
-     the bottom toolbar shows the runway's block for the section arriving
-     from below. Nothing the reader sees changes. */
-  background: var(--ground);
-}
-html[data-scroll="sync"] main#main {
-  background: transparent;
-}
-html[data-scroll="sync"] body {
-  min-height: 0;
-}
-/* Device pass 15: the runway is a colour map of the chapter (Base.astro):
-   one block per ground at its own offset, on the page ground, and a cap
-   above the viewport in the colour of the section at the top edge. It sits
-   in the document before <main>, so <main> covers it inside the viewport and
-   only the bar regions ever show it. */
-html[data-scroll="sync"] #runway {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-}
-html[data-scroll="sync"] #runway > div {
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-html[data-scroll="sync"] #runway > .runway-cap {
-  top: 0;
-}
-/* ── Device pass 17 (Wil, 2026-09-22): THE EDGE TRIGGER ─────────────────────
-   His fourth crop of an opaque brown bottom toolbar over the cream
-   transcript — with <main> already transparent — closed the question: what
-   makes Safari 26 paint a bar OPAQUE is not a colour but a HIT. It hit-tests
-   the viewport's edge; if the element it finds is inside a fixed or sticky
-   box, the bar is an opaque fill in <body>'s colour; otherwise it is glass
-   over the page's paint. Every measurement of this round agrees: the walk
-   rail (fixed, `pointer-events: none`, never hit) left the top bar glass in
-   the document mode; the runway's fixed <main> (hit) made both bars opaque,
-   brown or transparent alike; the `.edge-glass` strips (`pointer-events:
-   none`) never counted; round 24's non-fixed 8px strips gave /paintings its
-   glass back. So the chapter page scrolls as a plain document again — the
-   compositor moves the page, nothing is placed by script, the bars collapse
-   and return natively, the bottom toolbar is glass over the chapter's own
-   text — and this one strip, 8px tall on the top edge, fixed, invisible,
-   hit-testable and covered by nothing, is what Safari finds there: the top
-   bar is Safari's own opaque fill in <body>'s colour, the section at the top
-   edge as the sampler writes it, flipping the instant that section changes.
-   No cover, no visor, no runway, no lag: the bar is painted by Safari, not
-   by the page. Below the menu in z-order; the rail above it is not
-   hit-testable and never was. */
-.edge-trigger {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  z-index: 899;
-  background: transparent;
-  pointer-events: auto;
-}
-html[data-scroll="edge"] .edge-trigger {
-  display: block;
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the

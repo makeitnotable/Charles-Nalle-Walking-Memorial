@@ -279,12 +279,7 @@ const focus =
   ]}
   topBar="section"
 >
-  {/* Round 23, device pass 15: outside <main>, through the layout's chrome
-      slot — the rail is position: fixed, and inside the runway's moving box
-      (#reader, translated by −scrollY) a fixed box travels with the page
-      instead of holding the top edge. It is decorative on the chapter
-      routes (spans, no text), so its place in the DOM order is free. */}
-  <WalkProgress current={c.order} slot="chrome" />
+  <WalkProgress current={c.order} />
 
   {/* ══════ HERO — the finished animated painting, FULL-BLEED (items 2/16) ══════
       The painting owns every pixel of the fold; the lockup sits over its base
@@ -859,11 +854,7 @@ const focus =
     /* v7 V7-022: a deep link (#scene-1, #history) can drift as lazy media and
        the narration islands take their height — re-land on the hash once the
        page has settled. */
-    /* Round 23, device pass 13: in the runway mode #reader is a fixed box
-       the compositor moves, so Base.astro lands the fragment by scrolling the
-       document to the target's natural offset; scrollIntoView on a box inside
-       a fixed one is not something every engine scrolls the document for. */
-    if (location.hash && document.documentElement.dataset.scroll !== "sync") {
+    if (location.hash) {
       const land = () => document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant", block: "start" });
       window.addEventListener("load", () => setTimeout(land, 60), { once: true });
     }

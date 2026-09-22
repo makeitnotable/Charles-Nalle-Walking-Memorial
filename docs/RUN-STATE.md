@@ -7,6 +7,39 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 38 (the chapter pages back at round 23's close) IS ON THE BRANCH
+`claude/chapter-pages-regression-fix-iuocgd`, AWAITING THE FAST-FORWARD OF
+`v2` AND WIL'S DEVICE PASS (2026-09-22).** Wil, of the session that ran round
+23's device passes 13–17: it "went rogue because it auto compacted … There
+was a point that things were working perfectly on the live site, then the
+linked session broke everything that was working on the chapter pages, I
+need it fixed." The point that worked is round 23's close — the still
+document (passes 8–12), approved on his phone on 9/19 ("exactly what I
+wanted") and 9/20 ("we will call this done"; "everything is perfect … close
+this out"). The five passes of 9/22 that followed (the runway, its gate, the
+colour map and the `chrome` slot, the transparent `<main>`, the edge
+trigger) each went live on a hypothesis about Safari's bars and none was
+confirmed on the device ("literally nothing has changed in the last two
+tries … start fresh"). Round 38 reverse-applies exactly their source
+changes, 17 → 13, in the four files they touched (`Base.astro`,
+`global.css`, `[chapter].astro`, `AudioStory.tsx`), keeping round 33's line
+in the same files; the chapter files are byte-identical to the close-out's
+plus rounds 31, 33 and 36 (checked against a worktree built that way). The
+head script sets `data-scroll="inner"` on every chapter route behind the iOS
+gate again, phones and iPads alike; `?scroll=doc` remains the comparison
+flag; `?scroll=sync` and `?scroll=edge` no longer exist. New permanent
+instrument `npm run qa:still` (`scripts/chapter-still.mjs`): the still
+document on all five chapters with the gate and the phone's E stood in,
+187 checks, 0 failed; `qa:snap` 36/36 at 0 drift; build + `check-css`; `astro check` 0 errors, 0
+warnings; `qa:scope` clean against the round-38 manifest. Plan:
+`docs/rounds/2026-09-22-round-38-plan.md`; DECISIONS.md (round 23,
+"Reverted 9/22"); playbook §3 and §10. The ask that started pass 13 — the
+bottom toolbar hiding on the way down — is OPEN BY HIS DECISION: Safari
+collapses its bars only when the document scrolls, and the static fill he
+approved exists only while the document is still (the trade he chose on
+9/19). Deploy = fast-forward `v2` to this branch's tip (this session pushes
+only its own branch). Revert: `git reset --hard client-round-38-base`
+(= `e38460d`, pass 17's tree). Previous phase text follows.
 **`/paintings` IS SIGNED OFF AGAIN — Wil, 2026-09-22, on round 36 live: "As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
 Rounds 24–31 and 36 are closed; nothing on `/paintings` is open. SHIPPED
 (round 37, docs only, base `5e068cf`): the round-36 record joins the handover
@@ -234,6 +267,18 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 38 (2026-09-22): round 23's device passes 13–17 reverted at Wil's
+instruction ("broke everything that was working on the chapter pages, I
+need it fixed") — the still document is the chapter default on iOS again,
+exactly the close-out tree he approved (`1e5b07d`) plus the unrelated
+rounds since. The runway, the colour map, the `chrome` slot, the
+transparent `<main>`, the mini player's portal and the edge trigger are
+gone from the source. `qa:still` (new) 187 checks, 0 failed; `qa:snap` 36/36 at 0 drift;
+`qa:scope` clean; build, `check-css`, `astro check` clean. On the branch
+`claude/chapter-pages-regression-fix-iuocgd`; `v2` fast-forwards to it to
+deploy. Awaiting his read on the phone (the same behaviour he approved on
+9/19–9/20). The bottom-toolbar ask of pass 13 is open by his decision
+(DECISIONS.md, round 23). Pass-17 record follows.
 Round 23, device pass 17 (2026-09-22): the bottom toolbar opaque even
 with <main> transparent → the rule is a HIT: Safari paints a bar opaque
 when the element it hit-tests at the edge is inside a fixed/sticky box
@@ -437,6 +482,15 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+Round 38: fast-forward `v2` to `claude/chapter-pages-regression-fix-iuocgd`
+(plain `git push` from `v2`; the Actions run deploys), confirm live = HEAD,
+then Wil's device pass on any chapter: the top bar a solid fill in the
+section's colour at every scroll position, switching at each section, the
+bars expanded while reading (the still document he approved on 9/19); the
+menu holding still; the hero lockup one gutter above the toolbar. If he
+wants the bottom toolbar to hide on the way down after all, that is a new
+round on the review branch with a device pass per push — never a default
+changed on assumption. Earlier text follows.
 Wil's device pass on round 24 (`docs/rounds/2026-09-21-round-24-plan.md`
 §4): `/paintings?glass=1` at rest, walking, scrolled up mid-walk, a fast
 flick, the frame rate, then `&runway=track` and one `&debug=1` screenshot.
