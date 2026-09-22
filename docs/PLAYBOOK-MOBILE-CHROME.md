@@ -385,7 +385,11 @@ only one.
   fixed") and round 42 removed the flag's code: the chapter pages are the
   still document, closed at round 38. The runway (round 23 passes 13–16)
   is the variant he said he liked — both bars collapsing, the toolbar's
-  region a solid fill — should the ask return.**
+  region a solid fill — should the ask return.** **It did (round 43): the
+  runway is back behind `?scroll=sync` for his phone, with the rail moved
+  out of the moving box at runtime, the mini player portaled in that mode
+  only and the menu on the rail's inset; the top bar's size change was
+  stated and accepted. His read decides the default.**
   **Round 41 added a rule from his first read: in a scrolling document iOS
   26 reports `env(safe-area-inset-top)` once its bars have moved (his
   screenshot: the rail, pinned at that inset, ~12px below the viewport's

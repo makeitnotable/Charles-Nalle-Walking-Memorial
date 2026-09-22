@@ -7,6 +7,38 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**ROUND 43 — THE RUNWAY, BEHIND `?scroll=sync`, ON `v2` FOR HIS DEVICE
+PASS; THE DEFAULT (ROUND 38, THE STILL DOCUMENT) UNTOUCHED.** Wil, after
+round 42: "Can we have everything stay the same but will it work where the
+bottom toolbar will disappear on scroll down … I don't mind if the bottom
+toolbar has to have a solid fill … the same way on the address bar." Told
+that Safari moves the top bar in the same animation (it shrinks and grows
+with the toolbar; its fill can stay the solid section colour) and that the
+runway's toolbar fill was the page brown on his phone in passes 15–16, he
+chose: "Fine! Let's try it if I don't like it we'll officially go with A."
+The mode is round 23's pass-13 runway, re-applied from its own diff and
+adapted: `?scroll=sync` only (the default branch still assigns `inner`);
+`#reader` wraps `<main>`'s content (an unstyled block off the flag); under
+the flag `<main>` is fixed and clipped at 100lvh, `#reader` is translated
+by −scrollY and re-read for 600 ms after the last scroll event, `<body>` is
+sized to the chapter and carries the section's colour from the sampler
+(the top bar's solid fill; Safari's fill for the returning toolbar),
+fragments land by scrolling the document; the walk rail leaves `#reader`
+at runtime (pass 15's finding, done without a slot so the default's DOM
+is untouched); the mini player is portaled to `<body>` in this mode only;
+the corner menu rides the rail's top inset (round 41's rule) in this mode
+only; the cover and visor are `doc`-only. Pass 15's colour map and pass
+16's transparent `<main>` are not back: the phone showed Safari painting
+the returning toolbar opaque whatever the runway held, and that fill is
+what he now accepts. Gates: build + `check-css`; `astro check` 0 errors, 0 warnings;
+`qa:scope` clean; `qa:snap` 36/36 at 0 drift; `qa:still` 224 checks, 0 failed (the default's
+checks unchanged plus the reader wrapper inert; the runway's added). Plan:
+`docs/rounds/2026-09-22-round-43-plan.md`. What only the phone can show:
+the bars collapsing and returning, the top bar's colour when minimized,
+the toolbar's fill, the one-frame placement of the page. If he approves,
+the default flips by one word (`"inner"` → `"sync"`); if not, A: the flag's
+code is removed (round 42's procedure). Revert of round 43: `git reset
+--hard client-round-43-base` (= `833e382`). Previous phase text follows.
 **ROUND 42 — A. THE CHAPTER PAGES ARE THE WORKING VERSION HE APPROVED
 (ROUND 38), AND THE `?scroll=edge` FLAG'S CODE IS GONE.** Wil, on round
 41's link: "Nothing was changed or fixed. Go back to the working version I
@@ -343,6 +375,14 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 43 (2026-09-22): the runway behind `?scroll=sync` for his phone
+("Fine! Let's try it") — both bars collapse and return, the top bar keeps
+its solid section colour (and shrinks and grows with the toolbar, told and
+accepted), the toolbar returns over Safari's solid fill; the rail out of
+the moving box at runtime, the mini player portaled, the menu on the
+rail's inset. Default untouched. Awaiting his read: approve → the default
+flips by one word; reject → A, the flag's code removed. Round-42 record
+follows.
 Round 42 (2026-09-22): A — "Nothing was changed or fixed. Go back to the
 working version I approved." The edge flag's code (rounds 40–41) removed;
 `src/` and the instrument byte-identical to round 38 (`3d9aa1c`). The
@@ -575,6 +615,15 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+Wil's device pass on round 43: `/bakery?scroll=sync` — scroll down (both
+bars collapse; the page follows the finger a frame late), scroll up (the
+toolbar returns over a solid fill, the top bar solid in the section's
+colour, no content through the pill), the menu one gutter below the rail
+throughout, the rail at the top edge. Approve → a new round flips the head
+script's default `"inner"` → `"sync"` and moves `qa:still`'s default checks.
+Reject → A: a new round removes the runway's code (round 42's procedure)
+so the source is round 38 exactly; off the flag it already behaves so.
+Earlier text follows.
 The chapter pages are closed at round 38's behaviour (round 42 removed the
 flag's code; live = `v2` = this round once its Actions run lands). Open
 only if he asks: the runway variant (round 23 passes 13–16, `042518b`) as a

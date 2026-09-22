@@ -2713,18 +2713,21 @@ html[data-root-fill="map"] body {
   inherits: true;
   initial-value: 16px;
 }
+/* Since device pass 13 the cover and the visor exist only in the document
+   mode (`?scroll=doc`): the runway and the still document have nothing to
+   cover. */
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static {
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static {
     height: var(--edge-visor);
     align-items: flex-end;
     background-color: var(--color-primary-2);
   }
-  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .walk-rail-static .walk-seg {
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static .walk-seg {
     height: 3px;
   }
 }
 @supports (-webkit-touch-callout: none) {
-  html[data-top-bar="section"]:not([data-cover="off"]):not([data-scroll="inner"]) .edge-cover {
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .edge-cover {
     display: block;
   }
 }
@@ -2819,6 +2822,50 @@ html[data-scroll="inner"] main#main {
    here. Only the margin below remains of pass 10. */
 html[data-scroll="inner"] #hero {
   margin-bottom: var(--reader-e, 0px);
+}
+/* ── Device pass 13 (Wil, 2026-09-22): THE RUNWAY ───────────────────────────
+   "The bottom toolbar should automatically hide when the user scrolls down
+   and reappear when the user scrolls up. No other changes." Safari collapses
+   its bars only when the DOCUMENT scrolls; the still document never does.
+   So on phones the document scrolls again — as a solid runway: <body> is
+   sized by script to the chapter's height and carries the section's colour
+   (the sampler's write), and that colour is all that ever sits behind either
+   bar, static, as in the still document. The chapter itself rides in <main>,
+   fixed to the layout viewport and clipped at it (`overflow: clip`, so it is
+   not a scroller and a fragment scrolls the document), and #reader inside
+   it is translated by −scrollY (Base.astro) on a compositor layer. Two
+   costs, stated to him: the page is placed a frame behind the finger, as
+   any page-placed box is, and when the bottom toolbar is up it sits on the
+   section's colour rather than on the chapter's own content (a fixed box
+   never paints beyond the viewport — playbook §1). The still document
+   remains the default on wider screens (the iPad's toolbar never
+   collapses) and behind `?scroll=inner`; `?scroll=doc` is the document
+   scroller with pass 7's cover. Phones only, by width, in the head script. */
+html[data-scroll="sync"] main#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
+  overflow: clip;
+  z-index: 0;
+}
+html[data-scroll="sync"] #reader {
+  will-change: transform;
+}
+html[data-scroll="sync"] body {
+  min-height: 0;
+}
+/* Round 43, from round 41's read: in a scrolling document iOS 26 reports a
+   top safe-area inset once its bars have moved, the rail rides it (`top:
+   env(safe-area-inset-top)`) and the menu's max() did not — the two drifted
+   12px apart on his phone. In this mode the menu's top is the gutter below
+   the same inset the rail rides: round 23's rule byte for byte at inset 0,
+   one gutter below the rail at every inset, the two moving together. The
+   right inset is unchanged. Only in this mode; the default is untouched. */
+html[data-scroll="sync"] .cnwm-menu[data-position="top-right"] {
+  --menu-inset: max(var(--gutter), env(safe-area-inset-right, 0px));
+  top: calc(env(safe-area-inset-top, 0px) + var(--menu-inset));
 }
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the

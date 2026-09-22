@@ -336,6 +336,26 @@ on a scroll up: that is the runway (this round's passes 13–16, `042518b`),
 in the history, available behind a flag on request. **Revert** of round
 42: `git reset --hard client-round-42-base` (= `566dc62`).
 
+**Round 43 (9/22): the runway, behind `?scroll=sync`.** Wil, after round
+42: "Can we have everything stay the same but will it work where the
+bottom toolbar will disappear on scroll down … I don't mind if the bottom
+toolbar has to have a solid fill … the same way on the address bar. There
+should be absolutely zero changes to the top address bar." Told that the
+one thing no page can remove is that Safari moves the top bar in the same
+animation — it shrinks and grows with the toolbar, while its fill can stay
+the solid section colour — and that the runway's toolbar fill was the page
+brown on his phone (passes 15–16), he chose: "Fine! Let's try it if I don't
+like it we'll officially go with A." **Decision, device-first:** pass 13's
+runway re-applied behind the flag, the default untouched — `<main>` fixed
+and clipped, `#reader` moved by −scrollY, `<body>` the runway in the
+section's colour, the rail out of the moving box at runtime, the mini
+player portaled in this mode only, the menu on the rail's inset (round
+41's rule), the cover `doc`-only; pass 15's colour map and pass 16's
+transparent `<main>` left in the history. His read decides: approve → the
+head script's default assigns `"sync"` (one word); reject → A, the code
+removed as round 42 did. **Revert** of round 43: `git reset --hard
+client-round-43-base` (= `833e382`).
+
 **Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
 pass 17's tree back. To choose another mode as the chapter default, make the
 `else if (…) dataset.scroll = "inner"` branch in the head flags script

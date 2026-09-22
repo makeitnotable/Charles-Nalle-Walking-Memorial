@@ -131,7 +131,7 @@ const canonical = new URL(
              pass-7 cover, for a comparison on the phone. global.css has the
              rules and the trade (Safari's bars collapse only when the
              document scrolls, so here they stay expanded while reading). */
-          var sm = /(^|[?&])scroll=(inner|doc)(&|$)/.exec(q);
+          var sm = /(^|[?&])scroll=(sync|inner|doc)(&|$)/.exec(q);
           if (sm) document.documentElement.dataset.scroll = sm[2];
           else if (
             document.documentElement.dataset.topBar === "section" &&
@@ -139,6 +139,13 @@ const canonical = new URL(
             CSS.supports &&
             CSS.supports("-webkit-touch-callout", "none")
           )
+            /* Round 43 (Wil, 2026-09-22: "Fine! Let's try it"): the RUNWAY of
+               round 23's pass 13 is back behind `?scroll=sync` — the document
+               scrolls a solid runway so Safari's bars collapse and return,
+               and the chapter rides in a fixed <main> moved by the compositor
+               (the script after <main>, and global.css). The flag only: the
+               default here is still the still document he approved, on every
+               iOS chapter route, until his read on the phone says otherwise. */
             document.documentElement.dataset.scroll = "inner";
         } catch (e) {}
       })();
@@ -314,7 +321,9 @@ const canonical = new URL(
         function isGround(n) {
           if (SECTION.test(n.tagName.toLowerCase())) return true;
           var parent = n.parentElement;
-          if (parent && parent.tagName.toLowerCase() === "main") return true;
+          /* pass 13: #reader wraps <main>'s content (the runway's moving box),
+             so a child of #reader is a child of <main> for this purpose */
+          if (parent && (parent.tagName.toLowerCase() === "main" || parent.id === "reader")) return true;
           return !!(n.classList && n.classList.contains("ground-cream"));
         }
         function sectionGroundAt(y) {
@@ -850,13 +859,106 @@ const canonical = new URL(
         only on the routes that ask, displayed only where the bars exist. */}
     {topBar === "section" && <div class="edge-cover" aria-hidden="true"></div>}
     <main id="main">
-      <slot />
+      {/* Device pass 13 (round 23): #reader is the chapter's moving box in the
+          runway mode (`data-scroll="sync"`, global.css) — translated by
+          −scrollY while the document scrolls a solid runway. On every other
+          route and mode it is an unstyled block that changes nothing; the
+          sampler's ground walk treats its children as <main>'s. */}
+      <div id="reader" class="reader">
+        <slot />
+      </div>
     </main>
     <script is:inline>
+      /* Device pass 13 (round 23, Wil, 2026-09-22: "the bottom toolbar should
+         automatically hide when the user scrolls down and reappear when the
+         user scrolls up"): THE RUNWAY. Safari collapses its bars only when the
+         DOCUMENT scrolls, and the still document of pass 8 never does. Here
+         the document is a solid runway under the reader's finger — <body> as
+         tall as the chapter, carrying the section's colour, so what shows
+         behind either bar is only ever that colour — and the chapter itself
+         sits in <main>, fixed and clipped at the viewport, moved by the
+         compositor: #reader is translated by −scrollY on every scroll event,
+         and re-read for 600 ms after the last one, because the last scroll
+         event is not where iOS settles (pass 2). One frame behind the finger,
+         as any page-placed box is; a stalled main thread stalls the page with
+         it — the price of the collapsing bars, stated to him. #reader is not
+         a scroller, so a fragment is reached by scrolling the document to the
+         target's natural offset (the browser's own fragment scroll cannot be
+         relied on for a box inside a fixed one). */
+      (function () {
+        if (document.documentElement.dataset.scroll !== "sync") return;
+        var reader = document.getElementById("reader");
+        if (!reader) return;
+        /* Round 43 (pass 15's finding): the walk rail is `position: fixed`
+           and rendered inside the chapter, so inside #reader — and a fixed
+           box inside a transformed ancestor is positioned by that ancestor:
+           it rode away with the page. It leaves the moving box here, at
+           runtime, after <main> (still fixed, still z 900), so the default's
+           DOM is untouched. The corner menu and the cover already live
+           outside <main>; the narration's mini player is portaled to <body>
+           in this mode by the island itself (AudioStory.tsx). */
+        var mainEl = document.getElementById("main");
+        var rail = reader.querySelector(".walk-rail");
+        if (rail && mainEl && mainEl.parentNode) mainEl.parentNode.insertBefore(rail, mainEl.nextSibling);
+        var placed = null;
+        var until = 0;
+        var raf = 0;
+        function place() {
+          var s = window.scrollY || 0;
+          if (s === placed) return false;
+          placed = s;
+          reader.style.transform = "translate3d(0," + -s + "px,0)";
+          return true;
+        }
+        function loop() {
+          raf = 0;
+          var now = performance.now();
+          if (place()) until = now + 600;
+          if (now < until) raf = requestAnimationFrame(loop);
+        }
+        function wake() {
+          until = performance.now() + 600;
+          place();
+          if (!raf) raf = requestAnimationFrame(loop);
+        }
+        function size() {
+          var h = reader.offsetHeight;
+          if (h && document.body.style.height !== h + "px") document.body.style.height = h + "px";
+        }
+        function land(hash, behavior) {
+          var el = hash && hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+          if (!el) return;
+          var top = el.getBoundingClientRect().top + (window.scrollY || 0) - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
+          window.scrollTo({ top: Math.max(0, top), behavior: behavior });
+        }
+        function relayout() {
+          size();
+          wake();
+        }
+        addEventListener("scroll", wake, { passive: true });
+        addEventListener("scrollend", wake, { passive: true });
+        addEventListener("resize", relayout, { passive: true });
+        addEventListener("orientationchange", relayout, { passive: true });
+        addEventListener("pageshow", relayout);
+        addEventListener("hashchange", function () {
+          land(location.hash, "smooth");
+        });
+        addEventListener("load", function () {
+          relayout();
+          if (location.hash)
+            setTimeout(function () {
+              land(location.hash, "instant");
+            }, 80);
+        });
+        if (window.ResizeObserver) new ResizeObserver(size).observe(reader);
+        relayout();
+      })();
+    </script>
+    <script is:inline>
       /* Device pass 8 (round 23): in the inner-scroll mode (the chapter
-         default on iOS since pass 9; `?scroll=inner` elsewhere, `?scroll=doc`
-         to leave it; global.css) <main> is the scroller and the document
-         never moves.
+         default on iPad since pass 13, on every iOS chapter from pass 9 to
+         12; `?scroll=inner` elsewhere, `?scroll=doc` to leave it; global.css)
+         <main> is the scroller and the document never moves.
          Everything that listens for the page scrolling on `window` — the
          sampler above, the corner menu, the narration's mini player — hears
          <main>'s scroll re-sent on window, so none of it changes; the menu

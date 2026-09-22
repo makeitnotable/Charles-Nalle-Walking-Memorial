@@ -141,7 +141,27 @@ const STATE = () => {
     railPosition: rail ? cs(rail).position : "",
     railBg: rail ? cs(rail).backgroundColor : "",
     coverDisplay: cover ? cs(cover).display : "absent",
-    residue: ["#reader", "#runway", ".edge-trigger", ".runway-cap"].filter((s) => document.querySelector(s)),
+    /* round 43: #reader is a legitimate wrapper again (the runway's moving
+       box, an unstyled block off the flag) — checked on its own below */
+    residue: ["#runway", ".edge-trigger", ".runway-cap", "[slot='chrome']"].filter((s) => document.querySelector(s)),
+    reader: (() => {
+      const r = document.getElementById("reader");
+      if (!r) return null;
+      const t = cs(r).transform;
+      const m = /matrix\(([^)]+)\)/.exec(t);
+      const ty = m ? parseFloat(m[1].split(",")[5]) : t === "none" ? 0 : NaN;
+      return { transform: t, ty, height: rect(r).height, bg: cs(r).backgroundColor };
+    })(),
+    railParent: rail && rail.parentElement ? rail.parentElement.tagName.toLowerCase() + (rail.parentElement.id ? "#" + rail.parentElement.id : "") : "absent",
+    menuTop: (() => {
+      const m = document.querySelector(".cnwm-menu");
+      return m ? rect(m).top : NaN;
+    })(),
+    menuRightGap: (() => {
+      const m = document.querySelector(".cnwm-menu");
+      return m ? window.innerWidth - rect(m).left - rect(m).width : NaN;
+    })(),
+    bodyHeight: parseFloat(cs(document.body).height),
     bodyBg: cs(document.body).backgroundColor,
     bodyInline: document.body.style.backgroundColor,
     meta: meta ? meta.getAttribute("content") : "",
@@ -170,6 +190,16 @@ const SCROLL_MAIN = async (page, to, steps = 6) => {
     }, y);
     await sleep(40);
   }
+};
+/* The document scrolled so the transcript's cream block sits at the top edge
+   (the scrolling modes: the runway, `?scroll=doc`). In the runway the box is
+   placed a frame late, so the target is read from the reader's own rect. */
+const DOC_TO_CREAM = () => {
+  const el = document.querySelector("#main .ground-cream");
+  if (!el) return null;
+  const top = el.getBoundingClientRect().top + window.scrollY + 60;
+  window.scrollTo({ top, behavior: "instant" });
+  return top;
 };
 /* Where the transcript's cream block sits: its top in <main>'s scroll space. */
 const CREAM_TOP = () => {
@@ -243,6 +273,7 @@ try {
     check(session, "the rail rides inside <main>, fixed at the top edge, 3px, bare", s.railInMain && s.railPosition === "fixed" && near(s.railTop, 0, 0.5) && near(s.railHeight, 3, 0.5), `inMain ${s.railInMain} ${s.railPosition} top ${r1(s.railTop)} h ${r1(s.railHeight)}`);
     check(session, "the cover is display:none", s.coverDisplay === "none", s.coverDisplay);
     check(session, "nothing of passes 13–17 in the DOM", s.residue.length === 0, s.residue.join(",") || "clean");
+    check(session, "the reader wrapper is inert under the default (no transform)", !!s.reader && s.reader.ty === 0 && s.mainPosition === "relative", s.reader ? `${s.reader.transform} main ${s.mainPosition}` : "absent");
     check(session, "<main> carries the page ground", s.mainBg === BROWN, s.mainBg);
     check(session, "<body> is the hero's brown at rest", s.bodyBg === BROWN, s.bodyBg);
     check(session, "theme-color is the brown at rest", s.meta === "#1d1411", s.meta);
@@ -399,6 +430,116 @@ try {
     await settle(page);
     const s = await page.evaluate(STATE);
     check(session, "the flag leaves the document scrolling under the gate", s.scroll === "doc" && s.mainOverflowY === "visible" && s.docScrollHeight > s.innerHeight + 2000, `${s.scroll} ${s.mainOverflowY} ${s.docScrollHeight}`);
+    await ctx.close();
+  }
+  /* ── 6 · round 43: the runway, behind `?scroll=sync` ─────────────────── */
+  {
+    const session = "bakery?scroll=sync 390 gate";
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, reducedMotion: "no-preference" });
+    await ctx.addInitScript(GATE);
+    const page = await ctx.newPage();
+    const errors = errorsOf(page);
+    await page.goto(`${BASE}/bakery?scroll=sync`, { waitUntil: "load" });
+    await settle(page);
+    const s = await page.evaluate(STATE);
+    check(session, "data-scroll is sync", s.scroll === "sync", s.scroll || "(none)");
+    check(session, "<main> is fixed and clipped at the viewport (844)", s.mainPosition === "fixed" && s.mainOverflowY === "clip" && near(s.mainHeight, 844, 1), `${s.mainPosition} ${s.mainOverflowY} ${r1(s.mainHeight)}`);
+    check(session, "the document is the runway: as tall as the chapter", !!s.reader && s.docScrollHeight > 5000 && near(s.docScrollHeight, s.reader.height, 2) && near(s.bodyHeight, s.reader.height, 2), s.reader ? `doc ${s.docScrollHeight} body ${r1(s.bodyHeight)} reader ${r1(s.reader.height)}` : "absent");
+    check(session, "the reader is at 0 at rest", !!s.reader && s.reader.ty === 0, s.reader ? s.reader.transform : "absent");
+    check(session, "the rail left the moving box (after <main>, in <body>)", s.railParent === "body" && s.railPosition === "fixed" && near(s.railTop, 0, 0.5) && near(s.railHeight, 3, 0.5), `${s.railParent} ${s.railPosition} top ${r1(s.railTop)} h ${r1(s.railHeight)}`);
+    check(session, "the cover is display:none", s.coverDisplay === "none", s.coverDisplay);
+    check(session, "<body> is the hero's brown at rest", s.bodyBg === BROWN, s.bodyBg);
+    check(session, "the menu sits one gutter below the rail (20px) with no top inset", near(s.menuTop - s.railTop, 20, 0.5) && near(s.menuRightGap, 20, 0.5), `top ${r1(s.menuTop)} rail ${r1(s.railTop)} rightGap ${r1(s.menuRightGap)}`);
+    check(session, "the lockup is opaque at rest", s.lockupOpacity > 0.95, r1(s.lockupOpacity));
+
+    /* the document scrolls; the reader follows by −scrollY and settles */
+    await page.evaluate(() => window.scrollTo({ top: 300, behavior: "instant" }));
+    await sleep(900);
+    const at300 = await page.evaluate(STATE);
+    check(session, "the reader follows the document (−300 at scroll 300)", at300.scrollY === 300 && !!at300.reader && near(at300.reader.ty, -300, 1), at300.reader ? `scrollY ${at300.scrollY} ty ${r1(at300.reader.ty)}` : "absent");
+    check(session, "the lockup's scrub runs against the document (opacity < 0.7 at 300px)", at300.lockupOpacity < 0.7, r1(at300.lockupOpacity));
+
+    const creamTop = await page.evaluate(DOC_TO_CREAM);
+    await sleep(700);
+    const c = await page.evaluate(STATE);
+    check(session, "the runway takes the cream with the transcript at the top edge", typeof creamTop === "number" && c.bodyBg === CREAM && c.scrollY > 1000, `${c.bodyBg} scrollY ${c.scrollY}`);
+    check(session, "the reader is exactly −scrollY at rest", !!c.reader && near(c.reader.ty, -c.scrollY, 1), c.reader ? `ty ${r1(c.reader.ty)} scrollY ${c.scrollY}` : "absent");
+    check(session, "the rail holds the top edge while the document scrolls", near(c.railTop, 0, 0.5) && near(c.railHeight, 3, 0.5), `top ${r1(c.railTop)} h ${r1(c.railHeight)}`);
+    check(session, "the menu retreated (the document scrolled forward)", c.menuHidden === "true", c.menuHidden);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await sleep(700);
+    let home = await page.evaluate(STATE);
+    for (let i = 0; i < 12 && !(home.lockupOpacity > 0.95); i++) {
+      await sleep(200);
+      home = await page.evaluate(STATE);
+    }
+    check(session, "the runway is the brown again at the top", home.bodyBg === BROWN, home.bodyBg);
+    check(session, "the reader is back at 0", !!home.reader && home.reader.ty === 0, home.reader ? home.reader.transform : "absent");
+    check(session, "the lockup is opaque again at the top", home.lockupOpacity > 0.95, r1(home.lockupOpacity));
+
+    /* the narration's mini player leaves the moving box: a portal to <body> */
+    const playBtn = await page.$('button[aria-label^="Play narration"]');
+    let latched = false;
+    if (playBtn) {
+      await page.evaluate(() => {
+        const b = document.querySelector('button[aria-label^="Play narration"]');
+        const top = b.getBoundingClientRect().top + window.scrollY - 200;
+        window.scrollTo({ top, behavior: "instant" });
+      });
+      await sleep(700);
+      await playBtn.click({ force: true }).catch(() => {});
+      for (let i = 0; i < 20 && !latched; i++) {
+        await sleep(250);
+        latched = await page.evaluate(() => !![...document.querySelectorAll("div.fixed")].find((d) => /z-\[999\]/.test(d.className)));
+      }
+    }
+    if (latched) {
+      const m = await page.evaluate(STATE);
+      check(session, "the mini player is portaled out of <main> (in <body>), fixed", m.miniInMain === false && m.miniPosition === "fixed", `inMain ${m.miniInMain} ${m.miniPosition}`);
+      check(session, "the mini player sits on the bottom lane (20px)", near(m.miniBottom, 20, 0.5), r1(m.miniBottom));
+    } else {
+      results.push({ session, name: "the mini player (audio did not play here — not exercised)", ok: true, detail: playBtn ? "no latch" : "no play button" });
+    }
+    check(session, "no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+    await ctx.close();
+  }
+  {
+    /* a deep link lands by scrolling the document (the reader is not a scroller) */
+    const session = "bakery?scroll=sync#history 390 gate";
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await ctx.addInitScript(GATE);
+    const page = await ctx.newPage();
+    const errors = errorsOf(page);
+    await page.goto(`${BASE}/bakery?scroll=sync#history`, { waitUntil: "load" });
+    await settle(page);
+    await sleep(700);
+    const s = await page.evaluate(STATE);
+    check(session, "data-scroll is sync", s.scroll === "sync", s.scroll || "(none)");
+    check(session, "#history lands at the top of the viewport (within 40px)", s.historyTop >= -2 && s.historyTop <= 40, r1(s.historyTop));
+    check(session, "the document scrolled there (the reader followed)", s.scrollY > 1000 && !!s.reader && near(s.reader.ty, -s.scrollY, 1), s.reader ? `scrollY ${s.scrollY} ty ${r1(s.reader.ty)}` : "absent");
+    check(session, "<body> is the cream (history is a cream ground)", s.bodyBg === CREAM, s.bodyBg);
+    check(session, "no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+    await ctx.close();
+  }
+  for (const variant of [
+    { q: "?scroll=sync", menuTop: 32, name: "the menu follows the rail's inset (runway)" },
+    { q: "", menuTop: 20, name: "the default keeps round 23's max() (unchanged)" },
+  ]) {
+    /* a top safe-area inset, as iOS 26 reports one once its bars have moved
+       in a scrolling document (round 41's read); emulated over CDP */
+    const session = `bakery${variant.q} 390 gate, top inset 12`;
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await ctx.addInitScript(GATE);
+    const page = await ctx.newPage();
+    const cdp = await ctx.newCDPSession(page);
+    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: { top: 12, right: 0, bottom: 0, left: 0 } });
+    await page.goto(`${BASE}/bakery${variant.q}`, { waitUntil: "load" });
+    await settle(page);
+    const s = await page.evaluate(STATE);
+    check(session, "the rail rides the top inset (12)", near(s.railTop, 12, 0.5), r1(s.railTop));
+    check(session, `${variant.name} — menu top ${variant.menuTop}`, near(s.menuTop, variant.menuTop, 0.5), r1(s.menuTop));
+    check(session, "the menu's right inset is the gutter (20)", near(s.menuRightGap, 20, 0.5), r1(s.menuRightGap));
+    await cdp.send("Emulation.setSafeAreaInsetsOverride", { insets: {} }).catch(() => {});
     await ctx.close();
   }
 } finally {
