@@ -331,9 +331,12 @@ for (const vp of VPS) {
         near(L.shell.top, L.canvas.top) && near(L.shell.bottom, L.canvas.bottom) && near(L.shell.left, L.canvas.left) && near(L.shell.right, L.canvas.right),
         `shell ${JSON.stringify(L.shell)} canvas ${JSON.stringify(L.canvas)}`,
       );
-      check("lens fill is the opaque page ground", L.fill === "rgb(29, 20, 17)", L.fill);
-      check("body follows the fill", L.body === "rgb(29, 20, 17)", L.body);
-      check("Mapbox controls hidden under the lens", L.ctrlOpacity === "0", `${L.ctrlOpacity}`);
+      /* Round 29: the see-through wash again — 70% black over the whole canvas
+         box; <body> takes the wash's result over the map's ground (#101010) so
+         Safari's tint matches the dimmed map; the controls stay (dimmed). */
+      check("lens wash is 70% black", L.fill === "rgba(0, 0, 0, 0.7)", L.fill);
+      check("body takes the dimmed-map colour", L.body === "rgb(16, 16, 16)", L.body);
+      check("Mapbox controls stay under the wash", L.ctrlOpacity === "1", `${L.ctrlOpacity}`);
       check("plate box inside the visible layer", !!L.box && L.box.top >= L.root.top - 0.5 && L.box.bottom <= L.root.bottom + 0.5, JSON.stringify(L.box));
       const png = await page.screenshot({ type: "png" });
       const { data, info } = await sharp(png).raw().toBuffer({ resolveWithObject: true });
@@ -343,8 +346,10 @@ for (const vp of VPS) {
       };
       const points = [[3, 3], [vp.w - 4, 3], [3, vp.h - 4], [vp.w - 4, vp.h - 4], [3, Math.round(vp.h / 2)], [vp.w - 4, Math.round(vp.h / 2)]];
       const samples = points.map(([x, y]) => px(x, y));
-      const one = samples.every((c) => Math.abs(c[0] - 29) <= 2 && Math.abs(c[1] - 20) <= 2 && Math.abs(c[2] - 17) <= 2);
-      check("one fill colour at every edge of the capture", one, samples.map((c) => c.join(",")).join(" | "));
+      /* Under the stub style the map is flat #353535, so every edge of the
+         capture must read the wash over it: 0.3 × 53 ≈ 16 on each channel. */
+      const one = samples.every((c) => Math.abs(c[0] - 16) <= 3 && Math.abs(c[1] - 16) <= 3 && Math.abs(c[2] - 16) <= 3);
+      check("one washed colour at every edge of the capture", one, samples.map((c) => c.join(",")).join(" | "));
       await page.evaluate(() => [...document.querySelectorAll("button")].find((b) => /back to today/i.test(b.textContent || ""))?.click());
       await page.waitForTimeout(1000);
       const after = await page.evaluate(() => ({

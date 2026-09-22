@@ -1833,10 +1833,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         rootRef.current = el;
         shellRef.current = el?.closest<HTMLElement>(".map-shell") ?? el;
       }}
-      /* v21 (round 27): `is-lens` while the lens is visible — the Mapbox
-         controls fade under the fill (global.css), and Base.astro's edge
-         sampler watches class changes, so <body> takes the fill's colour the
-         moment the lens opens even where no transition ends (reduced motion). */
+      /* v21 (round 27): `is-lens` while the lens is visible — Base.astro's
+         edge sampler watches class changes, so <body> takes the wash's colour
+         the moment the lens opens even where no transition ends (reduced
+         motion). Round 28 dropped the controls' fade that also hung off it. */
       className={`troymap-root relative h-full w-full bg-primary-2${lensVisible ? " is-lens" : ""}`}
       data-walk={focused && shellVisible ? "true" : "false"}
     >
@@ -1857,9 +1857,10 @@ export default function TroyMap({ stops, baseUrl }: Props) {
            canvas runs T above and E below it (the runways), and the bars are
            glass, so behind the address bar and the toolbar the live map showed
            undimmed while everything else was washed. The shell now covers the
-           CANVAS's box with one opaque fill — geometry and colour in global.css
-           (.map-shell .lens-shell) — and the runways come back as padding so
-           the plate, caption and door keep exactly the geometry they had. */
+           CANVAS's box — geometry and colour in global.css (.map-shell
+           .lens-shell) — and the runways come back as padding so the plate,
+           caption and door keep exactly the geometry they had. Round 28: the
+           colour is the original see-through 70% black again, at his word. */
         className="lens-shell absolute z-10 flex flex-col items-center justify-center"
         style={{
           opacity: lens ? 1 : 0,
@@ -1874,11 +1875,15 @@ export default function TroyMap({ stops, baseUrl }: Props) {
         aria-hidden={!lensVisible}
         /* v21 (round 27): Base.astro's edge sampler prefers the NEAREST
            declared edge colour over an element's own paint (v14.2), and the
-           map shell declares the canvas's grey — so the fill declares its own,
+           map shell declares the canvas's grey — so the wash declares its own,
            the way the curtain panel does. Closed, the shell is
-           pointer-events:none and the sampler never sees it. */
-        data-edge-top="#1d1411"
-        data-edge-bottom="#1d1411"
+           pointer-events:none and the sampler never sees it.
+           v21 (round 29): the wash is translucent again, and the sampler cannot
+           read a colour through it, so what it declares is the wash's result
+           over the map's ground — 70% black over #353535 = #101010 — and
+           Safari's bar tint matches the dimmed map rather than banding it. */
+        data-edge-top="#101010"
+        data-edge-bottom="#101010"
         /* v14 E25 (client): anything outside the plate closes the lens — the
            backdrop, the caption, the shell's own padding. A drag that starts
            ON the plate and ends outside must not: the box holds pointer

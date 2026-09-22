@@ -105,12 +105,16 @@ Three traps, all found in round 19, all transferable:
 4. **Anything meant to cover the map must cover the canvas's box, not the UI
    layer's.** The 1858 lens's wash covered the visible box only, so the bars
    showed the undimmed live map through the glass (round 27, found by Wil on
-   the device). The lens is now one opaque fill from `top: −T` to
-   `bottom: −E`, with the runways added back as padding so the content keeps
-   its geometry; the root takes an `is-lens` class so the edge sampler
-   re-samples (it watches class changes) and `<body>` and the bars read the
-   fill's colour; the Mapbox controls fade under it. Check every overlay
-   (scrims, hints, sheets) against the canvas's box, never the layer's.
+   the device). The lens's wash now runs from `top: −T` to `bottom: −E`,
+   with the runways added back as padding so the content keeps its geometry.
+   Round 27 tried an opaque fill; Wil wanted the see-through wash back
+   (round 29), which adds a rule of its own: **the sampler cannot read a
+   colour through a translucent element, and Safari still tints the bars from
+   `<body>`**, so a translucent overlay must declare the colour it RESULTS in
+   over what it covers (`data-edge-*`, here 70% black over the map's grey =
+   `#101010`), and the root takes an `is-lens` class so the sampler
+   re-samples at once. Check every overlay (scrims, hints, sheets) against
+   the canvas's box, never the layer's.
 
 Accepted geometry: the camera under a taller canvas is not pixel-identical
 to the flat one (pitch foreshortening), so pins move by up to ~10px between

@@ -1224,31 +1224,28 @@ h3 {
    70% black wash over the UI layer's box; the canvas is T taller above it and
    E below (the runways), and the bars are glass, so behind the address bar
    and the toolbar the live map showed undimmed while everything else was
-   washed. Now: ONE opaque fill, the page ground, over the CANVAS's box — the
-   same top/bottom as .map-canvas below — so the paint under both bars, and
-   <body> (the edge sampler follows an opaque element at the edge; the root's
-   `is-lens` class re-samples it), all read the same colour. The plate, the
-   caption and the door keep their geometry: TroyMap adds the runways back as
-   the shell's top and bottom padding. Everything else about the lens — the
-   fade, the close-on-outside, the focus handling — is unchanged. */
+   washed. Now the wash covers the CANVAS's box — the same top/bottom as
+   .map-canvas below — so the map behind both bars is dimmed exactly like the
+   map around the plate. The plate, the caption and the door keep their
+   geometry: TroyMap adds the runways back as the shell's top and bottom
+   padding. Everything else about the lens — the fade, the close-on-outside,
+   the focus handling — is unchanged.
+
+   v21 (round 29, Wil): round 27 made the fill OPAQUE (the page ground) and he
+   asked for the see-through wash back — "a bit of transparency to it so you
+   can see the map behind it just like before". So the wash is the original
+   70% black again, over the whole canvas box. Safari tints its bars from
+   <body>, and the sampler cannot read a colour through a translucent element,
+   so the shell declares the wash's own colour over the map's ground
+   (0.3 × #353535 = #101010) as its edge colour, and <body> takes it while the
+   lens is open — the tint then matches the dimmed map instead of drawing a
+   lighter band across it. The Mapbox logo and the (i) stay, dimmed under the
+   wash as they always were: the map is visible, so its attribution is owed. */
 .map-shell .lens-shell {
   inset: 0;
   top: calc(-1 * var(--map-t));
   bottom: calc(-1 * var(--map-e));
-  background: var(--color-primary-2);
-}
-/* The Mapbox logo and the (i) live inside the canvas, beneath the lens in
-   stacking order; they fade with it (520ms = LENS_FADE_MS) so nothing shows
-   through the fill, and return when it closes. Attribution is owed while the
-   map is shown; under the lens the map is fully covered. */
-.troymap-root .mapboxgl-ctrl-bottom-left,
-.troymap-root .mapboxgl-ctrl-bottom-right {
-  transition: opacity 520ms var(--ease);
-}
-.troymap-root.is-lens .mapboxgl-ctrl-bottom-left,
-.troymap-root.is-lens .mapboxgl-ctrl-bottom-right {
-  opacity: 0;
-  pointer-events: none;
+  background: rgb(0 0 0 / 0.7);
 }
 .map-shell .map-canvas {
   position: absolute;

@@ -1,0 +1,24 @@
+{
+  "round": 29,
+  "label": "/map — the 1858 lens's wash is see-through again, still edge to edge",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-29-plan.md",
+  "base": {
+    "tag": "client-round-29-base",
+    "commit": "df12705efb75c0ae27779e09cd6887016bd1e237",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/TroyMap.tsx",
+    "src/styles/global.css",
+    "scripts/map-framing.mjs",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/RUN-STATE.md",
+    "docs/rounds/2026-09-22-round-29-plan.md",
+    "docs/rounds/2026-09-22-round-29.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-22, on round 27's opaque fill: 'Should have a bit of transparency to it so you can see the map behind it just like before.' Round 27's geometry stays (the wash covers the canvas's box, runways included, so the bars are dimmed like the rest); its colour goes back to the original 70% black. Safari tints its bars from <body> and the edge sampler cannot read a colour through a translucent element, so the shell declares the wash's result over the map's ground (#101010) as its edge colour and <body> takes it while the lens is open — the tint then matches the dimmed map instead of banding it in grey. The Mapbox logo and (i) stay, dimmed under the wash as before round 27: the map is visible, so its attribution is owed. allowedRoutes is empty: the lens is closed at rest. Numbered 29: another session's round 28 (/paintings, the drawer expands on scroll) landed on v2 while this one ran; rebased onto it. Base df12705 = the v2 tip (that round's commit, live); no base branch is pushed, the SHA is the revert point."
+}

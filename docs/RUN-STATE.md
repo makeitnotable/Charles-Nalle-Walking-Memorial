@@ -7,6 +7,16 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Round 29 (`/map`, the 1858 lens's wash is see-through again, still edge to
+edge) is ON `v2` AND AWAITING WIL'S DEVICE PASS (2026-09-22).** On round 27's
+opaque fill he asked for "a bit of transparency to it so you can see the map
+behind it just like before": the colour is the original 70% black again over
+round 27's canvas-box geometry, the shell declares the wash's result over the
+map's ground (#101010) so Safari's `<body>` tint matches the dimmed map, and
+the Mapbox controls stay, dimmed. Plan: `docs/rounds/2026-09-22-round-29-plan.md`;
+playbook §2 rule 4 (a translucent overlay must declare its resulting colour).
+Numbered 29: another session's round 28 (`/paintings`) landed while this ran.
+Previous phase text follows.
 **Round 27 (`/map`, the 1858 lens is one fill edge to edge) is ON `v2` AND
 AWAITING WIL'S DEVICE PASS (2026-09-22).** From his screenshot with the lens
 open: the live map showed undimmed behind the address bar and the toolbar
