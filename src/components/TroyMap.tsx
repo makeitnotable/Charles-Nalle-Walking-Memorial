@@ -692,6 +692,11 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     const key = `${w}x${h}x${Math.round(mapE())}x${Math.round(t)}`;
     if (camCache.current?.key === key) return camCache.current.cam;
     const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+    /* Round 33: the door row sits on the BOTTOM lane (global.css --ui-inset-b,
+       the gutter above a gesture bar where a browser draws one over the page),
+       so the safe box's floor and the fit's bottom padding read that lane. It
+       equals --ui-inset wherever no bar is reported, so nothing here moves. */
+    const insetB = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset-b")) || inset;
     const b = new gl.LngLatBounds();
     stops.forEach((st) => b.extend(st.coordinates));
     const short = h < 560;
@@ -707,7 +712,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
        fit fell through to the blind OVERVIEW constant — zoom 15.25 on the raw
        centroid, pins 2 and 5 off the top (his screenshot 3). T is 0 wherever
        there are no bars, where this reduces to the old arithmetic exactly. */
-    const safe = { x0: inset, y0: t + inset + 56, x1: w - inset, y1: t + h - (inset + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
+    const safe = { x0: inset, y0: t + inset + 56, x1: w - inset, y1: t + h - (insetB + 12 + 52 + 12) }; // 52 = .btn min-height (V8-002)
     const labelRect = (pt: { x: number; y: number }, st: Stop) => {
       if (narrow) {
         /* v8 V8-207: phones carry pills now — model the pill's real box
@@ -880,7 +885,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
     if (!chosen && short) {
       const fit = map.cameraForBounds(b, {
         /* +E, for the same reason as the fit above. */
-        padding: { top: inset + 56 + mapT(), bottom: inset + 76 + mapE(), left: inset + 24, right: inset + 24 },
+        padding: { top: inset + 56 + mapT(), bottom: insetB + 76 + mapE(), left: inset + 24, right: inset + 24 },
         bearing: OVERVIEW.bearing,
         pitch: PITCHES[PITCHES.length - 1],
       } as Parameters<MapboxGL.Map["cameraForBounds"]>[1]);
@@ -1867,7 +1872,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
           pointerEvents: lens ? "auto" : "none",
           padding: "var(--ui-inset)",
           paddingTop: "calc(var(--ui-inset) + 4px + var(--map-t))",
-          paddingBottom: "calc(var(--ui-inset) + var(--map-e))",
+          paddingBottom: "calc(var(--ui-inset-b) + var(--map-e))",
           transition: `opacity ${lensFadeMs}ms var(--ease)`,
         }}
         /* Not raised until the fade is over: while it runs, focus is still on
@@ -2016,7 +2021,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
              routed through `--ui-inset` (20px at 360–640, 40px at 768–1024).
              Same position wherever the inset is 0; lifted clear of the home
              indicator where it is not. */
-          className="pointer-events-none absolute bottom-[calc(var(--ui-inset)+156px)] left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-[calc(var(--ui-inset)+108px)] [@media(max-height:560px)]:bottom-[calc(var(--ui-inset)+60px)] xl:bottom-[calc(var(--ui-inset)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
+          className="pointer-events-none absolute bottom-[calc(var(--ui-inset-b)+156px)] left-1/2 z-20 w-max max-w-[86vw] -translate-x-1/2 sm:bottom-[calc(var(--ui-inset-b)+108px)] [@media(max-height:560px)]:bottom-[calc(var(--ui-inset-b)+60px)] xl:bottom-[calc(var(--ui-inset-b)+16px)] xl:left-[calc(var(--ui-inset)+36px)] xl:translate-x-0"
           aria-hidden="true"
         >
           <div
@@ -2090,7 +2095,7 @@ export default function TroyMap({ stops, baseUrl }: Props) {
               other one); the buttons ride above it. */}
           <div
             className="map-scroll-handle absolute right-0 bottom-0 left-0 z-10 sm:hidden"
-            style={{ height: "calc(var(--ui-inset) + 84px)", touchAction: "pan-y" }}
+            style={{ height: "calc(var(--ui-inset-b) + 84px)", touchAction: "pan-y" }}
             aria-hidden="true"
           >
             {/* v14.3 (Wil, 9/16, item 5): the small orange down-arrow glyph

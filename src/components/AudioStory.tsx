@@ -445,7 +445,7 @@ export default function AudioStory({
         typeof document !== "undefined" &&
         createPortal(
         <div
-          className="fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999]"
+          className="fixed bottom-[var(--ui-inset-b)] left-[var(--ui-inset)] z-[999]"
           style={{
             opacity: mainVisible ? 0 : 1,
             pointerEvents: mainVisible ? "none" : "auto",

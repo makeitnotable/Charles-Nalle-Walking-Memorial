@@ -1073,12 +1073,19 @@ const focus =
   .chapter-hero-h1 {
     --hero-lockup-slack: 0.073em;
   }
+  /* Round 33 (Wil's Pixel 6 shot of this hero): where a browser draws a
+     gesture bar over the page's bottom edge (Chrome for Android, 24px on his
+     phone), the hero's bottom edge is the screen's edge and the title's ink
+     stood 23px from it — 9px above the pill. The bar is that browser's
+     toolbar, so the inset is measured from ITS top edge: --gesture-bar
+     (global.css) is added to every tier. It is 0 on iOS and wherever no bar
+     is reported, so those are byte for byte the rules above. */
   .hero-lockup-shell {
-    padding-bottom: max(5svh, 32px);
+    padding-bottom: calc(max(5svh, 32px) + var(--gesture-bar));
   }
   @media (max-width: 767px) {
     .hero-lockup-shell {
-      padding-bottom: var(--gutter);
+      padding-bottom: calc(var(--gutter) + var(--gesture-bar));
     }
     .hero-lockup-shell .chapter-hero-h1 {
       margin-bottom: calc(-1 * var(--hero-lockup-slack));
@@ -1088,7 +1095,7 @@ const focus =
     @media (min-width: 768px) and (max-width: 1023px) {
       .hero-lockup-shell {
         --hero-bars: clamp(0, tan(atan2(100lvh - 100svh, 1px)), 1);
-        padding-bottom: calc(max(5svh, 32px) * (1 - var(--hero-bars)) + var(--gutter) * var(--hero-bars));
+        padding-bottom: calc(max(5svh, 32px) * (1 - var(--hero-bars)) + var(--gutter) * var(--hero-bars) + var(--gesture-bar));
       }
       .hero-lockup-shell .chapter-hero-h1 {
         margin-bottom: calc(-1 * var(--hero-bars) * var(--hero-lockup-slack));

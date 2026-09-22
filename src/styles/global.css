@@ -1351,7 +1351,7 @@ h3 {
 @media (min-width: 1280px) {
   .mapboxgl-scroll-zoom-blocker {
     top: auto !important;
-    bottom: calc(var(--ui-inset) + 16px) !important;
+    bottom: calc(var(--ui-inset-b) + 16px) !important;
     left: calc(var(--ui-inset) + 36px) !important;
     transform: none !important;
   }
@@ -1370,9 +1370,12 @@ h3 {
 /* v14.5 (round 8 §5.3): these live inside the canvas, which now runs E below
    the UI layer, so they take E back — the Mapbox logo and the attribution are
    a licence condition and must stay visible. E is 0 everywhere else. */
+/* Round 33: the bottom edge takes the bottom lane (--ui-inset-b, the gutter
+   above a gesture bar; --ui-inset everywhere else), as every bottom-anchored
+   control does from here on. */
 .map-shell .mapboxgl-ctrl-bottom-left,
 .map-shell .mapboxgl-ctrl-bottom-right {
-  padding-bottom: calc(var(--ui-inset) + var(--map-e));
+  padding-bottom: calc(var(--ui-inset-b) + var(--map-e));
 }
 /* v18 (round 19, Wil's screenshot 2): the walk door's gap to the toolbar.
    On phones the door's bottom sat --ui-inset + 10px above the layout
@@ -1405,12 +1408,15 @@ h3 {
   inherits: true;
   initial-value: 20px;
 }
+/* Round 33: on the bottom lane — inset − 4 and inset + 12 as before, with the
+   inset being the gutter above a gesture bar where a browser draws one over
+   the page (--ui-inset-b), and --ui-inset itself everywhere else. */
 :root {
-  --map-lane: calc(var(--ui-inset) + var(--map-door-lift));
+  --map-lane: calc(var(--ui-inset-b) + var(--map-door-lift));
 }
 @media (min-width: 640px) {
   :root {
-    --map-lane: calc(var(--ui-inset) + 12px);
+    --map-lane: calc(var(--ui-inset-b) + 12px);
   }
 }
 .map-walk-door {
@@ -1859,6 +1865,41 @@ a.walk-seg:hover {
   inherits: true;
   initial-value: 20px;
 }
+/* Round 33 (Wil, 2026-09-22, four Pixel 6 screenshots): the BOTTOM lane, and
+   the gesture bar it clears. Chrome for Android (135+, Android 15+, gesture
+   navigation) draws the page to the screen's bottom edge and reports the
+   gesture bar — 24px on his Pixel 6, the pill drawn 10–14px from the edge —
+   as env(safe-area-inset-bottom) the whole time. --ui-inset's max() then
+   resolves to 24 and stands every bottom control's box ON the bar's top edge,
+   10px from the pill: measured from his shots, the 1858 door's box at 24.0px
+   from the edge, the museum counter's ink at 28.6, the hero title's ink at
+   23.2 (it sits on the raw gutter), the splash frame's border at 10.7 —
+   under the pill — against a pill top at 13.7. The max() was measured right
+   on iOS, where the inset is 0 with the toolbar up (the toolbar is the floor
+   and the lane sits 16–38px above it) and 34 only once it collapses, which
+   is already 21px clear of the indicator (playbook §1) — so that lane stays
+   exactly as it is. Here the bottom lane is the gutter ABOVE the bar. Gated
+   the way every iOS-only rule is gated (playbook §1: CSS, never the UA),
+   inverted: on every engine but iOS's, --gesture-bar is the reported bottom
+   inset and --ui-inset-b is max(--ui-inset, gutter + bar). Wherever no bar is
+   reported — every desktop, Android with three-button navigation, older
+   Chrome, this QA container — both reduce to today's values byte for byte,
+   which is what qa:snap holds at 0 drift; on iOS the @supports block never
+   matches and the two lines in :root below are the whole story. Registered
+   as <length>s so parseFloat readers (TroyMap's camera) and calc() consumers
+   get a resolved px, the --ui-inset lesson above. `npm run qa:gesture`
+   measures every consumer with a 24px bar emulated (scripts/gesture-bar.mjs);
+   /glass-lab prints the three tokens on a device. */
+@property --gesture-bar {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --ui-inset-b {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
 /* v14.5 (round 8 §5.3): same reason as --ui-inset above, and it bit once —
    TroyMap reads this with parseFloat to give Mapbox its bottom padding, and
    while it was unregistered the computed value was the literal token
@@ -1907,6 +1948,20 @@ a.walk-seg:hover {
     env(safe-area-inset-bottom, 0px),
     env(safe-area-inset-left, 0px)
   );
+  /* Round 33: the bottom lane defaults to the shared lane. iOS, and every
+     engine that reports no bottom inset, are these two lines and nothing
+     else — see @property --gesture-bar above. */
+  --gesture-bar: 0px;
+  --ui-inset-b: var(--ui-inset);
+}
+/* Round 33: every engine but iOS's — the inverse of the runway's gate. A
+   reported bottom inset here is a gesture bar drawn over the page, so the
+   bottom lane is the gutter above it; 0 reported, and both are today's. */
+@supports not (-webkit-touch-callout: none) {
+  :root {
+    --gesture-bar: env(safe-area-inset-bottom, 0px);
+    --ui-inset-b: max(var(--ui-inset), calc(var(--gutter) + var(--gesture-bar)));
+  }
 }
 
 /* The menu panel is a dialog, not a peer of whatever is behind it. Over the
@@ -1943,7 +1998,7 @@ a.walk-seg:hover {
 /* The panel can never be taller than the window — at 844×390 it measured 358px
    in a 390px viewport and covered the entire map stage plus its controls. */
 .cnwm-menu-panel {
-  max-height: calc(100dvh - 2 * var(--ui-inset));
+  max-height: calc(100dvh - var(--ui-inset) - var(--ui-inset-b));
   overscroll-behavior: contain;
 }
 /* v9 V9-303 (Wil, 8/21: "a double divider/line below the close icon"). On a
@@ -2941,7 +2996,7 @@ html[data-scroll="sync"] #runway > .runway-cap {
    9/16) restores the stroke on the SHEET alone ("tablet + mobile"); the card
    stays as E12 left it. */
 .museum-card {
-  max-height: calc(100dvh - 2 * var(--ui-inset));
+  max-height: calc(100dvh - var(--ui-inset) - var(--ui-inset-b));
 }
 /* v12: on a LANDSCAPE PHONE the stage is only ~390px tall and the card must
    not swallow it — v8 set the bar at 55% of the stage, and the official
@@ -2988,7 +3043,10 @@ html[data-scroll="sync"] #runway > .runway-cap {
    portrait tablet — the stroke absorbs the cap overshoot. Nothing here
    changes. */
 .museum-sheet[data-state="peek"] .museum-sheet-head {
-  padding-bottom: calc(var(--ui-inset) + 1px);
+  /* Round 33: one bottom lane from the stage's edge — the gutter above a
+     gesture bar where there is one, the inset itself everywhere else.
+     sheetTravel() reads the header's live height, so peek follows. */
+  padding-bottom: calc(var(--ui-inset-b) + 1px);
 }
 .museum-sheet[data-state="peek"] .museum-sheet-head .t-title-sm {
   text-box-trim: trim-both;

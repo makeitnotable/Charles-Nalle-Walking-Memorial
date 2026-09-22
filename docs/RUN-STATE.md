@@ -7,6 +7,29 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Round 33 (the bottom lane under Android's gesture bar) is ON `v2` — LIVE —
+AND AWAITING WIL'S DEVICE PASS ON THE PIXEL 6 AND THE IPHONE (2026-09-22).**
+Shipped at his instruction ("push them to the live site we are shipping to
+the client"); it had gone to the review branch first (playbook rule 4). From his four
+Pixel 6 (Chrome) screenshots: Chrome draws the page to the screen's edge and
+reports the 24px gesture bar as `env(safe-area-inset-bottom)`, so `--ui-inset`'s
+`max()` is 24 and every bottom control's box stands on the bar's top edge, 10px
+above the pill (the 1858 door's box at 24.0, the museum counter's ink at 28.6,
+the hero title's ink at 23.2, the splash frame's border at 10.7 — measured from
+the shots at 2.625). Now a bottom lane, `--ui-inset-b` = `max(--ui-inset,
+gutter + --gesture-bar)`, defined only under `@supports not
+(-webkit-touch-callout: none)` — iOS and every engine with no reported bar are
+byte-identical — and every bottom-anchored control reads it; the splash frame
+and the hero lockup add the bar. Plan:
+`docs/rounds/2026-09-22-round-33-plan.md`; playbook §12; DECISIONS.md.
+Instrument `npm run qa:gesture` (a 24px bar emulated over CDP at 412×819: 86
+checks, 0 failed; with no bar every number is today's); `qa:framing` T=0 and
+T=110/E=129 unchanged; `qa:snap` 36/36 at 0 drift; `astro check` 0/0;
+`qa:scope` clean; all re-run on the rebase. Numbered 33: another session's
+rounds 31 (`/paintings`, the drawer's X) and 32 (the ship's docs) landed on
+`v2` while this one ran; rebased onto each, then onto round 23's device pass 16 (a third
+session), base `042518b`.
+Previous phase text follows.
 **`/paintings` IS SIGNED OFF — Wil, 2026-09-22, on round 31: "As far as I
 can see paintings page is done, push to master and live site and document
 everything." Rounds 24–31 are closed. SHIPPED (round 32, docs only): the

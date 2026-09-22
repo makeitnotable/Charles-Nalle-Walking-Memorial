@@ -1645,6 +1645,10 @@ const TESTS: Test[] = [
      they travel at the top level of the copied results. */
   function probeSnapshot() {
     const h = (id: string) => Math.round($(id).getBoundingClientRect().height * 100) / 100;
+    /* Round 33: the lane tokens as the page resolves them (registered
+       lengths, so these are px). On Chrome for Android with a gesture bar,
+       --gesture-bar is the bar and --ui-inset-b the gutter above it. */
+    const cs = (p: string) => getComputedStyle(document.documentElement).getPropertyValue(p).trim();
     const lvh = h("gl-p-lvh");
     const svh = h("gl-p-svh");
     return {
@@ -1656,6 +1660,9 @@ const TESTS: Test[] = [
       "lvh - svh (both bars)": Math.round((lvh - svh) * 100) / 100,
       "safe-area-inset-top": h("gl-p-sat"),
       "safe-area-inset-bottom": h("gl-p-sab"),
+      "--ui-inset": cs("--ui-inset"),
+      "--ui-inset-b (bottom lane)": cs("--ui-inset-b"),
+      "--gesture-bar": cs("--gesture-bar"),
       innerHeight,
       clientHeight: document.documentElement.clientHeight,
       screenH: screen.height,

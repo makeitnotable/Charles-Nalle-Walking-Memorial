@@ -399,3 +399,47 @@ instrument `npm run qa:runway`.*
   rows from the drawer's top edge down whenever the drawer covers the
   stage's bottom edge. The rule: a pinned stage's edge-anchored UI needs a
   continuation in the runway, or it reads as a card floating in the scene.
+
+## 12 · Android's gesture bar (round 33)
+
+*Round 33 (2026-09-22), Wil's four Pixel 6 screenshots in Chrome with gesture
+navigation, read row by row at the phone's own 1080×2400 (1 CSS px = 2.625
+device px). Plan: `docs/rounds/2026-09-22-round-33-plan.md`; instrument
+`npm run qa:gesture`.*
+
+| Pixel 6, Chrome, address bar at the top, at rest | CSS px |
+|---|---|
+| Page area (toolbar's foot → screen's bottom edge) = `100svh` = `100dvh` | 819 |
+| Gesture bar, reported as `env(safe-area-inset-bottom)` the whole time | 24 |
+| The pill, from the screen's edge (top / bottom) | 13.7 / 9.9 |
+| `100lvh − 100svh` — Chrome's toolbar collapses, so this is NOT 0 here (the toolbar between the status bar and the page is ≈ 47 in his shots); `--map-t`/`--map-e` are 0 on Android only because the runway is gated on iOS, not because the pair self-zeroes (§2 overstates that) | ≈ 47 |
+
+- **The page runs to the screen's edge, under the bar, and the bar is reported
+  the whole time.** Unlike Safari, whose toolbar is the floor at rest (inset 0)
+  and whose indicator is reported only once the toolbar collapses (34, already
+  21px clear of the indicator), Chrome's floor is a 24px bar with a pill drawn
+  in it — and `--ui-inset`'s `max(gutter, insets)` resolves to 24, which stands
+  every bottom control's box ON the bar's top edge, 10px above the pill.
+  Anything on the raw gutter (the hero title, 23.2) or a smaller constant (the
+  splash frame, 10.7) sits inside the bar.
+- **The rule: where a browser draws a gesture bar over the page, the bottom
+  lane is the gutter ABOVE the bar.** `--gesture-bar` (the reported bottom
+  inset) and `--ui-inset-b` (`max(--ui-inset, gutter + bar)`) exist only under
+  `@supports not (-webkit-touch-callout: none)` — the inverse of every iOS
+  gate — and are 0 / `--ui-inset` everywhere else, so iOS and every engine with
+  no reported bar are byte-identical. Every bottom-anchored control reads
+  `--ui-inset-b`; the top and sides stay on `--ui-inset` (24 on the Pixel, as
+  before). A new bottom control takes `--ui-inset-b`, never `--ui-inset`; a
+  box whose bottom edge is the screen's edge (a `100svh` hero, a `100dvh`
+  frame) adds `--gesture-bar` to its own bottom inset.
+- **Measure it here with a real inset.** Chromium's DevTools protocol emulates
+  safe-area insets (`Emulation.setSafeAreaInsetsOverride`; `env()` reads the
+  override, before and after a reload — measured), so `scripts/gesture-bar.mjs`
+  stands the site at the Pixel's page box (412×819) with a 24px bar and with
+  none, and reads every consumer both ways: with none, today's numbers; with
+  the bar, the lane's. This is the first instrument here that sees a safe-area
+  inset for real (RUN-STATE's older note — "Chromium reports no safe-area
+  insets" — is true of the default context only).
+- **Chrome with its address bar at the bottom** was not measured: there the
+  page reaches the bar only when that toolbar collapses, so the inset — and
+  the lane — moves with it (20 → 44), the counterpart of the 14px shift in §10.
