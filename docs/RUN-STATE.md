@@ -28,7 +28,7 @@ The `main` mirror is refreshed the way round 32 established — a merge
 commit carrying this tip's tree, pushed as a fast-forward — and
 `release/2026-09-22` moved to this tip; when this round was written the
 remote held `main` at `f1a0e22` (the round-37 mirror) and
-`release/2026-09-22` at `e38460d`; the deploy runs and the mirror's parents are recorded by the round's second push (docs only, as round 37 did), which is the tip the mirror carries. Every page Wil reviewed — `/map`,
+`release/2026-09-22` at `e38460d`; the `v2` push's deploy run (300, success) published the tree, and nothing else was pushed until it finished (round 37's lesson: the workflow's cancel-in-progress concurrency); this second push, docs only, is the tip the mirror carries — a merge commit with parents `f1a0e22` and this tip, pushed as a fast-forward, and `release/2026-09-22` moved to the same tip. Every page Wil reviewed — `/map`,
 `/paintings`, the Android bottom lane and now the chapter pages — is signed
 off. Open: round 39 (the map to the museum's Mapbox account) on a local
 branch until the token is allowed through GitHub's secret-scanning rule.

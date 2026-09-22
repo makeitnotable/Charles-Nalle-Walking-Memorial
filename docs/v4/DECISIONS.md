@@ -588,7 +588,9 @@ at `f1a0e22` (the round-37 mirror, tree = `e38460d`) and
 `release/2026-09-22` at `e38460d`; the tip this mirror carries: rounds
 38–44 (the chapter pages restored to round 23's close, then the runway as
 the phone default, with the record) on top of everything round 37 shipped.
-Revert as above.
+The `v2` push's run (300, success) published the tree; the mirror is built
+from the round's second push (docs only, the run record) after its own run
+finished, so `main` never races the site's own deploy. Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
