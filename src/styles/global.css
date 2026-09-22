@@ -2765,7 +2765,9 @@ html[data-scroll="inner"] #hero {
    never paints beyond the viewport — playbook §1). The still document
    remains the default on wider screens (the iPad's toolbar never
    collapses) and behind `?scroll=inner`; `?scroll=doc` is the document
-   scroller with pass 7's cover. Phones only, by width, in the head script. */
+   scroller with pass 7's cover. Phones only — told from the screen's shorter
+   side in the head script, never the viewport, which iOS reports as 980px
+   until the viewport meta is parsed (pass 14). */
 html[data-scroll="sync"] main#main {
   position: fixed;
   top: 0;

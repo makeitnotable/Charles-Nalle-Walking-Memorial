@@ -145,8 +145,15 @@ const canonical = new URL(
                the chapter rides in a fixed <main> moved by the compositor;
                see the script after <main> and global.css); wider screens —
                the iPad, whose toolbar never collapses — keep the still
-               document. `?scroll=sync|inner|doc` overrides. */
-            document.documentElement.dataset.scroll = window.innerWidth < 768 ? "sync" : "inner";
+               document. `?scroll=sync|inner|doc` overrides. Pass 14: the
+               phone is told from the SCREEN, not the viewport — this script
+               runs before the viewport meta is parsed, and until then iOS
+               reports a 980px innerWidth, which sent his phone to the still
+               document (his crop of 9/22: text under the toolbar's glass).
+               The screen's shorter side is 390–440 on every iPhone and 744+
+               on every iPad. */
+            document.documentElement.dataset.scroll =
+              Math.min(window.screen.width || 0, window.screen.height || 0) < 700 ? "sync" : "inner";
         } catch (e) {}
       })();
     </script>

@@ -115,6 +115,10 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, device pass 14 (2026-09-22): his crop showed the still document
+still on (text under the toolbar) — the head script's `innerWidth < 768`
+read iOS's pre-meta 980 and chose `inner`. The gate now reads the screen's
+shorter side (< 700 → the runway). Pass-13 record follows.
 Round 23 reopened, device pass 13 (2026-09-22): "the bottom toolbar should
 automatically hide when the user scrolls down and reappear when the user
 scrolls up." Safari collapses bars only on document scroll, so phones now
