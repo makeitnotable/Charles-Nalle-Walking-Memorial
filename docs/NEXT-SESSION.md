@@ -2,10 +2,11 @@
 
 The Charles Nalle Walking Memorial — a static Astro site for the Hart Cluett
 Museum (Troy, NY), paired with bronze QR plaques. **v7 "The Last Ten Percent"
-completed 2026-08-16** at commit `443c6d7`; **client rounds 1–37 followed
-(2026-09-15 → 09-22): `/map`, `/paintings` (rounds 24–31 and 36) and the
+completed 2026-08-16** at commit `443c6d7`; **client rounds 1–44 followed
+(2026-09-15 → 09-22): `/map`, `/paintings` (rounds 24–31 and 36), the
 bottom lane under Android's gesture bar (round 33, the first Android review)
-signed off 2026-09-22 and
+and the chapter pages under Safari's bars (rounds 23 and 38–44: the runway
+on phones, the still document on iPads) signed off 2026-09-22 and
 shipped as the branch `release/2026-09-22`, with `main` carrying `v2`'s tree
 (refreshed at each sign-off)** — `docs/RUN-STATE.md` has the
 state, `docs/rounds/` every round, `docs/HANDOVER.md` §10 the client-facing

@@ -356,6 +356,26 @@ head script's default assigns `"sync"` (one word); reject → A, the code
 removed as round 42 did. **Revert** of round 43: `git reset --hard
 client-round-43-base` (= `833e382`).
 
+**Approved 9/22 (round 44).** Wil, on the Bakery under the flag, live: "As
+far as i can see the way everything works on the bakery page is how it
+should work on every chapter page. As far as I am concerned, this is done
+push to master and live site and document everything and the final version
+that we are shipping to the client accordingly and to best practices."
+**The runway is the chapter default on phones** — the head script's default
+branch assigns `"sync"` where the screen's shorter side is under 700 (every
+iPhone; told from the screen, never the viewport, which iOS reports as 980
+before the meta is parsed — round 23 pass 14's gate) — **and iPads keep the
+still document** (`"inner"`, 744+): their toolbar never collapses, so the
+runway would cost its one-frame placement for nothing, and the still
+document is what he approved on 9/19. `?scroll=sync|inner|doc` override on
+one page load. The instrument's default checks moved with it (`qa:still`:
+the runway on all five chapters, the still document under `?scroll=inner`).
+Shipped by the same round: the handover's changelog (version 1.4), this
+log's "Ship" refresh, the playbook's §3 closed, the `main` mirror and
+`release/2026-09-22` refreshed to the tip. **Revert** to the still document
+on phones: make that branch assign `"inner"` unconditionally (one word), or
+`git reset --hard client-round-44-base` (= `abb2934`) and push `v2`.
+
 **Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
 pass 17's tree back. To choose another mode as the chapter default, make the
 `else if (…) dataset.scroll = "inner"` branch in the head flags script
@@ -553,6 +573,22 @@ in the mirror commit's own message), pushed to `main` as a fast-forward, and
 remote held `main` at `d3d827d` (the round-35 mirror) and `release/2026-09-22`
 at `e606214`; the tip this mirror carries: round 36 on top of everything
 round 35 shipped. Revert as above.
+
+**Refreshed 2026-09-22, round 44, for the chapter pages' sign-off.** Wil,
+on round 43 live under the flag: "As far as i can see the way everything
+works on the bakery page is how it should work on every chapter page. As
+far as I am concerned, this is done push to master and live site and
+document everything and the final version that we are shipping to the
+client accordingly and to best practices." The same procedure: a merge
+commit whose tree is round 44's `v2` tip's, its parents `main`'s tip at the
+moment of the push and that `v2` tip (both named in the mirror commit's own
+message), pushed to `main` as a fast-forward, and `release/2026-09-22`
+moved to the same tip. When this round was written the remote held `main`
+at `f1a0e22` (the round-37 mirror, tree = `e38460d`) and
+`release/2026-09-22` at `e38460d`; the tip this mirror carries: rounds
+38–44 (the chapter pages restored to round 23's close, then the runway as
+the phone default, with the record) on top of everything round 37 shipped.
+Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)

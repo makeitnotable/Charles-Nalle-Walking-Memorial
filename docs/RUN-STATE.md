@@ -7,8 +7,36 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**THE CHAPTER PAGES ARE SIGNED OFF — Wil, 2026-09-22, on round 43 live
+under the flag: "As far as i can see the way everything works on the bakery
+page is how it should work on every chapter page. As far as I am concerned,
+this is done push to master and live site and document everything and the
+final version that we are shipping to the client accordingly and to best
+practices." SHIPPED (round 44, base `abb2934`): the runway is the chapter
+default on phones (the head script's default branch assigns `"sync"` where
+the screen's shorter side is under 700 — round 23 pass 14's gate — and
+`"inner"` on iPads, whose toolbar never collapses; one line of code), the
+instrument's default checks moved with it (`qa:still`: the runway on all
+five chapters, the still document under `?scroll=inner`, the deep links,
+the iPad, the flags, the inset both ways — 296 checks, 0 failed), and the record: the
+handover's changelog takes the chapter pages in the museum's language
+(`docs/HANDOVER.md` §10, version 1.4), DECISIONS.md the approval and the
+"Ship" refresh, playbook §3 the final rule, `docs/NEXT-SESSION.md` the
+count, the round-43 plan its Closed section. Gates on this tree: build +
+`check-css`; `astro check` 0 errors, 0 warnings; `qa:scope` clean; `qa:snap` 36/36, 0 drift.
+The `main` mirror is refreshed the way round 32 established — a merge
+commit carrying this tip's tree, pushed as a fast-forward — and
+`release/2026-09-22` moved to this tip; when this round was written the
+remote held `main` at `f1a0e22` (the round-37 mirror) and
+`release/2026-09-22` at `e38460d`; the deploy runs and the mirror's parents are recorded by the round's second push (docs only, as round 37 did), which is the tip the mirror carries. Every page Wil reviewed — `/map`,
+`/paintings`, the Android bottom lane and now the chapter pages — is signed
+off. Open: round 39 (the map to the museum's Mapbox account) on a local
+branch until the token is allowed through GitHub's secret-scanning rule.
+Revert of round 44: `git reset --hard client-round-44-base` (= `abb2934`).
+Previous phase text follows.**
 **ROUND 43 — THE RUNWAY, BEHIND `?scroll=sync`, ON `v2` FOR HIS DEVICE
-PASS; THE DEFAULT (ROUND 38, THE STILL DOCUMENT) UNTOUCHED.** Wil, after
+PASS; THE DEFAULT (ROUND 38, THE STILL DOCUMENT) UNTOUCHED — approved, see
+round 44.** Wil, after
 round 42: "Can we have everything stay the same but will it work where the
 bottom toolbar will disappear on scroll down … I don't mind if the bottom
 toolbar has to have a solid fill … the same way on the address bar." Told
@@ -375,6 +403,10 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 44 (2026-09-22): round 43 approved on the Bakery — the runway is the
+phone default (iPads keep the still document), the instrument's defaults
+moved, the record written (handover 1.4), `main` and `release/2026-09-22`
+refreshed. The chapter pages are done. Round-43 record follows.
 Round 43 (2026-09-22): the runway behind `?scroll=sync` for his phone
 ("Fine! Let's try it") — both bars collapse and return, the top bar keeps
 its solid section colour (and shrinks and grows with the toolbar, told and
@@ -615,6 +647,13 @@ scrub lifts it 60px once the page moves, which is what a scrolled shot
 shows), the bottom toolbar's tint residue, the menu holding still.
 
 ## NEXT ACTION
+Nothing open on the chapter pages. If Wil reports anything on the other
+four chapters (the same template, the same gate: the Bakery was his read),
+it is a new round from the `v2` tip with a device pass per push. Round 39
+(the map to the museum's Mapbox account, `hartcluettmuseum`) is committed
+on the local branch `claude/round-39-mapbox` and waits on the token being
+allowed at GitHub's secret-scanning link; once allowed, rebase it onto the
+`v2` tip, re-run the gates and push. Earlier text follows.
 Wil's device pass on round 43: `/bakery?scroll=sync` — scroll down (both
 bars collapse; the page follows the finger a frame late), scroll up (the
 toolbar returns over a solid fill, the top bar solid in the section's

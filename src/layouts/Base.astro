@@ -140,13 +140,22 @@ const canonical = new URL(
             CSS.supports("-webkit-touch-callout", "none")
           )
             /* Round 43 (Wil, 2026-09-22: "Fine! Let's try it"): the RUNWAY of
-               round 23's pass 13 is back behind `?scroll=sync` — the document
-               scrolls a solid runway so Safari's bars collapse and return,
-               and the chapter rides in a fixed <main> moved by the compositor
-               (the script after <main>, and global.css). The flag only: the
-               default here is still the still document he approved, on every
-               iOS chapter route, until his read on the phone says otherwise. */
-            document.documentElement.dataset.scroll = "inner";
+               round 23's pass 13 is back — the document scrolls a solid
+               runway so Safari's bars collapse and return, and the chapter
+               rides in a fixed <main> moved by the compositor (the script
+               after <main>, and global.css). Round 44 (Wil, on the Bakery
+               under the flag: "the way everything works on the bakery page
+               is how it should work on every chapter page … this is done"):
+               THE DEFAULT on phones. The phone is told from the SCREEN's
+               shorter side (390–440 on every iPhone, 744+ on every iPad),
+               never the viewport — this script runs before the viewport
+               meta is parsed, and until then iOS reports a 980px innerWidth
+               (round 23, pass 14). An iPad keeps the still document he
+               approved on 9/19: its toolbar never collapses, so the runway
+               would cost its one-frame placement for nothing. `?scroll=`
+               overrides on one page load: `sync`, `inner`, `doc`. */
+            document.documentElement.dataset.scroll =
+              Math.min(window.screen.width || 0, window.screen.height || 0) < 700 ? "sync" : "inner";
         } catch (e) {}
       })();
     </script>

@@ -2,7 +2,7 @@
 
 **For:** Rensselaer County Historical Society / Hart Cluett Museum, Troy NY
 **From:** Notable / WBM Enterprises
-**Version:** 1.3 · 22 September 2026
+**Version:** 1.4 · 22 September 2026
 
 This is the museum's operating manual for the memorial website. It is written
 for a non-technical reader. Nothing in it requires knowing how to code.
@@ -284,6 +284,46 @@ Stated plainly so nobody inherits a surprise.
 ---
 
 ## 10 · Changelog
+
+**22 September 2026 — the chapter pages under Safari's bars (client rounds 23 and 38–44; signed off 22 Sep: "the way everything works on the bakery page is how it should work on every chapter page … this is done")**
+
+The five chapter pages — Bakery, Commissioner, Mansion, Ferry, Barbershop —
+were reviewed on Wil's iPhone under the new Safari, whose address bar and
+toolbar are glass over the page. What he asked for, and what shipped:
+
+- **The area behind the address bar is a solid colour, the colour of the
+  section on screen, changing as you scroll.** Safari paints that area from
+  the page's background, so the page keeps its background set to the colour
+  of whatever section is at the top of the screen. On the phone the page
+  scrolls a plain runway of that colour underneath the chapter, which is
+  drawn on top of it and moved with your finger; that is what keeps the
+  bar's fill solid and lets the toolbar behave normally.
+- **The bottom toolbar hides as you scroll down and returns as you scroll
+  up**, the way it does on any website. It returns over a solid fill in the
+  same colour. The address bar shrinks and grows with it; that is Safari's
+  own animation and cannot be separated from the toolbar hiding.
+- **The corner menu holds its place** while the bars move, and the thin
+  progress bar stays at the top edge.
+- **On an iPad** the bars never move, so the chapter scrolls inside the
+  page with the bars expanded and the same solid colour behind the address
+  bar — the version approved on 19 September.
+
+How it got here, for the record: the solution of 19 September (the chapter
+scrolling inside the page, bars fixed) was approved, then a day of attempts
+to make the toolbar hide broke the pages and was reverted to the approved
+version (round 38); two flagged trials followed on the phone (rounds 40–43),
+and the runway was the one approved. Every round has a written scope, a
+revert point and a device pass; the rules are in
+`docs/PLAYBOOK-MOBILE-CHROME.md` and the record in `docs/rounds/`.
+
+What was verified without a phone, for every round: type-check and build,
+36 screenshots across three widths at 0 drift, a permanent instrument for
+the chapter pages (`npm run qa:still`: both defaults on all five chapters,
+with the phone's bars and safe areas stood in), and the scope gate. What the
+phone alone could verify, Wil verified.
+
+**Shipped as:** the `v2` tip at this date, carried by `main` and marked by
+the branch `release/2026-09-22`, both refreshed for this sign-off (round 44).
 
 **22 September 2026 — Android phones: every screen keeps its margin above the gesture bar (client round 33; signed off 22 Sep: "As far as i can see these edits are done")**
 

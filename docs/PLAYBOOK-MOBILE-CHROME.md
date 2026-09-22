@@ -386,10 +386,20 @@ only one.
   still document, closed at round 38. The runway (round 23 passes 13–16)
   is the variant he said he liked — both bars collapsing, the toolbar's
   region a solid fill — should the ask return.** **It did (round 43): the
-  runway is back behind `?scroll=sync` for his phone, with the rail moved
+  runway came back behind `?scroll=sync` for his phone, with the rail moved
   out of the moving box at runtime, the mini player portaled in that mode
   only and the menu on the rail's inset; the top bar's size change was
-  stated and accepted. His read decides the default.**
+  stated and accepted. Approved on the Bakery, live ("the way everything
+  works on the bakery page is how it should work on every chapter page …
+  this is done"): round 44 made THE RUNWAY THE CHAPTER DEFAULT ON PHONES
+  (the screen's shorter side under 700) and kept the still document on
+  iPads (their toolbar never collapses). So the chapter pages' final rule:
+  on a phone the document scrolls a runway in the section's colour — both
+  bars collapse and return, the top bar solid in that colour, the returning
+  toolbar over Safari's own fill, the page placed a frame behind the finger
+  by script, everything pinned kept out of the moving box; on an iPad the
+  still document, bars expanded, the static fill. `?scroll=sync|inner|doc`
+  compare on one page load; `npm run qa:still` measures both defaults.**
   **Round 41 added a rule from his first read: in a scrolling document iOS
   26 reports `env(safe-area-inset-top)` once its bars have moved (his
   screenshot: the rail, pinned at that inset, ~12px below the viewport's
