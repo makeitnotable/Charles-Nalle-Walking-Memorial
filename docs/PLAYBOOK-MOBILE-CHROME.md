@@ -242,9 +242,19 @@ comes through a `chrome` slot after `</main>` — pass 15 found it riding
 away with the page). The runway itself is a colour map of the chapter, not
 one colour: the bottom toolbar shows the section arriving from below, and a
 cap above the viewport holds the top bar to the top-edge section's colour.
-And round 24's rule applies to the fixed `<main>` itself: a fixed box with
-an opaque background touching a bar's edge makes that bar an opaque fill, so
-the page ground rides on `#reader` and `<main>` is transparent (pass 16).
+And round 24's rule, sharpened by pass 16 (a transparent fixed `<main>`
+still made the bottom bar opaque) and used on purpose by pass 17: **Safari
+26 hit-tests each viewport edge; if the element it finds is inside a fixed
+or sticky box, that bar is an opaque fill in `<body>`'s colour, otherwise
+glass over the page's paint; elements with `pointer-events: none` are never
+found.** So the rail (none) never made the top bar opaque, the runway's
+`<main>` (auto) made both bars opaque, and the chapter pages now scroll as
+a plain document with one fixed, invisible, hit-testable 8px strip on the
+top edge (`.edge-trigger`): Safari paints the top bar solid in the section's
+colour, the bottom toolbar stays glass over the text, and nothing is placed
+by script. When a bar must be solid, give Safari a fixed hit at that edge
+and write the colour to `<body>`; when it must be glass, leave nothing
+fixed and hit-testable there.
 
 ## 4 · State resets on every open (round 19)
 
@@ -443,3 +453,8 @@ device px). Plan: `docs/rounds/2026-09-22-round-33-plan.md`; instrument
 - **Chrome with its address bar at the bottom** was not measured: there the
   page reaches the bar only when that toolbar collapses, so the inset — and
   the lane — moves with it (20 → 44), the counterpart of the 14px shift in §10.
+- **Signed off, 2026-09-22.** Wil, on the live site: "As far as i can see
+  these edits are done push to master and live site and document everything
+  and the final version that we are shipping to the client accordingly and
+  to best practices." The bottom lane is the pattern for a bar drawn over the
+  page: a new bottom control takes `--ui-inset-b`, never `--ui-inset`.

@@ -2875,6 +2875,41 @@ html[data-scroll="sync"] #runway > div {
 html[data-scroll="sync"] #runway > .runway-cap {
   top: 0;
 }
+/* ── Device pass 17 (Wil, 2026-09-22): THE EDGE TRIGGER ─────────────────────
+   His fourth crop of an opaque brown bottom toolbar over the cream
+   transcript — with <main> already transparent — closed the question: what
+   makes Safari 26 paint a bar OPAQUE is not a colour but a HIT. It hit-tests
+   the viewport's edge; if the element it finds is inside a fixed or sticky
+   box, the bar is an opaque fill in <body>'s colour; otherwise it is glass
+   over the page's paint. Every measurement of this round agrees: the walk
+   rail (fixed, `pointer-events: none`, never hit) left the top bar glass in
+   the document mode; the runway's fixed <main> (hit) made both bars opaque,
+   brown or transparent alike; the `.edge-glass` strips (`pointer-events:
+   none`) never counted; round 24's non-fixed 8px strips gave /paintings its
+   glass back. So the chapter page scrolls as a plain document again — the
+   compositor moves the page, nothing is placed by script, the bars collapse
+   and return natively, the bottom toolbar is glass over the chapter's own
+   text — and this one strip, 8px tall on the top edge, fixed, invisible,
+   hit-testable and covered by nothing, is what Safari finds there: the top
+   bar is Safari's own opaque fill in <body>'s colour, the section at the top
+   edge as the sampler writes it, flipping the instant that section changes.
+   No cover, no visor, no runway, no lag: the bar is painted by Safari, not
+   by the page. Below the menu in z-order; the rail above it is not
+   hit-testable and never was. */
+.edge-trigger {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  z-index: 899;
+  background: transparent;
+  pointer-events: auto;
+}
+html[data-scroll="edge"] .edge-trigger {
+  display: block;
+}
 /* The compositor path (device pass 2, above; behind `?cover=track` since
    device pass 4 — if the `?debug=1` readout ever shows it supported and the
    edge smooth on the phone, it becomes the default again). Since device pass

@@ -248,11 +248,23 @@ cap above the viewport holding the top bar to the top-edge section's
 colour. The still document stays on wider screens (the iPad's toolbar
 never collapses) and behind `?scroll=inner`.
 
+**Amended again 9/22 (device pass 17).** The runway's fixed `<main>` made
+the bottom toolbar an opaque fill whatever its colour: Safari 26 paints a
+bar opaque when the element it hit-tests at that edge is inside a fixed or
+sticky box, and glass otherwise. So on phones the chapter scrolls as a
+plain document again (`data-scroll="edge"`), natively, and one fixed,
+invisible, hit-testable 8px strip on the top edge (`.edge-trigger`) makes
+Safari paint the TOP bar as an opaque fill in `<body>`'s colour — the
+section at the top edge — while the bottom toolbar, with nothing fixed to
+find, is glass over the chapter's own text. No cover, visor or runway is in
+play; they remain behind `?scroll=doc`, `?scroll=sync` and, for the iPad's
+default, `?scroll=inner`.
+
 **Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
 dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
-stay); the chapter pages then scroll as a document again with pass 7's
-cover and 16px band. To keep the still document everywhere instead, make
-that branch assign `"inner"` unconditionally. To undo the whole round:
+stay); the chapter pages then scroll as a document with pass 7's cover and
+16px band. To choose another mode as the default, make that branch assign
+`"inner"`, `"sync"` or `"edge"` unconditionally. To undo the whole round:
 `git reset --hard client-round-23-base` (= `4d13540`) and push `v2`.
 
 ## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall
@@ -426,6 +438,15 @@ whose tree is `v2`'s, pushed to `main` as a fast-forward, and
 `release/2026-09-22` moved to the same tip. Every later sign-off repeats
 this, so the mirror's history is one merge commit per sign-off, each
 pointing at the `v2` commit it carries. Revert as above.
+
+**Refreshed 2026-09-22, round 35, for the Android bottom lane's sign-off.**
+Wil, on round 33 live: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." The same
+procedure: a merge commit whose tree is round 35's `v2` tip's, its parents
+`main`'s tip at the moment of the push and that `v2` tip (both named in the
+mirror commit's own message), pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. When this round was written
+(18:22 UTC) the remote held `main` at `8095a82` and `release/2026-09-22` at
+`130a48c`; the tip this mirror carries: rounds 33–35 and, from the other sessions, round 34 and round 23's device passes up to the tip's own commit ("Client round 23, device pass 17: the edge trigger — Safari…"). Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
@@ -462,3 +483,8 @@ Plan: `docs/rounds/2026-09-22-round-33-plan.md`; playbook §12.
 two `:root` lines and the `@supports not` block, and put `--ui-inset` back for
 `--ui-inset-b` (and delete `+ var(--gesture-bar)`) in the round's files;
 `scripts/gesture-bar.mjs` and `qa:gesture` go with them.
+
+**Signed off, 2026-09-22.** Wil, on the live site: "As far as i can see these edits are done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices." Shipped by round 35 (docs only): the handover's changelog and
+phone note, this log's "Ship" refresh, the round-33 plan's Closed line and
+playbook §12's sign-off; the `main` mirror and `release/2026-09-22` refreshed
+to that tip.
