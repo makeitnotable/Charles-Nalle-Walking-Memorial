@@ -425,7 +425,78 @@ export default function Museum({ works, slotId }: Props) {
       let runLastRaf = 0;
       const runLast = {
         top: { s0: 0, rows: 0, on: false, y: NaN },
-        bottom: { s0: 0, rows: 0, on: false, y: NaN },
+        /* drawer: the strip row the plaque drawer's ground starts on, −1 for none (round 26) */
+        bottom: { s0: 0, rows: 0, on: false, y: NaN, drawer: -1 },
+      };
+      /* ── Round 26 (Wil, 2026-09-22): the drawer continues under the toolbar
+         With a painting tapped, the plaque drawer sits at the stage's foot
+         with an open bottom — designed for the days when the band under the
+         toolbar was Safari's solid fill in the same brown. Now that band is
+         glass over the bottom strip, which painted the floor, so the drawer
+         ended in a visible edge with the hall showing between it and the
+         toolbar: a card floating in the hall, not a drawer rising from the
+         screen's bottom (his screenshot). The drawer lives inside the pinned
+         stage and cannot reach under the toolbar itself (playbook §1), so the
+         strip carries it: whenever the drawer covers the stage's bottom edge,
+         the strip's rows from the drawer's top edge down are the floor rows
+         blurred as the drawer's backdrop blurs them, with the drawer's own
+         ground laid over (its computed background colour, read from the
+         element — 90% page brown) and its side strokes. The floor returns the
+         frame the drawer leaves; a drawer slid out below the stage never
+         qualifies, because its top edge is not above the stage's bottom. */
+      let blurCanvas: HTMLCanvasElement | null = null;
+      let sheetGroundFor: HTMLElement | null = null;
+      let sheetGround = "rgba(29, 20, 17, 0.9)";
+      let sheetStroke = "";
+      const readSheetGround = (el: HTMLElement, ctx: CanvasRenderingContext2D) => {
+        if (sheetGroundFor === el) return;
+        sheetGroundFor = el;
+        const cs = getComputedStyle(el);
+        /* a colour the canvas cannot parse leaves fillStyle as it was */
+        const probe = (v: string, fallback: string) => {
+          const was = ctx.fillStyle;
+          ctx.fillStyle = "#010203";
+          ctx.fillStyle = v;
+          const ok = ctx.fillStyle !== "#010203";
+          ctx.fillStyle = was;
+          return ok ? v : fallback;
+        };
+        sheetGround = probe(cs.backgroundColor, "rgba(29, 20, 17, 0.9)");
+        const stroke = parseFloat(cs.borderLeftWidth) > 0 ? probe(cs.borderLeftColor, "") : "";
+        sheetStroke = stroke && !/^(transparent|rgba\(0, 0, 0, 0\))$/.test(stroke) ? stroke : "";
+      };
+      const drawerOver = (c: HTMLCanvasElement, sheetEl: HTMLElement, from: number) => {
+        const ctx = c.getContext("2d");
+        if (!ctx) return;
+        const pr = runPR;
+        const w = c.width;
+        const y0 = Math.max(0, Math.round(from * pr));
+        const h = c.height - y0;
+        if (h <= 0) return;
+        readSheetGround(sheetEl, ctx);
+        /* the drawer's backdrop blur, cheaply: the rows through a canvas an
+           eighth the size and back, which smoothing turns into a soft blur of
+           about the drawer's 10px */
+        if (!blurCanvas) blurCanvas = document.createElement("canvas");
+        const bw = Math.max(1, Math.round(w / 8));
+        const bh = Math.max(1, Math.round(h / 8));
+        if (blurCanvas.width !== bw || blurCanvas.height !== bh) {
+          blurCanvas.width = bw;
+          blurCanvas.height = bh;
+        }
+        const bctx = blurCanvas.getContext("2d");
+        if (bctx) {
+          bctx.drawImage(c, 0, y0, w, h, 0, 0, bw, bh);
+          ctx.drawImage(blurCanvas, 0, 0, bw, bh, 0, y0, w, h);
+        }
+        ctx.fillStyle = sheetGround;
+        ctx.fillRect(0, y0, w, h);
+        if (sheetStroke) {
+          const sw = Math.max(1, Math.round(pr));
+          ctx.fillStyle = sheetStroke;
+          ctx.fillRect(0, y0, sw, h);
+          ctx.fillRect(w - sw, y0, sw, h);
+        }
       };
       let debugBox: HTMLPreElement | null = null;
       let debugAt = 0;
@@ -603,7 +674,7 @@ export default function Museum({ works, slotId }: Props) {
           `${RUNWAY_BUILD} · copy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""}${runwayOff ? " · strips off" : ""}` +
           `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
           `\npin ${n(pr.top)}→${n(pr.bottom)} (${n(pr.height / Math.max(1, window.innerHeight))}× the viewport) · stage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)}` +
-          `\nframe ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)} · top ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"}`;
+          `\nframe ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)} · top ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"} · drawer ${runLast.bottom.drawer < 0 ? "off" : `from ${n(runLast.bottom.drawer)}`}`;
       };
       const paintRunways = (now: number) => {
         if (runB <= 0 || !strips.top || !strips.bottom) return;
@@ -646,9 +717,22 @@ export default function Museum({ works, slotId }: Props) {
           placeStrip(strips.bottom, "bottom", screenTop, wr.top);
           const s0 = screenTop - sr.top + runB;
           blitStrip(strips.bottom, s0, hBot);
+          /* round 26: the drawer, from its top edge down, when it is visible
+             at the stage's bottom edge (its rendered box follows the slide) */
+          let drawerFrom = -1;
+          const sheetEl = sheetRef.current;
+          if (sheetEl) {
+            const shr = sheetEl.getBoundingClientRect();
+            if (shr.height > 0 && shr.top < sr.bottom - 0.5 && shr.top < screenTop + hBot) drawerFrom = Math.max(0, shr.top - screenTop);
+          }
+          if (drawerFrom >= 0 && sheetEl) drawerOver(strips.bottom, sheetEl, drawerFrom);
+          runLast.bottom.drawer = drawerFrom;
           runLast.bottom.s0 = s0;
           runLast.bottom.rows = hBot;
-        } else hideStrip(strips.bottom, "bottom");
+        } else {
+          hideStrip(strips.bottom, "bottom");
+          runLast.bottom.drawer = -1;
+        }
         if (debugBox && now - debugAt > 250) {
           debugAt = now;
           debugPaint(sr, wr);
@@ -697,7 +781,21 @@ export default function Museum({ works, slotId }: Props) {
             m++;
           }
           const mean = sum / m;
-          return { rowsCompared: compared, meanAbsDiff: n ? diff / n : null, stddev: Math.sqrt(Math.max(0, sq / m - mean * mean)), mean };
+          /* round 26: each sampled row's mean colour, strip and canvas, so the
+             drawer's blend can be checked against the same frame's floor */
+          const rowMeans: { strip: number[]; canvas: number[] }[] = [];
+          for (let k = 1; k <= 4; k++) {
+            const r = Math.round(((rows * k) / 5) * pr);
+            const cy = Math.round(s0 * pr) + r;
+            if (r < 0 || r >= c.height || cy < 0 || cy >= scratch.height) continue;
+            const a = ctx.getImageData(0, r, w, 1).data;
+            const b = sctx.getImageData(0, cy, w, 1).data;
+            const ma = [0, 0, 0];
+            const mb = [0, 0, 0];
+            for (let i = 0; i < a.length; i += 4) for (let ch = 0; ch < 3; ch++) { ma[ch] += a[i + ch]; mb[ch] += b[i + ch]; }
+            rowMeans.push({ strip: ma.map((v) => v / w), canvas: mb.map((v) => v / w) });
+          }
+          return { rowsCompared: compared, meanAbsDiff: n ? diff / n : null, stddev: Math.sqrt(Math.max(0, sq / m - mean * mean)), mean, rowMeans };
         };
         const rect = (el: Element) => {
           const r = el.getBoundingClientRect();
@@ -716,6 +814,9 @@ export default function Museum({ works, slotId }: Props) {
           stage: rect(stage),
           pin: rect(pin),
           wrap: rect(wrap),
+          drawer: runLast.bottom.drawer,
+          sheet: sheetRef.current ? rect(sheetRef.current) : null,
+          sheetGround: sheetRef.current ? sheetGround : null,
           top: runLast.top.on && strips.top ? { rect: rect(strips.top), s0: runLast.top.s0, ...stats(strips.top, runLast.top.s0, runLast.top.rows) } : null,
           bottom: runLast.bottom.on && strips.bottom ? { rect: rect(strips.bottom), s0: runLast.bottom.s0, ...stats(strips.bottom, runLast.bottom.s0, runLast.bottom.rows) } : null,
         };
@@ -2497,6 +2598,7 @@ export default function Museum({ works, slotId }: Props) {
               blits: runBlits,
               error: runError,
               pin: pin.getBoundingClientRect().toJSON(),
+              drawer: runLast.bottom.drawer,
               top: runLast.top.on ? { s0: runLast.top.s0, rows: runLast.top.rows, y: runLast.top.y } : null,
               bottom: runLast.bottom.on ? { s0: runLast.bottom.s0, rows: runLast.bottom.rows, y: runLast.bottom.y } : null,
             },

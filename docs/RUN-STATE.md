@@ -7,11 +7,24 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
-**Client rounds 1–24 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
-chapter pages and `/paintings`' bars are signed off — Wil, 2026-09-22, on
-round 24's sixth push: "Looks and works perfectly!" Round 25 (`/paintings`,
-the lead painting waits for the hall) is ON `v2` AND AWAITING WIL'S DEVICE
-PASS.** Round 25 (2026-09-22), from his one note after the sign-off ("when
+**Client rounds 1–25 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
+chapter pages, `/paintings`' bars (round 24: "Looks and works perfectly!")
+and its lead cover (round 25: "Looks good") are signed off. Round 26
+(`/paintings`, the drawer continues under the toolbar) is ON `v2` AND
+AWAITING WIL'S DEVICE PASS.** Round 26 (2026-09-22), from his screenshot
+with a painting tapped: the plaque drawer stopped at the page area's bottom
+edge with the floor showing between it and the toolbar — its open bottom
+was designed for Safari's old solid fill, and the runway strip under the
+glass paints the floor. Now, whenever the drawer covers the stage's bottom
+edge, the bottom strip continues the drawer: the floor rows blurred as its
+backdrop blurs them, its own ground (read from the element) and side
+strokes over, from the drawer's top edge down; the floor returns the frame
+it leaves. Museum.tsx only. Plan: `docs/rounds/2026-09-22-round-26-plan.md`;
+DECISIONS.md. Instrument `npm run qa:runway` (182 checks, 0 failed, a
+DRAWER session added); `qa:snap` 36/36 at 0 drift; `qa:scope` clean.
+Previous phase text follows.
+**Round 25 (`/paintings`, the lead painting waits for the hall) shipped and
+was APPROVED ON HIS PHONE, 2026-09-22 ("Looks good").** Round 25 (2026-09-22), from his one note after the sign-off ("when
 the page initially loads, it looks like it's chapter page 2, which flashes
 for just a second"): the slot's server-rendered lead painting, the fallback
 for readers whose hall never mounts, showed for the second before the

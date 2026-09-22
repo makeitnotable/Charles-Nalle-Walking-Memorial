@@ -297,3 +297,25 @@ Nothing else on the page changes; no route drifts.
 the `.museum-lead-cover` div (and the `museum-lead` class) in
 `paintings.astro`, the round-25 block in `global.css`, the `data-hall` line
 in `Museum.tsx`, and `qa:lead` with `scripts/museum-lead.mjs`.
+
+## Round 26 (Wil's 9/22 round) — `/paintings`: the drawer continues under the toolbar
+
+**Evidence.** Wil, 2026-09-22, after approving round 25: "One small bug
+left. It occurs when a user taps a painting and the drawer is shown." His
+screenshot: the drawer's lower edge exposed, the hall's floor between it and
+the toolbar. Confirmed reading: the drawer was designed with an open bottom
+under what was Safari's solid fill; round 24 made that band glass over the
+runway strip, which paints the floor, and the drawer inside the pinned stage
+cannot reach under the toolbar.
+
+**Decision.** The strip carries the drawer: whenever the drawer covers the
+stage's bottom edge, the bottom strip's rows from the drawer's top edge down
+are the floor rows blurred as the drawer's backdrop blurs them, with the
+drawer's own ground (its computed background colour) and side strokes laid
+over. The floor returns the frame the drawer leaves. Museum.tsx only;
+nothing else on the page changes; no route drifts.
+
+**Revert:** `git reset --hard client-round-26-base` (= `505a461`); or in
+`Museum.tsx` delete the round-26 block (`blurCanvas` through `drawerOver`),
+the `drawerFrom` lines in `paintRunways`' bottom branch, and the `drawer`
+fields in the probe, the readout and the hook state.

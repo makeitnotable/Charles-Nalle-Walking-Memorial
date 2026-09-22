@@ -38,6 +38,11 @@
  *   · A scripted walk (120 frames, rail 0.1 → 0.9) records median and p95
  *     frame intervals OFF and ON — reported, not asserted: this GL is not
  *     the phone's.
+ *   · DRAWER: a painting approached (the plaque drawer up, covering the
+ *     stage's bottom edge): the bottom strip carries the drawer from its
+ *     first row — every sampled row's mean is 0.9 × the page brown + 0.1 ×
+ *     the same frame's floor row (±6 for the blur), not the bare floor — and
+ *     the floor is back the moment the drawer leaves.
  *   · BLEED: the pin and the taller render target with no strip.
  *   · READPIXELS: the readback copy path, the fallback the strips switch to
  *     when drawImage leaves them blank; the same strip checks.
@@ -340,6 +345,36 @@ for (const vp of VPS) {
     results.push({ vp: V, session: "walk", pos: "-", name: "frame intervals", ok: true, detail: `off ${JSON.stringify(offWalk)} on ${JSON.stringify(onWalk)}` });
   }
   await on.ctx.close();
+
+  /* ── DRAWER (round 26): a painting approached, the plaque drawer up ── */
+  const dr = await open(vp, "", true);
+  const drRest = await dr.page.evaluate(SNAPSHOT);
+  check(V, "drawer", "rest", "hall mounted", !drRest.missing, drRest.missing ? "no __museum" : "");
+  if (!drRest.missing) {
+    await dr.page.evaluate(SCROLL_TO_RAIL, 0.4);
+    await dr.page.waitForTimeout(1200);
+    await dr.page.evaluate(() => window.__museum.approach(0));
+    await dr.page.waitForFunction(() => !!document.querySelector(".museum-sheet"), null, { timeout: 8000 }).catch(() => {});
+    await dr.page.waitForTimeout(1500);
+    const up = await dr.page.evaluate(SNAPSHOT);
+    const pr = up.probe || {};
+    check(V, "drawer", "up", "drawer present, covering the stage's bottom edge", pr.sheet && pr.stage && pr.sheet.top < pr.stage.bottom - 0.5 && pr.sheet.bottom >= pr.stage.bottom - 0.5, pr.sheet ? `sheet ${r1(pr.sheet.top)}→${r1(pr.sheet.bottom)} · stage bottom ${r1(pr.stage.bottom)}` : "no sheet");
+    check(V, "drawer", "up", "ground read from the drawer (90% page brown)", typeof pr.sheetGround === "string" && /0\.9\)?$/.test(pr.sheetGround.replace(/\s/g, "")) , `${pr.sheetGround}`);
+    check(V, "drawer", "up", "bottom strip visible, the drawer from its first row", pr.bottom && pr.drawer === 0, `drawer ${pr.drawer}`);
+    /* every sampled row: the strip's mean = 0.9 × the page brown + 0.1 × the
+       same frame's floor row (the blur mixes neighbouring rows, so ±6) */
+    const rows = (pr.bottom && pr.bottom.rowMeans) || [];
+    const off = rows.map((r) => Math.max(...[0, 1, 2].map((ch) => Math.abs(r.strip[ch] - (0.9 * [29, 20, 17][ch] + 0.1 * r.canvas[ch])))));
+    check(V, "drawer", "up", "strip rows are the drawer's ground over the floor", rows.length > 0 && off.every((d) => d <= 6), rows.length ? `max off ${r1(Math.max(...off))} over ${rows.length} rows · strip ${rows[0].strip.map(r1).join(",")} floor ${rows[0].canvas.map(r1).join(",")}` : "no rows");
+    check(V, "drawer", "up", "strip not the bare floor", pr.bottom && pr.bottom.meanAbsDiff > 4, pr.bottom ? `diff from canvas ${r1(pr.bottom.meanAbsDiff)}` : "no probe");
+    await dr.page.evaluate(() => window.__museum.approach(null));
+    await dr.page.waitForTimeout(1200);
+    const down = await dr.page.evaluate(SNAPSHOT);
+    const pd = down.probe || {};
+    check(V, "drawer", "down", "drawer gone, floor back", pd.drawer === -1 && !pd.sheet && pd.bottom && pd.bottom.meanAbsDiff <= 1, `drawer ${pd.drawer} · sheet ${!!pd.sheet} · diff ${pd.bottom ? r1(pd.bottom.meanAbsDiff) : "-"}`);
+    check(V, "drawer", "-", "no page errors", dr.errs.length === 0, dr.errs.join(" | "));
+  }
+  await dr.ctx.close();
 
   /* ── BLEED ONLY (?runway=off): the taller render target without the strips ── */
   const bl = await open(vp, "?runway=off", true);

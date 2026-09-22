@@ -343,3 +343,12 @@ instrument `npm run qa:runway`.*
   and works perfectly!" The pin and the runway are the pattern for a pinned
   stage under collapsing bars. His one note after the sign-off — the lead
   painting flashing on a cold load — is round 25, and is not about the bars.
+- **The strip carries what sits on the edge (round 26).** With the band
+  under the toolbar glass, anything the stage shows at its bottom edge and
+  meant to run off-screen — the plaque drawer, with its open bottom — ends
+  in a visible edge unless the runway strip continues it. The strip is page
+  paint and knows only what it is fed: Museum.tsx now lays the drawer's own
+  ground (its computed colour, its blur, its side strokes) over the floor
+  rows from the drawer's top edge down whenever the drawer covers the
+  stage's bottom edge. The rule: a pinned stage's edge-anchored UI needs a
+  continuation in the runway, or it reads as a card floating in the scene.
