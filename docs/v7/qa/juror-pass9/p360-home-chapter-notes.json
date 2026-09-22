@@ -1,0 +1,322 @@
+{
+  "home.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    }
+  ],
+  "home.cta": {
+    "x": 26,
+    "y": 726,
+    "width": 308,
+    "height": 48
+  },
+  "home.eyebrow": {
+    "text": "Troy, New York · April 27, 1860",
+    "top": 338,
+    "bottom": 354
+  },
+  "bakery.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 268,
+      "y": 20,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "bakery.burger-after-scrolldown": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    }
+  ],
+  "bakery.burger-after-scrollup": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 268,
+      "y": 20,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "bakery.playbtn": {
+    "text": "",
+    "aria": "Play narration: Holeur’s Fashionable Bakery",
+    "box": {
+      "x": 20,
+      "y": 432.03125,
+      "width": 56,
+      "height": 56
+    }
+  },
+  "bakery.audio": [
+    {
+      "paused": false,
+      "t": 2.345684,
+      "src": "ch1-bakery.mp3"
+    }
+  ],
+  "bakery.paras": 8,
+  "bakery.audio-after-tap": [
+    {
+      "paused": false,
+      "t": 4.040821
+    }
+  ],
+  "bakery.down-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:05",
+      "x": 20,
+      "y": 718,
+      "w": 114,
+      "h": 62
+    }
+  ],
+  "bakery.up-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 268,
+      "y": 20,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "Spot 0100:06 / 01:41",
+      "x": 20,
+      "y": 718,
+      "w": 161,
+      "h": 62
+    }
+  ],
+  "bakery.moral-colors": {
+    "heading": "rgb(246, 243, 238)",
+    "body": "rgb(255, 151, 112)",
+    "caption": "rgb(255, 151, 112)",
+    "headingText": "NOT ALL LAWSARE MORAL",
+    "bodyText": "(03)"
+  },
+  "bakery.onward-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:09",
+      "x": 20,
+      "y": 726,
+      "w": 54,
+      "h": 54
+    }
+  ],
+  "bakery.footer-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:10",
+      "x": 20,
+      "y": 726,
+      "w": 54,
+      "h": 54
+    }
+  ],
+  "bakery.continue-btn": {
+    "text": "Continue",
+    "b": {
+      "x": 86.578125,
+      "y": 0.328125,
+      "width": 186.84375,
+      "height": 48
+    }
+  },
+  "after-continue.url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office",
+  "barbershop.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 268,
+      "y": 20,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "barbershop.story-order": "ITTT",
+  "co.sections": [
+    "hero-media",
+    "hero-lockup",
+    "scene-0",
+    "history",
+    "moral-0",
+    "moral-0-heading",
+    "hero-2",
+    "scene-1",
+    "moral-1",
+    "moral-1-heading",
+    "onward"
+  ],
+  "co.players": 2,
+  "co.playbtns": [
+    {
+      "i": 0,
+      "aria": "Play narration: Commissioner’s Office, Pt 1",
+      "text": ""
+    },
+    {
+      "i": 1,
+      "aria": "Play narration: Commissioner’s Office, Pt 2",
+      "text": ""
+    }
+  ],
+  "co.audio-p2": [
+    {
+      "paused": true,
+      "t": 0
+    },
+    {
+      "paused": false,
+      "t": 1.955987
+    }
+  ],
+  "co.floating-in-part1": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 268,
+      "y": 20,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "Spot 02 · Pt 200:03 / 02:19",
+      "x": 20,
+      "y": 718,
+      "w": 191,
+      "h": 62
+    }
+  ],
+  "co.audio-after-scroll": [
+    {
+      "paused": true,
+      "t": 0
+    },
+    {
+      "paused": false,
+      "t": 3.660678
+    }
+  ],
+  "co.foot-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 800,
+      "w": 360,
+      "h": 800
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:10",
+      "x": 20,
+      "y": 726,
+      "w": 54,
+      "h": 54
+    }
+  ],
+  "consoleErrors": []
+}

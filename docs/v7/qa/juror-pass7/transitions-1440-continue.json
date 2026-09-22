@@ -1,0 +1,777 @@
+{
+  "log": {
+    "continue": {
+      "navMs": 1321,
+      "frames": [
+        {
+          "i": 9,
+          "rel": -248,
+          "mean": 35.6,
+          "fn": "continue-009-m248.jpg"
+        },
+        {
+          "i": 10,
+          "rel": -222,
+          "mean": 35.6,
+          "fn": "continue-010-m222.jpg"
+        },
+        {
+          "i": 11,
+          "rel": -183,
+          "mean": 35.6,
+          "fn": "continue-011-m183.jpg"
+        },
+        {
+          "i": 12,
+          "rel": -138,
+          "mean": 35.6,
+          "fn": "continue-012-m138.jpg"
+        },
+        {
+          "i": 13,
+          "rel": -88,
+          "mean": 35.6,
+          "fn": "continue-013-m88.jpg"
+        },
+        {
+          "i": 14,
+          "rel": -48,
+          "mean": 35.6,
+          "fn": "continue-014-m48.jpg"
+        },
+        {
+          "i": 15,
+          "rel": -3,
+          "mean": 35.5,
+          "fn": "continue-015-m3.jpg"
+        },
+        {
+          "i": 16,
+          "rel": 31,
+          "mean": 35.5,
+          "fn": "continue-016-31.jpg"
+        },
+        {
+          "i": 17,
+          "rel": 87,
+          "mean": 35.5,
+          "fn": "continue-017-87.jpg"
+        },
+        {
+          "i": 18,
+          "rel": 122,
+          "mean": 35.5,
+          "fn": "continue-018-122.jpg"
+        },
+        {
+          "i": 19,
+          "rel": 165,
+          "mean": 35.4,
+          "fn": "continue-019-165.jpg"
+        },
+        {
+          "i": 20,
+          "rel": 202,
+          "mean": 35.4,
+          "fn": "continue-020-202.jpg"
+        },
+        {
+          "i": 21,
+          "rel": 233,
+          "mean": 35.3,
+          "fn": "continue-021-233.jpg"
+        },
+        {
+          "i": 22,
+          "rel": 265,
+          "mean": 35.3,
+          "fn": "continue-022-265.jpg"
+        },
+        {
+          "i": 23,
+          "rel": 294,
+          "mean": 35.3,
+          "fn": "continue-023-294.jpg"
+        },
+        {
+          "i": 24,
+          "rel": 340,
+          "mean": 35.4,
+          "fn": "continue-024-340.jpg"
+        },
+        {
+          "i": 25,
+          "rel": 410,
+          "mean": 35.5,
+          "fn": "continue-025-410.jpg"
+        },
+        {
+          "i": 26,
+          "rel": 413,
+          "mean": 35.5,
+          "fn": "continue-026-413.jpg"
+        },
+        {
+          "i": 27,
+          "rel": 419,
+          "mean": 35.5,
+          "fn": "continue-027-419.jpg"
+        },
+        {
+          "i": 28,
+          "rel": 429,
+          "mean": 35.5,
+          "fn": "continue-028-429.jpg"
+        },
+        {
+          "i": 29,
+          "rel": 444,
+          "mean": 35.4,
+          "fn": "continue-029-444.jpg"
+        },
+        {
+          "i": 30,
+          "rel": 454,
+          "mean": 35.4,
+          "fn": "continue-030-454.jpg"
+        },
+        {
+          "i": 31,
+          "rel": 462,
+          "mean": 35.4,
+          "fn": "continue-031-462.jpg"
+        },
+        {
+          "i": 32,
+          "rel": 478,
+          "mean": 35.4,
+          "fn": "continue-032-478.jpg"
+        },
+        {
+          "i": 33,
+          "rel": 485,
+          "mean": 35.1,
+          "fn": "continue-033-485.jpg"
+        },
+        {
+          "i": 34,
+          "rel": 495,
+          "mean": 35.1,
+          "fn": "continue-034-495.jpg"
+        },
+        {
+          "i": 35,
+          "rel": 512,
+          "mean": 35.1,
+          "fn": "continue-035-512.jpg"
+        },
+        {
+          "i": 36,
+          "rel": 519,
+          "mean": 35.1,
+          "fn": "continue-036-519.jpg"
+        },
+        {
+          "i": 37,
+          "rel": 537,
+          "mean": 34.2,
+          "fn": "continue-037-537.jpg"
+        },
+        {
+          "i": 38,
+          "rel": 545,
+          "mean": 34.2,
+          "fn": "continue-038-545.jpg"
+        },
+        {
+          "i": 39,
+          "rel": 552,
+          "mean": 33.5,
+          "fn": "continue-039-552.jpg"
+        },
+        {
+          "i": 40,
+          "rel": 569,
+          "mean": 33.5,
+          "fn": "continue-040-569.jpg"
+        },
+        {
+          "i": 41,
+          "rel": 577,
+          "mean": 33.5,
+          "fn": "continue-041-577.jpg"
+        },
+        {
+          "i": 42,
+          "rel": 586,
+          "mean": 33.5,
+          "fn": "continue-042-586.jpg"
+        },
+        {
+          "i": 43,
+          "rel": 602,
+          "mean": 33.1,
+          "fn": "continue-043-602.jpg"
+        },
+        {
+          "i": 44,
+          "rel": 610,
+          "mean": 33.1,
+          "fn": "continue-044-610.jpg"
+        },
+        {
+          "i": 45,
+          "rel": 621,
+          "mean": 33.1,
+          "fn": "continue-045-621.jpg"
+        },
+        {
+          "i": 46,
+          "rel": 629,
+          "mean": 32,
+          "fn": "continue-046-629.jpg"
+        },
+        {
+          "i": 47,
+          "rel": 644,
+          "mean": 32,
+          "fn": "continue-047-644.jpg"
+        },
+        {
+          "i": 48,
+          "rel": 653,
+          "mean": 32,
+          "fn": "continue-048-653.jpg"
+        },
+        {
+          "i": 49,
+          "rel": 662,
+          "mean": 32,
+          "fn": "continue-049-662.jpg"
+        },
+        {
+          "i": 50,
+          "rel": 679,
+          "mean": 32,
+          "fn": "continue-050-679.jpg"
+        },
+        {
+          "i": 51,
+          "rel": 687,
+          "mean": 32,
+          "fn": "continue-051-687.jpg"
+        },
+        {
+          "i": 52,
+          "rel": 703,
+          "mean": 25.5,
+          "fn": "continue-052-703.jpg"
+        },
+        {
+          "i": 53,
+          "rel": 710,
+          "mean": 25.5,
+          "fn": "continue-053-710.jpg"
+        },
+        {
+          "i": 54,
+          "rel": 728,
+          "mean": 25.5,
+          "fn": "continue-054-728.jpg"
+        },
+        {
+          "i": 55,
+          "rel": 811,
+          "mean": 19.7,
+          "fn": "continue-055-811.jpg"
+        },
+        {
+          "i": 56,
+          "rel": 860,
+          "mean": 19,
+          "fn": "continue-056-860.jpg"
+        },
+        {
+          "i": 57,
+          "rel": 906,
+          "mean": 18.4,
+          "fn": "continue-057-906.jpg"
+        },
+        {
+          "i": 58,
+          "rel": 935,
+          "mean": 18,
+          "fn": "continue-058-935.jpg"
+        },
+        {
+          "i": 59,
+          "rel": 966,
+          "mean": 18,
+          "fn": "continue-059-966.jpg"
+        },
+        {
+          "i": 60,
+          "rel": 999,
+          "mean": 18,
+          "fn": "continue-060-999.jpg"
+        },
+        {
+          "i": 61,
+          "rel": 1022,
+          "mean": 18,
+          "fn": "continue-061-1022.jpg"
+        },
+        {
+          "i": 62,
+          "rel": 1045,
+          "mean": 18,
+          "fn": "continue-062-1045.jpg"
+        },
+        {
+          "i": 63,
+          "rel": 1068,
+          "mean": 18,
+          "fn": "continue-063-1068.jpg"
+        },
+        {
+          "i": 64,
+          "rel": 1093,
+          "mean": 18,
+          "fn": "continue-064-1093.jpg"
+        },
+        {
+          "i": 65,
+          "rel": 1191,
+          "mean": 18,
+          "fn": "continue-065-1191.jpg"
+        },
+        {
+          "i": 66,
+          "rel": 1201,
+          "mean": 18,
+          "fn": "continue-066-1201.jpg"
+        },
+        {
+          "i": 67,
+          "rel": 1211,
+          "mean": 18,
+          "fn": "continue-067-1211.jpg"
+        },
+        {
+          "i": 68,
+          "rel": 1295,
+          "mean": 18,
+          "fn": "continue-068-1295.jpg"
+        },
+        {
+          "i": 69,
+          "rel": 1330,
+          "mean": 18,
+          "fn": "continue-069-1330.jpg"
+        },
+        {
+          "i": 70,
+          "rel": 1442,
+          "mean": 18,
+          "fn": "continue-070-1442.jpg"
+        },
+        {
+          "i": 71,
+          "rel": 1664,
+          "mean": 22.7,
+          "fn": "continue-071-1664.jpg"
+        },
+        {
+          "i": 72,
+          "rel": 1675,
+          "mean": 26.7,
+          "fn": "continue-072-1675.jpg"
+        },
+        {
+          "i": 73,
+          "rel": 1682,
+          "mean": 28.4,
+          "fn": "continue-073-1682.jpg"
+        },
+        {
+          "i": 74,
+          "rel": 1692,
+          "mean": 30.5,
+          "fn": "continue-074-1692.jpg"
+        },
+        {
+          "i": 75,
+          "rel": 1700,
+          "mean": 31.8,
+          "fn": "continue-075-1700.jpg"
+        },
+        {
+          "i": 76,
+          "rel": 1716,
+          "mean": 34.4,
+          "fn": "continue-076-1716.jpg"
+        },
+        {
+          "i": 77,
+          "rel": 1724,
+          "mean": 35.6,
+          "fn": "continue-077-1724.jpg"
+        },
+        {
+          "i": 78,
+          "rel": 1732,
+          "mean": 36.6,
+          "fn": "continue-078-1732.jpg"
+        },
+        {
+          "i": 79,
+          "rel": 1758,
+          "mean": 40.5,
+          "fn": "continue-079-1758.jpg"
+        },
+        {
+          "i": 80,
+          "rel": 1775,
+          "mean": 44.5,
+          "fn": "continue-080-1775.jpg"
+        },
+        {
+          "i": 81,
+          "rel": 1807,
+          "mean": 52,
+          "fn": "continue-081-1807.jpg"
+        },
+        {
+          "i": 82,
+          "rel": 1841,
+          "mean": 57.7,
+          "fn": "continue-082-1841.jpg"
+        },
+        {
+          "i": 83,
+          "rel": 1876,
+          "mean": 64,
+          "fn": "continue-083-1876.jpg"
+        },
+        {
+          "i": 84,
+          "rel": 1908,
+          "mean": 69.2,
+          "fn": "continue-084-1908.jpg"
+        },
+        {
+          "i": 85,
+          "rel": 1941,
+          "mean": 73.4,
+          "fn": "continue-085-1941.jpg"
+        },
+        {
+          "i": 86,
+          "rel": 1974,
+          "mean": 76.9,
+          "fn": "continue-086-1974.jpg"
+        },
+        {
+          "i": 87,
+          "rel": 2007,
+          "mean": 80,
+          "fn": "continue-087-2007.jpg"
+        },
+        {
+          "i": 88,
+          "rel": 2041,
+          "mean": 82.1,
+          "fn": "continue-088-2041.jpg"
+        },
+        {
+          "i": 89,
+          "rel": 2074,
+          "mean": 83.9,
+          "fn": "continue-089-2074.jpg"
+        },
+        {
+          "i": 90,
+          "rel": 2107,
+          "mean": 84.8,
+          "fn": "continue-090-2107.jpg"
+        },
+        {
+          "i": 91,
+          "rel": 2142,
+          "mean": 86.3,
+          "fn": "continue-091-2142.jpg"
+        },
+        {
+          "i": 92,
+          "rel": 2174,
+          "mean": 86.9,
+          "fn": "continue-092-2174.jpg"
+        },
+        {
+          "i": 93,
+          "rel": 2208,
+          "mean": 87.4,
+          "fn": "continue-093-2208.jpg"
+        },
+        {
+          "i": 94,
+          "rel": 2243,
+          "mean": 87.5,
+          "fn": "continue-094-2243.jpg"
+        },
+        {
+          "i": 95,
+          "rel": 2252,
+          "mean": 87.5,
+          "fn": "continue-095-2252.jpg"
+        },
+        {
+          "i": 96,
+          "rel": 2275,
+          "mean": 87.8,
+          "fn": "continue-096-2275.jpg"
+        },
+        {
+          "i": 97,
+          "rel": 2309,
+          "mean": 87.8,
+          "fn": "continue-097-2309.jpg"
+        },
+        {
+          "i": 98,
+          "rel": 2342,
+          "mean": 87.8,
+          "fn": "continue-098-2342.jpg"
+        },
+        {
+          "i": 99,
+          "rel": 2374,
+          "mean": 87.6,
+          "fn": "continue-099-2374.jpg"
+        },
+        {
+          "i": 100,
+          "rel": 2410,
+          "mean": 88,
+          "fn": "continue-100-2410.jpg"
+        },
+        {
+          "i": 101,
+          "rel": 2441,
+          "mean": 87.9,
+          "fn": "continue-101-2441.jpg"
+        },
+        {
+          "i": 102,
+          "rel": 2474,
+          "mean": 87.9,
+          "fn": "continue-102-2474.jpg"
+        },
+        {
+          "i": 103,
+          "rel": 2509,
+          "mean": 87.7,
+          "fn": "continue-103-2509.jpg"
+        },
+        {
+          "i": 104,
+          "rel": 2544,
+          "mean": 88.1,
+          "fn": "continue-104-2544.jpg"
+        },
+        {
+          "i": 105,
+          "rel": 2576,
+          "mean": 88.1,
+          "fn": "continue-105-2576.jpg"
+        },
+        {
+          "i": 106,
+          "rel": 2608,
+          "mean": 88.1,
+          "fn": "continue-106-2608.jpg"
+        },
+        {
+          "i": 107,
+          "rel": 2641,
+          "mean": 87.9,
+          "fn": "continue-107-2641.jpg"
+        },
+        {
+          "i": 108,
+          "rel": 2675,
+          "mean": 88.3,
+          "fn": "continue-108-2675.jpg"
+        },
+        {
+          "i": 109,
+          "rel": 2711,
+          "mean": 88.3,
+          "fn": "continue-109-2711.jpg"
+        },
+        {
+          "i": 110,
+          "rel": 2742,
+          "mean": 88.3,
+          "fn": "continue-110-2742.jpg"
+        },
+        {
+          "i": 111,
+          "rel": 2775,
+          "mean": 88.1,
+          "fn": "continue-111-2775.jpg"
+        },
+        {
+          "i": 112,
+          "rel": 2808,
+          "mean": 88.4,
+          "fn": "continue-112-2808.jpg"
+        },
+        {
+          "i": 113,
+          "rel": 2840,
+          "mean": 88.4,
+          "fn": "continue-113-2840.jpg"
+        },
+        {
+          "i": 114,
+          "rel": 2876,
+          "mean": 88.4,
+          "fn": "continue-114-2876.jpg"
+        },
+        {
+          "i": 115,
+          "rel": 2907,
+          "mean": 88.2,
+          "fn": "continue-115-2907.jpg"
+        },
+        {
+          "i": 116,
+          "rel": 2940,
+          "mean": 88.5,
+          "fn": "continue-116-2940.jpg"
+        },
+        {
+          "i": 117,
+          "rel": 2975,
+          "mean": 88.5,
+          "fn": "continue-117-2975.jpg"
+        },
+        {
+          "i": 118,
+          "rel": 3008,
+          "mean": 88.6,
+          "fn": "continue-118-3008.jpg"
+        },
+        {
+          "i": 119,
+          "rel": 3041,
+          "mean": 88.4,
+          "fn": "continue-119-3041.jpg"
+        },
+        {
+          "i": 120,
+          "rel": 3074,
+          "mean": 88.7,
+          "fn": "continue-120-3074.jpg"
+        },
+        {
+          "i": 121,
+          "rel": 3107,
+          "mean": 88.7,
+          "fn": "continue-121-3107.jpg"
+        },
+        {
+          "i": 122,
+          "rel": 3142,
+          "mean": 88.8,
+          "fn": "continue-122-3142.jpg"
+        },
+        {
+          "i": 123,
+          "rel": 3175,
+          "mean": 88.5,
+          "fn": "continue-123-3175.jpg"
+        },
+        {
+          "i": 124,
+          "rel": 3208,
+          "mean": 88.9,
+          "fn": "continue-124-3208.jpg"
+        },
+        {
+          "i": 125,
+          "rel": 3243,
+          "mean": 88.8,
+          "fn": "continue-125-3243.jpg"
+        },
+        {
+          "i": 126,
+          "rel": 3274,
+          "mean": 88.9,
+          "fn": "continue-126-3274.jpg"
+        },
+        {
+          "i": 127,
+          "rel": 3309,
+          "mean": 88.7,
+          "fn": "continue-127-3309.jpg"
+        },
+        {
+          "i": 128,
+          "rel": 3341,
+          "mean": 89,
+          "fn": "continue-128-3341.jpg"
+        },
+        {
+          "i": 129,
+          "rel": 3375,
+          "mean": 89,
+          "fn": "continue-129-3375.jpg"
+        },
+        {
+          "i": 130,
+          "rel": 3407,
+          "mean": 89,
+          "fn": "continue-130-3407.jpg"
+        },
+        {
+          "i": 131,
+          "rel": 3443,
+          "mean": 88.8,
+          "fn": "continue-131-3443.jpg"
+        },
+        {
+          "i": 132,
+          "rel": 3474,
+          "mean": 89.1,
+          "fn": "continue-132-3474.jpg"
+        },
+        {
+          "i": 133,
+          "rel": 3509,
+          "mean": 89.1,
+          "fn": "continue-133-3509.jpg"
+        }
+      ],
+      "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office"
+    }
+  },
+  "errs": [
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "trans-1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    }
+  ]
+}

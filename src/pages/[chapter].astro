@@ -1,0 +1,1162 @@
+---
+/**
+ * THE CHAPTER TEMPLATE — the flagship.
+ *
+ * Structure (docs/PLAN.md §8):
+ *   Hero — the finished ANIMATED PAINTING, poster-first, in the signature frame
+ *   (01…) The story — scene quote alone in a void → narration object → cream transcript
+ *   (0N)  From the sketch — the press-and-hold, relocated here as the process beat
+ *          followed by the full-bleed painting interlude
+ *   (0N)  Historical context — label-left / prose-right, hanging numerals
+ *   (0N)  The moral — full-bleed, one artifact
+ *   (0N)  Onward — framed map, destination lockup, ONE button pair
+ *   Footer band
+ *
+ * What changed from v3 and why:
+ *  · The hero was the black-and-white SKETCH. It is now the animated painting;
+ *    the sketch interaction moved to its own section (W7).
+ *  · The hero ran 1344px against a 1280px shell — a visible registration error.
+ *    Everything now sits in `.shell` (W5).
+ *  · Four different section gaps became one token; "Section N/4" became a
+ *    numbered editorial spine carried in each section's left rail (W4).
+ *  · The historical <video> carried TWO class attributes, so the second silently
+ *    dropped `lazy-video` and that video never hydrated. Fixed below.
+ *  · Every displayed name now derives from `name.{canonical,display,short}` (W6).
+ */
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import AudioStory from "../components/AudioStory";
+import EmbedMap from "../components/EmbedMap";
+import Button from "../components/Button.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Lines from "../components/Lines.astro";
+import ChapterSpine from "../components/ChapterSpine.astro";
+import WalkProgress from "../components/WalkProgress.astro";
+import { withBase } from "../lib/url";
+import { fitChars, nbsp } from "../lib/text";
+import sharp from "sharp";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import edge from "../data/edge-colors.json";
+
+export async function getStaticPaths() {
+  const chapters = await getCollection("chapters");
+  return chapters.map((entry) => ({ params: { chapter: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const c = entry.data;
+const slug = entry.id;
+
+const all = await getCollection("chapters");
+const nextEntry = all.find((e) => e.id === c.next.slug);
+const nextName = nextEntry?.data.name;
+
+// Per-chapter embedded map cameras (legacy MAP_CONFIG.locationPage)
+const cameras: Record<number, { pitch: number; bearing: number; zoom: number }> = {
+  1: { pitch: 45, bearing: 45, zoom: 17 },
+  2: { pitch: 48, bearing: 75, zoom: 17.8 },
+  3: { pitch: 45, bearing: 45, zoom: 15.5 },
+  4: { pitch: 45, bearing: 55, zoom: 17.3 },
+  5: { pitch: 48, bearing: 55, zoom: 17.5 },
+};
+const camera = cameras[c.order] ?? { pitch: 33, bearing: 10, zoom: 15.25 };
+
+const hasHistoricalVideo = c.media.videos.includes("historical");
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * EVERY authored moral renders.
+ *
+ * This line used to read `const moral = c.morals[0]`. Chapter 2 is the only
+ * chapter with two, so its second theme — "FREEDOM ISN'T FREE" — was written,
+ * corrected, approved, and then never once appeared on the website. The
+ * ground and the study it was always meant to hang beside (`moral-pt2`,
+ * `sketch-pt2`) have been sitting unused in public/media the whole time.
+ *
+ * Moral N pairs with scene N: the twin template's second half gets its own
+ * theme, its own ground, and its own study, exactly like the first.
+ */
+/* v8 V8-275: authored ground positions — each drawing's quietest band sits
+   behind the text column (eyeballed per moral at 1440/390). Ferry's ground
+   is the study drawing itself since v8 (V8-276 — Wil, 00:21:34: the
+   background must be the same sketch the study presents; it showed an
+   unrelated skiff drawing). */
+const GROUND_FOCUS: Record<string, string> = {
+  "bakery/moral": "center 25%",
+  "commissioners-office/moral": "center 25%",
+  "commissioners-office/moral-pt2": "center 30%",
+  "mansion/moral": "center 25%",
+  "ferry/moral": "center 35%",
+  "barbershop/moral": "center 25%",
+};
+/* v12: the study tiers are built from whatever master exists, and two of them
+   are 1200px sources — `scripts/build-studies.mjs` never upscales, so those
+   `-1440` files really are 1200 wide. Read the width at build and let the
+   srcset descriptor tell the truth rather than claiming 1440w for all of them.
+   Resolved from process.cwd(), never import.meta.url (see paintings.astro). */
+const widthOf = async (rel: string, fallback: number) => {
+  try {
+    const m = await sharp(await readFile(join(process.cwd(), "public", rel))).metadata();
+    return m.width ?? fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const morals = c.morals.map((m, i) => {
+  const ground = i === 0 ? "moral" : `moral-pt${i + 1}`;
+  const scene = c.scenes[i] ?? c.scenes[0];
+  return {
+    ...m,
+    key: c.morals.length > 1 ? `moral-${i}` : "moral",
+    rail: c.morals.length > 1 ? `The moral · Pt ${i + 1}` : "The moral",
+    /** Ch2's second theme has its own full-bleed ground; one-moral chapters keep `moral`. */
+    ground,
+    groundFocus: GROUND_FOCUS[`${slug}/${ground}`] ?? "center 25%",
+    sketchKey: scene.reveal?.sketch ?? null,
+    /* v12: the study is credited by the PAINTING it was made for, not by the
+       location — the artwork keys are the same order the scenes run in. */
+    workTitle: c.media.works[i === 0 ? "horizontal" : "horizontal-pt2"]?.title ?? c.name.canonical,
+    /* Never invent a caption: scene 1 uses the chapter note, a later scene
+       uses its own if one has been written. Ch2 Pt 2's is outstanding —
+       docs/CONTENT-STATUS.md. */
+    note: i === 0 ? c.sketchNote : (scene.sketchNote ?? null),
+  };
+});
+
+const sketchWidths = await Promise.all(
+  morals.map((m) => (m.sketchKey ? widthOf(`media/${slug}/${m.sketchKey}-1440.webp`, 1440) : Promise.resolve(1440))),
+);
+
+/**
+ * THE INTERLUDE — the full-bleed beat between the sketch and the history.
+ *
+ * It used to draw `horizontal`, which is the same painting the hero already
+ * shows and the press-reveal already resolves to: the chapter painting rendered
+ * three times on one page. `vertical` and `square` are no escape — a contact
+ * sheet of every asset shows they are crops of that same canvas.
+ *
+ * So the slot changes what it holds rather than repeating. Four chapters give it
+ * the archival record of the real place — a genuinely different image, and a
+ * hard tonal cut from oil paint to black-and-white photography right before the
+ * cream reading register. Chapter 2 is the one chapter with a second painting
+ * (`horizontal-pt2`, the mob outside the building, a different canvas), so it
+ * gets that instead and keeps its archival film below — the long chapter with
+ * two scenes earns the extra beat, which is also what stops all five chapters
+ * from marching to the same rhythm.
+ *
+ * The painting now appears exactly twice: the hero, and the resolution of the
+ * press-and-hold — which is the entire point of that interaction.
+ */
+const interlude =
+  slug === "commissioners-office"
+    ? {
+        /* Ch2's interlude is the city itself: Barton's 1858 survey map (LOC
+           2016585052), downtown Troy + the river + West Troy — the two blocks
+           of the battle and the crossing in one plate. It replaced first the
+           duplicated painting (item 26) and then the 1819 map that had been
+           captioned "archival record" (final review 8/7 — 1858 interim per
+           Wil, pending Kathy's word vs. her 1845 map). */
+        kind: "archival" as const,
+        key: "troy-1858",
+        alt: "Map of Troy, New York in 1858: downtown Troy, the Hudson, and West Troy",
+        short: null,
+        rest: "Troy, New\u00a0York · 1858",
+        /* v8 V8-271 (Wil, 01:02:43): phones drop the licence tail so the chip
+           fits the plate on one line; ≥640 keeps the full credit. */
+        tail: " · Library\u00a0of\u00a0Congress",
+      }
+    : {
+        kind: "archival" as const,
+        key: "historical",
+        alt: `Archival photograph, ${c.name.canonical}`,
+        short: `${c.name.canonical} · `,
+        rest: "archival record",
+        tail: null,
+      };
+/** Chapter 2 keeps its archival film in the history section; the rest moved it. */
+const historyKeepsArchival = slug === "commissioners-office";
+
+/**
+ * THE RENDER ORDER (v7 C9, locked decision 6). One-scene chapters read
+ * story → interlude → history → moral → onward. Chapter 2, the twin
+ * template, interleaves so each part is followed by its own theme:
+ * Part 1 → interlude → History → Moral 1 → Part-2 hero → Part 2 → Moral 2 →
+ * Onward. The spine (`sections`) is pushed in the SAME order, so the
+ * numerals (01…06) and the collapsed mobile spine agree with scroll order.
+ */
+type Block =
+  | { type: "scene"; i: number }
+  | { type: "interlude" }
+  | { type: "history" }
+  | { type: "moral"; i: number };
+const blocks: Block[] = [];
+c.scenes.forEach((_, i) => {
+  blocks.push({ type: "scene", i });
+  if (i === 0) {
+    blocks.push({ type: "interlude" });
+    blocks.push({ type: "history" });
+  }
+  if (morals[i]) blocks.push({ type: "moral", i });
+});
+// morals beyond the scene count (never today) still render, after the last scene
+morals.forEach((_, i) => {
+  if (i >= c.scenes.length) blocks.push({ type: "moral", i });
+});
+
+type Sec = { key: string; rail: string; sceneIndex?: number };
+const sections: Sec[] = [];
+for (const b of blocks) {
+  if (b.type === "scene")
+    sections.push({
+      key: `scene-${b.i}`,
+      rail: c.scenes.length > 1 ? `Listen · Pt ${b.i + 1}` : "Listen",
+      sceneIndex: b.i,
+    });
+  else if (b.type === "history") sections.push({ key: "history", rail: "History" });
+  else if (b.type === "moral") sections.push({ key: morals[b.i].key, rail: morals[b.i].rail });
+}
+sections.push({ key: "onward", rail: "Onward" });
+
+/* Part headings ("Part 1\nTubman Creates a Crowd") are authored two lines —
+   the first line is the kicker on the Part-2 painting hero. */
+const partKicker = (label: string) => label.split("\n")[0].trim();
+
+/* v11 item 3 (Wil, 8/22): "in the second quote section below the Part 2 hero
+   section, remove `Part 2` so the text above the quote reads `the mob`. The
+   `Part 2` text under the Location 02 label in the hero section can stay."
+
+   The label is Kathy's authored content and stays exactly as written in the
+   JSON — this is a rendering rule, not a copy edit: where a scene label opens
+   with a bare `Part N` line, the SCENE HOOK prints only what follows, while
+   the hero kicker above still takes that first line. One source, two crops.
+
+   Scoped to scenes AFTER the first, which is what he asked for and also the
+   only place it is right: scene 2 is preceded by the Part-2 painting hero,
+   which already says "Part 2" a screen earlier, so the hook repeats it. Scene
+   1 has no such hero above it — the chapter hero carries the chapter's name —
+   so its "Part 1" is the only place that number appears and it stays. */
+const sceneHeading = (label: string, index: number) => {
+  const lines = label.split("\n");
+  return index > 0 && lines.length > 1 && /^Part\s+\d+$/i.test(lines[0].trim())
+    ? lines.slice(1).join("\n")
+    : label;
+};
+
+/* The hero's first paint is its poster, so the poster IS the LCP. It is
+ * rendered as a real responsive <img> beneath the film (a <video poster>
+ * attribute takes a single URL and cannot be art-directed or served as AVIF).
+ * Filenames are new — GitHub Pages caches hard, so reusing them would serve
+ * the old 146KB JPEGs. See scripts/build-posters.mjs. */
+const hKey = c.scenes[0].reveal?.video ?? "reveal-horizontal";
+const vKey = c.scenes[0].reveal?.videoVertical ?? "reveal-vertical";
+const poster = (key: string, ext: string) => withBase(`media/${slug}/${key}-poster-800.${ext}`);
+/* v14.2 (Wil, 9/16): the browser's bars continue the painting. Each hero
+   carries `data-edge-top` (portrait poster) / `data-edge-top-wide` (landscape,
+   from 768) and `data-edge-bottom` (the scrim's terminal #1d1411) for the edge
+   sampler in Base.astro. The colours are built from the posters' top band by
+   scripts/build-edge-colors.mjs → src/data/edge-colors.json; a key with no
+   colour renders no attribute. */
+const edgeColors = (edge as Record<string, Record<string, string>>)[slug] ?? {};
+const edgeOf = (key: string | undefined): string | undefined => (key ? edgeColors[key] : undefined);
+const heroAlt = `“${c.name.canonical}”, painting by Mark Priest`;
+/* v7 C7: one focus per orientation; the portrait <video> finally gets the same
+   object-position as its poster (it had none). */
+const focus =
+  typeof c.heroFocus === "number"
+    ? { landscape: c.heroFocus, portrait: c.heroFocus, portraitX: 50, portraitScale: 1 }
+    : { portraitX: 50, portraitScale: 1, ...c.heroFocus };
+---
+
+<Base
+  title={`${c.name.canonical} · Charles Nalle Walking Memorial`}
+  description={`${c.chapterLabel} of the Charles Nalle Walking Memorial: ${c.name.canonical}, Troy, NY, April 27, 1860.`}
+  preloadImages={[
+    { href: withBase(`media/${slug}/${vKey}-poster-480.avif`), type: "image/avif", media: "(max-width: 480px)" },
+    { href: poster(vKey, "avif"), type: "image/avif", media: "(min-width: 481px) and (max-width: 767px)" },
+    { href: poster(hKey, "avif"), type: "image/avif", media: "(min-width: 768px)" },
+  ]}
+  topBar="section"
+>
+  {/* Round 23, device pass 15: outside <main>, through the layout's chrome
+      slot — the rail is position: fixed, and inside the runway's moving box
+      (#reader, translated by −scrollY) a fixed box travels with the page
+      instead of holding the top edge. It is decorative on the chapter
+      routes (spans, no text), so its place in the DOM order is free. */}
+  <WalkProgress current={c.order} slot="chrome" />
+
+  {/* ══════ HERO — the finished animated painting, FULL-BLEED (items 2/16) ══════
+      The painting owns every pixel of the fold; the lockup sits over its base
+      on the house scrim. No frame, no letterbox strip, no fold arithmetic —
+      the hero IS one viewport tall, so F2 holds by construction. The kicker
+      and name are plain text over a CSS gradient: they paint before any image
+      byte arrives, which is what the QR filmstrip measures at t=1s. "Scroll to
+      listen" is gone (item 25) — the story begins by scrolling, and the page
+      says so by being a page.
+
+      v14.3 (Wil, 9/16, item 3: "when the user reverses scroll direction …
+      the page briefly jitters/shakes and may freeze"). `h-svh`, was `h-dvh`.
+      iOS collapses its bars on a scroll down and expands them on the first
+      scroll up, and `dvh` follows them — so this in-flow hero grew and shrank
+      by the bar's height (≈90px; ≈200px with Wil's address-bar-on-top layout)
+      while the reader was thousands of pixels below it, and everything under
+      it moved by exactly that much, with the hero's two full-screen <video>s
+      and its <picture> re-laid-out each time. Measured at 390×844 (Chromium,
+      iOS unit semantics emulated, no scroll anchoring — WebKit has none): the
+      paragraph under the thumb jumped +90px as the bars collapsed and −90px
+      at the reversal on /bakery (layout shift 0.09–0.11), and +400/−400px
+      past Ch2's second hero, where two such boxes sit above the reader.
+      `svh` is the viewport with the bars EXPANDED — what they are whenever
+      this hero is on screen, at the page top — so nothing changes at rest and
+      nothing above the reader resizes mid-gesture. Same for the lockup's
+      `5svh` inset and Ch2's Part-2 hero below. Not `lvh`: round 2 tried that
+      and it broke his phone (docs/rounds/2026-09-16-round-3-plan.md). */}
+  {/* Device pass 3 (Wil, 2026-09-18): the hero's ground is the page brown
+      #1d1411, not the near-black #100a06 — nobody sees the colour under the
+      painting, but the browser bars and the chapter cover take THIS value
+      ("the same as the hero section brown"), and the scrim already ends in
+      it. Same on the Part-2 hero below. */}
+  <header
+    id="hero"
+    class="relative h-svh overflow-hidden bg-primary-2"
+    data-edge-top={edgeOf(vKey)}
+    data-edge-top-wide={edgeOf(hKey)}
+    data-edge-bottom="#1d1411"
+  >
+    <div id="hero-media" class="absolute inset-0" style={`--hero-lift: ${focus.portraitScale}`}>
+      {/* The still painting — the LCP, responsive and art-directed. The 480
+          tier halves the poster bytes on the QR phone (31KB vs 66KB). */}
+      <picture>
+        <source
+          media="(max-width: 480px)"
+          type="image/avif"
+          srcset={withBase(`media/${slug}/${vKey}-poster-480.avif`)}
+        />
+        <source
+          media="(max-width: 480px)"
+          type="image/webp"
+          srcset={withBase(`media/${slug}/${vKey}-poster-480.webp`)}
+        />
+        <source
+          media="(max-width: 767px)"
+          type="image/avif"
+          srcset={poster(vKey, "avif")}
+        />
+        <source media="(max-width: 767px)" type="image/webp" srcset={poster(vKey, "webp")} />
+        <source type="image/avif" srcset={poster(hKey, "avif")} />
+        <source type="image/webp" srcset={poster(hKey, "webp")} />
+        <img
+          src={withBase(`media/${slug}/${hKey}-poster.jpg`)}
+          alt={heroAlt}
+          fetchpriority="high"
+          class="hero-still absolute inset-0 h-full w-full object-cover"
+          style={`--focus-l: ${focus.landscape}%; --focus-p: ${focus.portrait}%; --focus-px: ${focus.portraitX}%`}
+        />
+      </picture>
+
+      {/* The film arrives over it after window load — never under reduced
+          motion or on a thin pipe, where the painting simply stays still. */}
+      <video
+        class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+        style={`object-position: center ${focus.landscape}%`}
+        data-src={withBase(`media/${slug}/${hKey}.mp4`)}
+        data-reduce-static
+        preload="none"
+        loop
+        muted
+        playsinline
+        aria-hidden="true"></video>
+      <video
+        class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+        style={`object-position: ${focus.portraitX}% ${focus.portrait}%`}
+        data-src={withBase(`media/${slug}/${vKey}.mp4`)}
+        data-reduce-static
+        preload="none"
+        loop
+        muted
+        playsinline
+        aria-hidden="true"></video>
+    </div>
+
+    {/* Legibility scrims — the lockup band at the base, a breath at the top
+        so the fixed chrome never sits on raw painting. Juror pass 1 (P1):
+        at 1440/landscape the lockup rides higher in the band and the kicker
+        sat on thinned scrim over busy paint — the band runs deeper now, and
+        the lockup carries a soft text-shadow as the second lock. */}
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="absolute inset-x-0 bottom-0">
+      <div class="shell hero-lockup-shell">
+        <div id="hero-lockup" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
+          {/* Two authored lines below sm: the serif meta runs wider than the
+              old sans and a single line walked under the fixed burger. */}
+          <p class="t-meta">
+            Location {pad2(c.order)} of 5<span class="hidden text-neutral-12 sm:inline"> · </span><br
+              class="sm:hidden"
+            />Troy, NY · April 27, 1860
+          </p>
+          {/* No .lines mask here — hero legibility at t=1s must not depend
+              on JavaScript (E7). The lockup rises with the page instead. */}
+          {/* v8 V8-272 (Wil, 01:01:38): a step up on phones — the hero's widest
+              Caslon lines measure 0.52–0.59em/ch, so the hero alone runs the
+              fit at --fit-advance 0.64 with a 52px phone cap (was 46 via the
+              global 0.72): 34.7→39px on COMMISSIONER'S, 44→50px elsewhere at
+              390, verified no ink past the gutter by the rag probe. */}
+          <h1
+            class="chapter-hero-h1 t-display mt-[max(2vh,16px)] whitespace-pre-line"
+            style={fitChars(c.name.display)}
+          >
+            {c.name.display}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {/* ══════ THE BODY — rendered from `blocks` (see the frontmatter) ══════ */}
+  {
+    blocks.map((b) => (
+      <>
+        {/* ── A scene: after the first, one carrying its own painting opens
+            with its own full-bleed hero (item 26: the twin template — Ch2's
+            Pt 2 is a chapter within the chapter). ── */}
+        {/* v12 item 6 (Wil, 8/26): "the bottom margin/padding on the Moral
+            section for Part 1 is too small and feels unbalanced." It was the
+            only moral on the site with nothing after it: the four one-moral
+            chapters close into `.sec` (128/168/200 of margin), while this hero
+            carried none at all — 288px of air above the moral against 64
+            below. The same section token closes it now, so Part 1 ends the way
+            every other moral ends. */}
+        {/* v14 E20 (client): the Part-2 hero displays like the chapter hero —
+            full-bleed at the full viewport height (was 82dvh); the same
+            `pb-[max(5svh,32px)]` lockup inset as #hero, unchanged.
+            v14.3 (Wil, 9/16, item 3): `h-svh` with #hero — see its note. This
+            one sits mid-page, so a reader in Part 2 had BOTH heroes resizing
+            above them (measured: twice the bar, +400/−400px at Δ200). While
+            the bars are collapsed on the way down it is now the bar's height
+            short of the dynamic viewport for the moment it fills the screen;
+            the scrim's ground (#1d1411) is the page ground, so the band that
+            shows is the same colour, and the bars expand on the first scroll
+            up. */}
+        {b.type === "scene" && b.i > 0 && c.scenes[b.i].reveal && (
+          <section
+            class="sec relative h-svh overflow-hidden bg-primary-2"
+            id={`hero-${b.i + 1}`}
+            aria-label={`${c.scenes[b.i].label.replace("\n", ": ")}, painting`}
+            data-edge-top={edgeOf(c.scenes[b.i].reveal!.videoVertical)}
+            data-edge-top-wide={edgeOf(c.scenes[b.i].reveal!.video)}
+            data-edge-bottom="#1d1411"
+          >
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                type="image/avif"
+                srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}-poster-800.avif`)}
+              />
+              <source
+                media="(max-width: 767px)"
+                type="image/webp"
+                srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}-poster-800.webp`)}
+              />
+              <source type="image/avif" srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster-800.avif`)} />
+              <source type="image/webp" srcset={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster-800.webp`)} />
+              <img
+                src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}-poster.jpg`)}
+                alt={`“${c.name.canonical}”, ${partKicker(c.scenes[b.i].label)}, painting by Mark Priest`}
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
+            <video
+              class="lazy-video absolute inset-0 hidden h-full w-full object-cover md:block"
+              data-src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.video}.mp4`)}
+              data-reduce-static
+              preload="none"
+              loop
+              muted
+              playsinline
+              aria-hidden="true"
+            />
+            <video
+              class="lazy-video absolute inset-0 h-full w-full object-cover md:hidden"
+              data-src={withBase(`media/${slug}/${c.scenes[b.i].reveal!.videoVertical}.mp4`)}
+              data-reduce-static
+              preload="none"
+              loop
+              muted
+              playsinline
+              aria-hidden="true"
+            />
+            <div
+              class="pointer-events-none absolute inset-0"
+              style="background: linear-gradient(to top, rgb(29,20,17) 0%, rgba(29,20,17,.8) 26%, rgba(29,20,17,.36) 48%, transparent 64%), linear-gradient(to bottom, rgba(29,20,17,.55), transparent 18%)"
+              aria-hidden="true"
+            />
+            <div class="absolute inset-x-0 bottom-0">
+              <div class="shell pb-[max(5svh,32px)]" style="text-shadow: 0 1px 2px rgba(16,10,6,.9), 0 0 3px rgba(16,10,6,.7), 0 1px 14px rgba(16,10,6,.85)">
+                <p class="t-meta">Location {pad2(c.order)} · continued</p>
+                {/* v11 item 3 (Wil, 8/22): "maybe we should size it up to the
+                    next level in our type ramp/scale, figure out what looks
+                    better same size vs bigger and apply it." Rendered both at
+                    1440 and 390: at t-title (56/34) the kicker reads timid
+                    against a full-bleed painting; one rung up at t-display
+                    (88/46) it carries the hero the way the chapter's own H1
+                    does, and nothing collides — the eyebrow above it is meta
+                    and the lockup keeps its bottom inset. Sized up. */}
+                <p class="t-display mt-4" style={fitChars(partKicker(c.scenes[b.i].label))}>
+                  {partKicker(c.scenes[b.i].label)}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+        {b.type === "scene" && (
+          <section class="shell beat" id={`scene-${b.i}`} aria-label={c.scenes[b.i].label.replace("\n", ": ")}>
+            <div class="sec-head"></div>
+            <div class="editorial mt-8">
+              <ChapterSpine sections={sections} current={`scene-${b.i}`} primary={b.i === 0} />
+
+              {/* v10 V10-04/V10-10 (Wil, 8/21): on MOBILE AND TABLET the
+                  heading, quote and attribution are one block — left-aligned
+                  to each other, the block centred in its column. Desktop
+                  (1024+) keeps its original left-set layout. */}
+              <div class="scene-hook">
+                <h2 class="t-title lines"><Lines text={sceneHeading(c.scenes[b.i].label, b.i)} /></h2>
+
+                {/* v7 C6: the opening quote is the heading's companion — one
+                    block-gap, not a whole beat, between them. */}
+                {c.scenes[b.i].quote && (
+                  <figure class="reveal-quote quote-after-heading">
+                    <blockquote class="t-quote is-hung">“{c.scenes[b.i].quote!.text}”</blockquote>
+                    {/* v7 C11: the attribution stands alone; the dash is gone. */}
+                    <figcaption class="t-meta mt-6">{nbsp(c.scenes[b.i].quote!.attribution)}</figcaption>
+                  </figure>
+                )}
+              </div>
+            </div>
+
+            <div class="beat">
+              <AudioStory
+                client:visible={{ rootMargin: "600px" }}
+                slug={slug}
+                audioSrc={withBase(c.scenes[b.i].audio.file)}
+                label={c.scenes[b.i].audio.label}
+                spot={`Location ${pad2(c.order)}${c.scenes.length > 1 ? ` · Pt ${b.i + 1}` : ""}`}
+                subtitle={c.name.canonical}
+                duration={c.scenes[b.i].audio.duration}
+                timings={c.scenes[b.i].audio.timings}
+                paragraphs={c.scenes[b.i].paragraphs}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* ── The interlude — full-bleed, zero chrome. v6 juror pass 2, P0:
+            the clip-path used to sit on THIS section — the element the
+            IntersectionObserver watches — and Chromium computes intersection
+            against the target's own clip, so a fully-clipped section never
+            intersects and `is-in` never fired. The section is observed
+            un-clipped; the CHILD carries the wipe. ── */}
+        {b.type === "interlude" && (
+          <section class="painting-interlude wipe relative overflow-hidden" aria-label={interlude.alt}>
+            <div class="wipe-clip">
+              {/* v14 E27 (client): the desktop plate was oversized and popped
+                  in. Height 94vh → 87vh (the middle of v12's 80 and v13's 94;
+                  phones unchanged); the existing AVIF tier is served ahead of
+                  webp; and the img fades in on load (`is-loaded`, global.css)
+                  after the page script starts its fetch early. `block` on the
+                  <picture>: the wipe's breath of scale (.wipe-clip > *) needs
+                  a block box, and an inline <picture> would ignore it. */}
+              <picture class="block">
+                <source
+                  type="image/avif"
+                  srcset={`${withBase(`media/${slug}/${interlude.key}-800.avif`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.avif`)} 1440w`}
+                  sizes="100vw"
+                />
+                <source
+                  type="image/webp"
+                  srcset={`${withBase(`media/${slug}/${interlude.key}-800.webp`)} 800w, ${withBase(`media/${slug}/${interlude.key}-1440.webp`)} 1440w`}
+                  sizes="100vw"
+                />
+                <img
+                  class="interlude-img h-[76vh] w-full object-cover md:h-[87vh]"
+                  src={withBase(`media/${slug}/${interlude.key}-1440.jpg`)}
+                  sizes="100vw"
+                  alt={interlude.alt}
+                  loading="lazy"
+                />
+              </picture>
+              {/* v12: the cream overlay that used to sit here is gone — the
+                  plate is feathered by a mask on the image itself instead, so
+                  the picture dissolves into the real ground rather than having
+                  cream painted over its top and bottom (global.css
+                  .interlude-img). */}
+              {/* v7 C4: the credit sits on a chip (the map chip's ground) so
+                  it measures ≥ 4.5:1 on any photograph — pixel-checked by
+                  contrast.mjs. Phones drop the place name (it is the page) and
+                  ch2's licence tail (V8-271). v8 V8-271 (Wil, 00:14:39): from
+                  md the chip rides HALF the inset off the plate's bottom — the
+                  bottom fade dissolves the plate's edge, so the full inset
+                  read looser below than beside; mobile placement approved
+                  as-was (01:01:06). */}
+              <p class="t-meta interlude-credit absolute right-[var(--gutter)] bottom-[var(--ui-inset)] md:bottom-[calc(var(--ui-inset)/2)]">
+                {interlude.short && <span class="hidden sm:inline">{interlude.short}</span>}
+                {interlude.rest}
+                {/* Phones drop the licence tail — the chip stays one line.
+                    (v9 restored it on a misreading; SCOPE V10-02.) */}
+                {interlude.tail && <span class="hidden sm:inline">{interlude.tail}</span>}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* ── Historical context ── */}
+        {b.type === "history" && (
+          <section id="history" aria-labelledby="history-heading">
+            <div class="ground-cream py-24 md:py-32">
+              <div class="shell">
+                <div class="sec-head"></div>
+                <div class="editorial mt-8">
+                  <ChapterSpine sections={sections} current="history" />
+
+                  <div>
+                    <h2 id="history-heading" class="t-title lines"><Lines text={"Historical\ncontext"} /></h2>
+
+                    {/* Only chapter 2 still carries the archival film here — for
+                        every other chapter it IS the interlude directly above. */}
+                    {historyKeepsArchival && hasHistoricalVideo && (
+                      <div class="reveal artifact mt-12">
+                        <video
+                          class="lazy-video h-auto w-full"
+                          data-src={withBase(`media/${slug}/historical.mp4`)}
+                          data-poster={withBase(`media/${slug}/historical-poster.jpg`)}
+                          data-reduce-static
+                          preload="none"
+                          loop
+                          muted
+                          playsinline
+                          aria-label={`Archival film, ${c.name.canonical}`}
+                        />
+                      </div>
+                    )}
+
+                    {/* Facts on a fixed numeral column — the orange chips are gone.
+                        v7 V7-054: a narrower gutter on phones keeps the measure. */}
+                    <dl class="reveal mt-12 space-y-8">
+                      {c.historicalContext.map((point, index) => (
+                        <div class="grid grid-cols-[2.5rem_1fr] items-baseline sm:grid-cols-[3.5rem_1fr]">
+                          <dt class="t-meta">({index + 1})</dt>
+                          <dd class="t-prose">{nbsp(point)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+
+                    {c.portal.history.length > 0 && (
+                      <div class="reveal mt-16 space-y-6">
+                        {c.portal.history.map((para) => (
+                          <p class="t-prose">{nbsp(para)}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── The moral — full-bleed, one artifact each. v7 C2: the body is
+            cream like the heading, the scrim's middle band is deep enough to
+            measure ≥ 4.5:1 by pixel, and the ground image drifts on scroll
+            (parallax, scrub, ±6%, reduced motion off). v8 V8-275 (Wil,
+            00:23:18): the mix he asked for — the busy hatching sits behind a
+            slightly deeper middle band (.90), a 2px soft-focus on the ground
+            only, and an authored position per moral (`groundFocus`). ── */}
+        {b.type === "moral" && (
+          <section class="beat relative moral" id={morals[b.i].key} aria-labelledby={`${morals[b.i].key}-heading`}>
+            <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+              <img
+                src={withBase(`media/${slug}/${morals[b.i].ground}-1440.jpg`)}
+                alt=""
+                class="moral-ground h-full w-full object-cover"
+                style={`object-position: ${morals[b.i].groundFocus}`}
+                loading="lazy"
+                data-parallax
+              />
+              <div class="absolute inset-0" style="background: linear-gradient(#1d1411, rgba(29,20,17,.9) 26%, rgba(29,20,17,.9) 74%, #1d1411)" />
+            </div>
+
+            {/* v12 item 9 (Wil, 8/26): on phones "the padding/margin at the top
+                and bottom of the Moral section… is to big" and should feel like
+                the Historical Context section's, "maybe slightly more". That
+                section runs 96/96 on a phone; this one ran 128 of padding above a
+                72px beat margin — 200px of air above the rule, and 64 below
+                the CTA before another 128 of page ground. Both grounds are the
+                same brown, so what the eye measures is the whole run: 136 above
+                now and 168 below, down from 200 and 192, against the History
+                section's 96. Tablet and desktop are unchanged. */}
+            <div class="shell relative z-10 pt-16 pb-10 md:pt-40 md:pb-16">
+              <div class="sec-head"></div>
+              <div class="editorial mt-8">
+                <ChapterSpine sections={sections} current={morals[b.i].key} />
+                <div>
+                  <h2
+                    id={`${morals[b.i].key}-heading`}
+                    class="t-display lines"
+                    style={fitChars(morals[b.i].title)}
+                  >
+                    <Lines text={morals[b.i].title} />
+                  </h2>
+                  <p class="t-prose reveal mt-12 text-neutral-12">{nbsp(morals[b.i].message)}</p>
+
+                  {/* Item 18: the sketch hangs HERE, in the theme section, per the
+                      Figma placement. It is the viewport's one framed artifact.
+                      v7 C3: sketch and caption share a centre line. */}
+                  {morals[b.i].sketchKey && (
+                    <figure class="reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-center">
+                      <div class="artifact border border-primary-7">
+                        <img
+                          src={withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.jpg`)}
+                          srcset={`${withBase(`media/${slug}/${morals[b.i].sketchKey}-800.webp`)} 800w, ${withBase(`media/${slug}/${morals[b.i].sketchKey}-1440.webp`)} ${sketchWidths[b.i]}w`}
+                          sizes="(min-width: 768px) 420px, 100vw"
+                          alt={`Study for “${morals[b.i].workTitle}”, Mark Priest`}
+                          loading="lazy"
+                          decoding="async"
+                          class="h-auto w-full"
+                        />
+                      </div>
+                      {/* v9 V9-203 (Wil, 8/21): where the caption sits UNDER
+                          the sketch (below md), it needs side air so it reads
+                          as centred beneath the drawing rather than running
+                          the full plate width. */}
+                      <figcaption class="mt-8 max-w-[44ch] px-5 sm:px-8 md:mt-0 md:px-0">
+                        <p class="t-meta">The artist's study</p>
+                        {/* v8 V8-274 (Wil, 00:46:09): the study note is the
+                            moral's TERTIARY voice — one step down the ladder
+                            (prose → meta-body); the cream override keeps it
+                            legible on the ground. */}
+                        {morals[b.i].note && <p class="t-meta-body mt-4 text-neutral-12">{morals[b.i].note}</p>}
+                        <p class="t-meta-body mt-4 text-neutral-12/80">Mark Priest · Nalle Series</p>
+                      </figcaption>
+                    </figure>
+                  )}
+
+                  {/* Mid-register voice (E4 juror): the call to action stops
+                      whispering — its title is a title, not a breadcrumb. */}
+                  <div class="reveal rule-top mt-16 max-w-[52ch] pt-8">
+                    <p class="t-title-sm">{morals[b.i].callToAction.title}</p>
+                    <p class="t-prose mt-4 text-neutral-12">{nbsp(morals[b.i].callToAction.content)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </>
+    ))
+  }
+
+  {/* ══════ ONWARD ══════ */}
+  {/* v7 C6: Onward follows the moral at one section gap, not a whole void —
+      the reader must never think the page ended. */}
+  <section class="shell sec" id="onward" aria-label="Continue the walk">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <ChapterSpine sections={sections} current="onward" />
+
+      <div>
+        {/* v8 V8-204 (Wil, 00:15:20): the LOCATION NN marker rides the
+            heading row — bottom-aligned with WHERE TO NEXT, right-aligned
+            with the map's edge. (v9 dropped it on an approved answer; v10
+            restores it verbatim at Wil's request — SCOPE V10-01.) */}
+        <div class="flex items-end justify-between gap-6">
+          <h2 class="t-title lines"><Lines text={"Where\nto next"} /></h2>
+          <p class="t-meta pb-1 whitespace-nowrap">Location {pad2(nextEntry?.data.order ?? 1)}</p>
+        </div>
+
+        {
+          nextEntry && (
+            <div class="reveal embed-map-shell artifact relative mt-12">
+              <EmbedMap
+                client:visible
+                coordinates={nextEntry.data.map.coordinates as [number, number]}
+                label={nextEntry.data.name.canonical}
+                order={nextEntry.data.order}
+                pitch={camera.pitch}
+                bearing={camera.bearing}
+                zoom={camera.zoom}
+              />
+              {/* v8 V8-204 (Wil, 00:17:08): the whole map is the door — one
+                  stretched link covers the shell, pin included (the pin
+                  itself is no longer a separate anchor: one door, one tab
+                  stop). */}
+              <a
+                class="absolute inset-0 z-[5]"
+                href={withBase(c.next.slug)}
+                data-curtain-label={nextName?.short}
+                data-curtain-date
+                aria-label={`Continue to ${nextName?.short}`}
+              />
+            </div>
+          )
+        }
+
+        {/* GA&C banner discipline. v8 V8-204 (Wil, 00:16:19): Continue is
+            gone — the map/pin is the door; the destination lockup keeps the
+            name and address with Get directions centred beneath, still the
+            secondary action. */}
+        {/* v9 V9-201 (Wil, 8/21): the pin already names the place in full, so
+            repeating it here said the same thing twice — this line is the
+            DESTINATION's chapter number now, with the address under it. */}
+        {/* v11 item 2 (Wil, 8/22): "On desktop and tablet (only if space
+            allows) … left-align the chapter label and address under the map so
+            they align with the left edge of the map and with each other. Then
+            right-align the `Get directions` button with the right edge of the
+            map, vertically centered with the chapter label and address."
+
+            The lockup and the map shell are siblings in the same content
+            column, so the column's edges ARE the map's edges — the row needs
+            no measuring. Phones keep the centred stack exactly as it was. */}
+        <div class="reveal onward-lockup mt-12">
+          <div class="onward-dest">
+            <p class="t-title-sm">Chapter {nextEntry?.data.order ?? 1}</p>
+            <p class="t-meta-body mt-3">{nextEntry?.data.map.address}</p>
+          </div>
+          <div class="onward-action mt-10 flex flex-wrap items-center justify-center gap-4">
+            {
+              nextEntry && (
+                <Button
+                  variant="ghost"
+                  icon="arrow"
+                  external
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${nextEntry.data.map.coordinates[1]},${nextEntry.data.map.coordinates[0]}&travelmode=walking`}
+                >
+                  Get directions
+                </Button>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter hide={undefined} share audio />
+
+  <script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* v7 V7-022: a deep link (#scene-1, #history) can drift as lazy media and
+       the narration islands take their height — re-land on the hash once the
+       page has settled. */
+    /* Round 23, device pass 13: in the runway mode #reader is a fixed box
+       the compositor moves, so Base.astro lands the fragment by scrolling the
+       document to the target's natural offset; scrollIntoView on a box inside
+       a fixed one is not something every engine scrolls the document for. */
+    if (location.hash && document.documentElement.dataset.scroll !== "sync") {
+      const land = () => document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant", block: "start" });
+      window.addEventListener("load", () => setTimeout(land, 60), { once: true });
+    }
+
+    /* v14 E27 (client): the interlude plate is lazy and often decoded after
+       the wipe had begun, arriving in one frame. Its fetch now starts ~1600px
+       ahead of the viewport (Chromium's own lazy distance is 1250px on 4g;
+       Safari's is far shorter) by flipping `loading` to eager, and the plate
+       fades in when it lands — `is-loaded` drives the opacity in global.css,
+       where reduced motion and no-JS never hide it. Not a <head> preload: the
+       LCP path is untouched. */
+    const plates = document.querySelectorAll<HTMLImageElement>(".interlude-img");
+    if (plates.length) {
+      const early = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            (e.target as HTMLImageElement).loading = "eager";
+            early.unobserve(e.target);
+          }
+        },
+        { rootMargin: "1600px 0px" },
+      );
+      plates.forEach((img) => {
+        const show = () => img.classList.add("is-loaded");
+        if (img.complete && img.naturalWidth > 0) show();
+        else {
+          img.addEventListener("load", show, { once: true });
+          img.addEventListener("error", show, { once: true });
+        }
+        early.observe(img);
+      });
+    }
+
+    if (!reduced) {
+      gsap.registerPlugin(ScrollTrigger);
+      /* v11.2 (Wil, 8/24): with the chrome retracting on scroll, `dvh` grows
+         mid-gesture and ScrollTrigger's default answer is a full refresh —
+         every start/end re-derived while the reader's thumb is still moving,
+         which is what turns a growing hero into a jump. This option exists for
+         exactly that: ignore the resize a mobile address bar causes, keep
+         honouring a real orientation change.
+         v14.3 (Wil, 9/16, item 3): the heroes are `svh` now, so nothing above
+         the reader grows any more; this stays because the refresh itself —
+         every trigger re-measured mid-thumb — is the other half of the freeze. */
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      /* Round 23, device pass 8: in the inner-scroll mode (`?scroll=inner`,
+         Base.astro / global.css) <main> is the scroller and the document
+         never moves, so every trigger below measures against <main>. */
+      if (document.documentElement.dataset.scroll === "inner") ScrollTrigger.defaults({ scroller: "#main" });
+
+      /* v7 C2 — the moral's ground drifts against the reader (±6% travel,
+         scrubbed, the image oversized so no edge ever shows). Meaningful:
+         the theme's ground moves like the story under it. Documented as a
+         motion exception in docs/v4/MOTION.md. */
+      document.querySelectorAll<HTMLElement>("img[data-parallax]").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -6, scale: 1.14 },
+          {
+            yPercent: 6,
+            scale: 1.14,
+            ease: "none",
+            scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      });
+
+      /* v11 item 10 (Wil, 8/22): "there's an opportunity for a subtle scroll
+         effect: as you scroll down into the Historical Context section, the
+         image should ease into frame and grow slightly; as you scroll back up,
+         it should ease out and shrink slightly. Keep it elegant and
+         restrained."
+
+         A scrub, so scrolling back up retraces it exactly rather than replaying
+         an entrance. 1.00 → 1.045 across the approach, with `scrub: 0.6` for
+         the lag that makes it read as easing rather than as a slider.
+
+         Deliberately on the IMG, never the section: a scale on the full-bleed
+         block is what once reported 1584px of width on a 1440 screen (the note
+         below). The image is inside `overflow-hidden`, so growing it cannot
+         widen the document — verified by the rag gate's clip check. */
+      document.querySelectorAll<HTMLElement>(".interlude-img").forEach((img) => {
+        /* v12 item 5 (Wil, 8/26): "as you scroll into the Historical Context
+           section, the image should ease into frame and grow slightly; as you
+           scroll back up, it should ease out and shrink slightly. Keep it
+           elegant and restrained."
+           v11 grew it on the way IN and then held, so the move only existed on
+           approach. One timeline across the whole passage now grows it to the
+           section's centre and lets it back down on the way out — which, being
+           scrubbed, is exactly reversed when he scrolls back up. Still on the
+           IMG, never the section: a scale on a full-bleed block once reported
+           1584px of width on a 1440 screen. */
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: img.closest("section"), start: "top bottom", end: "bottom top", scrub: 0.6 },
+        });
+        /* V13-04 step 4 (his spec): scale 1.00 → 1.03 plus translateY ≈ −8px,
+           reversible on scroll-up (the scrub already retraces it exactly). */
+        tl.fromTo(img, { scale: 1, y: 0 }, { scale: 1.03, y: -8, ease: "sine.inOut", duration: 1 })
+          .to(img, { scale: 1, y: 0, ease: "sine.inOut", duration: 1 });
+      });
+
+      // The hero lockup withdraws and leaves the painting alone on the screen.
+      // That is the whole move, and it is the one the page is about.
+      //
+      // Two effects were cut here. The media used to scale to 1.15 while it was
+      // being scrubbed — it grew a box the viewport was already too small to
+      // show, and the measured 1.1 scale on the interlude was what made a
+      // full-bleed block report 1584px wide on a 1440 screen. Neither said
+      // anything: motion on this site is meant to narrate the past developing
+      // into the present, which is the press-and-hold's job, not decoration's.
+      const hero = document.getElementById("hero");
+      const lockup = document.getElementById("hero-lockup");
+      if (hero && lockup) {
+        gsap.to(lockup, {
+          y: -60,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "+=55%",
+            scrub: 0.5,
+            invalidateOnRefresh: false,
+          },
+        });
+      }
+    }
+
+    // Scroll-reveal suite (house vocabulary; CSS owns the motion).
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    document.querySelectorAll(".reveal, .reveal-quote, .lines, .wipe").forEach((el) => io.observe(el));
+
+    // Share: native share sheet, clipboard fallback.
+    document.getElementById("share-btn")?.addEventListener("click", async () => {
+      const data = { title: document.title, url: location.href };
+      try {
+        if (navigator.share) await navigator.share(data);
+        else {
+          await navigator.clipboard.writeText(location.href);
+          const b = document.getElementById("share-btn");
+          /* v14.5 (Wil, 9/16): the copied state never showed. The button is
+             `Share` + a trailing <svg> icon (Button.astro, icon-end), so the
+             LAST child node is the icon — the text landed inside the SVG,
+             unrendered, and wiped its paths. Write to the label's text node. */
+          const label = b && [...b.childNodes].find((n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+          if (label) label.textContent = "Link copied";
+        }
+      } catch {
+        /* user dismissed */
+      }
+    });
+  </script>
+</Base>
+
+<style>
+  /* v8 V8-272 — see the hero H1 comment. Scoped custom-property overrides;
+     the global .t-display formula consumes them. Desktop/tablet are still
+     capped by their --fs-display tokens, so only phones change. */
+  .chapter-hero-h1 {
+    --fit-advance: 0.64;
+  }
+  @media (max-width: 767px) {
+    .chapter-hero-h1 {
+      --fs-display: 52px;
+    }
+  }
+  /* v20 (round 23, Wil, 2026-09-18, his screenshot 4): "move the hero
+     section's text on all five chapter pages (excluding only part 2 of
+     chapter 2) down so that the vertical spacing between the bottom of the
+     chapter title and the top of the bottom toolbar feels optically the same
+     as the horizontal spacing between the left of the hero section text
+     elements and the left edge of the screen."
+
+     The hero is one small viewport tall, so at rest its bottom edge IS the
+     toolbar's top. The lockup's inset was `max(5svh, 32px)` — 32px on his
+     phone — and under the title's last baseline the line box (--lh-display
+     0.95) keeps another 0.123em of air (Libre Caslon Display: hhea ascent
+     0.970, descent 0.266, so (0.95 − 0.970 + 0.266) / 2), which at the phone
+     size is 6px: the eye read ~38px against a 20px gutter. Now the shell's
+     inset is the gutter itself and the title's negative margin takes the
+     slack out. Ink to ink, not box to box: on the left the eye measures the
+     gutter PLUS the capital's side bearing (~0.05em; the round-23 probe read
+     the first letter's ink at 22–23px from the edge at 390), so the margin
+     takes out 0.123 − 0.05 = 0.073em and the last line's ink sits 22–23px
+     above the edge as well — the same number both ways, on every chapter.
+     `var(--gutter)` rather than 20px, so a phone with a side inset (landscape,
+     the notch) keeps the two equal.
+
+     Phones (below 768) always. Tablets (768–1023) only in a browser with
+     collapsing bars, which is what "if the bottom toolbar is present" means
+     once CSS has to measure it: `100lvh − 100svh` is the bars' height on such
+     a browser and 0 on an iPad and every desktop (playbook §2). The trig cast
+     turns that length into a 0/1 switch; where the functions are unsupported
+     the @supports gate keeps the old inset. Desktop (1024 and up) and the
+     Part-2 hero (#hero-2) are untouched. */
+  .chapter-hero-h1 {
+    --hero-lockup-slack: 0.073em;
+  }
+  .hero-lockup-shell {
+    padding-bottom: max(5svh, 32px);
+  }
+  @media (max-width: 767px) {
+    .hero-lockup-shell {
+      padding-bottom: var(--gutter);
+    }
+    .hero-lockup-shell .chapter-hero-h1 {
+      margin-bottom: calc(-1 * var(--hero-lockup-slack));
+    }
+  }
+  @supports (padding: calc(1px * clamp(0, tan(atan2(1px, 1px)), 1))) {
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero-lockup-shell {
+        --hero-bars: clamp(0, tan(atan2(100lvh - 100svh, 1px)), 1);
+        padding-bottom: calc(max(5svh, 32px) * (1 - var(--hero-bars)) + var(--gutter) * var(--hero-bars));
+      }
+      .hero-lockup-shell .chapter-hero-h1 {
+        margin-bottom: calc(-1 * var(--hero-bars) * var(--hero-lockup-slack));
+      }
+    }
+  }
+  /* v8 V8-278 (Wil, 01:08:21) — the portrait hero lift: phones show the
+     vertical poster's full height, so the only way to raise the subject is
+     to scale the media about its bottom edge (the source's top crops away).
+     Films and still share the container, so one transform covers all. */
+  @media (max-width: 767px) {
+    #hero-media {
+      transform: scale(var(--hero-lift, 1));
+      transform-origin: 50% 100%;
+    }
+  }
+  /* v8 V8-277 (Wil, 01:05:06) — phones centre the hook's headline + quote;
+     the hung indent comes off (a centred line with a negative indent reads
+     lopsided) and the quote's measure centres in the column. */
+  /* v10 V10-04 (Wil, 8/21): the three rows stay LEFT-ALIGNED TO EACH OTHER
+     and the block they form is centred in its parent — at EVERY width, not
+     just phones (his choice). `fit-content` + auto margins centre the block;
+     the text inside never moves. */
+  /* v10.1 V10-10 (Wil, 8/21): "this was supposed to only be applied to tablet
+     and mobile, not desktop. Please revert on desktop." 1024 is this site's
+     desktop line — where `.editorial` becomes its two-column grid — so the
+     centred block stops there and desktop keeps the layout it always had.
+     Scoping it below 1024 also retires both workarounds the desktop case
+     needed (a container-type opt-out and `justify-self`). */
+  /* V13-08 (Wil, 8/26): "the quote section on every chapter" reads centred
+     only when its own intrinsic width happens to fall short of the column —
+     `fit-content` gave every chapter a DIFFERENT block width, so a long quote
+     (17em at --fs-quote, wider than any phone column) resolved to 100% with
+     nothing left to centre while chapter 3's short one ("Are you a Negro?")
+     genuinely centred. One shared measure below 1024 instead, so every
+     chapter's block is the same width and phones show an equal margin either
+     side regardless of how long its quote runs. Tuned against all five
+     chapters' heading+quote line counts at 360–430 against HEAD's own line
+     counts, not against a guess: 260px breaks his guardrail (two hooks gain
+     TWO lines), 300px leaves only 18px either side, and 280px is the widest
+     margin still inside "at most one extra line" — two of six hooks gain one,
+     none gain two. He named chapter 3's phone rendering as the correct look;
+     it sat at 237px with 49px either side, and no single shared measure can
+     match that without wrapping the long quotes past his limit.
+     Text stays left-aligned inside the block; the hung indent stays off
+     below 1024 (v8 V8-277). Desktop (≥1024) is untouched (v10.1 V10-10). */
+  @media (max-width: 1023px) {
+    .scene-hook {
+      --hook-measure: min(90%, 280px);
+      width: min(100%, var(--hook-measure));
+      margin-inline: auto;
+      text-align: left;
+    }
+    .scene-hook blockquote {
+      text-indent: 0;
+    }
+  }
+  /* Tablet steps up once --fs-quote and --fs-title do. 544px is not a taste
+     call: it is `.t-quote`'s own 17em measure, and it is already the width
+     three of the five hooks resolve to at 768 today — so it brings bakery
+     (which was saturating the column at 688 on its HEADING, not its quote)
+     into line with the rest instead of dragging the rest out to meet it.
+     Measured against every candidate: 544 costs ZERO extra lines on any of
+     the six hooks and leaves 72px either side, where 650 also cost zero but
+     left only 19px — and "centred within the section" is the whole ask. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .scene-hook {
+      --hook-measure: 544px;
+    }
+  }
+</style>

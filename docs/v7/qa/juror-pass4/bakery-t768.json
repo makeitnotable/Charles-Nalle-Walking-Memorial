@@ -1,0 +1,340 @@
+{
+  "route": "/bakery",
+  "vpk": "t768",
+  "steps": [
+    {
+      "name": "arrival",
+      "burger": {
+        "x": 656,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      },
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 656,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        }
+      ]
+    },
+    {
+      "name": "burger-scroll",
+      "afterDown": {
+        "x": 658,
+        "y": 54,
+        "w": 68,
+        "h": 68,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "none"
+      },
+      "afterUp": {
+        "x": 656,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "players",
+      "nPlays": 1,
+      "labels": [
+        "Play narration: Holeur’s Fashionable Bakery"
+      ]
+    },
+    {
+      "name": "play",
+      "audioState": [
+        {
+          "src": "ch1-bakery.mp3",
+          "paused": false,
+          "t": 2.282964,
+          "dur": 100.728125,
+          "ready": 4
+        }
+      ],
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 40,
+          "y": 968,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 49,
+          "y": 931,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "name": "tap-paragraph",
+      "before": 2.448206,
+      "after": {
+        "t": 49.760262,
+        "paused": false,
+        "active": 7
+      },
+      "nP": 3
+    },
+    {
+      "name": "pause-visible-sweep",
+      "docH": 7994,
+      "misses": [],
+      "playing": true
+    },
+    {
+      "name": "history-floating",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 656,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:00",
+          "x": 40,
+          "y": 922,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "moral-colors",
+      "morals": [
+        {
+          "id": "moral",
+          "heading": "NOT ALL LAWS ARE MORAL",
+          "hColor": "rgb(246, 243, 238)",
+          "body": [
+            {
+              "t": "(03)",
+              "color": "rgb(255, 151, 112)",
+              "fs": "28px"
+            },
+            {
+              "t": "THE MORAL",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "Laws like the Fugitive Slave Act demonst",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "THE ARTIST'S STUDY",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "The study is almost solid ink. Priest wo",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            },
+            {
+              "t": "Mark Priest · Nalle Series",
+              "color": "rgb(246, 243, 238)",
+              "fs": "14px"
+            },
+            {
+              "t": "KNOW THE LAW YOU ARE UNDER",
+              "color": "rgb(246, 243, 238)",
+              "fs": "28px"
+            },
+            {
+              "t": "Educate yourself on unjust laws, vote ag",
+              "color": "rgb(246, 243, 238)",
+              "fs": "20px"
+            }
+          ],
+          "cap": {
+            "t": "THE ARTIST'S STUDY\n\nThe study is almost solid ink. Priest wo",
+            "color": "rgb(254, 217, 204)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "moral-floating",
+      "id": "moral",
+      "fl": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:02",
+          "x": 40,
+          "y": 922,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "onward",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 656,
+          "y": 40,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:05",
+          "x": 40,
+          "y": 922,
+          "w": 114,
+          "h": 62
+        }
+      ],
+      "contRect": {
+        "x": 160.125,
+        "y": 1058.53125,
+        "width": 186.84375,
+        "height": 48
+      }
+    },
+    {
+      "name": "footer",
+      "nFixed": 3,
+      "hits": [],
+      "footerText": "Charles Nalle Walking Memorial Made by Notable THE PEOPLE OF THIS DAY THE PAINTINGS ABOUT THE MEMORIAL MAP SHARE Walking routes and directions are suggestions only. Explore at your own pace, discretion, and risk."
+    },
+    {
+      "name": "burger-before-menu",
+      "rect": {
+        "x": 656,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "menu-open",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 1024,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1024
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 358,
+          "y": 40,
+          "w": 370,
+          "h": 662
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:08",
+          "x": 40,
+          "y": 922,
+          "w": 114,
+          "h": 62
+        }
+      ],
+      "expanded": "true"
+    },
+    {
+      "name": "menu-closed",
+      "expanded": "false",
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Holeur’s Fashionable Bakery",
+          "x": 49,
+          "y": 931,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    }
+  ],
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+  ]
+}

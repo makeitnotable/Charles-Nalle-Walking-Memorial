@@ -1,0 +1,319 @@
+---
+// Corner-notched menu (approved signature #5, ported from legacy
+// MenuOverlay.jsx). 72×72 hamburger, three primary-10 bars (third shorter),
+// opens in place with back.out(1.7) to a bordered panel.
+// The multi-door IA (People / Paintings / The Walk) folds into the approved
+// panel below the chapter list, same voice.
+import { getCollection } from "astro:content";
+import Icon from "./Icon.astro";
+import { withBase } from "../lib/url";
+
+interface Props {
+  /** "top-right" (default) or "bottom-right" (map page) */
+  position?: "top-right" | "bottom-right";
+}
+const { position = "top-right" } = Astro.props;
+/* v7 V7-089: mark the current page (aria-current + a quiet colour). File-format
+   builds report `/base/bakery.html` — normalise like Base.astro's canonical. */
+const here = Astro.url.pathname.replace(/index\.html$/, "").replace(/\.html$/, "").replace(/\/$/, "");
+const isHere = (slug: string) => {
+  const target = withBase(slug).replace(/\/$/, "");
+  return here === target || (slug === "" && (here === "" || here === withBase("").replace(/\/$/, "")));
+};
+
+/* Generated from the content collection — the v3 hardcoded list had already
+ * drifted to "Mansion" and "Ferry" while the map said something else. There is
+ * one source for a place name now: `name.short`. v14.2 (Wil, 9/16): below the
+ * 1200px desktop line the row reads the map's extra-short `name.pin` (Bakery ·
+ * Commissioner · Mansion · Ferry · Barbershop, falling back to `short`); the
+ * curtain label stays `name.short` at every width. */
+const chapters = (await getCollection("chapters"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => ({
+    slug: e.id,
+    order: String(e.data.order).padStart(2, "0"),
+    name: e.data.name.short,
+    pin: e.data.name.pin ?? e.data.name.short,
+  }));
+/* One inset for every floating element on the site. The burger used to sit at
+ * right:12px while page content sat on a 56px gutter — 124px adrift on a 1440
+ * screen, anchored to nothing. It is on the gutter now. */
+/* v20 (round 23, Wil, 2026-09-18): the top-right corner reads its OWN inset
+ * (`--menu-inset`, global.css: the gutter and the top and right safe areas),
+ * not --ui-inset, whose bottom safe area grows by 34px when Safari's bars
+ * collapse and was moving this button 14px on every scroll. The bottom-right
+ * variant (unused today) keeps the shared lane. */
+const posClass =
+  position === "bottom-right"
+    ? "bottom-[var(--ui-inset)] right-[var(--ui-inset)]"
+    : "top-[var(--menu-inset)] right-[var(--menu-inset)]";
+const notchClass =
+  position === "bottom-right"
+    ? "rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-4xl"
+    : "rounded-tl-xl rounded-tr-xl rounded-br-xl rounded-bl-4xl";
+---
+
+{/* The scrim is what turns this from a collision into a layer. Open over the
+    map, the panel sat on top of live markers and sliced them in half — two
+    interactive things competing for the same pixels. Behind a scrim it reads
+    as what it is: a dialog over a dimmed page. It also gives the panel a
+    click-away target it never had. */}
+<div class="cnwm-menu-scrim" hidden aria-hidden="true"></div>
+
+<div
+  class={`cnwm-menu fixed ${posClass} z-[1000]`}
+  data-position={position}
+>
+  <!-- Hamburger -->
+  <button
+    type="button"
+    class={`cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-center border border-primary-7 bg-primary-3 ${notchClass}`}
+    aria-label="Open menu"
+    aria-expanded="false"
+  >
+    <span class="flex w-full flex-col items-center gap-2" aria-hidden="true">
+      <span class="cnwm-bar block h-0.5 w-8 rounded-full bg-primary-10"></span>
+      <span class="cnwm-bar block h-0.5 w-8 rounded-full bg-primary-10"></span>
+      <span class="cnwm-bar ml-4.5 block h-0.5 w-6 self-start rounded-full bg-primary-10"></span>
+    </span>
+  </button>
+
+  <!-- Panel -->
+  <nav
+    class="cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border border-primary-7 bg-primary-3"
+    aria-label="Site"
+  >
+    {position === "top-right" && (
+      <button
+        type="button"
+        class="cnwm-menu-close flex w-full cursor-pointer items-center justify-center rounded-t-[12px] border-b border-primary-7 bg-primary-3 py-4 transition-colors duration-300 hover:bg-primary-5"
+        aria-label="Close menu"
+      >
+        <Icon name="close" class="text-primary-9" />
+      </button>
+    )}
+    {/* 20rem gave the inner column 256px, and "COMMISSIONER'S" at the old
+        title step measured 266px — the menu's own longest label overflowed and
+        was clipped by the edge of the screen. */}
+    <div class="cnwm-menu-list flex w-[min(82vw,23rem)] flex-col p-8">
+      <a
+        href={withBase("")}
+        class="t-meta transition-colors hover:text-neutral-12"
+        data-curtain-label="Home"
+        aria-current={isHere("") ? "page" : undefined}
+        style="transition-duration: var(--dur-fast)">Home</a
+      >
+
+      <ul class="mt-8 space-y-5">
+        {chapters.map((c) => (
+          <li>
+            <a
+              href={withBase(c.slug)}
+              class="group flex items-baseline gap-4"
+              data-curtain-label={c.name}
+              data-curtain-date
+              aria-current={isHere(c.slug) ? "page" : undefined}
+            >
+              <span class="t-meta w-8 shrink-0">{c.order}</span>
+              {/* v14.2 (Wil, 9/16): two labels, one shown — `name.short` from the
+                  1200px desktop line up, the extra-short `name.pin` below it (the
+                  scoped rules at the foot of this file). Exactly one span is
+                  displayed at any width, so assistive tech reads one name. */}
+              <span
+                class="t-title-sm transition-colors group-hover:text-primary-9"
+                style="transition-duration: var(--dur-fast)"
+              >
+                <span class="cnwm-menu-label-long">{c.name}</span>
+                <span class="cnwm-menu-label-short">{c.pin}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <ul class="rule-top mt-8 space-y-4 pt-8">
+        <li><a href={withBase("map")} class="link-meta t-meta" data-curtain-label="Map" aria-current={isHere("map") ? "page" : undefined}>Map<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("people")} class="link-meta t-meta" data-curtain-label={"The\nPeople"} aria-current={isHere("people") ? "page" : undefined}>The people<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("paintings")} class="link-meta t-meta" data-curtain-label={"The\nPaintings"} aria-current={isHere("paintings") ? "page" : undefined}>The paintings<Icon name="arrow" size="sm" /></a></li>
+        <li><a href={withBase("about")} class="link-meta t-meta" data-curtain-label="About" aria-current={isHere("about") ? "page" : undefined}>About<Icon name="arrow" size="sm" /></a></li>
+      </ul>
+    </div>
+    {position === "bottom-right" && (
+      <button
+        type="button"
+        class="cnwm-menu-close flex w-full cursor-pointer items-center justify-center rounded-b-[12px] border-t border-primary-7 bg-primary-3 py-6 transition-colors duration-300 hover:bg-primary-5"
+        aria-label="Close menu"
+      >
+        <Icon name="close" class="text-primary-9" />
+      </button>
+    )}
+  </nav>
+</div>
+
+{/* v14.2 (Wil, 9/16): the chapter rows carry both labels; these two queries
+    meet at the site's desktop line (the 1200px type step) so exactly one is
+    displayed at any width — `display: none` keeps the other out of the
+    accessible name as well as the layout. */}
+<style>
+  @media (max-width: 1199px) {
+    .cnwm-menu-label-long {
+      display: none;
+    }
+  }
+  @media (min-width: 1200px) {
+    .cnwm-menu-label-short {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  function setup(root: HTMLElement) {
+    const burger = root.querySelector<HTMLButtonElement>(".cnwm-menu-burger")!;
+    const panel = root.querySelector<HTMLElement>(".cnwm-menu-panel")!;
+    const closeBtns = root.querySelectorAll<HTMLButtonElement>(".cnwm-menu-close");
+    const bars = root.querySelectorAll<HTMLElement>(".cnwm-bar");
+    const scrim = document.querySelector<HTMLElement>(".cnwm-menu-scrim");
+    const origin =
+      root.dataset.position === "bottom-right" ? "bottom right" : "top right";
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const open = () => {
+      burger.setAttribute("aria-expanded", "true");
+      burger.classList.add("hidden");
+      panel.classList.remove("hidden");
+      if (scrim) scrim.hidden = false;
+      if (!reduced) {
+        gsap.fromTo(
+          panel,
+          { scale: 0.8, opacity: 0, transformOrigin: origin },
+          { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, // the one documented overshoot
+        );
+      }
+      (panel.querySelector("a, button") as HTMLElement | null)?.focus();
+    };
+
+    /* v7 N1: the X turns as it goes — a quarter turn over --dur-fast on the
+       house curve, then the panel folds. Reduced motion: no turn. */
+    const spinX = (btn: HTMLElement | null) => {
+      const icon = btn?.querySelector("svg");
+      if (!icon || reduced) return;
+      gsap.fromTo(
+        icon,
+        { rotation: 0, transformOrigin: "50% 50%" },
+        { rotation: 90, duration: 0.3, ease: "expo.out", overwrite: true },
+      );
+    };
+    const close = (from?: HTMLElement | null) => {
+      burger.setAttribute("aria-expanded", "false");
+      spinX(from ?? null);
+      const done = () => {
+        panel.classList.add("hidden");
+        if (scrim) scrim.hidden = true;
+        burger.classList.remove("hidden");
+        if (!reduced) {
+          gsap.fromTo(
+            burger,
+            { scale: 0.8, opacity: 0, rotation: -180 },
+            { scale: 1, opacity: 1, rotation: 0, duration: 0.3, ease: "power2.out" },
+          );
+          gsap.fromTo(
+            bars,
+            { scaleX: 0, opacity: 0 },
+            { scaleX: 1, opacity: 1, duration: 0.3, stagger: 0.06, delay: 0.15, ease: "power2.out" },
+          );
+        }
+        burger.focus();
+      };
+      if (reduced) done();
+      else
+        gsap.to(panel, {
+          scale: 0.8,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          transformOrigin: origin,
+          onComplete: done,
+        });
+    };
+
+    burger.addEventListener("click", open);
+    closeBtns.forEach((b) => b.addEventListener("click", () => close(b)));
+    scrim?.addEventListener("click", () => {
+      if (!panel.classList.contains("hidden")) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.classList.contains("hidden")) close();
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>(".cnwm-menu").forEach(setup);
+
+  /* The burger floats over the page, so on a phone it landed on live body copy
+     — the v3 census caught it clipping words mid-sentence on ten screens. It
+     now retreats while the reader scrolls forward and returns on any upward
+     scroll, at rest, or whenever the panel is open. */
+  (() => {
+    const menus = Array.from(document.querySelectorAll<HTMLElement>(".cnwm-menu"));
+    if (!menus.length) return;
+    /* Round 23, device pass 8: in the inner-scroll mode (`?scroll=inner`,
+       Base.astro) <main> is the scroller and the document sits at 0, so the
+       offset is read from <main>; its scroll events reach window re-sent. */
+    const inner = document.documentElement.dataset.scroll === "inner" ? document.getElementById("main") : null;
+    const pos = () => (inner ? inner.scrollTop : window.scrollY);
+    let last = pos();
+    /* v7 N2: touch scrolling fires many small scroll events (5–15px each), so
+       the old "one event moved 24px" test never fired on a phone and the
+       burger rode over the art all page long. Travel is now ACCUMULATED per
+       direction; a change of direction resets the other counter. */
+    let down = 0;
+    let up = 0;
+    const set = (hidden: boolean) => {
+      for (const m of menus) {
+        const open = m.querySelector(".cnwm-menu-panel")?.classList.contains("hidden") === false;
+        m.dataset.hidden = String(hidden && !open);
+      }
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = pos();
+        const dy = y - last;
+        last = y;
+        if (dy > 0) {
+          down += dy;
+          up = 0;
+        } else if (dy < 0) {
+          up += -dy;
+          down = 0;
+        }
+        // Reading forward hides it and KEEPS it hidden — no idle restore, or it
+        // reappears on top of the paragraph you stopped at. Any upward scroll
+        // (24px of it), or returning near the top, brings it straight back.
+        if (down > 24 && y > 240) set(true);
+        else if (up > 24 || y <= 240) set(false);
+      },
+      { passive: true },
+    );
+    /* A scripted scroll (the museum bringing its stage into frame) is not the
+       reader moving on: show the menu and let the NEXT real scroll decide. */
+    window.addEventListener("cnwm:menu-show", () => {
+      down = 0;
+      up = 0;
+      set(false);
+      /* the scripted scroll's own events must not count as reading forward */
+      const until = performance.now() + 1200;
+      const guard = () => {
+        if (performance.now() < until) {
+          down = 0;
+          last = pos();
+          set(false);
+          requestAnimationFrame(guard);
+        }
+      };
+      requestAnimationFrame(guard);
+    });
+  })();
+</script>

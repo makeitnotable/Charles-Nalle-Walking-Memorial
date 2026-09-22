@@ -1,0 +1,13 @@
+{
+  "round": 6,
+  "date": "2026-09-16",
+  "plan": "docs/rounds/2026-09-16-round-6-plan.md",
+  "base": { "tag": "client-round-6-base", "commit": "016710c6ab583402b36924305239cd333fb2963d", "branch": "v2" },
+  "allowed": [
+    "src/pages/[chapter].astro",
+    "docs/rounds/2026-09-16-round-6-plan.md",
+    "docs/rounds/2026-09-16-round-6.json"
+  ],
+  "snap": { "allowedRoutes": [] },
+  "notes": "One bug fix in the chapter Share handler; nothing changes at rest, so no route may drift. Base 016710c is the v2 tip (round 5, Actions run 225)."
+}

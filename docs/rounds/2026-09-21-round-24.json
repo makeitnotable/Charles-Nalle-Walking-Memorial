@@ -1,0 +1,35 @@
+{
+  "round": 24,
+  "label": "/paintings — Safari's bars stay glass over the hall: a sticky pin a viewport taller than the viewport keeps its edge probe off the stage, and in-flow runway strips carry the hall's rows into the bar regions",
+  "date": "2026-09-21",
+  "plan": "docs/rounds/2026-09-21-round-24-plan.md",
+  "base": {
+    "tag": "client-round-24-base",
+    "commit": "1e5b07dcffd0f773d4c49af50e8a455436d994dd",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/Museum.tsx",
+    "src/styles/global.css",
+    "package.json",
+    "docs/RUN-STATE.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/v4/DECISIONS.md",
+    "docs/rounds/2026-09-21-round-24.json",
+    "docs/rounds/2026-09-21-round-24-plan.md",
+    "scripts/museum-runway.mjs",
+    "scripts/museum-tint.mjs",
+    "scripts/museum-edge.mjs"
+  ],
+  "constraints": {
+    "package.json": {
+      "jsonKeys": [
+        "scripts"
+      ]
+    }
+  },
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil's two /paintings screenshots of 2026-09-21 and his four answers: the bars must keep collapsing while walking; live see-through of the hall is the ask and a gradient/fade is only the fallback if it cannot be achieved; /paintings only; the at-rest top bar stays. Both screenshots are one defect: the corridor stage is position:sticky and Safari 26 clips a pinned box's paint at the layout viewport (rounds 8 and 23), so the toolbar band at rest and the minimized bar's region while walking show the page ground behind the stage. This round keeps the stage exactly as it is and adds the RUNWAY: the WebGL canvas renders B extra rows above and below the stage (camera.setViewOffset, so the stage's own band is framed pixel-for-pixel as today), and two in-flow <canvas> strips in the slot — page paint, never pinned, so Safari composites them into the bar regions the way it does the map's runway — are fed those rows every frame and placed by script so they sit exactly in the bar regions: above the viewport's top edge while the stage is stuck, below its bottom edge (svh, never innerHeight) whenever the stage's box reaches it. Each strip overlaps the stage by 48px on the viewport side (hidden behind the opaque stage) and is padded 48px on the outside, so a frame of main-thread lag moves the seam inside the overlap instead of opening a slit; a velocity lead covers the residual. ?runway=track drives the strips from the scroll timeline instead (the round-23 open measurement); ?debug=1 prints the path and geometry. Everything is behind ?glass=1 and iOS-only (B is 0 wherever lvh == svh), so v2 is byte-identical off the flag and no route may drift. package.json may change only in scripts (qa:runway). Device pass 5 (r24.6): two facts measured on his phone in earlier rounds — the bars are glass unless a pinned element is what Safari's edge probe finds (the sticky, viewport-sized stage was, so both bars were opaque fills), and a pinned box's paint never reaches the bar regions — so the sticky element is now a pin a viewport taller than the viewport (WebKit's probe skips a pinned box that overshoots the viewport along the edge's axis) with the stage absolute at its foot in exactly its old box, and the pass-0 runway strips are back, default on wherever the bars collapse. package.json may change only in scripts (qa:runway)."
+}

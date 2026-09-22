@@ -1,0 +1,26 @@
+co@p390 id order: hero@0 → hero-media@0 → hero-lockup@687 → scene-0@916 → history@3384 → history-heading@3631 → moral-0@5858 → moral-0-heading@6138 → hero-2@7282 → scene-1@8046 → moral-1@10978 → moral-1-heading@11257 → onward@12572
+co@p390 spine: Skip to content | (01)Listen · Pt 1 | (02)History | (03)The moral · Pt 1 | (04)Listen · Pt 2 | (05)The moral · Pt 2 | (06)Onward
+co@p390 play buttons: 2 labels=Play narration: Commissioner’s Office, Pt 1 / Play narration: Commissioner’s Office, Pt 2
+co@p390 before part2 click: ch2-commissioners-office-pt1.mp3 t=5.8 paused=false ; ch2-commissioners-office-pt2.mp3 t=0.0 paused=true
+co@p390 after part2 click: ch2-commissioners-office-pt1.mp3 t=5.8 paused=true ; ch2-commissioners-office-pt2.mp3 t=2.4 paused=false
+co@p390 fixed after part2 (should be ONE mini): nav 0,0 390x3 "Progress along the walk" | div 20,762 191x62 "Spot 02 · Pt 200:03 / 02:19"
+co@p390 after tapping part2 para2: ch2-commissioners-office-pt1.mp3 t=5.8 paused=true ; ch2-commissioners-office-pt2.mp3 t=36.5 paused=false
+co@t768 id order: hero@0 → hero-media@0 → hero-lockup@815 → scene-0@1120 → history@3497 → history-heading@3779 → moral-0@5397 → moral-0-heading@5710 → hero-2@6884 → scene-1@7820 → moral-1@10009 → moral-1-heading@10322 → onward@11648
+co@t768 spine: Skip to content | (01)Listen · Pt 1 | (02)History | (03)The moral · Pt 1 | (04)Listen · Pt 2 | (05)The moral · Pt 2 | (06)Onward
+co@t768 play buttons: 2 labels=Play narration: Commissioner’s Office, Pt 1 / Play narration: Commissioner’s Office, Pt 2
+co@t768 before part2 click: ch2-commissioners-office-pt1.mp3 t=6.3 paused=false ; ch2-commissioners-office-pt2.mp3 t=0.0 paused=true
+co@t768 after part2 click: ch2-commissioners-office-pt1.mp3 t=6.4 paused=true ; ch2-commissioners-office-pt2.mp3 t=2.5 paused=false
+co@t768 fixed after part2 (should be ONE mini): nav 0,0 768x3 "Progress along the walk" | div 40,922 191x62 "Spot 02 · Pt 200:03 / 02:19"
+co@t768 after tapping part2 para2: ch2-commissioners-office-pt1.mp3 t=6.4 paused=true ; ch2-commissioners-office-pt2.mp3 t=36.5 paused=false
+co@d1440 id order: hero@0 → hero-media@0 → hero-lockup@652 → scene-0@1028 → history@3293 → history-heading@3478 → moral-0@5153 → moral-0-heading@5370 → hero-2@6557 → scene-1@7423 → moral-1@9667 → moral-1-heading@9884 → onward@11178
+co@d1440 spine: Skip to content | (01)Listen · Pt 1 | (02)History | (03)The moral · Pt 1 | (04)Listen · Pt 2 | (05)The moral · Pt 2 | (06)Onward
+co@d1440 play buttons: 2 labels=Play narration: Commissioner’s Office, Pt 1 / Play narration: Commissioner’s Office, Pt 2
+co@d1440 before part2 click: ch2-commissioners-office-pt1.mp3 t=5.9 paused=false ; ch2-commissioners-office-pt2.mp3 t=0.0 paused=true
+co@d1440 after part2 click: ch2-commissioners-office-pt1.mp3 t=5.9 paused=true ; ch2-commissioners-office-pt2.mp3 t=2.4 paused=false
+co@d1440 fixed after part2 (should be ONE mini): nav 0,0 1440x3 "Progress along the walk" | div 56,782 200x62 "Spot 02 · Pt 200:03 / 02:19"
+co@d1440 after tapping part2 para2: ch2-commissioners-office-pt1.mp3 t=5.9 paused=true ; ch2-commissioners-office-pt2.mp3 t=36.5 paused=false
+barbershop@p390 story order: FIGURE,P,PICTURE,IMG,P,PICTURE,IMG,P
+barbershop@t768 story order: FIGURE,P,PICTURE,IMG,P,PICTURE,IMG,P
+barbershop@d1440 story order: FIGURE,P,PICTURE,IMG,P,PICTURE,IMG,P
+
+CONSOLE:

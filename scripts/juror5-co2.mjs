@@ -1,0 +1,34 @@
+import { launch, ctx, watch, shot, sleep, save, goto, VPS } from "./juror5-lib.mjs";
+const key = process.argv[2] || "p390";
+const vp = VPS[key];
+const browser = await launch();
+const c = await ctx(browser, vp);
+const page = await c.newPage();
+const log = watch(page);
+const R = {};
+const audio = () => page.evaluate(() => [...document.querySelectorAll("audio")].map((a) => ({ paused: a.paused, t: Math.round(a.currentTime * 10) / 10 })));
+await goto(page, "/commissioners-office"); await sleep(1500);
+const btn = (i) => page.getByRole("button", { name: new RegExp(`narration: Commissioner’s Office, Pt ${i}`) }).first();
+await btn(1).scrollIntoViewIfNeeded(); await sleep(500);
+await btn(1).click(); await sleep(1500);
+R.a1 = await audio();
+await btn(2).scrollIntoViewIfNeeded(); await sleep(300);
+await page.evaluate(() => window.scrollBy({ top: -200 })); await sleep(700);
+R.b2 = await btn(2).boundingBox();
+await shot(page, `co2-${key}-01-before-click2`);
+await btn(2).click(); await sleep(1800);
+R.a2 = await audio();
+R.minis = await page.evaluate(() => [...document.querySelectorAll("button")].filter((b) => /pause|play/i.test(b.getAttribute("aria-label") || "")).filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; }).map((b) => { const r = b.getBoundingClientRect(); return { l: b.getAttribute("aria-label").slice(0, 44), x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width) }; }));
+await shot(page, `co2-${key}-02-after-click2`);
+// scroll away
+await page.evaluate(() => window.scrollBy({ top: innerHeight * 1.2 })); await sleep(900);
+R.minisScrolled = await page.evaluate(() => [...document.querySelectorAll("button")].filter((b) => /pause|play/i.test(b.getAttribute("aria-label") || "")).filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; }).map((b) => { const r = b.getBoundingClientRect(); return { l: b.getAttribute("aria-label").slice(0, 44), x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width) }; }));
+await shot(page, `co2-${key}-03-scrolled`);
+// pause via mini
+const mini = page.getByRole("button", { name: /pause narration/i }).first();
+await mini.click(); await sleep(600);
+R.afterMiniPause = await audio();
+R.log = log;
+await c.close(); await browser.close();
+save(`co2-${key}.json`, R);
+console.log(JSON.stringify(R, null, 1));

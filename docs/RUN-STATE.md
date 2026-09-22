@@ -1,0 +1,624 @@
+# RUN-STATE — CNWM v8 "The Final Five Percent"
+
+*Disk is truth; the conversation is disposable. One work item = implement →
+re-measure → commit → update this file as ONE atomic act. Push every ≤3
+commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
+(v8). Item ledger: `docs/v8/AUDIT.md`. Previous run: `docs/PLAN-v7.md` +
+`docs/RUN-STATE-v7.md`.*
+
+## CURRENT PHASE
+**`/paintings` IS SIGNED OFF — Wil, 2026-09-22, on round 31: "As far as I
+can see paintings page is done, push to master and live site and document
+everything." Rounds 24–31 are closed. SHIPPED (round 32, docs only): the
+`v2` tip's tree is carried by `main` through a merge commit (the retired
+2024 app kept on `legacy-spa`, tag `legacy-spa-final`; no force push — the
+histories are unrelated and a merge commit is the fast-forward way), the
+shipped commit is the branch `release/2026-09-22` (the tag `ship-2026-09-22`
+exists locally; this repo's token refuses tag pushes), the client handover
+is at version 1.1 with the rounds in its changelog
+(`docs/HANDOVER.md` §10), and the branch rules in `CLAUDE.md` and the
+README say so. Nothing on `/paintings` is open. Other pages: the map and
+the chapter pages are worked from other sessions; their state is in their
+own rounds below and in `docs/rounds/`.** Previous phase text follows.
+**Round 28 (`/paintings`, the drawer expands on scroll) was APPROVED ON HIS
+PHONE, 2026-09-22 ("This is almost perfect. Nothing else needs to be
+changed except…"). Round 31 (`/paintings`, the drawer's X unfolds with the
+drawer) was APPROVED with the sign-off above.** Round 31 (2026-09-22),
+from his one note: the drawer's Close button arrived about a second after
+the drawer was up and popped in — it was mounted by the drawer's state,
+which the scroll path sets only once the scroll settles. Now mounted in both
+states and folded in peek, it unfolds over the house 300ms the moment the
+drawer passes 12% of its travel; the travel is measured without it; the
+state follows at the ends at once; the sheet's resize observer re-applies
+the live position (it was throwing a dragged drawer back to peek). Plan:
+`docs/rounds/2026-09-22-round-31-plan.md`; DECISIONS.md; MOTION.md.
+`qa:drawer` 23/23; `qa:runway` 182/182; `qa:snap` 36/36 at 0 drift;
+`qa:scope` clean. Numbered 31: rounds 29–30 and round 23's passes 13–15
+shipped from other sessions meanwhile; base `839b00f`. Previous phase text
+follows.
+**Round 29 (`/map`, the 1858 lens's wash is see-through again, still edge to
+edge) shipped and was APPROVED ON HIS PHONE, 2026-09-22 ("Looks perfect"). The
+map page is signed off again; nothing on `/map` is open.** On round 27's
+opaque fill he asked for "a bit of transparency to it so you can see the map
+behind it just like before": the colour is the original 70% black again over
+round 27's canvas-box geometry, the shell declares the wash's result over the
+map's ground (#101010) so Safari's `<body>` tint matches the dimmed map, and
+the Mapbox controls stay, dimmed. Plan: `docs/rounds/2026-09-22-round-29-plan.md`;
+playbook §2 rule 4 (a translucent overlay must declare its resulting colour).
+Numbered 29: another session's round 28 (`/paintings`) landed while this ran.
+Previous phase text follows.
+**Round 27 (`/map`, the 1858 lens is one fill edge to edge) is ON `v2` AND
+AWAITING WIL'S DEVICE PASS (2026-09-22).** From his screenshot with the lens
+open: the live map showed undimmed behind the address bar and the toolbar
+while everything else sat under the lens's 70% wash — the wash covered the UI
+layer's box, not the canvas's (the runways). Now one opaque fill, the page
+ground, over the canvas's box; the runways come back as padding so the plate
+keeps its geometry; the root's `is-lens` class re-samples the edge sampler and
+the shell declares its own edge colour, so `<body>` (and Safari's bars) read
+the fill; the Mapbox controls fade under it. Plan:
+`docs/rounds/2026-09-22-round-27-plan.md`; playbook §2 rule 4. `qa:framing`
+at T=0 and T=110/E=129 with a new lens probe (26 checks per phone viewport,
+0 failed); `qa:snap` 36/36 at 0 drift; `qa:scope` clean. Numbered 27 because
+rounds 23–26 shipped from other sessions while this one was open; rebased.
+Previous phase text follows.
+**Client rounds 1–25 COMPLETE (2026-09-15 → 2026-09-22); the map page, the
+chapter pages, `/paintings`' bars (round 24: "Looks and works perfectly!")
+and its lead cover (round 25: "Looks good") are signed off. Round 26 (the
+drawer under the toolbar) drew no objection to its look; round 28
+(`/paintings`, the drawer expands on scroll; numbered after another
+session's round 27, the map's 1858 lens, which shipped meanwhile) is ON `v2`
+AND AWAITING WIL'S DEVICE PASS.** Round 28 (2026-09-22), from his report that with a painting
+open a swipe scrolls the hall under the drawer instead of expanding it and
+Back lands elsewhere: v14 E7's lock no longer holds on his iPhone since the
+pin, for a reason not measurable here, so the drawer no longer depends on it
+— the document's scroll drives the drawer as the swipe does, the page is
+clamped to the hall's band so the stage never un-pins under the drawer, Back
+restores the tap's position, the handle loses its tap tolerance and the pin
+its `pointer-events: none`. Plan: `docs/rounds/2026-09-22-round-28-plan.md`;
+DECISIONS.md; playbook §7. Instrument `npm run qa:drawer` (17 checks, 0
+failed); `qa:runway` 182/182; `qa:snap` 36/36 at 0 drift; `qa:scope` clean.
+Previous phase text follows.
+**Round 26 (`/paintings`, the drawer continues under the toolbar) shipped
+2026-09-22.** Round 26 (2026-09-22), from his screenshot
+with a painting tapped: the plaque drawer stopped at the page area's bottom
+edge with the floor showing between it and the toolbar — its open bottom
+was designed for Safari's old solid fill, and the runway strip under the
+glass paints the floor. Now, whenever the drawer covers the stage's bottom
+edge, the bottom strip continues the drawer: the floor rows blurred as its
+backdrop blurs them, its own ground (read from the element) and side
+strokes over, from the drawer's top edge down; the floor returns the frame
+it leaves. Museum.tsx only. Plan: `docs/rounds/2026-09-22-round-26-plan.md`;
+DECISIONS.md. Instrument `npm run qa:runway` (182 checks, 0 failed, a
+DRAWER session added); `qa:snap` 36/36 at 0 drift; `qa:scope` clean.
+Previous phase text follows.
+**Round 25 (`/paintings`, the lead painting waits for the hall) shipped and
+was APPROVED ON HIS PHONE, 2026-09-22 ("Looks good").** Round 25 (2026-09-22), from his one note after the sign-off ("when
+the page initially loads, it looks like it's chapter page 2, which flashes
+for just a second"): the slot's server-rendered lead painting, the fallback
+for readers whose hall never mounts, showed for the second before the
+island mounted. A page-ground cover now sits over it — gone on its own
+after 2.4s, gone at once when the island marks the slot `data-hall="off"`
+because the hall cannot run, never present without JS or under reduced
+motion; the painting still paints beneath it, so LCP is unchanged. Plan:
+`docs/rounds/2026-09-22-round-25-plan.md`; DECISIONS.md; MOTION.md.
+Instrument `npm run qa:lead` (27 checks, 0 failed); `qa:snap` 36/36 at 0
+drift; `qa:scope` clean. Previous phase text follows.
+**Round 24 (`/paintings`, the hall through Safari's bars) shipped its sixth
+push (r24.6) and was APPROVED ON HIS PHONE, 2026-09-22.** Round 24 (2026-09-21), from his two `/paintings` screenshots
+and four answers (bars keep collapsing; live see-through first, a gradient
+only as the fallback; this page only; the at-rest top bar stays), then
+"research this from a completely new perspective": two facts measured on
+his phone in earlier rounds, and every pass had honoured one without the
+other — Safari's bars are glass unless a pinned element is what its edge
+probe finds (the sticky, viewport-sized stage was: opaque fills), and a
+pinned box's paint never reaches the bar regions (only in-flow paint does).
+r24.6 does both: the sticky element is now a PIN a viewport taller than the
+viewport, which WebKit's probe skips as too large, with the stage absolute
+at its foot in exactly its old box; and the pass-0 RUNWAY is back — the
+canvas renders B = 110 rows above and below the stage and two in-flow
+`<canvas>` strips carry those rows into the bar regions every frame (48px
+overlap and padding against a frame of lag). Plan with every pass's record:
+`docs/rounds/2026-09-21-round-24-plan.md`; playbook §1 and §11;
+DECISIONS.md. Instrument `npm run qa:runway` (166 checks, 0 failed);
+`qa:snap` 36/36 at 0 drift; `qa:scope` clean. Nothing exists where
+lvh == svh. Previous phase text follows.
+**Client rounds 1–22 COMPLETE (2026-09-15 → 2026-09-18); the map page is
+signed off; round 23 (the chapter pages) is SHIPPED AND AWAITING WIL'S DEVICE
+PASS.** Wil, 2026-09-18 after round 21 on the live site: "Looks and works
+great. I think the map page's edits are complete." Round 23, the same day,
+from his four chapter screenshots: the minimized address bar takes the colour
+of the section at the top edge (`<body>` tracks it, and the new in-flow
+`.edge-cover` paints that colour over what has scrolled past the top edge —
+the first mechanism that can give the glass a solid ground, unverified on a
+phone until he looks); the corner menu no longer moves 14px with the bars
+(`--menu-inset`); the chapter hero's lockup sits one gutter above the
+toolbar on phones. Plan: `docs/rounds/2026-09-18-round-23-plan.md`. Every
+round has a manifest and a plan in `docs/rounds/` (revert tag per round; the
+SHA is in each manifest because this repo's tokens refuse tag pushes). What
+the rounds established about Safari 26's bars, the runway pattern, the
+`<body>`-colour rule, resets on open, lanes, scroll locks and how to verify
+them without a phone is written up once in **`docs/PLAYBOOK-MOBILE-CHROME.md`**
+— read that before touching any full-bleed stage or the bars. Live = `v2` =
+the round-23 commit once its Actions run lands (round 22's `4d13540` before
+it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
+`qa:framing`.
+
+## CURRENT ITEM
+Round 23, device pass 15 (2026-09-22): the runway live on his phone
+("closer") — the rail rode inside #reader (fixed inside a transform) and
+the bottom toolbar sat on <body>'s one colour (the top edge's). The rail
+now comes through a `chrome` slot after </main>; the runway is a COLOUR MAP
+of the chapter (a block per ground, from layout) with a CAP above the
+viewport in the top-edge section's colour, computed in the scroll handler
+(a frame of lead on the way down). Awaiting his read. Pass-14 record
+follows.
+Round 23, device pass 14 (2026-09-22): his crop showed the still document
+still on (text under the toolbar) — the head script's `innerWidth < 768`
+read iOS's pre-meta 980 and chose `inner`. The gate now reads the screen's
+shorter side (< 700 → the runway). Pass-13 record follows.
+Round 23 reopened, device pass 13 (2026-09-22): "the bottom toolbar should
+automatically hide when the user scrolls down and reappear when the user
+scrolls up." Safari collapses bars only on document scroll, so phones now
+take THE RUNWAY (`data-scroll="sync"`): <body> sized to the chapter and
+carrying the section's colour (the static fill), <main> fixed + `overflow:
+clip` at 100lvh, #reader (new wrapper) translated by −scrollY on the
+compositor, fragments landed by scrolling the document, the narration's
+mini player portaled to <body>. iPad keeps the still document; `?scroll=`
+overrides. Costs stated: one-frame placement (stalls show), the bottom
+toolbar over the section colour. Awaiting his read on the phone.
+Round 24, device pass 4 (2026-09-21, 14:50): the tint rejected ("the fill
+now changes colors"), and pass 3's reading corrected — Safari 26's bars are
+glass unless a fixed or sticky element is what its probe finds at that
+edge; then the bar is an opaque fill. The sticky stage meets the edges, so
+`/paintings`' bars were opaque and nothing under them could show. Fifth
+push (live on `v2`, `r24.5`): two 8px transparent page strips ride the
+viewport's edges above the stage so the probe finds them instead; the
+canvas bleeds B rows above the stage with the stage's clip extended by a
+clip-path; the body tint is gone. `?edge=off` / `?edge=paint` /
+`?bleed=off` / `?debug=1`. Awaiting his two screenshots. Pass-3 record
+follows.
+Round 24, device pass 3 (2026-09-21, 14:24): the lab of five element
+types rendered inside the viewport to the pixel and nothing past its edge,
+in either bar state — Safari 26 draws no page content under its bars; the
+regions show its glass tinted from `<body>` (the map "continues" because
+its body is the map's grey). Fourth push (live on `v2`, `r24.4`): the
+strips and the bleed are gone; Museum.tsx writes the hall's own edge
+colour to `<body>` live (the floor's above the toolbar, the ceiling's at
+the top edge once the bars minimize), default on where the bars collapse,
+`?tint=off` for the static brown, `?tint=<mul>` to scale, `?debug=1` the
+readout. Playbook §1 corrected, §11 rewritten; DECISIONS round 24
+rewritten. Awaiting his read of the band's colour. Pass-2 record follows.
+Round 24, device pass 2 (2026-09-21, 14:00): the readouts prove the
+strips exist, are placed to the pixel and are filled (r24.2, glass 1,
+B 110, drawImage, no error) — and Safari draws none of it in either bar
+region, while it draws the map's WebGL canvas and round 23's cover there.
+Third push (live on `v2`, `r24.3`): the strips are placed by `top` like
+the map's canvas, and `?lab=1` puts five candidate element types beside
+them in the bar regions, one colour each (div/top, div/transform,
+2D-canvas/transform, WebGL/top, body-div/transform). Awaiting two
+`?glass=1&debug=1&lab=1` screenshots; the colours that reach the bars
+decide what the strips are rebuilt from. Pass-1 record follows.
+Round 24, device pass 1 (2026-09-21, 12:58): both bar regions still flat
+on his phone — what a missing or blank strip looks like; the readout was
+not on. Second push (live on `v2`): the readout names the build (`r24.2`),
+the copy path and any error; a readPixels fallback the strips switch to
+when drawImage leaves them blank (`?runway=readpixels` forces it); a
+magenta cast on the strips in debug mode; the stage's opaque `::before`
+dropped after the first frame (it may have been covering the bottom strip
+at rest — round 8 never separated "stage clipped" from "stage background
+painted, canvas clipped"). Awaiting two `?glass=1&debug=1` screenshots.
+qa:runway 197/197, qa:snap 36/36. First-push record follows.
+Round 24 BUILT (2026-09-21), behind `?glass=1`, on the session branch —
+awaiting the fast-forward of `v2` and Wil's device pass on
+`/paintings?glass=1` (and `&runway=track`, `&runway=off`, `&debug=1`).
+Verified here: astro check 0/0; build + check-css; qa:scope 9 files;
+qa:snap 36/36 0 drift; qa:runway 161/161 (stage box and the canonical
+projection identical with and without B; strips placed to the pixel and
+carrying the canvas's own rows; 1440 with the flag unchanged). Measured
+cost in this container's GL: the walk's median frame interval 25 → 30 ms
+(bleed) → 36 ms (strips) at 390×645 — the phone decides. Unverified: the
+bars, the seam in motion, the frame rate, the timeline path. When he
+approves: drop `[data-glass]` from the `--museum-b` rule and the
+`dataset.glass` test in `museumB()`; if the first idea fails, plan §5 is
+the fallback he named. Round-23 record follows.
+Round 23 DONE and closed out (2026-09-20, Wil: "everything is perfect …
+close this out"). Pass 12: the closeout probe measured all five chapters
+identical under the still document (gate and E stood in), and pinned the
+root at 0 against programmatic scrolls (a focus into <main>'s run under the
+toolbar could have scrolled the document by E). Live on v2. Next round
+starts from the v2 tip with a new base tag; the cover/visor/tracker code
+behind `?scroll=doc` is a candidate for removal then.
+Round 23 DONE (2026-09-20, Wil: "we will call this done"). Pass 11 put the
+hero lockup back to item 3's rule (one gutter above the viewport's bottom;
+pass 10's capsule inset and `?lockup=` removed); the hero's margin below
+(the toolbar's run) stays so the next section's hairline waits for the
+scroll. Items 1–3 shipped and approved on his phone. The still document is
+the chapter default on iOS (docs/v4/DECISIONS.md). Next round starts from
+`v2` tip with a new base tag. Pass-10 record follows.
+Round 23, device pass 10 (2026-09-19, after the close): two hero asks in the
+still document. The hairline of `#scene-0` showed under the toolbar's
+capsule at rest (main runs E under the toolbar) — `#hero` now carries E as
+margin-bottom in inner mode, so the next section starts below the toolbar's
+run. The lockup's inset is taken from the toolbar's capsule (~18px below
+the viewport's edge on iOS 26), `--hero-lockup-inset` 5px on phones, the
+gutter on tablets, desktop untouched; `?lockup=<px>` tunes it. Awaiting his
+read of the inset. Closeout record follows.
+Round 23 CLOSED (2026-09-19). Wil, of `?scroll=inner`: "exactly what I
+wanted. Please apply it to all the remaining chapter pages." Tenth push: the
+still document is the chapter default wherever the bars exist (head script
+sets `data-scroll="inner"` on `data-top-bar="section"` routes behind the
+`-webkit-touch-callout` gate); cover, visor and tracker inert there;
+`?scroll=doc` is the way back. Decision + revert logged in
+docs/v4/DECISIONS.md. Items 2 and 3 shipped in c1a5a83. Unverified on his
+phone: the four other chapters under the default (same template) and the
+bottom toolbar's glass in this mode. Pass-8 record follows.
+Round 23, after device pass 8 (2026-09-19, 16:38): the flicker and the
+size change persist at every speed — the moving edge is the signature of
+any fill placed by the page, and he asked why the fill cannot simply be
+static. Ninth push, THE STILL DOCUMENT behind `?scroll=inner`: <html> clips
+at the viewport, <main> is the scroller (plus the runway's E under the
+bottom toolbar, `position: relative`), so the bar region shows the canvas —
+<body>, the section at the top edge — static, no cover/visor/tracker;
+<main>'s scroll is re-sent on window, the menu and ScrollTrigger read
+<main>. Trade: Safari's bars stay expanded while reading (they collapse only
+on document scroll). His decision: inner as the iOS chapter default, or
+collapsing bars with the moving edge. Default untouched. Pass-7 record
+follows.
+Round 23, after device pass 7 (2026-09-19, 06:15): "even better but now
+it's too tall", plus a flicker of content "both fast and slow". Eighth
+push: the cover aims at the TOP OF THE VISOR'S LINE (its foot), so the whole
+band above the line is room for upward lag and a downward overshoot only
+runs behind the line and over the page in the section's colour; the lead is
+one frame plus half a frame DOWNWARD in both directions (pass 6's symmetric
+lead sat half a frame toward exposure on every scroll up — the slit), and a
+reversal takes the new sign at once; `--edge-visor` defaults to 16px (13px
+of room, against pass 6's 16 from 32px). Rail rect cached, `?debug=1` prints
+the aim. Still unanswered and decisive: whether his Safari accelerates the
+scroll timeline (`?cover=track` beside the default; `?cover=track&debug=1`
+readout). Pass-6 record follows.
+Round 23, after device pass 6 (2026-09-18, 22:42): his three crops showed
+the frame of lag exposed in the bar region in both directions, feather or
+not — "never see-through … one colour, no transitions". Seventh push, THE
+VISOR: the walk rail is a fixed opaque band of the section colour
+(`--edge-visor` 32px, line at the foot) and the cover aims at its MIDDLE, so
+the lag moves the cover's edge inside a fixed box that hides it; the script
+leads the scroll by speed × ~1.5 frames; colour writes are instant on both.
+The fill now ends 32px below the viewport's top edge. `?visor=<px>` tunes
+it; `?cover=track&debug=1` still reports the timeline. Awaiting his read on
+the band and on any residual at flick speed. Pass-5 record follows.
+Round 23, after device pass 5 (2026-09-18, 20:35): a sticky box is clipped
+at the viewport like a fixed one — measured, "now it's transparent" — so the
+bar region can only be solid through scrolled page paint, positioned by the
+page, a frame behind at speed. Sixth push: the rail-anchored tracker is the
+default again with a SPEED-PROPORTIONAL feather (hard and exact at rest,
+soft only in motion, so the frame of lag reads as a soft edge instead of a
+slit); the timeline is `?cover=track`; `?debug=1` reports the driving path,
+timeline support, the parsed range and the Safari version. Awaiting his read
+on the soft edge, and one `?cover=track&debug=1` screenshot. Pass-4 record
+follows.
+Round 23, after device pass 4 (2026-09-18, 20:14): his crop of the expanded
+bar mid-scroll showed the cover a frame behind the compositor (~30px above
+the rail at speed) — main-thread positioning cannot be smooth in the bar
+region on his phone, whether the timeline or the script drives. Fifth push:
+the cover is a STICKY box (first in body's flow, −320px bottom margin, drawn
+319px above its layout box), which the scrolling thread itself holds on the
+viewport's top edge; the timeline and the script are flags (`?cover=track`,
+`?cover=js`). The open measurement is whether WebKit paints a stuck box in
+the bar region as it paints the runway; if not, `?cover=track` is pass 3.
+Pass-3 record follows.
+Round 23, after device pass 3 (2026-09-18, evening): the cover holds at rest
+and the colour tracking works; he saw speed-dependent flicker (the self-check
+could fail in motion and demote the cover to the lagging tracker — it checks
+at rest only now; the idle mask is gone), the fill running 3px past the rail
+(it ends 1px inside the line's top now) and the hero's bar too dark (the
+heroes' ground is #1d1411 now, the brown he means; #100a06 was never seen).
+`?cover=debug` prints the driving path and the viewport geometry for the next
+pass — one screenshot of it settles the visual/layout split and whether
+Safari runs the scroll timeline on its compositor. Pass-2 record follows.
+Round 23, after device pass 2 (2026-09-18, 17:41): the cover is CONFIRMED on
+his phone (pass 1: the minimized bar's region reads the section's colour;
+the 16px feather read as a gradient, so the edge is hard by default), and
+pass 2 found it 3–6px short of the rail at rest, a different amount after
+every scroll — the last scroll event's position is not where iOS settles.
+Third push: the cover's bottom edge sits on the walk rail (3px behind its
+line), the compositor moves it through a scroll-driven animation with an
+absolute 0–100000px range (self-checked; `?cover=js` forces the rail-anchored
+scroll-event tracker, which now re-reads for 600 ms after every scroll).
+Awaiting his pass: the fill's edge on the rail at rest and in motion, the
+hero inset AT REST (verified in the build at 22–23px; the lockup's scroll
+scrub lifts it 60px once the page moves, which is what a scrolled shot
+shows), the bottom toolbar's tint residue, the menu holding still.
+
+## NEXT ACTION
+Wil's device pass on round 24 (`docs/rounds/2026-09-21-round-24-plan.md`
+§4): `/paintings?glass=1` at rest, walking, scrolled up mid-walk, a fast
+flick, the frame rate, then `&runway=track` and one `&debug=1` screenshot.
+Approved → off the flag (one selector, one test). Failed → §5's fallback.
+Also open, none blocking: the scrolled composition of `/map` (his screenshot
+4 — proposal in the round-19 report, not shipped); the 14px shift of the
+OTHER corner controls when the bars collapse (round 23 took the menu off
+`--ui-inset`; the mini-player and the interlude credit still ride it); the
+Compact address-bar layout was never measured (B = 110 covers a toolbar up
+to 110px).
+Previous close (v13) follows, superseded.
+
+## v13 PHASE (superseded 2026-09-18)
+**v13 COMPLETE (Wil's 8/26 eleven-item round).** All eleven closed — nine by
+code, V13-11 as "no change, by his own stop-condition" with the dvh table as
+its deliverable. Guide: `docs/v13/REVIEW-GUIDE.md`. Ledger: `docs/v13/AUDIT.md`.
+One item needs his device to confirm (V13-06, the iOS browser-chrome bars):
+headless Chromium reports zero safe-area insets and has no address bar, so the
+bars are unobservable here. A real, measured fix shipped anyway — the
+chrome-tint strips now out-paint the full-bleed stages on `/map` and
+`/paintings`, the two routes his screenshots came from. Capture protocol at the
+end of the review guide.
+
+**Four of his eleven diagnoses were contradicted by the code, and one fix he
+reported as missing was live and reading as its own opposite** (v12's feather
+dissolved the top and bottom 24% of the Historical Context plate — he asked to
+see MORE of it). Every complaint was re-measured against HEAD before anything
+was touched.
+
+**v13 (superseded lines below).** Work order:
+`docs/v13/BRIEF.md`. Ledger: `docs/v13/AUDIT.md`. Executed by group, one at a
+time (one Playwright process per container; never edit `src/` while an
+instrument runs). Closed so far: **G5** (V13-07a media half) and **G4**
+(V13-06, V13-07b, V13-09, V13-11 — four of his numbers). Open: G3 (chapters),
+G2 (hall), G1 (map island).
+
+**v12 COMPLETE (Wil's 8/25–8/26 round — fourteen items + the painting canon +
+a hall sweep).** All twenty ledger items closed; one (V12-19, the iOS browser
+bar) ships on best-known implementation and needs his device to confirm, because
+no address bar exists in this container. Guide: `docs/v12/REVIEW-GUIDE.md`.
+Ledger: `docs/v12/AUDIT.md`. Work order: `docs/v12/BRIEF.md`.
+
+**v11 (previous) — items 7 and 8a were held on Wil's decision; both are now
+answered and shipped in v12.**
+
+**v13 is PLANNED, NOT STARTED.** Wil's 8/26 eleven-item round is worked out in
+full — root cause, fix, files and acceptance per item — in `docs/v13/BRIEF.md`,
+committed ahead of any code so the executing session starts from disk. No `src/`
+file has been touched for v13.
+
+## v13 CURRENT ITEM (superseded)
+Nothing in flight. v13 shipped on `v2`, mirrored to
+`claude/paintings-hall-museum-fixes-qufa6x`.
+
+## v13 NEXT ACTION (superseded)
+Wil's device evidence for the browser-chrome bars — three screen recordings
+(iOS Safari, iOS Chrome, Android Chrome) on `/map`, `/paintings` and one
+chapter, in the DEFAULT UNSCROLLED state with the URL bar visible, then a short
+scroll. A bar that changes colour as the page moves is sampling page content; a
+bar that does not is sampling the body. Those are different bugs with different
+fixes, and the scroll distinguishes them. Protocol: end of
+`docs/v13/REVIEW-GUIDE.md`.
+
+Also open, and reported but NOT fixed under his scope lock: the hall's render
+loop stays dead after a curtain transition; the ≥1024 look-away chip row
+renders with only a hidden child; the lens has no focus trap; `tier2-tmp.mjs`
+is stray build scratch at the repo root; `troy-1858-full-4096.avif` is now
+unreferenced by the AVIF path.
+
+Still open from v12, and folded into v13-06: Wil's iPhone check on the
+browser-bar tint (protocol in §1 of `docs/v12/REVIEW-GUIDE.md`). Optional,
+whenever he has it: an un-upscaled scan of the 1st-and-State-Street drawing
+(`masters/Nalle Drawings/2. …`), which ships as he supplied it at his direction.
+
+## v13 TRAPS WORTH KEEPING
+- INSTRUMENT: **`qa:contrast` and `qa:rag` default to port 4321.** Run against
+  a preview on any other port and every route returns ERR_CONNECTION_REFUSED
+  while the script still prints "0 failures" — a green that measured nothing.
+  Pass `--base http://localhost:<port>` and check the "0 unmeasured" tally.
+- INSTRUMENT: **`elementFromPoint` cannot see `pointer-events: none`.** Both
+  `.chrome-tint-*` and `.walk-rail` are inert, so a stacking probe built on it
+  reports the section underneath and proves nothing. Sample PIXELS, or set
+  `pointer-events: auto` for the length of the probe.
+- STACKING: the chrome-tint strips' ceiling is **the walk rail (z-900)**, not
+  the scrim. v12 chose z:0 on purpose so the rail's 3px progress stripe paints
+  over the 2px strip. Anything above 900 eats two thirds of the rail — z:950
+  was measured doing exactly that. z:100 clears the map and museum stages
+  (Tailwind z-30, shells z:auto) without reaching the rail.
+- ENV: this container's background shells are killed on turn end (exit 144).
+  Start `astro preview` through the tool's own background mode, not `nohup`
+  or `setsid`, or the port will be dead by the time a probe runs.
+- ENV: Playwright 1.62.1 wants revision **1234**; the image ships **1194**.
+  Shim BOTH `chromium_headless_shell-1234/chrome-headless-shell-linux64/` and
+  `chromium-1234/chrome-linux/`, symlinking every sibling file, not just the
+  binary.
+- MEDIA: the 1858 plate's house quality register is **q52**, calibrated
+  against the shipped 6144 tier (1.95 MB). q62 makes it 44% heavier without
+  making it sharper. avif `effort: 6` measured LARGER than `effort: 4` here.
+
+## v12 TRAPS WORTH KEEPING
+- CONTENT: **Safari 26 parses `theme-color` and ignores it.** It tints from the
+  `<body>` background (falling back to `<html>`), plus fixed/sticky elements at
+  the viewport edges. A site whose body ground is one colour at every scroll
+  position gets that colour in the bar forever, however perfect the meta is.
+- MEASURE FIRST: the interlude's "harsh white line" was the FIX, not a missing
+  one — the ground above and below is the same cream at every width, so opaque
+  cream painted over the photograph was what drew the boundary. A dark ramp
+  measured a 219-unit hard edge; a mask on the image measures none.
+- INSTRUMENT: a probe that measures a full-width ROW instead of the visible
+  pill inside it reports a false overlap at every desktop width. Two of the
+  first hall-sweep "failures" were the probe's own bugs (that, and calling the
+  `state` getter as a function).
+- BUILD ORDER: a build script that both writes and reads the same media key
+  will hand the second consumer the first one's output —
+  `barbershop/sketch-n2` briefly became the 1st-and-State drawing this way.
+  Source every output from a master, never from a sibling output.
+- IMAGES: a burned-in caption bar cannot be found by a row MEAN (white type
+  lifts it) nor by a >90%-near-black test (a caption line is only ~86% dark).
+  Profile it: bar rows run 0.82–1.00 near-black, artwork rows about 0.27.
+- ENV: **no h264 decodes in this container's headless Chromium** — an untouched
+  chapter film reports readyState 0 too, so video changes are verified with
+  ffmpeg, not the browser. ffmpeg itself IS available:
+  `npm i --prefix <scratchpad>/tools ffmpeg-static` (install it OUTSIDE the
+  repo — a later `npm i` prunes an unsaved dep and deletes the binary), and
+  `opj_decompress` (apt `libopenjp2-tools`) reads the 1858 JP2 at `-r 1`.
+- ENV: `astro preview` AUTO-INCREMENTS its port when the requested one is busy,
+  so a stale preview silently answers on the port you meant for a second build.
+  Kill every `astro preview` before an A/B and verify which bundle each port
+  serves before trusting a screenshot.
+- ENV: a git worktree that SYMLINKS the main `node_modules` shares its Vite
+  cache and can rebuild the current code while claiming to be an older commit.
+  Hard-link (`cp -al`) and delete `.vite` / `.astro` instead.
+- ENV: Playwright 1.62 expects `chromium_headless_shell-XXXX/
+  chrome-headless-shell-linux64/chrome-headless-shell`; the pre-installed 1194
+  build stores it as `chrome-linux/headless_shell`, so both a directory shim and
+  an inner symlink are needed. Lighthouse needs `CHROME_PATH` set explicitly.
+
+## v8 (previous run)
+RUN COMPLETE. Every item in docs/v8/AUDIT.md is implemented, measured and
+pushed; docs/v8/REVIEW-GUIDE.md carries the item-by-item report, the
+instrument bars, the judgement calls and the human queue.
+
+## v8 NEXT ACTION (superseded)
+Nothing outstanding in this run. Waiting on Wil (REVIEW-GUIDE §3 and §5): the
+Mapbox-attribution decision, the ten painting titles, the high-res splash, and
+a look at the home page on his own phone — both screenshots he sent were
+byte-identical re-sends of files uploaded BEFORE the fix deployed (md5
+830ebe8a… / eb4b848b…), so neither shows it.
+
+## DONE (item → commit → evidence)
+| item | commit | evidence |
+|---|---|---|
+| v11 (Wil 8/22, twelve items) — V11-01 map card focus: keen's `slide.distance` is the LEFT EDGE as a fraction of the container, not distance-from-centre, so a centred card reported 0.321 at 1440 and never reached scale 1 (focused card was 3% larger than its neighbour, not 8%); now exactly 1.000 vs 0.920 everywhere · V11-02 onward row aligned to the map's edges from 768 (0.0px both sides) · V11-03 scene hook drops a leading `Part N` for scenes AFTER the first (render rule, JSON untouched); hero kicker t-title → t-display · V11-04 next-stop pin copies /map's selected marker (pill 10 → 9 so the chip is visible) · V11-05/06 People curtain and About title break · V11-08b chip centred on Skip's axis (4px → 0.0px at ≥1024) · V11-09 desktop map fit bottom 140 → 240: the safe box constrains PILLS but a pill hangs above its DOT on a leader line, so the ferry dot sat 10px off the CTA; now 60px · V11-10 interlude 52/68vh → 62/80vh, cream ground (no dark flash), 12% linear fade → eased 18% ramp, GSAP scrub 1.000 → 1.045 on the IMG inside overflow-hidden · V11-11 `.sec-head` sp-3 → sp-4/sp-5: rule→content 57 → 73/97/109 against 128/168/200 below (1:3.5 → ~1:1.75) · V11-12 `scripts/refresh-from-masters.mjs` refreshes only where the master's ASPECT matches the site's (upgrade, never re-crop): ferry/historical 1200×800 → 1440×960; 13 skipped because the delivery is 3:2/2:3 and the site serves 16:9/9:16 · V11-07/08a the PDF decoded and every work matched by PICTURE not name — 8 of 10 titles confirmed, 2 absent from the series page; studies: bakery correct, ch2 pt2 correct, ch2 pt1 is `Don't Let Them Have Him!`, the FERRY painting's study | cd9862f + 41b19d8 + 1db245c + 6754456 + 29de25c + 5732ab9 + (this commit) | rag 0 runts / 0 clips / 0 em dashes full matrix · contrast 0 failures 0 unmeasured · geometry probes: onward 0.0px both edges at 5 widths, chip/Skip 0.0px at 4 widths, cards 1.000/0.920 at 3 widths with a sampled cycle, interlude scrollWidth−innerWidth = 0 and `transform: none` under reduced motion, map framing 10 viewports all pills inside · tsc + build clean, 6 island-CSS guards |
+| v10.2 (Wil 8/21–8/22) — V10-12 museum: ARCHITECTURE kept (arched end wall, archivolt, pilasters, keystone, landing, merged steps), MOTION reverted to the original straight walk (railZ linear again; railPose/SPIRAL_YAW/T_WALK/`descending` deleted; chrome ungated; slot back to 90N+100 at both sites) — arrival is a stop 5.3m short of the arch, the sticky release is the transition · V10-13 home: the top air stops being a share-of-viewport padding and becomes a SHRINKABLE FLEX SPACER (`--home-air` per tier, `::before { flex: 0 1 max(0px, air - gap) }`, siblings min-height:auto so the lockup never shrinks); bottom inset yields too; V10-11's `max(56px, min(30dvh, 75dvh-340px))` retired — measured against the dvh in his OWN screenshot (≈655, not the 664 assumed) that formula fit by 8px · V10-14 map: the phone overview search stopped at zoom 14.70 but a 390×673 phone only fits the walk at 14.60, so short phones fell off the search and took the blind OVERVIEW constant (15.25/33) — floor now 14.2 (the desktop branch's own value); the re-centring loop also set `ok` on every pass and the acceptance test never checked centring (both fixed; measured, neither changes an outcome today — they guard the floor) | 530f46e + e56d9e5 + ca0e785 + (this commit) | museum probe both orientations: z linear 0.40→−50.70 (endZ −56), y/yaw/pitch flat at 9 sampled railT, chrome visible at arrival, retrace exact, 0 page errors; museum-check calls 77/79/77/77/77 ≤80, no composition/chrome findings · home matrix 152 viewports: ≥375 wide (the project floor) 96 viewports 460–932 tall = ZERO overflow, min clearance 20.8px, his own 26.4px; 390×844 air 253.2px unchanged; 320-wide <500 tall still overflows ≤2.4px (desc wraps 7→9 lines — type change, his call) · map framing matrix 16 phone viewports under a stubbed style: 13 converged+centred (dx≈0, dy −0.2) vs 4 before; 390×673 15.25/33 fallback → 14.60/52 with all five stops in frame (the old fallback put THREE off-screen) · rag 0/0/0 · a11y 0/0/0 across 51 runs · tsc + build clean, 6 island-CSS guards |
+| v9 (Wil 8/21) — CORRECTIONS to v8: V9-102 study out of the plaque card (it duplicated the wall study) + Part 2 finally hangs its own (wall study chosen per WORK, not per chapter; 6 works not 5) · V9-103 drawer close = real round 44×44 button centred above the content (17/18px air), not a corner ghost · V9-104 the hall ENDS ON THE LAST PAINTING — v8 walked 7m past it to a blank wall then down steps ("a weird white wall with a bunch of dots… stuck scrolling"): descent deleted, arch kept as far-end architecture/light source, tail is a bloom+dissolve whose outer edge is the page ground so the grid scrolls up seamlessly; slot back to 90N+100. NEW: V9-101 pitch −0.19/−0.155 · V9-201 where-to-next (pin = canonical, line beneath = "Chapter N", LOCATION NN marker dropped) · V9-202 cream fade both edges on all 5 historical-context plates (the "pale band on a dark painting" risk I flagged does NOT occur — every plate is a light archival photo) · V9-203 study caption side air · V9-204 hook rows left-aligned in a centred block · V9-205 full 1858 credit one line ≥390 (needed 370px, chip gave 351: tracking .055em + 8px padding + shallower inset; 375/360 wrap, allowed) · V9-206 phone lens opens further left · V9-301 viewport-fit=cover + grounded html/map-shell (the black bars) · V9-302 curtain honours authored breaks → "The / Paintings" · V9-303 menu double-divider REPRODUCED and fixed (close button scrolled away, its border-b resting under the panel border; now sticky) · V9-401 phone home balanced (air above 312→253, below 24→86; head lifted scale 1.2; CTA unpinned) · V9-402 rag: the paragraph had BOTH authored breaks AND text-wrap:balance — engines disagree, hence Pixel-perfect/iPhone-wrong; balancing off where breaks are authored (the measure was NOT the cause: 19% headroom, measured before changing anything) | 8fc9509 + 3957d9f + (this commit) | rag 0/0/0 full matrix · contrast 0 failures · a11y 0/0/0 across 51 runs incl. RM + zoom200 · draw calls 79 land / 77 else ≤80 (Part 2 study hit 81; the 3 step treads merged to ONE mesh returned 2 calls, appearance unchanged) · curtain probe: 2 <p> "The"/"Paintings" · menu bug reproduced then fixed at 390×640 · credit 1 line at 390/412/430, 2 at 375/360 · home probe 5 widths |
+| P5 batch 4 — V8-327 arch + stairs (the end wall is ONE ShapeGeometry with an arched cutout — ARCH_W 1.9, spring 2.0, apex 2.95 — plus archivolt, two pilasters and a keystone; the wall masks the glow plane, so the old "white rectangle" becomes an arch of light with no new texture; glow widened to 7.4×5.6 at endZ−3.4 so it fills the frame once you are through; steps rebuilt 0.16 rise / 0.5 run descending 0.48m with treads lighter than the landing; railZ() → piecewise railPose(railT) with T_WALK DERIVED from walk vs descent distance (0.875) so the speed never changes at the hand-off; chip/Skip/Face-forward unmount and the dots fade while descending; slot 90N+100 → 90N+160vh at BOTH sites; hook exposes descending/tWalk/endZ) | (this commit) | arch probe at railT 0/.5/.86/.93/.97/1 × 1440+390: z −49.8 → −58 (past endZ −56), y 1.55 → 1.07 (0.48 exactly), pitch dips −0.219 then settles, dots opacity 1 → 0, Skip gone, 0 page errors; museum-p5f calls 77 (79 land) ≤ 80, no composition/chrome findings; at rail END the fps findings fall to 14/240 (390) — past the arch only 3 objects draw, which independently confirms the fps ceiling is this container's software-GL scene cost |
+| P5 batch 3 — V8-325 frames (the canvas floated 105mm proud of the innermost ring, so obliquely each painting read as a slab with brown flanks: depths are now authored as "how far this face stands into the room" and step in 15mm — moulding 20 / lip 35 / slip 50 / canvas 60, i.e. 10mm proud, a shadow line instead of a wall; in-plane steps widen to 340/180/70mm for a slightly richer profile; the study frame takes the same idiom. FIRST attempt inverted the order (moulding most proud) and the solid boxes occluded every painting — caught by the oblique shot, not by any assertion) + a Face-forward duplicate at ≥1024 (V8-322's `lg:hidden` sat on a `.btn-sm`, whose unlayered `display:inline-flex` beats Tailwind's layered utility — the utility now rides a bare span; only instance in the codebase) | (this commit) | museum-p5e: calls 74 (76 land) ≤80, ZERO composition/chrome findings; frame shots hall/oblique/mid at 1440+390 before vs after; face-forward probe = exactly 1 visible at 390/768/1024/1440, at the authored corner |
+| P5 batch 2 — V8-328 drawer (pill handle deleted; 44×44 X close, visible only when open; DOT_GAP=24/DOTS_H=36 single-sourced across the JSX bottom, tick()'s live follower and layout()'s reserve; ONE continuous sheetPos driven by header drag + axis-locked stage swipe (8px window, 1.2 vertical bias) + a wheel state machine (zoom above the floor → open → close, 160ms latch, idle snap); body always mounted so layout() reads the VISIBLE height and the painting recomposes as the drawer slides; the alive-toggle overlay is `pointer-events:none` so a swipe starting over the painting reaches the stage — keyboard/SR activation unaffected) + V8-329 study on the plaque (new `study`/`studyAspect`/`studyNote` fields — the 5 horizontals take their chapter's drawing, commissioners Part 2 its own `sketch-pt2`, narratives none; thumbnail+label on one line with the note beneath at full card width; card capped to the stage with inner scroll) + instrument fix: museum-check waits for the dolly to SETTLE before the composition assertions | (this commit) | drawer probe 390/768: wheel-open · X-close · swipe-open · hook round-trip all land, dotGap exactly 24 in every state, painting recomposes live (top 278→228), 0 console errors; card heights 682/668/600 at 1024×768 / 1280×800 / 1440×900 (was 973 at 1024×768, overflowing); museum-p5d: calls 74 (76 land) ≤80, cx 0.501 at 768/1024/1440 (0.531 before the settle fix), overlaps card false; a11y /paintings 0/0/0 across 6 runs incl. RM + zoom200 |
+| P6 people+about — V8-301 the three-line H1 at every width (the v7 xl two-line swap deleted; 88px at ≥1280 in the 8fr column, right edge 872<1440) + V8-303 tablet intro break (authored `md:max-lg` br + `{" "}`; natural wraps elsewhere) + V8-304 afterword attribution breaks after "Freeing Charles:" at EVERY width (Wil asked tablet; the one-liner also overran the 46rem figure at 1024–1440 with a mid-subtitle wrap — the audit's noted fallback; data split at the colon, never hardcoded) + V8-305 phones read photo → NAME → prose via grid areas (DOM stays heading-first; 32px above / 28px below the name; ≥640 the v7 name-first layout exact, 48px row gap) + V8-306 book title NBSP-glued at phrase boundaries (punctuation-only) + V8-307 About closer centred below lg (58/58 · 183/183 · 227/227 · 260/260; 1024+ left 0/427+; People closer untouched per Wil "on the about page") | (this commit) | rag people+about 9vps 0/0/0 (+ /about re-run post-V8-304: 0/0/0); a11y 6 runs 0 serious/mod/minor + RM + zoom200 ok; p6-probe2 settled geometry table + shots (scratchpad/p6-shots) |
+| P5 batch 1 — V8-320 plaque (eyebrow = `Location 0N` alone in card + sheet; attribution = quote's role, bold, not italic; barbershop hall pair named "Peter Baltimore's Barbershop 1/2" via per-chapter PLAQUE_VARIANTS — ferry keeps Narrative I/II, grid keeps narratives per Wil 00:34:11; grid caption Location NN) + V8-321 Skip arrow points right (rotate removed) + V8-322/323 chrome (Face-forward: desktop top-right on Skip's axis, phones bottom-centre above the dots; chip: tablets ~44% centred, phones above the dots) + V8-324 camera (RAIL_PITCH −0.15/−0.12; yaw 0.0022, pitch 0.0018, inertia τ 0.12) + V8-330 phone inspect fit (portrait fov cap 92°, F .88, dH/dV split in compose()) + V8-326 alive-by-default (nearest-N window 2/3, pool N+1, input-armed, still-swap on rVFC, per-index stopped[], softGL tier rests the hall under SwiftShader) + V8-331 painting-to-painting (approach-tap on another canvas walks to it) | (this commit) | museum-check p5b: calls 74–76 ≤ 80, pitch −0.12/−0.15 measured, approach cx/cy centred, overlaps false, controls enumerated, land "sheet >55%" finding GONE vs baseline; fps 239/240 >26ms is ENVIRONMENTAL — proven by running the same instrument on a pre-museum 8ef1d5e worktree (:4324): identical 239/240 at every station/vp with v7 pitches (scratchpad/museum-p4base); real-fps check goes to live/RG |
+| P4 map — V8-201 strip ON the inset (pb inset; cardLift/fade-limit synced; the (i) lifts above the strip during walk via .troymap-root[data-walk]) + V8-202 .t-card 20/25.5/30 cream + V8-203 four corners (1858 door top-right bordered ALL breakpoints, chip centre-aligned to it 78/78 · 61/62 · 41/42; walk door phone bottom-left on the ☰ axis, desktop centred; phone (i) mounts bottom-right beside the ☰) + V8-206 bearing 16 (pitch 52 held at every vp by the search) + V8-207 phone pins = pills with `name.pin` (schema + 3 JSONs; markerHtml narrow branch; labelRect models the real pill; THE PHONE SEARCH still fit ±12 dot boxes — now fits pill rects, bakery pill was 23px past the edge before) + V8-251 verified equal (40/40) + V8-252 ☰ hidden during walk everywhere (visibility) + V8-261 lens hint deleted + V8-262 caption mt-5 + V8-263 lens opens on downtown (panelFit ×1.3, width floor 1.8, cx .58 cy .74 — Green Island out of frame at 1440 and 390, verified by crop inspection) | (this commit) | map-probe stub runs at 390/768/1440 (bearing/pitch/doors/strip/menu/buttons), pills probe (5 named pills inside the frame), lens shots desk+phone + top-left label crop; attribution position unverifiable under the stub (no attrib strings) — static CSS + live check |
+| P3c V8-277 hook centring (phones: scene h2 + quote centred, hung indent off; kicker + narration left) + V8-278 barbershop up (landscape 100 — the 1440 frame has only 60px of slack so bottom-anchor is the whole lever; NEW heroFocus.portraitScale 1.18 lifts the phone hero about its bottom edge — phones show the vertical poster's full height so object-position can't move it; the lady's face now mid-frame, sills gone) + V8-204 where-to-next (LOCATION NN rides the heading row bottom/right-aligned EXACT 169/169 · 1304/1304; Continue REMOVED; whole-map stretched link = the one door "Continue to X"; embed pill = solid orange active idiom; Get directions centred, still ghost) + V8-205 ch2 plate fades cream (--ground-light both edges; photo interludes keep dark) | (this commit) | pill DOM probe (bg 228,91,39 · ink 29,20,17); onward shots desk/phone; barber hero shots ×2; hook shot 390; ch2 interlude seam shot |
+| P3b V8-275 moral legibility (scrim middle .86→.90; `.moral-ground` blur 2px + scale 1.04 RM-safe; per-moral `groundFocus` map) + V8-276 ferry moral ground = its study drawing (tiers regenerated from sketch-1440.jpg via sharp, 439KB jpg ≈ old 417KB; bakery ground provenance queued for Wil) + hero separator `text-neutral-12` (V7-007's stated fix was never in the markup; the longer LOCATION pushed the orange dot onto lit paint, p10 3.39) + hero lockup halo densified + **instrument fix**: contrast.mjs skips alpha-0 leaves at classify (the audio control fades in on arrival; classifying it at page top froze alpha 0 → p10 1 false failures; v7 dodged it only by hydration timing — proven by A/B: same fails with pt-5 restored, v7 worktree "pass" was vacuous, its hydration 403'd) | (this commit) | contrast 390+1440 × 5 chapters: 0 fails (10 cells); moral shots ×7 both widths |
+| P3a V8-271 chip (md+ bottom = inset/2 — the bottom fade dissolves the plate's edge so the full inset read loose; the wipe's pre-reveal scale(1.04) was polluting measurements — settled gaps now 20/20 phone · 40/20 tablet · 56/28 desktop; ch2 phones read "Troy, New York · 1858", licence tail ≥640; mobile "archival record" kept per Wil 01:01:06) + V8-272 chapter H1 phones step up (global --fit-advance var, hero-scoped 0.64 + 52px phone cap: 34.7→39.1 / 40.5→45.6 / 44.2→49.7 at 390; tablet/desktop capped unchanged) + V8-274 study note → t-meta-body (tertiary) | (this commit) | chip-probe3 one-line ×5 chapters ×3 vps; h1-verify 4 vps ovf 0; rag chapters @360/390 0/0/0; eyeball shots |
+| P2 V8-104 mobile home (CTA hugs 233px centred, pb 24; head lifted — media scale(1.09) origin bottom, chin 40%→34.6%; 7-line authored pyramid rag 18/29/36/38/31/30/23ch via display-gated `<br class=home-br>` + `{" "}` separators — Astro trims text↔element newlines) + V8-103 tablet (portrait ≥768 gets object-position 50% 37% + pt 36dvh + opened gaps — tablets CROP vertically, aspect 0.75 > source 0.5625, so object-position governs there) + V8-101 (srcset descriptor tells the truth: 1080w; high-res source queued for Wil) | (this commit) | home-shots probe: CTA 233px/gap 34, eyebrow 38% phones / 38% tablet / 34% desktop, 7/4/3 desc lines, 0 overflow at 360/390/430/768/834/1440; paragraph text+breaks verified rendered |
+| P1 V8-001 spot→location sweep (24 template strings, 4 prose edits incl. V8-102 home / V8-208 map / V8-302 people copy; CONTENT-STATUS v8 ledger) + V8-002 button optics (.btn 52/22, .btn-sm 40/18, icon-side trims as explicit btn-icon-start/end classes — :has(> .icon) failed on lone-icon buttons; TroyMap safe box 48→52) + V8-273 player gap (.player-rule-gap 27/37 coarse; measured 28 vs 27 at 1440) + V8-351/352 footer (grid-areas, Share bottom == nav bottom EXACT at 768/1024/1440 via 1fr/auto rows + row-gap 1rem; mobile gap 2.5rem, nav gap-2, disclaimer 2 authored lines) | (this commit) | rag 9vps×11 routes 0/0/0 (two mid-run HMR phantoms re-verified clean individually); a11y 0/0/0 ×14 runs (/,/map,/bakery,/people @390/1440); p1-probe numbers in scratchpad |
+
+## DECISIONS (run-time)
+- C3 "map gradient" resolved by probe (scratch c3-context-1200.png): the
+  cream scene prose sits directly above the cream 1858 plate on
+  /commissioners-office and the plate's edge fade is dark brown
+  (`[chapter].astro:433-436`) → the fade becomes `--ground-light` for the
+  `troy-1858` interlude only; photo interludes keep the dark fade
+  (V8-205).
+- Wil's "Christensen" = speech-to-text for the author's correct spelling
+  "Christianson" (consistent across the repo + the book) — no spelling
+  change (V8-304).
+- Branch mirroring: every `v2` push is mirrored to
+  `claude/nalle-memorial-polish-kc4uvm` (the session's designated
+  branch); deploys only fire from `v2`.
+
+## STANDING NOTES
+- Dev :4321 (self-daemonized `astro dev`; `astro dev stop/status/logs`).
+  Production preview :4322 for perf. One Playwright process at a time;
+  background long instruments (v7 lesson — foreground timeouts SIGTERM
+  Chromium).
+- `scroll-behavior: smooth` is on — instruments scroll with
+  `behavior: "instant"`.
+- ENV: **iOS Safari's chrome takes ~190 CSS px**, so `100dvh` on a 390×844
+  iPhone is ≈ **655**, not 844 and not the 664 v10 assumed — measured off Wil's
+  own screenshot (frame 635 tall + the 20px p-2.5 inset). Any home- or map-page
+  measurement run at the device's full height is measuring a viewport that does
+  not exist; the phone matrices must use real dvh values. The map's overview
+  search failing on short phones (V10-14) was this same 190px, one layer down.
+- INSTRUMENT: the home page's entry choreography (`home-rise`, staggered to
+  seq 5) plays once on load. Measuring through it reports phantom 22px offsets —
+  that is `translateY(22px)` mid-flight, not a layout bug. Settle first:
+  `await page.evaluate(() => Promise.all(document.getAnimations().map(a => a.finished.catch(() => {}))))`.
+- INSTRUMENT: the map's overview arrives on a 2s `easeTo`. Sample only once the
+  camera is at rest (poll centre/zoom/pitch unchanged for ~6 ticks AND
+  `!map.isMoving()`), or every reading is mid-ease.
+- INSTRUMENT: editing an island's source (Museum.tsx / TroyMap.tsx) reliably
+  stales Vite's optimized deps — the island then 504s ("Outdated Optimize Dep")
+  and never hydrates, so `window.__museum` / `__troyMap` never appear and every
+  probe times out looking like a runtime bug. `astro dev stop && astro dev
+  --background` clears it. Hit twice in v11 alone; check this BEFORE debugging
+  the component.
+- ENV: this container's Chromium cannot decode the site's MP4s at all (no
+  proprietary codecs), so video dimensions cannot be read in a browser and
+  films never play. `ffmpeg`/`ffprobe` are not installed either, so the splash
+  cannot be transcoded here.
+- ENV: `poppler-utils` IS installable via apt (`pdftotext`, `pdftoppm`) — that
+  is how Wil's markapriest.org PDF was decoded. `markapriest.org` itself and
+  `carnegiecenter.omeka.net` are both egress-blocked.
+- ENV/INSTRUMENT: `qa:walk` CANNOT run here — api.mapbox.com is proxy-blocked,
+  so the style never loads ("Style is not done loading" ×8 viewports). Map
+  geometry is verified instead with a Playwright route-stub style: fulfil
+  `**/styles/v1/**` with a minimal `{version:8, sources:{}, layers:[background]}`
+  and 204 everything else on mapbox.com. **Playwright matches routes
+  LAST-registered-first**, so register the catch-all FIRST and the style route
+  LAST or the stub never lands. Under the stub `project`/`unproject`/
+  `cameraForBounds` are all real, which is everything the camera search needs.
+  Do NOT commit a walk.md produced by a blocked run — it replaces good evidence
+  with an environment failure.
+
+## BLOCKED / NOTES
+- V8-101 needs the high-res `home-bg.png` (≥2160w) + splash film ≥1080w
+  from Wil — in-repo we fix the lying srcset descriptor only.
+- ENV: walk-check/states need the real Mapbox style and cannot run here —
+  Phase-4 verification ran through scripts in scratchpad using a
+  Playwright route-stub style (site untouched); geometry/camera/layout
+  asserted there; tile visuals + attribution positions go to the live
+  check + Wil.
+- ENV: makeitnotable.github.io is ALSO proxy-blocked — the live site
+  cannot be curled from this container. Live = HEAD verification is
+  substituted by the deploy.yml Actions run for the exact HEAD sha
+  concluding success (build + deploy-pages publish that sha); checked
+  after every push via the GitHub MCP.
+- ENV: this container's egress proxy 403-blocks api.mapbox.com — the GL
+  map cannot fetch its style/tiles here (the a11y "console errors" on
+  /map are exactly that fetch). Map geometry work (V8-206/207) will be
+  verified with a Playwright route-stub style (site code untouched);
+  tile visuals verified on the live site page-load markers + by Wil.
+- NEVER edit src/ while an instrument runs — HMR reloads mid-measure
+  produced phantom readings (barbershop@360 clips, people@land destroyed
+  context); both re-verified clean individually.
+- ENV: museum-check's fps assertion is unverifiable in this container —
+  Chromium runs on SwiftShader (software GL), and the PRE-museum commit
+  8ef1d5e measures the identical 239/240 frames >26ms at every station
+  and viewport (worktree probe, scratchpad/museum-p4base/museum.md). All
+  non-fps assertions (draw calls, pitch, composition, controls, overlap)
+  are the working gates here; real frame pacing goes to the live check.
+  (Worktree probes need `server.fs.allow` pointing at the main clone —
+  the symlinked node_modules otherwise 403s and the run is vacuous.)
+
+## v11.2 — mobile chrome (traps worth keeping)
+- ENV/INSTRUMENT: **edge sampling MUST run against `astro preview`, never
+  `astro dev`.** `astro-dev-toolbar` is a fixed element across the bottom of the
+  viewport, so in dev every bottom-edge sample is the toolbar and not the page —
+  it sent the first three passes of the tint work chasing a ground that was not
+  there. `npm run build && npm run preview -- --port 4331`, then
+  `npm run qa:bleed -- --base http://localhost:4331`.
+- INSTRUMENT: **`qa:shots` cannot prove a visual no-op on this site.** Two runs
+  of the SAME build differ in 60 of 155 captures — /paintings is a live three.js
+  hall on SwiftShader, and the reveal/lazy-media pages settle differently run to
+  run. Establish the noise floor first (capture twice, diff those) or the change
+  cannot be separated from a frame. For a CSS declaration, ask the DOM instead:
+  snapshot computed paint, flip the declaration in the SAME page instance,
+  snapshot again — no timing, no frames, no noise.
+- TRAP: comparing computed colours across a toggle catches TRANSITIONS mid-
+  flight and serialises the same colour two ways (`color(srgb …)` against the
+  `oklab(…)` interpolation space). `.walk-seg` read as 3 differences that were
+  not differences. Inject
+  `*,*::before,*::after{transition:none !important;animation:none !important}`
+  first.
+- TRAP: a band's MEAN is not its ground — a row of body text dragged /map's
+  edges 47–86 away from a page that was in fact seamless. Take the MODE of the
+  band, quantised.
+- TRAP: sample edges **4px in**. The walk rail is a 3px hairline pinned to the
+  top of every chapter page; row 0 measures the rail, not the page.
+- TRAP: `getComputedStyle().getPropertyValue("--x")` returns the substituted
+  TOKEN STREAM, not a resolved length. Four islands `parseFloat` `--ui-inset`;
+  the moment it became a `max()` they would have read NaN and fallen back to
+  20px at every width. `@property --ui-inset { syntax: "<length>" }` is what
+  keeps them working.
+- ENV: Chromium reports **no safe-area insets**, so `env(safe-area-inset-*)` is
+  always 0px here. The growth half of the lane is proved by standing a 47px
+  inset in env()'s place with an injected `max()` and watching the anchors
+  follow; the real thing goes to a phone.
+- ENV: mobile browser chrome — its tint, and whether it retracts — **cannot be
+  observed in this container at all**; headless Chromium has no address bar.
+  Every precondition is measured (`qa:bleed`); the chrome itself goes to Wil.

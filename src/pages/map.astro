@@ -1,0 +1,255 @@
+---
+// The Walk — approved map experience (signature #4) + the typographic
+// all-stops index below it (blueprint gap 7: the index IS the keyboard and
+// screen-reader path through the walk, and the no-JS state).
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import TroyMap from "../components/TroyMap";
+import Picture from "../components/Picture.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { withBase } from "../lib/url";
+import { fitChars, nbsp } from "../lib/text";
+import route from "../data/route.json";
+const MAP_HEADING = "Five locations<br />throughout Troy";
+
+const chapters = (await getCollection("chapters")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const stops = chapters.map((entry) => ({
+  slug: entry.id,
+  order: entry.data.order,
+  label: entry.data.name.short,
+  pin: entry.data.name.pin,
+  canonical: entry.data.name.canonical,
+  /* v7 M6: the authored two-line card title where one exists. */
+  cardTitle: entry.data.name.card ?? entry.data.name.canonical,
+  pinOffset: entry.data.pinOffset,
+  address: entry.data.map.address,
+  coordinates: entry.data.map.coordinates,
+  plaque: entry.data.plaque,
+}));
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+{/* Item 9: no WalkProgress rail here — the map IS the walk's overview; a
+    second progress instrument above it was chrome noise. v14 E2 (client): the
+    menu is the default top-right one, as on every other page (item 10's
+    bottom-right lane is gone; the map's own top-right control only shows while
+    the ☰ has retreated). */}
+<Base
+  rootFill="map"
+  title="Map · Charles Nalle Walking Memorial"
+  description="The route of the Charles Nalle rescue through downtown Troy, NY: five locations from the bakery where he was seized to the barbershop where his freedom was won."
+>
+
+  {/* The shell is server-rendered at full height so island hydration causes
+      zero layout shift; the island fills it. */}
+  {/* v14.2 (Wil, 9/16): the browser's bars continue the map — `data-edge-*`
+      is the style's own ground, #353535, the mode colour of the rendered
+      canvas (docs/qa/phase3/map--1440.png and the phase23/phase6 renders agree)
+      for the edge sampler in Base.astro. */}
+  <div class="map-shell" data-edge-top="#353535" data-edge-bottom="#353535">
+    <div id="map-placeholder" class="absolute inset-0 grid place-items-center" aria-hidden="true">
+      <p class="t-meta">The map is loading…</p>
+    </div>
+    <TroyMap client:only="react" stops={stops} baseUrl={baseUrl} />
+  </div>
+
+  {/* The typographic index — wayfinding for everyone, the whole page for no-JS */}
+  <section class="shell sec" aria-label="The five locations">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
+        <p class="t-spine">(01)</p>
+        <p class="t-meta mt-3">The map</p>
+      </div>
+      <div>
+        <h1 class="t-display reveal" style={fitChars(MAP_HEADING)} set:html={MAP_HEADING} />
+        <p class="t-prose reveal mt-10">
+          The rescue of Charles Nalle unfolded across a few blocks of downtown
+          Troy in a single day: April 27, 1860. Four locations carry bronze
+          plaques; the Ferry Landing is remembered here on the&nbsp;website.
+        </p>
+        {/* The walk has a size, and saying it is the difference between a map
+            and an invitation. Both numbers come from the same Directions
+            geometry the route is drawn from. */}
+        <p class="t-meta reveal mt-8">
+          {(route.distanceMeters / 1609.34).toFixed(1)} miles · about{" "}
+          {Math.round(route.durationSeconds / 60 / 5) * 5} minutes on foot
+        </p>
+      </div>
+    </div>
+
+    {/* The typographic index — the image IS the card; nothing is boxed. */}
+    {/* v14 E23 (client): one hairline in the list — above Location 1 only; the
+        four between/after the items are gone. v14.2 (Wil, 9/16): more air under
+        the survivor — pt-10 + the anchor's py-6 = 64px, the --sp-5 step (was
+        pt-4 → 40px, --sp-4), at every breakpoint. Nothing else in the list moves. */}
+    <ol class="beat">
+      {
+        chapters.map((entry, i) => (
+          <li class={i === 0 ? "reveal rule-top pt-10" : "reveal"}>
+            <a
+              href={withBase(entry.id)}
+              data-curtain-label={entry.data.name.short}
+              data-curtain-date
+              class="group grid grid-cols-[4.5rem_1fr_auto] items-center gap-4 py-6 sm:grid-cols-[7rem_1fr_auto] sm:gap-8"
+            >
+              {/* The archival record of the place, not the painting: the map
+                  carousel already shows every stop's `square` painting crop, so
+                  this index was the second copy of all five. A photograph of the
+                  building is also the more useful thing when the index is being
+                  used for what it is — finding a door on a street. */}
+              <span class="overflow-hidden rounded-[12px]">
+                {/* 112 CSS px at the largest. With only 800/1440 offered the
+                    browser had to take the 800 for every row — five of them,
+                    ~250 KB, competing with the map's own load. */}
+                <Picture
+                  slug={entry.id}
+                  imageKey="historical"
+                  alt=""
+                  sizes="7rem"
+                  widths={[400, 800]}
+                  class="h-20 w-20 object-cover transition-transform duration-300 group-hover:scale-105 sm:h-28 sm:w-28"
+                />
+              </span>
+              <span class="min-w-0">
+                <span class="t-meta block">Location {String(entry.data.order).padStart(2, "0")}</span>
+                {/* The authored two-line title where one exists (never nbsp-glued —
+                    "FASHIONABLE BAKERY" as one word clipped at 390, juror pass 2). */}
+                <span class="t-title-sm map-index-title mt-3 block whitespace-pre-line">
+                  {entry.data.name.card ?? entry.data.name.canonical}
+                </span>
+                <span class="t-meta-body mt-3 block">
+                  {nbsp(entry.data.map.address)}
+                  {!entry.data.plaque && " · no plaque, website only"}
+                </span>
+              </span>
+              <Icon name="arrow" class="text-primary-11 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <SiteFooter hide="map" />
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+
+  <script is:inline>
+    /* v16 item 1 (Wil, 2026-09-18): "Map page = area behind the top address bar
+       and bottom toolbar is always see through."
+
+       The bottom already works, because the bottom toolbar covers document
+       offsets 645-737 and the shell grows into them (E, round 8 section 5.3).
+       The top bar covers offsets -107 to 0 — above the document — so at scroll
+       0 there is nothing there to show, on any page, by any mechanism (phase
+       A2, measured twice). The only way to put map under it is for the page not
+       to be at scroll 0. So the shell also grows by T ABOVE the reader's
+       window (global.css), the camera takes T back as top padding exactly as it
+       already does for E (TroyMap.tsx), and this lands the page at scroll T —
+       the same composition as today, shifted off the document's top edge, with
+       T px of live map now occupying the strip the address bar covers.
+
+       T is 0 wherever there are no bars, so desktop and tablet land at scroll 0
+       and nothing here runs. `scrollRestoration = manual` stops iOS restoring a
+       back-navigation to 0 and undoing the landing; `scroll-behavior` is forced
+       to auto for the jump because html sets `smooth` globally and this must not
+       animate. Re-landed on orientationchange, where T changes with lvh/svh.
+
+       v18 (round 19, Wil's screenshot 1 — "the page always loads AND REMAINS
+       aligned to the very top"): the runway is ordinary scrollable content, so
+       the landing was only ever as durable as the next scroll. A flick back to
+       the top rests the page at 0, not T, and the whole composition then sits
+       T lower — the 1858 pill 110px down, the walk door under the toolbar, the
+       grey body fallback behind the address bar. So the page now RE-LANDS:
+       once a scroll settles (160 ms after the last scroll event, never while a
+       finger is down) with the page above T, it returns to T — smoothly, or as
+       a cut under reduced motion. A back/forward-cache restore re-lands too;
+       the island resets the map itself on that event. The island's own
+       scrolls (a pin tap, the walk door) target T directly (landShell). */
+    (function () {
+      var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function T() {
+        var shell = document.querySelector(".map-shell");
+        if (!shell) return 0;
+        var t = parseFloat(getComputedStyle(shell).getPropertyValue("--map-t")) || 0;
+        return t > 0 ? t : 0;
+      }
+      function jump(y) {
+        var root = document.documentElement;
+        var prev = root.style.scrollBehavior;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, y);
+        root.style.scrollBehavior = prev;
+      }
+      function land() {
+        var t = T();
+        if (t <= 0 || window.scrollY >= t) return;
+        jump(t);
+      }
+      try {
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      } catch (e) {}
+      if (document.readyState === "loading") addEventListener("DOMContentLoaded", land, { once: true });
+      else land();
+      addEventListener("load", land, { once: true });
+      addEventListener("orientationchange", function () {
+        setTimeout(land, 200);
+      });
+      addEventListener("pageshow", function (e) {
+        if (e.persisted) land();
+      });
+
+      /* The settle re-land. */
+      var touching = false;
+      var timer = 0;
+      function settle() {
+        timer = 0;
+        if (touching) return;
+        var t = T();
+        if (t <= 0 || window.scrollY >= t - 0.5) return;
+        if (reduced) jump(t);
+        else window.scrollTo({ top: t, behavior: "smooth" });
+      }
+      function schedule() {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(settle, 160);
+      }
+      function released() {
+        touching = false;
+        schedule();
+      }
+      addEventListener("touchstart", function () { touching = true; }, { passive: true });
+      addEventListener("touchend", released, { passive: true });
+      addEventListener("touchcancel", released, { passive: true });
+      addEventListener("scroll", schedule, { passive: true });
+
+      /* v18 (round 19): `?cta=<px>` — the walk door's bottom offset relative to
+         the inset, for dialling the gap to the toolbar on the device
+         (global.css .map-walk-door). Review-only; the page carries no default
+         from here. */
+      try {
+        var m = /(^|[?&])cta=(-?\d{1,3})(&|$)/.exec(location.search);
+        if (m) document.documentElement.style.setProperty("--map-door-lift", m[2] + "px");
+      } catch (e) {}
+    })();
+  </script>
+</Base>

@@ -1,0 +1,511 @@
+{
+  "log": {
+    "bottomEdgeEls": [
+      {
+        "tag": "DIV",
+        "t": "",
+        "cls": "sec-head",
+        "rect": [
+          136,
+          1100,
+          1168,
+          25
+        ]
+      },
+      {
+        "tag": "P",
+        "t": "(01)",
+        "cls": "t-spine",
+        "rect": [
+          136,
+          1157,
+          276,
+          30
+        ]
+      },
+      {
+        "tag": "P",
+        "t": "The map",
+        "cls": "t-meta mt-3",
+        "rect": [
+          136,
+          1199,
+          276,
+          18
+        ]
+      },
+      {
+        "tag": "P",
+        "t": "2.5 miles · about 45 minutes o",
+        "cls": "t-meta reveal mt-8",
+        "rect": [
+          476,
+          1530,
+          828,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Spot 01",
+        "cls": "t-meta block",
+        "rect": [
+          280,
+          1701,
+          968,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "3rd & Division Streets (vacant",
+        "cls": "t-meta-body mt-3 block",
+        "rect": [
+          280,
+          1812,
+          968,
+          23
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1283,
+          1767,
+          14,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1294,
+          1762,
+          8,
+          11
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Spot 02",
+        "cls": "t-meta block",
+        "rect": [
+          280,
+          1883,
+          968,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "5 State Street · Mutual Bank B",
+        "cls": "t-meta-body mt-3 block",
+        "rect": [
+          280,
+          1994,
+          968,
+          23
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1283,
+          1949,
+          14,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1294,
+          1944,
+          8,
+          11
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Spot 03",
+        "cls": "t-meta block",
+        "rect": [
+          280,
+          2072,
+          968,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Uri Gilbert Home",
+        "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+        "rect": [
+          280,
+          2101,
+          968,
+          35
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "189 Second Street",
+        "cls": "t-meta-body mt-3 block",
+        "rect": [
+          280,
+          2148,
+          968,
+          23
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1283,
+          2120,
+          14,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1294,
+          2116,
+          8,
+          11
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Spot 04",
+        "cls": "t-meta block",
+        "rect": [
+          280,
+          2233,
+          968,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Washington Street Ferry Landin",
+        "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+        "rect": [
+          280,
+          2262,
+          968,
+          35
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Riverfront at the end of Madis",
+        "cls": "t-meta-body mt-3 block",
+        "rect": [
+          280,
+          2309,
+          968,
+          23
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1283,
+          2281,
+          14,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1294,
+          2277,
+          8,
+          11
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Spot 05",
+        "cls": "t-meta block",
+        "rect": [
+          280,
+          2394,
+          968,
+          18
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "Peter Baltimore’s Barbershop",
+        "cls": "t-title-sm mt-3 block whitespace-pre-lin",
+        "rect": [
+          280,
+          2423,
+          968,
+          35
+        ]
+      },
+      {
+        "tag": "SPAN",
+        "t": "First Street (Athenaeum buildi",
+        "cls": "t-meta-body mt-3 block",
+        "rect": [
+          280,
+          2470,
+          968,
+          23
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1283,
+          2442,
+          14,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1294,
+          2438,
+          8,
+          11
+        ]
+      },
+      {
+        "tag": "DIV",
+        "t": "",
+        "cls": "rule-bleed",
+        "rect": [
+          0,
+          2699,
+          1440,
+          1
+        ]
+      },
+      {
+        "tag": "P",
+        "t": "Charles Nalle Walking Memorial",
+        "cls": "footer-wordmark",
+        "rect": [
+          136,
+          2748,
+          615,
+          29
+        ]
+      },
+      {
+        "tag": "A",
+        "t": "Notable",
+        "cls": "inline-block py-1 underline underline-of",
+        "rect": [
+          201,
+          2785,
+          56,
+          31
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1007,
+          2761,
+          10,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          1016,
+          2758,
+          6,
+          8
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          927,
+          2800,
+          10,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          936,
+          2797,
+          6,
+          8
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          988,
+          2839,
+          10,
+          1
+        ]
+      },
+      {
+        "tag": "path",
+        "t": "",
+        "cls": "[object SVGAnimatedString]",
+        "rect": [
+          996,
+          2835,
+          6,
+          8
+        ]
+      }
+    ],
+    "wheelCenter": 0,
+    "wheelBottomEdge": 0,
+    "wheelRightSide": 0,
+    "pageDown": 860,
+    "hints": [
+      "Drag to explore · pinch or scroll to zoom"
+    ]
+  },
+  "errs": [
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/14/4836/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/14/4837/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/14/4838/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4836/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/14/4839/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4838/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4839/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4836/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4838/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4837/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4835/6036.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4837/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4835/6036.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4839/6034.glb?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/14/4837/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/14/4836/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/14/4838/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "mw",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/14/4839/6034.vector.pbf?sku=101o2G5pCTHve&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    }
+  ]
+}

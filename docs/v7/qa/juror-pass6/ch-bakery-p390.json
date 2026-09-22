@@ -1,0 +1,253 @@
+{
+ "samples": [
+  {
+   "y": 0,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 1000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@20,457 56x56 static",
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 1500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@20,-43 56x56 static",
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 2000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 2500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 3000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 3500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 4000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 4500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 5000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 5500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 6000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 6500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@29,771 44x44 static"
+   ]
+  },
+  {
+   "y": 7000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@25,775 44x44 static"
+   ]
+  },
+  {
+   "y": 7500,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@25,775 44x44 static"
+   ]
+  },
+  {
+   "y": 8000,
+   "audioPaused": false,
+   "ctrls": [
+    "Pause narration: Holeur’s Fashionable Bakery@25,775 44x44 static"
+   ]
+  }
+ ],
+ "missing": [],
+ "foot": {
+  "links": [
+   {
+    "t": "Notable",
+    "x": 81,
+    "y": 342,
+    "w": 52,
+    "h": 29,
+    "lines": 1
+   },
+   {
+    "t": "THE PEOPLE OF THIS DAY",
+    "x": 20,
+    "y": 404,
+    "w": 216,
+    "h": 26,
+    "lines": 1
+   },
+   {
+    "t": "THE PAINTINGS",
+    "x": 20,
+    "y": 443,
+    "w": 142,
+    "h": 26,
+    "lines": 1
+   },
+   {
+    "t": "ABOUT THE MEMORIAL",
+    "x": 20,
+    "y": 482,
+    "w": 198,
+    "h": 26,
+    "lines": 1
+   },
+   {
+    "t": "MAP",
+    "x": 20,
+    "y": 521,
+    "w": 57,
+    "h": 26,
+    "lines": 1
+   },
+   {
+    "t": "SHARE",
+    "x": 20,
+    "y": 579,
+    "w": 119,
+    "h": 38,
+    "lines": 1
+   }
+  ]
+ },
+ "st2": {
+  "ctrls": [
+   {
+    "t": "Pause narration: Holeur’s Fashionable Bakery",
+    "x": 20,
+    "y": -6376,
+    "w": 56,
+    "h": 56,
+    "onscreen": false,
+    "pos": "static"
+   },
+   {
+    "t": "Pause narration: Holeur’s Fashionable Bakery",
+    "x": 25,
+    "y": 775,
+    "w": 44,
+    "h": 44,
+    "onscreen": true,
+    "pos": "static"
+   },
+   {
+    "t": "Continue to Commissioner’s Office",
+    "x": 80,
+    "y": -327,
+    "w": 229,
+    "h": 72,
+    "onscreen": false,
+    "pos": "absolute"
+   },
+   {
+    "t": "CONTINUE",
+    "x": 102,
+    "y": 24,
+    "w": 187,
+    "h": 48,
+    "onscreen": true,
+    "pos": "static"
+   }
+  ],
+  "audio": {
+   "paused": false,
+   "t": 22.8
+  },
+  "scrollY": 7833
+ },
+ "fl": [
+  {
+   "t": "curtain-panel",
+   "tag": "DIV",
+   "x": 0,
+   "y": 844,
+   "w": 390,
+   "h": 844,
+   "pos": "fixed",
+   "z": "9999"
+  },
+  {
+   "t": "fixed bottom-[var(--ui-inset)] left-[var",
+   "tag": "DIV",
+   "x": 20,
+   "y": 770,
+   "w": 54,
+   "h": 54,
+   "pos": "fixed",
+   "z": "999"
+  }
+ ],
+ "log": {
+  "errors": [],
+  "warnings": [],
+  "failed": [
+   "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+   "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19352/24149.vector.pbf?sku=101Xy5OCJgIiC&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+  ]
+ }
+}

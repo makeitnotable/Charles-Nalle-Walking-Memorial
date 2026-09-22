@@ -1,0 +1,54 @@
+{
+  "s0": {
+    "mode": "approach",
+    "approached": 9,
+    "alive": -1,
+    "sheet": "peek"
+  },
+  "els": [
+    "BUTTON role=null \"Back to the hall\" @20,20 195x38 ta=auto",
+    "BUTTON role=null \"Bring the painting to life\" @26,284 339x226 ta=auto",
+    "DIV role=button \"Expand the plaque\" @0,720 390x124 ta=none",
+    "NAV role=null \"Works in the hall\" @39,676 312x24 ta=auto"
+  ],
+  "hdr": {
+    "x": 195,
+    "y": 750.03125,
+    "top": 720.03125,
+    "label": "Expand the plaque"
+  },
+  "afterUp": {
+    "mode": "approach",
+    "approached": 9,
+    "alive": -1,
+    "sheet": "peek",
+    "pr": [
+      26,
+      284,
+      339,
+      226
+    ],
+    "hdrTop": 720
+  },
+  "afterDown": {
+    "mode": "approach",
+    "approached": 9,
+    "alive": -1,
+    "sheet": "peek",
+    "hdrTop": 720
+  },
+  "afterTapHdr": {
+    "mode": "approach",
+    "approached": 9,
+    "alive": -1,
+    "sheet": "peek",
+    "hdrTop": 720
+  },
+  "afterTapPainting": {
+    "mode": "approach",
+    "approached": 9,
+    "alive": 9,
+    "sheet": "peek"
+  },
+  "log": []
+}

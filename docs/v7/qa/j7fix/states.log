@@ -1,0 +1,146 @@
+
+── 390 (390×844)
+  mansion-390-01-rest — 1 floating, 0 collisions
+  mansion-390-02-menu-open — 3 floating, 0 collisions
+  mansion-390-03-player-inview — 0 floating, 0 collisions
+  mansion-390-04-mini-player — 1 floating, 0 collisions
+  mansion-390-05-mini-plus-menu — 0 floating, 0 collisions
+  mansion-390-11-mini-collapsed — 0 floating, 0 collisions
+  mansion-390-08-foot — 0 floating, 0 collisions
+  mansion-390-09-cta-focus — 0 floating, 0 collisions
+  mansion-390-10-cta-hover — 0 floating, 0 collisions
+  map-390-01-rest — 8 floating, 0 collisions
+  map-390-02-menu-open — 10 floating, 0 collisions
+  map-390-05-index — 2 floating, 0 collisions
+  map-390-06-walk — 5 floating, 0 collisions
+  map-390-07-walk-paused — 6 floating, 0 collisions
+  map-390-08-walk-plus-menu — 6 floating, 0 collisions
+  map-390-09-lens-open — 7 floating, 0 collisions
+  paintings-390-01-rest — 1 floating, 0 collisions
+  museum-390-01-rail-rest — 1 floating, 0 collisions
+  museum-390-02-looked-away — 1 floating, 0 collisions
+  museum-390-03-approach — 3 floating, 0 collisions
+  museum-390-04-sheet-full — 3 floating, 0 collisions
+  museum-390-05-alive — 3 floating, 0 collisions
+  paintings-390-02-dialog — 1 floating, 0 collisions
+  home-390-01-rest — 0 floating, 0 collisions
+  people-390-01-rest — 0 floating, 0 collisions
+  people-390-02-menu — 2 floating, 0 collisions
+  about-390-01-rest — 0 floating, 0 collisions
+  about-390-02-menu — 2 floating, 0 collisions
+
+── land (844×390)
+  mansion-land-01-rest — 1 floating, 0 collisions
+  mansion-land-02-menu-open — 3 floating, 0 collisions
+  mansion-land-03-player-inview — 0 floating, 0 collisions
+  mansion-land-04-mini-player — 1 floating, 0 collisions
+  mansion-land-05-mini-plus-menu — 1 floating, 0 collisions
+  mansion-land-08-foot — 1 floating, 0 collisions
+  mansion-land-09-cta-focus — 1 floating, 0 collisions
+  mansion-land-10-cta-hover — 1 floating, 0 collisions
+  map-land-01-rest — 4 floating, 0 collisions
+  map-land-02-menu-open — 6 floating, 0 collisions
+  map-land-05-index — 2 floating, 0 collisions
+  map-land-06-walk — 4 floating, 0 collisions
+  map-land-07-walk-paused — 7 floating, 0 collisions
+  map-land-08-walk-plus-menu — 9 floating, 0 collisions
+  map-land-09-lens-open — 4 floating, 0 collisions
+  paintings-land-01-rest — 1 floating, 0 collisions
+  museum-land-01-rail-rest — 2 floating, 0 collisions
+  museum-land-02-looked-away — 2 floating, 0 collisions
+  museum-land-03-approach — 3 floating, 0 collisions
+  museum-land-05-alive — 3 floating, 0 collisions
+  paintings-land-02-dialog — 1 floating, 0 collisions
+  home-land-01-rest — 0 floating, 0 collisions
+  people-land-01-rest — 0 floating, 0 collisions
+  people-land-02-menu — 2 floating, 0 collisions
+  about-land-01-rest — 0 floating, 0 collisions
+  about-land-02-menu — 2 floating, 0 collisions
+
+── 768 (768×1024)
+  mansion-768-01-rest — 1 floating, 0 collisions
+  mansion-768-02-menu-open — 3 floating, 0 collisions
+  mansion-768-03-player-inview — 0 floating, 0 collisions
+  mansion-768-04-mini-player — 1 floating, 0 collisions
+  mansion-768-05-mini-plus-menu — 1 floating, 0 collisions
+  mansion-768-08-foot — 1 floating, 0 collisions
+  mansion-768-09-cta-focus — 1 floating, 0 collisions
+  mansion-768-10-cta-hover — 1 floating, 0 collisions
+  map-768-01-rest — 12 floating, 0 collisions
+  map-768-02-menu-open — 14 floating, 0 collisions
+  map-768-05-index — 2 floating, 0 collisions
+  map-768-06-walk — 7 floating, 0 collisions
+  map-768-07-walk-paused — 8 floating, 0 collisions
+  map-768-08-walk-plus-menu — 10 floating, 0 collisions
+  map-768-09-lens-open — 12 floating, 0 collisions
+  paintings-768-01-rest — 1 floating, 0 collisions
+  museum-768-01-rail-rest — 2 floating, 0 collisions
+  museum-768-02-looked-away — 2 floating, 0 collisions
+  museum-768-03-approach — 4 floating, 0 collisions
+  museum-768-04-sheet-full — 4 floating, 0 collisions
+  museum-768-05-alive — 4 floating, 0 collisions
+  paintings-768-02-dialog — 1 floating, 0 collisions
+  home-768-01-rest — 0 floating, 0 collisions
+  people-768-01-rest — 0 floating, 0 collisions
+  people-768-02-menu — 2 floating, 0 collisions
+  about-768-01-rest — 0 floating, 0 collisions
+  about-768-02-menu — 2 floating, 0 collisions
+
+── 1024 (1024×768)
+  mansion-1024-01-rest — 1 floating, 0 collisions
+  mansion-1024-02-menu-open — 3 floating, 0 collisions
+  mansion-1024-03-player-inview — 1 floating, 0 collisions
+  mansion-1024-04-mini-player — 1 floating, 0 collisions
+  mansion-1024-05-mini-plus-menu — 1 floating, 0 collisions
+  mansion-1024-08-foot — 2 floating, 0 collisions
+  mansion-1024-09-cta-focus — 2 floating, 0 collisions
+  mansion-1024-10-cta-hover — 2 floating, 0 collisions
+  map-1024-01-rest — 12 floating, 0 collisions
+  map-1024-02-menu-open — 14 floating, 0 collisions
+  map-1024-05-index — 3 floating, 0 collisions
+  map-1024-06-walk — 6 floating, 0 collisions
+  map-1024-07-walk-paused — 8 floating, 0 collisions
+  map-1024-08-walk-plus-menu — 10 floating, 0 collisions
+  map-1024-09-lens-open — 12 floating, 0 collisions
+  paintings-1024-01-rest — 1 floating, 0 collisions
+  museum-1024-01-rail-rest — 2 floating, 0 collisions
+  museum-1024-02-looked-away — 2 floating, 0 collisions
+  museum-1024-03-approach — 3 floating, 0 collisions
+  museum-1024-05-alive — 3 floating, 0 collisions
+  paintings-1024-02-dialog — 1 floating, 0 collisions
+  home-1024-01-rest — 0 floating, 0 collisions
+  people-1024-01-rest — 1 floating, 0 collisions
+  people-1024-02-menu — 3 floating, 0 collisions
+  about-1024-01-rest — 1 floating, 0 collisions
+  about-1024-02-menu — 3 floating, 0 collisions
+
+── 1440 (1440×900)
+  mansion-1440-01-rest — 1 floating, 0 collisions
+  mansion-1440-02-menu-open — 3 floating, 0 collisions
+  mansion-1440-03-player-inview — 1 floating, 0 collisions
+  mansion-1440-04-mini-player — 1 floating, 0 collisions
+  mansion-1440-05-mini-plus-menu — 1 floating, 0 collisions
+  mansion-1440-08-foot — 2 floating, 0 collisions
+  mansion-1440-09-cta-focus — 2 floating, 0 collisions
+  mansion-1440-10-cta-hover — 2 floating, 0 collisions
+  map-1440-01-rest — 12 floating, 0 collisions
+  map-1440-02-menu-open — 14 floating, 0 collisions
+  map-1440-05-index — 3 floating, 0 collisions
+  map-1440-06-walk — 6 floating, 0 collisions
+  map-1440-07-walk-paused — 8 floating, 0 collisions
+  map-1440-08-walk-plus-menu — 10 floating, 0 collisions
+  map-1440-09-lens-open — 12 floating, 0 collisions
+  paintings-1440-01-rest — 1 floating, 0 collisions
+  museum-1440-01-rail-rest — 2 floating, 0 collisions
+  museum-1440-02-looked-away — 2 floating, 0 collisions
+  museum-1440-03-approach — 3 floating, 0 collisions
+  museum-1440-05-alive — 3 floating, 0 collisions
+  paintings-1440-02-dialog — 1 floating, 0 collisions
+  home-1440-01-rest — 0 floating, 0 collisions
+  people-1440-01-rest — 1 floating, 0 collisions
+  people-1440-02-menu — 3 floating, 0 collisions
+  about-1440-01-rest — 1 floating, 0 collisions
+  about-1440-02-menu — 3 floating, 0 collisions
+
+states → docs/v5/qa/states/states.md — 0/133 states have collisions
+exit 0

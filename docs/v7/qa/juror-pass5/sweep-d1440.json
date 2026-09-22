@@ -1,0 +1,287 @@
+{
+ "bakery": {
+  "firsts": [
+   {
+    "text": "As the sun rose on t",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   }
+  ],
+  "credits": [],
+  "morals": [
+   {
+    "h": "NOT ALL LAWS ARE MORAL",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "Laws like the Fugitive Slave A",
+    "study": {
+     "x": 477,
+     "y": 5299,
+     "w": 418,
+     "h": 345
+    },
+    "cap": {
+     "x": 936,
+     "y": 5307,
+     "w": 368,
+     "h": 329
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nThe study is almost "
+   }
+  ],
+  "ids": [
+   "hero-media@0",
+   "hero-lockup@509",
+   "scene-0@1028",
+   "history@3371",
+   "moral@4675",
+   "onward@6167"
+  ],
+  "gaps": [
+   "history:3371-4547",
+   "moral:4675-5967",
+   "onward:6167-7082"
+  ],
+  "emd": [],
+  "heroVideoPos": "50% 24%",
+  "heroImgPos": "50% 24%",
+  "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+  "errors": []
+ },
+ "commissioners-office": {
+  "firsts": [
+   {
+    "text": "It’s hard to imagine",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   },
+   {
+    "text": "Outside the Mutual B",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   }
+  ],
+  "credits": [],
+  "morals": [
+   {
+    "h": "WHEN NOT CHALLENGED INJUSTICE THRIVES",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "In 1860, the bells of Second S",
+    "study": {
+     "x": 477,
+     "y": 6383,
+     "w": 418,
+     "h": 332
+    },
+    "cap": {
+     "x": 936,
+     "y": 6421,
+     "w": 368,
+     "h": 256
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nEverything in the st"
+   },
+   {
+    "h": "FREEDOM ISN’T FREE",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "Charles Nalle’s freedom was pr",
+    "study": {
+     "x": 477,
+     "y": 10808,
+     "w": 418,
+     "h": 344
+    },
+    "cap": {
+     "x": 936,
+     "y": 10815,
+     "w": 368,
+     "h": 329
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nThe brawl is worked "
+   }
+  ],
+  "ids": [
+   "hero-media@0",
+   "hero-lockup@592",
+   "scene-0@1028",
+   "history@3293",
+   "moral-0@5555",
+   "hero-2@7037",
+   "scene-1@7903",
+   "moral-1@10147",
+   "onward@11674"
+  ],
+  "gaps": [
+   "history:3293-5427",
+   "moral-0:5555-7037",
+   "moral-1:10147-11474",
+   "onward:11674-12590"
+  ],
+  "emd": [],
+  "heroVideoPos": "50% 58%",
+  "heroImgPos": "50% 58%",
+  "title": "Commissioner’s Office · Charles Nalle Walking Memorial",
+  "errors": []
+ },
+ "mansion": {
+  "firsts": [
+   {
+    "text": "Each stride closed t",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   }
+  ],
+  "credits": [],
+  "morals": [
+   {
+    "h": "THE INVISIBLE MATTER AS MUCH AS THE VISI",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "Despite Charles becoming “invi",
+    "study": {
+     "x": 477,
+     "y": 5928,
+     "w": 418,
+     "h": 262
+    },
+    "cap": {
+     "x": 936,
+     "y": 5895,
+     "w": 368,
+     "h": 329
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nThe lightest drawing"
+   }
+  ],
+  "ids": [
+   "hero-media@0",
+   "hero-lockup@592",
+   "scene-0@1028",
+   "history@3828",
+   "moral@5169",
+   "onward@6783"
+  ],
+  "gaps": [
+   "history:3828-5041",
+   "moral:5169-6583",
+   "onward:6783-7698"
+  ],
+  "emd": [],
+  "heroVideoPos": "50% 35%",
+  "heroImgPos": "50% 35%",
+  "title": "Uri Gilbert Home · Charles Nalle Walking Memorial",
+  "errors": []
+ },
+ "ferry": {
+  "firsts": [
+   {
+    "text": "Behind Charles, the ",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   }
+  ],
+  "credits": [],
+  "morals": [
+   {
+    "h": "AUTHORITARIANISM IS PERSISTENT",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "Marshal Holmes and the slave c",
+    "study": {
+     "x": 477,
+     "y": 7007,
+     "w": 418,
+     "h": 345
+    },
+    "cap": {
+     "x": 936,
+     "y": 6997,
+     "w": 368,
+     "h": 366
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nThe whole sheet goes"
+   }
+  ],
+  "ids": [
+   "hero-media@0",
+   "hero-lockup@509",
+   "scene-0@1028",
+   "history@4917",
+   "moral@6368",
+   "onward@7921"
+  ],
+  "gaps": [
+   "history:4917-6240",
+   "moral:6368-7721",
+   "onward:7921-8837"
+  ],
+  "emd": [],
+  "heroVideoPos": "50% 50%",
+  "heroImgPos": "50% 50%",
+  "title": "Washington Street Ferry Landing · Charles Nalle Walking Memorial",
+  "errors": []
+ },
+ "barbershop": {
+  "firsts": [
+   {
+    "text": "Pushing their way th",
+    "flSize": "21px",
+    "flFont": "\"Libre Caslon Display\"",
+    "pSize": "21px"
+   }
+  ],
+  "credits": [],
+  "morals": [
+   {
+    "h": "WE ARE RESPONSIBLE FOR JUSTICE",
+    "hColor": "rgb(246, 243, 238)",
+    "bodyColor": "rgb(246, 243, 238)",
+    "bodyText": "The collective effort of the T",
+    "study": {
+     "x": 477,
+     "y": 6733,
+     "w": 418,
+     "h": 338
+    },
+    "cap": {
+     "x": 936,
+     "y": 6756,
+     "w": 368,
+     "h": 293
+    },
+    "capColor": "rgb(254, 217, 204)",
+    "capText": "THE ARTIST'S STUDY\n\nThe crowd fills the "
+   }
+  ],
+  "ids": [
+   "hero-media@0",
+   "hero-lockup@509",
+   "scene-0@1028",
+   "history@4758",
+   "moral@6026",
+   "onward@7594"
+  ],
+  "gaps": [
+   "history:4758-5898",
+   "moral:6026-7394",
+   "onward:7594-8509"
+  ],
+  "emd": [],
+  "heroVideoPos": "50% 44%",
+  "heroImgPos": "50% 44%",
+  "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+  "errors": []
+ }
+}

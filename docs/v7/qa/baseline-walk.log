@@ -1,0 +1,10 @@
+✗ 360 — pitch 33 zoom 15.25 · 7 finding(s): M2 labels outside safe box: 1, 4, 5 | M1 GeolocateControl present | control "SEE TROY IN 1858" only 40px tall | M3 "STOP THE WALK" not at top-right --ui-inset (rect {"x":95,"y":586,"w":170,"h":38})
+✗ 390 — pitch 33 zoom 15.25 · 7 finding(s): M2 labels outside safe box: 1, 4 | M1 GeolocateControl present | control "SEE TROY IN 1858" only 40px tall | M3 "STOP THE WALK" not at top-right --ui-inset (rect {"x":110,"y":630,"w":170,"h":38})
+✗ 430 — pitch 33 zoom 15.25 · 8 finding(s): M2 labels outside safe box: 4 | M1 GeolocateControl present | control "SEE TROY IN 1858" only 40px tall | M3 "STOP THE WALK" not at top-right --ui-inset (rect {"x":130,"y":718,"w":170,"h":38})
+✗ land — pitch 33 zoom 15.25 · 4 finding(s): M2 labels outside safe box: 2, 4, 5 | M1 GeolocateControl present | control "SEE TROY IN 1858" only 40px tall | M3 "STOP THE WALK" not at top-right --ui-inset (rect {"x":337,"y":5,"w":170,"h":38})
+✗ 768 — pitch 33 zoom 14.83 · 3 finding(s): M1 GeolocateControl present | control "SEE TROY IN 1858" only 40px tall | M3 "STOP THE WALK" not at top-right --ui-inset (rect {"x":299,"y":778,"w":170,"h":38})
+✗ 1024 — pitch 33 zoom 14.16 · 5 finding(s): M1 GeolocateControl present | M2 overview pitch 33 < 40 on desktop | control "SEE TROY IN 1858" only 40px tall | M6 "Commissioner’s Office" renders on 1 line(s) (want 2)
+✗ 1440 — pitch 33 zoom 14.54 · 5 finding(s): M1 GeolocateControl present | M2 overview pitch 33 < 40 on desktop | control "SEE TROY IN 1858" only 42px tall | M6 "Commissioner’s Office" renders on 1 line(s) (want 2)
+✗ 1920 — pitch 33 zoom 14.94 · 5 finding(s): M1 GeolocateControl present | M2 overview pitch 33 < 40 on desktop | control "SEE TROY IN 1858" only 42px tall | M6 "Commissioner’s Office" renders on 1 line(s) (want 2)
+
+walk → docs/v7/qa/baseline-walk/walk.md (44 findings)

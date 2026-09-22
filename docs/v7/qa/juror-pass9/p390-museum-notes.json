@@ -1,0 +1,1552 @@
+{
+  "top.ui": [
+    {
+      "t": "Skip to content",
+      "x": -999,
+      "y": 0,
+      "w": 148,
+      "h": 40,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "Open menu",
+      "x": 298,
+      "y": 20,
+      "w": 72,
+      "h": 72,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "The paintings · 10 works",
+      "x": 20,
+      "y": 118,
+      "w": 350,
+      "h": 16,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "The Museum · scroll to walk · drag to look · tap a paintingScroll to w",
+      "x": 114,
+      "y": 390,
+      "w": 162,
+      "h": 32,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Skip the hall",
+      "x": 20,
+      "y": 338,
+      "w": 102,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "top.stage": {
+    "top": 318,
+    "h": 844,
+    "scrollY": 0
+  },
+  "top.state": {
+    "mode": "rail",
+    "railIdx": 0,
+    "railT": 0,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 0,
+      "pitch": -0.07999999999999992,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72,
+    "portrait": true
+  },
+  "top.rect0": {
+    "l": 376,
+    "t": 503,
+    "r": 567,
+    "b": 828,
+    "w": 191,
+    "h": 325,
+    "behind": false
+  },
+  "top.clickAt": [
+    380,
+    665.5
+  ],
+  "fromtop.state": {
+    "mode": "approach",
+    "railIdx": 0,
+    "railT": 0.0000370260663507109,
+    "approached": 0,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.5707961482484911,
+      "pitch": -9.093293761903917e-9,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99031242877444,
+    "portrait": true
+  },
+  "fromtop.stage": {
+    "top": 0,
+    "h": 844,
+    "scrollY": 318
+  },
+  "fromtop.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Back to the hall",
+      "x": 20,
+      "y": 20,
+      "w": 195,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Bring the painting to life",
+      "x": 14,
+      "y": 265,
+      "w": 362,
+      "h": 204,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Expand the plaque",
+      "x": 0,
+      "y": 720,
+      "w": 390,
+      "h": 124,
+      "lines": 1,
+      "tag": "div"
+    },
+    {
+      "t": "Mark Priest · Nalle Series · Spot 01",
+      "x": 20,
+      "y": 748,
+      "w": 350,
+      "h": 16,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 683,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "fromtop.rect": {
+    "l": 14,
+    "t": 265,
+    "r": 376,
+    "b": 469,
+    "w": 362,
+    "h": 204,
+    "behind": false
+  },
+  "fromtop.back": {
+    "x": 20,
+    "y": 20,
+    "width": 194.984375,
+    "height": 38
+  },
+  "fromtop.focusAfterBackClick": {
+    "t": "// Progressive enhancement flag: scroll-",
+    "tag": "BODY",
+    "outline": "none 3px rgb(254, 217, 204)",
+    "boxShadow": "none",
+    "fv": false
+  },
+  "fromtop.stateAfterBack": {
+    "mode": "rail",
+    "railIdx": 0,
+    "railT": 0.0000370260663507109,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -0.0000098339748981591,
+      "pitch": -0.0799994991597711,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00968415135897,
+    "portrait": true
+  },
+  "rail.total": 14124,
+  "rail.0.12.state": {
+    "mode": "rail",
+    "railIdx": 1,
+    "railT": 0.18131664691943128,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -3.0482384530943923e-13,
+      "pitch": -0.07999999999998447,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00968415135897,
+    "portrait": true
+  },
+  "rail.0.12.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "The Museum · scroll to walk · drag to look · tap a paintingScroll to w",
+      "x": 114,
+      "y": 72,
+      "w": 162,
+      "h": 32,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Skip the hall",
+      "x": 20,
+      "y": 20,
+      "w": 102,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "rail.0.3.state": {
+    "mode": "rail",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.654004678822468e-19,
+      "pitch": -0.07999999999999989,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00968415135897,
+    "portrait": true
+  },
+  "rail.0.3.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "The Museum · scroll to walk · drag to look · tap a paintingScroll to w",
+      "x": 114,
+      "y": 72,
+      "w": 162,
+      "h": 32,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Skip the hall",
+      "x": 20,
+      "y": 20,
+      "w": 102,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "look.state": {
+    "mode": "rail",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.3105225287540363,
+      "pitch": -0.07999999999999992,
+      "dragYaw": -1.311100723530972,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00968415135897,
+    "portrait": true
+  },
+  "look.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Face forward",
+      "x": 112,
+      "y": 72,
+      "w": 165,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Skip the hall",
+      "x": 20,
+      "y": 20,
+      "w": 102,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 796,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "look.faceForward": {
+    "x": 112.421875,
+    "y": 72,
+    "width": 165.15625,
+    "height": 38
+  },
+  "look.afterFF": {
+    "mode": "rail",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -0.00011118296190586078,
+      "pitch": -0.07999999999999995,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00968415135897,
+    "portrait": true
+  },
+  "approach.idx": 6,
+  "approach.rectBefore": {
+    "l": 316,
+    "t": 282,
+    "r": 378,
+    "b": 443,
+    "w": 63,
+    "h": 162,
+    "behind": false
+  },
+  "approach.state": {
+    "mode": "approach",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": 6,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.5707961482529524,
+      "pitch": -9.093293761903904e-9,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99032024676661,
+    "portrait": true
+  },
+  "approach.rect": {
+    "l": 14,
+    "t": 250,
+    "r": 376,
+    "b": 454,
+    "w": 362,
+    "h": 204,
+    "behind": false
+  },
+  "approach.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Back to the hall",
+      "x": 20,
+      "y": 20,
+      "w": 195,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Bring the painting to life",
+      "x": 14,
+      "y": 250,
+      "w": 362,
+      "h": 204,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Expand the plaque",
+      "x": 0,
+      "y": 690,
+      "w": 390,
+      "h": 154,
+      "lines": 1,
+      "tag": "div"
+    },
+    {
+      "t": "Mark Priest · Nalle Series · Spot 04",
+      "x": 20,
+      "y": 718,
+      "w": 350,
+      "h": 16,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "approach.plaque": [
+    {
+      "tag": "P",
+      "t": "Charles",
+      "lines": 1,
+      "x": 81,
+      "y": 376,
+      "w": 228,
+      "h": 48
+    },
+    {
+      "tag": "P",
+      "t": "Nalle",
+      "lines": 1,
+      "x": 146,
+      "y": 420,
+      "w": 163,
+      "h": 48
+    },
+    {
+      "tag": "P",
+      "t": "Mark Priest · Nalle Series · Spot 04",
+      "lines": 1,
+      "x": 20,
+      "y": 718,
+      "w": 350,
+      "h": 16
+    },
+    {
+      "tag": "P",
+      "t": "Washington Street Ferry LandingNarrative II",
+      "lines": 1,
+      "x": 20,
+      "y": 742,
+      "w": 350,
+      "h": 90
+    }
+  ],
+  "alive.state": {
+    "mode": "approach",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": 6,
+    "zoom": 1,
+    "alive": 6,
+    "look": {
+      "yaw": -1.570796326794882,
+      "pitch": -7.561978357989453e-16,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99032024676661,
+    "portrait": true
+  },
+  "alive.video": [
+    {
+      "paused": true,
+      "t": 0,
+      "w": 0,
+      "h": 0
+    }
+  ],
+  "alive.afterSecondTap": {
+    "mode": "approach",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": 6,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.5707963267948948,
+      "pitch": -1.890900233227915e-18,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99032024676661,
+    "portrait": true
+  },
+  "sheet.handle": null,
+  "back.btn": {
+    "x": 20,
+    "y": 20,
+    "width": 194.984375,
+    "height": 38
+  },
+  "back.state": {
+    "mode": "rail",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -0.000019374703332548653,
+      "pitch": -0.07999901325446197,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00966656611142,
+    "portrait": true
+  },
+  "last.state": {
+    "mode": "approach",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": 9,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 1.5707963207347582,
+      "pitch": -3.0863471833074863e-10,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00966656611142,
+    "portrait": true
+  },
+  "last.rect": {
+    "l": 56,
+    "t": 143,
+    "r": 334,
+    "b": 560,
+    "w": 278,
+    "h": 417,
+    "behind": false
+  },
+  "last.ui": [
+    {
+      "t": "Open menu",
+      "x": 300,
+      "y": 34,
+      "w": 68,
+      "h": 68,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Back to the hall",
+      "x": 20,
+      "y": 20,
+      "w": 195,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Bring the painting to life",
+      "x": 56,
+      "y": 143,
+      "w": 278,
+      "h": 417,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Expand the plaque",
+      "x": 0,
+      "y": 690,
+      "w": 390,
+      "h": 154,
+      "lines": 1,
+      "tag": "div"
+    },
+    {
+      "t": "Mark Priest · Nalle Series · Spot 05",
+      "x": 20,
+      "y": 718,
+      "w": 350,
+      "h": 16,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "x": 39,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "x": 71,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2”",
+      "x": 103,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "x": 135,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing”",
+      "x": 167,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative I”",
+      "x": 199,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landing · Narrative II”",
+      "x": 231,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop”",
+      "x": 263,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+      "x": 295,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+      "x": 327,
+      "y": 653,
+      "w": 24,
+      "h": 24,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "last.plaque": [],
+  "esc.state": {
+    "mode": "rail",
+    "railIdx": 4,
+    "railT": 0.515966462611901,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 0.00009735297190322013,
+      "pitch": -0.07999504185385499,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00966656611142,
+    "portrait": true
+  },
+  "title.5.rect": {
+    "l": 14,
+    "t": 250,
+    "r": 376,
+    "b": 454,
+    "w": 362,
+    "h": 204,
+    "behind": false
+  },
+  "title.6.rect": {
+    "l": 14,
+    "t": 250,
+    "r": 376,
+    "b": 454,
+    "w": 362,
+    "h": 204,
+    "behind": false
+  },
+  "title.8.rect": {
+    "l": 42,
+    "t": 250,
+    "r": 348,
+    "b": 454,
+    "w": 305,
+    "h": 204,
+    "behind": false
+  },
+  "title.9.rect": {
+    "l": 56,
+    "t": 143,
+    "r": 334,
+    "b": 560,
+    "w": 278,
+    "h": 417,
+    "behind": false
+  },
+  "titles": {
+    "5": [],
+    "6": [],
+    "8": [],
+    "9": []
+  },
+  "kb.focusBeforeEnter": {
+    "t": "Approach “Washington Street Ferry Landin",
+    "tag": "BUTTON",
+    "outline": "solid 2px rgb(242, 104, 53)",
+    "boxShadow": "none",
+    "fv": true
+  },
+  "kb.tabs": [
+    {
+      "t": "Skip to content",
+      "tag": "A",
+      "outline": "solid 2px rgb(242, 104, 53)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Open menu",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 104, 53)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Skip the hall",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 104, 53)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Approach “Holeur’s Fashionable Bakery”",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 105, 54)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Approach “Commissioner’s Office”",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 105, 54)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Approach “Commissioner’s Office · Part 2",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 105, 54)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Approach “Uri Gilbert Home”",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 105, 54)",
+      "boxShadow": "none",
+      "fv": true
+    },
+    {
+      "t": "Approach “Washington Street Ferry Landin",
+      "tag": "BUTTON",
+      "outline": "solid 2px rgb(242, 105, 54)",
+      "boxShadow": "none",
+      "fv": true
+    }
+  ],
+  "kb.afterEnter": {
+    "mode": "approach",
+    "railIdx": 0,
+    "railT": 0.05085324512901527,
+    "approached": 4,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": -1.5707947294492781,
+      "pitch": -8.135214433223867e-8,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99034759233356,
+    "portrait": true
+  },
+  "kb.afterRight": {
+    "mode": "approach",
+    "railIdx": 0,
+    "railT": 0.05085324512901527,
+    "approached": 5,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 1.5705321839138098,
+      "pitch": -3.6429451863548185e-12,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 83.99034759233356,
+    "portrait": true
+  },
+  "kb.afterEsc": {
+    "mode": "rail",
+    "railIdx": 0,
+    "railT": 0.05085324512901527,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 0.0001268715415304585,
+      "pitch": -0.0799935373987073,
+      "dragYaw": 0,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.01265713229614,
+    "portrait": true
+  },
+  "kb.focusAfterEsc": {
+    "t": "Approach “Washington Street Ferry Landin",
+    "tag": "BUTTON",
+    "outline": "solid 2px rgb(242, 104, 53)",
+    "boxShadow": "none",
+    "fv": true
+  },
+  "kb.afterLeftInRail": {
+    "mode": "rail",
+    "railIdx": 0,
+    "railT": 0.05085324512901527,
+    "approached": null,
+    "zoom": 1,
+    "alive": -1,
+    "look": {
+      "yaw": 0.3498079365324401,
+      "pitch": -0.07999999645234368,
+      "dragYaw": 0.35,
+      "dragPitch": 0
+    },
+    "sheet": "peek",
+    "fov": 72.00965341542982,
+    "portrait": true
+  },
+  "menu.open": [
+    {
+      "t": "Skip to content",
+      "x": -999,
+      "y": 0,
+      "w": 148,
+      "h": 40,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "Close menu",
+      "x": 49,
+      "y": 21,
+      "w": 320,
+      "h": 57,
+      "lines": 1,
+      "tag": "button"
+    },
+    {
+      "t": "Home",
+      "x": 81,
+      "y": 110,
+      "w": 256,
+      "h": 16,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "01Bakery",
+      "x": 81,
+      "y": 158,
+      "w": 256,
+      "h": 30,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "01",
+      "x": 81,
+      "y": 169,
+      "w": 32,
+      "h": 16,
+      "lines": 1,
+      "tag": "span"
+    },
+    {
+      "t": "02Commissioner’s Office",
+      "x": 81,
+      "y": 208,
+      "w": 256,
+      "h": 60,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "02",
+      "x": 81,
+      "y": 219,
+      "w": 32,
+      "h": 16,
+      "lines": 1,
+      "tag": "span"
+    },
+    {
+      "t": "03Gilbert Home",
+      "x": 81,
+      "y": 288,
+      "w": 256,
+      "h": 30,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "03",
+      "x": 81,
+      "y": 299,
+      "w": 32,
+      "h": 16,
+      "lines": 1,
+      "tag": "span"
+    },
+    {
+      "t": "04Ferry Landing",
+      "x": 81,
+      "y": 338,
+      "w": 256,
+      "h": 30,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "04",
+      "x": 81,
+      "y": 349,
+      "w": 32,
+      "h": 16,
+      "lines": 1,
+      "tag": "span"
+    },
+    {
+      "t": "05Barbershop",
+      "x": 81,
+      "y": 388,
+      "w": 256,
+      "h": 30,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "05",
+      "x": 81,
+      "y": 399,
+      "w": 32,
+      "h": 16,
+      "lines": 1,
+      "tag": "span"
+    },
+    {
+      "t": "Map",
+      "x": 81,
+      "y": 485,
+      "w": 57,
+      "h": 24,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "The people",
+      "x": 81,
+      "y": 527,
+      "w": 118,
+      "h": 24,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "The paintings",
+      "x": 81,
+      "y": 569,
+      "w": 142,
+      "h": 24,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "About",
+      "x": 81,
+      "y": 611,
+      "w": 76,
+      "h": 24,
+      "lines": 1,
+      "tag": "a"
+    },
+    {
+      "t": "The paintings · 10 works",
+      "x": 20,
+      "y": 118,
+      "w": 350,
+      "h": 16,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "The Museum · scroll to walk · drag to look · tap a paintingScroll to w",
+      "x": 114,
+      "y": 390,
+      "w": 162,
+      "h": 32,
+      "lines": 1,
+      "tag": "p"
+    },
+    {
+      "t": "Skip the hall",
+      "x": 20,
+      "y": 338,
+      "w": 102,
+      "h": 38,
+      "lines": 1,
+      "tag": "button"
+    }
+  ],
+  "menu.closed": "false",
+  "menu.afterDown": {
+    "x": 300,
+    "y": 34,
+    "op": "0",
+    "vis": "visible",
+    "tr": "matrix(0.94, 0, 0, 0.94, 0, 12)"
+  },
+  "menu.afterUp": {
+    "x": 298,
+    "y": 20,
+    "op": "1",
+    "vis": "visible",
+    "tr": "none"
+  },
+  "consoleErrors": []
+}

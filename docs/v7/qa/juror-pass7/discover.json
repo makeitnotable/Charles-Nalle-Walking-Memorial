@@ -1,0 +1,5864 @@
+{
+  "out": {
+    "390/": {
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "h": 844,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-cta home-cta home-seq",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            26,
+            770,
+            338,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 844
+        }
+      ]
+    },
+    "390/bakery": {
+      "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+      "h": 8387,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Holeur’s Fashionable Bakery",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            1457,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            1529,
+            350,
+            44
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Continue",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            102,
+            7591,
+            187,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Get directions",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=42.7304335,-73.6926623&travelmode=walking",
+          "rect": [
+            73,
+            7655,
+            245,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            7884,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            7947,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            7986,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            8025,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            8064,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Share",
+          "cls": "btn-sm btn-ghost",
+          "id": "share-btn",
+          "href": null,
+          "rect": [
+            20,
+            8122,
+            119,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 8387
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "walk-rail walk-rail-static",
+          "top": 0,
+          "h": 3
+        },
+        {
+          "tag": "header",
+          "id": "hero",
+          "cls": "relative h-dvh overflow-hidden bg-neutral-2",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "hero-media",
+          "cls": "absolute inset-0",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "hero-lockup",
+          "cls": "",
+          "top": 627,
+          "h": 175
+        },
+        {
+          "tag": "section",
+          "id": "scene-0",
+          "cls": "shell beat",
+          "top": 916,
+          "h": 2231
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 973,
+          "h": 54
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "painting-interlude wipe relative overflow-hidden",
+          "top": 3147,
+          "h": 439
+        },
+        {
+          "tag": "section",
+          "id": "history",
+          "cls": "",
+          "top": 3586,
+          "h": 1609
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 3739,
+          "h": 54
+        },
+        {
+          "tag": "h2",
+          "id": "history-heading",
+          "cls": "t-title lines",
+          "top": 3833,
+          "h": 75
+        },
+        {
+          "tag": "section",
+          "id": "moral",
+          "cls": "beat relative moral",
+          "top": 5266,
+          "h": 1423
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 5451,
+          "h": 54
+        },
+        {
+          "tag": "h2",
+          "id": "moral-heading",
+          "cls": "t-display lines",
+          "top": 5545,
+          "h": 86
+        },
+        {
+          "tag": "section",
+          "id": "onward",
+          "cls": "shell sec",
+          "top": 6817,
+          "h": 862
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 6874,
+          "h": 54
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 7807,
+          "h": 580
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 7945,
+          "h": 144
+        },
+        {
+          "tag": "button",
+          "id": "share-btn",
+          "cls": "btn-sm btn-ghost",
+          "top": 8122,
+          "h": 38
+        }
+      ]
+    },
+    "390/commissioners-office": {
+      "title": "Commissioner’s Office · Charles Nalle Walking Memorial",
+      "h": 14142,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Commissioner’s Office, Pt 1",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            1456,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            1528,
+            350,
+            44
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Commissioner’s Office, Pt 2",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            8552,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            8624,
+            350,
+            44
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Continue",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            102,
+            13346,
+            187,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Get directions",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=42.7243182,-73.6933753&travelmode=walking",
+          "rect": [
+            73,
+            13410,
+            245,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            13640,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            13702,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            13741,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            13780,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            13819,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Share",
+          "cls": "btn-sm btn-ghost",
+          "id": "share-btn",
+          "href": null,
+          "rect": [
+            20,
+            13877,
+            119,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 14142
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "walk-rail walk-rail-static",
+          "top": 0,
+          "h": 3
+        },
+        {
+          "tag": "header",
+          "id": "hero",
+          "cls": "relative h-dvh overflow-hidden bg-neutral-2",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "hero-media",
+          "cls": "absolute inset-0",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "hero-lockup",
+          "cls": "",
+          "top": 687,
+          "h": 115
+        },
+        {
+          "tag": "section",
+          "id": "scene-0",
+          "cls": "shell beat",
+          "top": 916,
+          "h": 2029
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 973,
+          "h": 54
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "painting-interlude wipe relative overflow-hidden",
+          "top": 2945,
+          "h": 439
+        },
+        {
+          "tag": "section",
+          "id": "history",
+          "cls": "",
+          "top": 3384,
+          "h": 2403
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 3537,
+          "h": 54
+        },
+        {
+          "tag": "h2",
+          "id": "history-heading",
+          "cls": "t-title lines",
+          "top": 3631,
+          "h": 75
+        },
+        {
+          "tag": "section",
+          "id": "moral-0",
+          "cls": "beat relative moral",
+          "top": 5858,
+          "h": 1424
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 6043,
+          "h": 54
+        },
+        {
+          "tag": "h2",
+          "id": "moral-0-heading",
+          "cls": "t-display lines",
+          "top": 6138,
+          "h": 185
+        },
+        {
+          "tag": "section",
+          "id": "hero-2",
+          "cls": "relative h-[82dvh] overflow-hidden bg-neutral-2",
+          "top": 7282,
+          "h": 692
+        },
+        {
+          "tag": "section",
+          "id": "scene-1",
+          "cls": "shell beat",
+          "top": 8046,
+          "h": 2859
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 8103,
+          "h": 54
+        },
+        {
+          "tag": "section",
+          "id": "moral-1",
+          "cls": "beat relative moral",
+          "top": 10978,
+          "h": 1466
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 11163,
+          "h": 54
+        },
+        {
+          "tag": "h2",
+          "id": "moral-1-heading",
+          "cls": "t-display lines",
+          "top": 11257,
+          "h": 97
+        },
+        {
+          "tag": "section",
+          "id": "onward",
+          "cls": "shell sec",
+          "top": 12572,
+          "h": 862
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 12629,
+          "h": 54
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 13562,
+          "h": 580
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 13701,
+          "h": 144
+        },
+        {
+          "tag": "button",
+          "id": "share-btn",
+          "cls": "btn-sm btn-ghost",
+          "top": 13877,
+          "h": 38
+        }
+      ]
+    },
+    "390/map": {
+      "title": "Map · Charles Nalle Walking Memorial",
+      "h": 3115,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            752,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "canvas",
+          "text": "Map",
+          "cls": "mapboxgl-canvas",
+          "id": "",
+          "href": null,
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Toggle attribution",
+          "cls": "mapboxgl-ctrl-attrib-button",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            773,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Mapbox homepage",
+          "cls": "mapboxgl-ctrl-logo",
+          "id": "",
+          "href": "https://www.mapbox.com/",
+          "rect": [
+            16,
+            805,
+            88,
+            23
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Take the walk",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": null,
+          "rect": [
+            68,
+            764,
+            207,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "See Troy in 1858",
+          "cls": "link-meta t-meta rounded-full px-4 py-3",
+          "id": "",
+          "href": null,
+          "rect": [
+            210,
+            20,
+            160,
+            44
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Enter Spot 01: Holeur’s Fashionable Bakery",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            32,
+            617,
+            325,
+            127
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 02: Commissioner’s Office",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            383,
+            626,
+            303,
+            118
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 03: Uri Gilbert Home",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            723,
+            626,
+            301,
+            118
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 04: Washington Street Ferry Landing",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            1063,
+            626,
+            301,
+            118
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 05: Peter Baltimore’s Barbershop",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            1402,
+            626,
+            301,
+            118
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/bakery",
+          "rect": [
+            20,
+            1585,
+            350,
+            220
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            20,
+            1806,
+            350,
+            190
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 03Uri Gilbert Home189 Second Street",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            20,
+            1997,
+            350,
+            169
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            20,
+            2167,
+            350,
+            241
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            20,
+            2409,
+            350,
+            220
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            2810,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            2872,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            2911,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            2950,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 3115
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 972,
+          "h": 1632
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 2732,
+          "h": 383
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 2871,
+          "h": 105
+        }
+      ]
+    },
+    "390/paintings": {
+      "title": "The Paintings · Charles Nalle Walking Memorial",
+      "h": 14124,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Skip the hall",
+          "cls": "btn-sm btn-ghost",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            338,
+            102,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Holeur’s Fashionable Bakery”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            39,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Commissioner’s Office”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            71,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Commissioner’s Office · Part 2”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            103,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Uri Gilbert Home”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            135,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            167,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing · Narrative I”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            199,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing · Narrative II”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            231,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            263,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            295,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            327,
+            1114,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Holeur’s Fashionable Bakery” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            9214,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 01",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/bakery",
+          "rect": [
+            20,
+            9429,
+            83,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Commissioner’s Office” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            9622,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            20,
+            9837,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Commissioner’s Office · Part 2” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            10000,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            20,
+            10215,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Uri Gilbert Home” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            10408,
+            350,
+            233
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 03",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            20,
+            10659,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            10822,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            20,
+            11037,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing · Narrative I” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            11230,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            20,
+            11445,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing · Narrative II” closel",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            11638,
+            350,
+            197
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            20,
+            11853,
+            85,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            12045,
+            350,
+            233
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            20,
+            12297,
+            84,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop · Narrative I” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            12490,
+            350,
+            233
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            20,
+            12741,
+            84,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop · Narrative II” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            20,
+            12934,
+            350,
+            525
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            20,
+            13477,
+            84,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "dialog",
+          "text": "Close",
+          "cls": "artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88",
+          "id": "painting-dialog",
+          "href": null,
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "vis": false,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            13819,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            13881,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            13920,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            13959,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 14124
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 254
+        },
+        {
+          "tag": "div",
+          "id": "museum-slot",
+          "cls": "relative mt-16 h-dvh",
+          "top": 318,
+          "h": 8440
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "absolute left-1/2 z-30 flex -translate-x-1/2 items-center ga",
+          "top": 1114,
+          "h": 24
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec pb-8",
+          "top": 8886,
+          "h": 4728
+        },
+        {
+          "tag": "dialog",
+          "id": "painting-dialog",
+          "cls": "artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 ",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "img",
+          "id": "painting-dialog-img",
+          "cls": "min-h-0 w-auto max-w-full flex-1 object-contain",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "video",
+          "id": "painting-dialog-video",
+          "cls": "hidden min-h-0 w-auto max-w-full flex-1 object-contain",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "p",
+          "id": "painting-dialog-title",
+          "cls": "t-meta-body",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "button",
+          "id": "painting-dialog-close",
+          "cls": "btn-sm btn-ghost",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 13742,
+          "h": 383
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 13880,
+          "h": 105
+        }
+      ]
+    },
+    "390/people": {
+      "title": "The People · Charles Nalle Walking Memorial",
+      "h": 6918,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            6360,
+            250,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            6613,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            6675,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            6714,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            6753,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 6918
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 494
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 622,
+          "h": 3304
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 4053,
+          "h": 1887
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 6068,
+          "h": 339
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 6536,
+          "h": 383
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 6674,
+          "h": 105
+        }
+      ]
+    },
+    "390/about": {
+      "title": "About · Charles Nalle Walking Memorial",
+      "h": 8964,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            8406,
+            250,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            8659,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            8721,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            8760,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            8799,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 8964
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 194
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "sec",
+          "top": 322,
+          "h": 1323
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 1773,
+          "h": 1042
+        },
+        {
+          "tag": "h2",
+          "id": "how-heading",
+          "cls": "t-title reveal",
+          "top": 1948,
+          "h": 68
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 2943,
+          "h": 1886
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 4957,
+          "h": 1007
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 6092,
+          "h": 875
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 7095,
+          "h": 626
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 7849,
+          "h": 605
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 8582,
+          "h": 383
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 8720,
+          "h": 105
+        }
+      ]
+    },
+    "390/404": {
+      "title": "Page not found · Charles Nalle Walking Memorial",
+      "h": 1208,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            298,
+            20,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Start at the beginning",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/",
+          "rect": [
+            20,
+            514,
+            328,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Open the map",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            578,
+            228,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            81,
+            864,
+            52,
+            29
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            20,
+            926,
+            216,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            20,
+            965,
+            142,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            20,
+            1004,
+            198,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            20,
+            1043,
+            57,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 844,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 844
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 376,
+          "h": 92
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 1208
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell flex min-h-[78dvh] flex-col justify-center pt-28",
+          "top": 0,
+          "h": 658
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 786,
+          "h": 422
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 925,
+          "h": 144
+        }
+      ]
+    },
+    "1440/": {
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "h": 900,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-cta home-cta home-seq",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            595,
+            779,
+            250,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 900
+        }
+      ]
+    },
+    "1440/bakery": {
+      "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+      "h": 7687,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            1085,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            1123,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral",
+          "rect": [
+            136,
+            1160,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            1198,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Holeur’s Fashionable Bakery",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            1605,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            1677,
+            1168,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            3556,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            3594,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral",
+          "rect": [
+            136,
+            3631,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            3669,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            4892,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            4930,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral",
+          "rect": [
+            136,
+            4968,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            5005,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            6206,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            6244,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral",
+          "rect": [
+            136,
+            6281,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            6319,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Continue",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            666,
+            7041,
+            187,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Get directions",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=42.7304335,-73.6926623&travelmode=walking",
+          "rect": [
+            869,
+            7041,
+            245,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            7350,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            724,
+            7314,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            724,
+            7353,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            724,
+            7392,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            724,
+            7431,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Share",
+          "cls": "btn-sm btn-ghost",
+          "id": "share-btn",
+          "href": null,
+          "rect": [
+            1185,
+            7314,
+            119,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 7687
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "walk-rail walk-rail-static",
+          "top": 0,
+          "h": 3
+        },
+        {
+          "tag": "header",
+          "id": "hero",
+          "cls": "relative h-dvh overflow-hidden bg-neutral-2",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "hero-media",
+          "cls": "absolute inset-0",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "hero-lockup",
+          "cls": "",
+          "top": 569,
+          "h": 286
+        },
+        {
+          "tag": "section",
+          "id": "scene-0",
+          "cls": "shell beat",
+          "top": 1028,
+          "h": 1731
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 1085,
+          "h": 150
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "painting-interlude wipe relative overflow-hidden",
+          "top": 2759,
+          "h": 612
+        },
+        {
+          "tag": "section",
+          "id": "history",
+          "cls": "",
+          "top": 3371,
+          "h": 1176
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 3556,
+          "h": 150
+        },
+        {
+          "tag": "h2",
+          "id": "history-heading",
+          "cls": "t-title lines",
+          "top": 3556,
+          "h": 124
+        },
+        {
+          "tag": "section",
+          "id": "moral",
+          "cls": "beat relative moral",
+          "top": 4675,
+          "h": 1273
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 4892,
+          "h": 150
+        },
+        {
+          "tag": "h2",
+          "id": "moral-heading",
+          "cls": "t-display lines",
+          "top": 4892,
+          "h": 187
+        },
+        {
+          "tag": "section",
+          "id": "onward",
+          "cls": "shell sec",
+          "top": 6149,
+          "h": 916
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 6206,
+          "h": 150
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 7265,
+          "h": 422
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 7314,
+          "h": 143
+        },
+        {
+          "tag": "button",
+          "id": "share-btn",
+          "cls": "btn-sm btn-ghost",
+          "top": 7314,
+          "h": 38
+        }
+      ]
+    },
+    "1440/commissioners-office": {
+      "title": "Commissioner’s Office · Charles Nalle Walking Memorial",
+      "h": 12715,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            1085,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            1123,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            1160,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            1198,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            1235,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            1273,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Commissioner’s Office, Pt 1",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            1605,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            1677,
+            1168,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            3478,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            3516,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            3553,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            3591,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            3628,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            3666,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            5370,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            5408,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            5445,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            5483,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            5520,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            5558,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            7480,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            7518,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            7555,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            7593,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            7630,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            7668,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Play narration: Commissioner’s Office, Pt 2",
+          "cls": "flex shrink-0 cursor-pointer items-center justify-center rounded-full border tra",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            7949,
+            56,
+            56
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "input",
+          "text": "Narration position",
+          "cls": "cnwm-scrub mt-4 w-full",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            8021,
+            1168,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            9884,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            9922,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            9959,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            9997,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            10035,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            10072,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(01)Listen · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-0",
+          "rect": [
+            136,
+            11235,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(02)History",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#history",
+          "rect": [
+            136,
+            11272,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(03)The moral · Pt 1",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-0",
+          "rect": [
+            136,
+            11310,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(04)Listen · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#scene-1",
+          "rect": [
+            136,
+            11347,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(05)The moral · Pt 2",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#moral-1",
+          "rect": [
+            136,
+            11385,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "(06)Onward",
+          "cls": "group flex items-baseline gap-3 py-2.5",
+          "id": "",
+          "href": "#onward",
+          "rect": [
+            136,
+            11422,
+            276,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Continue",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            666,
+            12069,
+            187,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Get directions",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=42.7243182,-73.6933753&travelmode=walking",
+          "rect": [
+            869,
+            12069,
+            245,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            12379,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            724,
+            12343,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            724,
+            12382,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            724,
+            12420,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            724,
+            12459,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Share",
+          "cls": "btn-sm btn-ghost",
+          "id": "share-btn",
+          "href": null,
+          "rect": [
+            1185,
+            12342,
+            119,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 12715
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "walk-rail walk-rail-static",
+          "top": 0,
+          "h": 3
+        },
+        {
+          "tag": "header",
+          "id": "hero",
+          "cls": "relative h-dvh overflow-hidden bg-neutral-2",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "hero-media",
+          "cls": "absolute inset-0",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "hero-lockup",
+          "cls": "",
+          "top": 652,
+          "h": 203
+        },
+        {
+          "tag": "section",
+          "id": "scene-0",
+          "cls": "shell beat",
+          "top": 1028,
+          "h": 1653
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 1085,
+          "h": 225
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "painting-interlude wipe relative overflow-hidden",
+          "top": 2681,
+          "h": 612
+        },
+        {
+          "tag": "section",
+          "id": "history",
+          "cls": "",
+          "top": 3293,
+          "h": 1732
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 3478,
+          "h": 225
+        },
+        {
+          "tag": "h2",
+          "id": "history-heading",
+          "cls": "t-title lines",
+          "top": 3478,
+          "h": 124
+        },
+        {
+          "tag": "section",
+          "id": "moral-0",
+          "cls": "beat relative moral",
+          "top": 5153,
+          "h": 1404
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 5370,
+          "h": 225
+        },
+        {
+          "tag": "h2",
+          "id": "moral-0-heading",
+          "cls": "t-display lines",
+          "top": 5370,
+          "h": 354
+        },
+        {
+          "tag": "section",
+          "id": "hero-2",
+          "cls": "relative h-[82dvh] overflow-hidden bg-neutral-2",
+          "top": 6557,
+          "h": 738
+        },
+        {
+          "tag": "section",
+          "id": "scene-1",
+          "cls": "shell beat",
+          "top": 7423,
+          "h": 2116
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 7480,
+          "h": 225
+        },
+        {
+          "tag": "section",
+          "id": "moral-1",
+          "cls": "beat relative moral",
+          "top": 9667,
+          "h": 1310
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 9884,
+          "h": 225
+        },
+        {
+          "tag": "h2",
+          "id": "moral-1-heading",
+          "cls": "t-display lines",
+          "top": 9884,
+          "h": 187
+        },
+        {
+          "tag": "section",
+          "id": "onward",
+          "cls": "shell sec",
+          "top": 11178,
+          "h": 916
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "rail",
+          "top": 11235,
+          "h": 225
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 12293,
+          "h": 422
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 12342,
+          "h": 143
+        },
+        {
+          "tag": "button",
+          "id": "share-btn",
+          "cls": "btn-sm btn-ghost",
+          "top": 12342,
+          "h": 38
+        }
+      ]
+    },
+    "1440/map": {
+      "title": "Map · Charles Nalle Walking Memorial",
+      "h": 2994,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            772,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "canvas",
+          "text": "Map",
+          "cls": "mapboxgl-canvas",
+          "id": "",
+          "href": null,
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Toggle attribution",
+          "cls": "mapboxgl-ctrl-attrib-button",
+          "id": "",
+          "href": null,
+          "rect": [
+            56,
+            793,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Mapbox homepage",
+          "cls": "mapboxgl-ctrl-logo",
+          "id": "",
+          "href": "https://www.mapbox.com/",
+          "rect": [
+            52,
+            825,
+            88,
+            23
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Take the walk",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": null,
+          "rect": [
+            525,
+            784,
+            207,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "See Troy in 1858",
+          "cls": "link-meta t-meta rounded-full px-4 py-3",
+          "id": "",
+          "href": null,
+          "rect": [
+            744,
+            786,
+            171,
+            44
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Enter Spot 01: Holeur’s Fashionable Bakery",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            470,
+            561,
+            501,
+            187
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 02: Commissioner’s Office",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            1008,
+            567,
+            486,
+            181
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 03: Uri Gilbert Home",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            1545,
+            571,
+            473,
+            177
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 04: Washington Street Ferry Landing",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            2075,
+            571,
+            473,
+            177
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "div",
+          "text": "Focus Spot 05: Peter Baltimore’s Barbershop",
+          "cls": "mx-auto flex h-[128px] w-full cursor-pointer overflow-hidden rounded-xl border-2",
+          "id": "",
+          "href": null,
+          "rect": [
+            2606,
+            571,
+            473,
+            177
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 01Holeur’s Fashionable Bakery3rd & Division Streets (va",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/bakery",
+          "rect": [
+            136,
+            1677,
+            1168,
+            181
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02Commissioner’s Office5 State Street · Mutual Bank Bui",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            136,
+            1859,
+            1168,
+            181
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 03Uri Gilbert Home189 Second Street",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            136,
+            2041,
+            1168,
+            160
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04Washington Street Ferry LandingRiverfront at the end ",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            136,
+            2202,
+            1168,
+            160
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05Peter Baltimore’s BarbershopFirst Street (Athenaeum b",
+          "cls": "group grid grid-cols-[5rem_1fr_auto] items-center gap-5 py-6 sm:grid-cols-[7rem_",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            136,
+            2363,
+            1168,
+            160
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            2785,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            791,
+            2749,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            791,
+            2788,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            791,
+            2826,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 2994
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 1100,
+          "h": 1399
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 2699,
+          "h": 295
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 2748,
+          "h": 104
+        }
+      ]
+    },
+    "1440/paintings": {
+      "title": "The Paintings · Charles Nalle Walking Memorial",
+      "h": 13596,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Skip the hall",
+          "cls": "btn-sm btn-ghost",
+          "id": "",
+          "href": null,
+          "rect": [
+            56,
+            463,
+            186,
+            38
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Holeur’s Fashionable Bakery”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            596,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Commissioner’s Office”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            628,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Commissioner’s Office · Part 2”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            660,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Uri Gilbert Home”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            692,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            724,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing · Narrative I”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            756,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Washington Street Ferry Landing · Narrative II”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            788,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            820,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop · Narrative I”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            852,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "Approach “Peter Baltimore’s Barbershop · Narrative II”",
+          "cls": "grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-co",
+          "id": "",
+          "href": null,
+          "rect": [
+            884,
+            1223,
+            24,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Holeur’s Fashionable Bakery” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            9906,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 01",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/bakery",
+          "rect": [
+            136,
+            10243,
+            88,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Commissioner’s Office” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            736,
+            9906,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            736,
+            10243,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Commissioner’s Office · Part 2” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            10412,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 02",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+          "rect": [
+            136,
+            10749,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Uri Gilbert Home” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            736,
+            10412,
+            568,
+            379
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 03",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/mansion",
+          "rect": [
+            736,
+            10808,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            10977,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            136,
+            11315,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing · Narrative I” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            736,
+            10977,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            736,
+            11315,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Washington Street Ferry Landing · Narrative II” closel",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            11518,
+            568,
+            319
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 04",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/ferry",
+          "rect": [
+            136,
+            11855,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            736,
+            11518,
+            568,
+            379
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            736,
+            11915,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop · Narrative I” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            136,
+            12084,
+            568,
+            379
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            136,
+            12480,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "button",
+          "text": "View “Peter Baltimore’s Barbershop · Narrative II” closely",
+          "cls": "painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] t",
+          "id": "",
+          "href": null,
+          "rect": [
+            736,
+            12084,
+            568,
+            852
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Spot 05",
+          "cls": "link-meta t-meta",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/barbershop",
+          "rect": [
+            736,
+            12953,
+            90,
+            24
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "dialog",
+          "text": "Close",
+          "cls": "artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88",
+          "id": "painting-dialog",
+          "href": null,
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "vis": false,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            13386,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            791,
+            13351,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            791,
+            13389,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            791,
+            13428,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 13596
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 343
+        },
+        {
+          "tag": "div",
+          "id": "museum-slot",
+          "cls": "relative mt-16 h-dvh",
+          "top": 407,
+          "h": 9000
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "absolute left-1/2 z-30 flex -translate-x-1/2 items-center ga",
+          "top": 1223,
+          "h": 24
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec pb-8",
+          "top": 9607,
+          "h": 3494
+        },
+        {
+          "tag": "dialog",
+          "id": "painting-dialog",
+          "cls": "artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 ",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "img",
+          "id": "painting-dialog-img",
+          "cls": "min-h-0 w-auto max-w-full flex-1 object-contain",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "video",
+          "id": "painting-dialog-video",
+          "cls": "hidden min-h-0 w-auto max-w-full flex-1 object-contain",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "p",
+          "id": "painting-dialog-title",
+          "cls": "t-meta-body",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "button",
+          "id": "painting-dialog-close",
+          "cls": "btn-sm btn-ghost",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 13301,
+          "h": 295
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 13350,
+          "h": 104
+        }
+      ]
+    },
+    "1440/people": {
+      "title": "The People · Charles Nalle Walking Memorial",
+      "h": 5230,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            476,
+            4686,
+            250,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            5020,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            791,
+            4984,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            791,
+            5023,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            791,
+            5062,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 5230
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 580
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 780,
+          "h": 2028
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 3008,
+          "h": 1292
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 4500,
+          "h": 235
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 4934,
+          "h": 295
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 4983,
+          "h": 104
+        }
+      ]
+    },
+    "1440/about": {
+      "title": "About · Charles Nalle Walking Memorial",
+      "h": 7144,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Walk the story",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            476,
+            6600,
+            250,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            6934,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            791,
+            6898,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            791,
+            6937,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            791,
+            6976,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 7144
+        },
+        {
+          "tag": "header",
+          "id": "",
+          "cls": "shell page-open",
+          "top": 0,
+          "h": 259
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "sec",
+          "top": 459,
+          "h": 880
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 1539,
+          "h": 778
+        },
+        {
+          "tag": "h2",
+          "id": "how-heading",
+          "cls": "t-title reveal",
+          "top": 1620,
+          "h": 56
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 2517,
+          "h": 1348
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 4066,
+          "h": 602
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 4868,
+          "h": 492
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 5559,
+          "h": 456
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell sec",
+          "top": 6215,
+          "h": 433
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 6848,
+          "h": 295
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 6897,
+          "h": 104
+        }
+      ]
+    },
+    "1440/404": {
+      "title": "Page not found · Charles Nalle Walking Memorial",
+      "h": 1236,
+      "ctrls": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "cls": "skip-link",
+          "id": "",
+          "href": "#main",
+          "rect": [
+            -999,
+            0,
+            148,
+            40
+          ],
+          "vis": true,
+          "fixed": "absolute"
+        },
+        {
+          "tag": "button",
+          "text": "Open menu",
+          "cls": "cnwm-menu-burger flex h-[72px] w-[72px] cursor-pointer items-center justify-cent",
+          "id": "",
+          "href": null,
+          "rect": [
+            1312,
+            56,
+            72,
+            72
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Start at the beginning",
+          "cls": "btn btn-solid",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/",
+          "rect": [
+            136,
+            589,
+            328,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Open the map",
+          "cls": "btn btn-ghost",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            480,
+            589,
+            228,
+            48
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Notable",
+          "cls": "inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-",
+          "id": "",
+          "href": "https://makeitnotable.com",
+          "rect": [
+            201,
+            988,
+            56,
+            31
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The people of this day",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/people",
+          "rect": [
+            791,
+            952,
+            232,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "The paintings",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/paintings",
+          "rect": [
+            791,
+            991,
+            152,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "About the memorial",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/about",
+          "rect": [
+            791,
+            1029,
+            213,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        },
+        {
+          "tag": "a",
+          "text": "Map",
+          "cls": "link-meta t-meta w-fit py-1",
+          "id": "",
+          "href": "/Charles-Nalle-Walking-Memorial/map",
+          "rect": [
+            791,
+            1068,
+            61,
+            26
+          ],
+          "vis": true,
+          "fixed": "static"
+        }
+      ],
+      "sections": [
+        {
+          "tag": "div",
+          "id": "curtain-panel",
+          "cls": "curtain-panel",
+          "top": 900,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text",
+          "cls": "curtain-text",
+          "top": 0,
+          "h": 900
+        },
+        {
+          "tag": "div",
+          "id": "curtain-text-content",
+          "cls": "flex flex-col",
+          "top": 341,
+          "h": 218
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "cnwm-menu-panel hidden overflow-y-auto rounded-[12px] border",
+          "top": 0,
+          "h": 0
+        },
+        {
+          "tag": "main",
+          "id": "main",
+          "cls": "",
+          "top": 0,
+          "h": 1236
+        },
+        {
+          "tag": "section",
+          "id": "",
+          "cls": "shell flex min-h-[78dvh] flex-col justify-center pt-28",
+          "top": 0,
+          "h": 702
+        },
+        {
+          "tag": "footer",
+          "id": "",
+          "cls": "site-footer sec",
+          "top": 902,
+          "h": 334
+        },
+        {
+          "tag": "nav",
+          "id": "",
+          "cls": "footer-nav",
+          "top": 951,
+          "h": 143
+        }
+      ]
+    }
+  },
+  "errs": [
+    {
+      "tag": "390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "1440",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=101y4PZZeT3xL&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=101y4PZZeT3xL&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "round": 20,
+  "label": "the walk view — the door at Wil's offset, the cards on the same lane, no scrolling while a stop is focused",
+  "date": "2026-09-18",
+  "plan": "docs/rounds/2026-09-18-round-20-plan.md",
+  "base": {
+    "tag": "client-round-20-base",
+    "commit": "af0e7472a64e8bdef100a3f98927fdc191774fc6",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/TroyMap.tsx",
+    "src/styles/global.css",
+    "scripts/map-framing.mjs",
+    "docs/qa/baseline/map--390.png",
+    "docs/rounds/2026-09-18-round-20-plan.md",
+    "docs/rounds/2026-09-18-round-20.json"
+  ],
+  "snap": {
+    "allowedRoutes": ["/map"]
+  },
+  "notes": "Wil's reply to round 19 on the live site (2026-09-18): 'Looks and appears to work fantastic.' Three asks. (1) The Take the Walk offset he picked on the device, ?cta=-4, ships as the default: --map-door-lift is a registered property with initial-value -4px, and the flag keeps working as an inline override. (2) The chapter cards, shown after Take the Walk or a pin tap, inherit the door's vertical spacing: one registered token, --map-lane, is the door's bottom offset AND the card strip's bottom padding at every width (phones inset + lift = 16px; 640 and up inset + 12px, the door's existing tablet/desktop offset), and the attribution row that rides above the cards while a stop is focused follows it — and now also takes E back, which the focused-state rule had never done since round 9, so on an iPhone the (i) and the Mapbox logo sat E lower than intended in the walk view. (3) No scrolling into the index while a stop is focused: round 1's E22 lock covered only walk === 'walking'; it now covers the whole focused state (wheel, touch, keys, the strip's touch-action), released by Back, Escape or a navigation. Base af0e747 = the v2 tip and the live site (Actions run 244); no base branch is pushed, the SHA above is the revert point. allowedRoutes is /map alone: the door moves 4px on phones at rest, so map--390 is refreshed; 768 and 1440 must not drift (the tablet/desktop door offset is unchanged), and no other route may."
+}

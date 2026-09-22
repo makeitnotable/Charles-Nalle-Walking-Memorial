@@ -1,0 +1,78 @@
+{
+  "pages": {},
+  "menu": {},
+  "details": {
+    "det-bakery-p390": {
+      "gapHeadingToQuote": 42,
+      "moralBottomToOnwardTop": 128,
+      "moralLastTextToOnwardFirstText": 225,
+      "log": []
+    },
+    "det-barbershop-p390": {
+      "gapHeadingToQuote": 42,
+      "moralBottomToOnwardTop": 128,
+      "moralLastTextToOnwardFirstText": 225,
+      "log": []
+    },
+    "det-commissioners-office-p390": {
+      "gapHeadingToQuote": 42,
+      "moralBottomToOnwardTop": 128,
+      "moralLastTextToOnwardFirstText": 225,
+      "log": []
+    },
+    "det-ferry-p390": {
+      "gapHeadingToQuote": 42,
+      "moralBottomToOnwardTop": 128,
+      "moralLastTextToOnwardFirstText": 225,
+      "log": []
+    },
+    "det-bakery-t768": {
+      "gapHeadingToQuote": 39,
+      "moralBottomToOnwardTop": 168,
+      "moralLastTextToOnwardFirstText": 289,
+      "log": []
+    },
+    "det-barbershop-t768": {
+      "gapHeadingToQuote": 39,
+      "moralBottomToOnwardTop": 168,
+      "moralLastTextToOnwardFirstText": 289,
+      "log": []
+    },
+    "det-commissioners-office-t768": {
+      "gapHeadingToQuote": 38,
+      "moralBottomToOnwardTop": 168,
+      "moralLastTextToOnwardFirstText": 265,
+      "log": []
+    },
+    "det-ferry-t768": {
+      "gapHeadingToQuote": 39,
+      "moralBottomToOnwardTop": 168,
+      "moralLastTextToOnwardFirstText": 289,
+      "log": []
+    },
+    "det-bakery-d1440": {
+      "gapHeadingToQuote": 53,
+      "moralBottomToOnwardTop": 200,
+      "moralLastTextToOnwardFirstText": -4875,
+      "log": []
+    },
+    "det-barbershop-d1440": {
+      "gapHeadingToQuote": 53,
+      "moralBottomToOnwardTop": 200,
+      "moralLastTextToOnwardFirstText": -6302,
+      "log": []
+    },
+    "det-commissioners-office-d1440": {
+      "gapHeadingToQuote": 53,
+      "moralBottomToOnwardTop": 200,
+      "moralLastTextToOnwardFirstText": -10406,
+      "log": []
+    },
+    "det-ferry-d1440": {
+      "gapHeadingToQuote": 53,
+      "moralBottomToOnwardTop": 200,
+      "moralLastTextToOnwardFirstText": -6629,
+      "log": []
+    }
+  }
+}

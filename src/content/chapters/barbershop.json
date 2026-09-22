@@ -1,0 +1,144 @@
+{
+  "order": 5,
+  "name": {
+    "canonical": "Peter Baltimore’s Barbershop",
+    "display": "PETER\nBALTIMORE’S\nBARBERSHOP",
+    "short": "Barbershop"
+  },
+  "chapterLabel": "Chapter 5",
+  "sketchNote": "The crowd fills the sheet edge to edge and moves as one mass to the left. Priest drew the pavement in the same weight as the people, so the street itself seems to be leaning toward the shop.",
+  "heroFocus": {
+    "landscape": 100,
+    "portrait": 54,
+    "portraitX": 100,
+    "portraitScale": 1.18
+  },
+  "plaque": true,
+  "map": {
+    "coordinates": [
+      -73.692893,
+      42.730818
+    ],
+    "address": "First Street (Athenaeum building)"
+  },
+  "palette": {
+    "surface": "#141710",
+    "ink": "#f0ead9",
+    "accent": "#7d9161"
+  },
+  "emotions": [
+    "Community",
+    "Togetherness",
+    "Hope",
+    "Motivated"
+  ],
+  "portal": {
+    "hook": null,
+    "history": [
+      "The shop was a room where Troy’s abolitionists could meet and talk, and Peter Baltimore was at the center of it.",
+      "When Charles was taken, Baltimore joined them to organize the rescue, and the barbershop became the place where the plan was made."
+    ]
+  },
+  "media": {
+    "images": [
+      "historical",
+      "horizontal",
+      "moral",
+      "narrative1",
+      "narrative2",
+      "sketch",
+      "sketch-n1",
+      "sketch-n2",
+      "square",
+      "vertical"
+    ],
+    "videos": [
+      "historical",
+      "narrative1",
+      "narrative2",
+      "reveal-horizontal",
+      "reveal-vertical"
+    ],
+    "works": {
+      "horizontal": {
+        "title": "West Troy",
+        "study": "sketch"
+      },
+      "narrative1": {
+        "title": "Rushing the Room",
+        "study": "sketch-n1",
+        "studyNote": "The door frame splits the sheet and the fight happens on both sides of it at once. Priest pinned the central figure with hands coming in from either edge, and left the WANTED bill in the top corner as the only thing in the room that is still."
+      },
+      "narrative2": {
+        "title": "Martin Felled by Axe",
+        "study": "sketch-n2",
+        "studyNote": "Two men are down across the bottom of the sheet, drawn at the same scale as the men still standing, so the eye reaches them first. Above them the struggle carries on into the dark of the doorway."
+      }
+    }
+  },
+  "scenes": [
+    {
+      "label": "Freedom Is Bought",
+      "audio": {
+        "label": "Chapter 5",
+        "subtitle": "Peter Baltimore’s Barbershop",
+        "file": "audio/ch5-barbershop.mp3",
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 44.4
+          },
+          {
+            "start": 44.4,
+            "end": 96.3
+          },
+          {
+            "start": 96.3,
+            "end": 114.1
+          }
+        ],
+        "duration": 114
+      },
+      "quote": {
+        "text": "We also must liberate history and memory. Traces of the hidden past lie all around us and inside of us.",
+        "attribution": "Christianson",
+        "source": "Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 1"
+      },
+      "paragraphs": [
+        "Pushing their way through the gathering of another great crowd, local police dragged Charles to the justice’s office. Outside, the mob surrounded the grand Corporation Hall Building. Chaos surged, the door to the justice’s office fell, and the crowd broke in. Like hounds trailing a scent, they hunted Charles down, ripped him from his captors, and made their way towards the exit. Out front, a getaway carriage was waiting. As the distance between Charles and the Corporation Hall Building grew, the chaotic sounds of punches, pistol shots, and shouting disappeared.",
+        "@media:narrative1",
+        "Across his body, Charles could feel the price of a hard-fought freedom in the beatings and marks it bore. After weeks of hide-and-seek, moving from safe house to safe house near Schenectady and beyond, Charles ultimately crossed safely into Canada, where he found refuge in St. Catharines, Ontario, at a safe house owned by Harriet Tubman. It was there that word reached him: through the tireless efforts of Peter Baltimore, Martin Townsend, and countless townsfolk who had opened their purses and their hearts, the people of Troy had raised the ransom money. His half-brother Hansbrough, perhaps sensing the futility of further pursuit, had agreed to accept the payment.",
+        "@media:narrative2",
+        "Almost a month later on May 25, 1860, Charles Nalle returned to Troy, not as a fugitive, but as a free man, welcomed home like a hero, a testament to courage, community, and the unrelenting fight for freedom."
+      ],
+      "reveal": {
+        "sketch": "sketch",
+        "video": "reveal-horizontal",
+        "videoVertical": "reveal-vertical",
+        "painting": "horizontal"
+      }
+    }
+  ],
+  "historicalContext": [
+    "Peter Baltimore’s younger son, Garnet Douglass Baltimore (1859–1946), was the first Black graduate of Rensselaer Polytechnic Institute (RPI) and the civil engineer and architect of Prospect Park.",
+    "Peter Baltimore’s barbershop was a part of Troy’s local underground railroad. Peter often helped freedom seekers wanting to stay in Troy find work at the Troy House.",
+    "After Charles Nalle’s escape, radical Southern leaders known as “Fire-Eaters” used the event to create anger toward the North and cited it as a key reason for why the South should leave the Union, triggering the Civil War."
+  ],
+  "morals": [
+    {
+      "title": "WE ARE\nRESPONSIBLE\nFOR JUSTICE",
+      "message": "The collective effort of the Troy community to secure Charles’s freedom reflects the modern-day importance of communities rallying together to address racial, social and political injustices.",
+      "callToAction": {
+        "title": "Your part of it",
+        "content": "Get involved in local activism, volunteer, or contribute resources to initiatives that fight against injustice and support those in need."
+      }
+    }
+  ],
+  "next": {
+    "slug": "bakery"
+  },
+  "pinOffset": [
+    -118,
+    -84
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "order": 2,
+  "name": {
+    "canonical": "Commissioner’s Office",
+    "display": "COMMISSIONER’S\nOFFICE",
+    "short": "Commissioner’s Office",
+    "card": "Commissioner’s\nOffice",
+    "pin": "Commissioner"
+  },
+  "chapterLabel": "Chapter 2",
+  "sketchNote": "The study takes in the whole intersection: the portico on the left, the block of storefronts running back on the right, and between them a crowd already breaking into a brawl. Priest set the horizon high, so the street itself holds most of the sheet.",
+  "heroFocus": 58,
+  "plaque": true,
+  "map": {
+    "coordinates": [
+      -73.6926623,
+      42.7304335
+    ],
+    "address": "5 State Street · Mutual Bank Building"
+  },
+  "palette": {
+    "surface": "#16121c",
+    "ink": "#efe6dc",
+    "accent": "#b03a45"
+  },
+  "emotions": [
+    "Sadness",
+    "Desperation",
+    "Empowerment",
+    "Unity",
+    "Righteous anger"
+  ],
+  "portal": {
+    "hook": null,
+    "history": [
+      "Charles was held on the second floor of the Mutual Bank Building, where the commissioner worked through the paperwork that would send him back to Virginia.",
+      "It was very nearly finished. His employer and other local abolitionists, Harriet Tubman among them, organized a rescue, and the crowd gathering in the street below took it from there."
+    ]
+  },
+  "media": {
+    "images": [
+      "historical",
+      "historical-pt2",
+      "horizontal",
+      "horizontal-pt2",
+      "moral",
+      "moral-pt2",
+      "sketch",
+      "sketch-pt2",
+      "square",
+      "troy-1858",
+      "vertical",
+      "vertical-pt2"
+    ],
+    "videos": [
+      "historical",
+      "historical-pt2",
+      "reveal-horizontal",
+      "reveal-horizontal-pt2",
+      "reveal-vertical",
+      "reveal-vertical-pt2"
+    ],
+    "works": {
+      "horizontal": {
+        "title": "1st and State Street Skirmish",
+        "study": "sketch"
+      },
+      "horizontal-pt2": {
+        "title": "The Altruist",
+        "study": "sketch-pt2"
+      }
+    }
+  },
+  "scenes": [
+    {
+      "label": "Part 1\nTubman Creates a Crowd",
+      "audio": {
+        "label": "Chapter 2 | Pt. 1",
+        "subtitle": "Commissioner’s Office",
+        "file": "audio/ch2-commissioners-office-pt1.mp3",
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 19.9
+          },
+          {
+            "start": 19.9,
+            "end": 46.3
+          },
+          {
+            "start": 46.3,
+            "end": 50
+          },
+          {
+            "start": 50,
+            "end": 80.5
+          }
+        ],
+        "duration": 81
+      },
+      "quote": {
+        "text": "If we can get him out into the crowd, we can raise the money in five minutes.",
+        "attribution": "Abolitionist Martin Townsend"
+      },
+      "paragraphs": [
+        "It’s hard to imagine that the hands of Marshal Holmes and the slave catchers weren’t white with strain as they forcibly marched Charles with a vice-tight grip to the Mutual Bank Building, a grand three-story brick and stone structure on State Street.",
+        "In the commissioner’s office on the second floor, Charles’s fate was being sealed. Cuffed and bruised, he faced Horatio Averill, the lawyer who had helped Charles write letters to his wife, Kitty, but secretly betrayed him by sharing his story with officials. Now, Charles could only listen helplessly as the scratching of pens on paper signed away his freedom.",
+        "Outside, the city of Troy was waking up.",
+        "The bells of Second Street Presbyterian Church rang out with urgency. As word of Charles’s capture spread like wildfire, people poured into the streets. Neighbors gathered, their anger mounting. Through the sea of people, Harriet Tubman, who happened to be in Troy visiting her cousin, pushed forward, her voice thundering above the crowd: “Drag us out! Drag him to the river! Drown him! But don’t let them have him!”"
+      ],
+      "reveal": {
+        "sketch": "sketch",
+        "video": "reveal-horizontal",
+        "videoVertical": "reveal-vertical",
+        "painting": "horizontal"
+      }
+    },
+    {
+      "label": "Part 2\nThe Mob",
+      "sketchNote": "The brawl is worked nearly black at the center of the sheet, while the street behind it thins to bare paper and a few onlookers. A single club raised at the top marks the heart of the struggle: every figure in the drawing turns toward it.",
+      "audio": {
+        "label": "Chapter 2 | Pt. 2",
+        "subtitle": "Commissioner’s Office",
+        "file": "audio/ch2-commissioners-office-pt2.mp3",
+        "timings": [
+          {
+            "start": 1.2,
+            "end": 35.5
+          },
+          {
+            "start": 35.5,
+            "end": 56.4
+          },
+          {
+            "start": 56.4,
+            "end": 111.6
+          },
+          {
+            "start": 111.6,
+            "end": 139.2
+          }
+        ],
+        "duration": 139
+      },
+      "quote": {
+        "text": "Drag him to the river! Drown him! But don’t let them have him!",
+        "attribution": "Harriet Tubman"
+      },
+      "paragraphs": [
+        "Outside the Mutual Bank Building, the crowd grew larger, emotions heightened, and the sounds of protest grew deafening. Inside, sweat and the desperation of uncontrollable moments beaded down the frustrated faces of Chief Civil Rights attorney Martin Townsend and fellow Abolitionist and underground railroad barber Peter Baltimore as they frantically negotiated for Charles’s freedom. With thinning patience, Martin Townsend exclaimed, “If we can get him out into the crowd, we can raise the money in five minutes.”",
+        "Refusing to accept defeat, Townsend and Baltimore immediately began working their networks. By their side stood Harriet Tubman, the Moses of her people, her eyes fiery with determination. Their goal: raise the $1,000 (almost $40,000 today) demanded by Hansbrough for Charles’s freedom, or fight for it once more.",
+        "Moments later the downstairs door of the Mutual Bank building flung open and the protestors, primed by the words of Harriet Tubman (“Drag him to the river! Drown him! But don’t let them have him!”) erupted like a bull out of a bullpen. Charles was dragged out, the chains cuffing his hands shimmered in the sunlight. By the time he and his captors made it into the cobblestone street, **\"The crowd was like a lynch mob in reverse: instead of unleashing their fury to string him up, the ringleaders of this mass chaos vented all of their pent-up rage to turn the Negro loose and rescue him from doom\"** (Christianson, Freeing Charles: The Struggle to Free a Slave on the Eve of the Civil War, p. 113).",
+        "Marshal Holmes, slave catchers Henry J. Wale, and Thomas Parr clung to Charles like a dog with a bone. The crowd charged. People shoved, then they threw punches, and the two blocks between State and Congress Streets became a battlefield. From within the chaos, a bloodied Charles in shredded clothes emerged and, with the crowd, broke into a sprint and started running."
+      ],
+      "reveal": {
+        "sketch": "sketch-pt2",
+        "video": "reveal-horizontal-pt2",
+        "videoVertical": "reveal-vertical-pt2",
+        "painting": "horizontal-pt2"
+      }
+    }
+  ],
+  "historicalContext": [
+    "In 1847, Frederick Douglass, James McCune Smith, the first Black doctor in the United States, and many other Black leaders met at Liberty Street Presbyterian Church in Troy for the National Convention of Colored People.",
+    "Despite having a $40,000 (around $1 million today) dead-or-alive bounty on her head, Harriet Tubman went on to become the first woman to lead an armed Civil War expedition, freeing 700 slaves. She died in 1913, between ages 90 and 91, at her family home on property she purchased three hours from Troy in Auburn, NY.",
+    "Prior to betraying Charles, Horatio Averill was incarcerated in Tombs Prison for his involvement in an embezzlement scheme.",
+    "After being brought to Commissioner William A. Beach, Charles Nalle’s case was sent to Judge George Gould, who issued a habeas corpus to determine if he could be legally detained.",
+    "According to a New York Times column published on Saturday, April 28, 1860, the mob that gathered outside the commissioner’s office to rescue Charles Nalle was “some one thousand persons” in size."
+  ],
+  "morals": [
+    {
+      "title": "WHEN NOT\nCHALLENGED\nINJUSTICE\nTHRIVES",
+      "message": "In 1860, the bells of Second Street Presbyterian Church united the City of Troy to rally for the freedom of Charles Nalle, much like how social media and public protests create awareness and mobilize people against injustice today.",
+      "callToAction": {
+        "title": "Say something first",
+        "content": "Challenge injustice by supporting grassroots organizations, engaging in local activism, community meetings, attending and fighting for justice."
+      }
+    },
+    {
+      "title": "FREEDOM\nISN’T FREE",
+      "message": "Charles Nalle’s freedom was protected by the people’s courage to defy oppressive laws and fight physically and financially for it, paralleling the ongoing struggles to resist threats to freedom, discrimination, and systemic injustice today.",
+      "callToAction": {
+        "title": "What freedom costs to keep",
+        "content": "Stand up for your freedom and others by learning about past, present, and future laws, then share what you learn, and use your vote to support what’s right."
+      }
+    }
+  ],
+  "next": {
+    "slug": "mansion"
+  },
+  "pinOffset": [
+    104,
+    -44
+  ]
+}

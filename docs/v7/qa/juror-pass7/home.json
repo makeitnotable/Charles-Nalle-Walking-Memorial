@@ -1,0 +1,157 @@
+{
+  "res": {
+    "360": {
+      "cta": [
+        26,
+        726,
+        308,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 338,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 6,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 50%",
+      "vw": 360,
+      "vh": 800,
+      "ctaMs": 992
+    },
+    "390": {
+      "cta": [
+        26,
+        770,
+        338,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 356,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 5,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 50%",
+      "vw": 390,
+      "vh": 844,
+      "ctaMs": 1130
+    },
+    "768": {
+      "cta": [
+        259,
+        879,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 440,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 4,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 50%",
+      "vw": 768,
+      "vh": 1024,
+      "ctaMs": 1009
+    },
+    "844": {
+      "cta": [
+        297,
+        308,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 34,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 3,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 50%",
+      "vw": 844,
+      "vh": 390,
+      "ctaMs": 974
+    },
+    "1024": {
+      "cta": [
+        387,
+        666,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 250,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 4,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 42%",
+      "vw": 1024,
+      "vh": 768,
+      "ctaMs": 971
+    },
+    "1440": {
+      "cta": [
+        595,
+        779,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 308,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 3,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 39%",
+      "vw": 1440,
+      "vh": 900,
+      "ctaMs": 1017
+    },
+    "1920": {
+      "cta": [
+        835,
+        865,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 366,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 3,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 39%",
+      "vw": 1920,
+      "vh": 1080,
+      "ctaMs": 980
+    },
+    "720z": {
+      "cta": [
+        235,
+        345,
+        250,
+        48
+      ],
+      "ctaText": "Walk the story",
+      "eyebrowY": 57,
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "descLines": 3,
+      "descText": "On April 27, 1860, the people of Troy, New York, took Charle",
+      "descColor": "rgb(246, 243, 238)",
+      "mediaTag": "VIDEO",
+      "objPos": "50% 50%",
+      "vw": 720,
+      "vh": 450,
+      "ctaMs": 1007
+    }
+  },
+  "errs": []
+}

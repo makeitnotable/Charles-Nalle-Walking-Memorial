@@ -1,0 +1,148 @@
+# CNWM v4 — MOTION CENSUS
+
+Verified by grep over `src/` after the P5 consolidation sweep. v3 shipped
+**12 distinct durations and 4 declared easings, 3 of which were dead** — motion
+read as thrown-together for exactly the same reason the spacing did.
+
+---
+
+## The vocabulary
+
+| Token | Value | Carries |
+|---|---|---|
+| `--dur-fast` | **300ms** | state, hover, pills, the sync highlight, the corner-menu retreat |
+| `--dur-slow` | **1600ms** | scroll reveals, clip-wipes, the quote settle, the press-reveal lock |
+| `--ease` | **`cubic-bezier(0.19, 1, 0.22, 1)`** | everything above |
+
+Measured, not chosen: museos runs a UI tier whose workhorse is exactly 300ms
+and a cinematic tier that is effectively just 1.6s, with nothing in between
+(`docs/v4/inspo-museos.md` §6). Both museos and Google Arts & Culture drive
+their signature motion with that same expo-out curve.
+
+## Reveal grammar
+
+- **Content:** opacity 0→1 with a 24px rise. Stagger 200ms between siblings.
+- **Display type:** per-line mask rise — travel is exactly one line-height,
+  **opacity never changes** (the mask does the work), stagger 200ms. Measured
+  off museos, where the same reveal runs 1.6s at the same curve.
+- **Media:** `clip-path` wipe from the bottom edge plus scale 1.04→1.
+- **Scrubs** (hero parallax, the Ken Burns interlude) use `ease: "none"` —
+  a scrub is driven by scroll position, so any easing would fight the finger.
+
+## Documented exceptions — and only these
+
+| Where | Value | Why it is exempt |
+|---|---|---|
+| `src/lib/curtain.ts` | 0.6s `circ.inOut` in, `circ.out` out, plus 0.1/0.15/0.4/0.45 beats | The page-transition set-piece. Its timing is approved identity and its fail-open logic depends on the beat lengths. |
+| `src/components/TroyMap.tsx` | `flyTo`/`easeTo` at 400 / 2000 / 2600 / 3500 / 5000ms | Mapbox camera language. A 300ms flight across Troy is a teleport, not a move; the 5s arrival is the QR deep-link cinematic. |
+| `src/components/Menu.astro` | 0.6s `back.out(1.7)` on open | **The one overshoot in the entire site** — the corner-menu bloom. v3 ran three (`back.out(1.7)`, `back.out(2)`, `back.in(1.7)`); the other two are now `power2`. |
+
+## Reduced motion
+
+Parity is 100%. `@media (prefers-reduced-motion: reduce)` clamps every
+animation and transition to 0.01ms, GSAP timelines are gated behind the same
+query, and every film marked `data-reduce-static` never attaches a source — its
+poster **is** the finished painting, so a reduced-motion visitor sees the
+artwork rather than a blank frame.
+
+The same gate now also covers thin connections: `navigator.connection.saveData`
+or an `effectiveType` of 2g/slow-2g/3g skips the films entirely. A visitor
+standing at a bronze plaque on cellular gets the painting, not a 570KB download.
+
+## Layout stability
+
+CLS measured 0.000 on home, 0.003 on the chapter path, 0.001 on the map
+(`docs/v4/qa/p6-perf/summary.json`). Nothing scroll-jacks: the page scrolls
+natively everywhere, and the only pinned behaviour is the sticky section rail,
+which uses `position: sticky` rather than a scroll handler.
+
+## v7 additions (2026-08-16) — documented exceptions
+
+- **The Museum (`Museum.tsx`)** — camera dolly and look are critically-damped
+  lerps (τ ≈ 0.22 s dolly / 0.16 s look), not the house `--dur`/`--ease`
+  tokens: a scroll-driven camera must track the scroll continuously; look
+  inertia decays with τ 0.18 s. Approach mode is a modality: the composition
+  (distance, fov up to 84°, vertical placement) is recomputed every frame
+  through the same lerp, so a sheet drag or a zoom recomposes without a cut.
+  Rail pitch −0.10 rad (−0.08 portrait) is a fixed pose, not motion.
+- **Moral-section parallax (`[chapter].astro`)** — the theme's ground image
+  drifts ±6 % against scroll (gsap ScrollTrigger, `scrub: true`, `ease: none`);
+  the image is oversized (scale 1.14) so no edge shows. Off under reduced
+  motion. Meaningful: the ground moves like the story under it (Wil, 8/15:
+  parallax on the moral background yes, on archival images no).
+- **Menu close-X quarter turn** — 300 ms `expo.out` on click, then the panel
+  folds; no turn under reduced motion. `--dur-curtain` is now read by
+  `curtain.ts`; the unused `--ease-pop` / `--ease-circ-in-out` tokens are gone.
+
+## v13 additions (2026-08-26)
+
+- **The Historical Context plate (`[chapter].astro`)** — one scrubbed GSAP
+  timeline across the whole passage: `scale 1.00 → 1.03` **plus
+  `translateY 0 → −8px`**, `sine.inOut`, `scrub: 0.6`, then back down on the
+  way out. v12 ran `scale 1 → 1.055` with no translate; Wil's 8/26 spec names
+  1.00→1.03 and "a slight translateY (a few pixels)", so both numbers are his,
+  not a taste call. Measured on the scrub: progress 0.5 → `1.0297 / −7.91px`,
+  progress 1.0 → `1.0004 / −0.11px`, and scrolling back up reproduces
+  `1.0297 / −7.90px` — reversible, which is what he asked for ("scrolling back
+  up should reverse it"). The transform stays on the IMG, never the section:
+  a scale on a full-bleed block once reported 1584px of width on a 1440
+  screen. Under `prefers-reduced-motion` the whole block is gated off and the
+  plate measures `transform: none`.
+
+- **The hall's still/alive switch cue (`Museum.tsx`)** — v13 V13-05b. A
+  play/pause glyph over the work for 900ms on toggle: `museum-switch-cue`,
+  `var(--ease)`, opacity 0 → 1 → 1 → 0, then nothing. It is feedback, not
+  chrome, and it never takes the pointer (`pointer-events: none`) so the stage
+  keeps every swipe. Under `prefers-reduced-motion` it runs
+  `museum-switch-cue-cut` — the same 900ms, `step-end`, so the glyph appears
+  and disappears without a fade. (Belt and braces: the three.js hall is
+  disabled entirely under reduce and the static fallback renders instead, so
+  the cue never mounts there at all.)
+
+- **The 1858 lens's close fade (`TroyMap.tsx`)** — v13 V13-01. **1600ms → 520ms**
+  on `var(--ease)` (`LENS_FADE_MS`), the map chrome held back until it ends.
+  `--dur-slow` is 1600ms because a scroll reveal is a page settling; this is a
+  full-viewport layer blending over a live WebGL canvas, and holding it there
+  for a second and a half is most of what read as jitter. The shell's children
+  — box, caption and the "Back to today" door — now stay mounted for the whole
+  fade, so the close frame has no layout change in it at all (the door's 68px
+  leaving the flex column was a measured 34.00px jump of the plate on the first
+  frame). Under `prefers-reduced-motion` the swap is instant: the global
+  reduce rule flattens the transition and the children leave on the same
+  commit — measured 0 intermediate opacities, 0 frames of anchor movement.
+
+
+## v18 additions (2026-09-18, client round 19)
+
+- **The map page's settle re-land (`map.astro`).** Since v16 the map shell
+  carries a runway of `T` (110px on an iPhone with iOS 26's bars, 0 wherever
+  there are none) above the box the reader sees, and the page rests at scroll
+  T so the map paints behind the address bar. That runway is scrollable, and a
+  flick back to the top parked the page at 0 with the whole composition T
+  lower. Now, 160ms after the last scroll event — never while a finger is
+  down — a page resting above T returns to T with `scrollTo({ behavior:
+  "smooth" })` (the browser's own smooth scroll, ~110px). The island's own
+  scrolls (a pin tap, the walk door) go to T the same way; a back/forward-
+  cache restore cuts there. Under `prefers-reduced-motion` every re-land is a
+  cut. Nothing else on the page is scroll-driven; this is the one scripted
+  scroll on `/map`, and it only ever moves the page from a position it was
+  never designed to rest at.
+
+## Round 25 (2026-09-22)
+
+- **The hall's lead cover (`/paintings`, `.museum-lead-cover`)** — the
+  page-ground box over the server-rendered lead painting fades out over
+  `--dur-fast` at `--ease` after a 2.4s wait (`animation-fill-mode: both`),
+  so a capable phone goes brown → hall and never sees the painting. The wait
+  is not motion; the fade is the house state tier. Under reduced motion,
+  and without JS, the cover does not exist at all — the painting is the page
+  there and is there at once.
+
+## Round 31 (2026-09-22)
+
+- **The drawer's X (`/paintings`, `.museum-sheet-close`)** — folded away in
+  peek and unfolding with the drawer: height 0 → 44px, bottom margin 0 →
+  `--ui-inset`, stroke 0 → 1px, opacity 0 → 1 and scale 0.6 → 1 together,
+  `--dur-fast` at `--ease`, triggered by the drawer passing 12% of its
+  travel (`data-x` on the sheet) rather than by its state. The house state
+  tier; a cut under reduced motion by the site-wide clamp.

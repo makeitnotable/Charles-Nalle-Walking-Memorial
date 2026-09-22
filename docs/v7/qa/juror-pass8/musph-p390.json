@@ -1,0 +1,341 @@
+{
+  "target": {
+    "i": 3,
+    "r": {
+      "x": -26,
+      "y": 56,
+      "w": 83,
+      "h": 202,
+      "behind": false,
+      "cx": 15,
+      "cy": 158
+    }
+  },
+  "approach": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 3,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": -1,
+      "sheet": "peek"
+    },
+    "ui": {
+      "back": [
+        {
+          "x": 20,
+          "y": 20,
+          "w": 195,
+          "h": 38,
+          "b": 58
+        }
+      ],
+      "sheetBtns": [],
+      "plaque": [
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet absolute inset-x-0 bottom-0",
+          "x": 0,
+          "y": 749,
+          "w": 390,
+          "h": 95,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        },
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet-head cursor-grab touch-none",
+          "x": 0,
+          "y": 750,
+          "w": 390,
+          "h": 94,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        }
+      ],
+      "dots": {
+        "y": 713,
+        "x0": 39,
+        "x1": 327
+      },
+      "quote": 0
+    },
+    "rect": {
+      "x": 42,
+      "y": 280,
+      "w": 305,
+      "h": 204,
+      "behind": false,
+      "cx": 195,
+      "cy": 382
+    },
+    "vw": 390,
+    "vh": 844
+  },
+  "sheetUp": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 3,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": -1,
+      "sheet": "full"
+    },
+    "ui": {
+      "back": [
+        {
+          "x": 20,
+          "y": 20,
+          "w": 195,
+          "h": 38,
+          "b": 58
+        }
+      ],
+      "sheetBtns": [],
+      "plaque": [
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet absolute inset-x-0 bottom-0",
+          "x": 0,
+          "y": 676,
+          "w": 390,
+          "h": 168,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home“Are you a Negro?”Christians"
+        },
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet-head cursor-grab touch-none",
+          "x": 0,
+          "y": 677,
+          "w": 390,
+          "h": 94,
+          "b": 771,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        }
+      ],
+      "dots": {
+        "y": 640,
+        "x0": 39,
+        "x1": 327
+      },
+      "quote": 0
+    },
+    "rect": {
+      "x": 42,
+      "y": 243,
+      "w": 305,
+      "h": 204,
+      "behind": false,
+      "cx": 195,
+      "cy": 345
+    }
+  },
+  "sheetDown": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 3,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": -1,
+      "sheet": "peek"
+    },
+    "ui": {
+      "back": [
+        {
+          "x": 20,
+          "y": 20,
+          "w": 195,
+          "h": 38,
+          "b": 58
+        }
+      ],
+      "sheetBtns": [],
+      "plaque": [
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet absolute inset-x-0 bottom-0",
+          "x": 0,
+          "y": 749,
+          "w": 390,
+          "h": 95,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        },
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet-head cursor-grab touch-none",
+          "x": 0,
+          "y": 750,
+          "w": 390,
+          "h": 94,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        }
+      ],
+      "dots": {
+        "y": 713,
+        "x0": 39,
+        "x1": 327
+      },
+      "quote": 0
+    },
+    "rect": {
+      "x": 42,
+      "y": 280,
+      "w": 305,
+      "h": 204,
+      "behind": false,
+      "cx": 195,
+      "cy": 382
+    }
+  },
+  "sheetTap": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 3,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": -1,
+      "sheet": "full"
+    },
+    "ui": {
+      "back": [
+        {
+          "x": 20,
+          "y": 20,
+          "w": 195,
+          "h": 38,
+          "b": 58
+        }
+      ],
+      "sheetBtns": [],
+      "plaque": [
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet absolute inset-x-0 bottom-0",
+          "x": 0,
+          "y": 676,
+          "w": 390,
+          "h": 168,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home“Are you a Negro?”Christians"
+        },
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet-head cursor-grab touch-none",
+          "x": 0,
+          "y": 677,
+          "w": 390,
+          "h": 94,
+          "b": 771,
+          "txt": "Mark Priest · Nalle Series · Spot 03Uri Gilbert Home"
+        }
+      ],
+      "dots": {
+        "y": 640,
+        "x0": 39,
+        "x1": 327
+      },
+      "quote": 0
+    }
+  },
+  "alive": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 3,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": 3,
+      "sheet": "full"
+    }
+  },
+  "afterBack": {
+    "st": {
+      "mode": "rail",
+      "railIdx": 1,
+      "approached": null,
+      "zoom": 1,
+      "yaw": 0,
+      "alive": -1,
+      "sheet": "peek"
+    }
+  },
+  "last": {
+    "st": {
+      "mode": "approach",
+      "railIdx": 1,
+      "approached": 9,
+      "zoom": 1,
+      "yaw": 1.57,
+      "alive": -1,
+      "sheet": "peek"
+    },
+    "ui": {
+      "back": [
+        {
+          "x": 20,
+          "y": 20,
+          "w": 195,
+          "h": 38,
+          "b": 58
+        }
+      ],
+      "sheetBtns": [],
+      "plaque": [
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet absolute inset-x-0 bottom-0",
+          "x": 0,
+          "y": 719,
+          "w": 390,
+          "h": 125,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 05Peter Baltimore’s Barbershop · Narrative II"
+        },
+        {
+          "tag": "DIV",
+          "cls": "museum-sheet-head cursor-grab touch-none",
+          "x": 0,
+          "y": 720,
+          "w": 390,
+          "h": 124,
+          "b": 844,
+          "txt": "Mark Priest · Nalle Series · Spot 05Peter Baltimore’s Barbershop · Narrative II"
+        }
+      ],
+      "dots": {
+        "y": 683,
+        "x0": 39,
+        "x1": 327
+      },
+      "quote": 0
+    },
+    "rect": {
+      "x": 56,
+      "y": 158,
+      "w": 278,
+      "h": 418,
+      "behind": false,
+      "cx": 195,
+      "cy": 367
+    }
+  },
+  "esc": {
+    "st": {
+      "mode": "rail",
+      "railIdx": 1,
+      "approached": null,
+      "zoom": 1,
+      "yaw": 0,
+      "alive": -1,
+      "sheet": "peek"
+    }
+  },
+  "log": []
+}

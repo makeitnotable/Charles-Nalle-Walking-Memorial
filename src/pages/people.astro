@@ -1,0 +1,186 @@
+---
+/**
+ * The People — the cast of April 27, 1860.
+ * v4: unboxed. v3 put 21 bordered cards in one viewport and nothing won the
+ * glance. Each person is now an eyebrow/name/note stack on a hairline — the
+ * Google Arts & Culture micro-grid with the image slot empty (portraits are
+ * still an undelivered asset; see docs/v4/REVIEW-GUIDE.md).
+ */
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { withBase } from "../lib/url";
+import { rescuers, hunters, type Person } from "../data/people";
+import { fitChars, nbsp } from "../lib/text";
+/* v8 V8-301 (Wil, 8/19 00:23:44): the three-line lockup at EVERY width — the
+   v7 two-line desktop swap is gone; never leave CAST. alone. */
+const PEOPLE_HEADING = "ONE DAY.<br />A WHOLE<br />CITY’S CAST.";
+
+
+const groups: { heading: string; blurb: string; people: Person[] }[] = [
+  {
+    heading: "The rescuers",
+    blurb:
+      "Black and white, famous and unrecorded: the people of Troy who decided, in a single afternoon, that the law was wrong.",
+    people: rescuers,
+  },
+  {
+    heading: "The hunters",
+    blurb:
+      "The men who put a free man in chains, lawfully, under the Fugitive Slave Act of 1850.",
+    people: hunters,
+  },
+];
+---
+
+<Base
+  title="The People · Charles Nalle Walking Memorial"
+  description="The rescuers and the hunters of April 27, 1860: Peter Baltimore, Martin Townsend, Uri Gilbert, Harriet Tubman, and the men who tried to drag Charles Nalle back into slavery."
+>
+  {/* Two columns, because one left-aligned headline left the entire right half
+      of the fold empty and dropped a 220px hole between itself and what came
+      next. The eyebrow that used to sit above the H1 said "The people" directly
+      over a heading that says the same thing, under a nav link that says it a
+      third time. */}
+  <header class="shell page-open">
+    {/* The two-column fold at every desktop width: H1 left, intro right,
+        bottom-aligned (V8-301 dropped the v7 xl full-shell two-line swap). */}
+    <div class="grid gap-10 lg:grid-cols-[8fr_4fr] lg:items-end lg:gap-16">
+      <h1 class="t-display lines" style={fitChars(PEOPLE_HEADING)} set:html={PEOPLE_HEADING} />
+      <div class="lg:pb-3">
+        <div>
+          {/* v8 V8-303 (Wil, 8/19 00:47:11): on tablets the intro runs full
+              shell width, so the second sentence gets its own line. */}
+          <p class="t-prose">
+            Fourteen of them are named here.{" "}
+            <br class="hidden md:max-lg:inline" />The <em>New York Times</em> counted
+            the crowd outside the commissioner’s office at some one thousand
+            persons.
+          </p>
+          {/* v8 V8-302 (Wil, 8/19 00:25:07): his dictated replacement,
+              grammar-normalized ("Their role in the story are told each
+              chapter" → "Their roles… are told in each chapter"). */}
+          <p class="t-meta-body mt-6">
+            Every person below stood on the pavement that exists today. Their
+            roles in the story are told in each chapter, location
+            by&nbsp;location.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {
+    groups.map((group, gi) => (
+      <section class="shell sec" aria-label={group.heading}>
+        <div class="sec-head"></div>
+        <div class="editorial mt-8">
+          <div class="rail">
+            <p class="t-spine">({String(gi + 1).padStart(2, "0")})</p>
+            <p class="t-meta mt-3">{group.heading}</p>
+          </div>
+
+          <div>
+            <h2 class="t-title reveal">{group.heading}</h2>
+            <p class="t-prose reveal mt-8">{group.blurb}</p>
+
+            <div class="mt-16 grid gap-x-12 gap-y-0 md:grid-cols-2">
+              {group.people.map((person) => (
+                <article class="reveal rule-top py-8">
+                  {/* Item 28: the profile plate — a typographic monogram in
+                      the display cut, sized and framed as the portrait slot
+                      it will become when photographs arrive (REVIEW-GUIDE). */}
+                  <div class="grid grid-cols-[auto_1fr] items-start gap-6">
+                    <div class="monogram" aria-hidden="true">
+                      {(() => {
+                        const ws = person.name
+                          .split(/\s+/)
+                          .map((w) => w.replace(/^[“"]/, ""))
+                          .filter((w) => /^[A-Z]/.test(w));
+                        return ws.length > 1
+                          ? ws[0][0] + ws[ws.length - 1][0]
+                          : (ws[0]?.[0] ?? "·");
+                      })()}
+                    </div>
+                    <div>
+                      {/* ` · ` roles: segments whole, the dot vanishes at a wrap (juror passes 8–9) */}
+                      {person.role.includes(" · ") ? (
+                        <p class="t-meta sep-list">
+                          {person.role.split(" · ").map((seg, i) => (
+                            <span>
+                              {i > 0 && <span class="sr-only">· </span>}
+                              {seg}
+                            </span>
+                          ))}
+                        </p>
+                      ) : (
+                        /* one segment wraps like prose (juror pass 10: an unbreakable
+                           `CHIEF CIVIL-RIGHTS ATTORNEY` overran its column at 768/1024);
+                           hyphenated words stay whole, the last two words glued */
+                        <p class="t-meta">
+                          {nbsp(person.role)
+                            .split(" ")
+                            .map((w, i, arr) => (
+                              <>
+                                {w.includes("-") ? <span class="whitespace-nowrap">{w}</span> : w}
+                                {i < arr.length - 1 ? " " : ""}
+                              </>
+                            ))}
+                        </p>
+                      )}
+                      <h3 class="t-title-sm mt-3">
+                        {person.name}
+                      </h3>
+                    </div>
+                  </div>
+                  {/* v7 P1 (Wil): the spot links under every person are gone —
+                      monogram, role, name and note stand alone; `chapters` stays
+                      in the data. */}
+                  <p class="t-prose mt-5">{nbsp(person.note)}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  {/* No dead ends. */}
+  <section class="shell sec">
+    <div class="sec-head"></div>
+        <div class="editorial mt-8">
+      <div class="rail">
+        <p class="t-spine">(03)</p>
+        <p class="t-meta mt-3">Onward</p>
+      </div>
+      <div>
+        <p class="t-meta">Their story lives on</p>
+        <h2 class="t-title reveal mt-4">Stand where they stood</h2>
+        <div class="mt-10">
+          <a href={withBase("map")} data-curtain-label="Map" class="btn btn-solid btn-icon-end">
+            Walk the story
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter hide="people" />
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal, .reveal-quote, .lines").forEach((el) => io.observe(el));
+  </script>
+</Base>

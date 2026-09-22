@@ -1,0 +1,23 @@
+{
+  "log": {
+    "storyOrder": "ITIITIIT",
+    "heroFocus": {
+      "tag": "IMG",
+      "op": "100% 40%"
+    },
+    "moral": {
+      "h": "WE ARERESPONSIBLEFOR JUSTICE",
+      "hColor": "rgb(246, 243, 238)",
+      "pColor": "rgb(246, 243, 238)",
+      "figCls": "reveal mt-20 gap-10 md:grid md:grid-cols-[minmax(0,420px)_1fr] md:items-center"
+    },
+    "credit": []
+  },
+  "errs": [
+    {
+      "tag": "barber",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+    }
+  ]
+}

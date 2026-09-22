@@ -1,0 +1,449 @@
+{
+  "t": [
+    {
+      "s": "rail rest",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Skip the hall @20,20 102x38"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "rail",
+          "railT": 0.0000370260663507109,
+          "railIdx": 0,
+          "approached": null,
+          "zoom": 1,
+          "cur": {
+            "x": 0,
+            "y": 1.55,
+            "z": 0.39810798618283577,
+            "yaw": 0,
+            "pitch": -0.07999999999999989
+          },
+          "target": {
+            "x": 0,
+            "y": 1.55,
+            "z": 0.3981079680094787,
+            "yaw": 0,
+            "pitch": -0.08
+          },
+          "look": {
+            "yaw": 0,
+            "pitch": -0.07999999999999989,
+            "dragYaw": 0,
+            "dragPitch": 0
+          },
+          "alive": -1,
+          "fov": 72,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      },
+      "chip": [
+        "Mark Priest · Nalle Series"
+      ]
+    },
+    {
+      "s": "rail 70%",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Skip the hall @20,20 102x38"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "rail",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": null,
+          "zoom": 1,
+          "cur": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.36987815457783,
+            "yaw": 0,
+            "pitch": -0.07999999999999997
+          },
+          "target": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.37054658701949,
+            "yaw": 0,
+            "pitch": -0.08
+          },
+          "look": {
+            "yaw": 0,
+            "pitch": -0.07999999999999997,
+            "dragYaw": 0,
+            "dragPitch": 0
+          },
+          "alive": -1,
+          "fov": 72,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      }
+    },
+    {
+      "s": "looked away",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Face forward @112,20 165x38",
+        "Skip the hall @20,20 102x38"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "rail",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": null,
+          "zoom": 1,
+          "cur": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.37054649601832,
+            "yaw": -2.069149124576669,
+            "pitch": 0.019996091602477135
+          },
+          "target": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.37054658701949,
+            "yaw": 0,
+            "pitch": -0.08
+          },
+          "look": {
+            "yaw": -2.069149124576669,
+            "pitch": 0.019996091602477135,
+            "dragYaw": -2.0708434046771598,
+            "dragPitch": 0.10000000000000002
+          },
+          "alive": -1,
+          "fov": 72,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      },
+      "chip": [
+        "Mark Priest · Nalle Series"
+      ]
+    },
+    {
+      "s": "after Face forward",
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "rail",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": null,
+          "zoom": 1,
+          "cur": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.370546586961325,
+            "yaw": -0.0001850505520655381,
+            "pitch": -0.07999106114281909
+          },
+          "target": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.37054658701949,
+            "yaw": 0,
+            "pitch": -0.08
+          },
+          "look": {
+            "yaw": -0.0001850505520655381,
+            "pitch": -0.07999106114281909,
+            "dragYaw": 0,
+            "dragPitch": 0
+          },
+          "alive": -1,
+          "fov": 72,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      }
+    },
+    {
+      "s": "approach",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Back to the hall @20,20 195x38",
+        "Bring the painting to life @26,299 339x226",
+        "Expand the plaque @0,750 390x94"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "approach",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": 3,
+          "zoom": 1,
+          "cur": {
+            "x": 2.3499834139455364,
+            "y": 1.6146769809015977,
+            "z": -20.000108483711845,
+            "yaw": 1.570796197052434,
+            "pitch": -6.606726614477998e-9
+          },
+          "target": {
+            "x": 2.3499999999999996,
+            "y": 1.6146774373881934,
+            "z": -20,
+            "yaw": 1.5707963267948966,
+            "pitch": 0
+          },
+          "look": {
+            "yaw": 1.570796197052434,
+            "pitch": -6.606726614477998e-9,
+            "dragYaw": 0,
+            "dragPitch": 0
+          },
+          "alive": -1,
+          "fov": 78.12558157538938,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      }
+    },
+    {
+      "s": "sheet dragged up",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Back to the hall @20,20 195x38",
+        "Bring the painting to life @26,299 339x226",
+        "Expand the plaque @0,750 390x94"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "approach",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": 3,
+          "zoom": 1,
+          "cur": {
+            "x": 2.3499999963007285,
+            "y": 1.6146774372863808,
+            "z": -20.000000024195668,
+            "yaw": 1.57079632679366,
+            "pitch": -6.295051061940768e-14
+          },
+          "target": {
+            "x": 2.3499999999999996,
+            "y": 1.6146774373881934,
+            "z": -20,
+            "yaw": 1.5707963267948966,
+            "pitch": 0
+          },
+          "look": {
+            "yaw": 1.57079632679366,
+            "pitch": -6.295051061940768e-14,
+            "dragYaw": 0,
+            "dragPitch": 0
+          },
+          "alive": -1,
+          "fov": 78.12558157538938,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      }
+    },
+    {
+      "s": "after Back",
+      "ui": [
+        "Open menu @300,34 68x68",
+        "Skip the hall @20,20 102x38"
+      ],
+      "m": {
+        "keys": [
+          "state",
+          "approach",
+          "turnOn",
+          "turnOff",
+          "recenter",
+          "setZoom",
+          "setLook",
+          "setSheet",
+          "paintingRect",
+          "placements",
+          "info",
+          "camera"
+        ],
+        "state": {
+          "mode": "rail",
+          "railT": 0.700010696419168,
+          "railIdx": 6,
+          "approached": null,
+          "zoom": 1,
+          "cur": {
+            "x": 0.0002545433971402588,
+            "y": 1.5500070056232476,
+            "z": -35.36888170568154,
+            "yaw": 0.000005544011095610727,
+            "pitch": 0.42000028232214104
+          },
+          "target": {
+            "x": 0,
+            "y": 1.55,
+            "z": -35.37054658701949,
+            "yaw": 0,
+            "pitch": -0.08
+          },
+          "look": {
+            "yaw": 0.000005544011095610727,
+            "pitch": 0.42000028232214104,
+            "dragYaw": 0,
+            "dragPitch": 0.5
+          },
+          "alive": -1,
+          "fov": 72.00970805792643,
+          "far": 80,
+          "portrait": true,
+          "running": true,
+          "works": 10,
+          "spacing": 5,
+          "sheet": "peek"
+        }
+      },
+      "focus": "Approach “Uri Gilbert Home”"
+    }
+  ],
+  "geo": {
+    "top": 318,
+    "h": 8440,
+    "docH": 14051,
+    "canvas": true
+  },
+  "faceForward": 1,
+  "clickRect": null,
+  "approachRect": {
+    "r": null
+  },
+  "sheet": {
+    "x": 195,
+    "y": 796.9609375,
+    "h": 94.078125,
+    "label": "Expand the plaque"
+  },
+  "hasBack": 1,
+  "dialog": {
+    "open": true,
+    "video": {
+      "paused": false,
+      "w": 800,
+      "h": 1200,
+      "vis": 366.59375
+    },
+    "img": 0,
+    "title": "Peter Baltimore’s Barbershop · Narrative II, Mark Priest"
+  },
+  "dialogClosed": true,
+  "log": []
+}

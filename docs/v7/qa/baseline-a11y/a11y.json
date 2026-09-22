@@ -1,0 +1,3848 @@
+{
+ "base": "http://localhost:4321",
+ "startedAt": "2026-08-16T00:16:02.303Z",
+ "runs": [
+  {
+   "route": "/",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 2
+  },
+  {
+   "route": "/people",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 30,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "390",
+   "state": "rest",
+   "violations": [],
+   "passes": 28,
+   "incomplete": 0
+  },
+  {
+   "route": "/",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      ".btn-solid"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/people",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 30,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "768",
+   "state": "rest",
+   "violations": [],
+   "passes": 28,
+   "incomplete": 0
+  },
+  {
+   "route": "/",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 26,
+   "incomplete": 1
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 19,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 41,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#scene-1\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#scene-1\"] > .group-hover\\:opacity-100.t-meta.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.t-meta.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#moral-0\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 19,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/ferry",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 19,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/barbershop",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 19,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/people",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 30,
+   "incomplete": 0
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 34,
+   "incomplete": 1
+  },
+  {
+   "route": "/about",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 35,
+   "incomplete": 0
+  },
+  {
+   "route": "/404",
+   "vp": "1440",
+   "state": "rest",
+   "violations": [],
+   "passes": 28,
+   "incomplete": 0
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 2
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "walk",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 41,
+   "incomplete": 2
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "state": "lens-1858",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 2
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "state": "dialog",
+   "violations": [],
+   "passes": 9,
+   "incomplete": 2
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "state": "mini-player",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "walk",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "768",
+   "state": "lens-1858",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "768",
+   "state": "dialog",
+   "violations": [],
+   "passes": 9,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "768",
+   "state": "mini-player",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 38,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 18,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .gap-3.py-2\\.5[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .gap-3.py-2\\.5[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .gap-3.py-2\\.5[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "menu-open",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "walk",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 41,
+   "incomplete": 1
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "state": "lens-1858",
+   "violations": [
+    {
+     "id": "aria-allowed-role",
+     "impact": "minor",
+     "help": "ARIA role should be appropriate for the element",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/aria-allowed-role?application=axeAPI",
+     "count": 5,
+     "nodes": [
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(2)",
+      "button[aria-label=\"Spot 2: Commissioner’s Office\"]",
+      "button[aria-label=\"Spot 3: Uri Gilbert Home\"]",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(5)",
+      ".mapboxgl-marker.mapboxgl-marker-anchor-center[role=\"img\"]:nth-child(6)"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "state": "dialog",
+   "violations": [],
+   "passes": 9,
+   "incomplete": 1
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "state": "mini-player",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "help": "Elements must meet minimum color contrast ratio thresholds",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+     "count": 18,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .py-2\\.5.gap-3[href$=\"#history\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(2) > .py-2\\.5.gap-3[href$=\"#history\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .py-2\\.5.gap-3[href$=\"#moral\"] > .t-spine-sm.transition-colors",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(3) > .py-2\\.5.gap-3[href$=\"#moral\"] > .group-hover\\:opacity-100.transition-colors.t-meta",
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"] > ol > .leading-none:nth-child(4) > .py-2\\.5.gap-3[href$=\"#onward\"] > .t-spine-sm.transition-colors"
+     ]
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/landmark-unique?application=axeAPI",
+     "count": 1,
+     "nodes": [
+      "#scene-0 > .editorial.mt-8 > .rail[aria-label=\"Sections in this chapter\"]"
+     ]
+    }
+   ],
+   "passes": 40,
+   "incomplete": 1
+  }
+ ],
+ "keyboard": [
+  {
+   "route": "/",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 27,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 48,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-cta.home-seq",
+     "ariaLabel": "",
+     "text": "WALK THE FIVE SPOTS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 26,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 37,
+     "tag": "canvas",
+     "id": "",
+     "class": "mapboxgl-canvas",
+     "ariaLabel": "Map",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 38,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 1: Holeur’s Fashionable Bakery",
+     "text": "1 BAKERY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 47,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 2: Commissioner’s Office",
+     "text": "2 COMMISSIONER’S OFFICE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 56,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 3: Uri Gilbert Home",
+     "text": "3 GILBERT HOME",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 65,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 4: Washington Street Ferry Landing (no plaque — website only)",
+     "text": "4 FERRY LANDING",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 74,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 5: Peter Baltimore’s Barbershop",
+     "text": "5 BARBERSHOP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 92,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-ctrl-geolocate",
+     "ariaLabel": "Find my location",
+     "text": "",
+     "noRing": false,
+     "outline": "none 3px rgb(254, 217, 204)",
+     "boxShadow": "set",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 95,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-ctrl-attrib-button",
+     "ariaLabel": "Toggle attribution",
+     "text": "",
+     "noRing": false,
+     "outline": "none 3px rgb(183, 179, 171)",
+     "boxShadow": "set",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 102,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-ctrl-logo",
+     "ariaLabel": "Mapbox homepage",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 0.55,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 111,
+     "tag": "button",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "TAKE THE WALK",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 112,
+     "tag": "button",
+     "id": "",
+     "class": "link-meta.t-meta.rounded-full",
+     "ariaLabel": "",
+     "text": "SEE TROY IN 1858",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 223,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 01 HOLEUR’S FASHIONABLE B",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 237,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 02 COMMISSIONER’S OFFICE ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 251,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 03 URI GILBERT HOME 189 S",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 265,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 04 WASHINGTON STREET FERR",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 279,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 05 PETER BALTIMORE’S BARB",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 298,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 300,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 304,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 308,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 317,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 29,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 65,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(01) LISTEN",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 69,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(02) HISTORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 73,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(03) THE MORAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 77,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(04) ONWARD",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 96,
+     "tag": "button",
+     "id": "",
+     "class": "flex.shrink-0.cursor-pointer",
+     "ariaLabel": "Play narration: Holeur’s Fashionable Bakery",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 104,
+     "tag": "input",
+     "id": "",
+     "class": "cnwm-scrub.mt-4.w-full",
+     "ariaLabel": "Narration position",
+     "text": "0",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 130,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(01) LISTEN",
+     "noRing": false,
+     "outline": "solid 2px rgb(156, 69, 32)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 134,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(02) HISTORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(156, 69, 32)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 138,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(03) THE MORAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(156, 69, 32)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 142,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(04) ONWARD",
+     "noRing": false,
+     "outline": "solid 2px rgb(156, 69, 32)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 176,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(01) LISTEN",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 180,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(02) HISTORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 184,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(03) THE MORAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 188,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(04) ONWARD",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 216,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(01) LISTEN",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 220,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(02) HISTORY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 224,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(03) THE MORAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 228,
+     "tag": "a",
+     "id": "",
+     "class": "group.flex.items-baseline",
+     "ariaLabel": "",
+     "text": "(04) ONWARD",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 243,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-bottom",
+     "ariaLabel": "Continue to Commissioner’s Office",
+     "text": "2 COMMISSIONER’S OFFICE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 260,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-ctrl-logo",
+     "ariaLabel": "Mapbox homepage",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 0.55,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 267,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "CONTINUE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 23,
+     "body": false,
+     "domIndex": 271,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-ghost",
+     "ariaLabel": "",
+     "text": "GET DIRECTIONS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 24,
+     "body": false,
+     "domIndex": 281,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 25,
+     "body": false,
+     "domIndex": 283,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 26,
+     "body": false,
+     "domIndex": 287,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 27,
+     "body": false,
+     "domIndex": 291,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 28,
+     "body": false,
+     "domIndex": 295,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 29,
+     "body": false,
+     "domIndex": 299,
+     "tag": "button",
+     "id": "share-btn",
+     "class": "btn-sm.btn-ghost",
+     "ariaLabel": "",
+     "text": "SHARE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 30,
+     "body": false,
+     "domIndex": 309,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 26,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 54,
+     "tag": "button",
+     "id": "",
+     "class": "link-meta.t-meta.rounded-full",
+     "ariaLabel": "",
+     "text": "SKIP THE HALL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 59,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Holeur’s Fashionable Bakery”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 62,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 65,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office — Part 2”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 68,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Uri Gilbert Home”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 71,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 74,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing — Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 77,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing — Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 80,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 83,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop — Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 86,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop — Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 93,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Holeur’s Fashionable Bakery” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 99,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 1",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 106,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 112,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 2",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 119,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office — Part 2” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 125,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 2",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 132,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Uri Gilbert Home” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 138,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 3",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 145,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 151,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 23,
+     "body": false,
+     "domIndex": 158,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing — Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 24,
+     "body": false,
+     "domIndex": 164,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 25,
+     "body": false,
+     "domIndex": 171,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing — Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 26,
+     "body": false,
+     "domIndex": 177,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 27,
+     "body": false,
+     "domIndex": 184,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 28,
+     "body": false,
+     "domIndex": 190,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 29,
+     "body": false,
+     "domIndex": 197,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop — Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 30,
+     "body": false,
+     "domIndex": 203,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 31,
+     "body": false,
+     "domIndex": 210,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop — Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 32,
+     "body": false,
+     "domIndex": 216,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 33,
+     "body": false,
+     "domIndex": 237,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 34,
+     "body": false,
+     "domIndex": 239,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 35,
+     "body": false,
+     "domIndex": 243,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 36,
+     "body": false,
+     "domIndex": 247,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 37,
+     "body": false,
+     "domIndex": 256,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "check": "menu-keyboard",
+   "openedOnEnter": true,
+   "focusMovedIntoPanel": true,
+   "closedOnEscape": true,
+   "focusReturnedToBurger": true
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "check": "dialog-keyboard",
+   "openedOnEnter": true,
+   "closedOnEscape": true,
+   "focusReturnedToTile": true
+  },
+  {
+   "route": "/",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 27,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 48,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-cta.home-seq",
+     "ariaLabel": "",
+     "text": "WALK THE FIVE SPOTS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 26,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 37,
+     "tag": "canvas",
+     "id": "",
+     "class": "mapboxgl-canvas",
+     "ariaLabel": "Map",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 38,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 1: Holeur’s Fashionable Bakery",
+     "text": "1",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 42,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 2: Commissioner’s Office",
+     "text": "2",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 46,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 3: Uri Gilbert Home",
+     "text": "3",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 50,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 4: Washington Street Ferry Landing (no plaque — website only)",
+     "text": "4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 54,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-marker.mapboxgl-marker-anchor-center",
+     "ariaLabel": "Spot 5: Peter Baltimore’s Barbershop",
+     "text": "5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 67,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-ctrl-geolocate",
+     "ariaLabel": "Find my location",
+     "text": "",
+     "noRing": false,
+     "outline": "none 3px rgb(254, 217, 204)",
+     "boxShadow": "set",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 70,
+     "tag": "button",
+     "id": "",
+     "class": "mapboxgl-ctrl-attrib-button",
+     "ariaLabel": "Toggle attribution",
+     "text": "",
+     "noRing": false,
+     "outline": "none 3px rgb(183, 179, 171)",
+     "boxShadow": "set",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 77,
+     "tag": "a",
+     "id": "",
+     "class": "mapboxgl-ctrl-logo",
+     "ariaLabel": "Mapbox homepage",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 0.55,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 86,
+     "tag": "button",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "TAKE THE WALK",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 87,
+     "tag": "button",
+     "id": "",
+     "class": "link-meta.t-meta.rounded-full",
+     "ariaLabel": "",
+     "text": "SEE TROY IN 1858",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 198,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 01 HOLEUR’S FASHIONABLE B",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 212,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 02 COMMISSIONER’S OFFICE ",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 226,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 03 URI GILBERT HOME 189 S",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 240,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 04 WASHINGTON STREET FERR",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 254,
+     "tag": "a",
+     "id": "",
+     "class": "group.grid.grid-cols-[5rem_1fr_auto]",
+     "ariaLabel": "",
+     "text": "SPOT 05 PETER BALTIMORE’S BARB",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 273,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 275,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 279,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 283,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 292,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 29,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 96,
+     "tag": "button",
+     "id": "",
+     "class": "flex.shrink-0.cursor-pointer",
+     "ariaLabel": "Play narration: Holeur’s Fashionable Bakery",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 104,
+     "tag": "input",
+     "id": "",
+     "class": "cnwm-scrub.mt-4.w-full",
+     "ariaLabel": "Narration position",
+     "text": "0",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 245,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-solid",
+     "ariaLabel": "",
+     "text": "CONTINUE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 249,
+     "tag": "a",
+     "id": "",
+     "class": "btn.btn-ghost",
+     "ariaLabel": "",
+     "text": "GET DIRECTIONS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 259,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 283,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 287,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PAINTINGS",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 291,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 295,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 299,
+     "tag": "button",
+     "id": "share-btn",
+     "class": "btn-sm.btn-ghost",
+     "ariaLabel": "",
+     "text": "SHARE",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 309,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "stops": [
+    {
+     "n": 1,
+     "body": false,
+     "domIndex": 26,
+     "tag": "a",
+     "id": "",
+     "class": "skip-link",
+     "ariaLabel": "",
+     "text": "Skip to content",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 2,
+     "body": false,
+     "domIndex": 52,
+     "tag": "button",
+     "id": "",
+     "class": "t-meta.cursor-pointer.rounded-full",
+     "ariaLabel": "",
+     "text": "SKIP ↓",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 3,
+     "body": false,
+     "domIndex": 59,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Holeur’s Fashionable Bakery”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 4,
+     "body": false,
+     "domIndex": 62,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 5,
+     "body": false,
+     "domIndex": 65,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Commissioner’s Office — Part 2”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 6,
+     "body": false,
+     "domIndex": 68,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Uri Gilbert Home”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 7,
+     "body": false,
+     "domIndex": 71,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 8,
+     "body": false,
+     "domIndex": 74,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing — Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 9,
+     "body": false,
+     "domIndex": 77,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Washington Street Ferry Landing — Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 10,
+     "body": false,
+     "domIndex": 80,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 11,
+     "body": false,
+     "domIndex": 83,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop — Narrative I”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 12,
+     "body": false,
+     "domIndex": 86,
+     "tag": "button",
+     "id": "",
+     "class": "grid.h-6.w-6",
+     "ariaLabel": "Approach “Peter Baltimore’s Barbershop — Narrative II”",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 13,
+     "body": false,
+     "domIndex": 93,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Holeur’s Fashionable Bakery” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 14,
+     "body": false,
+     "domIndex": 99,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 1",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 15,
+     "body": false,
+     "domIndex": 106,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 16,
+     "body": false,
+     "domIndex": 112,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 2",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 17,
+     "body": false,
+     "domIndex": 119,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Commissioner’s Office — Part 2” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 18,
+     "body": false,
+     "domIndex": 125,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 2",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 19,
+     "body": false,
+     "domIndex": 132,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Uri Gilbert Home” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": false
+    },
+    {
+     "n": 20,
+     "body": false,
+     "domIndex": 138,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 3",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 21,
+     "body": false,
+     "domIndex": 145,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 22,
+     "body": false,
+     "domIndex": 151,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 23,
+     "body": false,
+     "domIndex": 158,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing — Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 24,
+     "body": false,
+     "domIndex": 164,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 25,
+     "body": false,
+     "domIndex": 171,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Washington Street Ferry Landing — Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 26,
+     "body": false,
+     "domIndex": 177,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 4",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 27,
+     "body": false,
+     "domIndex": 184,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 28,
+     "body": false,
+     "domIndex": 190,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 29,
+     "body": false,
+     "domIndex": 197,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop — Narrative I” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 30,
+     "body": false,
+     "domIndex": 203,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 31,
+     "body": false,
+     "domIndex": 210,
+     "tag": "button",
+     "id": "",
+     "class": "painting-open.group.block",
+     "ariaLabel": "View “Peter Baltimore’s Barbershop — Narrative II” closely",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 32,
+     "body": false,
+     "domIndex": 216,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta",
+     "ariaLabel": "",
+     "text": "SPOT 5",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 33,
+     "body": false,
+     "domIndex": 237,
+     "tag": "a",
+     "id": "",
+     "class": "inline-block.py-1.underline",
+     "ariaLabel": "",
+     "text": "Notable",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 34,
+     "body": false,
+     "domIndex": 239,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "THE PEOPLE OF THIS DAY",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 35,
+     "body": false,
+     "domIndex": 243,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "ABOUT THE MEMORIAL",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 36,
+     "body": false,
+     "domIndex": 247,
+     "tag": "a",
+     "id": "",
+     "class": "link-meta.t-meta.w-fit",
+     "ariaLabel": "",
+     "text": "MAP",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    },
+    {
+     "n": 37,
+     "body": false,
+     "domIndex": 256,
+     "tag": "button",
+     "id": "",
+     "class": "cnwm-menu-burger.flex.h-[72px]",
+     "ariaLabel": "Open menu",
+     "text": "",
+     "noRing": false,
+     "outline": "solid 2px rgb(242, 104, 53)",
+     "boxShadow": "none",
+     "opacity": 1,
+     "inViewport": true
+    }
+   ],
+   "stopReason": "focus returned to body"
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "check": "menu-keyboard",
+   "openedOnEnter": true,
+   "focusMovedIntoPanel": true,
+   "closedOnEscape": true,
+   "focusReturnedToBurger": true
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "check": "dialog-keyboard",
+   "openedOnEnter": true,
+   "closedOnEscape": true,
+   "focusReturnedToTile": true
+  }
+ ],
+ "reducedMotion": [
+  {
+   "route": "/",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/bakery",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/mansion",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/ferry",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/barbershop",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/map",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/people",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/paintings",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/about",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/404",
+   "vp": "390",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "route": "/",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/bakery",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/commissioners-office",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/mansion",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/ferry",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/barbershop",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/map",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/people",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/paintings",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/about",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": []
+  },
+  {
+   "route": "/404",
+   "vp": "1440",
+   "hiddenText": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ ],
+ "zoom": [
+  {
+   "route": "/",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/bakery",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/commissioners-office",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/mansion",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/ferry",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/barbershop",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "img.interlude-img",
+    "div.pointer-events-none"
+   ]
+  },
+  {
+   "route": "/map",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": [
+    "div.keen-slider__slide",
+    "div.origin-bottom",
+    "div.mx-auto",
+    "div.h-full",
+    "picture."
+   ]
+  },
+  {
+   "route": "/people",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/paintings",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/about",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  },
+  {
+   "route": "/404",
+   "scrollWidth": 720,
+   "innerWidth": 720,
+   "overflow": false,
+   "wide": []
+  }
+ ],
+ "consoleErrors": [
+  {
+   "where": "/404 @390 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/404 @768 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/404 @1440 rest",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/bakery @1440 keyboard",
+   "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
+  },
+  {
+   "where": "/bakery @390 keyboard",
+   "text": "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` wh"
+  },
+  {
+   "where": "/404 @390 reduced-motion",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/404 @1440 reduced-motion",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "where": "/404 zoom-200",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  }
+ ],
+ "finishedAt": "2026-08-16T00:25:02.021Z"
+}

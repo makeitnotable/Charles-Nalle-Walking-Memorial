@@ -1,0 +1,37 @@
+{
+  "bakery": {
+    "historical": "#83817d",
+    "reveal-horizontal": "#423630",
+    "reveal-vertical": "#4c433c"
+  },
+  "barbershop": {
+    "historical": "#787772",
+    "narrative1": "#3e352c",
+    "narrative2": "#503d31",
+    "reveal-horizontal": "#4a392f",
+    "reveal-vertical": "#3b2d29"
+  },
+  "commissioners-office": {
+    "historical": "#8a8f8d",
+    "historical-pt2": "#777061",
+    "reveal-horizontal": "#673d2c",
+    "reveal-horizontal-pt2": "#5d4e4c",
+    "reveal-vertical": "#764629",
+    "reveal-vertical-pt2": "#585867"
+  },
+  "ferry": {
+    "historical": "#8f8e89",
+    "narrative1": "#5c4734",
+    "narrative2": "#705a38",
+    "reveal-horizontal": "#4d3327",
+    "reveal-vertical": "#5c392a"
+  },
+  "mansion": {
+    "historical": "#625555",
+    "reveal-horizontal": "#333329",
+    "reveal-vertical": "#353328"
+  },
+  "site": {
+    "splash": "#5b4426"
+  }
+}

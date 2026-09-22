@@ -1,0 +1,179 @@
+{
+  "t": [
+    {
+      "s": "mid-walk before drag",
+      "walk": "walking",
+      "idx": 1,
+      "moving": true,
+      "zoom": 16.54,
+      "btn": "Stop the walk [Stop the walk]",
+      "active": "Enter Spot 02",
+      "pos": -298
+    },
+    {
+      "s": "1.5s after small drag",
+      "walk": "paused",
+      "idx": 1,
+      "moving": false,
+      "zoom": 17.75,
+      "btn": "Continue [Continue the walk]",
+      "active": "Enter Spot 02",
+      "pos": -298
+    },
+    {
+      "s": "after Continue",
+      "walk": "walking",
+      "idx": 2,
+      "moving": true,
+      "zoom": 17.74,
+      "btn": "Stop the walk [Stop the walk]",
+      "active": "Enter Spot 03",
+      "pos": -635
+    }
+  ],
+  "smallDrag": {
+    "before": -298,
+    "samples": [
+      -301,
+      -300,
+      -300,
+      -300,
+      -300,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -299,
+      -298,
+      -298,
+      -298,
+      -298,
+      -298,
+      -298,
+      -298,
+      -298,
+      -298
+    ],
+    "after": {
+      "walk": "paused",
+      "idx": 1,
+      "moving": false,
+      "zoom": 16.56,
+      "btn": "Continue [Continue the walk]",
+      "active": "Enter Spot 02",
+      "pos": -298
+    }
+  },
+  "afterContinue": [
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 02",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 03",
+    "Enter Spot 03"
+  ],
+  "flick": {
+    "before": {
+      "walk": "walking",
+      "idx": 2,
+      "moving": true,
+      "zoom": 17.74,
+      "btn": "Stop the walk [Stop the walk]",
+      "active": "Enter Spot 03",
+      "pos": -635
+    },
+    "samples": [
+      -771,
+      -760,
+      -731,
+      -715,
+      -697,
+      -686,
+      -678,
+      -671,
+      -663,
+      -658,
+      -654,
+      -651,
+      -648,
+      -645,
+      -644,
+      -642,
+      -641,
+      -640,
+      -639,
+      -638,
+      -638,
+      -637,
+      -637,
+      -636,
+      -636
+    ],
+    "after": {
+      "walk": "paused",
+      "idx": 2,
+      "moving": false,
+      "zoom": 17.75,
+      "btn": "Continue [Continue the walk]",
+      "active": "Enter Spot 03",
+      "pos": -635
+    }
+  },
+  "stop": {
+    "moving": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "after": {
+      "walk": "idle",
+      "idx": 2,
+      "moving": false,
+      "zoom": 17.75,
+      "btn": "Continue [Continue the walk]",
+      "active": "Enter Spot 03",
+      "pos": -635
+    }
+  },
+  "burger": {
+    "op": "0",
+    "pe": "none",
+    "attrs": "class=cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-inset)] z-[1000] data-position=bottom-right data-walk=true"
+  },
+  "enter": {
+    "label": "Enter Spot 03: Uri Gilbert Home",
+    "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/mansion",
+    "title": "Uri Gilbert Home · Charles Nalle Walking Memorial"
+  },
+  "afterBrowserBack": {
+    "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/map?stop=mansion",
+    "walk": "idle",
+    "idx": 2,
+    "moving": false,
+    "zoom": 17.75,
+    "btn": "Continue [Continue the walk]",
+    "active": "Enter Spot 03",
+    "pos": -635
+  },
+  "log": [
+    "[warning] The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload",
+    "[warning] The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded "
+  ]
+}

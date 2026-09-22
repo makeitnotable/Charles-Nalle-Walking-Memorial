@@ -1,0 +1,3288 @@
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { Mesh, MeshBasicMaterial, PerspectiveCamera, WebGLRenderer } from "three";
+
+/**
+ * THE MUSEUM — the site's one concentrated boldness (v6 locked decision #2),
+ * refined in v7 (Wil, 2026-08-15 review + docs/PLAN.md A10):
+ *
+ *  · The hall is shorter and closer (SPACING 5, works ~30% nearer), the rail
+ *    walks slightly pitched down so the floor moves (the strongest forward
+ *    cue), passes the last work, and the end wall + threshold are visible
+ *    from the start (camera.far 80, fog 8→32). An entry wall behind you
+ *    closes the room for the 360° look.
+ *  · Look is free: unbounded yaw with light inertia, pitch clamped; a
+ *    `Face forward` control appears once you've turned; a double-tap on the
+ *    wall/floor recentres; keyboard: ←/→ look, ↑/↓ (W/S) walk, Enter
+ *    approach the nearest work, Esc back, +/− zoom in approach. No mouse-move
+ *    look — that was accidental.
+ *  · Approach = a pure composition recomputed every frame through the lerp:
+ *    the painting CENTRED in the frame; desktop card at the left edge with no
+ *    border and one button (`Back to the hall`); the study hangs screen-right
+ *    of its painting on both walls; phones get a peek-sheet that drags up to
+ *    the full card while the painting recomposes above it.
+ *  · v8 V8-326 (Wil): the hall is ALIVE BY DEFAULT — the nearest works play
+ *    Mark Priest's animated variants (2 films below 1024 / 3 on desktop,
+ *    pool N+1, nothing before the first input so Lighthouse never sees a
+ *    video byte); tapping the focused painting rests it and wakes it, and an
+ *    invisible focusable pause/play button over the projected painting keeps
+ *    the capability for keyboard and screen readers.
+ *  · Every canvas hangs at its TRUE aspect (build-time, sharp) — the portrait
+ *    Barbershop Narrative II tall and narrow, the 16:9s wide.
+ *  · Finish: MeshBasicMaterial + richer baked CanvasTextures — plank floor
+ *    with a sheen band per bay, plaster walls, coffered ceiling, baseboard +
+ *    cornice, moulded frames with a gilt lip whose top faces read lit.
+ *
+ * Craft bars kept from v6: no loading gate; DPR ≤ 1.5; the loop pauses when
+ * off-screen or hidden and under the curtain; full dispose; `three` arrives
+ * after load; no WebGL / reduced motion / thin pipe → the island renders
+ * nothing and the 2-D grid below is the page. Keyboard path is real DOM.
+ * Debug: `window.__museum` drives scripts/museum-check.mjs.
+ */
+
+export interface Work {
+  slug: string;
+  key: string;
+  title: string;
+  /** The plaque's own line under LOCATION NN: the painting's official title
+   *  (v12, Wil's 8/26 map). v8's second `variant` line — "Part 2", "1", "2" —
+   *  is gone with the location-derived names that needed disambiguating. */
+  name: string;
+  order: number;
+  tex1440: string;
+  tex800: string;
+  video: string | null;
+  sketch: string | null;
+  /** v10 V10-06: the chapter's sentence about the study — TEXT only; the
+   *  drawing itself hangs on the wall, never in the card. */
+  studyNote?: string | null;
+  /** True aspect (w/h) of the canvas — build-time from the 1440 asset. */
+  aspect: number;
+  /** True aspect of the study beside the main canvas. */
+  sketchAspect?: number | null;
+  line: string | null;
+  lineBy: string | null;
+}
+
+interface Props {
+  works: Work[];
+  slotId?: string;
+}
+
+// ——— The hall, in metres ———
+const SPACING = 5; // corridor per canvas (was 7)
+const OVERRUN = 1.5; // the rail passes the last work
+const END_GAP = 6; // last work → end wall
+const CORRIDOR_HALF = 3.4;
+const EYE = 1.55;
+/* rad, down. v8 V8-324 (Wil, 00:26:42) took it to −0.15/−0.12; v9 V9-101
+   (Wil, 8/21) asks for "slightly more down, just a little bit" — one more
+   step, still shallow enough that the cornice reads at the top of the frame. */
+const RAIL_PITCH = -0.19;
+const RAIL_PITCH_PORTRAIT = -0.155;
+const ENTRY_Z = 7; // the wall behind you
+
+/* v14 E9.1 (Wil): the ONE portrait/drawer split, read in three places —
+   `portraitUI` (the React tree), `layout()` and `isPortraitNow()` (the scene).
+   Each used to encode its own `< 1024`, so the 12.9" and 13" iPads (1024 and
+   1032 CSS px across in portrait) fell through to the desktop side card: no
+   drawer, no X. Portrait viewports below the 1200 desktop type step take the
+   sheet — every shipping portrait tablet is ≤ 1032 wide, and under 1200 the
+   drawer keeps to the 20 / 40 `--ui-inset` steps it was measured at. The
+   media query's `portrait` is h ≥ w, so the stage form says the same. */
+const SHEET_MAX_W = 1199;
+const SHEET_MQ = `(max-width: ${SHEET_MAX_W}px) and (orientation: portrait)`;
+const isSheetUI = (w: number, h: number) => w <= SHEET_MAX_W && h >= w;
+
+/**
+ * v10 V10-06 (Wil, 8/21): "the only things on the card were the previously
+ * existing text and the written content associated with the artist study."
+ * Text only — the drawing is already on the wall beside its painting.
+ */
+function StudyNote({ work }: { work: Work }) {
+  if (!work.studyNote) return null;
+  return (
+    <div className="museum-study mt-5 border-t border-primary-7/60 pt-4">
+      <p className="t-meta">Artist study</p>
+      <p className="t-meta-body mt-2">{work.studyNote}</p>
+    </div>
+  );
+}
+
+export default function Museum({ works, slotId }: Props) {
+  const [capable, setCapable] = useState<boolean | null>(null);
+  const [approached, setApproached] = useState<number | null>(null);
+  const [alive, setAlive] = useState<number | null>(null);
+  /* v13 V13-05b (Wil, 8/26): the still <-> alive TAP SWITCH. `stopped[]` is
+     the scene's own truth — a work the visitor switched off stays off, even
+     after leaving approach — so it is mirrored out here: the invisible toggle
+     must ANNOUNCE the true state (it used to read `alive`, which is the
+     playback window, not the switch). v14 E17 (Wil): the v13 play/pause cue
+     that also read it is gone — the switch is discoverable by touch alone. */
+  const [stoppedFlags, setStoppedFlags] = useState<boolean[]>([]);
+  const [ready, setReady] = useState(false);
+  const [railIdx, setRailIdx] = useState(0);
+  const [lookedAway, setLookedAway] = useState(false);
+  /* v14 E6 (Wil): the wayfinding chip is a ONE-TIME hint at every width. It
+     stands until the visitor's first input — a wheel over the hall, the walk
+     passing 1% of the rail, a press on the canvas, a hall key, an approach —
+     and then stays gone until a full reload. One-way by construction: nothing
+     ever sets this back to false. It supersedes v13 V13-10a's phone-only
+     `walkStarted` / `data-walking`, which hid the chip while walking and
+     brought it BACK at a dead stop. */
+  const [hintDismissed, setHintDismissed] = useState(false);
+  /** Phone sheet: "peek" (title only) or "full". */
+  const [sheet, setSheet] = useState<"peek" | "full">("peek");
+  const [paintRect, setPaintRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  const [portraitUI, setPortraitUI] = useState(false);
+  /** Measured sheet height — the dot rail rides just above it. */
+  const [sheetH, setSheetH] = useState(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const sheetHeadRef = useRef<HTMLDivElement>(null);
+  const sheetCloseRef = useRef<HTMLButtonElement>(null); // round 31: the X, mounted in both states
+  const dotsRef = useRef<HTMLElement>(null);
+  /* v12: the phone chip is centred between Skip's lower edge and the arch, so
+     Skip's real box is measured rather than reconstructed from its tokens. */
+  const skipRef = useRef<HTMLDivElement>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const api = useRef<{
+    approach: (i: number | null) => void;
+    turnOn: (i: number) => void;
+    turnOff: (i?: number) => void;
+    recenter: () => void;
+    setZoom: (z: number) => void;
+    chipBand: () => void;
+    dispose: () => void;
+  } | null>(null);
+  const sheetRefState = useRef<"peek" | "full">("peek");
+  sheetRefState.current = sheet;
+  /* v12 (Wil, 8/26): a THIRD drawer state, phones only — the close control
+     "should completely hide the drawer", and scrolling on brings it back a
+     step at a time: first scroll restores the preview, the second opens it
+     full with the close icon. Kept as its own flag rather than an extension of
+     the 0..1 axis, so the drag / swipe / wheel maths below are untouched. */
+  const [sheetHidden, setSheetHidden] = useState(false);
+  const sheetHiddenRef = useRef(false);
+  sheetHiddenRef.current = sheetHidden;
+
+  /* ——— v8 V8-328: ONE continuous sheet position, every input drives it ———
+     0 = peek (header only above the fold), 1 = the full card. The element is
+     always fully mounted; translateY hides the body below the stage edge, so
+     layout() can read the LIVE visible height and the painting recomposes
+     while the drawer slides. Shared by the header drag, the stage swipe and
+     the wheel machine (both live inside the three-effect), via refs. */
+  const sheetPosRef = useRef(0);
+  const sheetTravel = () => {
+    const el = sheetRef.current;
+    const head = sheetHeadRef.current;
+    /* v14.3 (Wil, 9/16): the sheet wears its 1px top stroke again, and
+       `offsetHeight` counts it — travel is the height BELOW the header, so
+       the stroke (`clientTop`) stays above the fold with it. Without this the
+       header's last pixel slid under the stage edge in peek and the title's
+       bottom air missed the inset on a portrait tablet. REVERT with the
+       border: drop `- el.clientTop`. */
+    if (!el || !head) return 1;
+    /* Round 31: the X folds in and out INSIDE the header (global.css, `data-x`
+       on the sheet), so the header is taller by its box while it is unfolded.
+       Travel is measured to the header WITHOUT it — otherwise the drawer's
+       mapping would jump by (1 − p) × the X's box the moment it started to
+       unfold under a moving finger. At peek the X is folded, so the peek
+       header is exactly the one measured here; at full the translate is 0
+       whatever the header's height. */
+    const x = sheetCloseRef.current;
+    const xBox = x ? x.offsetHeight + (parseFloat(getComputedStyle(x).marginBottom) || 0) : 0;
+    return Math.max(1, el.offsetHeight - el.clientTop - (head.offsetHeight - xBox));
+  };
+  const applySheet = (pos: number, animate: boolean) => {
+    const el = sheetRef.current;
+    if (!el || sheetHiddenRef.current) return;
+    /* a light rubber band past the ends — the hard clamp keeps the header on
+       screen whatever the gesture does */
+    const p = pos > 1 ? 1 + Math.min(0.06, (pos - 1) * 0.25) : pos < 0 ? Math.max(-0.06, pos * 0.25) : pos;
+    sheetPosRef.current = Math.max(0, Math.min(1, pos));
+    /* Round 31 (Wil, 2026-09-22: the X "should appear instantly by animating
+       in with the expansion of the drawer"): the X unfolds the moment the
+       drawer is on its way up — past 12% of the travel, back under 8% — not
+       when the state settles. The fold itself is CSS (global.css). */
+    const shown = el.dataset.x === "1";
+    if (!shown && pos > 0.12) el.dataset.x = "1";
+    else if (shown && pos < 0.08) delete el.dataset.x;
+    el.style.transition = animate ? "transform var(--dur-fast) var(--ease)" : "none";
+    el.style.transform = `translateY(${Math.round((1 - p) * sheetTravel())}px)`;
+  };
+  const snapSheet = (s: "peek" | "full") => {
+    setSheet(s);
+    applySheet(s === "full" ? 1 : 0, true);
+  };
+  /** Off the bottom edge entirely — the painting keeps the whole stage. */
+  const hideSheet = () => {
+    const el = sheetRef.current;
+    sheetHiddenRef.current = true; // synchronous: applySheet's guard reads this
+    setSheetHidden(true);
+    setSheet("peek");
+    sheetPosRef.current = 0;
+    if (el) {
+      delete el.dataset.x; // round 31: the X folds as the drawer leaves
+      el.style.transition = "transform var(--dur-fast) var(--ease)";
+      el.style.transform = `translateY(${Math.round(el.offsetHeight)}px)`;
+    }
+  };
+  /** …and back, one step: the preview first, never straight to the full card. */
+  const revealSheet = () => {
+    sheetHiddenRef.current = false; // …and back, before applySheet is called
+    setSheetHidden(false);
+    setSheet("peek");
+    applySheet(0, true);
+  };
+  const applySheetFn = useRef(applySheet);
+  applySheetFn.current = applySheet;
+  const snapSheetFn = useRef(snapSheet);
+  snapSheetFn.current = snapSheet;
+  const revealSheetFn = useRef(revealSheet);
+  revealSheetFn.current = revealSheet;
+
+  /* The close icon is IN FLOW in the sheet header, so mounting it changes the
+     header's height — and the header's height IS the drawer's travel. Re-apply
+     the current position after every state flip, before paint, or the drawer
+     jumps by the height of the icon the first time it appears. v14 E8 mounts
+     the icon in both states, so peek <-> full no longer moves the travel; the
+     re-apply still covers the reveal from hidden, where the icon returns. */
+  useLayoutEffect(() => {
+    if (!sheetHiddenRef.current) applySheetFn.current(sheetPosRef.current, false);
+  }, [sheet, sheetHidden]);
+
+  // ——— Capability gate (runs once, before three is even fetched) ———
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const conn = (navigator as any).connection;
+    const thin = Boolean(
+      conn && (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))),
+    );
+    let gl: WebGLRenderingContext | null = null;
+    try {
+      gl = document.createElement("canvas").getContext("webgl");
+    } catch {
+      gl = null;
+    }
+    setCapable(Boolean(gl) && !reduced && !thin);
+  }, []);
+
+  // Expand the server-rendered slot once we know the museum is coming.
+  // ~90vh per work: a shorter hall walks at the same pace as before.
+  useEffect(() => {
+    /* Round 25: the lead painting's cover (paintings.astro, global.css)
+       leaves at once when the hall is not coming — no WebGL, reduced motion,
+       a thin connection, a lost context — rather than after its 2.4s wait. */
+    if (capable === false && slotId) document.getElementById(slotId)?.setAttribute("data-hall", "off");
+    if (!capable || !slotId) return;
+    const slot = document.getElementById(slotId);
+    if (!slot) return;
+    slot.style.height = `${works.length * 90 + 100}vh`;
+    /* The server-rendered lead painting (the incapable fallback) sits under
+       the opaque stage from now on — hide it from paint and from AT. */
+    const lead = slot.querySelector<HTMLElement>(":scope > div");
+    if (lead) {
+      lead.style.visibility = "hidden";
+      lead.setAttribute("aria-hidden", "true");
+    }
+    return () => {
+      slot.style.height = "";
+      if (lead) {
+        lead.style.visibility = "";
+        lead.removeAttribute("aria-hidden");
+      }
+    };
+  }, [capable, slotId, works.length]);
+
+  // The sheet element remounts on approach/orientation — restore the snapped
+  // position imperatively (transform is never in JSX), and keep a measured
+  // height in state as the dot rail's first-frame fallback (tick() then
+  // follows the LIVE visible top every frame — V8-328).
+  useEffect(() => {
+    const el = sheetRef.current;
+    if (!el) {
+      setSheetH(0);
+      return;
+    }
+    const sync = () => {
+      /* round 31: the LIVE position, not the state's end — the X now unfolds
+         inside the header during a drag, and the sheet's box can change by a
+         fraction as it does, which fired this and threw the drawer back to
+         the state's end under a moving finger (measured: pos 0.41 → 0). After
+         a remount the live position is the snapped one (approach resets it). */
+      applySheetFn.current(sheetPosRef.current, false);
+      setSheetH(sheetHeadRef.current?.offsetHeight ?? el.getBoundingClientRect().height);
+    };
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
+    sync();
+    return () => ro.disconnect();
+    /* NOT `sheet`: the body is always mounted now, so the snapped state no
+       longer changes the element's height — and re-running on it would replay
+       the snap without its animation. */
+  }, [approached, portraitUI]);
+
+  // Layout is live (column vs sheet) while the world stays as built.
+  useEffect(() => {
+    /* Phones AND portrait tablets: a side card next to a 16:9 canvas does not
+       fit a 2.4m half-corridor even at the 84° fov cap — the sheet does.
+       v14 E9.1: the split is `SHEET_MQ`, shared with the scene's two readers. */
+    const mq = window.matchMedia(SHEET_MQ);
+    const on = () => setPortraitUI(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+
+  // ——— Scene ———
+  useEffect(() => {
+    if (!capable || !stageRef.current || !wrapRef.current) return;
+    let disposed = false;
+    let raf = 0;
+    let inView = true;
+    let visible = !document.hidden;
+    let covered = false;
+
+    const stage = stageRef.current;
+    const wrap = wrapRef.current;
+
+    (async () => {
+      await new Promise<void>((resolve) => {
+        const idle = () =>
+          "requestIdleCallback" in window
+            ? (window as any).requestIdleCallback(() => resolve(), { timeout: 2500 })
+            : setTimeout(resolve, 350);
+        if (document.readyState === "complete") idle();
+        else window.addEventListener("load", idle, { once: true });
+      });
+      if (disposed) return;
+      const THREE = await import("three");
+      const { mergeGeometries } = await import("three/examples/jsm/utils/BufferGeometryUtils.js");
+      if (disposed) return;
+      /* The build is chunked across idle callbacks so no single task runs
+         long: room → works → loop (Lighthouse TBT stays where v6 left it). */
+      const breathe = () => new Promise<void>((r) => ("requestIdleCallback" in window ? (window as any).requestIdleCallback(() => r(), { timeout: 200 }) : setTimeout(r, 0)));
+
+      const renderer: WebGLRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      /* ── Round 24 (Wil, 2026-09-21), device pass 5: the hall under Safari's
+         bars ─────────────────────────────────────────────────────────────
+         Two facts, both measured on his phone (global.css has the record).
+         Safari 26's bars are glass over the page unless a fixed or sticky
+         element is what its edge probe finds — the stage was, so both bars
+         were opaque fills and nothing under them could ever show (passes
+         1–3). And a pinned box's paint never reaches the bar regions; only
+         in-flow page paint does (the map's runway, the chapter cover). One
+         answer each. THE PIN (`.museum-pin`, the JSX below): the sticky
+         element is now a wrapper a viewport taller than the viewport, which
+         WebKit's probe ignores as too large, with the stage at its foot in
+         exactly the box it always had — `stage.clientHeight` is this page's
+         composition basis (FOV, thresholds, the walk's scroll total, the
+         sheet split), so the stage never changes size. THE RUNWAY, below.
+
+         The canvas renders B rows above and below the stage. setViewOffset
+         is three.js's equivalent of the map camera's padding: with `aspect`
+         left at the stage's w/h, a view of (w, h, 0, −B, w, h + 2B)
+         multiplies the frustum height by (h+2B)/h and starts it B rows
+         above the same top edge — so the canvas's middle h rows are framed
+         pixel-for-pixel as they are today (measured, scripts/museum-runway.mjs)
+         and B rows of world show above and below. The stage's `overflow:
+         hidden` clips both bleeds; nothing shows through the stage.
+
+         Two in-flow <canvas> strips in the wrap, BEFORE the pin in the tree
+         so the stage's ground and canvas paint over them, are fed those rows
+         every frame after the render — in the same task; the drawing buffer
+         is not preserved past it — and placed to sit exactly in the regions
+         Safari's bars cover. Page paint, never pinned, so Safari composites
+         it under its glass the way it does the map's runway (playbook §1):
+
+           top    — above the layout viewport's top edge while the stage is
+                    stuck (and while it scrolls out at the end of the walk):
+                    the minimized bar's glass (~91px on his phone) and the
+                    expanded address bar (107px) both show what the document
+                    holds there.
+           bottom — below svh, the bars-expanded viewport height, which holds
+                    still (never innerHeight, which moves with the bars),
+                    whenever the stage's box reaches it: the toolbar band at
+                    rest, and again whenever a scroll up re-expands it. With
+                    the bars minimized it sits behind the stage and below
+                    the screen, harmless.
+
+         Each strip overlaps the stage by RUN_IN on the viewport side, hidden
+         behind the opaque stage, and is padded RUN_OUT past the bar region
+         with the nearest rendered row stretched — so a frame of main-thread
+         lag (playbook §3: a box the page places sits speed × a frame behind
+         the compositor) moves the seam INSIDE the overlap or the padding and
+         never opens a slit of page ground. A velocity lead of about a frame
+         covers the residual; what remains is a texture phase of a few pixels
+         in a blurred, dark band, which only his phone can judge. The top
+         strip fades in over the first RUN_FADE px of the stuck scroll, so
+         the ceiling arrives over the header's tail as a fade, not a cut.
+
+         Cost: the render target is 2B rows taller (220 on a 645 viewport),
+         plus two small blits a frame. Nothing here exists where B is 0 —
+         every desktop, Android, iPad, and Chromium. Flags: `?runway=off`
+         (the pin and the bleed, no strips: glass over the page ground, what
+         the pin alone buys), `?runway=readpixels` (the readback copy path
+         from the start), `?debug=1` (the readout, and a magenta cast on the
+         strips so a screenshot shows where Safari draws them). */
+      const RUNWAY_BUILD = "r24.6";
+      const RUN_IN = 48;
+      const RUN_OUT = 48;
+      const RUN_FADE = 100;
+      const runwayOff = /(^|[?&])runway=off(&|$)/.test(location.search);
+      const runwayReadPixels = /(^|[?&])runway=readpixels(&|$)/.test(location.search);
+      let runCopy: "drawImage" | "readPixels" = runwayReadPixels ? "readPixels" : "drawImage";
+      let runCopyChecked = false;
+      let runBlits = 0;
+      let runError = "";
+      const strips: { top: HTMLCanvasElement | null; bottom: HTMLCanvasElement | null } = { top: null, bottom: null };
+      let runB = 0;
+      let runPR = 1;
+      let runSvh = 0;
+      let runLastS: number | null = null;
+      let runLastT = 0;
+      let runVel = 0;
+      let runLead = 0;
+      let runFrameMs = 16.7;
+      let runLastRaf = 0;
+      const runLast = {
+        top: { s0: 0, rows: 0, on: false, y: NaN },
+        /* drawer: the strip row the plaque drawer's ground starts on, −1 for none (round 26) */
+        bottom: { s0: 0, rows: 0, on: false, y: NaN, drawer: -1 },
+      };
+      /* ── Round 26 (Wil, 2026-09-22): the drawer continues under the toolbar
+         With a painting tapped, the plaque drawer sits at the stage's foot
+         with an open bottom — designed for the days when the band under the
+         toolbar was Safari's solid fill in the same brown. Now that band is
+         glass over the bottom strip, which painted the floor, so the drawer
+         ended in a visible edge with the hall showing between it and the
+         toolbar: a card floating in the hall, not a drawer rising from the
+         screen's bottom (his screenshot). The drawer lives inside the pinned
+         stage and cannot reach under the toolbar itself (playbook §1), so the
+         strip carries it: whenever the drawer covers the stage's bottom edge,
+         the strip's rows from the drawer's top edge down are the floor rows
+         blurred as the drawer's backdrop blurs them, with the drawer's own
+         ground laid over (its computed background colour, read from the
+         element — 90% page brown) and its side strokes. The floor returns the
+         frame the drawer leaves; a drawer slid out below the stage never
+         qualifies, because its top edge is not above the stage's bottom. */
+      let blurCanvas: HTMLCanvasElement | null = null;
+      let sheetGroundFor: HTMLElement | null = null;
+      let sheetGround = "rgba(29, 20, 17, 0.9)";
+      let sheetStroke = "";
+      const readSheetGround = (el: HTMLElement, ctx: CanvasRenderingContext2D) => {
+        if (sheetGroundFor === el) return;
+        sheetGroundFor = el;
+        const cs = getComputedStyle(el);
+        /* a colour the canvas cannot parse leaves fillStyle as it was */
+        const probe = (v: string, fallback: string) => {
+          const was = ctx.fillStyle;
+          ctx.fillStyle = "#010203";
+          ctx.fillStyle = v;
+          const ok = ctx.fillStyle !== "#010203";
+          ctx.fillStyle = was;
+          return ok ? v : fallback;
+        };
+        sheetGround = probe(cs.backgroundColor, "rgba(29, 20, 17, 0.9)");
+        const stroke = parseFloat(cs.borderLeftWidth) > 0 ? probe(cs.borderLeftColor, "") : "";
+        sheetStroke = stroke && !/^(transparent|rgba\(0, 0, 0, 0\))$/.test(stroke) ? stroke : "";
+      };
+      const drawerOver = (c: HTMLCanvasElement, sheetEl: HTMLElement, from: number) => {
+        const ctx = c.getContext("2d");
+        if (!ctx) return;
+        const pr = runPR;
+        const w = c.width;
+        const y0 = Math.max(0, Math.round(from * pr));
+        const h = c.height - y0;
+        if (h <= 0) return;
+        readSheetGround(sheetEl, ctx);
+        /* the drawer's backdrop blur, cheaply: the rows through a canvas an
+           eighth the size and back, which smoothing turns into a soft blur of
+           about the drawer's 10px */
+        if (!blurCanvas) blurCanvas = document.createElement("canvas");
+        const bw = Math.max(1, Math.round(w / 8));
+        const bh = Math.max(1, Math.round(h / 8));
+        if (blurCanvas.width !== bw || blurCanvas.height !== bh) {
+          blurCanvas.width = bw;
+          blurCanvas.height = bh;
+        }
+        const bctx = blurCanvas.getContext("2d");
+        if (bctx) {
+          bctx.drawImage(c, 0, y0, w, h, 0, 0, bw, bh);
+          ctx.drawImage(blurCanvas, 0, 0, bw, bh, 0, y0, w, h);
+        }
+        ctx.fillStyle = sheetGround;
+        ctx.fillRect(0, y0, w, h);
+        if (sheetStroke) {
+          const sw = Math.max(1, Math.round(pr));
+          ctx.fillStyle = sheetStroke;
+          ctx.fillRect(0, y0, sw, h);
+          ctx.fillRect(w - sw, y0, sw, h);
+        }
+      };
+      let debugBox: HTMLPreElement | null = null;
+      let debugAt = 0;
+      /* the pin is the stage's parent (the JSX below); the strips go before it */
+      const pin = stage.parentElement as HTMLElement;
+      const readB = () => {
+        const v = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-b"));
+        return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
+      };
+      const mkStrip = (name: "top" | "bottom") => {
+        const c = document.createElement("canvas");
+        c.className = "museum-runway";
+        c.dataset.runway = name;
+        c.setAttribute("aria-hidden", "true");
+        wrap.insertBefore(c, pin);
+        return c;
+      };
+      const runwayResize = (b: number) => {
+        runB = b;
+        if (b <= 0) {
+          if (strips.top) strips.top.style.display = "none";
+          if (strips.bottom) strips.bottom.style.display = "none";
+          runLast.top.on = runLast.bottom.on = false;
+          return;
+        }
+        if (runwayOff) return;
+        if (!strips.top) strips.top = mkStrip("top");
+        if (!strips.bottom) strips.bottom = mkStrip("bottom");
+        runPR = renderer.getPixelRatio();
+        const svh = parseFloat(getComputedStyle(stage).getPropertyValue("--museum-svh"));
+        runSvh = Number.isFinite(svh) && svh > 0 ? svh : stage.clientHeight;
+        const w = stage.clientWidth;
+        /* only when the box really changes: iOS fires `resize` on every bar
+           transition, and a canvas re-sized to the same numbers still clears
+           — a blank strip for a frame, exactly when the bar is arriving */
+        const size = (c: HTMLCanvasElement, rows: number) => {
+          /* the GL canvas's own backing width (three.js floors w × pr), so a
+             readback row and a strip row are the same length */
+          const pw = renderer.domElement.width;
+          const ph = Math.round(rows * runPR);
+          if (c.width === pw && c.height === ph) return;
+          c.width = pw;
+          c.height = ph;
+          c.style.width = `${w}px`;
+          c.style.height = `${rows}px`;
+        };
+        size(strips.top, RUN_OUT + b + RUN_IN);
+        size(strips.bottom, RUN_IN + b + RUN_OUT);
+        runLast.top.y = runLast.bottom.y = NaN;
+        if (document.documentElement.dataset.debug === "1" && !debugBox) {
+          debugBox = document.createElement("pre");
+          debugBox.setAttribute("aria-hidden", "true");
+          debugBox.style.cssText =
+            "position:fixed;left:8px;bottom:120px;z-index:100002;margin:0;padding:8px 10px;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.75);border-radius:8px;pointer-events:none;white-space:pre";
+          document.body.appendChild(debugBox);
+        }
+      };
+      const sizeToStage = () => {
+        const w = stage.clientWidth;
+        const h = stage.clientHeight;
+        const b = readB();
+        renderer.setSize(w, h + 2 * b);
+        camera.aspect = w / h;
+        if (b > 0) camera.setViewOffset(w, h, 0, -b, w, h + 2 * b);
+        else camera.clearViewOffset();
+        camera.updateProjectionMatrix();
+        /* the canvas is 2B taller than the stage and starts B above it */
+        renderer.domElement.style.top = b > 0 ? `${-b}px` : "";
+        renderer.domElement.style.bottom = b > 0 ? "auto" : "";
+        runwayResize(b);
+      };
+      /* s0: the canvas CSS row that lands on the strip's first row. Rows the
+         canvas has are copied 1:1 (in the same task as the render — the
+         drawing buffer is not preserved past it); rows beyond its extent take
+         the nearest rendered row, stretched. Two copy paths: drawImage from
+         the WebGL canvas (the cheap one, a GPU blit where the browser allows
+         it) and gl.readPixels + putImageData (a readback, works anywhere).
+         The first drawImage is checked once — a copy that leaves the strip
+         transparent switches to the readback for good, and so does a throw —
+         and the readout says which path is driving and why. */
+      const blitStrip = (c: HTMLCanvasElement, s0: number, rows: number) => {
+        const ctx = c.getContext("2d");
+        if (!ctx) {
+          runError = "no 2d context";
+          return;
+        }
+        const src = renderer.domElement;
+        const H = stage.clientHeight + 2 * runB;
+        const pr = runPR;
+        const a = Math.max(0, s0);
+        const z = Math.min(H, s0 + rows);
+        if (z <= a) {
+          ctx.fillStyle = "#1d1411";
+          ctx.fillRect(0, 0, c.width, c.height);
+          return;
+        }
+        const pw = c.width;
+        const dy = Math.round((a - s0) * pr);
+        const dh = Math.max(1, Math.round((z - a) * pr));
+        try {
+          if (runCopy === "drawImage") {
+            ctx.drawImage(src, 0, a * pr, src.width, (z - a) * pr, 0, dy, pw, dh);
+            if (!runCopyChecked) {
+              runCopyChecked = true;
+              const px = ctx.getImageData(pw >> 1, Math.min(c.height - 1, dy + (dh >> 1)), 1, 1).data;
+              if (px[3] === 0) {
+                runCopy = "readPixels";
+                runError = "drawImage left the strip transparent";
+              }
+            }
+          }
+          if (runCopy === "readPixels") {
+            const gl = renderer.getContext() as WebGLRenderingContext;
+            const ph = src.height;
+            const y0 = Math.max(0, Math.round(a * pr));
+            const y1 = Math.min(ph, y0 + dh);
+            const n = y1 - y0;
+            if (n > 0) {
+              const buf = new Uint8ClampedArray(pw * n * 4);
+              /* GL rows run bottom-up: top-down rows [y0, y1) are GL rows
+                 [ph − y1, ph − y0), and the block is flipped on the way in */
+              gl.readPixels(0, ph - y1, pw, n, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+              const img = ctx.createImageData(pw, n);
+              for (let r = 0; r < n; r++) img.data.set(buf.subarray((n - 1 - r) * pw * 4, (n - r) * pw * 4), r * pw * 4);
+              ctx.putImageData(img, 0, dy);
+            }
+          }
+        } catch (e) {
+          runError = String(e && (e as Error).message ? (e as Error).message : e).slice(0, 80);
+          if (runCopy === "drawImage") runCopy = "readPixels";
+          return;
+        }
+        /* the padding past the canvas's extent: the nearest row, stretched,
+           copied from the strip itself so both paths share it */
+        if (dy > 0) ctx.drawImage(c, 0, dy, pw, 1, 0, 0, pw, dy);
+        const end = dy + dh;
+        if (end < c.height) ctx.drawImage(c, 0, end - 1, pw, 1, 0, end, pw, c.height - end);
+        /* `?debug=1`: a magenta cast on every strip, so a screenshot shows
+           where Safari composites them even when their rows are wrong */
+        if (debugBox) {
+          ctx.fillStyle = "rgba(255,0,255,.35)";
+          ctx.fillRect(0, 0, pw, c.height);
+        }
+        runBlits++;
+      };
+      /* placed by `top`, not by a transform: the map's canvas, the one
+         element measured under the toolbar, is positioned by layout and
+         carries no will-change */
+      const placeStrip = (c: HTMLCanvasElement, key: "top" | "bottom", screenTop: number, wrTop: number) => {
+        const st = runLast[key];
+        if (!st.on) {
+          st.on = true;
+          c.style.display = "block";
+        }
+        const y = Math.round((screenTop - wrTop + runLead) * 10) / 10;
+        if (st.y !== y) {
+          st.y = y;
+          c.style.top = `${y}px`;
+        }
+      };
+      const hideStrip = (c: HTMLCanvasElement, key: "top" | "bottom") => {
+        const st = runLast[key];
+        if (st.on) {
+          st.on = false;
+          c.style.display = "none";
+        }
+      };
+      const debugPaint = (sr: DOMRect, wr: DOMRect) => {
+        if (!debugBox) return;
+        const n = (v: number) => Math.round(v * 10) / 10;
+        const pr = pin.getBoundingClientRect();
+        const rt = strips.top && runLast.top.on ? strips.top.getBoundingClientRect() : null;
+        const rb = strips.bottom && runLast.bottom.on ? strips.bottom.getBoundingClientRect() : null;
+        debugBox.textContent =
+          `${RUNWAY_BUILD} · copy ${runCopy} · blits ${runBlits}${runError ? ` · error: ${runError}` : ""}${runwayOff ? " · strips off" : ""}` +
+          `\nB ${runB} · in ${RUN_IN} · out ${RUN_OUT} · pr ${runPR} · svh ${n(runSvh)} · innerHeight ${window.innerHeight} · scrollY ${n(window.scrollY || 0)}` +
+          `\npin ${n(pr.top)}→${n(pr.bottom)} (${n(pr.height / Math.max(1, window.innerHeight))}× the viewport) · stage ${n(sr.top)}→${n(sr.bottom)} · wrap ${n(wr.top)}→${n(wr.bottom)}` +
+          `\nframe ${n(runFrameMs)}ms · vel ${n(runVel)} · lead ${n(runLead)} · top ${rt ? `${n(rt.top)}→${n(rt.bottom)}` : "off"} · bottom ${rb ? `${n(rb.top)}→${n(rb.bottom)}` : "off"} · drawer ${runLast.bottom.drawer < 0 ? "off" : `from ${n(runLast.bottom.drawer)}`}`;
+      };
+      const paintRunways = (now: number) => {
+        if (runB <= 0 || !strips.top || !strips.bottom) return;
+        const wr = wrap.getBoundingClientRect();
+        const sr = stage.getBoundingClientRect();
+        /* the page's speed in px/ms, positive scrolling down, smoothed over
+           two frames, a reversal taking the new sign at once; the lead is
+           about a frame of it */
+        const s = -wr.top;
+        const dt = runLastT ? now - runLastT : 0;
+        if (runLastS === null) {
+          runLastS = s;
+          runLastT = now;
+        } else if (dt >= 4) {
+          const raw = dt >= 250 ? 0 : Math.max(-8, Math.min(8, (s - runLastS) / dt));
+          runVel = raw && runVel && raw > 0 !== runVel > 0 ? raw : runVel * 0.5 + raw * 0.5;
+          runLastS = s;
+          runLastT = now;
+        }
+        if (runLastRaf && now - runLastRaf < 60) runFrameMs = runFrameMs * 0.9 + (now - runLastRaf) * 0.1;
+        runLastRaf = now;
+        runLead = Math.abs(runVel) < 0.05 ? 0 : runVel * Math.min(34, Math.max(6, runFrameMs));
+        const hTop = RUN_OUT + runB + RUN_IN;
+        const hBot = RUN_IN + runB + RUN_OUT;
+        /* top: while the stage's top edge is at or above the viewport's */
+        if (sr.top <= 0.5 && sr.bottom > 0) {
+          const screenTop = -(RUN_OUT + runB);
+          placeStrip(strips.top, "top", screenTop, wr.top);
+          const fade = String(Math.round(Math.min(1, Math.max(0, -wr.top / RUN_FADE)) * 100) / 100);
+          if (strips.top.style.opacity !== fade) strips.top.style.opacity = fade;
+          const s0 = screenTop - sr.top + runB;
+          blitStrip(strips.top, s0, hTop);
+          runLast.top.s0 = s0;
+          runLast.top.rows = hTop;
+        } else hideStrip(strips.top, "top");
+        /* bottom: the stage's box reaches svh, and the strip stays inside the
+           slot's box so it never paints over the stills below */
+        if (sr.bottom >= runSvh - 0.5 && wr.bottom >= runSvh + runB + RUN_OUT - 0.5) {
+          const screenTop = runSvh - RUN_IN;
+          placeStrip(strips.bottom, "bottom", screenTop, wr.top);
+          const s0 = screenTop - sr.top + runB;
+          blitStrip(strips.bottom, s0, hBot);
+          /* round 26: the drawer, from its top edge down, when it is visible
+             at the stage's bottom edge (its rendered box follows the slide) */
+          let drawerFrom = -1;
+          const sheetEl = sheetRef.current;
+          if (sheetEl) {
+            const shr = sheetEl.getBoundingClientRect();
+            if (shr.height > 0 && shr.top < sr.bottom - 0.5 && shr.top < screenTop + hBot) drawerFrom = Math.max(0, shr.top - screenTop);
+          }
+          if (drawerFrom >= 0 && sheetEl) drawerOver(strips.bottom, sheetEl, drawerFrom);
+          runLast.bottom.drawer = drawerFrom;
+          runLast.bottom.s0 = s0;
+          runLast.bottom.rows = hBot;
+        } else {
+          hideStrip(strips.bottom, "bottom");
+          runLast.bottom.drawer = -1;
+        }
+        if (debugBox && now - debugAt > 250) {
+          debugAt = now;
+          debugPaint(sr, wr);
+        }
+      };
+      /* scripts/museum-runway.mjs: one fresh frame, then each visible strip's
+         rows against the same frame's canvas rows (read in the same task, as
+         the blit is), and the strip's spread so a flat fill cannot pass. */
+      const runwayProbe = () => {
+        renderer.render(scene, camera);
+        paintRunways(performance.now());
+        const W = stage.clientWidth;
+        const H = stage.clientHeight + 2 * runB;
+        const pr = runPR;
+        const scratch = document.createElement("canvas");
+        scratch.width = Math.round(W * pr);
+        scratch.height = Math.round(H * pr);
+        const sctx = scratch.getContext("2d")!;
+        sctx.drawImage(renderer.domElement, 0, 0);
+        const stats = (c: HTMLCanvasElement, s0: number, rows: number) => {
+          const ctx = c.getContext("2d")!;
+          const w = c.width;
+          let diff = 0;
+          let n = 0;
+          let compared = 0;
+          for (let k = 1; k <= 4; k++) {
+            const r = Math.round(((rows * k) / 5) * pr);
+            const cy = Math.round(s0 * pr) + r;
+            if (r < 0 || r >= c.height || cy < 0 || cy >= scratch.height) continue;
+            const a = ctx.getImageData(0, r, w, 1).data;
+            const b = sctx.getImageData(0, cy, w, 1).data;
+            for (let i = 0; i < a.length; i += 4) {
+              diff += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
+              n += 3;
+            }
+            compared++;
+          }
+          const d = ctx.getImageData(0, 0, w, c.height).data;
+          let sum = 0;
+          let sq = 0;
+          let m = 0;
+          for (let i = 0; i < d.length; i += 16) {
+            const l = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+            sum += l;
+            sq += l * l;
+            m++;
+          }
+          const mean = sum / m;
+          /* round 26: each sampled row's mean colour, strip and canvas, so the
+             drawer's blend can be checked against the same frame's floor */
+          const rowMeans: { strip: number[]; canvas: number[] }[] = [];
+          for (let k = 1; k <= 4; k++) {
+            const r = Math.round(((rows * k) / 5) * pr);
+            const cy = Math.round(s0 * pr) + r;
+            if (r < 0 || r >= c.height || cy < 0 || cy >= scratch.height) continue;
+            const a = ctx.getImageData(0, r, w, 1).data;
+            const b = sctx.getImageData(0, cy, w, 1).data;
+            const ma = [0, 0, 0];
+            const mb = [0, 0, 0];
+            for (let i = 0; i < a.length; i += 4) for (let ch = 0; ch < 3; ch++) { ma[ch] += a[i + ch]; mb[ch] += b[i + ch]; }
+            rowMeans.push({ strip: ma.map((v) => v / w), canvas: mb.map((v) => v / w) });
+          }
+          return { rowsCompared: compared, meanAbsDiff: n ? diff / n : null, stddev: Math.sqrt(Math.max(0, sq / m - mean * mean)), mean, rowMeans };
+        };
+        const rect = (el: Element) => {
+          const r = el.getBoundingClientRect();
+          return { top: r.top, bottom: r.bottom, left: r.left, width: r.width, height: r.height };
+        };
+        return {
+          b: runB,
+          in: RUN_IN,
+          out: RUN_OUT,
+          svh: runSvh,
+          pr,
+          copy: runCopy,
+          blits: runBlits,
+          error: runError,
+          canvas: rect(renderer.domElement),
+          stage: rect(stage),
+          pin: rect(pin),
+          wrap: rect(wrap),
+          drawer: runLast.bottom.drawer,
+          sheet: sheetRef.current ? rect(sheetRef.current) : null,
+          sheetGround: sheetRef.current ? sheetGround : null,
+          top: runLast.top.on && strips.top ? { rect: rect(strips.top), s0: runLast.top.s0, ...stats(strips.top, runLast.top.s0, runLast.top.rows) } : null,
+          bottom: runLast.bottom.on && strips.bottom ? { rect: rect(strips.bottom), s0: runLast.bottom.s0, ...stats(strips.bottom, runLast.bottom.s0, runLast.bottom.rows) } : null,
+        };
+      };
+      renderer.setSize(stage.clientWidth, stage.clientHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      stage.appendChild(renderer.domElement);
+      renderer.domElement.setAttribute("aria-hidden", "true");
+      renderer.domElement.style.display = "block";
+      renderer.domElement.style.touchAction = "pan-y";
+      /* v12: the canvas comes OUT of flow. The stage is `h-dvh`, so its height
+         never depended on the canvas — but while the canvas was in flow, any
+         element that lost its offset resolved `bottom: auto` and fell into
+         static flow after it, off the bottom of the stage. That is exactly how
+         the dot rail landed on the chip in Wil's 8/24 frame. Belt and braces
+         with the rail's own always-set offset below. */
+      renderer.domElement.style.position = "absolute";
+      renderer.domElement.style.inset = "0";
+
+      const scene = new THREE.Scene();
+      const GROUND = new THREE.Color("#1d1411");
+      scene.background = GROUND;
+      scene.fog = new THREE.Fog(GROUND, 8, 32);
+
+      const portrait = stage.clientWidth < stage.clientHeight;
+      const phone = stage.clientWidth < 640 || stage.clientHeight < 560;
+      const CH = portrait ? 2.4 : CORRIDOR_HALF;
+      const CEIL_Y = portrait ? 3.2 : 4.2;
+      const fovFor = () => (stage.clientWidth < stage.clientHeight ? 72 : 58);
+      /* v14 E13 (Wil): "frames and paintings flicker during any movement". A
+         frame is four faces 15 mm apart with the canvas 10 mm proud, and the
+         depth buffer's resolution scales with distance² / near: at 0.1 a
+         16-bit buffer resolves ~1.5 cm at 10 m and ~14 cm at 30 m, so the
+         stack fights down the hall. The camera is never nearer than 0.64 m to
+         a work (dEff ≥ 0.6 in approach; 1.55 m off the floor on the rail), so
+         0.3 clips nothing and triples the precision at every distance. fov
+         and far are untouched. */
+      const camera: PerspectiveCamera = new THREE.PerspectiveCamera(fovFor(), stage.clientWidth / stage.clientHeight, 0.3, 80);
+      const BASE_FOV = fovFor();
+      /* size the canvas now that `camera` exists; builds the runway strips too */
+      sizeToStage();
+
+      const lastZ = -works.length * SPACING; // last work
+      const endZ = lastZ - END_GAP; // end wall
+      const hallLen = ENTRY_Z - endZ;
+      const hallMid = (ENTRY_Z + endZ) / 2;
+
+      // ——— Baked textures (procedural, cheap, no assets) ———
+      const noise = (g: CanvasRenderingContext2D, w: number, h: number, amp: number) => {
+        const img = g.getImageData(0, 0, w, h);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const n = (Math.random() - 0.5) * amp;
+          d[i] += n;
+          d[i + 1] += n;
+          d[i + 2] += n;
+        }
+        g.putImageData(img, 0, 0);
+      };
+      const tex = (c: HTMLCanvasElement, rx = 1, ry = 1) => {
+        const t = new THREE.CanvasTexture(c);
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.wrapS = t.wrapT = THREE.RepeatWrapping;
+        t.repeat.set(rx, ry);
+        t.anisotropy = 4;
+        return t;
+      };
+      // Plaster walls: the v6 vertical light gradient + fine grain
+      const wallC = document.createElement("canvas");
+      wallC.width = 128;
+      wallC.height = 256;
+      {
+        const g = wallC.getContext("2d")!;
+        const lg = g.createLinearGradient(0, 0, 0, 256);
+        lg.addColorStop(0, "#221510");
+        lg.addColorStop(0.45, "#3a241a");
+        lg.addColorStop(0.68, "#2c1b12");
+        lg.addColorStop(1, "#20130d");
+        g.fillStyle = lg;
+        g.fillRect(0, 0, 128, 256);
+        noise(g, 128, 256, 14);
+        // baseboard + cornice baked in (two draw calls fewer per wall)
+        g.fillStyle = "#2a170f";
+        g.fillRect(0, 256 - 10, 128, 10);
+        g.fillStyle = "#3a2419";
+        g.fillRect(0, 256 - 11, 128, 1);
+        g.fillStyle = "#2f1b13";
+        g.fillRect(0, 0, 128, 7);
+        g.fillStyle = "#3a2419";
+        g.fillRect(0, 7, 128, 1);
+      }
+      const wallTex = tex(wallC, 1, 1);
+      wallTex.repeat.set(hallLen / 4, 1);
+      const wallMat = new THREE.MeshBasicMaterial({ map: wallTex });
+      // Plank floor: boards along the hall, per-board jitter, grain, a sheen
+      // band under every bay so the pace of the works reads in the floor.
+      const floorC = document.createElement("canvas");
+      floorC.width = 256;
+      floorC.height = 512; // one SPACING of hall
+      {
+        const g = floorC.getContext("2d")!;
+        g.fillStyle = "#1a110c";
+        g.fillRect(0, 0, 256, 512);
+        const boards = 9;
+        const bw = 256 / boards;
+        for (let b = 0; b < boards; b++) {
+          const j = (Math.random() - 0.5) * 10;
+          g.fillStyle = `rgb(${30 + j},${19 + j * 0.6},${13 + j * 0.4})`;
+          g.fillRect(b * bw + 1, 0, bw - 2, 512);
+          g.strokeStyle = "rgba(0,0,0,0.35)";
+          g.lineWidth = 1;
+          for (let k = 0; k < 5; k++) {
+            g.beginPath();
+            const x = b * bw + 3 + Math.random() * (bw - 6);
+            g.moveTo(x, 0);
+            g.bezierCurveTo(x + 4, 150, x - 4, 350, x + 2, 512);
+            g.stroke();
+          }
+          g.fillStyle = "rgba(0,0,0,0.5)";
+          g.fillRect(b * bw, 0, 1, 512);
+        }
+        // sheen band (light landing under the paintings), soft
+        const sg = g.createLinearGradient(0, 190, 0, 320);
+        sg.addColorStop(0, "rgba(255,205,155,0)");
+        sg.addColorStop(0.5, "rgba(255,205,155,0.10)");
+        sg.addColorStop(1, "rgba(255,205,155,0)");
+        g.fillStyle = sg;
+        g.fillRect(0, 190, 256, 130);
+        noise(g, 256, 512, 10);
+      }
+      const floorTex = tex(floorC, 1, hallLen / SPACING);
+      // Coffered ceiling with soft disc highlights
+      const ceilC = document.createElement("canvas");
+      ceilC.width = 256;
+      ceilC.height = 256;
+      {
+        const g = ceilC.getContext("2d")!;
+        g.fillStyle = "#150d09";
+        g.fillRect(0, 0, 256, 256);
+        g.strokeStyle = "#1e130d";
+        g.lineWidth = 5;
+        g.strokeRect(12, 12, 232, 232);
+        g.strokeStyle = "#0e0806";
+        g.lineWidth = 2;
+        g.strokeRect(30, 30, 196, 196);
+        const rg = g.createRadialGradient(128, 128, 5, 128, 128, 75);
+        rg.addColorStop(0, "rgba(255,200,150,0.10)");
+        rg.addColorStop(1, "rgba(255,200,150,0)");
+        g.fillStyle = rg;
+        g.fillRect(0, 0, 256, 256);
+        noise(g, 256, 256, 8);
+      }
+      const ceilTex = tex(ceilC, 1, hallLen / SPACING);
+
+      const mat = (c: string) => new THREE.MeshBasicMaterial({ color: new THREE.Color(c) });
+
+      // ——— The room (every long surface a FrontSide plane) ———
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(CH * 2 + 2, hallLen), new THREE.MeshBasicMaterial({ map: floorTex }));
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.set(0, 0, hallMid);
+      scene.add(floor);
+      const ceil = new THREE.Mesh(new THREE.PlaneGeometry(CH * 2 + 2, hallLen), new THREE.MeshBasicMaterial({ map: ceilTex }));
+      ceil.rotation.x = Math.PI / 2;
+      ceil.position.set(0, CEIL_Y, hallMid);
+      scene.add(ceil);
+      for (const side of [-1, 1]) {
+        const wall = new THREE.Mesh(new THREE.PlaneGeometry(hallLen, CEIL_Y), wallMat);
+        wall.rotation.y = (Math.PI / 2) * side;
+        wall.position.set(CH * -side, CEIL_Y / 2, hallMid);
+        scene.add(wall);
+      }
+      // Frame finish: moulding, gilt lip (top face lit), slip, rebate. The
+      // lit top reads through VERTEX colours on a single material — one draw
+      // call per box (a per-face material array costs six).
+      const litBox = (w: number, h: number, d: number, side: string, top: string) => {
+        const g = new THREE.BoxGeometry(w, h, d);
+        const cs = new THREE.Color(side), ct = new THREE.Color(top);
+        const n = g.attributes.position.count;
+        const col = new Float32Array(n * 3);
+        const nrm = g.attributes.normal;
+        for (let i = 0; i < n; i++) {
+          const up = nrm.getY(i) > 0.5;
+          const c = up ? ct : cs;
+          col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+        }
+        g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+        return g;
+      };
+      const vcMat = new THREE.MeshBasicMaterial({ vertexColors: true });
+      /* End wall (U9) — v8 V8-327 (Wil, 00:29:41: the white rectangle should
+         be "a Greek archway… you walk through it and down the steps"). The
+         post-and-lintel doorway is now ONE wall with an arched cutout, so the
+         warm light beyond is shaped by the opening itself: the wall masks the
+         glow plane behind it, and an arch-shaped hole makes an arch of light.
+         Net +3 draw calls (one wall replaces jambs + lintel; archivolt, two
+         pilasters, keystone and landing are new). */
+      const endW = CH * 2 + 2;
+      const ARCH_W = 1.9;
+      const ARCH_R = ARCH_W / 2;
+      const ARCH_SPRING = 2.0; // where the curve starts; apex at 2.95
+      const archPath = (r: number) => {
+        const p = new THREE.Path();
+        p.moveTo(-r, -0.1);
+        p.lineTo(-r, ARCH_SPRING);
+        p.absarc(0, ARCH_SPRING, r, Math.PI, 0, true);
+        p.lineTo(r, -0.1);
+        p.closePath();
+        return p;
+      };
+      const endShape = new THREE.Shape();
+      endShape.moveTo(-endW / 2, -0.1);
+      endShape.lineTo(endW / 2, -0.1);
+      endShape.lineTo(endW / 2, CEIL_Y + 0.1);
+      endShape.lineTo(-endW / 2, CEIL_Y + 0.1);
+      endShape.closePath();
+      endShape.holes.push(archPath(ARCH_R));
+      const endGeo = new THREE.ShapeGeometry(endShape, 24);
+      /* ShapeGeometry writes UVs in shape units; the plaster texture is set up
+         for a 0–1 plane (as the old jambs were), so remap over the bounds. */
+      endGeo.computeBoundingBox();
+      {
+        const bb = endGeo.boundingBox!;
+        const uv = endGeo.attributes.uv;
+        const pos = endGeo.attributes.position;
+        const sx = 1 / (bb.max.x - bb.min.x);
+        const sy = 1 / (bb.max.y - bb.min.y);
+        for (let i = 0; i < uv.count; i++) uv.setXY(i, (pos.getX(i) - bb.min.x) * sx, (pos.getY(i) - bb.min.y) * sy);
+        uv.needsUpdate = true;
+      }
+      const endWall = new THREE.Mesh(endGeo, wallMat);
+      endWall.position.set(0, 0, endZ);
+      scene.add(endWall);
+      // Archivolt: the moulded band around the arch, a hair proud of the wall
+      const archivoltShape = new THREE.Shape(archPath(ARCH_R + 0.15).getPoints(48));
+      archivoltShape.holes.push(archPath(ARCH_R));
+      const archivolt = new THREE.Mesh(new THREE.ShapeGeometry(archivoltShape, 24), mat("#5c4030"));
+      archivolt.position.set(0, 0, endZ + 0.03);
+      scene.add(archivolt);
+      // Pilasters + keystone: enough architecture to read as an order, no more
+      for (const sx of [-1, 1]) {
+        const pil = new THREE.Mesh(litBox(0.24, ARCH_SPRING + 0.12, 0.2, "#4a3226", "#5c4030"), vcMat);
+        pil.position.set(sx * (ARCH_R + 0.15), (ARCH_SPRING + 0.12) / 2 - 0.05, endZ + 0.1);
+        scene.add(pil);
+      }
+      const keystone = new THREE.Mesh(litBox(0.26, 0.36, 0.22, "#4a3226", "#6d4830"), vcMat);
+      keystone.position.set(0, ARCH_SPRING + ARCH_R + 0.06, endZ + 0.11);
+      scene.add(keystone);
+      const entry = new THREE.Mesh(new THREE.PlaneGeometry(endW, CEIL_Y + 0.2), wallMat);
+      entry.position.set(0, CEIL_Y / 2, ENTRY_Z);
+      entry.rotation.y = Math.PI;
+      scene.add(entry);
+      /* Threshold: three steps down through the arch (0.16 rise / 0.5 run,
+         0.48 m in all) and the landing they arrive at. The v7 steps were
+         0.14 boxes sunk below the floor behind a solid wall — never seen. */
+      // treads a touch lighter than the landing so they read as steps, not
+      // a dark band, when the arch light rakes across them (V8-327)
+      const stepMat = mat("#3a2617");
+      const STEP_RISE = 0.16;
+      const STEP_RUN = 0.5;
+      const stepsTop = endZ - 0.1;
+      /* v9: the three treads are ONE mesh. They are background detail beyond an
+         arch nobody walks through now, and merging them returns two draw calls
+         to the budget — which the Part 2 study needed (landscape phones sat at
+         81 of 80 with three separate steps). Geometry, not appearance: the
+         treads are identical to before. */
+      {
+        const stepGeos = [0, 1, 2].map((k) => {
+          const g = new THREE.BoxGeometry(ARCH_W + 0.7, STEP_RISE, STEP_RUN);
+          g.translate(0, -STEP_RISE * (k + 1) + STEP_RISE / 2, stepsTop - STEP_RUN * (k + 0.5));
+          return g;
+        });
+        const merged = mergeGeometries(stepGeos);
+        stepGeos.forEach((g) => g.dispose());
+        scene.add(new THREE.Mesh(merged ?? stepGeos[0], stepMat));
+      }
+      const DESCENT = STEP_RISE * 3; // 0.48
+      const landing = new THREE.Mesh(new THREE.PlaneGeometry(endW, 6), mat("#241609"));
+      landing.rotation.x = -Math.PI / 2;
+      landing.position.set(0, -DESCENT, stepsTop - STEP_RUN * 3 - 3);
+      scene.add(landing);
+      // The far-end draw: warm light beyond the doorway
+      const drawCanvas = document.createElement("canvas");
+      drawCanvas.width = drawCanvas.height = 128;
+      {
+        const g = drawCanvas.getContext("2d")!;
+        const rg = g.createRadialGradient(64, 64, 4, 64, 64, 64);
+        rg.addColorStop(0, "rgba(255, 190, 130, 0.6)");
+        rg.addColorStop(1, "rgba(255, 190, 130, 0)");
+        g.fillStyle = rg;
+        g.fillRect(0, 0, 128, 128);
+      }
+      /* v8 V8-327: the glow needs no shape of its own — the arched wall in
+         front of it IS the mask, so what you see down the hall is an arch of
+         light instead of the old white rectangle. It sits far enough beyond
+         the steps that the descent never reaches its plane, and rises to the
+         arch's centre so the opening fills evenly. */
+      const drawGlow = new THREE.Mesh(
+        // wide enough to fill the frame once you are THROUGH the arch (at
+        // 3.1 m the 72° lens sees 4.6 m, so 4.4 left dark corners)
+        new THREE.PlaneGeometry(7.4, 5.6),
+        new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(drawCanvas), transparent: true, depthWrite: false, fog: false }),
+      );
+      drawGlow.position.set(0, 1.35, endZ - 3.4);
+      scene.add(drawGlow);
+
+      // Radial "spotlight pool" sprite, shared by every canvas
+      const poolCanvas = document.createElement("canvas");
+      poolCanvas.width = poolCanvas.height = 256;
+      {
+        const g = poolCanvas.getContext("2d")!;
+        const grad = g.createRadialGradient(128, 128, 8, 128, 128, 128);
+        grad.addColorStop(0, "rgba(255, 220, 180, 0.34)");
+        grad.addColorStop(0.5, "rgba(255, 200, 150, 0.09)");
+        grad.addColorStop(1, "rgba(255, 200, 150, 0)");
+        g.fillStyle = grad;
+        g.fillRect(0, 0, 256, 256);
+      }
+      const poolTex = new THREE.CanvasTexture(poolCanvas);
+      /* v14 E13: the pool plane hangs at (CH − 0.02) — the SAME plane as the
+         moulding's front face — so where the glow crosses the frame the two
+         are coplanar and the depth test is a coin toss per pixel that re-rolls
+         with every camera move (textbook decal z-fighting: the pool is drawn
+         after the frame with LEQUAL). A negative polygon offset pulls the glow
+         one depth unit forward so it wins there consistently; it still loses
+         to the lip, slip and canvas, which stand 15–40 mm nearer. */
+      const poolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+      const floorPoolMat = new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, opacity: 0.4 });
+
+      await breathe();
+      if (disposed) return;
+      // ——— The works ———
+      const loader = new THREE.TextureLoader();
+      const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+      const paintingMeshes: Mesh[] = [];
+      /** v13 V13-10e: one group per work — the single handle that re-hangs it. */
+      const workGroups: import("three").Group[] = [];
+      const paintingMats: MeshBasicMaterial[] = [];
+      const videoEls: (HTMLVideoElement | null)[] = works.map(() => null);
+      /* v14 E11 (Wil: "some paintings intermittently fail to load … and display
+         only a flat placeholder"). These two were declared in the rail block —
+         sixty lines and one `await breathe()` AFTER `loadWork(0)` and
+         `loadWork(1)` were issued — so a texture answered from the HTTP cache
+         (any repeat visit) could run its callback first and find `stillTexs`
+         in its temporal dead zone: a ReferenceError inside the loader, and
+         with the work already flagged loaded, a flat canvas for the rest of
+         the visit. They live with the other per-work arrays now. */
+      const stillTexs: (import("three").Texture | null)[] = works.map(() => null);
+      const videoTexs: (import("three").VideoTexture | null)[] = works.map(() => null);
+      const sketchMats: (MeshBasicMaterial | null)[] = works.map(() => null);
+      /* v14 E11: idle / pending / loaded / failed per work (and per study).
+         `loadedFlags` went true the moment a fetch was ISSUED, and
+         `TextureLoader.load` ran with no onError, so one dropped or aborted
+         request left that work flat for good. The debug hook reads these. */
+      type TexState = "idle" | "pending" | "loaded" | "failed";
+      const texState: TexState[] = works.map(() => "idle");
+      const sketchState: (TexState | null)[] = works.map((w) => (w.sketch ? "idle" : null));
+      const TEX_TRIES = 3; // per tier
+      const TEX_COOLDOWN = 20000; // failed → idle again, so the near works get another cycle
+      /** A still that cannot fail silently: TEX_TRIES on each URL in turn with
+       *  400·2ⁱ ms backoff, then `failed` — which cools back to `idle`, so the
+       *  frame loop's own `loadWork` calls (and `online`) can try again. */
+      const loadStill = (urls: string[], onLoad: (t: import("three").Texture) => void, onState: (s: TexState) => void) => {
+        let tries = 0;
+        const attempt = () => {
+          if (disposed) return;
+          onState("pending");
+          const url = urls[Math.min(urls.length - 1, Math.floor(tries / TEX_TRIES))];
+          loader.load(
+            url,
+            (t) => {
+              if (disposed) return;
+              onState("loaded");
+              onLoad(t);
+            },
+            undefined,
+            () => {
+              if (disposed) return;
+              tries++;
+              if (tries >= TEX_TRIES * urls.length) {
+                console.warn(`[museum] texture failed after ${tries} attempts: ${url}`);
+                onState("failed");
+                return;
+              }
+              window.setTimeout(attempt, 400 * 2 ** ((tries - 1) % TEX_TRIES));
+            },
+          );
+        };
+        attempt();
+      };
+      /** The one rule for a canvas's map: a texture means white, no texture
+       *  means the flat placeholder. The program needs recompiling only when
+       *  the KIND of map changes (none / still / film — three keys the shader
+       *  on `decodeVideoTexture`), so a same-kind swap skips `needsUpdate`. */
+      const kindOf = (t: import("three").Texture | null) => (t ? ((t as Partial<import("three").VideoTexture>).isVideoTexture ? "video" : "still") : "none");
+      const setMap = (i: number, t: import("three").Texture | null) => {
+        const m = paintingMats[i];
+        if (m.map === t) return;
+        const recompile = kindOf(m.map) !== kindOf(t);
+        m.map = t;
+        m.color.set(t ? "#ffffff" : "#2f1d14");
+        if (recompile) m.needsUpdate = true;
+      };
+      const slipMat = mat("#1a100a");
+
+      type Placement = { pos: { x: number; y: number; z: number }; side: number; w: number; h: number };
+      const placements: Placement[] = [];
+
+      const studyFrameGeos: import("three").BufferGeometry[] = [];
+      works.forEach((work, i) => {
+        const side = i % 2 === 0 ? 1 : -1; // 1 = right wall
+        const z = -(i + 1) * SPACING;
+        const isPortrait = work.aspect < 1;
+        // U8: true aspect inside a max box; portrait hangs tall and narrow
+        /* v12 (Wil, 8/26): "this painting is hung on the floor… move it up a
+           bit higher". The portrait work was BOTH the tallest canvas in the
+           hall (2.6 against 2.0) and the lowest-centred (1.6 against 1.7), and
+           the two compounded: its moulding stopped 130mm off the floorboards
+           where every other frame sits at 530mm. Slightly shorter and hung
+           higher, so its frame BOTTOM joins the family (0.48 desktop / 0.53
+           phone) instead of dropping below it — and the phone's 3.2m ceiling
+           still clears the top by 130mm. */
+        let h = isPortrait ? (phone ? 2.2 : 2.5) : 2.0;
+        let w = h * work.aspect;
+        const maxW = isPortrait ? 3.2 : 3.6;
+        if (w > maxW) {
+          w = maxW;
+          h = w / work.aspect;
+        }
+        /* v13 V13-10e (Wil, 8/26): "Center it on the wall so that it never
+           appears to be on the ceiling or the floor." The wall runs y ∈ [0,
+           CEIL_Y] and every part of a work centres on yC, so the ruling IS
+           `yC === CEIL_Y / 2` — derived, never authored, which is what makes
+           "never" hold. The old literals (1.8 phone / 1.9 otherwise) knew
+           nothing about the ceiling they hung under: measured, a PORTRAIT
+           TABLET put this frame's top at 3.32 against a 3.2 ceiling — 12cm
+           THROUGH it — while a landscape desktop left it 20cm low and a
+           landscape phone 30cm low.
+           The other nine (landscape works, 2.0 canvas) keep 1.70: measured,
+           their frames run 0.53–2.87 in every orientation, and 1.70 is 15cm
+           above the 1.55 eye — the museum's own hanging line — so nothing
+           there reads high or low. Changing them would move the whole hall,
+           which is not what was asked. */
+        const yC = isPortrait ? CEIL_Y / 2 : 1.7;
+        const x = (CH - 0.1) * side;
+        placements.push({ pos: { x, y: yC, z }, side, w, h });
+
+        /* v13 V13-10e: the work is now ONE object. Its five meshes hang off a
+           group pinned at (x, yC, z) with y offsets relative to yC, so the
+           whole work re-hangs with a single `group.position.y` write — see
+           `rehang()` by onResize. The floor echo and the study stay in world
+           space on purpose: the echo belongs to the floor, not the work, and
+           the study frames are BAKED into one merged geometry (v12 took the
+           hall from 85 draw calls to the 80 budget that way) and cannot be
+           moved per work without unbaking them. */
+        const group = new THREE.Group();
+        group.position.set(x, yC, z);
+        scene.add(group);
+        workGroups.push(group);
+        /** world X → the group's frame */
+        const gx = (worldX: number) => worldX - x;
+
+        const rotY = side === 1 ? 0 : Math.PI;
+        /* v8 V8-325 (Wil, 00:27:58: "a big brown line at the side… they're
+           not in their frames"). The three "rings" are SOLID boxes covering
+           the whole opening, so each one has to stand in front of the one
+           outside it and the canvas in front of them all — otherwise it is
+           simply occluded. That ordering was right; the DISTANCES were not:
+           the canvas floated 105 mm off the slip, so down the hall you read a
+           slab hovering in front of its frame with brown flanks either side.
+           Depths below are authored as "how far this face stands into the
+           room" and step in 15 mm: 20 mm moulding, 35 mm gilt lip, 50 mm
+           slip, canvas 60 mm — 10 mm proud, which reads as a shadow line
+           rather than a wall. In-plane the steps widen too (340/180/70 mm)
+           so the profile is a touch more ornate seen obliquely. Positions and
+           box sizes only: no new meshes, no new draw calls. */
+        const boxX = (depth: number, t: number) => (CH + t / 2 - depth) * side;
+        const planeX = (depth: number) => (CH - depth) * side;
+        const moulding = new THREE.Mesh(litBox(0.11, h + 0.34, w + 0.34, "#80412b", "#95502f"), vcMat);
+        moulding.position.set(gx(boxX(0.02, 0.11)), 0, 0);
+        moulding.rotation.y = rotY;
+        group.add(moulding);
+        const lip = new THREE.Mesh(litBox(0.13, h + 0.18, w + 0.18, "#8f7040", "#ad8950"), vcMat);
+        lip.position.set(gx(boxX(0.035, 0.13)), 0, 0);
+        lip.rotation.y = rotY;
+        group.add(lip);
+        // slip: the dark inner ring (also the shadow behind the canvas edge)
+        const slip = new THREE.Mesh(new THREE.BoxGeometry(0.14, h + 0.07, w + 0.07), slipMat);
+        slip.position.set(gx(boxX(0.05, 0.14)), 0, 0);
+        slip.rotation.y = rotY;
+        group.add(slip);
+
+        const cmat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
+        const canvasMesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), cmat);
+        canvasMesh.position.set(gx(planeX(0.06)), 0, 0);
+        canvasMesh.rotation.y = (-Math.PI / 2) * side;
+        canvasMesh.userData.workIndex = i;
+        group.add(canvasMesh);
+        paintingMeshes.push(canvasMesh);
+        paintingMats.push(cmat);
+
+        const pool = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.0, h * 2.0), poolMat);
+        pool.position.set(gx((CH - 0.02) * side), 0.15, 0);
+        pool.rotation.y = (-Math.PI / 2) * side;
+        group.add(pool);
+        /* floor echo under the five chapter canvases (draw-call budget ≤ 80).
+           v9: gated on the KEY, not on `work.sketch` — now that Part 2 hangs a
+           study too, keying off the sketch gave it a floor pool as well and
+           put the hall exactly on the 80-call ceiling. */
+        if (work.key === "horizontal") {
+          const fpool = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.3, 1.4), floorPoolMat);
+          fpool.rotation.x = -Math.PI / 2;
+          fpool.rotation.z = Math.PI / 2;
+          fpool.position.set((CH - 0.8) * side, 0.012, z);
+          scene.add(fpool);
+        }
+
+        /* The study, hung screen-RIGHT of its painting on BOTH walls. v9
+           V9-102 (Wil, 8/21): the drawing belongs beside the painting it was
+           made for, so the Commissioner's Office Part 2 hangs its own now —
+           `sketch` is populated per WORK in paintings.astro, not per chapter. */
+        if (work.sketch) {
+          const sh = 0.85;
+          const sw = sh * (work.sketchAspect ?? 1.25);
+          const sz = z + side * (w / 2 + sw / 2 + 0.6);
+          // same depth idiom as the canvases (V8-325): the drawing stands
+          // 10 mm proud of a frame face 20 mm off the wall
+          /* v12: four narrative works gained a study this round, which took
+             the hall to 85 draw calls against a budget of 80 — every study was
+             costing two (frame + plane). The frames are static, identical in
+             material and differ only by transform, so they bake into ONE
+             geometry the way the arch's step treads already do (v8 V8-327);
+             the planes stay separate because each carries its own texture.
+             Ten calls become one and the hall renders identically. */
+          const sfg = litBox(0.08, sh + 0.14, sw + 0.14, "#80412b", "#95502f");
+          sfg.rotateY(rotY);
+          sfg.translate(boxX(0.02, 0.08), 1.55, sz);
+          studyFrameGeos.push(sfg);
+          const smat = new THREE.MeshBasicMaterial({ color: new THREE.Color("#2f1d14") });
+          const smesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), smat);
+          smesh.position.set(planeX(0.03), 1.55, sz);
+          smesh.rotation.y = (-Math.PI / 2) * side;
+          scene.add(smesh);
+          sketchMats[i] = smat;
+        }
+      });
+      /* v14 E11: the study went through the same bare `loader.load` — one
+         dropped request and the drawing stayed a flat brown plane for the
+         visit. Same retry loader as the canvases; `online` re-issues a failed
+         one. */
+      const loadSketch = (i: number) => {
+        const url = works[i].sketch;
+        const smat = sketchMats[i];
+        if (!url || !smat || sketchState[i] !== "idle") return;
+        loadStill(
+          [url],
+          (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = maxAniso;
+            smat.map = t;
+            smat.color.set("#ffffff");
+            smat.needsUpdate = true;
+          },
+          (s) => {
+            sketchState[i] = s;
+          },
+        );
+      };
+      works.forEach((_, i) => loadSketch(i));
+
+      if (studyFrameGeos.length) {
+        const mergedStudies = mergeGeometries(studyFrameGeos);
+        scene.add(new THREE.Mesh(mergedStudies ?? studyFrameGeos[0], vcMat));
+      }
+
+      const isPhoneTex = window.innerWidth < 1024;
+      /* v14 E11: idempotent per state — a pending fetch is never doubled, a
+         loaded work never re-fetched, and a failed one waits out its cooldown
+         (the frame loop calls this every frame for the nearest works, so
+         `failed` must not mean "retry now"). The device's tier is tried
+         TEX_TRIES times, then the other tier — a 1440 that is broken on the
+         CDN still gets its 800, and vice versa. */
+      const loadWork = (i: number) => {
+        if (texState[i] !== "idle") return;
+        const tiers = isPhoneTex ? [works[i].tex800, works[i].tex1440] : [works[i].tex1440, works[i].tex800];
+        loadStill(
+          tiers,
+          (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = maxAniso;
+            /* v8 V8-326: cache the still so pausing a film restores it
+               synchronously (the v7 teardown re-fetched and flashed), and never
+               clobber a playing film with a late-arriving still. */
+            stillTexs[i] = t;
+            /* v10 V10-05 applied it "unless a film is genuinely PLAYING", read
+               as `!video.paused` — which is true from the moment play() is
+               CALLED, frames or no frames. A film that never decoded (codec,
+               decoder budget, a play() that never settles) therefore kept the
+               still off the canvas for good. v14 E11: the still yields only to
+               a film that has actually swapped in. */
+            const filmShowing = videoTexs[i] !== null && paintingMats[i].map === videoTexs[i];
+            if (!filmShowing) setMap(i, t);
+          },
+          (s) => {
+            texState[i] = s;
+            if (s === "failed") {
+              window.setTimeout(() => {
+                if (!disposed && texState[i] === "failed") texState[i] = "idle";
+              }, TEX_COOLDOWN);
+            }
+          },
+        );
+      };
+      loadWork(0);
+      loadWork(1);
+      setTimeout(() => {
+        if (!disposed) works.forEach((_, i) => loadWork(i));
+      }, 1200);
+
+      await breathe();
+      if (disposed) return;
+      // ——— Rail + look state ———
+      let railT = 0;
+      let mode: "rail" | "approach" = "rail";
+      let approachedIdx: number | null = null;
+      let zoom = 1;
+      /* v8 V8-326 (Wil, 00:29:41): the hall is ALIVE BY DEFAULT — the works
+         nearest the camera play Mark Priest's films; tapping the focused
+         painting rests it (and wakes it again). A windowed budget keeps the
+         perf gates: 2 simultaneous films below 1024, 3 on desktop (decoder +
+         GPU-upload budget), pool capped at N+1 warm elements, and NOTHING
+         loads before the visitor's first input — Lighthouse never sees a
+         video byte. */
+      const ALIVE_N = window.innerWidth < 1024 ? 2 : 3;
+      const ALIVE_RANGE = SPACING * 1.75;
+      const POOL_MAX = ALIVE_N + 1;
+      /* A software rasterizer (SwiftShader/llvmpipe — old machines, some VMs,
+         and the QA harness) pays ~200ms per video-texture upload frame; there
+         the hall opens at rest (the v7 behaviour: films only on an explicit
+         wake), while every hardware GPU gets the alive-by-default hall. */
+      let softGL = false;
+      try {
+        const probeGl = document.createElement("canvas").getContext("webgl");
+        const ext = probeGl?.getExtension("WEBGL_debug_renderer_info");
+        const rname = ext ? String(probeGl!.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : "";
+        softGL = /swiftshader|llvmpipe|software|basic render/i.test(rname);
+      } catch {
+        softGL = false;
+      }
+      const stopped: boolean[] = works.map(() => softGL);
+      let armed = false;
+      /* v14 E5: the 2-D close-look dialog below the hall HOLDS the films while
+         it is open — a phone's decoders are one budget, and the hall's warm
+         elements kept decoding off-screen behind the modal, which is one way
+         the dialog's own film never got a frame. paintings.astro dispatches
+         `cnwm:dialog-open` / `cnwm:dialog-close`; `syncAlive` treats held
+         like unarmed, and `stopped[]` is untouched by it. */
+      let held = false;
+      /* assigned below, referenced by onScroll before then — a pre-declared
+         no-op keeps the first synchronous onScroll() out of the TDZ */
+      let syncAlive: () => void = () => {};
+      /* v13 V13-10f (Wil, 8/26): "Rushing the Room" left the drawer stuck.
+         Root cause: NOTHING exited approach on scroll — `setApproached(null)`
+         had three call sites (Escape and the two Back buttons) and the
+         IntersectionObserver only stopped the render loop, so the React tree
+         kept the plaque mounted wherever the page went. Forward-declared the
+         way `syncAlive` is, because it has to be callable from `onScroll`
+         (declared long before `approach`). */
+      let checkUnpin: () => void = () => {};
+      /* the approach's own flush-the-stage scroll must not read as the
+         visitor leaving: suppressed until it has settled, and across an
+         orientation change, which is a resize and not a scroll. */
+      let settleUntil = 0;
+      /* round 28 (declared here: onScroll runs once synchronously below and
+         writes lastScrollY) — see the note above `approach` */
+      let approachScrollY = 0;
+      let lastScrollY = 0; // the position the previous scroll event saw: a run's base, so its first step counts
+      let sheetScrollBase = 0;
+      let sheetScrollPos0 = 0;
+      let sheetScrollLive = false;
+      let sheetScrollTimer = 0;
+      let dragYaw = 0;
+      let dragPitch = 0;
+      let yawVel = 0;
+      const cur = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
+      let target = { x: 0, y: EYE, z: 0, yaw: 0, pitch: 0 };
+      const railPitch = portrait ? RAIL_PITCH_PORTRAIT : RAIL_PITCH;
+      /* v10.1 V10-12 (Wil, 8/21): "the motion, animation and transition from
+         the very, very first one, but we keep the arch. Walk to the end,
+         arrive at the arch, then get pushed down into the next section."
+
+         So the ARCHITECTURE stays — the arched end wall, its archivolt,
+         pilasters, keystone and the steps beyond are what give the corridor
+         its depth and its light — but the MOTION is the original again: a
+         straight walk down the hall that stops when it arrives. No walking
+         through the opening, no descent, no turn. Reaching the end of the
+         scroll simply releases the sticky stage, and the stills section comes
+         up from below. */
+      const railZ = () => 0.4 - railT * (works.length * SPACING + OVERRUN - 0.4);
+
+      let lastRailIdx = -1;
+      /* v13 V13-10a: one boolean out of the closure — the walk has begun. Set
+         at 1% of the rail (past a stray pixel of overscroll). v14 E6: never
+         cleared — the hint it dismisses is one-way now, so the v13 dead-stop
+         reset (which brought the chip back at the top) is gone with it. */
+      let walkFlag = false;
+      /* round 28: with a painting open the page may not leave the hall's
+         band — the stage would un-pin under the drawer (V13-10f) — so an
+         overshoot is taken back the same frame, before the un-pin check */
+      const clampApproachScroll = () => {
+        if (mode !== "approach" || performance.now() < settleUntil) return;
+        /* the stage itself, against the viewport: past either end of the band
+           it travels with the wrap, so its own edge is the measure (as in
+           checkUnpin) */
+        const sr = stage.getBoundingClientRect();
+        const H = window.innerHeight;
+        const over = sr.top > 0.5 ? sr.top : sr.bottom < H - 0.5 ? sr.bottom - H : 0;
+        if (over !== 0) window.scrollBy({ top: over, behavior: "instant" });
+      };
+      /* round 28: the document's scroll drives the drawer like the swipe does
+         — the same travel, the same snap once the scroll settles */
+      const scrollDrivesSheet = () => {
+        if (mode !== "approach" || !isPortraitNow() || !sheetRef.current) return;
+        const y = window.scrollY || 0;
+        if (performance.now() < settleUntil) {
+          sheetScrollBase = y;
+          sheetScrollPos0 = sheetHiddenRef.current ? 0 : sheetPosRef.current;
+          return;
+        }
+        if (!sheetScrollLive) {
+          sheetScrollLive = true;
+          sheetScrollBase = lastScrollY;
+          sheetScrollPos0 = sheetHiddenRef.current ? 0 : sheetPosRef.current;
+        }
+        const dy = y - sheetScrollBase; // + = scrolled down = finger up = opening
+        if (sheetHiddenRef.current) {
+          if (dy > 8) {
+            revealSheetFn.current();
+            sheetScrollBase = y;
+            sheetScrollPos0 = 0;
+          }
+        } else {
+          const p = sheetScrollPos0 + dy / sheetTravel();
+          applySheetFn.current(p, false);
+          /* round 31: the state follows at the ends at once, as it does on the
+             wheel — nothing that hangs on it (the peek padding) waits for the
+             settle; the X no longer hangs on it at all */
+          if (p >= 1 && sheetRefState.current !== "full") snapSheetFn.current("full");
+          else if (p <= 0 && sheetRefState.current !== "peek") snapSheetFn.current("peek");
+        }
+        window.clearTimeout(sheetScrollTimer);
+        sheetScrollTimer = window.setTimeout(() => {
+          sheetScrollLive = false;
+          if (mode !== "approach" || sheetHiddenRef.current) return;
+          snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+        }, 160);
+      };
+      const onScroll = () => {
+        clampApproachScroll();
+        const r = wrap.getBoundingClientRect();
+        const total = r.height - stage.clientHeight;
+        railT = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+        if (!walkFlag && railT > 0.01) {
+          walkFlag = true;
+          setHintDismissed(true);
+        }
+        checkUnpin();
+        scrollDrivesSheet();
+        lastScrollY = window.scrollY || 0;
+        const idx = Math.min(works.length - 1, Math.max(0, Math.round(-railZ() / SPACING) - 1));
+        if (idx !== lastRailIdx) {
+          lastRailIdx = idx;
+          setRailIdx(idx);
+          syncAlive(); // v8 V8-326: the alive window follows the walk
+        }
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      // ——— Approach composition (pure, per frame) ———
+      const layout = () => {
+        const W = stage.clientWidth;
+        const H = stage.clientHeight;
+        const isPortraitUI = isSheetUI(W, H); // v14 E9.1: the shared split
+        const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+        if (isPortraitUI) {
+          /* v8 V8-328: the VISIBLE sheet height — the element is full-size and
+             translated, so rect.height lies; what the composition must clear
+             is the part above the stage's bottom edge. Live per frame: the
+             painting recomposes while the drawer slides. */
+          const sEl = sheetRef.current;
+          const sheetH = sEl
+            ? Math.max(0, stage.getBoundingClientRect().bottom - sEl.getBoundingClientRect().top)
+            : 110;
+          const top = inset + 56; // Back row
+          /* v12: the dot rail no longer rides above the sheet (it fades out in
+             approach), so the painting gets that band back — sheet + a hair. */
+          const bottom = sheetH + 12;
+          /* v8 V8-330: F .88 (was .82) — with the fov computed from the
+             binding axis below, 6% margins per side still clear the moulding
+             and the whole frame fits the phone (juror-9's finger-width note
+             logged as amended in RUN-STATE). */
+          return { F: 0.88, V: Math.max(0.3, 1 - bottom / H - top / H), cx: 0.5, cy: 0.5 - (bottom / H) / 2 + top / H / 2 };
+        }
+        // desktop / landscape: card left ~30%, painting centred, sketch right
+        // one formula with the card's CSS width (clamp(13rem, 30vw − inset − 24px − 3rem, 22rem));
+        // the 3rem gives the painting the room at 1024×768 (juror pass 7 P3-8)
+        const cardW = Math.max(13 * 16, Math.min(0.3 * W - inset - 24 - 48, 22 * 16));
+        const cardFrac = Math.min(0.4, (cardW + inset + 24) / W);
+        return { F: Math.max(0.2, 1 - 2 * cardFrac), V: 0.72, cx: 0.5, cy: 0.5 };
+      };
+      const compose = (i: number) => {
+        const p = placements[i];
+        const L = layout();
+        const vfov = (BASE_FOV * Math.PI) / 180;
+        const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+        // fit the framed work (canvas + 0.15m of moulding each side), not the bare canvas
+        const fw = p.w + 0.34, fh = p.h + 0.34;
+        const dH = fw / (2 * Math.tan(hfov / 2) * L.F);
+        const dV = fh / (2 * Math.tan(vfov / 2) * L.V);
+        let d = Math.max(dH, dV);
+        const dMax = 2 * CH - 0.15;
+        let fov = BASE_FOV;
+        if (d > dMax) {
+          /* Widen the eye instead of leaving the corridor. v8 V8-330 (Wil,
+             01:16:47): the old 84° cap under-delivered the HORIZONTAL fit on
+             portrait phones (a 16:9 work needs ≈92° at 390/360), cropping the
+             frame left and right — portrait may open to 92°; landscape keeps
+             84° (it already fits). The formula is exact: tan(need/2) =
+             tan(vfov/2) · d/dMax restores the binding axis at dMax. */
+          const need = 2 * Math.atan(Math.tan(vfov / 2) * (d / dMax));
+          const cap = stage.clientHeight > stage.clientWidth ? 92 : 84;
+          fov = Math.min(cap, (need * 180) / Math.PI);
+          d = dMax;
+        }
+        const dEff = Math.max(0.6, d / zoom);
+        // vertical: place the painting centre at cy of the frame
+        const vfovNow = (fov * Math.PI) / 180;
+        const yShift = (0.5 - L.cy) * 2 * dEff * Math.tan(vfovNow / 2);
+        return {
+          x: p.pos.x - p.side * dEff,
+          y: p.pos.y - yShift,
+          z: p.pos.z,
+          yaw: (-Math.PI / 2) * p.side,
+          pitch: 0,
+          fov,
+        };
+      };
+
+      // ——— Look controller ———
+      let dragging = false;
+      let px = 0;
+      let py = 0;
+      let downAt = 0;
+      let downX = 0;
+      let downY = 0;
+      let lastTap = 0;
+      let moved = 0;
+      const dyaws: number[] = [];
+      /* v8 V8-328: on portrait screens in approach, a stage swipe's VERTICAL
+         axis belongs to the plaque — an 8px window decides the axis once per
+         gesture (1.2 vertical bias; vertical touch-look is the price, pinch
+         zoom is untouched). 0 undecided · 1 the sheet · -1 the look. */
+      let sheetSwipe = 0;
+      let swipePos0 = 0;
+      let swipeY0 = 0;
+      let lastMoveT = 0;
+      const svels: number[] = [];
+      const down = (e: PointerEvent) => {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        dragging = true;
+        px = downX = e.clientX;
+        py = downY = e.clientY;
+        downAt = lastMoveT = performance.now();
+        moved = 0;
+        yawVel = 0;
+        dyaws.length = 0;
+        sheetSwipe = 0;
+        svels.length = 0;
+        renderer.domElement.style.touchAction = mode === "approach" ? "none" : "pan-y";
+      };
+      const move = (e: PointerEvent) => {
+        if (!dragging) return;
+        const dx = e.clientX - px;
+        const dy = e.clientY - py;
+        moved += Math.abs(dx) + Math.abs(dy);
+        const now = performance.now();
+        if (mode === "approach" && isPortraitNow() && sheetRef.current) {
+          if (sheetSwipe === 0 && moved >= 8) {
+            const tx = e.clientX - downX;
+            const ty = e.clientY - downY;
+            if (Math.abs(ty) > 1.2 * Math.abs(tx)) {
+              sheetSwipe = 1;
+              swipePos0 = sheetPosRef.current;
+              swipeY0 = e.clientY;
+            } else {
+              sheetSwipe = -1;
+            }
+          }
+          if (sheetSwipe === 1 && sheetHiddenRef.current) {
+            /* v12: hidden — an upward swipe (fingers up, opening) restores the
+               preview and ends the gesture there. */
+            if (swipeY0 - e.clientY > 8) {
+              revealSheetFn.current();
+              sheetSwipe = 0;
+            }
+          } else if (sheetSwipe === 1) {
+            applySheetFn.current(swipePos0 + (swipeY0 - e.clientY) / sheetTravel(), false); // round 31: one travel, without the X
+            svels.push((py - e.clientY) / Math.max(1, now - lastMoveT)); // px/ms, up +
+            if (svels.length > 3) svels.shift();
+          } else if (sheetSwipe === -1) {
+            const dyaw = dx * 0.0022; // v8 V8-324: slower rein
+            dragYaw += dyaw;
+            dyaws.push(dyaw);
+            if (dyaws.length > 3) dyaws.shift();
+          }
+          px = e.clientX;
+          py = e.clientY;
+          lastMoveT = now;
+          return;
+        }
+        const dyaw = dx * 0.0022; // v8 V8-324 (Wil, 00:30:11): the pan felt harsh — slower rein
+        dragYaw += dyaw;
+        dragPitch = Math.max(-0.55, Math.min(0.5, dragPitch + dy * 0.0018));
+        dyaws.push(dyaw);
+        if (dyaws.length > 3) dyaws.shift();
+        px = e.clientX;
+        py = e.clientY;
+        lastMoveT = now;
+      };
+      const up = (e: PointerEvent) => {
+        if (!dragging) return;
+        dragging = false;
+        if (sheetSwipe === 1) {
+          sheetSwipe = 0;
+          const v = svels.length ? svels.reduce((a, b) => a + b, 0) / svels.length : 0;
+          if (Math.abs(v) > 0.3) snapSheetFn.current(v > 0 ? "full" : "peek");
+          else snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+          return;
+        }
+        sheetSwipe = 0;
+        yawVel = dyaws.length ? (dyaws.reduce((a, b) => a + b, 0) / dyaws.length) * 60 : 0; // rad/s
+        const dt = performance.now() - downAt;
+        const isTap = dt < 300 && moved < 8;
+        if (isTap) {
+          const now = performance.now();
+          const dbl = now - lastTap < 320;
+          lastTap = now;
+          tap(e, dbl);
+        }
+      };
+      renderer.domElement.addEventListener("pointerdown", down);
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+      window.addEventListener("pointercancel", up);
+
+      const ray = new THREE.Raycaster();
+      const hitPainting = (e: { clientX: number; clientY: number }) => {
+        const rect = renderer.domElement.getBoundingClientRect();
+        const ndc = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
+        ray.setFromCamera(ndc, camera);
+        return ray.intersectObjects(paintingMeshes)[0] ?? null;
+      };
+      const tap = (e: PointerEvent, dbl: boolean) => {
+        const hit = hitPainting(e);
+        if (mode === "rail") {
+          if (hit) approach(hit.object.userData.workIndex as number);
+          else if (dbl) recenter();
+          return;
+        }
+        // approach: tapping the focused painting toggles its motion; tapping
+        // a DIFFERENT painting walks straight to it — v8 V8-331 (Wil,
+        // 00:32:06: "I should be able to just click on another painting and
+        // be taken to that painting without the back to the hall button").
+        if (hit && (hit.object.userData.workIndex as number) === approachedIdx) return void toggleAlive();
+        if (hit) return void approach(hit.object.userData.workIndex as number);
+        /* v13 V13-05b (Wil, 8/26): the switch "does nothing" near the edges —
+           `hitPainting` wants an exact raycast hit on the CANVAS plane, so the
+           gilt lip, the slip and the moulding (which read as part of the work)
+           all miss. In approach, anything inside the approached work's
+           projected rect is the work. The pad is the frame itself: the
+           moulding runs canvas + 0.34 on both axes, i.e. 0.17 a side, which is
+           8.5% of the 2.0m canvas — 9% covers it with a fingertip to spare. */
+        if (approachedIdx !== null) {
+          const r = paintingRect(approachedIdx);
+          if (r && !r.behind) {
+            const padX = (r.right - r.left) * 0.09;
+            const padY = (r.bottom - r.top) * 0.09;
+            if (e.clientX >= r.left - padX && e.clientX <= r.right + padX && e.clientY >= r.top - padY && e.clientY <= r.bottom + padY) {
+              return void toggleAlive();
+            }
+          }
+        }
+        if (dbl) recenter();
+      };
+      const recenter = () => {
+        dragYaw = 0;
+        dragPitch = 0;
+        yawVel = 0;
+      };
+      // wheel: zoom in approach, page scroll on the rail.
+      // v8 V8-328 (Wil, 00:29:34): on portrait screens the wheel is a STATE
+      // MACHINE — above the zoom floor it zooms; at the floor, scrolling on
+      // (deltaY > 0, fingers up) slides the plaque open, and scrolling back
+      // closes it first, then zooms in. A 160ms latch swallows trackpad
+      // momentum at each boundary so one gesture never tunnels through two
+      // states; an idle timer snaps a half-open sheet home.
+      const isPortraitNow = () => isSheetUI(stage.clientWidth, stage.clientHeight); // v14 E9.1: the shared split
+      let wheelLatchUntil = 0;
+      let wheelSnapTimer: number | undefined;
+      /* v14 E7/E14 — shared input helpers.
+         wheelPx: a wheel delta in CSS px whatever the deltaMode (Firefox mice
+         report LINES; a page-mode delta is one stage height). deltaX/Y are
+         read BEFORE deltaMode on purpose — Firefox ≥ 112 keeps an event in
+         pixel mode only for pages that read the deltas first. */
+      const wheelPx = (e: WheelEvent) => {
+        const dx = e.deltaX;
+        const dy = e.deltaY;
+        const k = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? stage.clientHeight : 1;
+        return { dx: dx * k, dy: dy * k };
+      };
+      /* the nearest ancestor of `t` that is a real scroll container WITH
+         overflow to scroll — the plaque body, the desktop card, the corner
+         menu's panel — never the document itself. A body or card whose text
+         fits is not a scroller: the browser would chain its scroll to the
+         page, which is exactly the leak E7 closes. */
+      const scrollerOf = (t: EventTarget | null): HTMLElement | null => {
+        let el: HTMLElement | null = t instanceof Element ? (t as HTMLElement) : t instanceof Node ? t.parentElement : null;
+        while (el && el !== document.body && el !== document.documentElement) {
+          if (el.scrollHeight > el.clientHeight + 1) {
+            const oy = getComputedStyle(el).overflowY;
+            if (oy === "auto" || oy === "scroll") return el;
+          }
+          el = el.parentElement;
+        }
+        return null;
+      };
+      /** can `el` still scroll in the direction of `dy` (+ = content down)? */
+      const canScroll = (el: HTMLElement, dy: number) => (dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 1 : dy < 0 && el.scrollTop > 0);
+      const onWheel = (e: WheelEvent) => {
+        const { dx: wdx, dy: wdy } = wheelPx(e);
+        /* v14 E14 (Wil): a HORIZONTAL two-finger swipe turns the look — the
+           trackpad's own idiom, no press-and-hold. Same "grab the wall" sign
+           as the mouse drag: swiping left is deltaX > 0 in the natural-scroll
+           convention, drags the wall left, and the view pans right. Pinch
+           arrives as ctrl+wheel in every engine and stays with the zoom below;
+           a scroll container under the cursor keeps its own wheel; trackpads
+           emit their own momentum, so nothing is fed to yawVel — the tick's
+           look damping smooths the steps. The rate is ~2/3 of the drag's
+           0.0022 rad/px because trackpad deltas carry OS acceleration. */
+        if (!e.ctrlKey && Math.abs(wdx) > Math.abs(wdy) && !scrollerOf(e.target)) {
+          e.preventDefault();
+          dragYaw -= wdx * 0.0015;
+          yawVel = 0;
+          return;
+        }
+        if (mode !== "approach") return;
+        /* v14 E7: a scroll container under the cursor that can still move in
+           the wheel's direction owns the event — the browser scrolls it, and
+           it alone; at its end the wheel is ABSORBED, never chained to the
+           page (whose scroll is the walk). Measured before this: a wheel over
+           the open plaque's header, or over a body too short to scroll, moved
+           the page 900px per gesture with the drawer still open. A card or
+           body that fits its text falls through to the machine, as before. */
+        const sc = scrollerOf(e.target);
+        if (sc) {
+          if (!canScroll(sc, wdy) && e.cancelable) e.preventDefault();
+          return;
+        }
+        const sEl = sheetRef.current;
+        if (!(isPortraitNow() && sEl)) {
+          e.preventDefault();
+          setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+          return;
+        }
+        e.preventDefault();
+        const now = performance.now();
+        if (now < wheelLatchUntil) return;
+        /* v12: hidden is a step of its own. Scrolling on brings the PREVIEW
+           back and consumes the gesture; the next one opens it full through
+           the ordinary machine below. Scrolling back while hidden does
+           nothing — there is nothing above it to close. */
+        if (sheetHiddenRef.current) {
+          if (e.deltaY > 0) {
+            revealSheetFn.current();
+            wheelLatchUntil = now + 160;
+          }
+          return;
+        }
+        const travel = sheetTravel(); // round 31: one travel, without the X
+        const pos = sheetPosRef.current;
+        if (e.deltaY > 0) {
+          if (zoom > 1.001) {
+            setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+            if (zoom <= 1.001) wheelLatchUntil = now + 160;
+          } else if (pos < 1) {
+            const p = Math.min(1, pos + e.deltaY / travel);
+            applySheetFn.current(p, false);
+            if (p >= 1) {
+              snapSheetFn.current("full");
+              wheelLatchUntil = now + 160;
+            }
+          }
+        } else if (e.deltaY < 0) {
+          if (pos > 0) {
+            const p = Math.max(0, pos + e.deltaY / travel);
+            applySheetFn.current(p, false);
+            if (p <= 0) {
+              snapSheetFn.current("peek");
+              wheelLatchUntil = now + 160;
+            }
+          } else {
+            setZoom(zoom * Math.exp(-e.deltaY * 0.0016));
+          }
+        }
+        if (wheelSnapTimer) clearTimeout(wheelSnapTimer);
+        wheelSnapTimer = window.setTimeout(() => {
+          const p = sheetPosRef.current;
+          if (p > 0.02 && p < 0.98) snapSheetFn.current(p > 0.5 ? "full" : "peek");
+        }, 150);
+      };
+      stage.addEventListener("wheel", onWheel, { passive: false });
+      // pinch in approach
+      const pinch = new Map<number, { x: number; y: number }>();
+      let pinchD = 0;
+      stage.addEventListener("pointerdown", (e) => {
+        if (mode !== "approach" || e.pointerType !== "touch") return;
+        pinch.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pinch.size === 2) {
+          const [a, b] = [...pinch.values()];
+          pinchD = Math.hypot(a.x - b.x, a.y - b.y);
+          dragging = false;
+          if (sheetSwipe === 1) snapSheetFn.current(sheetPosRef.current > 0.5 ? "full" : "peek");
+          sheetSwipe = 0;
+        }
+      });
+      stage.addEventListener("pointermove", (e) => {
+        if (!pinch.has(e.pointerId)) return;
+        pinch.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pinch.size === 2 && pinchD > 0) {
+          const [a, b] = [...pinch.values()];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          setZoom(zoom * (d / pinchD));
+          pinchD = d;
+        }
+      });
+      const pinchEnd = (e: PointerEvent) => {
+        pinch.delete(e.pointerId);
+        pinchD = 0;
+      };
+      stage.addEventListener("pointerup", pinchEnd);
+      stage.addEventListener("pointercancel", pinchEnd);
+
+      /* v14 E7 (Wil): while a painting is open NOTHING may scroll the
+         document. The page's scroll IS the walk, and the sticky stage hides
+         it — the hall moves on silently under the drawer and Back lands the
+         visitor somewhere else (or the stage un-pins and V13-10f's exit
+         fires). The canvas already carries touch-action: none and the stage
+         wheel above handles what lands on the stage; this is the classic
+         body-scroll lock for everything else, bound only for the duration of
+         approach so the rail keeps its passive, compositor-driven scroll:
+         · wheel — for targets outside the stage (the corner menu);
+         · touchmove — prevented unless the touch began inside a scroll
+           container that can still scroll in the finger's direction (plaque
+           body, card, menu panel). Decided from the FIRST move, per touch: a
+           body too short to scroll, or one at its end, chains to the page in
+           every engine at gesture start, and iOS < 16 ignores the CSS
+           overscroll-behavior that stops it elsewhere. touchstart is never
+           prevented (that kills the tap's click), and a touch that began on a
+           control keeps a 6px tap tolerance before the lock takes it — iOS
+           drops the click for a prevented move, Chrome sends none inside its
+           own slop. */
+      const touchLock = new Map<number, { y0: number; x0: number; sc: HTMLElement | null; act: boolean }>();
+      const lockTouchStart = (e: TouchEvent) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          const el = t.target instanceof Element ? t.target : null;
+          /* round 28: the drawer's handle is a role=button but its tap is the
+             pointer path's (onSheetUp), so it needs no click and gets no
+             tolerance — the first move is prevented, where prevention holds */
+          touchLock.set(t.identifier, { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: !!el?.closest('button, a[href], [role="button"]') && !el?.closest(".museum-sheet-head") });
+        }
+      };
+      const lockTouchEnd = (e: TouchEvent) => {
+        for (let i = 0; i < e.changedTouches.length; i++) touchLock.delete(e.changedTouches[i].identifier);
+      };
+      const lockTouchMove = (e: TouchEvent) => {
+        if (mode !== "approach" || !e.cancelable) return;
+        const t = e.changedTouches[0];
+        if (!t) return;
+        let s = touchLock.get(t.identifier);
+        if (!s) {
+          s = { y0: t.clientY, x0: t.clientX, sc: scrollerOf(t.target), act: false };
+          touchLock.set(t.identifier, s);
+        }
+        const dy = s.y0 - t.clientY; // finger up = content down = +
+        if (s.act && Math.hypot(t.clientX - s.x0, dy) < 6) return;
+        if (s.sc && e.touches.length === 1 && canScroll(s.sc, dy)) return;
+        e.preventDefault();
+      };
+      const lockWheel = (e: WheelEvent) => {
+        if (mode !== "approach" || !e.cancelable || (e.target instanceof Node && stage.contains(e.target))) return;
+        const sc = scrollerOf(e.target);
+        if (sc && canScroll(sc, wheelPx(e).dy)) return;
+        e.preventDefault();
+      };
+      let locked = false;
+      const lockDocument = (on: boolean) => {
+        if (on === locked) return;
+        locked = on;
+        if (on) {
+          window.addEventListener("wheel", lockWheel, { passive: false });
+          window.addEventListener("touchstart", lockTouchStart, { passive: true });
+          window.addEventListener("touchmove", lockTouchMove, { passive: false });
+          window.addEventListener("touchend", lockTouchEnd, { passive: true });
+          window.addEventListener("touchcancel", lockTouchEnd, { passive: true });
+        } else {
+          window.removeEventListener("wheel", lockWheel);
+          window.removeEventListener("touchstart", lockTouchStart);
+          window.removeEventListener("touchmove", lockTouchMove);
+          window.removeEventListener("touchend", lockTouchEnd);
+          window.removeEventListener("touchcancel", lockTouchEnd);
+          touchLock.clear();
+        }
+      };
+
+      const setZoom = (z: number) => {
+        /* v8 V8-326: zoom is pure zoom — the v7 edge-trigger fought the
+           alive-by-default hall. */
+        zoom = Math.max(1, Math.min(2.4, z));
+      };
+      const toggleAlive = () => {
+        if (approachedIdx === null) return;
+        stopped[approachedIdx] = !stopped[approachedIdx];
+        /* v14 E17 (Wil): the v13 play/pause glyph is gone — "the interaction
+           should be discoverable through direct interaction only". The switch
+           itself is the feedback: the film stills, or moves again. */
+        syncAlive();
+      };
+
+      // ——— Approach / return ———
+      let approachedAt = 0;
+      /* ── Round 28 (Wil, 2026-09-22): the drawer expands on scroll ────────
+         "When you scroll down, you start scrolling through the hall. But you
+         do not know that you were scrolling through the hall and then when you
+         click the back to hall button you end up in a completely different
+         place. The drawer should expand when the user scrolls down after
+         selecting a painting." Since round 24's pin, v14 E7's lock (touch-
+         action: none on the canvas and the handle, the document-level
+         touchmove preventDefault) no longer holds on his iPhone: iOS pans the
+         page, the pointer drag that moved the drawer is cancelled, and the
+         hall walks on under the drawer. The gesture code is unchanged since
+         the base and works in Chromium with touch and mouse; which WebKit
+         rule now lets the pan through is not measurable here. So the drawer
+         no longer depends on it: with a painting open, the document's scroll
+         itself drives the drawer exactly as the swipe does (`scrollDrivesSheet`,
+         from onScroll) — down expands, up collapses, a hidden drawer is
+         revealed, and the position snaps when the scroll settles — the page is
+         clamped to the hall's band so the stage can never un-pin under the
+         drawer (`clampApproachScroll`), and Back returns the document to the
+         tap's position (`approachScrollY`). Where the lock does hold (Chromium,
+         desktop, an iOS that honours touch-action) nothing scrolls and the
+         pointer and wheel paths work as before. */
+      const approach = (i: number | null) => {
+        approachedIdx = i;
+        if (i === null) {
+          mode = "rail";
+          zoom = 1;
+          setApproached(null);
+          setPaintRect(null);
+          setSheet("peek");
+          sheetPosRef.current = 0; // round 31: the remount observer re-applies the live position
+          sheetHiddenRef.current = false;
+          setSheetHidden(false);
+          syncAlive();
+          renderer.domElement.style.touchAction = "pan-y";
+          lockDocument(false); // v14 E7: the page scrolls again — that is the walk
+          /* round 28: Back lands where the painting was tapped, whatever the
+             page did under the drawer */
+          window.clearTimeout(sheetScrollTimer);
+          sheetScrollLive = false;
+          if (Math.abs((window.scrollY || 0) - approachScrollY) > 0.5) window.scrollTo({ top: approachScrollY, behavior: "instant" });
+          return;
+        }
+        loadWork(i);
+        mode = "approach";
+        lockDocument(true); // v14 E7: nothing scrolls the document while a work is open
+        zoom = 1;
+        recenter();
+        approachedAt = performance.now();
+        approachScrollY = window.scrollY || 0;
+        lastScrollY = approachScrollY;
+        sheetScrollLive = false;
+        /* Juror pass 7 P1: the composition is made for the WHOLE stage, so the
+           stage must be whole on screen — from the page top (the hall peeks
+           under the header) or past the end of the rail (the stage has
+           unpinned) the inspect view opened cropped with `Back` below the
+           fold. Bring the sticky stage flush with the viewport first. */
+        {
+          const r = stage.getBoundingClientRect();
+          const H = window.innerHeight;
+          const dy = r.top > 1 ? r.top : r.bottom < H - 1 ? r.bottom - H : 0;
+          if (dy !== 0) {
+            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            window.scrollTo({ top: window.scrollY + dy, behavior: reduce ? "instant" : "smooth" });
+            settleUntil = performance.now() + (reduce ? 120 : 900);
+            approachScrollY = (window.scrollY || 0) + dy; // round 28: the flush is the tap's position
+            lastScrollY = approachScrollY;
+          }
+          /* Inspect mode locks the wheel, so the corner menu must be there
+             when it opens: the scripted scroll is not "reading forward", and
+             a rail already scrolled past 240 px had hidden it (juror passes
+             9–10). */
+          window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
+        }
+        setSheet("peek");
+        sheetPosRef.current = 0; // round 31: the remount observer re-applies the live position
+        sheetHiddenRef.current = false;
+        setSheetHidden(false);
+        setApproached(i);
+        renderer.domElement.style.touchAction = "none";
+        syncAlive();
+      };
+      /* v13 V13-10f: leave approach the moment the sticky stage un-pins. This
+         is index-agnostic on purpose — index 8 is only where you NOTICE it,
+         because the rail's arithmetic leaves it barely any runway (railZ runs
+         +0.4 to −50.7 and work 9 sits at −50, so index 8 holds railT
+         0.840–0.937 and index 9 gets a truncated band). Every work can strand
+         the drawer; the un-pin is the one condition they share. The rail
+         length itself is NOT touched — v9 locked "the hall ends on the last
+         painting". */
+      checkUnpin = () => {
+        if (mode !== "approach") return;
+        if (performance.now() < settleUntil) return;
+        const r = stage.getBoundingClientRect();
+        const H = window.innerHeight;
+        const off = Math.max(r.top, H - r.bottom);
+        if (off > Math.max(24, H * 0.06)) approach(null);
+      };
+
+      /* ── v8 V8-326: the windowed video lifecycle ─────────────────────── */
+      /** v14 E17: arm the still → film swap. The map changes only once a frame
+       *  is actually DECODED (a VideoTexture renders black until then — the v7
+       *  flash), and only while the element is still this work's and still
+       *  playing (a pause that lands between the frame and the callback keeps
+       *  the still). Called for a NEW element and again on every RESUME: v8
+       *  armed it once at creation, so a film the switch had paused (map back
+       *  on the still) played on invisibly after the second tap — "the second
+       *  tap does nothing". */
+      const armSwap = (i: number, v: HTMLVideoElement, vt: import("three").VideoTexture) => {
+        const swapIn = () => {
+          if (disposed || videoEls[i] !== v || videoTexs[i] !== vt || v.paused) return;
+          setMap(i, vt);
+        };
+        /* lib.dom declares rVFC, so a plain `in` check narrows the else branch
+           to `never` — the runtime check is real (Firefox lacks it). */
+        const rvfc = (v as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number }).requestVideoFrameCallback;
+        if (typeof rvfc === "function") rvfc.call(v, swapIn);
+        else v.addEventListener("playing", swapIn, { once: true });
+      };
+      const ensureVideo = (i: number) => {
+        const w = works[i];
+        if (!w.video) return;
+        /* v10 V10-05: the STILL is requested first, always. Without it a work
+           whose film swapped in before its still arrived had nothing to fall
+           back to — pausing left the material on a paused video texture, and
+           evicting disposed the very texture the material was still using, so
+           the canvas rendered blank. (Never visible in the QA container: its
+           software GL keeps every film off.) */
+        loadWork(i);
+        const existing = videoEls[i];
+        if (existing) {
+          /* v14 E17: a warm, paused element resumes — and the swap is re-armed,
+             because pauseVideo put the still back on the canvas. */
+          const vt = videoTexs[i];
+          if (vt && paintingMats[i].map !== vt) armSwap(i, existing, vt);
+          existing.play().catch(() => {});
+          return;
+        }
+        const v = document.createElement("video");
+        v.src = w.video;
+        v.loop = true;
+        v.muted = true;
+        v.playsInline = true;
+        v.preload = "auto";
+        v.crossOrigin = "anonymous";
+        const vt = new THREE.VideoTexture(v);
+        vt.colorSpace = THREE.SRGBColorSpace;
+        /* v14 E13: a VideoTexture ships LinearFilter and no mipmaps, so a
+           1200-px film drawn at 150–400 px (the second-nearest work on a
+           phone) aliases, and aliasing under motion reads as the painting
+           shimmering. Mipmaps + trilinear + the stills' anisotropy give the
+           film the filtering the stills have had since v6. Cost: one
+           generateMipmap per uploaded frame for ≤ 3 films; three ≥ r163 is
+           WebGL2-only, so NPOT mipmaps are fine. */
+        vt.generateMipmaps = true;
+        vt.minFilter = THREE.LinearMipmapLinearFilter;
+        vt.anisotropy = maxAniso;
+        v.addEventListener(
+          "loadedmetadata",
+          () => {
+            // cover-fit the film's real aspect onto the canvas's real aspect
+            const va = v.videoWidth / v.videoHeight || w.aspect;
+            const pa = w.aspect;
+            if (va > pa) {
+              vt.repeat.set(pa / va, 1);
+              vt.offset.set((1 - pa / va) / 2, 0);
+            } else {
+              vt.repeat.set(1, va / pa);
+              vt.offset.set(0, (1 - va / pa) / 2);
+            }
+          },
+          { once: true },
+        );
+        armSwap(i, v, vt);
+        v.play().catch(() => {
+          // iOS Low-Power may reject: retry on the next ending gesture
+          const retry = () => {
+            v.play().catch(() => {});
+            window.removeEventListener("pointerup", retry);
+          };
+          window.addEventListener("pointerup", retry, { once: true });
+        });
+        videoEls[i] = v;
+        videoTexs[i] = vt;
+      };
+      const pauseVideo = (i: number) => {
+        const v = videoEls[i];
+        if (!v) return;
+        v.pause();
+        /* v10 V10-05: restore the still if we have it; if we do not, the
+           material must not be left showing a stopped film — fall back to the
+           flat canvas colour and ask for the still again. (v14 E11: v10 "let
+           the pending loadWork() paint it", and after a failed fetch there was
+           no pending loadWork — the placeholder stayed.) */
+        if (stillTexs[i]) setMap(i, stillTexs[i]);
+        else if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) {
+          setMap(i, null);
+          loadWork(i);
+        }
+      };
+      const teardownVideo = (i: number) => {
+        const v = videoEls[i];
+        if (!v) return;
+        pauseVideo(i); // leaves the material on the still, or on no map at all
+        v.removeAttribute("src");
+        v.load();
+        videoEls[i] = null;
+        /* v10 V10-05: only ever dispose a texture nothing is drawing with. */
+        if (videoTexs[i] && paintingMats[i].map === videoTexs[i]) setMap(i, stillTexs[i] ?? null);
+        videoTexs[i]?.dispose();
+        videoTexs[i] = null;
+        if (!stillTexs[i]) loadWork(i); // v14 E11: through the state machine, never a cleared flag
+      };
+      /** The one place the alive window is decided: nearest-N on the rail,
+       *  the inspected work alone in approach, user `stopped` always wins. */
+      syncAlive = () => {
+        if (disposed) return;
+        let desired: number[] = [];
+        if (armed && !held) {
+          if (mode === "approach") {
+            if (approachedIdx !== null && works[approachedIdx].video && !stopped[approachedIdx]) desired = [approachedIdx];
+          } else {
+            const z = railZ();
+            desired = works
+              .map((w, i) => ({ i, dz: Math.abs(placements[i].pos.z - z) }))
+              .filter(({ i, dz }) => dz < ALIVE_RANGE && works[i].video && !stopped[i])
+              .sort((a, b) => a.dz - b.dz)
+              .slice(0, ALIVE_N)
+              .map(({ i }) => i);
+          }
+        }
+        const want = new Set(desired);
+        videoEls.forEach((v, i) => {
+          if (v && !want.has(i) && !v.paused) pauseVideo(i);
+        });
+        desired.forEach((i) => ensureVideo(i));
+        // pool: evict the farthest warm elements beyond N+1
+        const warm = videoEls.map((v, i) => (v ? i : -1)).filter((i) => i >= 0);
+        if (warm.length > POOL_MAX) {
+          const z = railZ();
+          warm
+            .filter((i) => !want.has(i))
+            .sort((a, b) => Math.abs(placements[b].pos.z - z) - Math.abs(placements[a].pos.z - z))
+            .slice(0, warm.length - POOL_MAX)
+            .forEach((i) => teardownVideo(i));
+        }
+        setAlive(approachedIdx !== null && want.has(approachedIdx) ? approachedIdx : null);
+        /* v13 V13-05b: mirror the switch, not the window. Same reference back
+           when nothing changed, so the hall's per-frame sync costs no render. */
+        setStoppedFlags((prev) => (prev.length === stopped.length && prev.every((v, i) => v === stopped[i]) ? prev : [...stopped]));
+      };
+      /* museum-check / a11y api kept: turnOn(i) wakes a rested work; turnOff()
+       * rests the whole hall. */
+      const turnOn = (i: number) => {
+        stopped[i] = false;
+        armed = true;
+        syncAlive();
+      };
+      const turnOff = (i?: number) => {
+        if (typeof i === "number") stopped[i] = true;
+        else
+          works.forEach((_, k) => {
+            stopped[k] = true;
+          });
+        syncAlive();
+      };
+      /* Nothing plays before the visitor's first gesture — the Lighthouse
+         trace stays byte-identical to the stills-only page. museum-check's own
+         window.scrollTo arms it deterministically. */
+      const arm = () => {
+        if (armed) return;
+        armed = true;
+        syncAlive();
+      };
+      window.addEventListener("scroll", arm, { passive: true, once: true });
+      window.addEventListener("pointerdown", arm, { once: true });
+      window.addEventListener("keydown", arm, { once: true });
+
+      // ——— Keyboard (window-level; the DOM buttons remain the primary path) ———
+      const onKey = (e: KeyboardEvent) => {
+        const t = e.target as HTMLElement | null;
+        if (t && /^(input|textarea|select)$/i.test(t.tagName)) return;
+        const stageIn = (() => {
+          const r = stage.getBoundingClientRect();
+          return r.top < window.innerHeight * 0.5 && r.bottom > window.innerHeight * 0.5;
+        })();
+        if (!stageIn) return;
+        if (e.key === "Escape") {
+          if (approachedIdx !== null) {
+            approach(null);
+            e.preventDefault();
+          }
+          return;
+        }
+        if (mode === "rail") {
+          if (e.key === "ArrowLeft") { dragYaw += 0.35; e.preventDefault(); }
+          else if (e.key === "ArrowRight") { dragYaw -= 0.35; e.preventDefault(); }
+          else if (e.key === "ArrowDown" || e.key === "s" || e.key === "S") { window.scrollBy({ top: window.innerHeight * 0.45, behavior: "smooth" }); e.preventDefault(); }
+          else if (e.key === "ArrowUp" || e.key === "w" || e.key === "W") { window.scrollBy({ top: -window.innerHeight * 0.45, behavior: "smooth" }); e.preventDefault(); }
+          else if (e.key === "Enter" && t && t.tagName === "BODY") { approach(lastRailIdx < 0 ? 0 : lastRailIdx); e.preventDefault(); }
+        } else {
+          if (e.key === "ArrowLeft") { approach(Math.max(0, (approachedIdx ?? 0) - 1)); e.preventDefault(); }
+          else if (e.key === "ArrowRight") { approach(Math.min(works.length - 1, (approachedIdx ?? 0) + 1)); e.preventDefault(); }
+          else if (e.key === "+" || e.key === "=") { setZoom(zoom * 1.25); e.preventDefault(); }
+          else if (e.key === "-" || e.key === "_") { setZoom(zoom / 1.25); e.preventDefault(); }
+          else {
+            /* v13 V13-10f: in approach these used to fall through to the
+               browser and scroll the page away with the drawer still open —
+               the keyboard's version of the same bug. They are handled here
+               instead: swallowed, unless the focus is inside the plaque's own
+               scroll container (where they scroll THAT), or Space is about to
+               activate the control that has focus. Escape and Back are still
+               the way out, so nothing becomes unreachable. */
+            /* v14 E7: the scroller exception is DIRECTIONAL now. Measured:
+               with focus on Back inside a card too short to scroll, PageDown
+               walked the page 40px and End threw the visitor out to the grid
+               — the browser's keyboard scroll bubbles from the focused box to
+               the document the moment the box cannot move that way. */
+            const isSpace = e.key === " " || e.key === "Spacebar";
+            const up = e.key === "PageUp" || e.key === "Home" || e.key === "ArrowUp" || (isSpace && e.shiftKey);
+            const isPage = up || e.key === "PageDown" || e.key === "End" || e.key === "ArrowDown";
+            const sc = t ? scrollerOf(t) : null;
+            const inScroller = !!(sc && canScroll(sc, up ? -1 : 1));
+            const activatable = !!(t && t.closest('button, a[href], [role="button"]'));
+            if (!inScroller && (isPage || (isSpace && !activatable))) e.preventDefault();
+          }
+        }
+      };
+      window.addEventListener("keydown", onKey);
+
+      // ——— Frame loop ———
+      let lastT = performance.now();
+      let lookedFlag = false;
+      let rectTick = 0;
+      const tick = () => {
+        raf = requestAnimationFrame(tick);
+        if (!(inView && visible && !covered)) {
+          /* round 24: a paused loop must not leave a strip parked at its last
+             document position for the reader to scroll back into */
+          if (strips.top) hideStrip(strips.top, "top");
+          if (strips.bottom) hideStrip(strips.bottom, "bottom");
+          return;
+        }
+        const now = performance.now();
+        const dt = Math.min((now - lastT) / 1000, 0.05);
+        lastT = now;
+        // damping τ ≈ 0.22s dolly / 0.16s look
+        const kMove = 1 - Math.exp(-dt / 0.22);
+        const kLook = 1 - Math.exp(-dt / 0.16);
+
+        if (mode === "rail") {
+          target = { x: 0, y: EYE, z: railZ(), yaw: 0, pitch: railPitch };
+          const idx = Math.min(works.length - 1, Math.max(0, Math.round(-target.z / SPACING)));
+          loadWork(idx);
+          if (idx + 1 < works.length) loadWork(idx + 1);
+          if (Math.abs(camera.fov - BASE_FOV) > 0.01) {
+            camera.fov += (BASE_FOV - camera.fov) * kMove;
+            camera.updateProjectionMatrix();
+          }
+        } else if (approachedIdx !== null) {
+          const c = compose(approachedIdx);
+          target = { x: c.x, y: c.y, z: c.z, yaw: c.yaw, pitch: c.pitch };
+          if (Math.abs(camera.fov - c.fov) > 0.01) {
+            camera.fov += (c.fov - camera.fov) * kMove;
+            camera.updateProjectionMatrix();
+          }
+        }
+        // inertia on the look (decays with τ 0.18s)
+        if (!dragging && Math.abs(yawVel) > 0.0005) {
+          dragYaw += yawVel * dt;
+          yawVel *= Math.exp(-dt / 0.12); // v8 V8-324: shorter coast
+        }
+        cur.x += (target.x - cur.x) * kMove;
+        cur.y += (target.y - cur.y) * kMove;
+        cur.z += (target.z - cur.z) * kMove;
+        // yaw wraps: take the short way round
+        let dy = target.yaw + dragYaw - cur.yaw;
+        dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+        cur.yaw += dy * kLook;
+        const totalPitch = Math.max(-0.55, Math.min(0.5, target.pitch + dragPitch));
+        cur.pitch += (totalPitch - cur.pitch) * kLook;
+
+        camera.position.set(cur.x, cur.y, cur.z);
+        camera.rotation.set(cur.pitch, cur.yaw, 0, "YXZ");
+        renderer.render(scene, camera);
+        paintRunways(now);
+
+        // v8 V8-328: the dot rail rides the LIVE sheet top while the drawer
+        // slides — set here (rAF runs after React's commits, so a 4Hz
+        // paintRect re-render can never clobber a frame the eye sees).
+        /* v12 (Wil, 8/26): the rail no longer rides the drawer — it fades out
+           entirely while a painting is open, so there is nothing to follow and
+           nothing to clear. The per-frame writer that lived here is gone with
+           it; that is also the code that used to blank the inline `bottom` to
+           "" with no CSS fallback and drop the rail into static flow. */
+
+        /* v12 (Wil, 8/24 screenshot): a vertical thumb-drag tilts the corridor
+           until the floor fills the screen, and `dragPitch` is its own
+           accumulator — clamped, but reset only by recenter(). Watching yaw
+           alone meant the one control that rights the hall never appeared, so
+           the tilt had no way back. ~7° of pitch offers it now. */
+        const away = Math.abs(dragYaw) > 0.35 || Math.abs(dragPitch) > 0.12;
+        if (away !== lookedFlag) {
+          lookedFlag = away;
+          setLookedAway(away);
+        }
+        // the projected painting rect for the invisible focus button (4 Hz)
+        if (mode === "approach" && approachedIdx !== null && now - approachedAt > 600 && ++rectTick % 15 === 0) {
+          /* v13 V13-10f: the same 4 Hz beat catches an un-pin that the scroll
+             stream missed (momentum that ends inside the settle window). */
+          checkUnpin();
+          if (mode !== "approach") return;
+          const r = paintingRect(approachedIdx);
+          if (r && !r.behind) setPaintRect({ x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.right - r.left), h: Math.round(r.bottom - r.top) });
+        }
+      };
+      tick();
+      setReady(true);
+
+      // Pause when offscreen / hidden / covered (v7: split, lastT reset on resume)
+      const resume = () => {
+        lastT = performance.now();
+      };
+      const io = new IntersectionObserver(([e]) => {
+        inView = e.isIntersecting;
+        if (inView) resume();
+      });
+      io.observe(stage);
+      const onVis = () => {
+        visible = !document.hidden;
+        if (visible) {
+          resume();
+          syncAlive(); // v8 V8-326: the window wakes back up with the tab
+        } else videoEls.forEach((v) => v && v.pause());
+      };
+      document.addEventListener("visibilitychange", onVis);
+      const onCover = () => {
+        covered = true;
+        videoEls.forEach((v) => v && v.pause());
+      };
+      document.addEventListener("cnwm:curtain-cover", onCover);
+      window.addEventListener("pagehide", onCover);
+      /* v14 E5: the close-look dialog holds the hall's films while it is open
+         (`held`, above); on close the window resumes exactly as after a tab
+         switch. Films paused this way keep their `stopped[]` switch. */
+      const onDialogOpen = () => {
+        held = true;
+        syncAlive();
+      };
+      const onDialogClose = () => {
+        held = false;
+        syncAlive();
+      };
+      document.addEventListener("cnwm:dialog-open", onDialogOpen);
+      document.addEventListener("cnwm:dialog-close", onDialogClose);
+      /* v14 E11: a connection that comes back re-issues every failed still and
+         study at once instead of waiting out each cooldown. */
+      const onOnline = () => {
+        works.forEach((_, i) => {
+          if (texState[i] === "failed") {
+            texState[i] = "idle";
+            loadWork(i);
+          }
+          if (sketchState[i] === "failed") {
+            sketchState[i] = "idle";
+            loadSketch(i);
+          }
+        });
+      };
+      window.addEventListener("online", onOnline);
+      /* v12 (Wil, 8/26): on phones the wayfinding chip moves to the TOP of the
+         hall — "vertically centered between the bottom of the Skip button and
+         the top of the arch at the end of the hall". The arch's screen height
+         is geometry, not a guess, so project its apex through a camera posed
+         exactly as the RAIL'S RESTING camera (not the live one, which walks
+         and would drag the chip with it), and hand the midpoint to CSS. Once
+         per layout: the band only moves when the viewport does. */
+      const probeCam = camera.clone();
+      /* round 24: clone() copies the bleed's view offset; the arch is
+         projected against the STAGE, so clear it */
+      probeCam.clearViewOffset();
+      const setChipBand = () => {
+        const H = stage.clientHeight;
+        if (!H) return;
+        probeCam.aspect = stage.clientWidth / H;
+        probeCam.position.set(0, EYE, 0.4);
+        probeCam.rotation.set(isPortraitNow() ? RAIL_PITCH_PORTRAIT : RAIL_PITCH, 0, 0, "YXZ");
+        probeCam.updateProjectionMatrix();
+        probeCam.updateMatrixWorld(true);
+        const apex = new THREE.Vector3(0, ARCH_SPRING + ARCH_R, endZ).project(probeCam);
+        const archTop = ((1 - apex.y) / 2) * H;
+        const skipEl = skipRef.current;
+        const skipBottom = skipEl
+          ? skipEl.getBoundingClientRect().bottom - stage.getBoundingClientRect().top
+          : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20) + 44;
+        /* If the projection ever lands above Skip (a viewport so short the arch
+           is off the top), fall back to a hair under Skip rather than negative. */
+        const mid = archTop > skipBottom ? (skipBottom + archTop) / 2 : skipBottom + 28;
+        stage.style.setProperty("--cnwm-chip-y", `${Math.round(mid)}px`);
+        /* v13 V13-05c (Wil, 8/26): "desktop chip centred with Skip on its
+           left". At >=1024 the pill centres on the VIEWPORT, so the top band's
+           two standing controls — Skip on the left, the corner menu on the
+           right — are not accounted for and the pill crowds Skip (measured
+           24.6px of daylight at 1024 against 245.6px on the right). Centre it
+           in the band those two leave instead, as a translate off the viewport
+           centre, and only when the pill actually fits the band — a shift that
+           could not keep the pill clear of both is no shift at all. */
+        const sRect = stage.getBoundingClientRect();
+        const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui-inset")) || 20;
+        const CHIP_GAP = 12;
+        const skipRight = skipEl ? skipEl.getBoundingClientRect().right - sRect.left : inset + 181;
+        const menuEl = document.querySelector(".cnwm-menu");
+        const menuLeft = menuEl ? menuEl.getBoundingClientRect().left - sRect.left : stage.clientWidth - inset;
+        const lo = skipRight + CHIP_GAP;
+        const hi = menuLeft - CHIP_GAP;
+        const pill = stage.querySelector(".museum-chip-row > *");
+        const pw = pill ? pill.getBoundingClientRect().width : 0;
+        const dx = pw > 0 && hi - lo >= pw ? Math.round((lo + hi) / 2 - stage.clientWidth / 2) : 0;
+        stage.style.setProperty("--cnwm-chip-x", `${dx}px`);
+      };
+
+      /* v13 V13-10e: re-hang every work against the room as it stands. The
+         invariant is `yC === CEIL_Y / 2` for the portrait work and the 1.70
+         hanging line for the rest, and this is the ONE write that restores it
+         — the whole reason each work is a group.
+         Today it is a no-op by construction, and deliberately so: the room is
+         built once (this effect's deps are [capable, works]), so CEIL_Y, CH
+         and every wall, ceiling and arch are frozen at the orientation the
+         hall was built in. A flip therefore leaves the visitor inside a room
+         that is still internally consistent — a 3.2m ceiling seen at a
+         landscape fov — and the works stay centred on the walls that are
+         actually there. Re-hanging to the OTHER orientation's ceiling while
+         the ceiling itself did not move would put the work off-centre against
+         the wall the visitor can see, which is the bug, not the fix. When the
+         room becomes live, update CEIL_Y/CH here and this call re-hangs the
+         hall in one line. */
+      const rehang = () => {
+        workGroups.forEach((g, i) => {
+          const p = placements[i];
+          if (p) g.position.y = p.pos.y;
+        });
+      };
+      const onResize = () => {
+        /* v13 V13-10f: an orientation flip moves the scroll position under the
+           visitor. That is not them walking away — hold the exit off. */
+        settleUntil = performance.now() + 900;
+        rehang();
+        sizeToStage();
+        setChipBand();
+      };
+      window.addEventListener("resize", onResize);
+      setChipBand();
+      /* v14 E6: the hint's other dismissals — one listener each, kept apart
+         from the handlers that do the work (`down`, `onKey`, `onWheel`). The
+         wheel counts only once the sticky stage has ARRIVED (top <= 1): while
+         the page is still bringing the hall into view, a wheel over the
+         incoming stage is reading the page, not the museum. The key gate
+         mirrors onKey's own (never from a form field; the stage must hold the
+         viewport's centre line). Approach is caught in the React tree. */
+      const dismissHint = () => setHintDismissed(true);
+      const onHintWheel = () => {
+        if (stage.getBoundingClientRect().top <= 1) dismissHint();
+      };
+      const onHintKey = (e: KeyboardEvent) => {
+        const t = e.target as HTMLElement | null;
+        if (t && /^(input|textarea|select)$/i.test(t.tagName)) return;
+        const r = stage.getBoundingClientRect();
+        if (!(r.top < window.innerHeight * 0.5 && r.bottom > window.innerHeight * 0.5)) return;
+        if (/^(ArrowLeft|ArrowRight|ArrowUp|ArrowDown|w|W|s|S)$/.test(e.key) || (e.key === "Enter" && t?.tagName === "BODY")) dismissHint();
+      };
+      stage.addEventListener("wheel", onHintWheel, { passive: true });
+      renderer.domElement.addEventListener("pointerdown", dismissHint);
+      window.addEventListener("keydown", onHintKey);
+      renderer.domElement.addEventListener("webglcontextlost", () => setCapable(false));
+
+      // ——— Debug hook (scripts/museum-check.mjs) ———
+      const paintingRect = (i: number) => {
+        const m = paintingMeshes[i];
+        if (!m) return null;
+        m.updateWorldMatrix(true, false);
+        const geo = m.geometry as any;
+        geo.computeBoundingBox?.();
+        const bb = geo.boundingBox;
+        if (!bb) return null;
+        const rect = renderer.domElement.getBoundingClientRect();
+        const pts = [
+          [bb.min.x, bb.min.y, 0],
+          [bb.max.x, bb.min.y, 0],
+          [bb.min.x, bb.max.y, 0],
+          [bb.max.x, bb.max.y, 0],
+        ].map(([x, y, z]) => {
+          const v = new THREE.Vector3(x, y, z).applyMatrix4(m.matrixWorld).project(camera);
+          return { x: rect.left + ((v.x + 1) / 2) * rect.width, y: rect.top + ((1 - v.y) / 2) * rect.height, behind: v.z > 1 };
+        });
+        const xs = pts.map((p) => p.x);
+        const ys = pts.map((p) => p.y);
+        return { left: Math.min(...xs), right: Math.max(...xs), top: Math.min(...ys), bottom: Math.max(...ys), behind: pts.some((p) => p.behind) };
+      };
+      const hook = {
+        get state() {
+          return {
+            mode,
+            railT,
+            railIdx: lastRailIdx,
+            approached: approachedIdx,
+            zoom,
+            cur: { ...cur },
+            target: { ...target },
+            look: { yaw: cur.yaw, pitch: cur.pitch, dragYaw, dragPitch },
+            alive: approachedIdx !== null && videoEls[approachedIdx] && !videoEls[approachedIdx]!.paused ? approachedIdx : -1,
+            aliveList: videoEls.map((v, i) => (v && !v.paused ? i : -1)).filter((i) => i >= 0),
+            stopped: [...stopped],
+            /* v14: texture and film state, read-only — the E11/E17 checks
+               assert on these rather than sampling pixels. */
+            texState: [...texState],
+            sketchState: [...sketchState],
+            mapKind: paintingMats.map((m) => kindOf(m.map)),
+            videoState: videoEls.map((v) => (v ? { paused: v.paused, readyState: v.readyState, error: v.error ? v.error.code : 0 } : null)),
+            held,
+            fov: camera.fov,
+            far: camera.far,
+            portrait,
+            /* v13 V13-10e: the room's own numbers, so the hall's QA can assert
+               `|yC − ceilY/2| < 0.01` and `frameTop <= ceilY` instead of
+               re-deriving them from the viewport. */
+            ceilY: CEIL_Y,
+            corridorHalf: CH,
+            endZ,
+            /* round 24: the runway strips and the pin (scripts/museum-runway.mjs) */
+            runway: {
+              b: runB,
+              svh: runSvh,
+              lead: runLead,
+              vel: runVel,
+              copy: runCopy,
+              blits: runBlits,
+              error: runError,
+              pin: pin.getBoundingClientRect().toJSON(),
+              drawer: runLast.bottom.drawer,
+              top: runLast.top.on ? { s0: runLast.top.s0, rows: runLast.top.rows, y: runLast.top.y } : null,
+              bottom: runLast.bottom.on ? { s0: runLast.bottom.s0, rows: runLast.bottom.rows, y: runLast.bottom.y } : null,
+            },
+            running: inView && visible && !covered,
+            works: works.length,
+            spacing: SPACING,
+            sheet: sheetRefState.current,
+            /* round 28 (scripts/museum-drawer.mjs) */
+            sheetPos: sheetPosRef.current,
+            sheetHidden: sheetHiddenRef.current,
+            sheetX: sheetRef.current?.dataset.x === "1", // round 31
+            approachScrollY,
+            scrollDrivesSheet: sheetScrollLive,
+          };
+        },
+        approach,
+        turnOn,
+        turnOff,
+        recenter,
+        setZoom,
+        setLook: (yaw: number, pitch: number) => {
+          dragYaw = yaw;
+          dragPitch = pitch;
+        },
+        /* through the snap, so the hook moves the real element (V8-328) */
+        setSheet: (s: "peek" | "full") => snapSheetFn.current(s),
+        paintingRect,
+        placements,
+        runwayProbe,
+        get info() {
+          return renderer.info;
+        },
+        camera,
+      };
+      (window as any).__museum = hook;
+
+      api.current = {
+        approach,
+        turnOn,
+        turnOff,
+        recenter,
+        setZoom,
+        chipBand: setChipBand,
+        dispose: () => {
+          disposed = true;
+          if ((window as any).__museum === hook) delete (window as any).__museum;
+          cancelAnimationFrame(raf);
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("pointermove", move);
+          window.removeEventListener("pointerup", up);
+          window.removeEventListener("pointercancel", up);
+          window.removeEventListener("keydown", onKey);
+          window.removeEventListener("resize", onResize);
+          document.removeEventListener("visibilitychange", onVis);
+          document.removeEventListener("cnwm:curtain-cover", onCover);
+          window.removeEventListener("pagehide", onCover);
+          document.removeEventListener("cnwm:dialog-open", onDialogOpen);
+          document.removeEventListener("cnwm:dialog-close", onDialogClose);
+          window.removeEventListener("online", onOnline);
+          stage.removeEventListener("wheel", onWheel);
+          lockDocument(false); // v14 E7: the approach-only window listeners
+          window.removeEventListener("scroll", arm);
+          window.removeEventListener("pointerdown", arm);
+          window.removeEventListener("keydown", arm);
+          stage.removeEventListener("wheel", onHintWheel);
+          renderer.domElement.removeEventListener("pointerdown", dismissHint);
+          window.removeEventListener("keydown", onHintKey);
+          io.disconnect();
+          works.forEach((_, i) => teardownVideo(i));
+          renderer.dispose();
+          scene.traverse((o: any) => {
+            o.geometry?.dispose?.();
+            const m = o.material;
+            if (m) (Array.isArray(m) ? m : [m]).forEach((mm: any) => { mm.map?.dispose?.(); mm.dispose?.(); });
+          });
+          renderer.domElement.remove();
+          strips.top?.remove();
+          strips.bottom?.remove();
+          debugBox?.remove();
+        },
+      };
+    })();
+
+    return () => {
+      api.current?.dispose();
+      api.current = null;
+    };
+  }, [capable, works]);
+
+  // Focus management (V7-080): approach → Back gets focus; return → the dot
+  // of the work you were looking at.
+  const dotRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const returnIdx = useRef<number | null>(null);
+  /* Juror pass 8 P3: after a pointer/touch approach the scripted focus made
+     `Back to the hall` (and, on return, the dot) wear a keyboard focus ring.
+     Focus is moved only when the last input was the keyboard — mouse and touch
+     keep their modality; Esc still works from anywhere. */
+  const keyboardInput = useRef(false);
+  /* v13 V13-10c: the drawer body's cap is the sheet's cap minus the REAL
+     header, which changes with `--ui-inset` and the fluid title (and, until
+     v14 E8 mounted the button in both states, between peek and full).
+     Measured, not assumed. */
+  useEffect(() => {
+    const head = sheetHeadRef.current;
+    const sheet = sheetRef.current;
+    if (!head || !sheet) return;
+    const publish = () => {
+      const h = head.getBoundingClientRect().height;
+      if (h > 0) sheet.style.setProperty("--cnwm-sheet-head", `${Math.round(h)}px`);
+    };
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(head);
+    return () => ro.disconnect();
+  }, [approached, portraitUI]);
+  /* v13 V13-05c: the top band's reserves are the real boxes of Skip and the
+     corner menu, and Skip only exists while the rail chrome is mounted — so
+     the band is re-measured whenever that chrome appears or changes shape,
+     not only on resize. */
+  useEffect(() => {
+    if (!ready) return;
+    const id = requestAnimationFrame(() => api.current?.chipBand());
+    return () => cancelAnimationFrame(id);
+  }, [ready, approached, lookedAway]);
+  /* v14 E6: entering approach is an interaction too — without this the chip
+     would come back the moment the visitor returned to the hall. */
+  useEffect(() => {
+    if (approached !== null) setHintDismissed(true);
+  }, [approached]);
+  useEffect(() => {
+    const onKey = () => (keyboardInput.current = true);
+    const onPointer = () => (keyboardInput.current = false);
+    window.addEventListener("keydown", onKey, true);
+    window.addEventListener("pointerdown", onPointer, true);
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("pointerdown", onPointer, true);
+    };
+  }, []);
+  useEffect(() => {
+    if (approached !== null) {
+      returnIdx.current = approached;
+      if (keyboardInput.current) setTimeout(() => backRef.current?.focus({ preventScroll: true }), 50);
+    } else if (returnIdx.current !== null) {
+      if (keyboardInput.current) dotRefs.current[returnIdx.current]?.focus({ preventScroll: true });
+      returnIdx.current = null;
+    }
+  }, [approached]);
+
+  // ——— Phone sheet drag (header) — v8 V8-328: the header drives the SAME
+  // continuous position as the stage swipe and the wheel; release snaps by
+  // velocity, then by nearest end. ———
+  const dragState = useRef<{ y0: number; p0: number; ly: number; lt: number; moved: number; v: number } | null>(null);
+  const onSheetDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!sheetRef.current) return;
+    /* Capture on the HEADER (the element that owns these handlers) — capturing
+       on the sheet re-targeted every move/up to the sheet, so the header's
+       handlers never saw them and the sheet was dead to touch (juror 1, P1). */
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragState.current = { y0: e.clientY, p0: sheetPosRef.current, ly: e.clientY, lt: performance.now(), moved: 0, v: 0 };
+  };
+  const onSheetMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragState.current;
+    if (!d) return;
+    const now = performance.now();
+    d.moved = Math.max(d.moved, Math.abs(e.clientY - d.y0));
+    d.v = (d.ly - e.clientY) / Math.max(1, now - d.lt); // px/ms, up +
+    d.ly = e.clientY;
+    d.lt = now;
+    applySheet(d.p0 + (d.y0 - e.clientY) / sheetTravel(), false);
+  };
+  const onSheetUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragState.current;
+    dragState.current = null;
+    if (!d) return;
+    if (d.moved < 6) {
+      // a tap toggles (pointer path); the click fallback below is then skipped
+      lastToggle.current = performance.now();
+      snapSheet(sheet === "peek" ? "full" : "peek");
+    } else if (Math.abs(d.v) > 0.3) {
+      snapSheet(d.v > 0 ? "full" : "peek");
+    } else {
+      snapSheet(sheetPosRef.current > 0.5 ? "full" : "peek");
+    }
+    void e;
+  };
+  /* Some touch stacks deliver a bare `click` for a tap (no pointer pair) —
+     toggle from it too, unless the pointer path just did. */
+  const lastToggle = useRef(0);
+  const onSheetClick = () => {
+    if (performance.now() - lastToggle.current < 500) return;
+    lastToggle.current = performance.now();
+    snapSheet(sheet === "peek" ? "full" : "peek");
+  };
+
+  if (!capable) return null;
+
+  const plaque = approached !== null ? works[approached] : null;
+  const pad2 = (n: number) => String(n).padStart(2, "0");
+  const inApproach = approached !== null;
+
+  return (
+    <div ref={wrapRef} style={slotId ? undefined : { height: `${works.length * 90 + 100}vh` }} className={slotId ? "museum-wrap relative h-full" : "museum-wrap relative"}>
+      {/* Round 24 (2026-09-21): the PIN is the sticky element now, not the
+          stage — on iOS with collapsing bars it is a viewport taller than
+          the viewport (global.css), which Safari's bar probe ignores, and
+          the stage sits at its foot in exactly the box it always had. Where
+          there are no bars the pin is one viewport tall and the stage fills
+          it: the same boxes as before, to the pixel. */}
+      <div className="museum-pin">
+      <div ref={stageRef} className="museum-stage h-dvh w-full overflow-hidden" style={{ overscrollBehaviorX: "none" }}>
+        {/* Wayfinding chip (rail) → Face forward (looked away).
+            v8 V8-322/323 (Wil, 00:48:36 / 01:09:54 / 01:16:24 / 00:31:16):
+            phones set the pair just above the indicator dots; tablets centre
+            it slightly above the screen's middle; desktop keeps the chip
+            top-centre while Face forward rides top-RIGHT on Skip's axis and
+            inset. */}
+        {ready && !inApproach && !lookedAway && !hintDismissed && (
+          <div
+            /* v12: phones move the chip from just above the dot rail to the
+               band between Skip and the arch (`--cnwm-chip-y`, written by the
+               scene each layout); tablet and desktop keep their v8 positions
+               exactly. v14 E15 (Wil): tablets take the phone placement too —
+               "closer to the top, matching the mobile placement" — so the
+               band rule runs to 1024 and only desktop keeps its top inset.
+               v14 E6: `hintDismissed` gates the row — a one-time hint. */
+            className="museum-chip-row pointer-events-none absolute z-10 flex justify-center whitespace-nowrap max-sm:inset-x-[var(--ui-inset)] max-lg:top-[var(--cnwm-chip-y,38%)] max-lg:-translate-y-1/2 sm:max-lg:inset-x-[var(--ui-inset)] lg:inset-x-0 lg:top-[calc(var(--ui-inset)+env(safe-area-inset-top))]"
+          >
+            <p className="museum-chip-pill t-meta inline-block rounded-full px-4 py-2" style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}>
+              <span className="hidden lg:inline">The Museum · scroll to walk · drag to look · tap a painting</span>
+              <span className="hidden sm:inline lg:hidden">Scroll to walk · tap a painting</span>
+              <span className="sm:hidden">Scroll to walk</span>
+            </p>
+          </div>
+        )}
+        {/* Face forward lives in the bottom-centre column with the dot rail
+            (below) since v14.2. */}
+
+        {/* Skip — top-LEFT on the inset (the menu owns top-right). */}
+        {ready && !inApproach && (
+          <div ref={skipRef} className="absolute z-10" style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)" }}>
+            <button
+              type="button"
+              className="btn-sm btn-ghost btn-icon-end"
+              style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+              onClick={() => {
+                const r = wrapRef.current?.getBoundingClientRect();
+                if (r) window.scrollTo({ top: window.scrollY + r.bottom, behavior: "smooth" });
+              }}
+              aria-label="Skip the hall"
+            >
+              <span className="hidden sm:inline">Skip the hall</span>
+              <span className="sm:hidden">Skip</span>
+              <svg className="icon icon-sm icon-filled" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16.42 11.35H3.3a0.65 0.65 0 000 1.3h13.12z" />
+                <path d="M14.39 17.12c0.19 0.18 0.4 0.2 0.64 0.06l6.74-4.3c0.33-0.21 0.49-0.5 0.49-0.88 0-0.38-0.16-0.67-0.49-0.88l-6.74-4.3c-0.24-0.14-0.45-0.12-0.64 0.06-0.19 0.18-0.22 0.39-0.1 0.64l2.13 3.83v1.3l-2.13 3.82c-0.12 0.25-0.09 0.47 0.1 0.65z" />
+              </svg>
+            </button>
+          </div>
+        )}
+
+        {/* Approach: Back to the hall — top-left, always reachable (phones);
+            in the card on larger screens. */}
+        {plaque && portraitUI && (
+          <button
+            ref={backRef}
+            type="button"
+            /* v13 V13-10f: `touch-none` — this button sits OVER the stage but
+               is not the canvas, so a touch that started on it was the one
+               gesture approach never blocked: it scrolled the page out from
+               under the open drawer. */
+            className="btn-sm btn-ghost touch-none absolute z-20"
+            style={{ top: "calc(var(--ui-inset) + env(safe-area-inset-top))", left: "var(--ui-inset)", background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+            onClick={() => api.current?.approach(null)}
+          >
+            Back to the hall
+          </button>
+        )}
+
+        {/* The invisible, focusable pause/play toggle over the projected
+            painting — v8 V8-326: the hall is alive by default, so the control
+            rests the film and wakes it. */}
+        {plaque && plaque.video && paintRect && (
+          <button
+            type="button"
+            className="museum-alive-toggle absolute z-10"
+            style={{ left: paintRect.x, top: paintRect.y, width: paintRect.w, height: paintRect.h }}
+            /* v13 V13-05b: the announced state is the SWITCH (`stopped[i]`),
+               not the playback window — a work paused by the alive budget used
+               to announce itself as "Play" while the switch was still on. */
+            aria-label={approached !== null && stoppedFlags[approached] ? "Play this painting's animation" : "Pause this painting's animation"}
+            onClick={() => (approached !== null && stoppedFlags[approached] ? api.current?.turnOn(approached) : api.current?.turnOff(approached!))}
+          />
+        )}
+        {/* Desktop / landscape card — left edge, vertically centred, no border, one button */}
+        {plaque && !portraitUI && (
+          <div
+            className="absolute z-20 -translate-y-1/2"
+            style={{ left: "var(--ui-inset)", top: "50%", width: "clamp(13rem, calc(30vw - var(--ui-inset) - 24px - 3rem), 22rem)" }}
+          >
+            {/* v8 V8-329: the card can now carry a study, so it is capped to
+                the stage and scrolls inside rather than running off the top
+                and bottom on short desktops (1024×768). */}
+            <div
+              className="museum-card rounded-[12px] p-4 lg:p-5"
+              style={{
+                background: "color-mix(in srgb, var(--color-primary-2) 84%, transparent)",
+                backdropFilter: "blur(8px)",
+                /* max-height lives in CSS now (.museum-card): a landscape
+                   phone needs a tighter cap than a desktop, and an inline
+                   style cannot be overridden by a height media query. */
+                overflowY: "auto",
+                overscrollBehavior: "contain",
+              }}
+            >
+              {/* v13 V13-05a (Wil, 8/26): the "Location NN" eyebrow is gone
+                  from the plaque — the location button in the grid below the
+                  hall still carries it. The title takes its place. */}
+              <p className="t-title-sm">{plaque.name}</p>
+              {plaque.line && !(stageRef.current && stageRef.current.clientHeight < 500) && (
+                <figure className="mt-4">
+                  <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
+                  {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
+                </figure>
+              )}
+              {!(stageRef.current && stageRef.current.clientHeight < 620) && <StudyNote work={plaque} />}
+              <div className="mt-5">
+                {/* full-width inside narrow cards (short landscape / 200 % zoom) so it never spills */}
+                <button ref={backRef} type="button" className="btn-sm btn-ghost w-full max-w-full justify-center px-3 lg:w-auto lg:px-5" onClick={() => api.current?.approach(null)}>
+                  Back to the hall
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Phone portrait: the peek-sheet. v8 V8-328 (Wil, 00:28:32): the
+            drag-handle pill is gone — the whole header is the handle, an X
+            closes the open card, and the sheet rides ONE continuous position
+            (header drag, stage swipe, wheel) with the body always mounted so
+            the painting recomposes live above it. */}
+        {plaque && portraitUI && (
+          <div
+            ref={sheetRef}
+            className="museum-sheet absolute inset-x-0 bottom-0 z-20"
+            data-state={sheet}
+            style={{ maxHeight: "55dvh" }}
+          >
+            <div
+              ref={sheetHeadRef}
+              /* v13 V13-10c (Wil, 8/26): "the drawer's top padding should match
+                 the left padding" — the sides were on `--ui-inset` (20px on a
+                 phone, 40 on a portrait tablet) while the top was a flat 12px.
+                 The bottom keeps its 12px: it is the gap to the body, not the
+                 drawer's edge. */
+              className="museum-sheet-head cursor-grab touch-none px-[var(--ui-inset)] pt-[var(--ui-inset)] pb-3"
+              onPointerDown={onSheetDown}
+              onPointerMove={onSheetMove}
+              onPointerUp={onSheetUp}
+              onPointerCancel={onSheetUp}
+              onClick={onSheetClick}
+              role="button"
+              tabIndex={0}
+              aria-expanded={sheet === "full"}
+              aria-label={sheet === "full" ? "Collapse the plaque" : "Expand the plaque"}
+              onKeyDown={(e) => {
+                /* v14 E8: the round button is a child of this handle, and its
+                   Enter / Space bubble here — swallowing them (preventDefault)
+                   turned the button's own activation into a header toggle, so
+                   Enter on the X collapsed the card instead of hiding it. */
+                if (e.target !== e.currentTarget) return;
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  snapSheet(sheet === "peek" ? "full" : "peek");
+                }
+              }}
+            >
+              {/* v9 V9-103 (Wil, 8/21): a real round button, centred above
+                  everything, standing where the v8 drag pill did — not a ghost
+                  glyph in the corner. It closes the card; the header itself
+                  still drags and taps. */}
+              {/* v12 (Wil, 8/26) REVERSES v10 V10-07 ("present at all times"):
+                  "the X icon should only appear after the user scrolls down to
+                  review more of the drawer's content. When they click it, it
+                  should completely hide the drawer." So it belongs to the open
+                  state, and it closes the drawer outright rather than stepping
+                  back to the preview. Logged in docs/v4/DECISIONS.md. */}
+              {/* v14.2 (Wil, 9/16) reverses v14 E8's always-mounted chevron/X:
+                  the round button exists in the OPEN state only, as a static X
+                  that hides the drawer — the v12/v13 gate and glyph exactly. In
+                  peek the title stands alone. The header is therefore shorter
+                  in peek than in full again; `sheetTravel()`, the
+                  `[sheet, sheetHidden]` layout effect and the
+                  `--cnwm-sheet-head` observer re-measure it, as before E8. */}
+              {/* Round 31 (Wil, 2026-09-22): "it shows up maybe a second after
+                  the drawer is expanded … it should appear instantly by
+                  animating in with the expansion of the drawer." It was mounted
+                  by the state, which the scroll path sets only once the scroll
+                  settles — on iOS, after the flick's momentum — and it arrived
+                  with no transition. Mounted in both states now and FOLDED in
+                  peek (global.css: height, margin, stroke and opacity at 0), it
+                  unfolds over the house 300ms the moment the drawer passes 12%
+                  of its travel (`data-x`, applySheet), so it rises with the
+                  drawer whatever moves it. v14.2's look holds: in peek the
+                  title stands alone, and the header is exactly as tall as it
+                  was. Focusable and exposed in the open state only. */}
+              <button
+                ref={sheetCloseRef}
+                type="button"
+                className="museum-sheet-close"
+                aria-label="Hide the plaque"
+                aria-hidden={sheet !== "full" || sheetHidden}
+                tabIndex={sheet === "full" && !sheetHidden ? 0 : -1}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  lastToggle.current = performance.now();
+                  hideSheet();
+                  backRef.current?.focus();
+                }}
+              >
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                </svg>
+              </button>
+              {/* v13 V13-05a (Wil, 8/26): the "Location NN" eyebrow is gone
+                  from the plaque — the location button in the grid below the
+                  hall still carries it. The title takes its place. */}
+              <p className="t-title-sm">{plaque.name}</p>
+            </div>
+            <div
+              className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
+              aria-hidden={sheet === "peek"}
+              /* v13 V13-10c: 118px was a literal that matched neither header
+                 state (measured 53.9 peek / 119.9 full on a phone, 56.2 / 122.2
+                 on a portrait tablet, and both grow with `--ui-inset` and with
+                 the fluid title's line-height). It is measured now — the header
+                 publishes its own height to `--cnwm-sheet-head` — so the body
+                 gets exactly the sheet's 55dvh cap minus the header, in either
+                 state and at any inset. v14 E12: the `- 1px` that paid for the
+                 sheet's top border went with the border. v14.3 (Wil, 9/16):
+                 the stroke is back (`.museum-sheet`, global.css) and so is the
+                 1px — the 55dvh cap is border-box, so without it the body
+                 would overflow the cap by the stroke. Fallback is the
+                 phone's header (one height in both states since v14 E8). */
+              style={{ overflowY: "auto", overscrollBehavior: "contain", maxHeight: "calc(55dvh - var(--cnwm-sheet-head, 156px) - 1px)" }}
+            >
+              {plaque.line && (
+                <figure>
+                  <blockquote className="t-meta-body italic">“{plaque.line}”</blockquote>
+                  {plaque.lineBy && <figcaption className="t-meta-body mt-2 font-bold not-italic">{plaque.lineBy}</figcaption>}
+                </figure>
+              )}
+              <StudyNote work={plaque} />
+            </div>
+          </div>
+        )}
+
+        {/* Dot rail — every mode; fades out while a painting is open.
+            v14.2 (Wil, 9/16): ONE bottom-centre column at every breakpoint,
+            top → bottom: Face forward (only while looked away) · 24px · dots
+            · 16px · counter. The wrapper carries the rail's resting offset
+            and is `pointer-events-none` — its box would otherwise stand over
+            the plaque header in approach — so each child opts back in.
+            v14.3 (Wil, 9/16): both gaps 12 → 16 (`gap-4`, the `--sp-2` step)
+            — "increase the vertical spacing above and below the indicator
+            dots slightly … room to breathe, but avoid creating a large gap".
+            The column's bottom offset does not move. REVERT: `gap-3` here and
+            on the <nav> below.
+            v14.4 (Wil, 9/16): "increase the vertical spacing between the
+            bottom of the Face Forward button and the top of the indicator
+            dots" — this wrapper's gap alone goes 16 → 24 (`gap-6`, `--sp-3`);
+            the dots ↔ counter gap on the <nav> stays 16. REVERT: `gap-4`. */}
+        {ready && (
+          <div
+            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-6"
+            style={{
+              /* v12 (Wil, 8/26): one resting offset, always set inline, and it
+                 is the map's chapter-rail idiom exactly — `pb-[var(--ui-inset)]`
+                 there, `bottom: var(--ui-inset)` here (the old +4px was the
+                 only thing keeping the two apart). It is never recomputed and
+                 never cleared, so no viewport change can strand it. */
+              bottom: "var(--ui-inset)",
+            }}
+          >
+            {/* Face forward — v13 V13-10b (Wil, 8/26) stood it top-right on
+                Skip's axis; v14 E10 moved it left of the corner menu; v14.1
+                hid it while the menu showed on phones. v14.2 (Wil, 9/16): it
+                heads this column instead, so it shares no corner with Skip or
+                the menu at any width. It stays OUTSIDE the <nav> so the
+                landmark stays honest. Face forward and the plaque drawer are
+                mutually exclusive by construction — the drawer exists only in
+                approach, this button only outside it. */}
+            {!inApproach && lookedAway && (
+              <button
+                type="button"
+                className="btn-sm btn-ghost pointer-events-auto"
+                style={{ background: "color-mix(in srgb, var(--color-primary-2) 82%, transparent)" }}
+                onClick={() => api.current?.recenter()}
+              >
+                Face forward
+              </button>
+            )}
+            <nav
+              ref={dotsRef}
+              /* v13 V13-10d (Wil, 8/26): "the 1/10 counter should be centered
+                 above the indicator dots." It used to sit INSIDE this row, which
+                 pushed the dot list off centre by half the counter's width — the
+                 row was centred, the dots were not. Stacked, both are.
+                 v14 E16 (Wil): gap-3 — 12px between the counter and the dots,
+                 up from 8 ("a small amount, not dramatic").
+                 v14.2 (Wil, 9/16): the counter sits BELOW the dots, still on
+                 their centre line, still 12px away.
+                 v14.3 (Wil, 9/16): 16px (`gap-4`), with the column's gap
+                 above the dots — see the wrapper's note. REVERT: `gap-3`. */
+              className="pointer-events-auto flex flex-col items-center gap-4"
+              style={{
+                /* …and while a painting is open the rail is not wanted at all:
+                   "the indicator dots can and should however disappear when
+                   viewing a painting after clicking on it." */
+                opacity: inApproach ? 0 : 1,
+                pointerEvents: inApproach ? "none" : undefined,
+                transition: "opacity var(--dur-fast) var(--ease)",
+                /* V8-327: the dots leave with the rest of the chrome as the
+                   walk steps through the arch and down. */
+              }}
+              aria-hidden={inApproach || undefined}
+              aria-label="Works in the hall"
+            >
+              <ol className="flex items-center gap-2">
+                {works.map((w, i) => {
+                  const active = i === (approached ?? railIdx);
+                  return (
+                    <li key={w.slug + w.key}>
+                      <button
+                        type="button"
+                        ref={(el) => {
+                          dotRefs.current[i] = el;
+                        }}
+                        onClick={() => api.current?.approach(i)}
+                        aria-label={`Approach “${w.title}”`}
+                        aria-current={active ? "true" : undefined}
+                        className={`grid h-6 w-6 cursor-pointer place-items-center rounded-full border transition-colors ${active ? "border-primary-9" : "border-primary-7 hover:border-primary-9"}`}
+                        style={{ background: "color-mix(in srgb, var(--color-primary-2) 72%, transparent)" }}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${active ? "bg-primary-9" : "bg-primary-11/60"}`} aria-hidden="true" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+              {/* v13 V13-10d DECISION: the counter shows at every width now (it
+                  was `hidden sm:block`, so phones — the widths Wil was looking
+                  at — never had it). REVERT: restore `hidden sm:block` on this
+                  line; the column layout above stands either way. */}
+              <p className="t-meta whitespace-nowrap" aria-hidden="true">
+                {pad2((approached ?? railIdx) + 1)} / {pad2(works.length)}
+              </p>
+            </nav>
+          </div>
+        )}
+      </div>
+      </div>
+    </div>
+  );
+}

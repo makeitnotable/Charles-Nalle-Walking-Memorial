@@ -1,0 +1,20 @@
+{
+  "round": 11,
+  "label": "round 8, phase C2 — the opacity ladder",
+  "date": "2026-09-17",
+  "plan": "docs/rounds/2026-09-17-round-8-plan.md",
+  "base": {
+    "tag": "client-round-11-base",
+    "commit": "30f650d2ef2cf87b8c33b1162cfd5a6b53149963",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/pages/glass-lab.astro",
+    "docs/rounds/2026-09-17-round-8-plan.md",
+    "docs/rounds/2026-09-17-round-11.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Round 8 phase C2. Lab and docs ONLY — no production file is touched, so no route may drift. Test 4 came back and disproved the premise section 5.1 was built on: on iOS 26.6.1 an opacity-0 edge element is NOT read by the tint observer. Height (4 vs 12px) and the @supports gate both made no difference; only the visible band at opacity 1 tinted the address bar, and it differs from the failing 12px configuration in opacity alone. Test 5 walks 0.01/0.04/0.10/0.25/0.50 in the same red and asks two questions per rung — is the bar tinted, and is the band visible — because the feature is free if and only if the lowest opacity that tints is at or below the highest that is invisible. The phase C strip fix (12px, ungated) stays on v2: it was not the cause, it is confirmed invisible on the device (visible_leak: no), and Mac Safari's 6px floor still needs it."
+}

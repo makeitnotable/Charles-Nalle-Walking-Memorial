@@ -1,0 +1,84 @@
+{
+  "start": {
+    "sheet": "peek",
+    "hdrTop": 720
+  },
+  "efp": [
+    "195,733: SPAN.mx-auto mb-3 block h-1 w-10 rounded-full aria=null ta=auto pe=auto",
+    "195,745: DIV.museum-sheet-head cursor-grab touch-none aria=Expand the plaque ta=none pe=auto",
+    "195,790: P.t-title-sm mt-2 aria=null ta=auto pe=auto",
+    "60,800: P.t-title-sm mt-2 aria=null ta=auto pe=auto"
+  ],
+  "afterSlowDrag": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "evs": [
+      "pointerdown:touch@DIV[Expand the pla]",
+      "gotpointercapture:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointermove:touch@DIV",
+      "pointerup:touch@DIV",
+      "lostpointercapture:touch@DIV"
+    ]
+  },
+  "afterTapHandle": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "evs": [
+      "pointerdown:touch@SPAN",
+      "gotpointercapture:touch@DIV",
+      "pointerup:touch@DIV",
+      "lostpointercapture:touch@DIV",
+      "click:touch@SPAN"
+    ]
+  },
+  "afterMouse": {
+    "sheet": "peek",
+    "hdrTop": 720,
+    "evs": [
+      "pointerdown:mouse@P",
+      "gotpointercapture:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointermove:mouse@DIV",
+      "pointerup:mouse@DIV",
+      "lostpointercapture:mouse@DIV",
+      "click:mouse@DIV"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "route": "/",
+    "performance": 93,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.57,
+    "cls": 0,
+    "tbt_ms": 236,
+    "transfer_kb": 533
+  },
+  {
+    "route": "/bakery",
+    "performance": 97,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.43,
+    "cls": 0,
+    "tbt_ms": 49,
+    "transfer_kb": 246
+  },
+  {
+    "route": "/commissioners-office",
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.57,
+    "cls": 0,
+    "tbt_ms": 1,
+    "transfer_kb": 286
+  },
+  {
+    "route": "/mansion",
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.56,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 268
+  },
+  {
+    "route": "/ferry",
+    "performance": 98,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.28,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 249
+  },
+  {
+    "route": "/barbershop",
+    "performance": 97,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.42,
+    "cls": 0,
+    "tbt_ms": 10,
+    "transfer_kb": 251
+  },
+  {
+    "route": "/map",
+    "performance": 95,
+    "accessibility": 100,
+    "bestPractices": 96,
+    "lcp_s": 2.58,
+    "cls": 0,
+    "tbt_ms": 158,
+    "transfer_kb": 823
+  },
+  {
+    "route": "/people",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 1.51,
+    "cls": 0.003,
+    "tbt_ms": 0,
+    "transfer_kb": 146
+  },
+  {
+    "route": "/paintings",
+    "performance": 64,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.93,
+    "cls": 0,
+    "tbt_ms": 157910,
+    "transfer_kb": 2189
+  },
+  {
+    "route": "/about",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 1.66,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 119
+  }
+]

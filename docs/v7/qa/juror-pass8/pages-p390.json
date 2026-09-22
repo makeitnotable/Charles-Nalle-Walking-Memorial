@@ -1,0 +1,155 @@
+{
+  "/people": {
+    "title": "The People · Charles Nalle Walking Memorial",
+    "log": [],
+    "h1": {
+      "txt": "ONE DAY.A WHOLECITY’S CAST.",
+      "lines": 3
+    },
+    "copy": {
+      "theirStory": false,
+      "standWhere": false,
+      "walkTheStory": 0,
+      "streetsWaiting": false,
+      "twoAndHalf": false,
+      "fortyFive": false,
+      "spotLinks": 0,
+      "emDash": 0,
+      "afterword": false,
+      "rails": [
+        "(01)",
+        "(02)",
+        "(03)"
+      ]
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.68536, 0.728205, -0.728205, 0.68536, 0, 0)",
+      "matrix(0.345418, 0.938449, -0.938449, 0.345418, 0, 0)",
+      "matrix(0.153141, 0.988204, -0.988204, 0.153141, 0, 0)",
+      "matrix(0.078901, 0.996882, -0.996882, 0.078901, 0, 0)",
+      "matrix(0.0295424, 0.999564, -0.999564, 0.0295424, 0, 0)",
+      "matrix(0.00956077, 0.999954, -0.999954, 0.00956077, 0, 0)",
+      "matrix(0.0025604, 0.999997, -0.999997, 0.0025604, 0, 0)",
+      "matrix(0.000605629, 1, -1, 0.000605629, 0, 0)",
+      "matrix(6.45772e-05, 1, -1, 6.45772e-05, 0, 0)",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "/about": {
+    "title": "About · Charles Nalle Walking Memorial",
+    "log": [],
+    "h1": {
+      "txt": "About the Project",
+      "lines": 1
+    },
+    "copy": {
+      "theirStory": false,
+      "standWhere": false,
+      "walkTheStory": 0,
+      "streetsWaiting": false,
+      "twoAndHalf": true,
+      "fortyFive": true,
+      "spotLinks": 0,
+      "emDash": 0,
+      "afterword": true,
+      "rails": [
+        "(01)",
+        "(02)",
+        "(03)",
+        "(04)",
+        "(05)",
+        "(06)",
+        "(07)"
+      ]
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.672859, 0.739771, -0.739771, 0.672859, 0, 0)",
+      "matrix(0.281057, 0.959691, -0.959691, 0.281057, 0, 0)",
+      "matrix(0.149302, 0.988792, -0.988792, 0.149302, 0, 0)",
+      "matrix(0.0611548, 0.998128, -0.998128, 0.0611548, 0, 0)",
+      "matrix(0.0213298, 0.999772, -0.999772, 0.0213298, 0, 0)",
+      "matrix(0.00659032, 0.999978, -0.999978, 0.00659032, 0, 0)",
+      "matrix(0.00176278, 0.999998, -0.999998, 0.00176278, 0, 0)",
+      "matrix(0.000364774, 1, -1, 0.000364774, 0, 0)",
+      "none",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "/404-nope": {
+    "title": "Page not found · Charles Nalle Walking Memorial",
+    "log": [
+      "[http 404] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope",
+      "[error] /404-nope Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "h1": {
+      "txt": "This page isn’tpart of the memorial",
+      "lines": 3
+    },
+    "copy": {
+      "theirStory": false,
+      "standWhere": false,
+      "walkTheStory": 0,
+      "streetsWaiting": false,
+      "twoAndHalf": false,
+      "fortyFive": false,
+      "spotLinks": 0,
+      "emDash": 0,
+      "afterword": false,
+      "rails": []
+    },
+    "closeSpin": [
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "matrix(0.723297, 0.690537, -0.690537, 0.723297, 0, 0)",
+      "matrix(0.369439, 0.929255, -0.929255, 0.369439, 0, 0)",
+      "matrix(0.16517, 0.986265, -0.986265, 0.16517, 0, 0)",
+      "matrix(0.0685655, 0.997647, -0.997647, 0.0685655, 0, 0)",
+      "matrix(0.0251458, 0.999684, -0.999684, 0.0251458, 0, 0)",
+      "matrix(0.00766018, 0.999971, -0.999971, 0.00766018, 0, 0)",
+      "matrix(0.00208392, 0.999998, -0.999998, 0.00208392, 0, 0)",
+      "matrix(0.000472984, 1, -1, 0.000472984, 0, 0)",
+      "matrix(2.26893e-05, 1, -1, 2.26893e-05, 0, 0)",
+      "none",
+      "none"
+    ],
+    "menuClosedAria": "false",
+    "burgerAfterDown": "0",
+    "burgerAfterUp": "1"
+  },
+  "console": {
+    "/": [],
+    "/bakery": [],
+    "/commissioners-office": [],
+    "/mansion": [],
+    "/ferry": [],
+    "/barbershop": [],
+    "/map": [],
+    "/people": [
+      "[warning] /people The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload",
+      "[warning] /people The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded "
+    ],
+    "/paintings": [
+      "[warning] /paintings The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload",
+      "[warning] /paintings The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded "
+    ],
+    "/about": [
+      "[warning] /about The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload",
+      "[warning] /about The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded "
+    ],
+    "/404-nope": [
+      "[http 404] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404-nope",
+      "[error] /404-nope Failed to load resource: the server responded with a status of 404 ()",
+      "[warning] /404-nope The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-display-latin-400-normal.n_DgBRfq.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preload",
+      "[warning] /404-nope The resource https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/_astro/libre-caslon-text-latin-400-normal.CfldDPV-.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded "
+    ]
+  }
+}

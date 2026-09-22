@@ -1,0 +1,27 @@
+# Accessibility — http://localhost:4321
+
+**0 serious/critical · 0 moderate · 0 minor across 4 runs** (0 run(s) not reached · 2026-08-16T04:05:34.720Z)
+
+## Violations
+
+No axe violations.
+
+## Keyboard walk
+
+- **/paintings @1440** — 37 stops (focus returned to body); 0 WITHOUT a visible ring
+- **/paintings dialog @1440** — Enter opens: true · Escape closes: true · focus returned to tile: true
+- **/paintings @390** — 37 stops (focus returned to body); 0 WITHOUT a visible ring
+- **/paintings dialog @390** — Enter opens: true · Escape closes: true · focus returned to tile: true
+
+## Reduced motion
+
+- **/paintings @390** — all text visible; 0 console error(s)
+- **/paintings @1440** — all text visible; 0 console error(s)
+
+## 200% zoom (720×450)
+
+- **/paintings** — no horizontal overflow
+
+## Console errors
+
+None.

@@ -1,0 +1,29 @@
+{
+  "round": 19,
+  "label": "the map page with fresh eyes — the overview framing under T, a durable landing, the first-visit view on every open, the walk door's gap, resize churn",
+  "date": "2026-09-18",
+  "plan": "docs/rounds/2026-09-18-round-19-plan.md",
+  "base": {
+    "tag": "client-round-19-base",
+    "commit": "d0a4ed569335a14687083aa2185f650d8b87d607",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/TroyMap.tsx",
+    "src/pages/map.astro",
+    "src/styles/global.css",
+    "scripts/map-framing.mjs",
+    "package.json",
+    "docs/qa/baseline/map--390.png",
+    "docs/v4/MOTION.md",
+    "docs/rounds/2026-09-18-round-19-plan.md",
+    "docs/rounds/2026-09-18-round-19.json"
+  ],
+  "constraints": {
+    "package.json": { "jsonKeys": ["scripts"] }
+  },
+  "snap": {
+    "allowedRoutes": ["/map"]
+  },
+  "notes": "Wil's fresh-eyes pass on /map, 2026-09-18, five screenshots and a sixth showing the INTENDED overview framing (all five pins inside the visible box, every load, any phone). No base branch is pushed for this round: the base commit d0a4ed5 is the v2 tip and is already held by origin/v2, so the SHA above is the revert point (git reset --hard client-round-19-base). Developed on claude/zen-brown-praf57 per the session's instruction; v2 is fast-forwarded only on Wil's word. allowedRoutes is /map alone: the walk door moves 10px on phones (item 4), so map--390 is refreshed; 768 and 1440 must not drift, and no other route may. The map style cannot load in this container (api.mapbox.com is blocked), so the pins are absent from every baseline — the framing itself is measured by the new scripts/map-framing.mjs against an offline stub style, at T=0 (desktop, tablet, Android: must equal the base build to the pixel) and at T=110/E=129 (Wil's phone stood in): same camera as T=0, five pills inside the visible box, the page landed at T, and the landing surviving a scroll to 0, a pin tap and the walk door. The instrument also found the runway's margin collapsing through the shell, <main> and <body> (Chromium's scroll anchoring then doubled the landing to 2T); .map-shell is a block formatting context now, a no-op wherever T is 0."
+}

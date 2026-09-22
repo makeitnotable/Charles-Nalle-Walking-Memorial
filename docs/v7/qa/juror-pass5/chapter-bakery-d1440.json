@@ -1,0 +1,699 @@
+{
+ "d1440": {
+  "docH": 7687,
+  "sections": [
+   "hero@0",
+   "scene-0@1028",
+   "history@3371",
+   "moral@4675",
+   "moral-heading@4892",
+   "onward@6149"
+  ],
+  "playButtons": [
+   {
+    "label": "Play narration: Holeur’s Fashionable Bakery",
+    "x": 136,
+    "y": 1605,
+    "w": 56,
+    "h": 56,
+    "top": 1605
+   }
+  ],
+  "audio1": [
+   {
+    "src": "ch1-bakery.mp3",
+    "paused": false,
+    "t": 2.291527,
+    "dur": 100.728125
+   }
+  ],
+  "firstPara": {
+   "text": "As the sun rose on the morning of April ",
+   "fl": {
+    "fs": "21px",
+    "ff": "\"Libre Caslon Display\", \"Libre",
+    "float": "none",
+    "color": "rgb(29, 20, 17)"
+   },
+   "fs": "21px",
+   "color": "rgb(42, 29, 24)",
+   "lines": 8
+  },
+  "paras": [
+   {
+    "t": "As the sun rose on the morning",
+    "top": 1901,
+    "h": 297,
+    "x": 131,
+    "w": 726
+   },
+   {
+    "t": "But freedom, as Charles would ",
+    "top": 2230,
+    "h": 37,
+    "x": 136,
+    "w": 726
+   },
+   {
+    "t": "The aroma of fresh-baked bread",
+    "top": 2299,
+    "h": 368,
+    "x": 136,
+    "w": 726
+   },
+   {
+    "t": "George Holeur’s Fashionable Ba",
+    "top": 3744,
+    "h": 74,
+    "x": 532,
+    "w": 726
+   },
+   {
+    "t": "At the time of Charles Nalle’s",
+    "top": 3849,
+    "h": 147,
+    "x": 532,
+    "w": 726
+   },
+   {
+    "t": "The Fugitive Slave Act of 1850",
+    "top": 4028,
+    "h": 147,
+    "x": 532,
+    "w": 726
+   }
+  ],
+  "audioAfterTap": [
+   {
+    "paused": false,
+    "t": 50.054498
+   }
+  ],
+  "activePara": "The aroma of fresh-baked bread filled th",
+  "scrollSteps": [
+   {
+    "y": 1027,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 136,
+      "y": 578,
+      "w": 56,
+      "h": 56
+     },
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 51
+     }
+    ],
+    "burger": {
+     "y": 56,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 1608,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 136,
+      "y": -3,
+      "w": 56,
+      "h": 56
+     },
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 52
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 2190,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 53
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 2772,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 55
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 3354,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 56
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 3935,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 57
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 4517,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 58
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 5099,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 59
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 5681,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 60
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 6262,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 61
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   },
+   {
+    "y": 6844,
+    "pauses": [
+     {
+      "l": "Pause narration: Holeur’s Fash",
+      "x": 65,
+      "y": 791,
+      "w": 44,
+      "h": 44
+     }
+    ],
+    "audio": [
+     {
+      "paused": false,
+      "t": 62
+     }
+    ],
+    "burger": {
+     "y": 70,
+     "vis": true,
+     "op": "1",
+     "tf": "none"
+    }
+   }
+  ],
+  "burgerAfterUp": {
+   "y": 56,
+   "op": "1",
+   "tf": "none",
+   "vis": "visible"
+  },
+  "foot": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 900,
+    "w": 1440,
+    "h": 900,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "01:04",
+    "tag": "DIV",
+    "x": 56,
+    "y": 782,
+    "w": 114,
+    "h": 62,
+    "pos": "fixed",
+    "z": "999"
+   },
+   {
+    "t": "(01) LISTEN (02) HISTORY (03) THE MORAL ",
+    "tag": "NAV",
+    "x": 136,
+    "y": 88,
+    "w": 276,
+    "h": 150,
+    "pos": "sticky",
+    "z": "auto"
+   },
+   {
+    "t": "2 COMMISSIONER’S OFFICE",
+    "tag": "DIV",
+    "x": 476,
+    "y": -420,
+    "w": 828,
+    "h": 460,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Map",
+    "tag": "CANVAS",
+    "x": 476,
+    "y": -420,
+    "w": 828,
+    "h": 460,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-right",
+    "tag": "DIV",
+    "x": 1264,
+    "y": 0,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "Toggle attribution",
+    "tag": "BUTTON",
+    "x": 1272,
+    "y": 8,
+    "w": 24,
+    "h": 24,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-left",
+    "tag": "DIV",
+    "x": 476,
+    "y": 5,
+    "w": 100,
+    "h": 35,
+    "pos": "absolute",
+    "z": "2"
+   }
+  ],
+  "footerLinks": [
+   {
+    "t": "Notable",
+    "href": "https://makeitnotable.com",
+    "y": 564,
+    "h": 31,
+    "covered": null
+   },
+   {
+    "t": "The people of this day",
+    "href": "/Charles-Nalle-Walking-Memorial/people",
+    "y": 528,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "The paintings",
+    "href": "/Charles-Nalle-Walking-Memorial/paintings",
+    "y": 567,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "About the memorial",
+    "href": "/Charles-Nalle-Walking-Memorial/about",
+    "y": 606,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Map",
+    "href": "/Charles-Nalle-Walking-Memorial/map",
+    "y": 644,
+    "h": 26,
+    "covered": null
+   },
+   {
+    "t": "Share",
+    "href": null,
+    "y": 527,
+    "h": 38,
+    "covered": null
+   }
+  ],
+  "continueBtn": {
+   "t": "Continue",
+   "href": "/Charles-Nalle-Walking-Memorial/commissioners-office",
+   "x": 666,
+   "y": 7074,
+   "w": 187,
+   "h": 48
+  },
+  "footerText": [
+   {
+    "t": "Charles Nalle Walking Memorial",
+    "lines": 1,
+    "fs": "26px",
+    "color": "rgb(246, 243, 238)",
+    "op": "1"
+   },
+   {
+    "t": "Walking routes and directions are suggestions only. Explore ",
+    "lines": 1,
+    "fs": "15px",
+    "color": "rgb(183, 179, 171)",
+    "op": "1"
+   }
+  ],
+  "moral": [
+   {
+    "h": "NOT ALL LAWS ARE MORAL",
+    "hColor": "rgb(246, 243, 238)",
+    "body": "(03)",
+    "bodyColor": "rgb(255, 151, 112)",
+    "capColor": "rgb(255, 151, 112)",
+    "cap": "The moral",
+    "top": 4716,
+    "h_": 1291,
+    "img": {
+     "pos": "50% 25%",
+     "tf": "matrix(1.14, 0, 0, 1.14, 0, 77.4619)"
+    }
+   }
+  ],
+  "moralParallax": {
+   "t1": "matrix(1.14, 0, 0, 1.14, 0, -10.4044)",
+   "t2": "matrix(1.14, 0, 0, 1.14, 0, 10.9738)"
+  },
+  "interlude": [
+   {
+    "cap": "THE ARTIST'S STUDY\n\nThe study is almost solid ink. Priest wo",
+    "color": "rgb(254, 217, 204)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "top": 5338,
+    "h": 347
+   }
+  ],
+  "onwardFloating": [
+   {
+    "t": "curtain-panel",
+    "tag": "DIV",
+    "x": 0,
+    "y": 900,
+    "w": 1440,
+    "h": 900,
+    "pos": "fixed",
+    "z": "9999"
+   },
+   {
+    "t": "01:11",
+    "tag": "DIV",
+    "x": 56,
+    "y": 782,
+    "w": 114,
+    "h": 62,
+    "pos": "fixed",
+    "z": "999"
+   },
+   {
+    "t": "(01) LISTEN (02) HISTORY (03) THE MORAL ",
+    "tag": "NAV",
+    "x": 136,
+    "y": 97,
+    "w": 276,
+    "h": 150,
+    "pos": "sticky",
+    "z": "auto"
+   },
+   {
+    "t": "2 COMMISSIONER’S OFFICE",
+    "tag": "DIV",
+    "x": 476,
+    "y": 257,
+    "w": 828,
+    "h": 460,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Map",
+    "tag": "CANVAS",
+    "x": 476,
+    "y": 257,
+    "w": 828,
+    "h": 460,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "Continue to Commissioner’s Office",
+    "tag": "A",
+    "x": 768,
+    "y": 469,
+    "w": 244,
+    "h": 72,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-left",
+    "tag": "DIV",
+    "x": 476,
+    "y": 257,
+    "w": 112,
+    "h": 112,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-top-right",
+    "tag": "DIV",
+    "x": 1192,
+    "y": 257,
+    "w": 112,
+    "h": 112,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-right",
+    "tag": "DIV",
+    "x": 1264,
+    "y": 677,
+    "w": 40,
+    "h": 40,
+    "pos": "absolute",
+    "z": "2"
+   },
+   {
+    "t": "Toggle attribution",
+    "tag": "BUTTON",
+    "x": 1272,
+    "y": 685,
+    "w": 24,
+    "h": 24,
+    "pos": "absolute",
+    "z": "auto"
+   },
+   {
+    "t": "mapboxgl-ctrl-bottom-left",
+    "tag": "DIV",
+    "x": 476,
+    "y": 682,
+    "w": 100,
+    "h": 35,
+    "pos": "absolute",
+    "z": "2"
+   }
+  ],
+  "menuOpen": {
+   "expanded": [
+    "Open menu=true"
+   ],
+   "links": [
+    "Skip to content",
+    "Home",
+    "01Bakery",
+    "02Commissioner’s Office",
+    "03Gilbert Home",
+    "04Ferry Landing",
+    "05Barbershop",
+    "Map",
+    "The people",
+    "The paintings",
+    "About"
+   ]
+  },
+  "menuClosed": [
+   "Open menu=false"
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+   ]
+  }
+ }
+}

@@ -1,0 +1,217 @@
+{
+  "log": {
+    "s0": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "r0": {
+      "left": 14.026274301732812,
+      "right": 375.9650703819618,
+      "top": 265.1798590054673,
+      "bottom": 468.7679091182752,
+      "behind": false
+    },
+    "btn0": [
+      {
+        "l": "Bring the painting to life",
+        "rect": [
+          14,
+          265,
+          362,
+          204
+        ],
+        "pe": "auto",
+        "op": "1"
+      }
+    ],
+    "after1": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "btn": [
+        {
+          "l": "Let the painting rest",
+          "rect": [
+            14,
+            265,
+            362,
+            204
+          ],
+          "pe": "auto",
+          "op": "1"
+        }
+      ],
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "afterWait": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "afterRest": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": -1,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "btn": [
+        {
+          "l": "Bring the painting to life",
+          "rect": [
+            14,
+            265,
+            362,
+            204
+          ],
+          "pe": "auto",
+          "op": "1"
+        }
+      ]
+    },
+    "afterEsc": {
+      "mode": "rail",
+      "approached": null,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": 0,
+      "sheet": "peek"
+    },
+    "tabSeq": [
+      "Approach “Holeur’s Fashionable Baker@796"
+    ],
+    "focusRing": {
+      "outline": "solid 2px rgb(242, 104, 53)",
+      "boxShadow": "none"
+    },
+    "kbEnter": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "kbRight": {
+      "mode": "approach",
+      "approached": 1,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": 1.57,
+      "sheet": "peek"
+    },
+    "kbLeft": {
+      "mode": "approach",
+      "approached": 0,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -1.57,
+      "sheet": "peek"
+    },
+    "kbFocusAlive": "Bring the painting to life",
+    "kbAlive": {
+      "st": {
+        "mode": "approach",
+        "approached": 0,
+        "alive": 0,
+        "zoom": 1,
+        "running": true,
+        "yaw": -1.57,
+        "sheet": "peek"
+      },
+      "vids": [
+        {
+          "paused": true,
+          "t": 0,
+          "w": 0,
+          "src": "",
+          "rs": 0
+        }
+      ]
+    },
+    "kbEsc": {
+      "mode": "rail",
+      "approached": null,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": 0,
+      "sheet": "peek"
+    },
+    "railArrow": {
+      "mode": "rail",
+      "approached": null,
+      "alive": -1,
+      "zoom": 1,
+      "running": true,
+      "yaw": -0.35,
+      "sheet": "peek"
+    },
+    "skipCount": 1,
+    "skipBox": {
+      "x": 20,
+      "y": 337.71875,
+      "width": 102.109375,
+      "height": 38
+    },
+    "afterSkipScroll": 8758,
+    "menuBtn": {
+      "x": 298,
+      "y": 20,
+      "width": 72,
+      "height": 72
+    },
+    "menuOpen": {
+      "x": 49.203125,
+      "y": 21,
+      "width": 319.796875,
+      "height": 57,
+      "top": 21,
+      "right": 369,
+      "bottom": 78,
+      "left": 49.203125
+    }
+  },
+  "errs": []
+}

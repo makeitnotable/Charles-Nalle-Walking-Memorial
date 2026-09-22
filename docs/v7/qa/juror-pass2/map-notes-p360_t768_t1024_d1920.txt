@@ -1,0 +1,58 @@
+map@p360 overview buttons: "Skip to content"@-999,0 148x40 | "Open menu"@268,708 72x72 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Take the walk"@53,720 207x48 | "See Troy in 1858"@180,20 160x44
+map@p360 burger after scroll-down: btnY=722 wrapOpacity=1 wrapTransform=matrix(1, 0, 0, 1, 0, 0)
+map@p360 walk buttons: "Skip to content"@-999,0 148x40 | "Open menu"@270,722 68x68 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Back to map"@20,20 109x38 | "Stop the walk"@170,20 170x38
+map@p360 label right after drag: Continue (459ms)
+map@p360 active-card x samples after release: -121,-158,-185,-206,-227,-239,-248,-256,-260,-264,-268,-270,-271,-273,-274,-274,-275,-275,-276,-276
+map@p360 active before drag: Enter Spot 03: Uri Gilbert Home → after: Enter Spot 04: Washington Street Ferry Landing; label now: Continue
+map@p360 paused-state buttons: "Skip to content"@-999,0 148x40 | "Open menu"@270,722 68x68 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Back to map"@20,20 109x38 | "Continue the walk"@214,20 126x38
+map@p360 after Continue 4.5s: active=Enter Spot 05: Peter Baltimore’s Barbershop label=Stop the walk
+map@p360 after Stop: label=Continue buttons="Skip to content"@-999,0 148x40 | "Open menu"@270,722 68x68 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Back to map"@20,20 109x38 | "Continue the walk"@214,20 126x38
+map@p360 after Back: "Skip to content"@-999,0 148x40 | "Open menu"@268,708 72x72 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Take the walk"@53,720 207x48 | "See Troy in 1858"@180,20 160x44
+map@p360 lens buttons: "Skip to content"@-999,0 148x40 | "Open menu"@270,722 68x68 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Zoom in"@300,32 32x32 | "Zoom out"@300,68 32x32 | "Reset view"@300,104 32x32 | "Back to today"@95,736 169x44
+map@p360 lens: {"img":[-573,-607,1507,1262],"viewer":[20,24,0,0],"src":"troy-1858-full-4096.avif","natural":"4096x3431","transform":"matrix(4.70813, 0, 0, 4.70813, -160, -449.523)"}
+map@p360 lens after zoom: "matrix(6, 0, 0, 6, -7.6972, -450.795)"
+map@p360 focused via marker: "Skip to content"@-999,0 148x40 | "Open menu"@270,722 68x68 | "Toggle attribution"@20,729 24x24 | "Mapbox homepage"@16,761 88x23 | "Zoom in"@300,32 32x32 | "Zoom out"@300,68 32x32 | "Reset view"@300,104 32x32 | "Back to map"@20,20 109x38 | "Continue the walk"@214,20 126x38
+map@t768 overview buttons: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Take the walk"@195,924 207x48 | "See Troy in 1858"@413,926 160x44
+map@t768 burger after scroll-down: btnY=926 wrapOpacity=1 wrapTransform=matrix(1, 0, 0, 1, 0, 0)
+map@t768 walk buttons: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Back to map"@40,40 175x38 | "Stop the walk"@558,40 170x38
+map@t768 label right after drag: Continue (488ms)
+map@t768 active-card x samples after release: -34,13,51,87,112,127,139,147,155,159,163,166,167,169,170,171,171,172,172,172
+map@t768 active before drag: Enter Spot 03: Uri Gilbert Home → after: Enter Spot 03: Uri Gilbert Home; label now: Continue
+map@t768 paused-state buttons: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Back to map"@40,40 175x38 | "Continue the walk"@602,40 126x38
+map@t768 after Continue 4.5s: active=Enter Spot 04: Washington Street Ferry Landing label=Stop the walk
+map@t768 after Stop: label=Continue buttons="Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Back to map"@40,40 175x38 | "Continue the walk"@602,40 126x38
+map@t768 after Back: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Take the walk"@195,924 207x48 | "See Troy in 1858"@413,926 160x44
+map@t768 lens buttons: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Zoom in"@688,52 32x32 | "Zoom out"@688,88 32x32 | "Reset view"@688,124 32x32 | "Back to today"@299,940 169x44
+map@t768 lens: {"img":[-608,-787,1984,1662],"viewer":[40,44,0,0],"src":"troy-1858-full-4096.avif","natural":"4096x3431","transform":"matrix(2.88391, 0, 0, 2.88391, -344, -703.648)"}
+map@t768 lens after zoom: "matrix(6, 0, 0, 6, -96.7236, -1042.99)"
+map@t768 focused via marker: "Skip to content"@-999,0 148x40 | "Open menu"@656,912 72x72 | "Toggle attribution"@40,933 24x24 | "Mapbox homepage"@36,965 88x23 | "Zoom in"@688,52 32x32 | "Zoom out"@688,88 32x32 | "Reset view"@688,124 32x32 | "Back to map"@40,40 175x38 | "Continue the walk"@602,40 126x38
+map@t1024 overview buttons: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Take the walk"@323,668 207x48 | "See Troy in 1858"@541,670 160x44
+map@t1024 burger after scroll-down: btnY=670 wrapOpacity=1 wrapTransform=matrix(1, 0, 0, 1, 0, 0)
+map@t1024 walk buttons: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Back to map"@40,40 175x38 | "Stop the walk"@814,40 170x38
+map@t1024 label right after drag: Continue (617ms)
+map@t1024 active-card x samples after release: 51,85,126,166,188,205,221,231,238,244,248,251,253,255,256,257,258,258,259,259
+map@t1024 active before drag: Enter Spot 03: Uri Gilbert Home → after: Enter Spot 03: Uri Gilbert Home; label now: Continue
+map@t1024 paused-state buttons: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Back to map"@40,40 175x38 | "Continue the walk"@858,40 126x38
+map@t1024 after Continue 4.5s: active=Enter Spot 04: Washington Street Ferry Landing label=Stop the walk
+map@t1024 after Stop: label=Continue buttons="Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Back to map"@40,40 175x38 | "Continue the walk"@858,40 126x38
+map@t1024 after Back: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Take the walk"@323,668 207x48 | "See Troy in 1858"@541,670 160x44
+map@t1024 lens buttons: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Zoom in"@944,52 32x32 | "Zoom out"@944,88 32x32 | "Reset view"@944,124 32x32 | "Back to today"@427,684 169x44
+map@t1024 lens: {"img":[-174,-531,1373,1150],"viewer":[40,44,0,0],"src":"troy-1858-full-4096.avif","natural":"4096x3431","transform":"matrix(1.45434, 0, 0, 1.45434, -472, -682.867)"}
+map@t1024 lens after zoom: "matrix(5.33257, 0, 0, 5.33257, -37.7817, -1296.45)"
+map@t1024 focused via marker: "Skip to content"@-999,0 148x40 | "Open menu"@912,656 72x72 | "Toggle attribution"@40,677 24x24 | "Mapbox homepage"@36,709 88x23 | "Zoom in"@944,52 32x32 | "Zoom out"@944,88 32x32 | "Reset view"@944,124 32x32 | "Back to map"@40,40 175x38 | "Continue the walk"@858,40 126x38
+map@d1920 overview buttons: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Take the walk"@765,964 207x48 | "See Troy in 1858"@984,966 171x44
+map@d1920 burger after scroll-down: btnY=966 wrapOpacity=1 wrapTransform=matrix(1, 0, 0, 1, 0, 0)
+map@d1920 walk buttons: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Back to map"@56,56 175x38 | "Stop the walk"@1694,56 170x38
+map@d1920 label right after drag: Continue (440ms)
+map@d1920 active-card x samples after release: 504,538,578,617,640,656,672,681,690,694,698,701,703,705,706,708,709,709,710,710
+map@d1920 active before drag: Enter Spot 03: Uri Gilbert Home → after: Enter Spot 03: Uri Gilbert Home; label now: Continue
+map@d1920 paused-state buttons: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Back to map"@56,56 175x38 | "Continue the walk"@1738,56 126x38
+map@d1920 after Continue 4.5s: active=Enter Spot 04: Washington Street Ferry Landing label=Stop the walk
+map@d1920 after Stop: label=Continue buttons="Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Back to map"@56,56 175x38 | "Continue the walk"@1738,56 126x38
+map@d1920 after Back: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Take the walk"@765,964 207x48 | "See Troy in 1858"@984,966 171x44
+map@d1920 lens buttons: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Zoom in"@1824,68 32x32 | "Zoom out"@1824,104 32x32 | "Reset view"@1824,140 32x32 | "Back to today"@875,980 169x44
+map@d1920 lens: {"img":[-57,-792,2034,1704],"viewer":[56,60,0,0],"src":"troy-1858-full-4096.avif","natural":"4096x3431","transform":"matrix(1.12515, 0, 0, 1.12515, -904, -1183.23)"}
+map@d1920 lens after zoom: "matrix(3.31321, 0, 0, 3.31321, -570.852, -1881.14)"
+map@d1920 focused via marker: "Skip to content"@-999,0 148x40 | "Open menu"@1792,952 72x72 | "Toggle attribution"@56,973 24x24 | "Mapbox homepage"@52,1005 88x23 | "Zoom in"@1824,68 32x32 | "Zoom out"@1824,104 32x32 | "Reset view"@1824,140 32x32 | "Back to map"@56,56 175x38 | "Continue the walk"@1738,56 126x38
+
+CONSOLE:

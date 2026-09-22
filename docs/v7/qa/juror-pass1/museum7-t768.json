@@ -1,0 +1,162 @@
+{
+  "start": {
+    "sheet": "peek",
+    "hdrTop": 928,
+    "sheetTf": "none",
+    "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+    "sheetTop": 927,
+    "sheetH": 97
+  },
+  "hb": {
+    "x": 384,
+    "y": 957.625
+  },
+  "up": {
+    "mid": [
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      }
+    ],
+    "end": {
+      "sheet": "peek",
+      "hdrTop": 928,
+      "sheetTf": "none",
+      "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+      "sheetTop": 927,
+      "sheetH": 97
+    }
+  },
+  "down": {
+    "mid": [
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      },
+      {
+        "sheet": "peek",
+        "hdrTop": 928,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 927,
+        "sheetH": 97
+      }
+    ],
+    "end": {
+      "sheet": "peek",
+      "hdrTop": 928,
+      "sheetTf": "none",
+      "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+      "sheetTop": 927,
+      "sheetH": 97
+    }
+  },
+  "tap": {
+    "sheet": "peek",
+    "hdrTop": 928,
+    "sheetTf": "none",
+    "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+    "sheetTop": 927,
+    "sheetH": 97
+  },
+  "kbd": {
+    "sheet": "full",
+    "hdrTop": 834,
+    "sheetTf": "none",
+    "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+    "sheetTop": 833,
+    "sheetH": 191
+  },
+  "downFromFull": {
+    "mid": [
+      {
+        "sheet": "full",
+        "hdrTop": 834,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 833,
+        "sheetH": 191
+      },
+      {
+        "sheet": "full",
+        "hdrTop": 834,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 833,
+        "sheetH": 191
+      },
+      {
+        "sheet": "full",
+        "hdrTop": 834,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 833,
+        "sheetH": 191
+      },
+      {
+        "sheet": "full",
+        "hdrTop": 834,
+        "sheetTf": "none",
+        "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+        "sheetTop": 833,
+        "sheetH": 191
+      }
+    ],
+    "end": {
+      "sheet": "full",
+      "hdrTop": 834,
+      "sheetTf": "none",
+      "sheetCls": "museum-sheet absolute inset-x-0 bottom-0 z-20",
+      "sheetTop": 833,
+      "sheetH": 191
+    }
+  }
+}

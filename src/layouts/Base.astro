@@ -1,0 +1,1179 @@
+---
+import "../styles/global.css";
+import { withBase } from "../lib/url";
+import Menu from "../components/Menu.astro";
+// v7 X1: the two curtain faces are preloaded so the wordmark/date lockup
+// never reflows under the cover (Vite hashes the URLs — import them).
+import caslonDisplayWoff2 from "@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2?url";
+import caslonTextWoff2 from "@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Chapter palette — retained as data only; the approved single ramp styles everything. */
+  palette?: { surface: string; ink: string; accent: string };
+  /** Menu corner: chapters/home use top-right; the map uses bottom-right. */
+  menuPosition?: "top-right" | "bottom-right";
+  /** Hide the floating menu (styleguide/internal pages). */
+  noMenu?: boolean;
+  /**
+   * Keep the page out of search results. Internal proof sheets are publicly
+   * reachable by design (no server to gate them) but must never be indexed
+   * alongside the memorial itself.
+   */
+  noIndex?: boolean;
+  /** Preload the page's LCP image so it starts with the HTML parse. */
+  preloadImage?: string;
+  /** Art-directed LCP preloads (chapter heroes: portrait vs landscape poster). */
+  preloadImages?: { href: string; type?: string; media?: string }[];
+  /**
+   * v14.5 (round 8 §5.1). "section" makes the ADDRESS BAR take the background
+   * colour of the section under it as the reader scrolls, instead of whatever
+   * Safari would fall back to. Only the five chapter routes ask for this.
+   *
+   * v20 (round 23, Wil, 2026-09-18). Two mechanisms carry it now, both in the
+   * sampler below: `<body>` follows the section at the top edge (the round-21
+   * rule from /map, so Safari's own tint on the minimized bar is the section's
+   * colour rather than a static brown), and the in-flow `.edge-cover` paints
+   * the same colour over whatever has scrolled past the top edge, so the glass
+   * bar has a solid ground to show instead of the content beneath it. Nothing
+   * is painted behind the bottom toolbar — his instruction — beyond the one
+   * tint Safari applies to both bars from `<body>`.
+   */
+  topBar?: "section";
+  /**
+   * v14.7 (round 8 phase D). The colour the ROOT ELEMENT takes, which is what
+   * iOS 26 paints behind the address bar AT REST.
+   *
+   * This is the one mechanism this round measured rather than assumed. Phase A:
+   * "the top bar at rest is not a tint — it reads the page brown because
+   * nothing exists above document offset 0, the root-background fallback."
+   * That brown is `html { background: var(--color-primary-2) }` in global.css,
+   * so changing the root background per route changes the bar, with no strip
+   * and no opacity involved. Phase C proved the opposite about the 12px strip:
+   * Safari does NOT read an `opacity: 0` element, and every opacity it does
+   * read is one Wil can see.
+   *
+   * It cannot make the bar see-through — at rest the page's render surface
+   * starts at document offset 0, which sits BELOW the bar, so there is nothing
+   * there to show through on any page. A matched colour is the ceiling.
+   *
+   * Invisible on the page: <body> keeps its own background and paints every
+   * pixel inside its box, so only the region outside it — the bar, and
+   * overscroll — takes this.
+   */
+  rootFill?: "map";
+}
+
+const {
+  title,
+  description,
+  menuPosition = "top-right",
+  noMenu = false,
+  noIndex = false,
+  preloadImage,
+  preloadImages = [],
+  topBar,
+  rootFill,
+} = Astro.props;
+// File-format builds report pathnames like /base/bakery.html — canonicalize
+// to the extensionless URLs that GH Pages actually serves.
+const canonical = new URL(
+  Astro.url.pathname.replace(/index\.html$/, "").replace(/\.html$/, ""),
+  Astro.site,
+);
+---
+
+<!doctype html>
+<html lang="en" data-top-bar={topBar} data-root-fill={rootFill}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>
+      /* v16 (Wil, 2026-09-18): the `?glass=1` review flag.
+
+         Wil asked for items 1 and 3 on a review branch so v2 stays shippable
+         while he checks them on his phone. This repo cannot do that: Pages
+         deploys only from main/v2 (`concurrency: group: pages`) and Vercel was
+         dropped for the zero-cost requirement, so a branch has no live URL.
+         A query flag is the same guarantee by the means the repo does have —
+         it is the `?striplab=` pattern phase C3 already used. Off the flag
+         every route is byte-identical to today, which is also what keeps
+         qa:snap a working safety net on the two riskiest pages.
+
+         Parser-blocking and first in <head> so the attribute is on <html>
+         before any rule that depends on it is matched. */
+      (function () {
+        try {
+          var q = location.search;
+          if (/(^|[?&])glass=1(&|$)/.test(q)) document.documentElement.dataset.glass = "1";
+          /* v20 (round 23): the chapter cover's device flags. `?cover=off`
+             removes the cover and the visor for a before/after on the phone;
+             `?cover=track` drives the cover with the scroll timeline of device
+             passes 2–4 instead of the script (`?cover=js` is the script, the
+             default); `?visor=<px>` tries another height for the visor band
+             (device pass 6; the default is 32); `?debug=1` adds a readout of
+             which path is driving, what the browser supports and the viewport
+             geometry. Inline, one page load; v2's defaults are untouched. */
+          var c = /(^|[?&])cover=(off|js|track)(&|$)/.exec(q);
+          if (c) document.documentElement.dataset.cover = c[2];
+          if (/(^|[?&])debug=1(&|$)/.test(q)) document.documentElement.dataset.debug = "1";
+          var vz = /(^|[?&])visor=(\d{1,3})(&|$)/.exec(q);
+          if (vz) document.documentElement.style.setProperty("--edge-visor", vz[2] + "px");
+          /* Device pass 8: `?scroll=inner` scrolls the chapter inside <main>
+             and leaves the document still, so the region behind the top bar
+             shows the canvas — <body>'s colour, the section at the top edge —
+             static, painted by Safari itself, with no cover and no visor.
+             Device pass 9 (Wil, 2026-09-19: "exactly what I wanted"): that is
+             the DEFAULT on every chapter route wherever the bars exist — the
+             same iOS gate as the cover's, `-webkit-touch-callout`, decided
+             here so the attribute is on <html> before a rule is matched.
+             `?scroll=doc` is the way back to the document scroller and the
+             pass-7 cover, for a comparison on the phone. global.css has the
+             rules and the trade (Safari's bars collapse only when the
+             document scrolls, so here they stay expanded while reading). */
+          var sm = /(^|[?&])scroll=(sync|inner|doc)(&|$)/.exec(q);
+          if (sm) document.documentElement.dataset.scroll = sm[2];
+          else if (
+            document.documentElement.dataset.topBar === "section" &&
+            window.CSS &&
+            CSS.supports &&
+            CSS.supports("-webkit-touch-callout", "none")
+          )
+            /* Device pass 13 (Wil, 2026-09-22: the bottom toolbar must hide on
+               the way down and return on the way up): phones take the RUNWAY
+               (`sync` — the document scrolls, so Safari's bars collapse, and
+               the chapter rides in a fixed <main> moved by the compositor;
+               see the script after <main> and global.css); wider screens —
+               the iPad, whose toolbar never collapses — keep the still
+               document. `?scroll=sync|inner|doc` overrides. Pass 14: the
+               phone is told from the SCREEN, not the viewport — this script
+               runs before the viewport meta is parsed, and until then iOS
+               reports a 980px innerWidth, which sent his phone to the still
+               document (his crop of 9/22: text under the toolbar's glass).
+               The screen's shorter side is 390–440 on every iPhone and 744+
+               on every iPad. */
+            document.documentElement.dataset.scroll =
+              Math.min(window.screen.width || 0, window.screen.height || 0) < 700 ? "sync" : "inner";
+        } catch (e) {}
+      })();
+    </script>
+    {/* v9 V9-301 (Wil, 8/21: "there shouldn't be a black bar at the bottom or
+        the top"). Without `viewport-fit=cover` iOS insets the page from the
+        safe areas and paints those strips itself, which is what reads as bars
+        above and below a full-bleed page like /map. With it, the page runs
+        edge to edge and `env(safe-area-inset-*)` — already used by --ui-inset
+        consumers — keeps chrome clear of the notch and home indicator. */}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    {/* v7 I3: the CN mark — SVG first, PNG for older tabs, the multi-size ICO
+        for legacy fetches, the home-screen icon, and the manifest (relative
+        URLs inside, so the GH Pages base path just works). */}
+    <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase("favicon-32.png")} />
+    <link rel="icon" type="image/png" sizes="16x16" href={withBase("favicon-16.png")} />
+    <link rel="shortcut icon" href={withBase("favicon.ico")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase("apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("site.webmanifest")} />
+    <meta name="theme-color" content="#1d1411" />
+    {/* v11.2 (Wil, 8/24: "the browser tool bar, and address bar allow the
+        website to be full bleed or transparent"). No web API makes a browser's
+        chrome transparent in a TAB — these two are the one place it is real.
+        `site.webmanifest` already asks for `"display": "standalone"`; iOS needs
+        the capable flag to honour it, and `black-translucent` then hands the
+        page the status bar's pixels instead of reserving them. A memorial
+        opened from a home screen — which is exactly how a QR at a bronze
+        plaque tends to end up — runs edge to edge with no chrome at all. Zero
+        effect in a normal tab. Safe only because --ui-inset now carries
+        env(safe-area-inset-*): without that the corner menu would sit under
+        the status bar the moment this was declared. */}
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Charles Nalle" />
+    <script is:inline>
+      /* v11.2 (Wil, 8/24): "the browser tool bar, and address bar allow the
+         website to be full bleed… Every page on the site should be full bleed."
+
+         A browser paints its chrome in ONE colour, and this site has more than
+         one ground — brown (--color-primary-2), the cream reading register
+         (--ground-light) and the hero's near-black. Measured on a 390×844
+         phone, the painted bottom row of the viewport is cream or near-white at
+         four of the sampled scroll depths on a chapter page while the chrome
+         stayed brown: that mismatch IS the black bar.
+
+         So the tint follows the page. The bars sit at the TOP and BOTTOM
+         edges, so only those two grounds can ever match one: a colour that
+         matches the middle of the screen and neither edge is the worst of the
+         three. Both edges are read; when they agree that is the answer, and
+         when they disagree the one that owns more of the centre line wins, so
+         the tint follows the section actually filling the screen and a tie
+         falls to the bottom — where iOS parks its address bar. Nothing here
+         reads a colour this stylesheet does not already paint, with one
+         declared exception (v14.2, below): a section may state its own edge
+         colour in a `data-edge-*` attribute.
+
+         The curtain needs no special case: while it covers, it is the only
+         hit-testable thing on the screen (pointer-events flips to auto), so a
+         page transition tints itself. No JS, or a browser that ignores
+         theme-color: the static meta above stands and nothing regresses.
+
+         v14.2 (Wil, 9/16: "continue the artwork"). Over a painting there is no
+         flat colour to read, so a section that knows what its edge should read
+         declares it: `data-edge-top` / `data-edge-bottom` carry a #rrggbb —
+         the heroes a colour sampled from the canvas's own top edge at build
+         (scripts/build-edge-colors.mjs → src/data/edge-colors.json), the map
+         its style's dark ground — and `data-edge-top-wide` /
+         `data-edge-bottom-wide` override it from 768px up, where the landscape
+         poster is a different crop. The nearest declaring ancestor of whatever
+         sits at the edge wins; otherwise the section's ground decides. The
+         literal value `transparent` is honoured (that edge then leaves the meta
+         alone, so /chrome-test can show Safari's own fallback beside the
+         rule); anything else is ignored. `data-chrome-tint-lock` on <html>
+         (the test page's "loud theme-color" toggle) keeps this script's hands
+         off the meta while it is set.
+
+         v14.3 (Wil, 9/16: "remove any custom styling that adds a border and/or
+         solid background fill behind the browser address bar / toolbar area …
+         no stray 1px divider line"). Researched 8/26 (v12 item 17): Safari 26
+         PARSES theme-color and then ignores it, tinting its bars from the
+         <body> ground (then <html>) and from fixed/sticky elements against the
+         viewport edges — so v12 pinned two fixed 2px `.chrome-tint` strips to
+         the edges and this script painted them the resolved colour. On his
+         iPhone (iOS 26, /map) Safari kept its bars black regardless, and the
+         strips read as a thin coloured line across the top and bottom of the
+         page: the divider he is reporting. They are gone. No web API makes a
+         tab's chrome transparent or turns on Safari's floating/compact bar
+         (both are the visitor's settings); all a page can do is paint no band
+         of its own under the bars, and `viewport-fit=cover` already lets the
+         content run under them. The meta stays and this sampler still keeps
+         it current: Chrome for Android always paints a toolbar fill, and a
+         fill that matches the adjacent section is Wil's fallback for exactly
+         that case. */
+      (function () {
+        var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+        if (!meta || !document.elementFromPoint) return;
+        var queued = false;
+        /* v14.3 (Wil, 9/16, item 3 — scroll jitter): sampled at most every
+           SAMPLE_MS while events keep coming, with one trailing sample after
+           the last. Measured at 390×844 under 4× CPU throttling, `sample` ran
+           on every scroll frame (61–66 runs in a 60-frame scroll) at 4–6 ms a
+           run on the chapter pages (max 44 ms) — two to ten hit tests
+           (`elementsFromPoint`) and their computed styles — the largest
+           per-frame script cost on the site, against 0.7 ms for GSAP's scroll
+           handler and 0.08 ms for the corner menu's. What it produces is
+           unchanged: the first event still samples at once, the settled state
+           is always sampled, and a browser recolours its bar over ~300 ms. */
+        var SAMPLE_MS = 100;
+        var lastSample = 0;
+        var trailing = 0;
+        /* v19 (round 21): the last colour written to <body> on /map — and,
+           since round 23, on the chapter routes — so a sample that resolves
+           the same colour writes nothing. */
+        var lastBody = "";
+
+        function hex(c) {
+          var m = String(c).match(/[\d.]+/g);
+          if (!m || m.length < 3) return null;
+          if (m.length > 3 && Number(m[3]) < 0.999) return null; // not opaque: keep looking
+          return (
+            "#" +
+            m.slice(0, 3)
+              .map(function (n) {
+                return Math.round(Number(n)).toString(16).padStart(2, "0");
+              })
+              .join("")
+          );
+        }
+        var ART = /^(img|video|canvas|svg|picture)$/;
+        var WIDE = "(min-width: 768px)";
+        /* v14.2: a declared edge colour is `#rrggbb` (lowercased) or the
+           literal `transparent`; anything else is ignored. */
+        function edgeValue(v) {
+          if (!v) return null;
+          v = String(v).trim().toLowerCase();
+          return v === "transparent" || /^#[0-9a-f]{6}$/.test(v) ? v : null;
+        }
+        /* The nearest ancestor-or-self of `el` declaring `data-edge-<side>`,
+           reading its `-wide` override first from 768px up. */
+        function edgeAttr(el, side) {
+          var host = el.closest && el.closest("[data-edge-" + side + "]");
+          if (!host) return null;
+          var wide = matchMedia(WIDE).matches
+            ? edgeValue(host.getAttribute("data-edge-" + side + "-wide"))
+            : null;
+          return wide || edgeValue(host.getAttribute("data-edge-" + side));
+        }
+        /* v14.5 (round 8 §5.1) — the chapter pages' address bar.
+           `groundAt` answers "what colour is at this point", which over a
+           painting is the artwork's declared edge colour. This answers a
+           different question: "what is the SECTION under this point painted?"
+           It walks the hit stack, and from each hit walks up to the nearest
+           section-level box — a <header>, <section>, <footer>, or a direct
+           child of <main> — that has an OPAQUE background, and returns that.
+           `data-edge-*` is deliberately ignored: those are sampled from the
+           artwork, and what Wil asked for here is the section's own ground
+           (#100a06 over the hero, the cream reading ground below it). */
+        var SECTION = /^(header|section|footer|main)$/;
+        /* v20 (round 23): what counts as a ground. The story transcript and
+           the history section paint their cream on a `.ground-cream` <div>
+           inside the <section>, not on the section itself, and the old walk
+           fell straight past it to <body> — so over the cream the answer was
+           the hero's brown. A register block counts now. So does <main>, which
+           has carried the page ground since round 14, and it is the fallback
+           ahead of <body>: on the chapter routes <body> is written FROM this
+           function, so reading it back would be circular. */
+        function isGround(n) {
+          if (SECTION.test(n.tagName.toLowerCase())) return true;
+          var parent = n.parentElement;
+          /* pass 13: #reader wraps <main>'s content (the runway's moving box),
+             so a child of #reader is a child of <main> for this purpose */
+          if (parent && (parent.tagName.toLowerCase() === "main" || parent.id === "reader")) return true;
+          return !!(n.classList && n.classList.contains("ground-cream"));
+        }
+        function sectionGroundAt(y) {
+          var x = (window.innerWidth / 2) | 0;
+          var stack = document.elementsFromPoint
+            ? document.elementsFromPoint(x, y)
+            : [document.elementFromPoint(x, y)];
+          for (var i = 0; i < stack.length; i++) {
+            var el = stack[i];
+            if (!el || el === document.documentElement) break;
+            for (var n = el; n && n !== document.body; n = n.parentElement) {
+              if (!isGround(n)) continue;
+              var c = hex(getComputedStyle(n).backgroundColor);
+              if (c) return c;
+            }
+          }
+          var main = document.getElementById("main");
+          return (main && hex(getComputedStyle(main).backgroundColor)) || hex(getComputedStyle(document.body).backgroundColor);
+        }
+        /* Returns the colour the bar at `side` should take behind the point
+           (w/2, y): the nearest declared edge colour, else the first flat
+           ground in paint order, else <html>. The whole stack under the point
+           is read (elementsFromPoint), not only the hit element's ancestors: a
+           fixed strip with no ground of its own must not hide the section
+           beneath it, while a covering panel — the curtain — still wins over
+           whatever it covers, because it is met first. `art` reports whether a
+           picture lies over the point (bleed-check reads it; the rule no
+           longer does). */
+        function groundAt(y, side) {
+          var x = (window.innerWidth / 2) | 0;
+          var stack = document.elementsFromPoint
+            ? document.elementsFromPoint(x, y)
+            : [document.elementFromPoint(x, y)];
+          var art = false;
+          for (var i = 0; i < stack.length; i++) {
+            var el = stack[i];
+            if (!el || el === document.documentElement) break;
+            var declared = side ? edgeAttr(el, side) : null;
+            if (declared) return { c: declared, art: false, hook: true };
+            var cs = getComputedStyle(el);
+            if (ART.test(el.tagName.toLowerCase()) || cs.backgroundImage !== "none") art = true;
+            var c = hex(cs.backgroundColor);
+            if (c) return { c: c, art: art, hook: false };
+          }
+          return { c: hex(getComputedStyle(document.documentElement).backgroundColor), art: art, hook: false };
+        }
+        /* A colour the meta can carry: a declared `transparent` cannot. */
+        function flat(g) {
+          return g && g.c && g.c !== "transparent" ? g.c : null;
+        }
+        function sample() {
+          queued = false;
+          lastSample = performance.now();
+          var h = window.innerHeight;
+          if (!h) return;
+          /* 4px in from each edge: the walk rail is a 3px hairline pinned to
+             the top of every chapter page and it is not the page's ground. */
+          var top = groundAt(4, "top"), bottom = groundAt(h - 5, "bottom");
+          var best = flat(bottom) || flat(top);
+          if (flat(top) && flat(bottom) && top.c !== bottom.c) {
+            /* Two colours share the screen. Whichever owns more of the centre
+               line owns the page the visitor is reading; the other is on its
+               way in or out. A centre point is read as its section's TOP edge
+               first, so a hero that owns both edges resolves to its own
+               painting's colour — the top bar is the one Chrome for Android
+               paints from this meta. Ties keep `bottom`, where iOS parks its
+               bar. (v14.2: the old art-based tiebreak is gone — over artwork a
+               declared colour now stands in for the flat ground it never had.) */
+            var nTop = 0, nBottom = 0;
+            for (var f = 0.2; f < 0.81; f += 0.2) {
+              var y = (h * f) | 0;
+              if (groundAt(y, "top").c === top.c) nTop++;
+              else if (groundAt(y, "bottom").c === bottom.c) nBottom++;
+            }
+            best = nTop > nBottom ? top.c : bottom.c;
+          }
+          var docEl = document.documentElement;
+          /* v14.5 (round 8 §5.1): on the chapter routes the top strip carries
+             the section's own ground as an OPAQUE colour, which is what iOS 26
+             reads for the address bar, and Chrome for Android takes the same
+             colour through the meta. The strip is 4px, opacity 0 and never
+             hit-tested, so this paints nothing: if Safari declines to read it,
+             the page looks exactly as it does today. Everywhere else the
+             two-edge rule above is untouched. */
+          /* v14.9 (round 8 phase F, Wil 2026-09-18): "it is supposed to remain
+             this same solid fill color as you are scrolling down … it currently
+             transitions into a see-through fill which it should never have
+             done." The strip write that lived here is GONE. It set an inline
+             background-color from the section under the top edge, and an inline
+             style beats the stylesheet — so the one element that is supposed to
+             hold the hero's #100a06 for the whole page was being repainted per
+             section on every scroll frame. The colour is now static in
+             global.css and nothing may overwrite it.
+             `best = sc` stays: that is the theme-color meta, which is Chrome
+             for Android's toolbar fill and the one device where a section-
+             matched bar is free (phase C4). It never touches the strip. */
+          if (docEl.dataset.topBar === "section") {
+            var sc = sectionGroundAt(4);
+            if (sc) best = sc;
+          }
+          /* v19 (round 21, Wil, 2026-09-18): "the gray gradient overlay …
+             behind and around the top address bar does not disappear when
+             scrolling down into the section below the map." Safari 26 tints
+             its bars from <body>'s background-color (round 8 phase E, measured
+             on his phone; theme-color is parsed and ignored), and /map's body
+             has been the map's grey #353535 since phase D/E so the at-rest bar
+             matched the canvas. The tint outlives the map: minimized and
+             scrolled, it is still grey over the brown index. The page cannot
+             remove Safari's tint; it can hand it a colour, and phase A2 test
+             C4a measured that a live colour change on an element that stays
+             in the tree is the one thing that moves it. So on /map, and only
+             there, <body> follows the colour this sampler already resolves —
+             the map's grey while the map owns the screen, the ground's brown
+             once the index does ("if you have to use a color use this one").
+             Nothing paints on the page: <main> covers <body> (round 14), so
+             the colour reaches only the bar region and overscroll. One colour
+             for both bars is the accepted cost, as it was for the chapter
+             routes' static fill. Every other route keeps its static body. */
+          /* v20 (round 23, Wil, 2026-09-18, his three chapter screenshots):
+             the five chapter routes join /map. Their static hero brown was his
+             round-8 instruction, taken when the alternative retinted the bottom
+             toolbar; today's ask is the section's colour behind the top bar,
+             and this tint is the only lever Safari offers for the bar itself,
+             so the bottom toolbar's share of it is the residue he was told
+             about — nothing is PAINTED behind the bottom toolbar (see
+             .edge-cover in global.css for what is painted, and where). At rest
+             this writes the hero's own #100a06, which the stylesheet already
+             carries, so nothing moves. */
+          var tracks = docEl.dataset.rootFill === "map" || docEl.dataset.topBar === "section";
+          if (tracks && best && best !== lastBody) {
+            lastBody = best;
+            document.body.style.backgroundColor = best;
+          }
+          if (docEl.dataset.topBar === "section") paintCover(best);
+          if (best && !docEl.dataset.chromeTintLock && best !== meta.getAttribute("content")) {
+            meta.setAttribute("content", best);
+          }
+        }
+        /* v20 (round 23): the chapter cover (`.edge-cover`, global.css) — the
+           section's ground painted over what has scrolled past the top edge,
+           which is what Safari's minimized bar shows through its glass.
+
+           Six device passes (2026-09-18/19, Wil's iPhone, iOS 26.6): the
+           region behind the bars shows only SCROLLED page paint; a pinned box
+           — fixed or sticky — is clipped at the viewport and never paints
+           there; Safari's own tint from <body> is a gradient, not a fill; and
+           a box moved from the main thread sits a frame behind the compositor
+           while the page moves, by speed × a frame (10–40px in his crops),
+           which no feather could hide: "there should never be a moment where
+           the area is see-through".
+
+           Pass 6, the answer: aim the cover INSIDE the page, not at its edge.
+           The walk rail is now the VISOR — a fixed, opaque band of the
+           section's colour, `--edge-visor` tall (32px then), its 3px line at
+           the bottom — and the cover's bottom edge is aimed at the visor's
+           middle. A frame of lag in either direction moves that edge up or
+           down INSIDE the visor, where the fixed band hides it; the bar
+           region above and the page below are the only things visible, and
+           both stay solid. The script also LEADS the scroll by its measured
+           speed × about a frame and a half, so the edge stays near the
+           middle at speed and the visor's half-height absorbs the residual.
+           At rest the edge settles in the middle, and nothing depends on
+           where exactly. Colour: the sampler writes the section's colour to
+           the cover and the visor alike, instantly, as he asked; Safari's
+           animated tint over them is the same colour.
+
+           Pass 7 (Wil, 2026-09-19, 06:15: "even better but now it's too
+           tall", and "a little flicker … both fast and slow"). The two asks
+           pull against each other — the band's height WAS the tolerance,
+           half above the aim for lag and half below for the lead — so the
+           geometry now spends all of it on the one failure he can see. The
+           cover aims at the TOP OF THE VISOR'S LINE (its foot), not its
+           middle: the whole band above the line is room for the edge to lag
+           upward before the bar region shows content, and an edge that
+           overshoots downward only runs behind the line (the rail, z-index
+           900, stays above the cover, and the band's colour is already
+           behind the line's gaps) and then over the first rows of the page
+           in the section's own colour — never see-through. The lead is
+           biased the same way: one frame of motion (the compositor's head
+           start on anything the main thread places) plus half a frame
+           DOWNWARD whichever way the page moves, so the steady state sits
+           half a frame below the aim in both directions. Pass 6's symmetric
+           frame-and-a-half lifted the edge half a frame ABOVE the aim on
+           every scroll UP — at a moderate speed, the slit he saw — and its
+           smoothing carried the old direction across a reversal for a
+           frame; a reversal now takes the new sign at once. With the
+           tolerance no longer halved, the default band is 16px (13px of room
+           above the line, against pass 6's 16 from a 32px band); `?visor=`
+           tunes it. What no lead can absorb is a dropped main-thread frame
+           (at 1px/ms one costs ~8px of room, two ~25px); the compositor
+           path, `?cover=track`, has no such frame IF his Safari accelerates
+           it — the one question only his eyes can answer.
+
+           `?cover=track` drives the cover with the scroll timeline instead
+           (self-checked at rest); `?cover=off` removes cover and visor;
+           `?visor=<px>` tries another visor height (3 is the bare line, the
+           pass-3 look, with no room for lag); `?debug=1` prints the path,
+           the browser's support and the geometry. */
+        var cover = null;
+        var coverH = 0;
+        var lastCover = "";
+        var rail = null;
+        var vv = window.visualViewport;
+        var coverY = null;
+        var coverUntil = 0;
+        var coverRaf = 0;
+        var coverAnimated = false;
+        var coverChecks = 0;
+        var coverFailed = false;
+        var checkTimer = 0;
+        var debugBox = null;
+        var lastT = 0;
+        var lastS = 0;
+        var lastRaf = 0;
+        var vel = 0;
+        var frameMs = 16.7;
+        var lead = 0;
+        function layoutScrollY() {
+          return vv ? vv.pageTop - vv.offsetTop : window.scrollY || 0;
+        }
+        /* The aim point in layout-viewport coordinates: the top of the
+           visor's 3px line (pass 7 — its foot, so the whole band above it is
+           room for lag), the rail's own top where the rail is only the line,
+           or the top edge itself on a page with no rail. The rail is fixed,
+           so its rect changes only with the layout: measured at init and on
+           resize, never per frame (a layout read inside every scroll event
+           is a forced layout on a busy page). */
+        var railTop = 0;
+        var railH = 0;
+        function coverMeasure() {
+          if (!rail) return;
+          var r = rail.getBoundingClientRect();
+          railTop = r.top;
+          railH = r.height;
+        }
+        function coverAim() {
+          return railH > 0 ? railTop + Math.max(0, railH - 3) : 0;
+        }
+        function coverTrack() {
+          var s = layoutScrollY();
+          var now = performance.now();
+          if (!lastT) {
+            lastT = now;
+            lastS = s;
+          } else {
+            var dt = now - lastT;
+            if (dt >= 250) {
+              vel = 0;
+              lastT = now;
+              lastS = s;
+            } else if (dt >= 4) {
+              /* px per ms, smoothed over two samples; same-frame duplicates
+                 (a scroll event and the frame's own tick) are skipped. A
+                 reversal takes the new sign at once — the smoothing would
+                 carry the old direction for a frame, a frame of exposure on
+                 the way down→up. Capped at 8px/ms: faster than any flick,
+                 slower than a wheel's jump. */
+              var raw = Math.max(-8, Math.min(8, (s - lastS) / dt));
+              vel = raw && vel && (raw > 0) !== (vel > 0) ? raw : vel * 0.5 + raw * 0.5;
+              lastT = now;
+              lastS = s;
+            }
+          }
+          /* The lead (pass 7): one frame of motion plus half a frame in the
+             DEEP direction whichever way the page moves — down, the lag
+             lifts the edge and the lead lowers it a frame and a half; up,
+             the lag lowers it and the lead lifts it only half a frame — so
+             the steady state sits half a frame below the aim, behind the
+             line, in both directions. Below a slow drift it is 0. */
+          var f = Math.min(34, Math.max(6, frameMs));
+          lead = Math.abs(vel) < 0.05 ? 0 : (vel + 0.5 * Math.abs(vel)) * f;
+          var t = Math.round((s + lead + coverAim() - coverH) * 10) / 10;
+          if (t === coverY) return false;
+          coverY = t;
+          cover.style.transform = "translate3d(0," + t + "px,0)";
+          return true;
+        }
+        function coverLoop() {
+          coverRaf = 0;
+          var now = performance.now();
+          if (lastRaf && now - lastRaf < 60) frameMs = frameMs * 0.9 + (now - lastRaf) * 0.1;
+          lastRaf = now;
+          if (coverTrack()) coverUntil = now + 600;
+          if (now < coverUntil) coverRaf = requestAnimationFrame(coverLoop);
+          else lastRaf = 0;
+        }
+        /* The compositor path's self-check (`?cover=track` only), AT REST:
+           300 ms after the last scroll or resize event, the cover's rendered
+           bottom must sit at the aim (the top of the visor's line); if not (a browser
+           mapping the range differently, or a stylesheet forcing the duration
+           to 0s), the animation is switched off and the tracker takes over.
+           A failure is visible at any offset; a pass is uninformative at 0,
+           so passes count from 60px. */
+        function coverCheck() {
+          checkTimer = 0;
+          if (!coverAnimated || coverChecks >= 12) return;
+          if (Math.abs(cover.getBoundingClientRect().bottom - coverAim()) > 8) {
+            coverAnimated = false;
+            coverFailed = true;
+            cover.style.animation = "none";
+            coverY = null;
+            coverWake();
+            return;
+          }
+          if (layoutScrollY() >= 60) coverChecks++;
+        }
+        function coverWake() {
+          if (debugBox) debugPaint();
+          if (coverAnimated) {
+            if (checkTimer) clearTimeout(checkTimer);
+            checkTimer = setTimeout(coverCheck, 300);
+            return;
+          }
+          coverUntil = performance.now() + 600;
+          coverTrack();
+          if (!coverRaf) coverRaf = requestAnimationFrame(coverLoop);
+        }
+        /* The layout changed (the bars, a rotation): re-measure the rail,
+           then place the cover. */
+        function coverResize() {
+          coverMeasure();
+          coverWake();
+        }
+        /* The section's colour, to the cover and the visor alike — instantly,
+           no transition (his instruction, pass 6). */
+        function paintCover(c) {
+          if (!c || c === lastCover) return;
+          lastCover = c;
+          if (cover) cover.style.backgroundColor = c;
+          if (rail) rail.style.backgroundColor = c;
+        }
+        /* `?debug=1`: a readout for the device pass — which path drives the
+           cover, what the browser says it supports, and the geometry only
+           the phone can report. */
+        function debugPaint() {
+          var r = rail ? rail.getBoundingClientRect() : { top: 0, height: 0 };
+          var cr = cover.getBoundingClientRect();
+          var cs = getComputedStyle(cover);
+          var n = function (v) { return Math.round(v * 10) / 10; };
+          var ua = (navigator.userAgent.match(/Version\/[\d.]+/) || [""])[0];
+          debugBox.textContent =
+            (coverAnimated ? "compositor" : coverFailed ? "tracker (timeline check failed)" : "tracker") +
+            " · checks " + coverChecks + " · " + ua +
+            "\ntimeline " + (window.CSS && CSS.supports("animation-timeline: scroll()") ? "supported" : "unsupported") +
+            " · range-end " + (cs.animationRangeEnd || "-") + " · anims " + cover.getAnimations().length +
+            "\nscrollY " + n(window.scrollY) +
+            " · pageTop " + (vv ? n(vv.pageTop) : "-") +
+            " · offsetTop " + (vv ? n(vv.offsetTop) : "-") +
+            "\ninnerHeight " + window.innerHeight + " · vv.height " + (vv ? n(vv.height) : "-") + " · frame " + n(frameMs) + "ms" +
+            "\nvisor " + n(r.top) + "→" + n(r.top + r.height) + " · aim " + n(coverAim()) + " · cover bottom " + n(cr.bottom) + " · lead " + n(lead) +
+            "\ncolour " + lastCover;
+        }
+        function coverInit() {
+          var el = document.querySelector(".edge-cover");
+          if (!el || getComputedStyle(el).display === "none") return;
+          cover = el;
+          coverH = el.offsetHeight;
+          rail = document.querySelector(".walk-rail");
+          coverMeasure();
+          lastCover = "";
+          coverAnimated = getComputedStyle(el).animationName === "edge-cover-track";
+          if (document.documentElement.dataset.debug === "1") {
+            debugBox = document.createElement("pre");
+            debugBox.setAttribute("aria-hidden", "true");
+            debugBox.style.cssText =
+              "position:fixed;left:8px;bottom:120px;z-index:100002;margin:0;padding:8px 10px;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.75);border-radius:8px;pointer-events:none;white-space:pre";
+            document.body.appendChild(debugBox);
+            setInterval(debugPaint, 250);
+          }
+          var opts = { passive: true };
+          addEventListener("scroll", coverWake, opts);
+          addEventListener("scrollend", coverWake, opts);
+          addEventListener("resize", coverResize, opts);
+          addEventListener("orientationchange", coverResize, opts);
+          addEventListener("touchend", coverWake, opts);
+          addEventListener("pageshow", coverResize);
+          if (vv) {
+            vv.addEventListener("scroll", coverWake, opts);
+            vv.addEventListener("resize", coverResize, opts);
+          }
+          coverWake();
+          schedule();
+        }
+        if (document.readyState === "complete") coverInit();
+        else addEventListener("load", coverInit, { once: true });
+        function schedule() {
+          if (queued) return;
+          var wait = SAMPLE_MS - (performance.now() - lastSample);
+          if (wait > 0) {
+            /* v14.3: inside the window — one trailing sample, not one per event */
+            if (!trailing) trailing = setTimeout(function () { trailing = 0; schedule(); }, wait);
+            return;
+          }
+          queued = true;
+          requestAnimationFrame(sample);
+        }
+        addEventListener("scroll", schedule, { passive: true });
+        addEventListener("resize", schedule, { passive: true });
+        addEventListener("orientationchange", schedule, { passive: true });
+        addEventListener("pageshow", schedule);
+        addEventListener("load", schedule);
+        /* v14.2: what sits under an edge can move without a scroll. A
+           scroll-reveal translates its element 24px over 1.6s — measured at
+           360×800 on /barbershop, the framed Onward map (#341a11) rising into
+           the top edge left the strip on the page ground behind it until the
+           next scroll. The settled state is sampled again when any transition
+           or animation ends; `queued` caps the work at one sample per frame. */
+        addEventListener("transitionend", schedule, { capture: true, passive: true });
+        addEventListener("animationend", schedule, { capture: true, passive: true });
+        if (document.readyState === "loading")
+          addEventListener("DOMContentLoaded", schedule, { once: true });
+        else schedule();
+        /* The curtain covers and uncovers without a scroll, so watch the flag
+           the transition sets rather than waiting for one. v14.2: the test
+           page's meta lock is released the same way — re-sample when it lifts.
+           And `subtree`: a class flip anywhere can change what is hit-testable
+           at an edge with no scroll of its own (a `hidden` toggled on a panel,
+           a state class on a stage, a reveal's `is-in` starting its rise), so
+           class flips anywhere re-sample too; the transition that follows is
+           caught by `transitionend` above. */
+        new MutationObserver(schedule).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class", "data-chrome-tint-lock"],
+          subtree: true,
+        });
+      })();
+    </script>
+    <link rel="preconnect" href="https://api.mapbox.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={caslonDisplayWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={caslonTextWoff2} crossorigin />
+    <script is:inline>
+      /* v7 X1 — the Crossing's second half must be on screen BEFORE first
+         paint. Page A sets `cnwm-curtain` in sessionStorage as it covers; this
+         parser-blocking script reads it and paints the panel covered (CSS
+         `.curtain-covered`) so page B never shows an uncovered frame before
+         the deferred module runs the hold + reveal. Reduced motion never
+         covers. Fail-open: if the module never runs, uncover at 3 s. */
+      (function () {
+        try {
+          if (
+            sessionStorage.getItem("cnwm-curtain") &&
+            !matchMedia("(prefers-reduced-motion: reduce)").matches
+          ) {
+            document.documentElement.classList.add("curtain-covered");
+            setTimeout(function () {
+              document.documentElement.classList.remove("curtain-covered");
+            }, 3000);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    {
+      preloadImages.map((p) => (
+        <link rel="preload" as="image" href={p.href} type={p.type} media={p.media} fetchpriority="high" />
+      ))
+    }
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Charles Nalle Walking Memorial" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(withBase("og.png"), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Charles Nalle Walking Memorial: Troy, New York, April 27, 1860" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL(withBase("og.png"), Astro.site)} />
+  </head>
+  <body class="min-h-dvh">
+    <script is:inline>
+      // Progressive enhancement flag: scroll-reveal initial states apply
+      // only when JS runs (no-JS users see everything, statically).
+      document.documentElement.classList.add("js");
+    </script>
+    <a href="#main" class="skip-link" data-no-curtain>Skip to content</a>
+
+    <!-- Curtain transition (signature #1). v7 X1: FIRST in <body> — position:
+         fixed cares nothing for order, but the parser paints <main> before it
+         reaches the end of the document, so a panel declared last let page B's
+         hero flash for a frame or two under 4× CPU. Here it exists before any
+         content paints; the head script has already set `.curtain-covered`. -->
+    <div id="curtain-panel" class="curtain-panel" aria-hidden="true" data-edge-top="#1d1411" data-edge-bottom="#1d1411"></div>
+    <div class="edge-glass edge-glass-top" aria-hidden="true"></div>
+    <div class="edge-glass edge-glass-bottom" aria-hidden="true"></div>
+    <div id="curtain-text" class="curtain-text" aria-hidden="true">
+      <div id="curtain-text-content" class="flex flex-col">
+        <p class="t-wordmark">Charles</p>
+        <p class="t-wordmark self-end" style="margin-top:-0.06em">Nalle</p>
+      </div>
+    </div>
+    <script is:inline>
+      /* v7 X1 — write the covered label synchronously, right after its
+         element exists, so the first painted frame already carries the
+         destination (same markup as curtain.ts setLabel). */
+      (function () {
+        try {
+          if (!document.documentElement.classList.contains("curtain-covered")) return;
+          var c = document.getElementById("curtain-text-content");
+          var label = sessionStorage.getItem("cnwm-curtain-label") || "";
+          var withDate = !!sessionStorage.getItem("cnwm-curtain-date");
+          if (!c || !label) return;
+          var esc = function (t) {
+            return t.replace(/[&<>"]/g, function (ch) {
+              return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch];
+            });
+          };
+          c.innerHTML = withDate
+            ? '<p class="t-crossing text-center">April 27, 1860</p><p class="t-meta text-center" style="margin-top:1.25rem">' + esc(label) + "</p>"
+            : label
+                .split("\n")
+                .map(function (line) {
+                  return '<p class="t-wordmark text-center">' + esc(line) + "</p>";
+                })
+                .join("");
+        } catch (e) {}
+      })();
+    </script>
+
+
+    {/* v7 V7-081: the menu is rendered BEFORE <main> so it is the first real
+        tab stop (it is visually first); position:fixed makes DOM order free. */}
+    {!noMenu && <Menu position={menuPosition} />}
+
+    {/* v20 (round 23): the chapter cover — the section's ground painted over
+        what has scrolled past the top edge, which is what Safari's minimized
+        bar shows through its glass. In the document, so it reaches the bar
+        region the way the map's runway does; by construction never inside the
+        viewport. Device pass 4: a STICKY box, first in the flow, so the
+        scrolling thread itself holds it on the viewport's top edge — the
+        tracked variants (absolute, moved by a scroll timeline or by script)
+        stay behind `?cover=track` and `?cover=js`; see global.css. Rendered
+        only on the routes that ask, displayed only where the bars exist. */}
+    {topBar === "section" && <div class="edge-cover" aria-hidden="true"></div>}
+    <main id="main">
+      {/* Device pass 13 (round 23): #reader is the chapter's moving box in the
+          runway mode (`data-scroll="sync"`, global.css) — translated by
+          −scrollY while the document scrolls a solid runway. On every other
+          route and mode it is an unstyled block that changes nothing; the
+          sampler's ground walk treats its children as <main>'s. */}
+      <div id="reader" class="reader">
+        <slot />
+      </div>
+    </main>
+    {/* Device pass 15: fixed chrome that must not ride in #reader (the
+        chapter's walk rail) comes through this slot, after <main>. */}
+    <slot name="chrome" />
+    <script is:inline>
+      /* Device pass 13 (round 23, Wil, 2026-09-22: "the bottom toolbar should
+         automatically hide when the user scrolls down and reappear when the
+         user scrolls up"): THE RUNWAY. Safari collapses its bars only when the
+         DOCUMENT scrolls, and the still document of pass 8 never does. Here
+         the document is a solid runway under the reader's finger — <body> as
+         tall as the chapter, carrying the section's colour, so what shows
+         behind either bar is only ever that colour — and the chapter itself
+         sits in <main>, fixed and clipped at the viewport, moved by the
+         compositor: #reader is translated by −scrollY on every scroll event,
+         and re-read for 600 ms after the last one, because the last scroll
+         event is not where iOS settles (pass 2). One frame behind the finger,
+         as any page-placed box is; a stalled main thread stalls the page with
+         it — the price of the collapsing bars, stated to him. #reader is not
+         a scroller, so a fragment is reached by scrolling the document to the
+         target's natural offset (the browser's own fragment scroll cannot be
+         relied on for a box inside a fixed one). */
+      (function () {
+        if (document.documentElement.dataset.scroll !== "sync") return;
+        var reader = document.getElementById("reader");
+        if (!reader) return;
+        var placed = null;
+        var until = 0;
+        var raf = 0;
+        /* Device pass 15 (Wil, 2026-09-22, his crop of the transcript over a
+           brown toolbar): the runway was one colour — <body>'s, the section
+           at the TOP edge — so whenever a section boundary was on screen the
+           bottom toolbar sat on the wrong colour. The runway is now a COLOUR
+           MAP of the chapter: one block per ground (the sampler's grounds —
+           header, section, footer, a direct child of #reader, .ground-cream)
+           at its own offset and height, in its own background colour, on
+           the page ground; the region under the bottom toolbar therefore
+           shows exactly the section arriving from below, with no script in
+           the loop. Above the viewport a CAP — one block from the top of the
+           document to the bottom of the section at the top edge, in that
+           section's colour — keeps the region behind the top bar ONE colour
+           and flips it the instant the top edge crosses a boundary, which is
+           the behaviour he approved in the still document; a crossing that
+           happens between two frames would show the next block for a frame,
+           so on the way down the cap leads by a frame of motion (the toolbar
+           is hidden on the way down; on the way up and at rest the cap ends
+           exactly at the section, so the bottom stays exact). <body> takes
+           the same colour at the same instant, for Safari's tint. */
+        var runway = document.createElement("div");
+        runway.id = "runway";
+        runway.setAttribute("aria-hidden", "true");
+        var cap = document.createElement("div");
+        cap.className = "runway-cap";
+        var main = document.getElementById("main");
+        main.parentNode.insertBefore(runway, main);
+        var grounds = [];
+        var base = "";
+        var capKey = "";
+        var lastS = null;
+        var lastT = 0;
+        var vel = 0;
+        function opaque(c) {
+          return c && c !== "transparent" && !/^rgba\(.*,\s*0\)$/.test(c);
+        }
+        function map() {
+          base = getComputedStyle(main).backgroundColor;
+          var rTop = reader.getBoundingClientRect().top;
+          var els = reader.querySelectorAll("header, section, footer, .ground-cream, #reader > *");
+          var seen = [];
+          var html = "";
+          grounds = [];
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (seen.indexOf(el) !== -1) continue;
+            seen.push(el);
+            var r = el.getBoundingClientRect();
+            if (!(r.height > 0)) continue;
+            var c = getComputedStyle(el).backgroundColor;
+            var own = opaque(c) && c !== base;
+            var top = r.top - rTop;
+            grounds.push({ top: top, bottom: top + r.height, colour: own ? c : base });
+            if (own) html += '<div style="top:' + top + "px;height:" + r.height + "px;background-color:" + c + '"></div>';
+          }
+          runway.style.backgroundColor = base;
+          runway.style.height = reader.offsetHeight + "px";
+          runway.innerHTML = html;
+          runway.appendChild(cap);
+          capKey = "";
+        }
+        function ground(y) {
+          var g = null;
+          for (var i = 0; i < grounds.length; i++) if (grounds[i].top <= y && y < grounds[i].bottom) g = grounds[i];
+          return g;
+        }
+        function capAt(s, lead) {
+          var g = ground(s + 4);
+          var bottom = g ? g.bottom + lead : 0;
+          var colour = g ? g.colour : base;
+          var key = colour + "|" + Math.round(bottom);
+          if (key === capKey) return;
+          capKey = key;
+          cap.style.height = Math.max(0, bottom) + "px";
+          cap.style.backgroundColor = colour;
+          if (document.body.style.backgroundColor !== colour) document.body.style.backgroundColor = colour;
+        }
+        function place() {
+          var s = window.scrollY || 0;
+          var now = performance.now();
+          if (lastS !== null) {
+            var dt = now - lastT;
+            if (dt >= 250) vel = 0;
+            else if (dt >= 4) vel = vel * 0.5 + ((s - lastS) / dt) * 0.5;
+          }
+          lastS = s;
+          lastT = now;
+          capAt(s, vel > 0.05 ? Math.min(64, vel * 25) : 0);
+          if (s === placed) return false;
+          placed = s;
+          reader.style.transform = "translate3d(0," + -s + "px,0)";
+          return true;
+        }
+        function loop() {
+          raf = 0;
+          var now = performance.now();
+          if (place()) until = now + 600;
+          if (now < until) raf = requestAnimationFrame(loop);
+        }
+        function wake() {
+          until = performance.now() + 600;
+          place();
+          if (!raf) raf = requestAnimationFrame(loop);
+        }
+        function size() {
+          var h = reader.offsetHeight;
+          if (h && document.body.style.height !== h + "px") document.body.style.height = h + "px";
+          map();
+        }
+        function land(hash, behavior) {
+          var el = hash && hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+          if (!el) return;
+          var top = el.getBoundingClientRect().top + (window.scrollY || 0) - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
+          window.scrollTo({ top: Math.max(0, top), behavior: behavior });
+        }
+        function relayout() {
+          size();
+          wake();
+        }
+        addEventListener("scroll", wake, { passive: true });
+        addEventListener("scrollend", wake, { passive: true });
+        addEventListener("resize", relayout, { passive: true });
+        addEventListener("orientationchange", relayout, { passive: true });
+        addEventListener("pageshow", relayout);
+        addEventListener("hashchange", function () {
+          land(location.hash, "smooth");
+        });
+        addEventListener("load", function () {
+          relayout();
+          if (location.hash)
+            setTimeout(function () {
+              land(location.hash, "instant");
+            }, 80);
+        });
+        if (window.ResizeObserver) new ResizeObserver(size).observe(reader);
+        relayout();
+      })();
+    </script>
+    <script is:inline>
+      /* Device pass 8 (round 23): in the inner-scroll mode (the chapter
+         default on iPad since pass 13, on every iOS chapter from pass 9 to
+         12; `?scroll=inner` elsewhere, `?scroll=doc` to leave it; global.css)
+         <main> is the scroller and the document never moves.
+         Everything that listens for the page scrolling on `window` — the
+         sampler above, the corner menu, the narration's mini player — hears
+         <main>'s scroll re-sent on window, so none of it changes; the menu
+         and the chapter's scroll triggers read <main>'s own offset (Menu.astro,
+         [chapter].astro). The cover's tracker never starts here: the cover is
+         display:none in this mode, and coverInit returns on that. */
+      (function () {
+        if (document.documentElement.dataset.scroll !== "inner") return;
+        var m = document.getElementById("main");
+        if (!m) return;
+        m.addEventListener(
+          "scroll",
+          function () {
+            window.dispatchEvent(new Event("scroll"));
+          },
+          { passive: true }
+        );
+        /* Closeout (pass 12): the root is overflow:hidden, which stops the
+           reader scrolling it but not a script — a focus() or scrollIntoView
+           on something in <main>'s run under the toolbar would scroll the
+           document by up to E and put page paint back behind the bar. The
+           document stays at 0. (The re-sent events above arrive here too,
+           with scrollY 0, and do nothing.) */
+        addEventListener(
+          "scroll",
+          function () {
+            if (window.scrollY || window.scrollX) window.scrollTo(0, 0);
+          },
+          { passive: true }
+        );
+      })();
+    </script>
+
+    <script>
+      import { initCurtain } from "../lib/curtain";
+      initCurtain();
+
+      // Ambient videos load only when needed: near-viewport (IO) — the poster
+      // is the instant paint, the film arrives when bandwidth allows.
+      const lazyVids = document.querySelectorAll<HTMLVideoElement>(".lazy-video[data-src]");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // A phone at a bronze plaque is on cellular. Ambient film is an
+      // enhancement; the poster IS the finished painting, so on Save-Data or a
+      // slow connection we simply never fetch the film. Evaluated at FETCH
+      // time, not init: effectiveType starts at "4g" until the estimator has
+      // samples, which is exactly the window the old check sat in — E7 caught
+      // every chapter pulling its reveal film through the emulated thin pipe.
+      // The downlink floor backstops the type label (Slow-4G measures ~1.6).
+      const thinPipe = () => {
+        const conn = (navigator as any).connection;
+        if (!conn) return false;
+        if (conn.saveData) return true;
+        if (/(^|-)(2g|slow-2g|3g)$/.test(String(conn.effectiveType || ""))) return true;
+        return typeof conn.downlink === "number" && conn.downlink > 0 && conn.downlink < 3;
+      };
+      if (lazyVids.length) {
+        /* v14.2 (Wil, 9/16): the films that would not play, the play glyph
+           and the soft hero still are iOS Low Power Mode ("I turned off Low
+           Power Mode and everything worked as normal"). There play() rejects,
+           and until now the rejection was swallowed with the <video> left
+           mounted over the still: WebKit draws its play button on a frozen
+           first frame, and the still beneath it was the 480px tier, which at
+           DPR 3 is what read as low resolution. Wil's decision: PLAY ON FIRST
+           TAP. A rejected film is taken out of the box (inline display:none —
+           no box, no glyph; inline beats `md:block`), the sibling <picture>'s
+           480px sources are removed so the <img> re-selects the 800px still (a
+           spec-defined relevant mutation: source selection re-runs with no
+           blank frame; the preload links are untouched), and ONE retry is
+           armed on the window for the next tap or key. `pointerup`, because a
+           pan ends in `pointercancel` — a scroll never spends the retry — and
+           Escape is excluded because the spec excludes it from user
+           activation. The retry starts every pending film synchronously inside
+           the gesture and un-hides each only once its play() resolves. A film
+           that carries a poster (the ch2 archival strip) is exempt: there
+           WebKit's own tap-to-play over the poster is the right behaviour. */
+        const pending = new Set<HTMLVideoElement>();
+        let armed = false;
+        const retry = (e: Event) => {
+          if (e.type === "keydown" && (e as KeyboardEvent).key === "Escape") return;
+          window.removeEventListener("pointerup", retry, true);
+          window.removeEventListener("keydown", retry, true);
+          armed = false;
+          const films = [...pending];
+          pending.clear();
+          for (const v of films) v.play().then(() => v.style.removeProperty("display")).catch(() => {});
+        };
+        const deferred = (v: HTMLVideoElement) => {
+          if (v.poster) return;
+          v.style.display = "none";
+          v.parentElement
+            ?.querySelectorAll('picture > source[media="(max-width: 480px)"]')
+            .forEach((s) => s.remove());
+          pending.add(v);
+          if (armed) return;
+          armed = true;
+          window.addEventListener("pointerup", retry, true);
+          window.addEventListener("keydown", retry, true);
+        };
+        const load = (v: HTMLVideoElement) => {
+          // `data-reduce-static` marks a film whose poster IS the finished
+          // artwork — under reduced motion, or on a thin pipe, we never attach
+          // the source and the still painting is what the visitor gets.
+          if ((reducedMotion || thinPipe()) && v.hasAttribute("data-reduce-static")) return;
+          if (!v.src && v.dataset.src) {
+            // The poster is attached HERE, not at init: setting it up front
+            // fetched every below-fold poster on first paint (153KB of
+            // archival still on the chapter path alone).
+            if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster;
+            v.src = v.dataset.src;
+            v.play().catch(() => deferred(v));
+          }
+        };
+        // Films never race the first paint: start after the window load event
+        const whenLoaded = (fn: () => void) => {
+          if (document.readyState === "complete") fn();
+          else window.addEventListener("load", fn, { once: true });
+        };
+        const vio = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                whenLoaded(() => load(e.target as HTMLVideoElement));
+                vio.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "200px" },
+        );
+        lazyVids.forEach((v) => vio.observe(v));
+      }
+    </script>
+  </body>
+</html>

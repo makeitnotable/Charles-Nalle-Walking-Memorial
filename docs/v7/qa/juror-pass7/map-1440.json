@@ -1,0 +1,1259 @@
+{
+  "log": {
+    "overviewControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          525,
+          784,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          744,
+          786,
+          171,
+          44
+        ]
+      },
+      {
+        "label": "Enter Spot 01: Holeur’s Fashionable Bakery",
+        "rect": [
+          470,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          1008,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "overviewMarkers": [
+      {
+        "t": "Spot 1: Holeur’s Fashionable Bakery",
+        "rect": [
+          870,
+          393,
+          0,
+          0
+        ],
+        "inView": true
+      },
+      {
+        "t": "Spot 2: Commissioner’s Office",
+        "rect": [
+          766,
+          265,
+          0,
+          0
+        ],
+        "inView": true
+      },
+      {
+        "t": "Spot 3: Uri Gilbert Home",
+        "rect": [
+          813,
+          470,
+          0,
+          0
+        ],
+        "inView": true
+      },
+      {
+        "t": "Spot 4: Washington Street Ferry Landing ",
+        "rect": [
+          583,
+          770,
+          0,
+          0
+        ],
+        "inView": true
+      },
+      {
+        "t": "Spot 5: Peter Baltimore’s Barbershop",
+        "rect": [
+          753,
+          255,
+          0,
+          0
+        ],
+        "inView": true
+      }
+    ],
+    "chip": [
+      {
+        "t": "April 27, 1860",
+        "rect": [
+          56,
+          56,
+          144,
+          34
+        ]
+      },
+      {
+        "t": "April 27, 1860",
+        "rect": [
+          56,
+          56,
+          144,
+          34
+        ]
+      }
+    ],
+    "indexTitles": [
+      {
+        "t": "Holeur’s Fashionable Bakery",
+        "lines": 1,
+        "w": 968,
+        "overflow": false
+      },
+      {
+        "t": "Commissioner’s Office",
+        "lines": 1,
+        "w": 968,
+        "overflow": false
+      },
+      {
+        "t": "Uri Gilbert Home",
+        "lines": 1,
+        "w": 968,
+        "overflow": false
+      },
+      {
+        "t": "Washington Street Ferry Landing",
+        "lines": 1,
+        "w": 968,
+        "overflow": false
+      },
+      {
+        "t": "Peter Baltimore’s Barbershop",
+        "lines": 1,
+        "w": 968,
+        "overflow": false
+      }
+    ],
+    "takeVisibleBefore": true,
+    "takeBox": {
+      "x": 525.2890625,
+      "y": 604,
+      "width": 206.703125,
+      "height": 48
+    },
+    "scrollAfterTake": 0,
+    "walkControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Stop the walk",
+        "rect": [
+          1214,
+          56,
+          170,
+          38
+        ]
+      },
+      {
+        "label": "Enter Spot 01: Holeur’s Fashionable Bakery",
+        "rect": [
+          470,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          1008,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "walkMarkers": [
+      {
+        "t": "Spot 1: Holeur’s Fashionable Bakery",
+        "rect": [
+          1532,
+          1271,
+          0,
+          0
+        ],
+        "inView": false
+      },
+      {
+        "t": "Spot 2: Commissioner’s Office",
+        "rect": [
+          645,
+          186,
+          0,
+          0
+        ],
+        "inView": true
+      },
+      {
+        "t": "Spot 3: Uri Gilbert Home",
+        "rect": [
+          1594,
+          4225,
+          0,
+          0
+        ],
+        "inView": false
+      },
+      {
+        "t": "Spot 4: Washington Street Ferry Landing ",
+        "rect": [
+          33554428,
+          33554428,
+          0,
+          0
+        ],
+        "inView": false
+      },
+      {
+        "t": "Spot 5: Peter Baltimore’s Barbershop",
+        "rect": [
+          588,
+          145,
+          0,
+          0
+        ],
+        "inView": true
+      }
+    ],
+    "walkCards": [
+      {
+        "t": "Focus Spot 01: Holeur’s Fashionable Bake",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ],
+        "titleLines": null
+      },
+      {
+        "t": "Enter Spot 02: Commissioner’s Office",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ],
+        "titleLines": null
+      },
+      {
+        "t": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ],
+        "titleLines": null
+      },
+      {
+        "t": "Focus Spot 04: Washington Street Ferry L",
+        "rect": [
+          1544,
+          571,
+          473,
+          177
+        ],
+        "titleLines": null
+      },
+      {
+        "t": "Focus Spot 05: Peter Baltimore’s Barbers",
+        "rect": [
+          2075,
+          571,
+          473,
+          177
+        ],
+        "titleLines": null
+      }
+    ],
+    "walkControls2": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Stop the walk",
+        "rect": [
+          1214,
+          56,
+          170,
+          38
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 03: Uri Gilbert Home",
+        "rect": [
+          470,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          1008,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "walkCards2": [
+      {
+        "t": "Focus Spot 01: Holeur’s Fashio",
+        "rect": [
+          -589,
+          562,
+          497,
+          186
+        ]
+      },
+      {
+        "t": "Focus Spot 02: Commissioner’s ",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "t": "Enter Spot 03: Uri Gilbert Hom",
+        "rect": [
+          470,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "t": "Focus Spot 04: Washington Stre",
+        "rect": [
+          1008,
+          567,
+          486,
+          181
+        ]
+      },
+      {
+        "t": "Focus Spot 05: Peter Baltimore",
+        "rect": [
+          1545,
+          571,
+          473,
+          177
+        ]
+      }
+    ],
+    "activeBefore": {
+      "x": 469.611328125,
+      "y": 560.9343872070312,
+      "width": 501.27734375,
+      "height": 187.06561279296875
+    },
+    "controlsRightAfterDrag": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Continue the walk",
+        "rect": [
+          1258,
+          56,
+          126,
+          38
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          -136,
+          557,
+          511,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 03: Uri Gilbert Home",
+        "rect": [
+          399,
+          560,
+          503,
+          188
+        ]
+      },
+      {
+        "label": "Focus Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          937,
+          566,
+          488,
+          182
+        ]
+      }
+    ],
+    "dragSamples": [
+      -718,
+      -696,
+      -671,
+      -658,
+      -647,
+      -638,
+      -627,
+      -620,
+      -615,
+      -609,
+      -606,
+      -603,
+      -600,
+      -598,
+      -597,
+      -596,
+      -595,
+      -593,
+      -593,
+      -592,
+      -591,
+      -591,
+      -591,
+      -590,
+      -590,
+      -590,
+      -590,
+      -590,
+      -590,
+      -590
+    ],
+    "reversals": 0,
+    "controlsAfterDrag": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Continue the walk",
+        "rect": [
+          1258,
+          56,
+          126,
+          38
+        ]
+      },
+      {
+        "label": "Focus Spot 02: Commissioner’s Office",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 03: Uri Gilbert Home",
+        "rect": [
+          470,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          1008,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "cardsAfterDrag": [
+      {
+        "t": "Focus Spot 01: Holeur’s Fashio",
+        "x": -589
+      },
+      {
+        "t": "Focus Spot 02: Commissioner’s ",
+        "x": -67
+      },
+      {
+        "t": "Enter Spot 03: Uri Gilbert Hom",
+        "x": 470
+      },
+      {
+        "t": "Focus Spot 04: Washington Stre",
+        "x": 1008
+      },
+      {
+        "t": "Focus Spot 05: Peter Baltimore",
+        "x": 1545
+      }
+    ],
+    "controlsAfterContinue": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Stop the walk",
+        "rect": [
+          1214,
+          56,
+          170,
+          38
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "controlsAfterStop": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Back to map",
+        "rect": [
+          56,
+          56,
+          175,
+          38
+        ]
+      },
+      {
+        "label": "Continue the walk",
+        "rect": [
+          1258,
+          56,
+          126,
+          38
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "controlsAfterBack": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          525,
+          784,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          744,
+          786,
+          171,
+          44
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "controlsBeforeLens": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          525,
+          784,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          744,
+          786,
+          171,
+          44
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "lensControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Zoom in",
+        "rect": [
+          1344,
+          68,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Zoom out",
+        "rect": [
+          1344,
+          104,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          1344,
+          140,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Back to today",
+        "rect": [
+          635,
+          800,
+          169,
+          44
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "lensCaption": [
+      {
+        "t": "Drag to explore · pinch or scroll to zoomDrag to explore · pinch to zoom",
+        "lines": 1,
+        "rect": [
+          576,
+          766,
+          287,
+          23
+        ]
+      },
+      {
+        "t": "Drag to explore · pinch or scroll to zoom",
+        "lines": 1,
+        "rect": [
+          576,
+          767,
+          287,
+          19
+        ]
+      },
+      {
+        "t": "Drag to explore · pinch to zoom",
+        "lines": 0,
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "lensImg": {
+      "src": "troy-1858-full-4096.avif",
+      "rect": [
+        -82,
+        -612,
+        1604,
+        1344
+      ],
+      "parent": [
+        56,
+        60,
+        0,
+        0
+      ],
+      "transform": "matrix(1.2082, 0, 0, 1.2082, -664, -892.195)",
+      "natural": [
+        4096,
+        3431
+      ]
+    },
+    "afterLensControls": [
+      {
+        "label": "Open menu",
+        "rect": [
+          1312,
+          772,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Zoom in",
+        "rect": [
+          1344,
+          68,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Zoom out",
+        "rect": [
+          1344,
+          104,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          1344,
+          140,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          525,
+          784,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          744,
+          786,
+          171,
+          44
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "menuHiddenOnMapScroll": "true",
+    "menuShownOnMapScrollUp": "false",
+    "menuOpenControls": [
+      {
+        "label": "Close menu",
+        "rect": [
+          1015,
+          770,
+          368,
+          73
+        ]
+      },
+      {
+        "label": "Toggle attribution",
+        "rect": [
+          56,
+          793,
+          24,
+          24
+        ]
+      },
+      {
+        "label": "Zoom in",
+        "rect": [
+          1344,
+          68,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Zoom out",
+        "rect": [
+          1344,
+          104,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          1344,
+          140,
+          32,
+          32
+        ]
+      },
+      {
+        "label": "Take the walk",
+        "rect": [
+          525,
+          784,
+          207,
+          48
+        ]
+      },
+      {
+        "label": "See Troy in 1858",
+        "rect": [
+          744,
+          786,
+          171,
+          44
+        ]
+      },
+      {
+        "label": "Focus Spot 03: Uri Gilbert Home",
+        "rect": [
+          -67,
+          557,
+          513,
+          191
+        ]
+      },
+      {
+        "label": "Enter Spot 04: Washington Street Ferry Landing",
+        "rect": [
+          469,
+          561,
+          501,
+          187
+        ]
+      },
+      {
+        "label": "Focus Spot 05: Peter Baltimore’s Barbershop",
+        "rect": [
+          1007,
+          567,
+          486,
+          181
+        ]
+      }
+    ],
+    "menuClosed": true
+  },
+  "errs": [
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24147.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19355/24147.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19355/24147.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19349/24149.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/16/19350/24148.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    },
+    {
+      "tag": "map-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/v4/mapbox.mapbox-bathymetry-v2,mapbox.mapbox-streets-v8-lite,mapbox.mapbox-terrain-v3,mapbox.mapbox-models-v1/16/19349/24149.vector.pbf?sku=101L2TbtMGWqz&access_token=pk.eyJ1Ijo net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+---
+/**
+ * THE footer band — identical on every page.
+ * Full-bleed hairline, then one row on the shell: credit left, lateral links
+ * centre, share right. v3 shipped three different footers using three type
+ * sizes each; there is now one.
+ *
+ * It used to reserve 112px of RIGHT padding for the corner menu, which lives at
+ * the TOP of every page that has this footer — so the Share control hung 112px
+ * in from the edge while every other element on the page sat on the gutter.
+ * The only floating element that ever reaches the footer is the chapter
+ * mini-player, bottom-left, and only chapters get that clearance now.
+ */
+import Icon from "./Icon.astro";
+import Button from "./Button.astro";
+import { withBase } from "../lib/url";
+
+interface Props {
+  /** Omit the page you are already on. */
+  hide?: "people" | "paintings" | "about" | "map";
+  /** Chapter pages offer a share control; index pages do not need one. */
+  share?: boolean;
+  /**
+   * Only chapter pages run narration, so only they need the bottom-left lane
+   * kept clear for the mini-player. /people, /paintings and /about were
+   * reserving 112px for a control that does not exist on them.
+   */
+  audio?: boolean;
+}
+const { hide, share = false, audio = false } = Astro.props;
+
+const links = [
+  { key: "people", href: "people", label: "The people of this day", curtain: "The\nPeople" },
+  { key: "paintings", href: "paintings", label: "The paintings", curtain: "The\nPaintings" },
+  { key: "about", href: "about", label: "About the memorial", curtain: "About" },
+  { key: "map", href: "map", label: "Map", curtain: "Map" },
+].filter((l) => l.key !== hide);
+---
+
+<footer class="site-footer sec">
+  <div class="rule-bleed"></div>
+  {/* v7 F1 — the reference pattern on museum/memorial footers (docs/v7/AUDIT.md
+      §4): a content grid, ONE full-width hairline, then a small muted meta row.
+      v8 V8-351 (Wil, 00:17:49): Share lives LEFT, under the wordmark,
+      bottom-aligned with the nav links; the nav column keeps its internal left
+      alignment but sits right-aligned in the footer. Phones stack wordmark →
+      nav → Share (V8-352: tighter link rhythm, more air after "Made by
+      Notable"). One element carries weight (the name, in Caslon Display, one
+      line); everything else is one small size. */}
+  <div class="shell footer-grid">
+    <div class="footer-mark">
+      <p class="footer-wordmark">Charles Nalle Walking&nbsp;Memorial</p>
+      <p class="t-meta-body mt-2"
+        >Made by <a
+          href="https://makeitnotable.com"
+          class="inline-block py-1 underline underline-offset-4 transition-opacity hover:opacity-70"
+          style="transition-duration: var(--dur-fast)"
+          data-no-curtain>Notable</a
+        ></p
+      >
+    </div>
+
+    <nav class="footer-nav" aria-label="Elsewhere on the memorial">
+      {/* V8-352: rows condensed (py-1 + link-meta's 24px floor keep ≥32px
+          tap rows). */}
+      <ul class="flex flex-col gap-2">
+        {
+          links.map((l) => (
+            <li>
+              <a href={withBase(l.href)} data-curtain-label={l.curtain} class="link-meta t-meta w-fit py-1">
+                {l.label}
+                <Icon name="arrow" size="sm" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {share && (
+      <div class="footer-share">
+        <Button size="sm" variant="ghost" icon="share" id="share-btn">Share</Button>
+      </div>
+    )}
+  </div>
+
+  {/* Disclaimer — requested at the final review (2026-08-07): in the footer
+      "so it's available at all times," on every page. Wording per Brian
+      Clyne's 8/7 email (general no-responsibility form) plus the call's
+      routes-are-suggestions intent. v8 V8-352 (Wil, 00:41:57 + 01:07:32): two
+      authored lines at every width. On chapters the row keeps the bottom-left
+      lane clear for the narration mini-player (C10). */}
+  <div class="shell footer-meta rule-top" data-audio={audio ? "true" : undefined}>
+    <p class="t-meta-body footer-disclaimer">
+      Walking routes and directions are suggestions&nbsp;only.<br />
+      Explore at your own pace, discretion, and&nbsp;risk.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "mark" "nav" "share";
+    /* V8-352: more air between "Made by Notable" and the first page link */
+    gap: 2.5rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  .footer-mark {
+    grid-area: mark;
+  }
+  .footer-nav {
+    grid-area: nav;
+  }
+  .footer-share {
+    grid-area: share;
+  }
+  @media (min-width: 768px) {
+    .footer-grid {
+      /* V8-351: two columns — the mark (+ Share below it) left, the nav
+         right-aligned; the nav spans both rows so Share's bottom lines up
+         with the last link. */
+      grid-template-columns: minmax(0, 1fr) auto;
+      /* row 2 hugs the Share pill so its bottom = the grid bottom = the
+         nav's bottom (the nav spans both rows and is the tallest column) */
+      grid-template-rows: 1fr auto;
+      grid-template-areas: "mark nav" "share nav";
+      align-items: start;
+      gap: 2.5rem;
+      /* mark + row-gap + Share must not exceed the nav's height, or the 1fr
+         row can't absorb the slack and Share sinks below the last link */
+      row-gap: 1rem;
+    }
+    .footer-nav {
+      justify-self: end;
+    }
+    .footer-nav a {
+      white-space: nowrap;
+    }
+    .footer-share {
+      align-self: end;
+      justify-self: start;
+    }
+  }
+  /* The name is the one element that carries weight: Caslon Display, one line,
+     cream, sized so it never wraps at 320 and never shouts at 1920. */
+  .footer-wordmark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    /* v14 E4 (Wil): the name and "Made by Notable" competed. The credit is
+       already in the secondary cut (Libre Caslon Text), so the fallback he
+       named applies: the name steps up. Caslon Display ships one weight and
+       the system never synthesises bold, so the step is +2px of size at
+       every stop of the clamp (18→20 · 26→28), still one line at 320. */
+    font-size: clamp(calc(1.125rem + 2px), calc(0.9rem + 1.05vw + 2px), calc(1.625rem + 2px));
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-neutral-12);
+    white-space: nowrap;
+  }
+  .footer-meta {
+    margin-top: 0;
+    padding-top: 1.5rem;
+    /* E24 (Wil, 9/14: "no content is ever obscured by the browser chrome").
+       This row is the last thing in every document, and `viewport-fit=cover`
+       runs the document under the home indicator / gesture bar once a
+       browser's toolbar retracts (iOS Safari collapsed, Add-to-Home-Screen,
+       Android 15 Chrome edge-to-edge) — the one place on the site whose
+       bottom clearance did NOT carry env(safe-area-inset-bottom). Measured
+       with the inset emulated: 40px of padding against a 34px indicator zone
+       left 6px; against a 48px Android nav inset the last line sat 8px inside
+       it. The inset is ADDED, so the authored rhythm is untouched wherever
+       env() is 0 (every desktop, most Android) — byte for byte 40 / 128. */
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  /* Chapters keep the bottom-left lane clear for the narration pill (C10);
+     the scoped rule used to out-cascade the `pb-28` utility. The pill sits on
+     --ui-inset, which already grows with the safe area, so the lane it clears
+     grows with it too (E24). */
+  .footer-meta[data-audio] {
+    padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-disclaimer {
+    max-width: 62ch;
+    color: var(--ink-quiet);
+  }
+</style>

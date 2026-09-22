@@ -1,0 +1,35 @@
+SHOT pin-1440-01-map.png | https://marseille.laphase5.com/en
+
+SHOT pin-1440-02-hover.png | https://marseille.laphase5.com/en
+
+HOVER DOM: [{"cls":"HoverPin","t":"C\nI\nT\nY\nH\nA\nL\nL\n•\nO\nL\nD\nP\nO\nR\nT\n•","w":180,"x":664,"y":279},{"cls":"Labels","t":"Saint-Charles\nCastellane\nEndoume\nPerier\nSaint-Gini","w":1440,"x":0,"y":0}]
+
+cursor on hover: pointer
+
+clicked pin @ 755,362
+
+SHOT pin-1440-03-t1.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-04-t2.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-05-t3.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-06-t4.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-07-t5.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-08-settled.png | https://marseille.laphase5.com/en/city-hall/360
+
+url now: https://marseille.laphase5.com/en/city-hall/360
+
+bodyText: Discover more | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port of Marseille | Anse de | la Malmousque | Plages du Prado | Callelongue | Sormiou | Morgiou | Sugiton | Marseilleveyre | Les Goudes | Rade d'Endoume | Pointe rouge | Anse de l'Estaque | Port de Marseille | M
+
+SHOT pin-1440-09-discover-more.png | https://marseille.laphase5.com/en/city-hall/details
+
+discover bodyText: CITY | HALL | QUAI DU PORT, 13002 MARSEILLE | The City Hall, an imposing building of 22,000 m² and 8,000 m² underground, is one of the few buildings that have survived the destruction of the district under German occupation in 1953. | It houses many decisive rooms in Marseille life such as the mayor's office or the town hall. | It is sometimes possible to visit this room and attend the municipal councils, where the 101 elected representatives of the city of Marseille debate together. | More infos | More infos | 43° 17' 47.36" N | 5° 22' 11.62" N | Saint-Charles | Castellane | Endoume | Perier | Saint-Giniez | Sainte-Anne | Bonneveine | Pointe-Rouge | Baumettes | Mazargues | Sainte-Marguerite | La Timone | Saint-Barnabé | Saint-Menet | La Valentine | Bon-Secours | Le Canet | ARENC | Sainte-Marthe | Chateau-Gombert | La Viste | Sainte-Antoine | L'Estaque | Saint-Julien | Les Olives | Sormiou | Old Port of Marseille | Anse de | la Malmousque | Plages du Prado | Callelongue | Sormiou | Morgiou | Sugiton | Marseilleveyre | Les Goudes | Rade d'Endoume | Pointe rouge | Anse de l'Estaque | Port de Marseille | Massif des calanques | Ile Maire | Iles du Frioul | Ile Jarre | Luminy | Le Cabot | Saint-Loup
+
+SHOT pin-1440-10-look-around.png | https://marseille.laphase5.com/en/city-hall/details
+
+SHOT pin-1440-11-closing.png | https://marseille.laphase5.com/en/city-hall/360
+
+SHOT pin-1440-12-back-on-map.png | https://marseille.laphase5.com/en/city-hall/360

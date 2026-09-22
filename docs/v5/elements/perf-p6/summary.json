@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/",
+    "performance": 98,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.33,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 513
+  },
+  {
+    "route": "/bakery",
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.71,
+    "cls": 0,
+    "tbt_ms": 0,
+    "transfer_kb": 862
+  },
+  {
+    "route": "/map",
+    "performance": 43,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 10.38,
+    "cls": 0.002,
+    "tbt_ms": 1944,
+    "transfer_kb": 2410
+  },
+  {
+    "route": "/paintings",
+    "performance": 64,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "lcp_s": 2.56,
+    "cls": 0.555,
+    "tbt_ms": 401,
+    "transfer_kb": 2477
+  }
+]

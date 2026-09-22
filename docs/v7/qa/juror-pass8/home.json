@@ -1,0 +1,156 @@
+{
+  "p390": {
+    "eyebrow": {
+      "y": 356.03125,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 26,
+      "y": 770,
+      "w": 338,
+      "h": 48,
+      "b": 818,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 5,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "p360": {
+    "eyebrow": {
+      "y": 338,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 26,
+      "y": 726,
+      "w": 308,
+      "h": 48,
+      "b": 774,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 6,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "t768": {
+    "eyebrow": {
+      "y": 439.828125,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 259.0625,
+      "y": 878.828125,
+      "w": 249.875,
+      "h": 48,
+      "b": 926.828125,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 4,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "t1024": {
+    "eyebrow": {
+      "y": 250.390625,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 387.0625,
+      "y": 665.546875,
+      "w": 249.875,
+      "h": 48,
+      "b": 713.546875,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 4,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "d1440": {
+    "eyebrow": {
+      "y": 308,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 595.0625,
+      "y": 779.0625,
+      "w": 249.875,
+      "h": 48,
+      "b": 827.0625,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 3,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "d1920": {
+    "eyebrow": {
+      "y": 365.59375,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 835.0625,
+      "y": 865.40625,
+      "w": 249.875,
+      "h": 48,
+      "b": 913.40625,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 3,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  },
+  "land": {
+    "eyebrow": {
+      "y": 34.40625,
+      "text": "Troy, New York · April 27, 1860"
+    },
+    "cta": {
+      "x": 297.0625,
+      "y": 307.609375,
+      "w": 249.875,
+      "h": 48,
+      "b": 355.609375,
+      "text": "Walk the story"
+    },
+    "desc": {
+      "lines": 3,
+      "text": "On April 27, 1860, the people of Troy, New York, took Charles Nalle back from th",
+      "color": "rgb(246, 243, 238)",
+      "fs": "16px"
+    },
+    "log": [],
+    "menu": "no burger found"
+  }
+}

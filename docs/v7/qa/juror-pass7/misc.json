@@ -1,0 +1,65 @@
+{
+  "h6-390": {
+    "ctaVisibleAt": 954,
+    "domContentLoaded": 253,
+    "load": 253,
+    "fromDCL": 701,
+    "fromLoad": 701
+  },
+  "h6-1440": {
+    "ctaVisibleAt": 932,
+    "domContentLoaded": 235,
+    "load": 235,
+    "fromDCL": 697,
+    "fromLoad": 697
+  },
+  "favicon-32.png": {
+    "w": 32,
+    "h": 32,
+    "format": "png",
+    "hasAlpha": true
+  },
+  "apple-touch-icon.png": {
+    "w": 180,
+    "h": 180,
+    "format": "png",
+    "hasAlpha": true
+  },
+  "icon-192.png": {
+    "w": 192,
+    "h": 192,
+    "format": "png",
+    "hasAlpha": true
+  },
+  "og.png": {
+    "w": 1200,
+    "h": 630,
+    "format": "png",
+    "hasAlpha": false
+  },
+  "indexTitle360": {
+    "titleRect": {
+      "x": 120,
+      "y": 68.73858642578125,
+      "width": 176,
+      "height": 59.78125,
+      "top": 68.73858642578125,
+      "right": 296,
+      "bottom": 128.51983642578125,
+      "left": 120
+    },
+    "sw": 209,
+    "cw": 176,
+    "arrowRect": {
+      "x": 316,
+      "y": 99.53546142578125,
+      "width": 24,
+      "height": 24,
+      "top": 99.53546142578125,
+      "right": 340,
+      "bottom": 123.53546142578125,
+      "left": 316
+    },
+    "fs": "26px"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "log": {
+    "before": [],
+    "open": [
+      {
+        "label": "Zoom in",
+        "rect": [
+          1344,
+          68,
+          32,
+          32
+        ],
+        "effOpacity": 1,
+        "vis": "visible",
+        "disp": "flex",
+        "pe": "auto",
+        "hitTop": "Zoom in",
+        "inert": false,
+        "ariaHidden": false
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          1344,
+          140,
+          32,
+          32
+        ],
+        "effOpacity": 1,
+        "vis": "visible",
+        "disp": "flex",
+        "pe": "auto",
+        "hitTop": "Reset view",
+        "inert": false,
+        "ariaHidden": false
+      }
+    ],
+    "closed3s": [
+      {
+        "label": "Zoom in",
+        "rect": [
+          1344,
+          68,
+          32,
+          32
+        ],
+        "effOpacity": 0,
+        "vis": "visible",
+        "disp": "flex",
+        "pe": "none",
+        "hitTop": "Map",
+        "inert": false,
+        "ariaHidden": true
+      },
+      {
+        "label": "Reset view",
+        "rect": [
+          1344,
+          140,
+          32,
+          32
+        ],
+        "effOpacity": 0,
+        "vis": "visible",
+        "disp": "flex",
+        "pe": "none",
+        "hitTop": "Map",
+        "inert": false,
+        "ariaHidden": true
+      }
+    ],
+    "tabSeqAfterClose": [
+      "Take the walk",
+      "See Troy in 1858",
+      "Spot 01Holeur’s\nFashionable Ba",
+      "Spot 02Commissioner’s\nOffice5 ",
+      "Spot 03Uri Gilbert Home189 Sec",
+      "Spot 04Washington Street Ferry",
+      "Spot 05Peter Baltimore’s Barbe",
+      "Notable",
+      "The people of this day",
+      "The paintings",
+      "About the memorial",
+      "// Progressive enhancement fla",
+      "Skip to content",
+      "Open menu"
+    ]
+  },
+  "errs": [
+    {
+      "tag": "map4-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3dbuildings-v1-meshopt/14/4840/6038.glb?sku=101Dono42jTre&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3k net::ERR_ABORTED"
+    },
+    {
+      "tag": "map4-1440",
+      "type": "requestfailed",
+      "text": "https://api.mapbox.com/3dtiles/v1/mapbox.mapbox-3d-events/14/4840/6038.glb?sku=101Dono42jTre&access_token=pk.eyJ1Ijoid2JtZGVzaWduIiwiYSI6ImNtOWFjZm9tdzAzdGYycW92dmdhY290eTQifQ.0AfqOazVG3kKKepyDrTSuw net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,0 +1,561 @@
+{
+  "vpk": "t1024",
+  "steps": [
+    {
+      "name": "slot",
+      "slotTop": 341,
+      "slotH": 7680
+    },
+    {
+      "name": "rail",
+      "f": 0,
+      "m": {
+        "mode": "rail",
+        "railT": 0,
+        "railIdx": 0,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 74
+      },
+      "ui": [
+        "BUTTON Open menu @914,54 68x68",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 01 / 10 @326,704 45x16"
+      ]
+    },
+    {
+      "name": "rail",
+      "f": 0.15,
+      "m": {
+        "mode": "rail",
+        "railT": 0.15,
+        "railIdx": 0,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 69
+      },
+      "ui": [
+        "BUTTON Open menu @914,54 68x68",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 01 / 10 @326,704 45x16"
+      ]
+    },
+    {
+      "name": "rail",
+      "f": 0.4,
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 47
+      },
+      "ui": [
+        "BUTTON Open menu @914,54 68x68",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 04 / 10 @325,704 47x16"
+      ]
+    },
+    {
+      "name": "rail",
+      "f": 0.7,
+      "m": {
+        "mode": "rail",
+        "railT": 0.7,
+        "railIdx": 6,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 30
+      },
+      "ui": [
+        "BUTTON Open menu @914,54 68x68",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 07 / 10 @325,704 46x16"
+      ]
+    },
+    {
+      "name": "rail",
+      "f": 1,
+      "m": {
+        "mode": "rail",
+        "railT": 1,
+        "railIdx": 9,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 11
+      },
+      "ui": [
+        "BUTTON Open menu @914,54 68x68",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 10 / 10 @326,704 45x16"
+      ]
+    },
+    {
+      "name": "looked",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -1.5,
+          "pitch": -0.07
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 14
+      },
+      "ui": [
+        "BUTTON Open menu @912,40 72x72",
+        "BUTTON FACE FORWARD @429,40 165x38",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 04 / 10 @325,704 47x16"
+      ]
+    },
+    {
+      "name": "face-btn",
+      "count": 1,
+      "box": {
+        "x": 429.421875,
+        "y": 40,
+        "width": 165.15625,
+        "height": 38
+      }
+    },
+    {
+      "name": "faced",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": 0,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 47
+      }
+    },
+    {
+      "name": "turned",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -4.29,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58,
+        "calls": 16
+      }
+    },
+    {
+      "name": "rects",
+      "onScreen": [
+        {
+          "i": 5,
+          "l": 237,
+          "t": 215,
+          "r": 326,
+          "b": 386,
+          "behind": false
+        },
+        {
+          "i": 6,
+          "l": 652,
+          "t": 253,
+          "r": 691,
+          "b": 359,
+          "behind": false
+        },
+        {
+          "i": 7,
+          "l": 394,
+          "t": 271,
+          "r": 412,
+          "b": 347,
+          "behind": false
+        },
+        {
+          "i": 8,
+          "l": 602,
+          "t": 280,
+          "r": 614,
+          "b": 340,
+          "behind": false
+        },
+        {
+          "i": 9,
+          "l": 439,
+          "t": 282,
+          "r": 444,
+          "b": 344,
+          "behind": false
+        }
+      ]
+    },
+    {
+      "name": "approach",
+      "clicked": 5,
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 5,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -4.71,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 64.13055452875783,
+        "calls": 13
+      },
+      "rect": {
+        "left": 347.0273662763751,
+        "right": 677.0059117157684,
+        "top": 291.19440613767046,
+        "bottom": 476.8050447098106,
+        "behind": false
+      },
+      "centre": {
+        "cx": 0.5,
+        "cy": 0.5
+      },
+      "aspect": 1.778,
+      "ui": [
+        "BUTTON Open menu @912,40 72x72",
+        "BUTTON Bring the painting to life @347,291 330x186",
+        "P MARK PRIEST · NALLE SERIES · SPOT 04 @60,268 203x32",
+        "P WASHINGTON STREET FERRY LANDING · NARRATIVE I @60,313 203x129",
+        "BUTTON BACK TO THE HALL @60,462 195x38",
+        "P 06 / 10 @325,704 47x16"
+      ]
+    },
+    {
+      "name": "alive",
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 5,
+        "zoom": 1,
+        "alive": 5,
+        "look": {
+          "yaw": -4.71,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 64.13055452875783,
+        "calls": 13
+      },
+      "video": [
+        {
+          "src": "",
+          "paused": true,
+          "t": 0,
+          "rs": 0
+        }
+      ]
+    },
+    {
+      "name": "rest-again",
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 5,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -4.71,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 64.13055452875783,
+        "calls": 13
+      }
+    },
+    {
+      "name": "back-btn",
+      "box": {
+        "x": 60,
+        "y": 461.5625,
+        "width": 194.984375,
+        "height": 38
+      }
+    },
+    {
+      "name": "after-back",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -6.28,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58.00977796510467,
+        "calls": 47
+      },
+      "ui": [
+        "BUTTON Open menu @912,40 72x72",
+        "P THE MUSEUM · SCROLL TO WALK · DRAG TO LOOK · TAP A PAINTING @244,40 536x32",
+        "BUTTON Skip the hall @40,40 186x38",
+        "P 04 / 10 @325,704 47x16"
+      ]
+    },
+    {
+      "name": "last",
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 9,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -4.71,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 58.00977796510467,
+        "calls": 9
+      },
+      "rect": {
+        "left": 346.1741821964886,
+        "right": 677.8612961140166,
+        "top": 135.2470794356706,
+        "bottom": 632.7528571565713,
+        "behind": false
+      },
+      "aspect": 0.667,
+      "centre": {
+        "cx": 0.5,
+        "cy": 0.5
+      },
+      "ui": [
+        "BUTTON Open menu @912,40 72x72",
+        "BUTTON Bring the painting to life @346,135 332x498",
+        "P MARK PRIEST · NALLE SERIES · SPOT 05 @60,268 203x32",
+        "P PETER BALTIMORE’S BARBERSHOP · NARRATIVE II @60,313 203x129",
+        "BUTTON BACK TO THE HALL @60,462 195x38",
+        "P 10 / 10 @326,704 45x16"
+      ]
+    },
+    {
+      "name": "esc",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -6.28,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58.00977796510467,
+        "calls": 46
+      }
+    },
+    {
+      "name": "kb-enter",
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 0,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -7.85,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 64.13061032193201,
+        "calls": 14
+      },
+      "focused": "BUTTON BACK TO THE HALL"
+    },
+    {
+      "name": "kb-right",
+      "m": {
+        "mode": "approach",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": 1,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -4.71,
+          "pitch": 0
+        },
+        "sheet": "peek",
+        "fov": 64.13061032193201,
+        "calls": 15
+      }
+    },
+    {
+      "name": "kb-esc",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -6.28,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58.02491811481702,
+        "calls": 47
+      },
+      "focused": "BUTTON Approach “Commissioner’s Office”"
+    },
+    {
+      "name": "kb-left-rail",
+      "m": {
+        "mode": "rail",
+        "railT": 0.4,
+        "railIdx": 3,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -5.94,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58.00968956552169,
+        "calls": 50
+      }
+    },
+    {
+      "name": "tabs",
+      "tabs": [
+        "BUTTON Approach “Holeur’s Fashionable Bakery” 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Commissioner’s Office” 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Commissioner’s Office · Part 2 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Uri Gilbert Home” 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Washington Street Ferry Landin 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Washington Street Ferry Landin 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Washington Street Ferry Landin 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Peter Baltimore’s Barbershop” 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Peter Baltimore’s Barbershop · 24x24 ol:solid/2px bs:none",
+        "BUTTON Approach “Peter Baltimore’s Barbershop · 24x24 ol:solid/2px bs:none",
+        "BUTTON View “Holeur’s Fashionable Bakery” close 456x256 ol:solid/2px bs:none",
+        "A SPOT 01 83x24 ol:solid/2px bs:none",
+        "BUTTON View “Commissioner’s Office” closely 456x256 ol:solid/2px bs:none",
+        "A SPOT 02 85x24 ol:solid/2px bs:none",
+        "BUTTON View “Commissioner’s Office · Part 2” cl 456x256 ol:solid/2px bs:none",
+        "A SPOT 02 85x24 ol:solid/2px bs:none"
+      ]
+    },
+    {
+      "name": "skip",
+      "box": {
+        "x": 40,
+        "y": 40,
+        "width": 185.65625,
+        "height": 38
+      }
+    },
+    {
+      "name": "after-skip",
+      "y": 8021,
+      "m": {
+        "mode": "rail",
+        "railT": 1,
+        "railIdx": 9,
+        "approached": null,
+        "zoom": 1,
+        "alive": -1,
+        "look": {
+          "yaw": -5.93,
+          "pitch": -0.1
+        },
+        "sheet": "peek",
+        "fov": 58.00968956552169,
+        "calls": 12
+      }
+    },
+    {
+      "name": "dialog",
+      "open": true,
+      "video": {
+        "paused": false,
+        "t": 1.555318,
+        "src": "narrative2.mp4",
+        "w": 800,
+        "h": 651.90625
+      }
+    },
+    {
+      "name": "dialog-esc",
+      "open": false
+    }
+  ],
+  "log": []
+}

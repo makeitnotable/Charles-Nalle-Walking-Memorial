@@ -1,0 +1,168 @@
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
+
+/**
+ * One entry per chapter (5 locations; Commissioner's Office holds two scenes).
+ * Media values are paths into the legacy asset library (old repo /public) —
+ * the M1 pipeline rewrites them to optimized AVIF/WebP + compressed video.
+ * Paragraph strings support **bold** and trailing (citation) per M2 renderer.
+ * A paragraph equal to "@media:<key>" renders the media asset named <key>.
+ */
+const scene = z.object({
+  label: z.string(), // "Part 1", shown when a chapter has >1 scene
+  audio: z.object({
+    label: z.string(),
+    subtitle: z.string(),
+    file: z.string(),
+    /**
+     * Per-paragraph narration spans for follow-along highlighting.
+     * Word-proportional estimates from scripts/audio-timings.mjs; replace
+     * with exact stamps (same shape) when re-recorded audio lands.
+     */
+    timings: z.array(z.object({ start: z.number(), end: z.number() })).nullable(),
+    duration: z.number().optional(),
+  }),
+  quote: z.object({
+    text: z.string(),
+    attribution: z.string(),
+    source: z.string().optional(),
+  }),
+  paragraphs: z.array(z.string()),
+  /**
+   * What to say beside THIS scene's pencil study, when a chapter runs more
+   * than one. The chapter-level `sketchNote` covers scene 1; a chapter with a
+   * second scene (only Ch2 today) needs its own note here or the second study
+   * hangs with the credit block alone. Optional so the caption is never
+   * invented — see docs/CONTENT-STATUS.md.
+   */
+  sketchNote: z.string().optional(),
+  /** Press-and-hold hero: media keys into public/media/<slug>/ */
+  reveal: z
+    .object({
+      sketch: z.string(),
+      video: z.string(),
+      videoVertical: z.string(),
+      painting: z.string(),
+    })
+    .nullable(),
+});
+
+const chapters = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/content/chapters" }),
+  schema: z.object({
+    order: z.number(),
+    /**
+     * THE naming canon — one object, three forms, and the only source for any
+     * displayed place name. Rationale and the bronze-plaque evidence are in
+     * docs/v4/DECISIONS.md D1.
+     *   canonical — card titles, <title>, curtain labels, People chips
+     *   display   — the hero H1; "\n" marks the authored line breaks
+     *   short     — map pills, menu, aria-labels (the word cast in bronze)
+     * Next-links are generated: `Chapter {order} — {canonical}`.
+     */
+    name: z.object({
+      canonical: z.string(),
+      display: z.string(),
+      short: z.string(),
+      /** v7 M6: the map card's authored two-line title ("Holeur’s\nFashionable
+       *  Bakery"); falls back to `canonical`. See docs/v4/NAMING-CANON.md. */
+      card: z.string().optional(),
+      /** v8 V8-207 (Wil, 00:58:43): the phone map pill's extra-short name
+       *  (Bakery · Commissioner · Mansion · Ferry · Barbershop) — a map
+       *  shorthand only, never the bronze word; falls back to `short`. */
+      pin: z.string().optional(),
+    }),
+    /**
+     * Leader-line vector from the pin to its label, in screen px at the
+     * overview camera. The dot always sits on the true coordinate; this moves
+     * only the pill, so five stops a few blocks apart can all keep their names.
+     */
+    pinOffset: z.tuple([z.number(), z.number()]).default([0, -46]),
+    chapterLabel: z.string(),
+    /**
+     * What to say beside this chapter's pencil study. Every chapter used to
+     * carry the same byte-identical paragraph about graphite; each one now
+     * describes the drawing actually on the screen.
+     */
+    sketchNote: z.string(),
+    /**
+     * Vertical focal point of the hero painting, as a percentage. The hero band
+     * is 2.84:1 and the paintings are 3:2, so `object-cover` discards 47% of the
+     * height — at the default 50% that cut ran through the faces of the
+     * principal figures. Read off each canvas, not guessed.
+     */
+    heroFocus: z
+      .union([
+        z.number().min(0).max(100),
+        /* v7 C7: portrait phones crop a different painting than desktops
+           (2.84:1 band vs 9:19.5), so each orientation reads its own focus. */
+        z.object({
+          landscape: z.number().min(0).max(100),
+          /** Vertical focus of the portrait poster (tablets crop it vertically). */
+          portrait: z.number().min(0).max(100),
+          /** Horizontal focus of the portrait poster (phones show its full
+           *  height and crop the sides — this is what clears a face from the
+           *  top-right burger). Default centre. */
+          portraitX: z.number().min(0).max(100).optional(),
+          /** v8 V8-278: phones show the portrait poster's FULL height, so a
+           *  vertical focus can't move it — this scales the hero media about
+           *  its bottom edge (cropping the source's top) to lift the subject.
+           *  Default 1 (no lift). */
+          portraitScale: z.number().min(1).max(1.4).optional(),
+        }),
+      ])
+      .default(50),
+    plaque: z.boolean(),
+    map: z.object({
+      // Brian's exact plaque pins (resolved from his 5/13/26 Google Maps links)
+      coordinates: z.tuple([z.number(), z.number()]),
+      address: z.string(),
+    }),
+    palette: z.object({
+      // Per-chapter palettes derived from the design sprint's emotions
+      surface: z.string(),
+      ink: z.string(),
+      accent: z.string(),
+    }),
+    emotions: z.array(z.string()),
+    portal: z.object({
+      hook: z.string().nullable(),
+      history: z.array(z.string()),
+    }),
+    /** Available optimized asset keys under public/media/<slug>/ */
+    media: z.object({
+      images: z.array(z.string()),
+      videos: z.array(z.string()),
+      /** v12 (Wil, 8/26): the PAINTING canon, keyed by painting media key.
+       *  `title` is the artwork's official name from his chapter → painting →
+       *  drawing map — the hall's plaques and the grid's captions read it, and
+       *  it never replaces a LOCATION name (those stay in `name.*`, governed by
+       *  docs/v4/NAMING-CANON.md and the bronze plaques). `study` is the media
+       *  key of the drawing that hangs beside it; narrative works now carry one
+       *  too, which is why this is authored per work instead of derived from the
+       *  key. `studyNote` is the card's paragraph where the work is not a scene
+       *  and so has nowhere else to keep it. */
+      works: z.record(
+        z.string(),
+        z.object({
+          title: z.string(),
+          study: z.string().nullable().optional(),
+          studyNote: z.string().nullable().optional(),
+        }),
+      ),
+    }),
+    scenes: z.array(scene),
+    historicalContext: z.array(z.string()),
+    morals: z.array(
+      z.object({
+        title: z.string(),
+        message: z.string(),
+        callToAction: z.object({ title: z.string(), content: z.string() }),
+      }),
+    ),
+    /** Only the slug: the link text is generated as `Chapter {order} — {canonical}`. */
+    next: z.object({ slug: z.string() }),
+  }),
+});
+
+export const collections = { chapters };

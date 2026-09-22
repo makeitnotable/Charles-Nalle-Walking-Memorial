@@ -1,0 +1,32 @@
+{
+  "round": 23,
+  "label": "chapter pages — the top bar follows the section, the corner menu holds its place, the hero lockup sits on the gutter",
+  "date": "2026-09-18",
+  "plan": "docs/rounds/2026-09-18-round-23-plan.md",
+  "base": {
+    "tag": "client-round-23-base",
+    "commit": "4d13540de716c5e3e92fe4f07eadaa396a128667",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/layouts/Base.astro",
+    "src/styles/global.css",
+    "src/components/Menu.astro",
+    "src/pages/[chapter].astro",
+    "docs/qa/baseline/bakery--390.png",
+    "docs/qa/baseline/commissioners-office--390.png",
+    "docs/qa/baseline/mansion--390.png",
+    "docs/qa/baseline/ferry--390.png",
+    "docs/qa/baseline/barbershop--390.png",
+    "docs/RUN-STATE.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/rounds/2026-09-18-round-23-plan.md",
+    "docs/rounds/2026-09-18-round-23.json",
+    "docs/v4/DECISIONS.md",
+    "src/components/AudioStory.tsx"
+  ],
+  "snap": {
+    "allowedRoutes": ["/bakery", "/commissioners-office", "/mansion", "/ferry", "/barbershop"]
+  },
+  "notes": "Wil's four screenshots of 2026-09-18 (11:41-11:43 and 10:29), chapter pages only, three asks. (1) The area behind and around the minimized address bar is a solid fill in the colour of the section at the top of the viewport, updating with scroll; the bottom toolbar takes NO fill (his answer to question 1). Two mechanisms: <body> follows the section at the top edge (the round-21 rule, extended from /map to data-top-bar=section), and a new in-flow .edge-cover paints the same colour over whatever has scrolled past the top edge, which is what the minimized bar shows through its glass; round 18's hypothesis-2 strips, which his screenshots show did not take, are retired. Residue he was told about: Safari applies its one <body> tint to both bars. (2) The corner menu 'slides' on scroll: --ui-inset takes env(safe-area-inset-bottom), 0 to 34px as the bars collapse, so the burger moved 14px down and left with every retreat; the top-right menu now reads its own --menu-inset (gutter, top and right insets). The fade is kept (his answer to question 3). (3) The chapter hero's lockup inset becomes the gutter on phones, with the title's line-box slack taken out so the ink sits one gutter above the toolbar, and on tablets only in a browser with collapsing bars (his answer to question 4); the Part-2 hero and desktop are untouched. allowedRoutes is the five chapter routes because their 390 shots move by design (the lockup); 768 and 1440 must not drift, the menu's rest position is unchanged where insets are 0, and the cover is display:none in Chromium. Device pass 9 (2026-09-19) adds docs/v4/DECISIONS.md: the still document (the chapter pages scroll inside <main> on iOS, Safari's bars stay expanded) is a judgement call Wil made and may want to revert, so it is logged there with its exact revert. Device pass 13 (2026-09-22) adds src/components/AudioStory.tsx: the runway mode translates #reader, and the narration's fixed mini player inside it had to move to <body> (a portal) to keep holding its corner."
+}

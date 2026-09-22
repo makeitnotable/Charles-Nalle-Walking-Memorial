@@ -1,0 +1,12 @@
+home: perf 56 a11y 100 bp 100 LCP 18.46s CLS 0.001 TBT 25ms 3334KB
+bakery: perf 55 a11y 100 bp 100 LCP 26.29s CLS 0 TBT 26ms 5142KB
+commissioners-office: perf 57 a11y 100 bp 100 LCP 11.71s CLS 0 TBT 50ms 6701KB
+mansion: perf 57 a11y 100 bp 100 LCP 11.26s CLS 0 TBT 53ms 5159KB
+ferry: perf 57 a11y 100 bp 100 LCP 11.56s CLS 0 TBT 54ms 5297KB
+barbershop: perf 57 a11y 100 bp 100 LCP 11.63s CLS 0 TBT 25ms 5857KB
+map: perf 25 a11y 100 bp 100 LCP 80.39s CLS 0.002 TBT 7177ms 15375KB
+people: perf 60 a11y 100 bp 100 LCP 7.96s CLS 0.001 TBT 25ms 2621KB
+paintings: perf 39 a11y 100 bp 100 LCP 10.28s CLS 0 TBT 631ms 15940KB
+about: perf 60 a11y 100 bp 100 LCP 15.54s CLS 0 TBT 27ms 2625KB
+
+9 route(s) below bar: /, /bakery, /commissioners-office, /mansion, /ferry, /barbershop, /people, /paintings, /about

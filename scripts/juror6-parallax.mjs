@@ -1,0 +1,10 @@
+import { launch, ctx, VPS, goto, sleep, watch } from "./juror6-lib.mjs";
+const browser = await launch(); const c = await ctx(browser, VPS.d1440); const page = await c.newPage(); watch(page);
+await goto(page, "/mansion"); await sleep(1500); await page.addStyleTag({ content: "html{scroll-behavior:auto !important}" });
+const sub = await page.evaluate(() => { const b = document.querySelector("button[aria-label^='Play narration']"); const wrap = b && b.closest("div"); return wrap && wrap.parentElement.innerText.replace(/\s+/g, " ").slice(0, 80); });
+console.log("mansion player text:", sub);
+const bg = () => page.evaluate(() => { const m = document.getElementById("moral"); const img = m.querySelector("img"); const r = img.getBoundingClientRect(); return { tf: getComputedStyle(img).transform, top: Math.round(r.top), h: Math.round(r.height), secTop: Math.round(m.getBoundingClientRect().top) }; });
+await page.evaluate(() => { const m = document.getElementById("moral"); scrollTo(0, m.getBoundingClientRect().top + scrollY - innerHeight * 0.8); }); await sleep(600);
+const a = await bg(); await page.evaluate(() => scrollBy(0, 500)); await sleep(600); const b = await bg();
+console.log("moral bg before:", JSON.stringify(a), "after +500 scroll:", JSON.stringify(b), "img moved rel. to section by", (b.top - b.secTop) - (a.top - a.secTop));
+await browser.close();

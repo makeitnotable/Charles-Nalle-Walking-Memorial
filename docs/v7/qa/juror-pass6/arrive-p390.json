@@ -1,0 +1,466 @@
+{
+ "/bakery": {
+  "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+  "btns": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "vis": "visible",
+    "disp": "block",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "Open menu",
+    "x": 298,
+    "y": 20,
+    "w": 72,
+    "h": 72,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "Play narration: Holeur’s Fashionable Bakery",
+    "x": 20,
+    "y": 1457,
+    "w": 56,
+    "h": 56,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "CONTINUE",
+    "x": 102,
+    "y": 7591,
+    "w": 187,
+    "h": 48,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "GET DIRECTIONS",
+    "x": 73,
+    "y": 7655,
+    "w": 245,
+    "h": 48,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "Notable",
+    "x": 81,
+    "y": 7884,
+    "w": 52,
+    "h": 29,
+    "vis": "visible",
+    "disp": "inline-block",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "THE PEOPLE OF THIS DAY",
+    "x": 20,
+    "y": 7947,
+    "w": 216,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "THE PAINTINGS",
+    "x": 20,
+    "y": 7986,
+    "w": 142,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "ABOUT THE MEMORIAL",
+    "x": 20,
+    "y": 8025,
+    "w": 198,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "MAP",
+    "x": 20,
+    "y": 8064,
+    "w": 57,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "SHARE",
+    "x": 20,
+    "y": 8122,
+    "w": 119,
+    "h": 38,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   }
+  ],
+  "heads": [
+   {
+    "tag": "H1",
+    "id": "",
+    "t": "HOLEUR’S FASHIONABLE BAKERY",
+    "x": 20,
+    "y": 676,
+    "w": 350,
+    "h": 126
+   },
+   {
+    "tag": "H2",
+    "id": "",
+    "t": "CAPTURED WITH BREAD IN HAND",
+    "x": 20,
+    "y": 1067,
+    "w": 350,
+    "h": 75
+   },
+   {
+    "tag": "H2",
+    "id": "history-heading",
+    "t": "HISTORICAL CONTEXT",
+    "x": 20,
+    "y": 3833,
+    "w": 350,
+    "h": 75
+   },
+   {
+    "tag": "H2",
+    "id": "moral-heading",
+    "t": "NOT ALL LAWS ARE MORAL",
+    "x": 20,
+    "y": 5545,
+    "w": 350,
+    "h": 86
+   },
+   {
+    "tag": "H2",
+    "id": "",
+    "t": "WHERE TO NEXT",
+    "x": 20,
+    "y": 6968,
+    "w": 350,
+    "h": 75
+   }
+  ],
+  "ids": [
+   "curtain-panel",
+   "curtain-text",
+   "curtain-text-content",
+   "hero",
+   "hero-media",
+   "hero-lockup",
+   "scene-0",
+   "history",
+   "history-heading",
+   "moral",
+   "moral-heading",
+   "onward",
+   "share-btn"
+  ],
+  "audio": [
+   "harles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3"
+  ],
+  "docH": 8387,
+  "video": {
+   "pos": "50% 24%",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0
+  },
+  "imgs": [
+   {
+    "src": "a/bakery/reveal-vertical-poster-480.avif",
+    "pos": "100% 24%",
+    "x": 0,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "src": "",
+    "pos": "50% 50%",
+    "x": -8,
+    "y": 3138,
+    "w": 406,
+    "h": 456
+   },
+   {
+    "src": "",
+    "pos": "50% 25%",
+    "x": -27,
+    "y": 5081,
+    "w": 445,
+    "h": 1622
+   }
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED"
+   ]
+  }
+ },
+ "/barbershop": {
+  "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+  "btns": [
+   {
+    "tag": "A",
+    "t": "Skip to content",
+    "x": -999,
+    "y": 0,
+    "w": 148,
+    "h": 40,
+    "vis": "visible",
+    "disp": "block",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "Open menu",
+    "x": 298,
+    "y": 20,
+    "w": 72,
+    "h": 72,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "Play narration: Peter Baltimore’s Barbershop",
+    "x": 20,
+    "y": 1423,
+    "w": 56,
+    "h": 56,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "CONTINUE",
+    "x": 102,
+    "y": 8522,
+    "w": 187,
+    "h": 48,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "GET DIRECTIONS",
+    "x": 73,
+    "y": 8586,
+    "w": 245,
+    "h": 48,
+    "vis": "visible",
+    "disp": "flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "Notable",
+    "x": 81,
+    "y": 8815,
+    "w": 52,
+    "h": 29,
+    "vis": "visible",
+    "disp": "inline-block",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "THE PEOPLE OF THIS DAY",
+    "x": 20,
+    "y": 8877,
+    "w": 216,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "THE PAINTINGS",
+    "x": 20,
+    "y": 8916,
+    "w": 142,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "ABOUT THE MEMORIAL",
+    "x": 20,
+    "y": 8955,
+    "w": 198,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "A",
+    "t": "MAP",
+    "x": 20,
+    "y": 8994,
+    "w": 57,
+    "h": 26,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   },
+   {
+    "tag": "BUTTON",
+    "t": "SHARE",
+    "x": 20,
+    "y": 9052,
+    "w": 119,
+    "h": 38,
+    "vis": "visible",
+    "disp": "inline-flex",
+    "op": "1"
+   }
+  ],
+  "heads": [
+   {
+    "tag": "H1",
+    "id": "",
+    "t": "PETER BALTIMORE’S BARBERSHOP",
+    "x": 20,
+    "y": 676,
+    "w": 350,
+    "h": 126
+   },
+   {
+    "tag": "H2",
+    "id": "",
+    "t": "FREEDOM IS BOUGHT",
+    "x": 20,
+    "y": 1067,
+    "w": 350,
+    "h": 41
+   },
+   {
+    "tag": "H2",
+    "id": "history-heading",
+    "t": "HISTORICAL CONTEXT",
+    "x": 20,
+    "y": 4914,
+    "w": 350,
+    "h": 75
+   },
+   {
+    "tag": "H2",
+    "id": "moral-heading",
+    "t": "WE ARE RESPONSIBLE FOR JUSTICE",
+    "x": 20,
+    "y": 6494,
+    "w": 350,
+    "h": 136
+   },
+   {
+    "tag": "H2",
+    "id": "",
+    "t": "WHERE TO NEXT",
+    "x": 20,
+    "y": 7869,
+    "w": 350,
+    "h": 75
+   }
+  ],
+  "ids": [
+   "curtain-panel",
+   "curtain-text",
+   "curtain-text-content",
+   "hero",
+   "hero-media",
+   "hero-lockup",
+   "scene-0",
+   "history",
+   "history-heading",
+   "moral",
+   "moral-heading",
+   "onward",
+   "share-btn"
+  ],
+  "audio": [
+   "es-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3"
+  ],
+  "docH": 9317,
+  "video": {
+   "pos": "50% 44%",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0
+  },
+  "imgs": [
+   {
+    "src": "rbershop/reveal-vertical-poster-480.avif",
+    "pos": "100% 40%",
+    "x": 0,
+    "y": 0,
+    "w": 390,
+    "h": 844
+   },
+   {
+    "src": "ia/barbershop/narrative1-poster-800.avif",
+    "pos": "50% 50%",
+    "x": 20,
+    "y": 2358,
+    "w": 350,
+    "h": 233
+   },
+   {
+    "src": "ia/barbershop/narrative2-poster-800.avif",
+    "pos": "50% 50%",
+    "x": 20,
+    "y": 3367,
+    "w": 350,
+    "h": 525
+   }
+  ],
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+   ]
+  }
+ }
+}

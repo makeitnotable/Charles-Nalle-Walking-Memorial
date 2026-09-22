@@ -1,0 +1,94 @@
+{
+  "log": {
+    "s0": {
+      "scrollY": 0,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s1_scrolled_before_lens": {
+      "scrollY": 600,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s2_lens_open": {
+      "scrollY": 0,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s3_after_close": {
+      "scrollY": 0,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s4_try_scroll": {
+      "scrollY": 600,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s5_after_gesture": {
+      "scrollY": 1121,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "escClosesLens": 0,
+    "s6": {
+      "scrollY": 0,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    },
+    "s7_after_esc_scroll": {
+      "scrollY": 600,
+      "htmlOv": "clip visible",
+      "bodyOv": "clip visible",
+      "htmlStyle": null,
+      "bodyStyle": null,
+      "htmlCls": "js",
+      "bodyCls": "min-h-dvh",
+      "docH": 3115,
+      "bodyPos": "static"
+    }
+  },
+  "errs": []
+}

@@ -1,0 +1,260 @@
+---
+/**
+ * Styleguide v2 — the proof that the v4 system exists and holds.
+ * Everything the caliber gate measures is demonstrated here at real size:
+ * the four type roles, both grounds, the sync highlight on each, the button
+ * pairs, the whole icon sheet, the three spacing tokens, the colour ramps.
+ * Internal page — not linked from nav, no menu.
+ */
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url";
+import Icon from "../components/Icon.astro";
+import Button from "../components/Button.astro";
+import { ICONS } from "../components/icons";
+
+const iconNames = Object.keys(ICONS) as (keyof typeof ICONS)[];
+const specimen =
+  "Charles walked out of Holeur’s bakery with bread still in his hand, and the street closed behind him before he reached the corner.";
+const ramps: Record<string, string[]> = {
+  primary: ["#0e0807","#1d1411","#341a11","#4a1b0a","#592411","#69311d","#80412b","#a55438","#f26835","#e45b27","#ff9770","#fed9cc"],
+  gray: ["#080907","#191715","#24211d","#2c2924","#34302a","#3d3a34","#4b4741","#648059","#706d66","#7e7a73","#b7b3ab","#f0edeb"],
+  neutral: ["#070912","#100a06","#302414","#503d22","#705731","#8f7040","#ad8950","#bb9e70","#c9b490","#d7c9b0","#e6decf","#f6f3ee"],
+};
+---
+
+<Base title="Styleguide · CNWM v4" description="Internal design-system proof sheet." noMenu noIndex>
+  <div class="shell py-16">
+    <p class="t-meta">CNWM · Design system v4</p>
+    <h1 class="t-display mt-6">THE<br />SYSTEM</h1>
+    <p class="t-prose mt-8">
+      Four type roles. Three spacing tokens. Two grounds, two durations, one
+      easing, one arrow. A border marks an artifact and nothing else.
+    </p>
+  </div>
+
+  {/* ——— TYPE ——— */}
+  <section class="shell sec">
+    <div class="rule-top pt-6"><p class="t-meta">(01) Type · four roles</p></div>
+
+    <div class="mt-12 space-y-12">
+      <div>
+        <p class="t-meta-body">display · Libre Caslon Display 400 · caps · lh .95</p>
+        <p class="t-display mt-3">DISPLAY</p>
+      </div>
+      <div>
+        <p class="t-meta-body">title · Libre Caslon Display 400 · caps · lh 1</p>
+        <p class="t-title mt-3">SECTION TITLE</p>
+      </div>
+      <div>
+        <p class="t-meta-body">quote · Libre Caslon Text 400 · lh 1.35 · hung punctuation</p>
+        <p class="t-quote is-hung mt-3">“Drag him to the river! But don’t let them have him!”</p>
+      </div>
+      <div>
+        <p class="t-meta-body">prose · Libre Caslon Text 400 · lh 1.75 · measure 66ch</p>
+        <p class="t-prose mt-3">{specimen}</p>
+      </div>
+      <div>
+        <p class="t-meta-body">meta · Libre Caslon Text 400 · caps · +.1em · does not scale with viewport</p>
+        <p class="t-meta mt-3">LOCATION 02 OF 5 · TROY, NY · APRIL 27, 1860</p>
+      </div>
+      <div>
+        <p class="t-meta-body">spine · Libre Caslon Display 400 · tabular</p>
+        <p class="t-spine mt-3">(01) (02) (03) (04) (05)</p>
+      </div>
+    </div>
+
+    <p class="t-meta-body mt-12">
+      The jump is the hierarchy: display is ~4.95× prose at desktop. Adjacent
+      roles are never mistakable for one another.
+    </p>
+  </section>
+
+  {/* ——— GROUNDS + THE SYNC HIGHLIGHT ——— */}
+  <section class="sec">
+    <div class="shell">
+      <div class="rule-top pt-6">
+        <p class="t-meta">(02) Grounds · dark cinematic, and one cream reading register</p>
+      </div>
+      <p class="t-meta-body mt-4">
+        Serif prose carrying the narration highlight, on both grounds. This is
+        the legibility gate the transcript depends on.
+      </p>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-2">
+      <div class="px-[var(--gutter)] py-14">
+        <p class="t-meta">Dark register · hero, moral, map</p>
+        <p class="t-prose mt-6">
+          <span class="narration-active">Charles walked out of the bakery with bread still in his hand.</span>{" "}
+          The deputy took his arm before he reached the corner, and the street
+          closed behind them both.
+        </p>
+      </div>
+      <div class="ground-cream px-[var(--gutter)] py-14">
+        <p class="t-meta">Cream register · transcript, About</p>
+        <p class="t-prose mt-6">
+          <span class="narration-active">Charles walked out of the bakery with bread still in his hand.</span>{" "}
+          The deputy took his arm before he reached the corner, and the street
+          closed behind them both.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ——— BUTTONS ——— */}
+  <section class="shell sec">
+    <div class="rule-top pt-6">
+      <p class="t-meta">(03) Buttons · two sizes, two variants, no viewport ladder</p>
+    </div>
+
+    <p class="t-meta-body mt-8">A pair: same size, solid + ghost, equal optical weight. Icons trail; only <code>close</code> leads.</p>
+    <div class="mt-4 flex flex-wrap items-center gap-4">
+      <Button variant="solid" icon="arrow">Continue the walk</Button>
+      <Button variant="ghost" icon="pin">Get directions</Button>
+    </div>
+
+    <p class="t-meta-body mt-10">Small · chrome and utility.</p>
+    <div class="mt-4 flex flex-wrap items-center gap-4">
+      <Button size="sm" variant="solid">Overview</Button>
+      <Button size="sm" variant="ghost" icon="share">Share this chapter</Button>
+      <Button size="sm" variant="ghost" icon="close" iconLeading>Close</Button>
+    </div>
+
+    <p class="t-meta-body mt-10">The one inverted exception · the home pill.</p>
+    <div class="mt-4 flex flex-wrap items-center gap-4">
+      <Button variant="cta" icon="arrow">Continue</Button>
+    </div>
+
+    <p class="t-meta-body mt-10">Unboxed lateral links · the footer idiom.</p>
+    <div class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-2">
+      <a href="#" class="link-meta t-meta">The people of this day <Icon name="arrow" size="sm" /></a>
+      <a href="#" class="link-meta t-meta">The paintings <Icon name="arrow" size="sm" /></a>
+      <a href="#" class="link-meta t-meta">About the memorial <Icon name="arrow" size="sm" /></a>
+    </div>
+  </section>
+
+  {/* ——— ICONS ——— */}
+  <section class="shell sec">
+    <div class="rule-top pt-6">
+      <p class="t-meta">(04) Icons · 24 viewBox · 1.5 stroke · round caps · currentColor</p>
+    </div>
+    <p class="t-meta-body mt-4">
+      One arrow, rotated for direction. Nothing here is ever scaled non-uniformly.
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-x-10 gap-y-8 text-primary-12">
+      {
+        iconNames.map((n) => (
+          <div class="flex w-24 flex-col items-center gap-3">
+            <Icon name={n} size="lg" />
+            <span class="t-meta-body">{n}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="t-meta-body mt-10">The one arrow, four directions.</p>
+    <div class="mt-4 flex gap-8 text-primary-11">
+      <Icon name="arrow" size="lg" />
+      <Icon name="arrow" rotate={-90} size="lg" />
+      <Icon name="arrow" rotate={90} size="lg" />
+      <Icon name="arrow" rotate={180} size="lg" />
+    </div>
+
+    <p class="t-meta-body mt-10">Circle control · 48px ring, 1px, glyph at 18.</p>
+    <div class="mt-4 flex items-center gap-5 text-primary-12">
+      <span class="flex h-12 w-12 items-center justify-center rounded-full border border-primary-7">
+        <Icon name="play" size="sm" />
+      </span>
+      <span class="flex h-12 w-12 items-center justify-center rounded-full border border-primary-7">
+        <Icon name="pause" size="sm" />
+      </span>
+    </div>
+  </section>
+
+  {/* ——— SPACING ——— */}
+  <section class="shell sec">
+    <div class="rule-top pt-6"><p class="t-meta">(05) Spacing · three tokens, and only three</p></div>
+    <div class="mt-8 space-y-3">
+      <p class="t-meta-body">--space-block · 24 · inside a component</p>
+      <p class="t-meta-body">--space-section · 128 / 168 / 200 · between numbered sections</p>
+      <p class="t-meta-body">--space-void · 260 / 320 / 400 · act changes only, max two per page</p>
+    </div>
+    <div class="mt-8 space-y-2">
+      <div class="h-6 bg-primary-3" style="width: 24px"></div>
+      <div class="h-6 bg-primary-4" style="width: var(--space-section)"></div>
+      <div class="h-6 bg-primary-10" style="width: var(--space-void)"></div>
+    </div>
+    <p class="t-meta-body mt-6">
+      Content hugs the top of a void; it never centres in one. Hairlines run
+      full-bleed while content insets.
+    </p>
+  </section>
+
+  {/* ——— ARTIFACT vs CHROME ——— */}
+  <section class="shell sec">
+    <div class="rule-top pt-6"><p class="t-meta">(06) The box rule · a border marks an artifact</p></div>
+    <div class="mt-8 grid gap-10 md:grid-cols-2">
+      <div>
+        <p class="t-meta-body mb-3">Framed: a made thing (painting, sketch, map).</p>
+        <div class="artifact aspect-[3/2] bg-primary-3"></div>
+      </div>
+      <div>
+        <p class="t-meta-body mb-3">Unboxed: text, players, cards, chrome.</p>
+        <div class="rule-top pt-4">
+          <p class="t-meta">Eyebrow</p>
+          <p class="t-title-sm mt-3">CARD TITLE</p>
+          <p class="t-meta-body mt-3">Second Street · 1860</p>
+        </div>
+      </div>
+    </div>
+    <p class="t-meta-body mt-8">Census rule: at most one framed element per viewport.</p>
+  </section>
+
+  {/* ——— COLOUR ——— */}
+  <section class="shell sec pb-24">
+    <div class="rule-top pt-6"><p class="t-meta">(07) Colour · the approved identity, unchanged</p></div>
+    {
+      Object.entries(ramps).map(([name, steps]) => (
+        <div class="mt-8">
+          <p class="t-meta-body mb-2">{name}</p>
+          <div class="flex flex-wrap gap-1">
+            {steps.map((hex, i) => (
+              <div class="w-16">
+                <div class="h-12 rounded-md" style={`background:${hex}`} data-token={`${name}-${i + 1}`} />
+                <p class="t-meta-body mt-1 text-center" style="font-size:10px">{i + 1}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  {/* ——— THE MARK (v7 I1) ——— */}
+  <section class="shell sec pb-24" id="mark">
+    <div class="rule-top pt-6"><p class="t-meta">(08) The mark · CN in Libre Caslon Display, three interlocks (juror picks; "a" ships)</p></div>
+    <p class="t-meta-body mt-4 max-w-[64ch]">
+      Rendered as paths (no font dependency), 16 px shown at 8× nearest-neighbour and 1×, 32 px at 4× and 1×, 180 px at 1×.
+      Built by <code>scripts/build-favicon.mjs</code>; the shipped set is favicon.svg / -16 / -32 / -48 / .ico / apple-touch-icon / icon-192 / icon-512 + site.webmanifest.
+    </p>
+    <div class="mt-8 grid gap-10 md:grid-cols-3">
+      {
+        ["a", "b", "c"].map((k) => (
+          <div>
+            <p class="t-meta mb-3">
+              {k === "a" ? "a · interlock (ships)" : k === "b" ? "b · cameo" : "c · step"}
+            </p>
+            <div class="flex items-end gap-4">
+              <img src={withBase(`favicon-candidates/${k}-16.png`)} width="128" height="128" style="image-rendering: pixelated" alt={`candidate ${k} at 16px, 8×`} />
+              <img src={withBase(`favicon-candidates/${k}-16.png`)} width="16" height="16" alt={`candidate ${k} at 16px`} />
+              <img src={withBase(`favicon-candidates/${k}-32.png`)} width="128" height="128" style="image-rendering: pixelated" alt={`candidate ${k} at 32px, 4×`} />
+              <img src={withBase(`favicon-candidates/${k}-32.png`)} width="32" height="32" alt={`candidate ${k} at 32px`} />
+            </div>
+            <img class="mt-4" src={withBase(`favicon-candidates/${k}-180.png`)} width="180" height="180" alt={`candidate ${k} at 180px`} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Base>

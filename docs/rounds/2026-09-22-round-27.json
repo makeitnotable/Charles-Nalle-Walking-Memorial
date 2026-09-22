@@ -1,0 +1,24 @@
+{
+  "round": 27,
+  "label": "/map — the 1858 lens is one fill, edge to edge, bars included",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-27-plan.md",
+  "base": {
+    "tag": "client-round-27-base",
+    "commit": "28cca6531a3989ccf7669b67016004efd2034388",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/TroyMap.tsx",
+    "src/styles/global.css",
+    "scripts/map-framing.mjs",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/RUN-STATE.md",
+    "docs/rounds/2026-09-22-round-27-plan.md",
+    "docs/rounds/2026-09-22-round-27.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil's screenshot of 2026-09-22 (19:39): the 1858 lens open on his iPhone, the live map showing undimmed behind the address bar and the toolbar while everything else sat under the lens's 70% black wash. Cause: the wash covered the UI layer's box, and the canvas runs T above and E below it (the runways, rounds 9 and 17); the bars are glass. His instruction: 'fully immersive … The background needs to be one fill color only. That stretches from edge to edge horizontally and vertically.' Ships: the lens shell covers the CANVAS's box (top -T, bottom -E) with one opaque fill, the page ground #1d1411; the runways come back as the shell's top and bottom padding so the plate, caption and door keep their exact geometry; the root carries `is-lens` while the lens is visible so Base.astro's edge sampler re-samples and <body> (hence the bars) takes the same colour; the Mapbox logo and (i) fade under the fill and return on close. allowedRoutes is empty: the lens is closed at rest (opacity 0), so no shot may drift. Numbered 27: rounds 23-26 (the chapter pages, /paintings) shipped on v2 from other sessions between the 18th and the 22nd, and this round was rebased onto their tip. Base 28cca65 = the v2 tip (round 26's commit, live); no base branch is pushed, the SHA is the revert point."
+}

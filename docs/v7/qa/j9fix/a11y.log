@@ -1,0 +1,61 @@
+
+── baseline @390
+  axe /people @390 [rest] — 0 violation(s), 0 serious+
+  axe /paintings @390 [rest] — 0 violation(s), 0 serious+
+  axe /map @390 [rest] — 0 violation(s), 0 serious+
+
+── baseline @768
+  axe /people @768 [rest] — 0 violation(s), 0 serious+
+  ✗ /paintings @768: page.evaluate: Execution context was destroyed, most likely because of a navigation
+  ✗ /map @768: page.goto: Timeout 45000ms exceeded.
+
+── baseline @1440
+  axe /people @1440 [rest] — 0 violation(s), 0 serious+
+  axe /paintings @1440 [rest] — 0 violation(s), 0 serious+
+  axe /map @1440 [rest] — 0 violation(s), 0 serious+
+
+── states @390
+  axe /map @390 [menu-open] — 0 violation(s), 0 serious+
+  axe /map @390 [walk] — 0 violation(s), 0 serious+
+  axe /map @390 [lens-1858] — 0 violation(s), 0 serious+
+  axe /paintings @390 [dialog] — 0 violation(s), 0 serious+
+
+── states @768
+  axe /map @768 [menu-open] — 0 violation(s), 0 serious+
+  axe /map @768 [walk] — 0 violation(s), 0 serious+
+  axe /map @768 [lens-1858] — 0 violation(s), 0 serious+
+  axe /paintings @768 [dialog] — 0 violation(s), 0 serious+
+
+── states @1440
+  axe /map @1440 [menu-open] — 0 violation(s), 0 serious+
+  axe /map @1440 [walk] — 0 violation(s), 0 serious+
+  axe /map @1440 [lens-1858] — 0 violation(s), 0 serious+
+  axe /paintings @1440 [dialog] — 0 violation(s), 0 serious+
+
+── keyboard @1440
+  /map: 21 stops, 0 without a visible ring (focus returned to body)
+  /paintings: 37 stops, 0 without a visible ring (focus returned to body)
+  /paintings dialog: open=true close=true focusBack=true
+
+── keyboard @390
+  /map: 21 stops, 0 without a visible ring (focus returned to body)
+  /paintings: 37 stops, 0 without a visible ring (focus returned to body)
+  /paintings dialog: open=true close=true focusBack=true
+
+── reduced-motion @390
+  /people: 0 hidden-text element(s), 0 console error(s)
+  /paintings: 0 hidden-text element(s), 0 console error(s)
+  /map: 2 hidden-text element(s), 0 console error(s)
+
+── reduced-motion @1440
+  /people: 0 hidden-text element(s), 0 console error(s)
+  /paintings: 0 hidden-text element(s), 0 console error(s)
+  /map: 2 hidden-text element(s), 0 console error(s)
+
+── zoom 200% (720×450)
+  /people: ok
+  /paintings: ok
+  /map: ok
+
+a11y → docs/v7/qa/j9fix/a11y/a11y.md — 0 serious/critical · 0 moderate · 0 minor across 21 runs
+a11y exit 0

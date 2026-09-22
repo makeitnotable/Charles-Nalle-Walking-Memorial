@@ -1,0 +1,279 @@
+{
+ "/": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/",
+  "title": "Charles Nalle Walking Memorial · Troy, NY",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 900,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "CHARLES NALLE",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 3291
+ },
+ "/bakery": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery",
+  "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 7687,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "HOLEUR’S FASHIONABLE BAKERY",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 5199
+ },
+ "/commissioners-office": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office",
+  "title": "Commissioner’s Office · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 12715,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "COMMISSIONER’S OFFICE",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 6029
+ },
+ "/mansion": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/mansion",
+  "title": "Uri Gilbert Home · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 8320,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "URI GILBERT HOME",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 5508
+ },
+ "/ferry": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/ferry",
+  "title": "Washington Street Ferry Landing · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 9459,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "WASHINGTON STREET FERRY LANDING",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 5789
+ },
+ "/barbershop": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/barbershop",
+  "title": "Peter Baltimore’s Barbershop · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 9084,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "PETER BALTIMORE’S BARBERSHOP",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 5775
+ },
+ "/map": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/map",
+  "title": "Map · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 2994,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE",
+   "P:Drag to explore · pinch or scr",
+   "P:SPOT",
+   "P:1",
+   "P:Holeur’s\nFashionable Bakery",
+   "P:SPOT",
+   "P:2"
+  ],
+  "h1": "FIVE SPOTS THROUGH TROY",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE",
+   "P:SPOT",
+   "P:1",
+   "P:Holeur’s\nFashionable Bakery",
+   "P:SPOT",
+   "P:2",
+   "P:Commissioner’s\nOffice",
+   "P:SPOT",
+   "P:3",
+   "P:Uri Gilbert Home",
+   "P:SPOT",
+   "P:4",
+   "P:Washington Street Ferry Landin",
+   "P:SPOT",
+   "P:5",
+   "P:Peter Baltimore’s Barbershop"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 6411
+ },
+ "/people": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/people",
+  "title": "The People · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 5230,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "ONE DAY.A WHOLECITY’S CAST.",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 4126
+ },
+ "/paintings": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/paintings",
+  "title": "The Paintings · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 5535,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "THE NALLE SERIES",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 7254
+ },
+ "/about": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/about",
+  "title": "About · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 7144,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "ABOUT THE PROJECT",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 4642
+ },
+ "/404": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/404",
+  "title": "Page not found · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 1236,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "THIS PAGE ISN’T PART OF THE MEMORIAL",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failed": [],
+  "ms": 3095
+ },
+ "/bakery/": {
+  "url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery",
+  "title": "Holeur’s Fashionable Bakery · Charles Nalle Walking Memorial",
+  "overflow": false,
+  "sw": 1440,
+  "cw": 1440,
+  "docH": 7687,
+  "hiddenText": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "h1": "HOLEUR’S FASHIONABLE BAKERY",
+  "bottomHidden": [
+   "P:CHARLES",
+   "P:NALLE"
+  ],
+  "errors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "warnings": [],
+  "failed": [
+   "404 https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery/"
+  ],
+  "ms": 5289
+ }
+}

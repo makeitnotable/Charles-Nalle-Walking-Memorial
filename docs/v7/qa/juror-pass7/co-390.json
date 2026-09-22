@@ -1,0 +1,236 @@
+{
+  "log": {
+    "order": [
+      "hero",
+      "hero-media",
+      "hero-lockup",
+      "scene-0",
+      "history",
+      "moral-0",
+      "moral-0-heading",
+      "hero-2",
+      "scene-1",
+      "moral-1",
+      "moral-1-heading",
+      "onward"
+    ],
+    "spine": [
+      "(01)Listen · Pt 1",
+      "(02)History",
+      "(03)The moral · Pt 1",
+      "(04)Listen · Pt 2",
+      "(05)The moral · Pt 2",
+      "(06)Onward",
+      "(01)Listen · Pt 1",
+      "(02)History"
+    ],
+    "partHeadings": [
+      "Part 1Tubman Creates a Crowd",
+      "Part 2The Mob"
+    ],
+    "audioAfterPlay2": [
+      {
+        "paused": true,
+        "t": 0,
+        "src": "ch2-commissioners-office-pt1.mp3"
+      },
+      {
+        "paused": false,
+        "t": 1.8,
+        "src": "ch2-commissioners-office-pt2.mp3"
+      }
+    ],
+    "btnsPlaying2": [
+      {
+        "label": "Open menu",
+        "rect": [
+          300,
+          34,
+          68,
+          68
+        ]
+      },
+      {
+        "label": "Pause narration: Commissioner’s Office, Pt 2",
+        "rect": [
+          20,
+          394,
+          56,
+          56
+        ]
+      },
+      {
+        "label": "Pause narration: Commissioner’s Office, Pt 2",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "btnsInPart1WhilePt2Plays": [
+      {
+        "label": "Open menu",
+        "rect": [
+          298,
+          20,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Play narration: Commissioner’s Office, Pt 1",
+        "rect": [
+          20,
+          540,
+          56,
+          56
+        ]
+      },
+      {
+        "label": "Pause narration: Commissioner’s Office, Pt 2",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "btnsInPart1ParasWhilePt2Plays": [
+      {
+        "label": "Open menu",
+        "rect": [
+          300,
+          34,
+          68,
+          68
+        ]
+      },
+      {
+        "label": "Pause narration: Commissioner’s Office, Pt 2",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "play1Label": "Play narration: Commissioner’s Office, Pt 1",
+    "audioAfterPlay1": [
+      {
+        "paused": false,
+        "t": 1.4,
+        "src": "ch2-commissioners-office-pt1.mp3"
+      },
+      {
+        "paused": true,
+        "t": 5.1,
+        "src": "ch2-commissioners-office-pt2.mp3"
+      }
+    ],
+    "btnsAtTopAfterPlay1": [
+      {
+        "label": "Open menu",
+        "rect": [
+          298,
+          20,
+          72,
+          72
+        ]
+      },
+      {
+        "label": "Pause narration: Commissioner’s Office, Pt 1",
+        "rect": [
+          29,
+          771,
+          44,
+          44
+        ]
+      }
+    ],
+    "fixedCount": [
+      "",
+      "Home01Bakery02Commissioner’s Office03Gil",
+      "Spot 02 · Pt 100:02 / 01:21"
+    ],
+    "moralColors": [
+      {
+        "id": "moral-0",
+        "h": "WHEN NOTCHALLENGEDINJUSTICETHRIVES",
+        "hColor": "rgb(246, 243, 238)",
+        "pColor": "rgb(246, 243, 238)"
+      },
+      {
+        "id": "moral-1",
+        "h": "FREEDOMISN’T FREE",
+        "hColor": "rgb(246, 243, 238)",
+        "pColor": "rgb(246, 243, 238)"
+      }
+    ],
+    "moralHeadingBoxes": [
+      {
+        "t": "WHEN NOT",
+        "overflow": "hidden",
+        "pb": "10.12px",
+        "clip": "none"
+      },
+      {
+        "t": "WHEN NOT",
+        "overflow": "visible",
+        "pb": "0px",
+        "clip": "none"
+      },
+      {
+        "t": "CHALLENGED",
+        "overflow": "hidden",
+        "pb": "10.12px",
+        "clip": "none"
+      },
+      {
+        "t": "CHALLENGED",
+        "overflow": "visible",
+        "pb": "0px",
+        "clip": "none"
+      },
+      {
+        "t": "INJUSTICE",
+        "overflow": "hidden",
+        "pb": "10.12px",
+        "clip": "none"
+      },
+      {
+        "t": "INJUSTICE",
+        "overflow": "visible",
+        "pb": "0px",
+        "clip": "none"
+      },
+      {
+        "t": "THRIVES",
+        "overflow": "hidden",
+        "pb": "10.12px",
+        "clip": "none"
+      },
+      {
+        "t": "THRIVES",
+        "overflow": "visible",
+        "pb": "0px",
+        "clip": "none"
+      }
+    ]
+  },
+  "errs": [
+    {
+      "tag": "co-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+    },
+    {
+      "tag": "co-390",
+      "type": "requestfailed",
+      "text": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED"
+    }
+  ]
+}

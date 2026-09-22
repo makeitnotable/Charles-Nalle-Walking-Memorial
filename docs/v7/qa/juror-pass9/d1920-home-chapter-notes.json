@@ -1,0 +1,385 @@
+{
+  "home.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    }
+  ],
+  "home.cta": {
+    "x": 835.0625,
+    "y": 865.40625,
+    "width": 249.875,
+    "height": 48
+  },
+  "home.eyebrow": {
+    "text": "Troy, New York · April 27, 1860",
+    "top": 366,
+    "bottom": 383
+  },
+  "bakery.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 56,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "bakery.burger-after-scrolldown": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "Sections in this chapter",
+      "x": 376,
+      "y": 88,
+      "w": 276,
+      "h": 150
+    }
+  ],
+  "bakery.burger-after-scrollup": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 56,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "Sections in this chapter",
+      "x": 376,
+      "y": 265,
+      "w": 276,
+      "h": 150
+    }
+  ],
+  "bakery.playbtn": {
+    "text": "",
+    "aria": "Play narration: Holeur’s Fashionable Bakery",
+    "box": {
+      "x": 376,
+      "y": 785.4375,
+      "width": 56,
+      "height": 56
+    }
+  },
+  "bakery.audio": [
+    {
+      "paused": false,
+      "t": 2.340679,
+      "src": "ch1-bakery.mp3"
+    }
+  ],
+  "bakery.paras": 8,
+  "bakery.audio-after-tap": [
+    {
+      "paused": false,
+      "t": 3.984657
+    }
+  ],
+  "bakery.down-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:05",
+      "x": 56,
+      "y": 962,
+      "w": 114,
+      "h": 62
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "(03)The moral(01)Listen(02)History(03)The moral(04",
+      "x": 376,
+      "y": 88,
+      "w": 276,
+      "h": 150
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "(04)Onward(01)Listen(02)History(03)The moral(04)On",
+      "x": 376,
+      "y": 691,
+      "w": 276,
+      "h": 150
+    }
+  ],
+  "bakery.up-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 56,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "Spot 0100:06 / 01:41",
+      "x": 56,
+      "y": 962,
+      "w": 161,
+      "h": 62
+    }
+  ],
+  "bakery.moral-colors": {
+    "heading": "rgb(246, 243, 238)",
+    "body": "rgb(255, 151, 112)",
+    "caption": "rgb(255, 151, 112)",
+    "headingText": "NOT ALL LAWSARE MORAL",
+    "bodyText": "(03)"
+  },
+  "bakery.onward-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:10",
+      "x": 56,
+      "y": 962,
+      "w": 114,
+      "h": 62
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "(04)Onward(01)Listen(02)History(03)The moral(04)On",
+      "x": 376,
+      "y": 88,
+      "w": 276,
+      "h": 150
+    }
+  ],
+  "bakery.footer-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:11",
+      "x": 56,
+      "y": 962,
+      "w": 114,
+      "h": 62
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "(04)Onward(01)Listen(02)History(03)The moral(04)On",
+      "x": 376,
+      "y": 88,
+      "w": 276,
+      "h": 150
+    }
+  ],
+  "bakery.continue-btn": {
+    "text": "Continue",
+    "b": {
+      "x": 906.125,
+      "y": 409.796875,
+      "width": 186.84375,
+      "height": 48
+    }
+  },
+  "after-continue.url": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office",
+  "barbershop.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 56,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "barbershop.story-order": "ITTT",
+  "co.sections": [
+    "hero-media",
+    "hero-lockup",
+    "scene-0",
+    "history",
+    "moral-0",
+    "moral-0-heading",
+    "hero-2",
+    "scene-1",
+    "moral-1",
+    "moral-1-heading",
+    "onward"
+  ],
+  "co.players": 2,
+  "co.playbtns": [
+    {
+      "i": 0,
+      "aria": "Play narration: Commissioner’s Office, Pt 1",
+      "text": ""
+    },
+    {
+      "i": 1,
+      "aria": "Play narration: Commissioner’s Office, Pt 2",
+      "text": ""
+    }
+  ],
+  "co.audio-p2": [
+    {
+      "paused": true,
+      "t": 0
+    },
+    {
+      "paused": false,
+      "t": 1.984248
+    }
+  ],
+  "co.floating-in-part1": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 56,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "Spot 02 · Pt 200:03 / 02:19",
+      "x": 56,
+      "y": 962,
+      "w": 200,
+      "h": 62
+    }
+  ],
+  "co.audio-after-scroll": [
+    {
+      "paused": true,
+      "t": 0
+    },
+    {
+      "paused": false,
+      "t": 3.668114
+    }
+  ],
+  "co.foot-floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+      "t": "00:10",
+      "x": 56,
+      "y": 962,
+      "w": 114,
+      "h": 62
+    },
+    {
+      "tag": "nav",
+      "cls": "rail",
+      "t": "(06)Onward(01)Listen · Pt 1(02)History(03)The mora",
+      "x": 376,
+      "y": 88,
+      "w": 276,
+      "h": 225
+    }
+  ],
+  "consoleErrors": []
+}

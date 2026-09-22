@@ -1,0 +1,71 @@
+waiting for loader...
+
+TECH: {
+  "scripts": [
+    "https://www.googletagmanager.com/gtag/js?id=G-B8BKJSTEZ5&l=dataLayer",
+    "https://www.googletagmanager.com/gtag/js?id=G-B8BKJSTEZ5&l=dataLayer",
+    "https://marseille.laphase5.com/js/chunk-vendors.194f113a.js",
+    "https://marseille.laphase5.com/js/app.adf311ea.js"
+  ],
+  "canvases": [
+    {
+      "w": 1440,
+      "h": 900,
+      "cls": "",
+      "kind": "webgl2"
+    }
+  ],
+  "audio": 0,
+  "video": 0,
+  "globals": [
+    "Howl",
+    "Howler"
+  ],
+  "title": "Marseille 2021 by La Phase 5",
+  "bodyText": "4\n0\n1\n\nWHAT IF YOU DISCOVERED MARSEILLE DIFFERENTLY THIS YEAR?\n\nNext\nNext"
+}
+
+UI[loaded]: [
+ {
+  "tag": "DIV",
+  "text": "Next\nNext",
+  "cls": "Button-container"
+ },
+ {
+  "tag": "DIV",
+  "text": "Next\nNext",
+  "cls": "Preload-Button"
+ }
+]
+
+step 2: nothing to click
+
+REQS by ext: {"other":9,"ttf":1,"css":2,"js":2,"woff2":1,"mp3":11,"png":2,"glb":3,"obj":1,"otf":2,"bin":93}
+
+SAMPLE glb/ktx/basis/mp3: [
+ "https://marseille.laphase5.com/assets/sounds/intro.mp3",
+ "https://marseille.laphase5.com/assets/sounds/map.mp3",
+ "https://marseille.laphase5.com/assets/sounds/pin_over.mp3",
+ "https://marseille.laphase5.com/assets/sounds/pin_out.mp3",
+ "https://marseille.laphase5.com/assets/sounds/zoom.mp3",
+ "https://marseille.laphase5.com/assets/sounds/btn_click.mp3",
+ "https://marseille.laphase5.com/assets/sounds/btn_over.mp3",
+ "https://marseille.laphase5.com/assets/sounds/360_enterprise.mp3",
+ "https://marseille.laphase5.com/assets/sounds/360_enterprise.mp3",
+ "https://marseille.laphase5.com/assets/sounds/360_culture.mp3",
+ "https://marseille.laphase5.com/assets/sounds/360_outdoor.mp3",
+ "https://marseille.laphase5.com/models/water.glb",
+ "https://marseille.laphase5.com/models/terrain.glb",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33740-24027.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33741-24025.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33741-24026.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33741-24027.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33741-24028.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33741-24024.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33742-24023.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33742-24024.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33742-24027.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33743-24023.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33743-24022.bin",
+ "https://d2ylb0qtp1ulo1.cloudfront.net/map/roads/16-33744-24021.bin"
+]

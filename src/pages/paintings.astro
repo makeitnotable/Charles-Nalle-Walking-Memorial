@@ -1,0 +1,409 @@
+---
+/**
+ * The Paintings — Mark Priest's Nalle Series.
+ * v4: the image IS the card (Google Arts & Culture). No frame, no button
+ * chrome — a flush image over a fixed eyebrow / title / credit micro-grid with
+ * the same offsets on every tile, and hover scales the image inside its own
+ * clip, never the card.
+ */
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { withBase } from "../lib/url";
+import { fitChars } from "../lib/text";
+import Museum from "../components/Museum";
+import sharp from "sharp";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+/* v7 U8: every canvas hangs at its TRUE aspect — read once at build from the
+   1440 asset (six are 16:9, three 3:2, Barbershop Narrative II is a 2:3
+   portrait); the study's aspect likewise. Module-level cache; fallback 1.5. */
+const aspectCache = new Map<string, number>();
+const aspectOf = async (rel: string, fallback: number) => {
+  if (aspectCache.has(rel)) return aspectCache.get(rel)!;
+  let a = fallback;
+  try {
+    /* Resolved from the PROJECT ROOT (process.cwd() during `astro build`), never
+       import.meta.url — under the production build the page module lives in a
+       temp chunk and a module-relative path silently fell back to 1.5 (juror
+       pass 1, P1). */
+    const m = await sharp(await readFile(join(process.cwd(), "public", rel))).metadata();
+    if (m.width && m.height) a = +(m.width / m.height).toFixed(4);
+  } catch {
+    /* keep the fallback */
+  }
+  aspectCache.set(rel, a);
+  return a;
+};
+const PAINTINGS_HEADING = "THE NALLE<br />SERIES";
+
+const chapters = (await getCollection("chapters")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+/* v12 (Wil, 8/26): every work carries its OWN title now — the paintings have
+ * official names and the hall says them. What used to live here was a
+ * composition rule (`name.canonical` + "Part 2" / "Narrative I"), which named
+ * the LOCATION ten times and the artwork never; the plaque's second variant
+ * line goes with it, because titles are unique. Gallery order per chapter is
+ * this key order; the canon itself is authored in the chapter JSON
+ * (`media.works`), so content stays out of the page. */
+const KEY_ORDER = ["horizontal", "horizontal-pt2", "narrative1", "narrative2"] as const;
+/** Animated variant per painting key (elevation G2: the dialog plays the
+ * painting alive where Mark Priest's animation exists). */
+const KEY_VIDEOS: Record<string, string> = {
+  horizontal: "reveal-horizontal",
+  "horizontal-pt2": "reveal-horizontal-pt2",
+  narrative1: "narrative1",
+  narrative2: "narrative2",
+};
+
+const works = chapters.flatMap((entry) =>
+  KEY_ORDER.filter((key) => entry.data.media.images.includes(key))
+    .map((key) => ({
+      slug: entry.id,
+      key,
+      title: entry.data.media.works[key].title,
+      chapterLabel: entry.data.chapterLabel,
+      order: entry.data.order,
+      full: withBase(`media/${entry.id}/${key}-1440.jpg`),
+      video: entry.data.media.videos.includes(KEY_VIDEOS[key])
+        ? withBase(`media/${entry.id}/${KEY_VIDEOS[key]}.mp4`)
+        : null,
+      href: withBase(entry.id),
+      mapLabel: entry.data.name.short,
+    })),
+);
+
+/** The museum's copy of the catalogue — texture URLs + the study beside the
+ * chapter's main canvas. Every asset already exists in the media pipeline. */
+const aspects = await Promise.all(works.map((w) => aspectOf(`media/${w.slug}/${w.key}-1440.jpg`, 1.5)));
+/* v9 V9-102 (Wil, 8/21): the study hangs on the WALL beside the painting it
+   was made for. (v8's plaque-card copy of the study is gone: a second copy
+   inside the card duplicated what is already on the wall.)
+   v12: which drawing that is, is now AUTHORED per work rather than derived
+   from the painting key — four narrative works gained a study this round, and
+   two of the six that already had one were hanging the wrong drawing. */
+const studyKeyOf = (entry: (typeof chapters)[number], key: string) =>
+  entry.data.media.works[key]?.study ?? null;
+const sketchAspects = await Promise.all(
+  works.map((w) => {
+    const k = studyKeyOf(chapters.find((e) => e.id === w.slug)!, w.key);
+    return k ? aspectOf(`media/${w.slug}/${k}-800.webp`, 1.25) : Promise.resolve(null);
+  }),
+);
+const museumWorks = works.map((w, wi) => {
+  const entry = chapters.find((e) => e.id === w.slug)!;
+  const studyKey = studyKeyOf(entry, w.key);
+  const hasSketch = Boolean(studyKey && entry.data.media.images.includes(studyKey));
+  /* The plaque speaks a line from the day — the scene's APPROVED quote
+     (never invented copy): the main canvas gets scene 1's, Part 2 gets
+     scene 2's. */
+  const scene =
+    w.key === "horizontal-pt2" ? entry.data.scenes[1] : entry.data.scenes[0];
+  return {
+    slug: w.slug,
+    key: w.key,
+    title: w.title,
+    /* v12: the plaque's line under LOCATION NN is the painting's own title.
+       v8's second "variant" line ("Part 2", "1", "2") is gone — it existed only
+       to disambiguate works that shared a location name, and none do now. */
+    name: w.title,
+    order: w.order,
+    tex1440: withBase(`media/${w.slug}/${w.key}-1440.jpg`),
+    tex800: withBase(`media/${w.slug}/${w.key}-800.webp`),
+    video: w.video,
+    sketch: hasSketch ? withBase(`media/${w.slug}/${studyKey}-800.webp`) : null,
+    /* v10 V10-06 (Wil, 8/21): the card keeps the WRITTEN content about the
+       study — only the duplicate thumbnail was meant to go. Scene 2's note
+       where the chapter has one (Ch2 only), else the chapter's. */
+    studyNote: hasSketch
+      ? entry.data.media.works[w.key]?.studyNote ??
+        (w.key === "horizontal-pt2" ? entry.data.scenes[1]?.sketchNote : null) ??
+        entry.data.sketchNote
+      : null,
+    aspect: aspects[wi],
+    sketchAspect: hasSketch ? sketchAspects[wi] : null,
+    line: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.text : null,
+    lineBy: (w.key === "horizontal" || w.key === "horizontal-pt2") && scene?.quote ? scene.quote.attribution : null,
+  };
+});
+---
+
+<Base
+  title="The Paintings · Charles Nalle Walking Memorial"
+  description="Mark Priest's Nalle Series: the cycle of paintings depicting the capture and rescue of Charles Nalle in Troy, NY, April 27, 1860."
+  preloadImages={[
+    { href: withBase("media/commissioners-office/horizontal-pt2-800.webp"), type: "image/webp", media: "(max-width: 767px)" },
+    { href: withBase("media/commissioners-office/horizontal-pt2-1440.avif"), type: "image/avif", media: "(min-width: 768px)" },
+  ]}
+>
+  <header class="shell page-open">
+    <p class="t-meta">The paintings · {works.length} works</p>
+    <h1 class="t-display lines mt-8" style={fitChars(PAINTINGS_HEADING)} set:html={PAINTINGS_HEADING} />
+  </header>
+
+  {/* THE MUSEUM (v6 signature). The window is SERVER-rendered at one
+      viewport tall — the island expands it after mount, so nothing in view
+      ever shifts (Lighthouse caught CLS 0.555 when the wrapper appeared
+      client-side). Incapable visitors keep the window as a full-bleed lead
+      painting; the grid below is the page either way, and stays the
+      screen-reader surface always. */}
+  {/* v14.3 (Wil, 9/16, item 3 — scroll jitter): `h-svh`, was `h-dvh`, on the
+      slot and its lead painting. With the island active the slot's height is
+      the island's own (works × 90vh, set inline) and the stage is sticky, so
+      the bars never moved this page; without it (reduced motion, no WebGL)
+      the slot was an in-flow `dvh` box above the grid that grew and shrank by
+      the bar as iOS collapsed and expanded it — measured at 390×844 under
+      reduced motion: the grid jumped −90/−200px at the reversal. `svh` is the
+      bars-expanded viewport, the state at the page top; identical at rest.
+      The sticky stage inside it (Museum.tsx) stays `h-dvh` on purpose: it has
+      to cover the viewport in both bar states. */}
+  <div id="museum-slot" class="relative mt-16 h-svh">
+    {/* One viewport tall regardless of how far the island expands the slot —
+        the museum's opaque stage paints over it when active. */}
+    <div class="museum-lead absolute inset-x-0 top-0 h-svh overflow-hidden">
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          type="image/webp"
+          srcset={withBase("media/commissioners-office/horizontal-pt2-800.webp")}
+        />
+        <source type="image/avif" srcset={withBase("media/commissioners-office/horizontal-pt2-1440.avif")} />
+        <img
+          src={withBase("media/commissioners-office/horizontal-pt2-1440.jpg")}
+          alt="“The Altruist”, the crowd of one thousand outside, painting by Mark Priest"
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </picture>
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: linear-gradient(to top, rgba(29,20,17,.85), transparent 30%), linear-gradient(to bottom, rgba(29,20,17,.5), transparent 18%)"
+      >
+      </div>
+      <p class="t-meta absolute bottom-6 left-[var(--gutter)]">Mark Priest · Nalle Series</p>
+      {/* Round 25 (Wil, 2026-09-22): on a phone that can run the hall this
+          lead painting showed for the second between first paint and the
+          island's mount — "it looks like it's chapter page 2, which flashes
+          for just a second". The cover is the page ground over the painting;
+          it leaves on its own after 2.4s (global.css), or at once when the
+          island reports the hall cannot run (`data-hall="off"` on the slot),
+          and never exists without JS or under reduced motion, where the
+          painting IS the page. The painting still paints beneath it at the
+          same moment as before, so the LCP candidate is unchanged. */}
+      <div class="museum-lead-cover" aria-hidden="true"></div>
+    </div>
+    <Museum client:only="react" works={museumWorks} slotId="museum-slot" />
+  </div>
+
+  <section class="shell sec pb-8">
+    <p class="t-prose reveal">
+      Painter <strong>Mark Priest</strong> spent years reconstructing the rescue
+      of Charles Nalle: walking Troy’s streets, reading the accounts, and
+      painting the day scene by scene. Select any work to view it closely, or
+      follow it into its&nbsp;chapter.
+    </p>
+    {/* v7 V7-090: under reduced motion the hall never mounts — say so, once. */}
+    <p class="t-meta-body mt-4 hidden motion-reduce:block">
+      The three-dimensional hall opens when your device allows motion; every work is here below.
+    </p>
+
+    <div class="beat grid gap-x-8 gap-y-16 sm:grid-cols-2">
+      {
+        works.map((work) => (
+          <figure class="reveal">
+            <button
+              type="button"
+              class="painting-open group block w-full cursor-pointer overflow-hidden rounded-[12px] text-left"
+              data-full={work.full}
+              data-video={work.video}
+              data-title={`${work.title}, Mark Priest`}
+              aria-label={`View “${work.title}” closely`}
+            >
+              <Picture
+                slug={work.slug}
+                imageKey={work.key}
+                alt={`“${work.title}”, painting by Mark Priest`}
+                sizes="(min-width: 640px) 34rem, 100vw"
+                class="museum-tile w-full object-cover transition-transform group-hover:scale-[1.06] group-active:scale-[0.98]"
+                style={`aspect-ratio: ${aspects[works.indexOf(work)]}`}
+              />
+            </button>
+            {/* The fixed micro-grid: 16 → eyebrow → 12 → title → 12 → credit. */}
+            <figcaption class="mt-4">
+              <a
+                href={work.href}
+                data-curtain-label={work.mapLabel}
+                data-curtain-date
+                class="link-meta t-meta"
+              >
+                Location {String(work.order).padStart(2, "0")}
+                <Icon name="arrow" size="sm" />
+              </a>
+              <span class="t-title-sm mt-3 block">{work.title}</span>
+              <span class="t-meta-body mt-3 block">Mark Priest · Nalle Series</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Close-look dialog. v5 P0-4: at 844×390 the caption + Close sat below
+      the viewport — the media now takes what the caption row leaves, never
+      more, so the chrome is always on screen.
+      v14 E5 (Wil): on phones the film path opened an EMPTY overlay — title
+      and Close, no artwork. The still was hidden the moment a film existed,
+      and the <video> that replaced it never rendered (iOS media budgets after
+      the hall's warm pool, a play() that never settles, the top layer), so
+      the dialog was a caption row above nothing. The still is the base layer
+      now and is never hidden; its cap is the viewport less the caption row's
+      REAL height (--pd-caption, measured), so the box has a definite size
+      whatever the film does; the film is an absolutely-positioned overlay in
+      that same box that rises above the still only once a frame has actually
+      been presented, and is released in full on close. */}
+  <dialog
+    id="painting-dialog"
+    class="artifact m-auto max-h-[94dvh] max-w-[94vw] bg-primary-2 p-0 backdrop:bg-black/88 open:flex open:flex-col"
+  >
+    <div id="painting-dialog-media" class="relative min-h-0 overflow-hidden">
+      <img
+        id="painting-dialog-img"
+        src=""
+        alt=""
+        class="mx-auto block w-auto max-w-full object-contain"
+        style="max-height: calc(94dvh - var(--pd-caption, 5.5rem))"
+      />
+      <video
+        id="painting-dialog-video"
+        class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-contain"
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+    </div>
+    <div id="painting-dialog-caption" class="flex shrink-0 items-center justify-between gap-4 p-4">
+      <p id="painting-dialog-title" class="t-meta-body"></p>
+      <button type="button" id="painting-dialog-close" class="btn-sm btn-ghost">
+        <Icon name="close" size="sm" />
+        Close
+      </button>
+    </div>
+  </dialog>
+
+  <SiteFooter hide="paintings" />
+
+  <script>
+    const dialog = document.getElementById("painting-dialog") as HTMLDialogElement;
+    const img = document.getElementById("painting-dialog-img") as HTMLImageElement;
+    const title = document.getElementById("painting-dialog-title")!;
+    const video = document.getElementById("painting-dialog-video") as HTMLVideoElement;
+    const caption = document.getElementById("painting-dialog-caption")!;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* v14 E5: the still's cap is 94dvh less the caption row's REAL height (the
+       title wraps to two lines on a phone), published as --pd-caption. A
+       closed dialog measures 0 and is skipped. */
+    new ResizeObserver(() => {
+      const h = caption.getBoundingClientRect().height;
+      if (h > 0) dialog.style.setProperty("--pd-caption", `${Math.ceil(h)}px`);
+    }).observe(caption);
+    /* v14 E5: the film is an overlay that earns its place. It sits UNDER the
+       still (z −10) until a frame has actually been presented — rVFC, or
+       `playing` where rVFC is missing — then rises over it. An error, a stall
+       before that first frame, a play() that rejects, or six seconds of
+       silence leave the still exactly as it is and release the element so it
+       stops holding a decoder. `filmSeq` orphans every callback of an earlier
+       open. Reduced motion never starts a film. */
+    let filmSeq = 0;
+    let filmTimer = 0;
+    /* lib.dom declares rVFC, so an `in` check would narrow the else branch to
+       `never` — the runtime check is real (Firefox < 132 lacks it). */
+    const rvfc = (video as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number }).requestVideoFrameCallback;
+    const hasRVFC = typeof rvfc === "function";
+    const filmOff = () => {
+      window.clearTimeout(filmTimer);
+      video.classList.replace("z-10", "-z-10");
+      video.pause();
+      if (video.hasAttribute("src")) {
+        video.removeAttribute("src");
+        video.load();
+      }
+    };
+    const filmFail = (seq: number) => {
+      if (seq === filmSeq) filmOff();
+    };
+    const filmFrame = (seq: number) => {
+      if (seq !== filmSeq || video.paused || video.readyState < 2) return;
+      window.clearTimeout(filmTimer);
+      video.classList.replace("-z-10", "z-10");
+    };
+    video.addEventListener("error", () => filmFail(filmSeq));
+    video.addEventListener("stalled", () => {
+      if (video.classList.contains("-z-10")) filmFail(filmSeq);
+    });
+    if (!hasRVFC) video.addEventListener("playing", () => filmFrame(filmSeq));
+    const filmOn = (src: string) => {
+      filmOff();
+      const seq = ++filmSeq;
+      video.src = src;
+      if (hasRVFC) rvfc!.call(video, () => filmFrame(seq));
+      filmTimer = window.setTimeout(() => filmFail(seq), 6000);
+      video.play().catch(() => filmFail(seq));
+    };
+    /* v14 E5: the still itself gets one more request after a dropped one. */
+    let imgRetried = "";
+    img.addEventListener("error", () => {
+      const want = img.dataset.want;
+      if (!want || imgRetried === want) return;
+      imgRetried = want;
+      window.setTimeout(() => {
+        if (img.dataset.want === want) img.src = `${want}${want.includes("?") ? "&" : "?"}retry=1`;
+      }, 800);
+    });
+    document.querySelectorAll<HTMLButtonElement>(".painting-open").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const still = btn.dataset.full!;
+        img.dataset.want = still;
+        img.src = still;
+        img.alt = btn.dataset.title!;
+        title.textContent = btn.dataset.title!;
+        dialog.showModal();
+        if (btn.dataset.video && !reducedMotion) filmOn(btn.dataset.video);
+        else filmOff();
+        /* the hall holds its films while the dialog is up (Museum.tsx `held`) */
+        document.dispatchEvent(new CustomEvent("cnwm:dialog-open"));
+      });
+    });
+    dialog.addEventListener("close", () => {
+      filmSeq++;
+      filmOff();
+      document.dispatchEvent(new CustomEvent("cnwm:dialog-close"));
+    });
+    document
+      .getElementById("painting-dialog-close")!
+      .addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+</Base>

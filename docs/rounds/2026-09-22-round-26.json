@@ -1,0 +1,25 @@
+{
+  "round": 26,
+  "label": "/paintings — the plaque drawer continues under the toolbar: the runway's bottom strip carries the drawer's ground over the floor whenever the drawer covers the stage's bottom edge",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-26-plan.md",
+  "base": {
+    "tag": "client-round-26-base",
+    "commit": "505a461",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/Museum.tsx",
+    "scripts/museum-runway.mjs",
+    "docs/RUN-STATE.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/v4/DECISIONS.md",
+    "docs/rounds/2026-09-22-round-25-plan.md",
+    "docs/rounds/2026-09-22-round-26.json",
+    "docs/rounds/2026-09-22-round-26-plan.md"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-22, round 25 approved (\"Looks good\"), one bug left, his screenshot: with a painting tapped and the drawer up, the drawer stops at the page area's bottom edge with the hall's floor showing between it and the toolbar — it reads as a card floating in the hall, not a drawer rising from the screen's bottom. The drawer was designed with an open bottom under what was Safari's solid fill; round 24 made that band glass over the runway strip, which paints the floor, and the drawer lives inside the pinned stage, which stops at the page area's edge. This round: whenever the drawer covers the stage's bottom edge, the bottom strip continues the drawer instead of the floor — the same floor rows, blurred as the drawer's backdrop is, with the drawer's own ground (its computed background colour, 90% brown) laid over them and its side strokes, from the drawer's top edge down; the floor returns the frame the drawer leaves. Museum.tsx only, in the frame loop that already paints the strip; nothing else on the page changes and no route may drift."
+}

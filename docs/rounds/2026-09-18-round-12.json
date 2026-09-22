@@ -1,0 +1,21 @@
+{
+  "round": 12,
+  "label": "round 8, phase C3 \u2014 the chapter strip opacity sweep (approved test instrument)",
+  "date": "2026-09-18",
+  "plan": "docs/rounds/2026-09-17-round-8-plan.md",
+  "base": {
+    "tag": "client-round-12-base",
+    "commit": "3d3a2af268f9f7c44b78335d896ccdc77dc77e64",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/styles/global.css",
+    "src/layouts/Base.astro",
+    "docs/rounds/2026-09-17-round-8-plan.md",
+    "docs/rounds/2026-09-18-round-12.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Round 8 phase C3. Wil approved a test that MAY PAINT VISIBLE PIXELS on the five chapter routes, so he can judge what a readable strip costs over the hero's artwork. It is gated behind a ?striplab= query rather than shipped default-on, because default-on plus allowedRoutes: [] plus no baseline refresh is unsatisfiable: all five chapter routes are in the baseline set at 390/768/1440, so a painting strip drifts 15 shots and the only ways to pass are refreshing baselines (forbidden) or widening allowedRoutes (not asked for). Flag-gated satisfies every constraint and costs one query parameter; one line makes it default-on. Ships: the opacity sweep 0.10/0.15/0.25/1.0 with on-page tap buttons, a readout printing the sampled section colour and the strip's declared colour, and a contrast probe. The probe exists because Wil's proposed cream-section dilution test cannot work: in the production shape the strip is painted the SAME colour as the section under it, so declared and composited are identical and dilution is both undetectable and harmless there. It only bites over the hero, where the strip is #100a06 over a full-bleed painting, so the probe forces cream #f6f3ee which cannot match the dark hero. allowedRoutes stays empty: with no query the strip is opacity 0 and nothing drifts."
+}

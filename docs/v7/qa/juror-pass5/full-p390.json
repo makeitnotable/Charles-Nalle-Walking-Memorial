@@ -1,0 +1,114 @@
+{
+ "/bakery": {
+  "H": 8387,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+   ]
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 HOLEUR’S / FASHIONABLE / BAKERY",
+   "H2 CAPTURED WITH BREAD IN HAND",
+   "H2 HISTORICAL / CONTEXT",
+   "H2 NOT ALL LAWS / ARE MORAL",
+   "H2 WHERE / TO NEXT"
+  ]
+ },
+ "/commissioners-office": {
+  "H": 14142,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": [
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+    "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+   ]
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 COMMISSIONER’S / OFFICE",
+   "H2 PART 1 / TUBMAN CREATES A CROWD",
+   "H2 HISTORICAL / CONTEXT",
+   "H2 WHEN NOT / CHALLENGED / INJUSTICE / THRIVES",
+   "H2 PART 2 / THE MOB",
+   "H2 FREEDOM / ISN’T FREE",
+   "H2 WHERE / TO NEXT"
+  ]
+ },
+ "/people": {
+  "H": 6918,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 ONE DAY. / A WHOLE / CITY’S CAST.",
+   "H1 ONE DAY. A WHOLECITY’S CAST.",
+   "H2 THE RESCUERS",
+   "H3 CHARLES NALLE",
+   "H3 HARRIET TUBMAN",
+   "H3 PETER BALTIMORE",
+   "H3 MARTIN I. TOWNSEND",
+   "H3 URI GILBERT",
+   "H3 WILLIAM HENRY",
+   "H3 CAPTAIN HAWK",
+   "H3 BILLY LOREMAN",
+   "H3 GEORGE HOLEUR",
+   "H2 THE HUNTERS",
+   "H3 BLUCHER HANSBROUGH",
+   "H3 HORATIO F. AVERILL",
+   "H3 HENRY “JACK” WALE",
+   "H3 DEPUTY U.S. MARSHAL HOLMES",
+   "H3 THOMAS PARR",
+   "H2 STAND WHERE THEY STOOD"
+  ]
+ },
+ "/about": {
+  "H": 8964,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 ABOUT THE PROJECT",
+   "H2 HOW THE TOUR WORKS",
+   "H2 CHARLES NALLE",
+   "H2 MARK PRIEST",
+   "H2 SCOTT CHRISTIANSON",
+   "H2 TWO AND A HALF MILES. ONE DAY IN 1860."
+  ]
+ },
+ "/404": {
+  "H": 1208,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 THIS PAGE ISN’T / PART OF THE MEMORIAL"
+  ]
+ },
+ "/map": {
+  "H": 3115,
+  "log": {
+   "errors": [],
+   "warnings": [],
+   "failed": []
+  },
+  "hScroll": false,
+  "texts": [
+   "H1 FIVE SPOTS / THROUGH TROY"
+  ]
+ }
+}

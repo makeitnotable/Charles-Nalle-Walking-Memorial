@@ -1,0 +1,1901 @@
+✓ home @ 360
+✓ mansion @ 360
+✓ commissioners-office @ 360
+✓ barbershop @ 360
+✓ ferry @ 360
+✓ bakery @ 360
+✓ map @ 360
+✓ people @ 360
+✓ paintings @ 360
+✓ about @ 360
+✓ 404 @ 360
+console errors @ 360:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 390
+✓ mansion @ 390
+✓ commissioners-office @ 390
+✓ barbershop @ 390
+✓ ferry @ 390
+✓ bakery @ 390
+✓ map @ 390
+✓ people @ 390
+✓ paintings @ 390
+✓ about @ 390
+✓ 404 @ 390
+console errors @ 390:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 430
+✓ mansion @ 430
+✓ commissioners-office @ 430
+✓ barbershop @ 430
+✓ ferry @ 430
+✓ bakery @ 430
+✓ map @ 430
+✓ people @ 430
+✓ paintings @ 430
+✓ about @ 430
+✓ 404 @ 430
+console errors @ 430:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ land
+✓ mansion @ land
+✓ commissioners-office @ land
+✓ barbershop @ land
+✓ ferry @ land
+✓ bakery @ land
+✓ map @ land
+✓ people @ land
+✓ paintings @ land
+✓ about @ land
+✓ 404 @ land
+console errors @ land:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 768
+✓ mansion @ 768
+✓ commissioners-office @ 768
+✓ barbershop @ 768
+✓ ferry @ 768
+✓ bakery @ 768
+✓ map @ 768
+✓ people @ 768
+✓ paintings @ 768
+✓ about @ 768
+✓ 404 @ 768
+console errors @ 768:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 1024
+✓ mansion @ 1024
+✓ commissioners-office @ 1024
+✓ barbershop @ 1024
+✓ ferry @ 1024
+✓ bakery @ 1024
+✓ map @ 1024
+✓ people @ 1024
+✓ paintings @ 1024
+✓ about @ 1024
+✓ 404 @ 1024
+console errors @ 1024:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 1280
+✓ mansion @ 1280
+✓ commissioners-office @ 1280
+✓ barbershop @ 1280
+✓ ferry @ 1280
+✓ bakery @ 1280
+✓ map @ 1280
+✓ people @ 1280
+✓ paintings @ 1280
+✓ about @ 1280
+✓ 404 @ 1280
+console errors @ 1280:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 1440
+✓ mansion @ 1440
+✓ commissioners-office @ 1440
+✓ barbershop @ 1440
+✓ ferry @ 1440
+✓ bakery @ 1440
+✓ map @ 1440
+✓ people @ 1440
+✓ paintings @ 1440
+✓ about @ 1440
+✓ 404 @ 1440
+console errors @ 1440:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+✓ home @ 1920
+✓ mansion @ 1920
+✓ commissioners-office @ 1920
+✓ barbershop @ 1920
+✓ ferry @ 1920
+✓ bakery @ 1920
+✓ map @ 1920
+✓ people @ 1920
+✓ paintings @ 1920
+✓ about @ 1920
+✓ 404 @ 1920
+console errors @ 1920:
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="mansion" audioSrc="/audio/ch3..." label="Chapter 3" subtitle="Uri Gilber..." duration={172} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={172}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={81} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={81}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="commission..." audioSrc="/audio/ch2..." label="Chapter 2 ..." subtitle="Commission..." duration={139} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={139}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="barbershop" audioSrc="/audio/ch5..." label="Chapter 5" subtitle="Peter Balt..." duration={114} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={114}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="ferry" audioSrc="/audio/ch4..." label="Chapter 4" subtitle="Washington..." duration={138} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={138}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  <AudioStory slug="bakery" audioSrc="/audio/ch1..." label="Chapter 1" subtitle="Holeur’s F..." duration={101} ...>
+    <div>
+      <audio>
+      <div className="rule-top p..." style={{opacity:1, ...}}>
+        <div>
+        <input
+          type="range"
+          min={0}
+          max={101}
+          step={1}
+          value={0}
+          onChange={function onChange}
+          aria-label="Narration position"
+          className="cnwm-scrub mt-4 w-full"
+          style={{
++           backgroundImage: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+-           background-image: "linear-gradient(to right, var(--color-primary-9) 0%, var(--color-primary-6) 0%)"
+          }}
+        >
+      ...
+
+  Failed to load resource: the server responded with a status of 404 (Not Found)
+
+All captures → docs/v7/qa/baseline-shots

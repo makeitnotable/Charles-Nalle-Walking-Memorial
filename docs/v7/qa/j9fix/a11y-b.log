@@ -1,0 +1,16 @@
+
+── baseline @768
+  axe /paintings @768 [rest] — 0 violation(s), 0 serious+
+  axe /map @768 [rest] — 0 violation(s), 0 serious+
+
+── states @768
+  axe /map @768 [menu-open] — 0 violation(s), 0 serious+
+  axe /map @768 [walk] — 0 violation(s), 0 serious+
+  axe /map @768 [lens-1858] — 0 violation(s), 0 serious+
+  axe /paintings @768 [dialog] — 0 violation(s), 0 serious+
+
+── zoom 200% (720×450)
+  /paintings: ok
+  /map: ok
+
+a11y → docs/v7/qa/j9fix/a11y-b/a11y.md — 0 serious/critical · 0 moderate · 0 minor across 6 runs

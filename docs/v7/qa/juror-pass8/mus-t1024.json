@@ -1,0 +1,958 @@
+{
+  "steps": {
+    "top": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip01 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": 341,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 8021
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 381,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 413
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 389,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 404
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 381,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 419
+          }
+        ],
+        "burger": [
+          {
+            "x": 912,
+            "y": 40,
+            "w": 72,
+            "h": 72,
+            "r": 984,
+            "b": 112,
+            "vis": true
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 0,
+        "dots": null,
+        "card": [],
+        "expand": [],
+        "scrollY": 0,
+        "stageTop": 341
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 0,
+        "railT": 0,
+        "approached": null,
+        "zoom": 1,
+        "yaw": 0,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "p0FromTop": {
+      "x": 824,
+      "y": 426,
+      "w": 334,
+      "h": 390,
+      "behind": false,
+      "canvasTop": 341,
+      "cx": 991,
+      "cy": 621
+    },
+    "approachFromTop": {
+      "ui": {
+        "chip": [],
+        "skip": [],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [
+          {
+            "x": 60,
+            "y": 524,
+            "w": 168,
+            "h": 38,
+            "r": 228,
+            "b": 562
+          }
+        ],
+        "alive": [
+          {
+            "aria": "Bring the painting to life",
+            "x": 291,
+            "y": 260,
+            "w": 442,
+            "h": 248,
+            "r": 733,
+            "b": 508
+          }
+        ],
+        "dotsN": 10,
+        "dots": {
+          "x": 386,
+          "y": 700,
+          "r": 698
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "approach",
+        "railIdx": 0,
+        "railT": 0,
+        "approached": 0,
+        "zoom": 1,
+        "yaw": -1.57,
+        "alive": -1,
+        "sheet": "peek"
+      },
+      "rect": {
+        "x": 291,
+        "y": 260,
+        "w": 442,
+        "h": 248,
+        "behind": false,
+        "canvasTop": 0,
+        "cx": 512,
+        "cy": 384
+      }
+    },
+    "afterBackFromTop": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip01 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": 0,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 7680
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 72
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 48,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 63
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 386,
+          "y": 700,
+          "r": 698
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 0,
+        "railT": 0,
+        "approached": null,
+        "zoom": 1,
+        "yaw": 0,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "railFlush": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip01 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": 0,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 7680
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 72
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 48,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 63
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 386,
+          "y": 700,
+          "r": 698
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 0,
+        "railT": 0,
+        "approached": null,
+        "zoom": 1,
+        "yaw": 0,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "railMid": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip04 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": -3000,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 4680
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 72
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 48,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 63
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": null,
+        "zoom": 1,
+        "yaw": 0,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "lookedAway": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "Face forwardSkip the hallSkip04 / 10",
+            "lines": 3,
+            "x": 0,
+            "y": -3000,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 4680
+          },
+          {
+            "txt": "Face forward",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 38,
+            "r": 1024,
+            "b": 78
+          },
+          {
+            "txt": "Face forward",
+            "lines": 1,
+            "x": 429,
+            "y": 40,
+            "w": 165,
+            "h": 38,
+            "r": 595,
+            "b": 78
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": null,
+        "zoom": 1,
+        "yaw": -3.22,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "faceForward": {
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip04 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": -3000,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 4680
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 72
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 48,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 63
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "rail",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": null,
+        "zoom": 1,
+        "yaw": -6.28,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "railIdxRect": {
+      "idx": 5,
+      "pi": {
+        "x": 154,
+        "y": 187,
+        "w": 133,
+        "h": 218,
+        "behind": false,
+        "canvasTop": 0,
+        "cx": 221,
+        "cy": 296
+      }
+    },
+    "approach": {
+      "ui": {
+        "chip": [],
+        "skip": [],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [
+          {
+            "x": 60,
+            "y": 494,
+            "w": 168,
+            "h": 38,
+            "r": 228,
+            "b": 532
+          }
+        ],
+        "alive": [
+          {
+            "aria": "Bring the painting to life",
+            "x": 291,
+            "y": 260,
+            "w": 442,
+            "h": 248,
+            "r": 733,
+            "b": 508
+          }
+        ],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      },
+      "st": {
+        "mode": "approach",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": 5,
+        "zoom": 1,
+        "yaw": -4.71,
+        "alive": -1,
+        "sheet": "peek"
+      },
+      "rect": {
+        "x": 291,
+        "y": 260,
+        "w": 442,
+        "h": 248,
+        "behind": false,
+        "canvasTop": 0,
+        "cx": 512,
+        "cy": 384
+      },
+      "vw": 1024,
+      "vh": 768
+    },
+    "alive": {
+      "st": {
+        "mode": "approach",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": 5,
+        "zoom": 1,
+        "yaw": -4.71,
+        "alive": 5,
+        "sheet": "peek"
+      },
+      "ui": {
+        "chip": [],
+        "skip": [],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [
+          {
+            "x": 60,
+            "y": 494,
+            "w": 168,
+            "h": 38,
+            "r": 228,
+            "b": 532
+          }
+        ],
+        "alive": [
+          {
+            "aria": "Let the painting rest",
+            "x": 291,
+            "y": 260,
+            "w": 442,
+            "h": 248,
+            "r": 733,
+            "b": 508
+          }
+        ],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      }
+    },
+    "rest": {
+      "st": {
+        "mode": "approach",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": 5,
+        "zoom": 1,
+        "yaw": -4.71,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "escBack": {
+      "st": {
+        "mode": "rail",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": null,
+        "zoom": 1,
+        "yaw": -6.28,
+        "alive": -1,
+        "sheet": "peek"
+      },
+      "ui": {
+        "chip": [
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walkSkip the hallSkip04 / 10",
+            "lines": 4,
+            "x": 0,
+            "y": -3000,
+            "w": 1024,
+            "h": 7680,
+            "r": 1024,
+            "b": 4680
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a paintingScroll to walk · tap a paintingScroll to walk",
+            "lines": 2,
+            "x": 0,
+            "y": 40,
+            "w": 1024,
+            "h": 32,
+            "r": 1024,
+            "b": 72
+          },
+          {
+            "txt": "The Museum · scroll to walk · drag to look · tap a painting",
+            "lines": 1,
+            "x": 260,
+            "y": 48,
+            "w": 504,
+            "h": 15,
+            "r": 764,
+            "b": 63
+          }
+        ],
+        "skip": [
+          {
+            "x": 40,
+            "y": 40,
+            "w": 186,
+            "h": 38,
+            "r": 226,
+            "b": 78
+          }
+        ],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [],
+        "alive": [],
+        "dotsN": 10,
+        "dots": {
+          "x": 387,
+          "y": 700,
+          "r": 699
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      }
+    },
+    "last": {
+      "st": {
+        "mode": "approach",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": 9,
+        "zoom": 1,
+        "yaw": -4.71,
+        "alive": -1,
+        "sheet": "peek"
+      },
+      "ui": {
+        "chip": [],
+        "skip": [],
+        "burger": [
+          {
+            "x": 914,
+            "y": 54,
+            "w": 68,
+            "h": 68,
+            "r": 982,
+            "b": 122,
+            "vis": false
+          }
+        ],
+        "back": [
+          {
+            "x": 60,
+            "y": 478,
+            "w": 168,
+            "h": 38,
+            "r": 228,
+            "b": 516
+          }
+        ],
+        "alive": [
+          {
+            "aria": "Bring the painting to life",
+            "x": 347,
+            "y": 136,
+            "w": 330,
+            "h": 495,
+            "r": 677,
+            "b": 631
+          }
+        ],
+        "dotsN": 10,
+        "dots": {
+          "x": 386,
+          "y": 700,
+          "r": 698
+        },
+        "card": [],
+        "expand": [],
+        "scrollY": 3341,
+        "stageTop": 0
+      },
+      "rect": {
+        "x": 347,
+        "y": 136,
+        "w": 330,
+        "h": 495,
+        "behind": false,
+        "canvasTop": 0,
+        "cx": 512,
+        "cy": 384
+      }
+    },
+    "arrowLeft": {
+      "st": {
+        "mode": "approach",
+        "railIdx": 3,
+        "railT": 0.43,
+        "approached": 8,
+        "zoom": 1,
+        "yaw": -7.85,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "arrowDownRail": {
+      "st": {
+        "mode": "rail",
+        "railIdx": 4,
+        "railT": 0.48,
+        "approached": null,
+        "zoom": 1,
+        "yaw": -6.28,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "lastBackVisible": 1,
+    "afterBackLast": {
+      "st": {
+        "mode": "rail",
+        "railIdx": 4,
+        "railT": 0.48,
+        "approached": null,
+        "zoom": 1,
+        "yaw": -6.28,
+        "alive": -1,
+        "sheet": "peek"
+      }
+    },
+    "burgerBeforeUp": [
+      {
+        "x": 914,
+        "y": 54,
+        "w": 68,
+        "h": 68,
+        "r": 982,
+        "b": 122,
+        "vis": false
+      }
+    ],
+    "burgerAfterUp": [
+      {
+        "x": 912,
+        "y": 40,
+        "w": 72,
+        "h": 72,
+        "r": 984,
+        "b": 112,
+        "vis": true
+      }
+    ],
+    "menuOpen": "true",
+    "skipped": {
+      "scrollY": 8021
+    },
+    "grid": [
+      {
+        "aria": "Holeur’s Fashionable Bakery” close",
+        "ar": 1.78
+      },
+      {
+        "aria": "Commissioner’s Office” closely",
+        "ar": 1.78
+      },
+      {
+        "aria": "Commissioner’s Office · Part 2” cl",
+        "ar": 1.78
+      },
+      {
+        "aria": "Uri Gilbert Home” closely",
+        "ar": 1.5
+      },
+      {
+        "aria": "Washington Street Ferry Landing” c",
+        "ar": 1.78
+      },
+      {
+        "aria": "Washington Street Ferry Landing · ",
+        "ar": 1.78
+      },
+      {
+        "aria": "Washington Street Ferry Landing · ",
+        "ar": 1.78
+      },
+      {
+        "aria": "Peter Baltimore’s Barbershop” clos",
+        "ar": 1.5
+      },
+      {
+        "aria": "Peter Baltimore’s Barbershop · Nar",
+        "ar": 1.5
+      },
+      {
+        "aria": "Peter Baltimore’s Barbershop · Nar",
+        "ar": 0.67
+      }
+    ]
+  },
+  "log": []
+}

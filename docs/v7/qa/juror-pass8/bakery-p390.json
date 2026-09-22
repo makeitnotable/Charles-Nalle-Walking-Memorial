@@ -1,0 +1,449 @@
+{
+  "key": "p390",
+  "route": "/bakery",
+  "steps": [
+    {
+      "label": "arrival",
+      "scrollY": 0,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Play narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": 1457,
+          "w": 56,
+          "h": 56
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "menu closed",
+      "scrollY": 0,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Play narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": 1457,
+          "w": 56,
+          "h": 56
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "after 600 down",
+      "scrollY": 600,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Play narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": 857,
+          "w": 56,
+          "h": 56
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "after 200 up",
+      "scrollY": 400,
+      "audios": [
+        {
+          "paused": true,
+          "t": 0,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Play narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": 1057,
+          "w": 56,
+          "h": 56
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "playing 3.5s",
+      "scrollY": 863,
+      "audios": [
+        {
+          "paused": false,
+          "t": 3.3,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 20,
+          "y": 594,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "tapped paragraph",
+      "scrollY": 2181,
+      "audios": [
+        {
+          "paused": false,
+          "t": 50.1,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -724,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "scrolled up away",
+      "scrollY": 781,
+      "audios": [
+        {
+          "paused": false,
+          "t": 51.4,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 20,
+          "y": 676,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "scrolled down away",
+      "scrollY": 3381,
+      "audios": [
+        {
+          "paused": false,
+          "t": 53,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -1924,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "after small up",
+      "scrollY": 3081,
+      "audios": [
+        {
+          "paused": false,
+          "t": 53.8,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -1624,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 20,
+        "op": "1",
+        "tf": "none",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "moral",
+      "scrollY": 5702,
+      "audios": [
+        {
+          "paused": false,
+          "t": 55.4,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -4245,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 29,
+          "y": 771,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "onward",
+      "scrollY": 7107,
+      "audios": [
+        {
+          "paused": false,
+          "t": 58.2,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -5650,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 25,
+          "y": 775,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "onward-b",
+      "scrollY": 7707,
+      "audios": [
+        {
+          "paused": false,
+          "t": 59.2,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -6250,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 25,
+          "y": 775,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    },
+    {
+      "label": "footer",
+      "scrollY": 7833,
+      "audios": [
+        {
+          "paused": false,
+          "t": 60.6,
+          "src": "ch1-bakery.mp3"
+        }
+      ],
+      "btns": [
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": false,
+          "x": 20,
+          "y": -6376,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "aria": "Pause narration: Holeur’s Fashionable Bakery",
+          "onscreen": true,
+          "x": 25,
+          "y": 775,
+          "w": 44,
+          "h": 44
+        }
+      ],
+      "menu": {
+        "y": 34,
+        "op": "0",
+        "tf": "matrix(0.94, 0, 0, 0.94, 0, 12)",
+        "vis": "visible"
+      }
+    }
+  ],
+  "paraCount": 3,
+  "tapSeek": {
+    "before": 3.99342,
+    "after": 50.049012
+  },
+  "moral": {
+    "heading": "rgb(246, 243, 238)",
+    "body": "rgb(246, 243, 238)",
+    "bodyText": "Laws like the Fugitive Slave Act demonstrate how the legal s",
+    "caption": "rgb(255, 151, 112)",
+    "captionText": "The moral"
+  },
+  "footerFloating": [],
+  "continueText": "Continue",
+  "landed": "https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office",
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch1-bakery.mp3 net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt2.mp3 net::ERR_ABORTED",
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch2-commissioners-office-pt1.mp3 net::ERR_ABORTED"
+  ]
+}

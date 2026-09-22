@@ -1,0 +1,416 @@
+---
+// Home — approved signature #6: full-viewport photo frame, three-stack
+// (Troy, NY → interlocked wordmark → 1821—1875 rule), Continue pill, mission
+// copy with hand-authored breaks. The v2 entry moment folds IN: the splash
+// film plays inside the photo frame, the stack rises in sequence, the date
+// rule draws itself. Reduced motion: static frame, everything visible.
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { withBase } from "../lib/url";
+---
+
+<Base
+  title="Charles Nalle Walking Memorial · Troy, NY"
+  description="Walk the streets of Troy, New York, where on April 27, 1860 the people of the city rose up, Harriet Tubman among them, to free Charles Nalle from the Fugitive Slave Act."
+  preloadImages={[
+    { href: withBase("media/site/home-bg-800.avif"), type: "image/avif", media: "(max-width: 767px)" },
+    { href: withBase("media/site/home-bg-1440.avif"), type: "image/avif", media: "(min-width: 768px)" },
+  ]}
+  noMenu
+>
+  {/* Items 3–4: no menu on the title card; the frame runs nearly full-bleed
+      (was p-4/p-12 — a picture on a wall, not a doorway). */}
+  <div class="h-dvh p-2.5 md:p-5">
+    <div class="relative flex h-full flex-col items-center justify-between">
+      <!-- The photo frame: film plays inside it, treated like the approved still -->
+      <div
+        class="home-frame absolute inset-0 z-0 overflow-hidden rounded-[32px] border border-primary-7"
+        aria-hidden="true"
+      >
+        {/* v12 item 8 (Wil, 8/26): "Image on home page on desktop is low res."
+            It was, and the still was not the reason. The frame's first paint
+            was a poster attribute pinned to the 800px file, and what played
+            over it was a 480x720 film — a 3x upscale into a 1430px frame —
+            while the 1080x1920 still already on disk was reserved for reduced
+            motion. So: the STILL is the base layer at all times, art-directed
+            (800 on phones, where 800 is already right for a 390px frame at 2x;
+            1080 from 768 up), and the film — re-encoded from the master at its
+            own 800x1200 instead of 480x720, 0.23MB to 0.84MB, still lazy and
+            still after window.load — lies over it and covers it once playing.
+            The poster attribute goes with the double fetch it caused.
+            1080 and 800x1200 are the masters' own ceilings (confirmed by Wil,
+            8/26): this is as sharp as the source gets, not a chosen budget. */}
+        {/* Art-directed by WIDTH, deliberately, not by `sizes` + w-descriptors:
+            the preload above is media-split, and a density-based pick would
+            disagree with it on any phone at DPR 3 (945px of demand from a
+            412px viewport selects the 1080 file while the preload fetched the
+            800). Two explicit sources make the choice deterministic, so the
+            preload is always the file the page then uses. */}
+        <picture>
+          <source media="(max-width: 767px)" type="image/avif" srcset={withBase("media/site/home-bg-800.avif")} />
+          <source type="image/avif" srcset={withBase("media/site/home-bg-1440.avif")} />
+          <img
+            class="home-media absolute inset-0 h-full w-full object-cover"
+            style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
+            src={withBase("media/site/home-bg-1440.jpg")}
+            fetchpriority="high"
+            alt=""
+          />
+        </picture>
+        <video
+          class="lazy-video home-media absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+          style="filter: grayscale(100%) brightness(0.6) contrast(1) sepia(0.1)"
+          data-src={withBase("media/site/splash.mp4")}
+          preload="none"
+          autoplay
+          muted
+          loop
+          playsinline></video>
+        {/* The approved contour texture (homepage-overlay), re-budgeted to webp */}
+        <img
+          class="absolute inset-0 h-full w-full object-cover opacity-[0.07]"
+          src={withBase("media/site/homepage-overlay-900.avif")}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0" style="background: var(--scrim-photo)"></div>
+      </div>
+
+      {/* One composed stack, centred as a group.
+          `justify-between` used to fling three islands to the top, middle and
+          bottom of the frame — 154px of nothing between the date rule and the
+          button, 163px between the button and the copy. The eye had nothing to
+          hold. Everything below is one lockup with authored spacing. */}
+      {/* v7 H1/H4: the lockup starts BELOW Charles Nalle's chin (his head is
+          at ~30–40% of the frame at every aspect once the film is positioned),
+          and on phones the CTA is pinned to the frame's bottom on the content
+          inset. Landscape phones keep the centred in-flow layout. */}
+      <div class="home-stack z-10 flex h-full w-full flex-col items-center px-4 text-center">
+        <p class="t-meta home-seq" style="--seq: 0">Troy, New York · April 27, 1860</p>
+
+        <h1 class="flex flex-col" aria-label="Charles Nalle">
+          <span class="t-wordmark home-seq" style="--seq: 1">Charles</span>
+          <span class="t-wordmark home-seq self-end" style="--seq: 2; margin-top: -0.06em">Nalle</span>
+        </h1>
+
+        <div class="home-seq flex items-center gap-2" style="--seq: 3">
+          <p class="t-meta">1821</p>
+          <div class="rule-draw -mt-0.5 h-[1px] w-[28px] bg-primary-10"></div>
+          <p class="t-meta">1875</p>
+        </div>
+
+        {/* The story, not the format. This said "a digital physical experience
+            designed to share the history of Troy" — a description of the
+            deliverable, in the smallest type on the page, at the very bottom. */}
+        {/* Item 6 (amended — RUN-STATE D3): the Figma descriptor sentence
+            describes the deliverable and would fail the E1 thesis gate; the
+            thesis sentence stays, with the rag authored instead of left to
+            the breaker. Queued for Wil in the REVIEW-GUIDE. */}
+        {/* v7 H2/H5: measure widened to three lines at ≥1200 (balanced), the
+            last two words glued; the role steps up to 16px cream at .92 on a
+            deeper film so it measures ≥ 4.5:1 by pixel (contrast.mjs). */}
+        {/* v8 V8-104 (Wil, 00:56:45): on portrait phones the rag is a hand-
+            authored stack — every break on a phrase boundary, widths tapering
+            18/29/36/38/31/30/23 so the centred block reads as one shape. The
+            breaks vanish from 640 up (the balancer holds 4–3 lines there). */}
+        <p
+          class="home-desc home-seq text-balance"
+          style="--seq: 4"
+        >
+          On April 27, 1860,{" "}
+          <br class="home-br" />
+          the people of Troy, New York,{" "}
+          <br class="home-br" />
+          took Charles Nalle back from the men{" "}
+          <br class="home-br" />
+          who had come to return him to slavery.{" "}
+          <br class="home-br" />
+          Harriet Tubman stood with them.{" "}
+          <br class="home-br" />
+          Five locations across the city{" "}
+          <br class="home-br" />
+          mark where&nbsp;it&nbsp;happened.
+        </p>
+
+        {/* v7 H3 (Wil): the story, not the format. */}
+        <a href={withBase("map")} class="btn btn-cta btn-icon-end home-cta home-seq" style="--seq: 5">
+          Walk the story
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  /* The photograph settles to a presence you can actually read. At 0.5 — on top
+     of grayscale, brightness 0.6 and a scrim — the front door had no legible
+     subject at all: a visitor could not tell what they were looking at. */
+  .home-frame {
+    opacity: 0.72;
+  }
+  /* v7 H1 — art direction of the film/still (portrait source, 1080×1920; the
+     subject's head sits at 30–40% of the source). Portrait frames show the
+     source's full height, so only the lockup moves; landscape frames crop
+     vertically, so the film is positioned to show the whole head with
+     headroom (was 50%, which guillotined it). */
+  .home-media {
+    object-position: 50% 50%;
+  }
+  /* v8 V8-104 (Wil, 00:56:45): portrait PHONES show the source's full height
+     (frame aspect < 0.5625), so object-position can't lift the head — the
+     media scales about its bottom edge instead, cropping the source's top and
+     lifting the chin from ≈40% to ≈34.6% of the frame. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-media {
+      /* v9 V9-401 (Wil, 8/21): "the image needs to get moved up… the head of
+         Charles Nalle should be visible and positioned just below the top of
+         the page". Scaling about the bottom edge crops the source's top and
+         carries the subject up; 1.09 → 1.2 puts the chin near 30% of the
+         frame, which is what frees the middle band for the lockup. */
+      transform: scale(1.2);
+      transform-origin: 50% 100%;
+    }
+  }
+  /* The lockup starts below the chin. Portrait phones (chin ≈ 34.6% after
+     the lift) → eyebrow at ≈ 37%; landscape frames are positioned so the
+     chin lands at 30–35% → eyebrow at ≈ 32%. */
+  /* v10.2 V10-13. The air above the lockup is a SHRINKABLE SPACER, not padding.
+     Every tier below states the air it wants in `--home-air`; the spacer takes
+     that much when the frame has room and gives it back — all the way to zero —
+     when it does not. Its siblings are `min-height: auto`, so none of them can
+     shrink below its own content: the free space is taken from the air first
+     and from the lockup never, which is what makes the CTA overflowing the
+     frame impossible rather than merely unlikely. (V10-11 tried to predict the
+     content height with a formula instead; on Wil's own iPhone that fit by 8px,
+     which is not a margin.) The spacer sheds one `--home-gap`, since the gap
+     now falls above the first item too — so the air still measures --home-air. */
+  .home-stack {
+    justify-content: flex-start;
+    --home-air: clamp(190px, 37dvh, 420px);
+    --home-gap: clamp(20px, 4vh, 44px);
+    gap: var(--home-gap);
+    padding-bottom: 16px;
+  }
+  .home-stack::before {
+    content: "";
+    flex: 0 1 max(0px, calc(var(--home-air) - var(--home-gap)));
+    min-height: 0;
+  }
+  /* v9 V9-401: portrait phones were bottom-heavy — the lockup began at 37% and
+     the CTA was pinned to the floor with `margin-top:auto`, so everything sat
+     in the lower half with a dead band above it. The head now sits higher, so
+     the whole lockup starts higher and simply flows: one composed block with
+     air above it and a comfortable margin below the button. */
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-stack {
+      --home-air: clamp(150px, 30dvh, 320px);
+      /* V10-13: the bottom inset yields too, so the last 24px of a short frame
+         is never spent on air the lockup needs. */
+      padding-bottom: clamp(16px, 4dvh, 40px);
+    }
+  }
+  /* v8 V8-103 (Wil, 00:35:22) — portrait tablets used to fall through every
+     query to the phone rule and clump at the bottom. Their frame is WIDER
+     than the source (0.75 vs 0.5625) so they crop vertically: the head rides
+     up via object-position, and the lockup gets its own beats. */
+  @media (orientation: portrait) and (min-width: 768px) {
+    .home-media {
+      object-position: 50% 37%;
+    }
+    .home-stack {
+      --home-air: clamp(220px, 36dvh, 400px);
+      --home-gap: clamp(20px, 3.4vh, 40px);
+    }
+  }
+  @media (orientation: landscape) and (min-height: 501px) {
+    .home-media {
+      object-position: 50% 39%;
+    }
+    .home-stack {
+      --home-air: clamp(180px, 32dvh, 380px);
+    }
+  }
+  /* Short landscape frames (laptops at 768–820 tall): the head is placed a
+     little higher and the beats tighten so the lockup fits with the CTA
+     inside the frame. */
+  @media (orientation: landscape) and (min-height: 501px) and (max-height: 820px) {
+    .home-media {
+      object-position: 50% 42%;
+    }
+    .home-stack {
+      --home-air: clamp(170px, 30dvh, 260px);
+      --home-gap: clamp(16px, 3vh, 32px);
+    }
+  }
+  @media (orientation: portrait) and (max-height: 820px) {
+    .home-stack {
+      --home-gap: clamp(14px, 3vh, 28px);
+    }
+  }
+  @media (max-height: 700px) and (orientation: portrait) {
+    .home-stack {
+      /* 35dvh (was 33): with the v8 head-lift the chin sits at ≈34.6% —
+         keep the eyebrow under it on 640–700-tall phones. */
+      --home-air: clamp(150px, 35dvh, 250px);
+      --home-gap: clamp(14px, 3vh, 24px);
+    }
+  }
+  @media (max-height: 620px) and (orientation: portrait) {
+    .home-stack {
+      --home-air: clamp(100px, 22dvh, 160px);
+      --home-gap: 12px;
+    }
+  }
+  /* v7 H4 → v8 V8-104 (Wil, 00:55:44): the CTA stays pinned to the frame's
+     bottom but HUGS its label (it filled the whole section); the side margin
+     it gave up moves under it. The authored rag breaks live only here. */
+  .home-br {
+    display: none;
+  }
+  @media (max-width: 767px) and (orientation: portrait) {
+    .home-cta {
+      /* v9 V9-401: `margin-top: auto` flung it to the frame's floor and left
+         the copy stranded above; it now closes the lockup at one gap, inside
+         the frame's bottom inset. */
+      justify-content: center;
+    }
+    .home-br {
+      display: inline;
+    }
+    /* v9 V9-402 (Wil, 8/21: the rag is "literally perfect" on a Pixel 6 and
+       wrong on an iPhone 13 Pro — same markup, same 7 authored breaks). The
+       measure is not the cause: the widest line is 301px inside a 358px
+       column, 19% of headroom. `text-wrap: balance` is: this paragraph carries
+       BOTH hard breaks and balancing, and the two engines disagree about what
+       to do with that combination (Chromium declines to balance past six
+       lines; WebKit balances anyway), so the same source ragged differently
+       per browser. Where the breaks are hand-authored, nothing may second-
+       guess them. */
+    .home-desc {
+      text-wrap-style: auto;
+    }
+  }
+  /* The eyebrow crosses the lit part of the film at desktop widths; a soft
+     ink halo (not a chip) keeps it ≥ 4.5:1 by pixel without a box. */
+  .home-stack > .t-meta.home-seq {
+    text-shadow: 0 1px 2px rgba(16, 10, 6, 0.9), 0 0 14px rgba(16, 10, 6, 0.85);
+  }
+  /* v7 H2 — three balanced lines at desktop widths. */
+  .home-desc {
+    font-family: var(--font-chrome);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--color-neutral-12);
+    opacity: 0.92;
+    max-width: 46ch;
+  }
+  @media (min-width: 1200px) {
+    .home-desc {
+      max-width: 60ch;
+    }
+  }
+  /* A phone held sideways: the stack must answer to 390px of height. Tighter
+     beats, a wider (shorter) description — nothing hidden, nothing clipped;
+     the lockup stays centred (no head-room rule at 370px tall). */
+  @media (max-height: 500px) {
+    .home-stack {
+      justify-content: center;
+      padding-top: 16px;
+      --home-gap: clamp(10px, 2.6vh, 16px);
+    }
+    /* This tier centres the lockup rather than setting air above it, so the
+       spacer has no job here — and a centred spacer would only push the whole
+       group down. */
+    .home-stack::before {
+      display: none;
+    }
+    .home-desc {
+      max-width: 64ch;
+    }
+  }
+  /* v14 E26 (client): on tablets and phones the CTA is pinned to the frame's
+     bottom again (v9 V9-401 had let it flow). `margin-top: auto` takes the
+     free space AFTER the air spacer has what it asked for, and yields to
+     zero before any sibling shrinks — so the lockup keeps its air rules and
+     the CTA can never leave the frame. The bottom inset is set against the
+     16px side inset: 24px on phones, 32px from 768, never under the home
+     indicator. Below 1024, the site's desktop line; desktop is unchanged. */
+  /* v14.2 (Wil, 9/16): the CTA's bottom inset steps up to 56px on phones and
+     64px on 768–1023 (was 24/32); the air spacer above absorbs the difference. */
+  /* v14.3 (Wil, 9/16): "cut the extra vertical space" under the CTA — 28px on
+     phones and 48px on 768–1023 (was 56/64). Same max() against the home
+     indicator; the landscape tier and desktop are untouched. */
+  @media (max-width: 1023px) {
+    .home-cta {
+      margin-top: auto;
+    }
+    .home-stack {
+      padding-bottom: max(28px, env(safe-area-inset-bottom, 0px));
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .home-stack {
+      padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
+    }
+  }
+  /* The landscape-phone tier above stays centred: at 844×390 the lockup
+     already fills the frame (12px spare top and bottom), so there is nothing
+     to pin it against, and a taller bottom inset would only push it off-centre. */
+  @media (max-height: 500px) {
+    .home-cta {
+      margin-top: 0;
+    }
+    .home-stack {
+      padding-bottom: 16px;
+    }
+  }
+  /* Entry choreography — staggered rise, rule draw. CSS-only so the no-JS
+     and reduced-motion states are simply "everything visible". */
+  .home-seq {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .home-frame {
+      animation: frame-in var(--dur-slow) var(--ease) both;
+    }
+    @keyframes frame-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 0.72;
+      }
+    }
+    .home-seq {
+      animation: home-rise var(--dur-fast) var(--ease) both;
+      animation-delay: calc(120ms + var(--seq) * 110ms);
+    }
+    @keyframes home-rise {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    .rule-draw {
+      animation: rule-x var(--dur-slow) var(--ease) both;
+      animation-delay: calc(120ms + 3 * 110ms);
+      transform-origin: left center;
+    }
+    @keyframes rule-x {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+</style>

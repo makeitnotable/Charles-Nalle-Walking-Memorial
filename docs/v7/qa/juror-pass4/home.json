@@ -1,0 +1,796 @@
+{
+  "p390": {
+    "info": {
+      "eyebrow": {
+        "x": 73,
+        "y": 356,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 26,
+        "y": 770,
+        "w": 338,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 50%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 50%",
+        "src": "home-bg-800.avif"
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 48,
+          "fs": "54px",
+          "lh": "47.52px",
+          "color": "rgb(246, 243, 238)",
+          "w": 228
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 48,
+          "fs": "54px",
+          "lh": "47.52px",
+          "color": "rgb(246, 243, 238)",
+          "w": 163
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 124,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 338
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2715,
+    "burger": "NOT FOUND"
+  },
+  "p360": {
+    "info": {
+      "eyebrow": {
+        "x": 58,
+        "y": 338,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 26,
+        "y": 726,
+        "w": 308,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 50%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 50%",
+        "src": "home-bg-800.avif"
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 48,
+          "fs": "54px",
+          "lh": "47.52px",
+          "color": "rgb(246, 243, 238)",
+          "w": 228
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 48,
+          "fs": "54px",
+          "lh": "47.52px",
+          "color": "rgb(246, 243, 238)",
+          "w": 163
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 149,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 308
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2192,
+    "burger": "NOT FOUND"
+  },
+  "t768": {
+    "info": {
+      "eyebrow": {
+        "x": 262,
+        "y": 440,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 259,
+        "y": 879,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 50%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 50%",
+        "src": ""
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 74,
+          "fs": "84.48px",
+          "lh": "74.3424px",
+          "color": "rgb(246, 243, 238)",
+          "w": 356
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 74,
+          "fs": "84.48px",
+          "lh": "74.3424px",
+          "color": "rgb(246, 243, 238)",
+          "w": 254
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 99,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 471
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2192,
+    "burger": "NOT FOUND"
+  },
+  "t1024": {
+    "info": {
+      "eyebrow": {
+        "x": 390,
+        "y": 250,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 387,
+        "y": 666,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 42%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 42%",
+        "src": ""
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 99,
+          "fs": "112.64px",
+          "lh": "99.1232px",
+          "color": "rgb(246, 243, 238)",
+          "w": 475
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 99,
+          "fs": "112.64px",
+          "lh": "99.1232px",
+          "color": "rgb(246, 243, 238)",
+          "w": 339
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 99,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 471
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2312,
+    "burger": "NOT FOUND"
+  },
+  "d1440": {
+    "info": {
+      "eyebrow": {
+        "x": 588,
+        "y": 308,
+        "w": 264,
+        "h": 18
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 595,
+        "y": 779,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 39%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 39%",
+        "src": ""
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 113,
+          "fs": "128px",
+          "lh": "112.64px",
+          "color": "rgb(246, 243, 238)",
+          "w": 540
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 113,
+          "fs": "128px",
+          "lh": "112.64px",
+          "color": "rgb(246, 243, 238)",
+          "w": 385
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 264
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 31
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 32
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 74,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 614
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2205,
+    "burger": "NOT FOUND"
+  },
+  "d1920": {
+    "info": {
+      "eyebrow": {
+        "x": 828,
+        "y": 366,
+        "w": 264,
+        "h": 18
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 835,
+        "y": 865,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 39%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 39%",
+        "src": ""
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 113,
+          "fs": "128px",
+          "lh": "112.64px",
+          "color": "rgb(246, 243, 238)",
+          "w": 540
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 113,
+          "fs": "128px",
+          "lh": "112.64px",
+          "color": "rgb(246, 243, 238)",
+          "w": 385
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 264
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 31
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 18,
+          "fs": "13px",
+          "lh": "17.55px",
+          "color": "rgb(255, 151, 112)",
+          "w": 32
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 74,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 614
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2231,
+    "burger": "NOT FOUND"
+  },
+  "land": {
+    "info": {
+      "eyebrow": {
+        "x": 300,
+        "y": 34,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 297,
+        "y": 308,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 50%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 50%",
+        "src": ""
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 65,
+          "fs": "74.1px",
+          "lh": "65.208px",
+          "color": "rgb(246, 243, 238)",
+          "w": 312
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 65,
+          "fs": "74.1px",
+          "lh": "65.208px",
+          "color": "rgb(246, 243, 238)",
+          "w": 223
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 74,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 655
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2197,
+    "burger": "NOT FOUND"
+  },
+  "z200": {
+    "info": {
+      "eyebrow": {
+        "x": 238,
+        "y": 57,
+        "w": 244,
+        "h": 16
+      },
+      "eyebrowText": "Troy, New York · April 27, 1860",
+      "cta": {
+        "x": 235,
+        "y": 345,
+        "w": 250,
+        "h": 48
+      },
+      "ctaText": "Walk the story",
+      "ctaHref": "/Charles-Nalle-Walking-Memorial/map",
+      "video": {
+        "pos": "50% 50%",
+        "src": "splash.mp4",
+        "playing": true
+      },
+      "img": {
+        "pos": "50% 50%",
+        "src": "home-bg-800.avif"
+      },
+      "desc": [
+        {
+          "t": "CHARLES",
+          "lines": 1,
+          "h": 70,
+          "fs": "79.2px",
+          "lh": "69.696px",
+          "color": "rgb(246, 243, 238)",
+          "w": 334
+        },
+        {
+          "t": "NALLE",
+          "lines": 1,
+          "h": 70,
+          "fs": "79.2px",
+          "lh": "69.696px",
+          "color": "rgb(246, 243, 238)",
+          "w": 238
+        },
+        {
+          "t": "TROY, NEW YORK · APRIL 27, 1860",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 244
+        },
+        {
+          "t": "1821",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "1875",
+          "lines": 1,
+          "h": 16,
+          "fs": "12px",
+          "lh": "16.2px",
+          "color": "rgb(255, 151, 112)",
+          "w": 29
+        },
+        {
+          "t": "On April 27, 1860, the people of Troy, N",
+          "lines": 1,
+          "h": 74,
+          "fs": "16px",
+          "lh": "24.8px",
+          "color": "rgb(246, 243, 238)",
+          "w": 655
+        }
+      ],
+      "title": "Charles Nalle Walking Memorial · Troy, NY",
+      "links": [
+        "Skip to content -> #main",
+        "Walk the story -> /Charles-Nalle-Walking-Memorial/map"
+      ],
+      "hScroll": false
+    },
+    "log": [],
+    "loadMs": 2189,
+    "burger": "NOT FOUND"
+  },
+  "reduced": {
+    "log": [],
+    "visible": [
+      {
+        "t": "Skip to content",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "Charles",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "Nalle",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "Troy, New York · April 27, 186",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "CharlesNalle",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "1821",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "1875",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "On April 27, 1860, the people ",
+        "op": "1",
+        "vis": "visible"
+      },
+      {
+        "t": "Walk the story",
+        "op": "1",
+        "vis": "visible"
+      }
+    ]
+  }
+}

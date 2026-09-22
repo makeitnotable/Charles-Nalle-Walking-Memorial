@@ -1,0 +1,858 @@
+{
+  "overview.markers": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 1148,
+      "y": 468,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 1018,
+      "y": 309,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 1078,
+      "y": 565,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": 784,
+      "y": 950,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 1002,
+      "y": 297,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    }
+  ],
+  "overview.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 952,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "overview.buttons": {
+    "Take the walk": {
+      "x": 765.2890625,
+      "y": 964,
+      "width": 206.703125,
+      "height": 48
+    },
+    "See Troy in 1858": {
+      "x": 983.9921875,
+      "y": 966,
+      "width": 170.71875,
+      "height": 44
+    }
+  },
+  "overview.scrollY": 0,
+  "wheel.scrollY-after-plain-wheel": 300,
+  "wheel.scrollY-after-back": 0,
+  "wheel.scrollY-after-ctrl-wheel": 0,
+  "wheel.notice": [
+    {
+      "t": "Drag to explore · pinch or scroll to zoom",
+      "o": "1"
+    }
+  ],
+  "index.titles": [
+    {
+      "t": "Holeur’s Fashionable Bakery",
+      "lines": 1
+    },
+    {
+      "t": "Commissioner’s Office",
+      "lines": 1
+    },
+    {
+      "t": "Uri Gilbert Home",
+      "lines": 1
+    },
+    {
+      "t": "Washington Street Ferry Landing",
+      "lines": 1
+    },
+    {
+      "t": "Peter Baltimore’s Barbershop",
+      "lines": 1
+    }
+  ],
+  "take.btn": {
+    "x": 765.2890625,
+    "y": 824,
+    "width": 206.703125,
+    "height": 48
+  },
+  "walk.scrollY-after-take": 0,
+  "walk.buttons-1s": {
+    "Stop the walk": {
+      "x": 1694.1875,
+      "y": 56,
+      "width": 169.8125,
+      "height": 38
+    },
+    "Back": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "walk.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 952,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+",
+      "t": "Spot1Holeur’s Fashionable BakerySpot2Commissioner’",
+      "x": 0,
+      "y": 736,
+      "w": 1920,
+      "h": 344
+    }
+  ],
+  "walk.markers-4s": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 1443,
+      "y": 1076,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 831,
+      "y": 179,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 1046,
+      "y": 2425,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": 33554428,
+      "y": 33554428,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 780,
+      "y": 139,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    }
+  ],
+  "walk.cards-4s": [
+    {
+      "x": 172,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot1Holeur’s\nFashionable Bake"
+    },
+    {
+      "x": 703,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot2Commissioner’s\nOffice"
+    },
+    {
+      "x": 1233,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot3Uri Gilbert Home"
+    },
+    {
+      "x": 1764,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot4Washington Street Ferry L"
+    },
+    {
+      "x": 2294,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot5Peter Baltimore’s Barbers"
+    }
+  ],
+  "walk.markers-8s": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 1421,
+      "y": 166,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 1270,
+      "y": -229,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 932,
+      "y": 422,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": -4197,
+      "y": 3009,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 1245,
+      "y": -252,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    }
+  ],
+  "walk.buttons-8s": {
+    "Stop the walk": {
+      "x": 1694.1875,
+      "y": 56,
+      "width": 169.8125,
+      "height": 38
+    },
+    "Back": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "drag.buttons-immediately": {
+    "Continue": {
+      "x": 1737.640625,
+      "y": 56,
+      "width": 126.359375,
+      "height": 38
+    },
+    "Back": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "drag.cards-after": [
+    {
+      "x": -889,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot1Holeur’s\nFashionable Bake"
+    },
+    {
+      "x": -358,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot2Commissioner’s\nOffice"
+    },
+    {
+      "x": 172,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot3Uri Gilbert Home"
+    },
+    {
+      "x": 703,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot4Washington Street Ferry L"
+    },
+    {
+      "x": 1233,
+      "w": 515,
+      "y": 736,
+      "h": 192,
+      "t": "Spot5Peter Baltimore’s Barbers"
+    }
+  ],
+  "drag.samples": [
+    173,
+    173,
+    173,
+    111,
+    111,
+    49,
+    -12,
+    -74,
+    -74,
+    -136,
+    -197,
+    -259,
+    -259,
+    -321,
+    -383,
+    -383,
+    -444,
+    -506,
+    -506,
+    -568,
+    -568,
+    -629,
+    -629,
+    -565,
+    -532,
+    -491,
+    -461,
+    -443,
+    -431,
+    -418,
+    -404,
+    -396,
+    -390,
+    -385,
+    -378,
+    -375,
+    -371,
+    -369,
+    -367,
+    -365
+  ],
+  "drag.markers": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 2256,
+      "y": -258,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 1912,
+      "y": -443,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 2065,
+      "y": -160,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": 958,
+      "y": 369,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 1877,
+      "y": -455,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": false
+    }
+  ],
+  "smalldrag.before": [
+    -889,
+    -358,
+    172,
+    703,
+    1233
+  ],
+  "smalldrag.after": [
+    -889,
+    -358,
+    172,
+    703,
+    1233
+  ],
+  "continue.btn": {
+    "t": "Continue",
+    "aria": "Continue the walk",
+    "b": {
+      "x": 1737.640625,
+      "y": 56,
+      "width": 126.359375,
+      "height": 38
+    }
+  },
+  "continue.buttons": {
+    "Stop the walk": {
+      "x": 1694.1875,
+      "y": 56,
+      "width": 169.8125,
+      "height": 38
+    },
+    "Back": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "back.btn": {
+    "t": "Back to map",
+    "aria": "Back to map",
+    "b": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "back.markers": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 1148,
+      "y": 468,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 1018,
+      "y": 309,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 1078,
+      "y": 565,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": 784,
+      "y": 950,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 1002,
+      "y": 297,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    }
+  ],
+  "back.buttons": {
+    "Take the walk": {
+      "x": 765.2890625,
+      "y": 964,
+      "width": 206.703125,
+      "height": 48
+    },
+    "See Troy in 1858": {
+      "x": 983.9921875,
+      "y": 966,
+      "width": 170.71875,
+      "height": 44
+    }
+  },
+  "back.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 952,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "lens.btn": {
+    "x": 983.9921875,
+    "y": 966,
+    "width": 170.71875,
+    "height": 44
+  },
+  "lens.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 952,
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "lens.buttons": {
+    "Back": {
+      "x": 875.46875,
+      "y": 980,
+      "width": 169.046875,
+      "height": 44
+    },
+    "Back to today": {
+      "x": 875.46875,
+      "y": 980,
+      "width": 169.046875,
+      "height": 44
+    }
+  },
+  "lens.caption": [
+    {
+      "t": "+−⟲Troy, New York · 1858 · Library of CongressDrag to explore · pinch or scroll to zoomDrag to explore · pinch to zoomBack to today",
+      "lines": 1,
+      "r": [
+        0,
+        0,
+        1920,
+        1080
+      ]
+    },
+    {
+      "t": "Drag to explore · pinch or scroll to zoomDrag to explore · pinch to zoom",
+      "lines": 1,
+      "r": [
+        816,
+        946,
+        287,
+        23
+      ]
+    },
+    {
+      "t": "Drag to explore · pinch or scroll to zoom",
+      "lines": 1,
+      "r": [
+        816,
+        947,
+        287,
+        19
+      ]
+    }
+  ],
+  "lens.backtoday": {
+    "x": 875.46875,
+    "y": 980,
+    "width": 169.046875,
+    "height": 44
+  },
+  "afterlens.buttons": {
+    "Take the walk": {
+      "x": 765.2890625,
+      "y": 964,
+      "width": 206.703125,
+      "height": 48
+    },
+    "See Troy in 1858": {
+      "x": 983.9921875,
+      "y": 966,
+      "width": 170.71875,
+      "height": 44
+    }
+  },
+  "afterlens.markers": [
+    {
+      "label": "Spot 1: Holeur’s Fashionable Bakery",
+      "x": 1148,
+      "y": 468,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 2: Commissioner’s Office",
+      "x": 1018,
+      "y": 309,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 3: Uri Gilbert Home",
+      "x": 1078,
+      "y": 565,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 4: Washington Street Ferry Landing (no plaque",
+      "x": 784,
+      "y": 950,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    },
+    {
+      "label": "Spot 5: Peter Baltimore’s Barbershop",
+      "x": 1002,
+      "y": 297,
+      "w": 0,
+      "h": 0,
+      "cls": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "inner": "mapboxgl-marker mapboxgl-marker-anchor-center",
+      "current": null,
+      "pressed": null,
+      "inView": true
+    }
+  ],
+  "markertap.buttons": {
+    "Continue": {
+      "x": 1737.640625,
+      "y": 56,
+      "width": 126.359375,
+      "height": 38
+    },
+    "Back": {
+      "x": 56,
+      "y": 56,
+      "width": 174.734375,
+      "height": 38
+    }
+  },
+  "markertap.floating": [
+    {
+      "tag": "div",
+      "cls": "curtain-panel",
+      "t": "",
+      "x": 0,
+      "y": 1080,
+      "w": 1920,
+      "h": 1080
+    },
+    {
+      "tag": "div",
+      "cls": "cnwm-menu fixed bottom-[var(--ui-inset)] right-[var(--ui-ins",
+      "t": "Home01Bakery02Commissioner’s Office03Gilbert Home0",
+      "x": 1792,
+      "y": 952,
+      "w": 72,
+      "h": 72
+    },
+    {
+      "tag": "div",
+      "cls": "fixed right-0 bottom-0 left-0 z-10 pb-[calc(var(--ui-inset)+",
+      "t": "Spot1Holeur’s Fashionable BakerySpot2Commissioner’",
+      "x": 0,
+      "y": 736,
+      "w": 1920,
+      "h": 344
+    }
+  ],
+  "menu.burger": {
+    "x": 1792,
+    "y": 952,
+    "width": 72,
+    "height": 72
+  },
+  "consoleErrors": []
+}

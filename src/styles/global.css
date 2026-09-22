@@ -1,0 +1,3127 @@
+@import "tailwindcss";
+
+/* ONE FAMILY, TWO CUTS (self-hosted) — v6 audition verdict, RUN-STATE D1/D2.
+ * Libre Caslon Display — display, titles, spine numerals. 400 only: the
+ *   drama comes from hairline contrast at scale, never from bulk.
+ * Libre Caslon Text    — prose, quotes, and ALL chrome (meta/buttons) as
+ *   letterspaced caps. Real italic exists — use it, never synthesise bold.
+ * No oldstyle figures in this family: dates are set in the BROADSIDE
+ * register (letterspaced caps + lining figures), like an 1860 handbill. */
+@import "@fontsource/libre-caslon-display/400.css";
+@import "@fontsource/libre-caslon-text/400.css";
+@import "@fontsource/libre-caslon-text/400-italic.css";
+@import "@fontsource/libre-caslon-text/700.css";
+
+/* Tailwind v4 must scan the React islands explicitly — the Vite plugin missed
+ * them in production builds, so island-only utilities (h-[100dvh],
+ * aspect-[3/2], portrait:*) were never emitted and the map rendered 0-height.
+ * Paths are relative to this file. */
+@source "../components";
+@source "../pages";
+@source "../layouts";
+
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CNWM v4 — "The Craft Run" design system.
+ * Contract: docs/v4/DESIGN-STANDARDS.md · acceptance bar: docs/v4/CALIBER-RUBRIC.md
+ *
+ * The v3 system failed because it was a smooth ×1.25/×1.5 ladder in one voice
+ * with a border on every surface: nothing ever won, so the page read as
+ * "thrown together". v4 replaces it with:
+ *
+ *   FEW SIZES, VIOLENT JUMPS — 4 type roles; display ≈ 5× prose at desktop.
+ *   TWO VOICES — serif prose against sans chrome.
+ *   COMPOSED VOIDS — 3 vertical spacing tokens; ≤2 voids per page, at act changes.
+ *   UNBOXED CHROME — a border marks an ARTIFACT (media), never a text container.
+ *   ONE GROUND SHIFT — a cream reading register marks the act change.
+ *   TWO DURATIONS, ONE EASING.
+ *
+ * The colour ramps below are the APPROVED Figma identity and are unchanged.
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+@theme {
+  /* Fonts — one family, two cuts. --font-chrome is the label/button voice
+     (LC Text, always letterspaced caps at the call site). --font-poppins is
+     a compatibility alias for island inline styles; new code uses chrome. */
+  --font-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --font-chrome: "Libre Caslon Text", Georgia, serif;
+  --font-poppins: var(--font-chrome);
+
+  /* Tailwind's transition utilities default to their OWN easing and
+     durations — every `transition-*` in markup was silently off-token
+     (E2 census: 30+ stray tuples). The utilities now speak the house
+     motion language unless a token duration overrides them. */
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Primary (brand: brown → burnt orange). 9 canonicalized to #f26835 —
+     legacy token said #f28835 but #F26835 shipped 13×. */
+  --color-primary-1: #0e0807;
+  --color-primary-2: #1d1411; /* page background */
+  --color-primary-3: #341a11; /* surfaces */
+  --color-primary-4: #4a1b0a; /* active surface */
+  --color-primary-5: #592411; /* hover */
+  --color-primary-6: #69311d; /* hairline */
+  --color-primary-7: #80412b; /* THE artifact frame */
+  --color-primary-8: #a55438;
+  --color-primary-9: #f26835; /* icon/active accent */
+  --color-primary-10: #e45b27; /* solid button fill */
+  --color-primary-11: #ff9770; /* meta labels / secondary text */
+  --color-primary-12: #fed9cc; /* body text */
+
+  /* Secondary (red) */
+  --color-secondary-1: #0f0707;
+  --color-secondary-2: #1f1110;
+  --color-secondary-3: #3d0e0e;
+  --color-secondary-4: #55050b;
+  --color-secondary-5: #660b11;
+  --color-secondary-6: #791b1d;
+  --color-secondary-7: #932c2b;
+  --color-secondary-8: #be3a3a;
+  --color-secondary-9: #bf3b3b;
+  --color-secondary-10: #af2b2e;
+  --color-secondary-11: #ff8f8b;
+  --color-secondary-12: #ffd0cb;
+
+  /* Tertiary (blue) */
+  --color-tertiary-1: #010036;
+  --color-tertiary-2: #010550;
+  --color-tertiary-3: #040f74;
+  --color-tertiary-4: #0921b3;
+  --color-tertiary-5: #133092;
+  --color-tertiary-6: #1e3fa2;
+  --color-tertiary-7: #2c50b4;
+  --color-tertiary-8: #3c63c9;
+  --color-tertiary-9: #537de5;
+  --color-tertiary-10: #477dd7;
+  --color-tertiary-11: #8ab2ff;
+  --color-tertiary-12: #cce1ff;
+
+  /* Gray (warm) */
+  --color-gray-1: #080907;
+  --color-gray-2: #191715;
+  --color-gray-3: #24211d;
+  --color-gray-4: #2c2924;
+  --color-gray-5: #34302a;
+  --color-gray-6: #3d3a34;
+  --color-gray-7: #4b4741; /* home frame border */
+  --color-gray-8: #648059;
+  --color-gray-9: #706d66;
+  --color-gray-10: #7e7a73;
+  --color-gray-11: #b7b3ab; /* muted copy */
+  --color-gray-12: #f0edeb;
+
+  /* Neutral (warm cream) */
+  --color-neutral-1: #070912;
+  --color-neutral-2: #100a06; /* deep overlay / route casing (v14.5: no longer the curtain) */
+  --color-neutral-3: #302414;
+  --color-neutral-4: #503d22;
+  --color-neutral-5: #705731;
+  --color-neutral-6: #8f7040;
+  --color-neutral-7: #ad8950;
+  --color-neutral-8: #bb9e70;
+  --color-neutral-9: #c9b490;
+  --color-neutral-10: #d7c9b0;
+  --color-neutral-11: #e6decf;
+  --color-neutral-12: #f6f3ee; /* headings + THE cream reading ground */
+}
+
+:root {
+  /* Width the display fit-clamp measures against. Defaults to the viewport;
+     any element that establishes an inline-size container overrides it with
+     100cqw so headings inside a grid column cannot overflow it. */
+  --fit-basis: calc(100vw - 2 * var(--gutter));
+
+  /* ── TYPE SCALE — four roles. Mobile first; two breakpoints. ────────────
+     Ratios at desktop: display/title 1.81 · title/prose 3.05 · prose/meta 1.62.
+     Display is ~5.5× prose — measured against pasqua (6.6×) and museos (5.3×).
+     That gap IS the hierarchy. */
+  --fs-display: 46px;
+  --lh-display: 0.95;
+  --fs-title: 34px;
+  --fs-title-sm: 26px; /* card + destination titles — the ONE small title */
+  --lh-title: 1;
+  --fs-quote: 26px;
+  --lh-quote: 1.35;
+  --fs-prose: 19px;
+  --lh-prose: 1.75;
+  --fs-meta: 12px;
+  --fs-meta-body: 14px;
+  --fs-btn: 15px;
+  --fs-spine: 26px;
+  --fs-spine-sm: 13px; /* the chapter spine's list form — see .t-spine-sm */
+
+  --track-display: -0.02em; /* optical tightening at size */
+  --track-meta: 0.1em; /* the fixed micro-grid — GA&C measures 0.073em at 11px */
+  /* Caslon's "0" is narrow, so 66ch of Caslon held 84–90 actual characters
+     (juror pass 1) — 54ch of this face is the real 65–70 character line. */
+  --measure: 54ch;
+
+  /* ── SPACING — three vertical tokens. Every gap BETWEEN sections
+     quantizes to one of these. Component-internal uses --sp-*. ───────────── */
+  --space-block: 24px; /* intra-component */
+  --space-beat: 72px; /* between beats INSIDE a section */
+  --space-section: 128px; /* between numbered sections */
+  --space-void: 260px; /* act changes only — max two per page */
+
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 40px;
+  --sp-5: 64px;
+
+  /* ── SHELL — one width, site-wide. The v3 hero broke registration by
+     running 1344px against a 1280px shell; there is now no way to. ───────── */
+  --shell: 1280px;
+  /* E24 (Wil, 9/14: "no content is ever obscured by the browser chrome").
+     `viewport-fit=cover` runs the page under the notch / Dynamic Island on a
+     phone held sideways (and under an Android display cutout), and while the
+     FLOATING lane took the safe areas in v11.2 (--ui-inset, below), the
+     content column never did: measured at 844×390 with a 47px side inset
+     emulated, every .shell column — hero lockup, page eyebrows, prose, the
+     footer — began 27px inside the cutout zone. The gutter is now the deeper
+     of itself and the two side insets, the same idiom as --ui-inset; every
+     consumer (.shell, --fit-basis, the credits, the transcript column) moves
+     together. Where env() is 0 — every desktop, portrait phones, most Android
+     — max() IS the token: 20 / 40 / 56, byte for byte. --ui-inset is
+     unchanged, since it already took max() over the same insets. */
+  --gutter: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+
+  /* ── SHAPE — a border marks an ARTIFACT. Radius calms. ─────────────────── */
+  --r-lg: 24px; /* hero + home frames only */
+  --r: 12px; /* every other framed artifact */
+  --hairline: color-mix(in srgb, var(--color-primary-7) 55%, transparent);
+
+  /* ── GROUNDS — dark cinematic (default) and one cream reading register ─── */
+  --ground: var(--color-primary-2);
+  --ink: var(--color-primary-12);
+  --ink-quiet: var(--color-gray-11);
+  --ink-meta: var(--color-primary-11);
+  --ground-light: #f6f3ee;
+  --ink-light: #1d1411;
+
+  /* Home CTA pill — the approved inverted element */
+  --cta-bg: #ffc6b3;
+  --cta-text: #a02e00; /* darkened from #bd3900: 3.73:1 → 4.85:1 on --cta-bg */
+  --cta-border: #f7a98f;
+
+  /* Scrims */
+  --scrim-moral: linear-gradient(#1d1411, rgba(16, 10, 6, 0.9), #1d1411);
+  --scrim-hero-fade: linear-gradient(to top, var(--color-primary-2), transparent);
+  /* v7 H5: the home film's scrim starts higher and deepens sooner — the lockup
+     now sits from ~43% down and the description must measure ≥ 4.5:1 by pixel
+     against the composited photograph (contrast.mjs), not by eye. */
+  --scrim-photo: linear-gradient(180deg, rgba(16, 10, 6, 0) 22%, rgba(16, 10, 6, 0.38) 36%, rgba(16, 10, 6, 0.66) 58%, #100a06 100%);
+
+  /* ── MOTION — two durations, one easing. Exceptions are documented in
+     docs/v4/MOTION.md: the curtain set-piece keeps its circ timing, map
+     cameras keep cinematic flyTo/easeTo durations, and the corner-menu bloom
+     is the single overshoot. ─────────────────────────────────────────────── */
+  /* Measured, not guessed. Both museos and Google Arts & Culture drive their
+     signature motion with the SAME curve — expo-out, cubic-bezier(.19,1,.22,1)
+     (docs/v4/inspo-museos.md §6, docs/v4/inspo-googleac.md §7). museos runs two
+     tiers and nothing between them: a UI tier whose workhorse is exactly 300ms,
+     and a cinematic tier that is effectively just 1.6s. v4 uses those two. */
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --dur-fast: 300ms; /* hover, pills, highlight, state */
+  --dur-slow: 1600ms; /* reveals, wipes, quote settle — the cinematic tier */
+
+  /* Documented exceptions (named so greps find them) */
+  /* The curtain set-piece: gsap "circ.inOut"/"circ.out" at --dur-curtain
+     (curtain.ts reads the token). The CSS mirror of that ease and the old
+     `--ease-pop` were never consumed and are gone (v7 G7). */
+  --dur-curtain: 600ms;
+}
+
+/* Both desktop steps are gated on HEIGHT as well as width. A phone held
+   sideways is 844px wide and 390px tall: on width alone it was handed the
+   desktop ladder, and a 76px display in a 390px-tall viewport pushed the hero
+   painting 256px below the fold. Type has to answer to the shorter axis too. */
+@media (min-width: 768px) and (min-height: 600px) {
+  :root {
+    --fs-display: 64px;
+    --fs-title: 46px;
+    --fs-title-sm: 28px;
+    --fs-quote: 32px;
+    --fs-prose: 20px;
+    --fs-meta: 12px;
+    --fs-meta-body: 14px;
+    --fs-spine: 28px;
+    --space-beat: 96px;
+    --space-section: 168px;
+    --space-void: 320px;
+    --gutter: max(40px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  }
+}
+
+@media (min-width: 1200px) and (min-height: 600px) {
+  :root {
+    /* 88px, not 116px. At 116 a three-line chapter name measured 331px — 37%
+       of a 900px viewport — and shoved the painting past the fold. 88 holds the
+       hero lockup under 22% at every breakpoint and still runs 4.2× prose. */
+    --fs-display: 88px;
+    --fs-title: 56px;
+    --fs-title-sm: 30px;
+    --fs-quote: 38px;
+    --fs-prose: 21px;
+    --fs-meta: 13px;
+    --fs-meta-body: 15px;
+    --fs-spine: 30px;
+    --space-beat: 128px;
+    --space-section: 200px;
+    --space-void: 400px;
+    --gutter: max(56px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* v9 V9-301: the safe-area strips and any overscroll take the page's own
+     ground rather than the browser's default (which reads as a black bar on
+     iOS). Body sets --ground per section; html holds the base. */
+  background: var(--color-primary-2);
+  /* v11.2 (Wil, 8/24: "Every page on the site should be full bleed"). This was
+     declared NOWHERE, so the browser was left to guess this page's appearance
+     and dimmed the chrome tint it was given — measured #100a05 on his iPhone
+     against a declared #1d1411. Stating it stops the guess. It moves no site
+     colour: every surface here carries an explicit background and there is no
+     `light-dark()` anywhere. It DOES darken the desktop scrollbar, which is
+     disclosed in docs/v11/SCOPE.md §B and is one line to revert. */
+  color-scheme: dark;
+}
+
+/* The layout viewport must never grow sideways: scaled/panned media (Ken
+ * Burns, hero scrub) can otherwise expand mobile Chromium's ICB and push
+ * fixed UI (menu, mini-player) off-screen — the /ferry blowout. */
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-serif);
+  background: var(--ground);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* v7 G1: never auto-hyphenate; breaks are authored (nbsp/&shy;) or pretty. */
+  hyphens: manual;
+}
+/* v7 G1: body copy that isn't a role (li, dd, figcaption, generic p) still
+   avoids single-word last lines. Roles set their own text-wrap. NOTE: the
+   `text-wrap-style` LONGHAND, never the `text-wrap` shorthand — the shorthand
+   resets text-wrap-mode to `wrap` and silently undoes an inherited
+   `white-space: nowrap` (marker pills, `.truncate` lines wrapped). */
+p,
+li,
+dd,
+dt,
+figcaption,
+blockquote {
+  text-wrap-style: pretty;
+}
+h1:not(.lines),
+h2:not(.lines),
+h3 {
+  text-wrap-style: balance;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * TYPE ROLES — four sizes. At most three are ever co-visible.
+ * ════════════════════════════════════════════════════════════════════════ */
+
+/* Display: hero H1 and the full-bleed moral statement. Once or twice a page,
+   alone in its viewport. Authored line breaks arrive as "\n" + pre-line, so
+   text-wrap must NOT rebalance them. */
+/* The step IS the size; the fit term is only a guard against overflow.
+ *
+ * The 0.64 this used to carry was a guess, and it made the role size itself
+ * from string length — one role rendered at six different sizes across the
+ * site, and because longer names clamp harder, the ferry (the climax) got the
+ * SMALLEST moral headline. Measuring all 26 display strings at 100px in Martel
+ * Sans ExtraBold with −0.02em tracking gives 0.546–0.763em of advance per
+ * character (mean 0.618) — a 40% spread, so a character count can never be the
+ * size. 0.72 sits above every string longer than five characters, which makes
+ * the guard bite only when a line genuinely cannot fit. Paired with the 88px
+ * cap, every display on the site now renders at one size on desktop.
+ *
+ * No floor: clamp() returns its minimum when minimum > maximum, so a floor
+ * would reintroduce the overflow it was meant to prevent on the longest string
+ * at 390 ("AUTHORITARIANISM", which cannot be large on a phone). */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* v8 V8-272: the advance is a variable — 0.72 is the safe global average;
+     a surface that has MEASURED its widest authored line may set a tighter
+     `--fit-advance` (the chapter hero uses 0.64; Caslon caps measure
+     0.52–0.59em there, so 0.64 still leaves ≥ 30px of right-edge air at 390,
+     watched by the rag ink probe). */
+  font-size: min(var(--fs-display), calc(var(--fit-basis) / (var(--fit-chars, 8) * var(--fit-advance, 0.72))));
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  /* v7 G1: negative tracking + zero word-spacing read "FORJUSTICE" at phone
+     sizes; a hair of word space keeps the words apart without loosening. */
+  word-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* Title: section headings. The workhorse. */
+.t-title-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-title-sm);
+  line-height: 1.15;
+  letter-spacing: var(--track-display);
+  word-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+  text-wrap-style: balance;
+}
+/* v7 (juror passes 8–9): ` · `-separated eyebrows and roles. Segments never
+   break inside themselves and the separator VANISHES at a line break — a wrap
+   gives `INDUSTRIALIST` / `CHARLES’S EMPLOYER`, never a dot dangling at a line
+   end or opening the next. Each segment carries its own leading dot in a
+   negative-margin lane; at a line start that lane lies outside the box and
+   `overflow-x: clip` hides it (no scroll container, no vertical clipping). */
+.sep-list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: clip;
+  overflow-y: visible;
+  row-gap: 0.15em;
+}
+/* the lane is the width the old " · " text took (space · space at this tracking) */
+.sep-list > span {
+  position: relative;
+  white-space: nowrap;
+  margin-left: -1.1em;
+  padding-left: 1.1em;
+}
+.sep-list > span:not(:last-child) {
+  padding-right: 1.1em;
+}
+.sep-list > span::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  width: 1.1em;
+  text-align: center;
+}
+/* v7 (juror pass 7 P3): the map index at 360 — "COMMISSIONER'S" (26 px Caslon,
+   one unbreakable word) ran 33 px past its column; the title follows the
+   phone's width until the ladder size fits (≥ 400 px = 26 px again). */
+.map-index-title {
+  font-size: min(var(--fs-title-sm), 6.2vw);
+}
+.ground-cream .t-title-sm {
+  color: var(--ink-light);
+}
+
+.t-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-title);
+  line-height: var(--lh-title);
+  letter-spacing: var(--track-display);
+  word-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* Quote: the serif voice at scale, hung punctuation, alone in a void. */
+.t-quote {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-quote);
+  line-height: var(--lh-quote);
+  color: var(--color-neutral-12);
+  /* v7 G1: quotes are short — balance them so no line is left holding one
+     word (Chromium balances up to 6 lines; longer quotes fall back to
+     `pretty` via .t-quote-long). */
+  text-wrap-style: balance;
+}
+.t-quote-long {
+  text-wrap-style: pretty;
+}
+/* Hanging punctuation: the opening quote mark sits in the margin so the
+   first glyph aligns to the text edge. */
+.t-quote.is-hung {
+  text-indent: -0.42em;
+}
+.t-quote {
+  max-width: 17em; /* ~26 characters per line at any size — em, never ch */
+}
+
+/* Prose: the narrative voice. Serif floor is 18px — never smaller, never UI. */
+.t-prose {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-prose);
+  line-height: var(--lh-prose);
+  color: var(--ink);
+  text-wrap-style: pretty;
+  max-width: var(--measure);
+}
+
+/* Meta: ONE unit, effectively fixed across viewports. The micro-grid that
+   every eyebrow, spine item, credit and pill shares. Labels only — never
+   comprehension text. */
+.t-meta {
+  font-family: var(--font-chrome);
+  font-weight: 400;
+  font-size: var(--fs-meta);
+  line-height: 1.35;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--ink-meta);
+  text-wrap-style: pretty;
+}
+
+/* Meta-body: addresses, captions, credits — sentence case, still micro. */
+.t-meta-body {
+  font-family: var(--font-chrome);
+  font-weight: 400;
+  font-size: var(--fs-meta-body);
+  line-height: 1.5;
+  color: var(--ink-quiet);
+  text-wrap-style: pretty;
+}
+
+/* The spine's list form. The chapter spine was setting `font-size:15px` inline,
+   which both overrode the token it claimed to use and landed on the 15px step
+   already carrying t-meta-body, btn and two kinds of unstyled span. It is its
+   own step now. */
+.t-spine-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-spine-sm);
+  line-height: 1;
+  color: var(--ink-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Spine numerals — "(01)". Quiet, large, in their own column. */
+.t-spine {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-spine);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Wordmark — the approved interlocked two-line lockup (home + curtain).
+   Optical spacing pass: -0.03em, which closes the CH/AR gaps at size. */
+.t-wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* Answers to the shorter axis as well. On a phone held sideways 11vw is 93px,
+     and two lines of it at 0.88 leading took 42% of a 390px-tall viewport —
+     which is what pushed the home CTA half off the bottom edge. The 19dvh term
+     never binds on a desktop or a portrait phone. */
+  font-size: min(clamp(54px, 11vw, 128px), 19dvh);
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* The People profile plate (item 28) — a monogram set like an engraved
+   bookplate, in the portrait proportion the future photograph will take.
+   It carries the artifact frame because it stands where an artifact will. */
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 80px;
+  flex: none;
+  background: var(--color-primary-3);
+  border: 1px solid var(--color-primary-7);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--color-primary-11);
+  user-select: none;
+}
+
+/* The Crossing — the curtain's date line. The day is the protagonist:
+   broadside register (letterspaced caps, lining figures), display cut. */
+.t-crossing {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(34px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-neutral-12);
+}
+
+/* First-WORD drop (not a drop cap): opens a chapter's prose once. */
+.first-word {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-quote);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * STRUCTURE — one shell, three vertical tokens, composed asymmetry.
+ * ════════════════════════════════════════════════════════════════════════ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  container-type: inline-size;
+  --fit-basis: 100cqw;
+}
+
+/* ── The landscape-phone hero is a REFRAME, not a squeeze ────────────────────
+   pasqua's lesson, which docs/INSPIRATION.md named and this build had not
+   taken: 390 is a recomposition. Stacked, a chapter name + rule + cue + painting
+   cannot fit 390px of height at any type size — it overflowed by 41–85px even
+   after the type was fixed. Side by side it fits with room, and reads as a
+   deliberate composition rather than a broken one. */
+@media (min-width: 640px) and (max-height: 599px) {
+  #hero {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-rows: minmax(0, 1fr);
+    column-gap: var(--sp-4);
+    align-items: center;
+    padding-top: 40px;
+  }
+  #hero-media {
+    margin-top: 0;
+    min-height: 0;
+    height: 100%;
+  }
+}
+
+/* Section rhythm. `.sec` is the only gap allowed between numbered sections;
+   `.void` is the act change and appears at most twice per page. */
+.sec {
+  margin-top: var(--space-section);
+}
+
+/* Every non-chapter page opens on the same rhythm: the walk rail's clearance,
+   the meta line, the display, then one section gap. Three page types were
+   opening three different ways. */
+.page-open {
+  padding-top: clamp(96px, 14vh, 168px);
+}
+.void {
+  margin-top: var(--space-void);
+}
+.beat {
+  margin-top: var(--space-beat);
+}
+/* v7 C6: the opening quote is the part heading's companion — two block gaps,
+   not a beat (Wil: "RIVER ESCAPE → quote too far"). */
+.quote-after-heading {
+  margin-top: calc(var(--space-block) * 2);
+}
+@media (min-width: 1200px) {
+  .quote-after-heading {
+    margin-top: var(--sp-5);
+  }
+}
+/* v7 C4: the archival credit rides on a chip so it reads on any photograph. */
+.interlude-credit {
+  max-width: calc(100% - 2 * var(--gutter));
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary-2) 84%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary-7) 70%, transparent);
+  backdrop-filter: blur(6px);
+  text-align: right;
+}
+/* v7 C5: the Onward lockup and its two CTAs sit centred under the framed map. */
+.onward-lockup {
+  text-align: center;
+}
+.onward-lockup .t-meta-body {
+  margin-inline: auto;
+  max-width: 44ch;
+}
+/* v11 item 2 (Wil, 8/22): from tablet up the destination lockup becomes one
+   row the width of the map above it — label and address left-set against the
+   map's left edge, `Get directions` on its right edge, the two vertically
+   centred against each other. The lockup and the map shell are siblings in the
+   same content column, so the column's edges are the map's edges.
+
+   "only if space allows" is the `flex-wrap`: the address column may shrink but
+   never below its own content, so if the pair cannot sit side by side the row
+   wraps back to the stacked, centred arrangement phones keep. */
+@media (min-width: 768px) {
+  .onward-lockup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    text-align: left;
+  }
+  .onward-lockup .onward-dest {
+    flex: 1 1 22ch;
+    min-width: 0;
+  }
+  .onward-lockup .t-meta-body {
+    margin-inline: 0;
+  }
+  .onward-lockup .onward-action {
+    margin-top: 0;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+}
+.embed-map-shell {
+  box-shadow: 0 24px 64px -24px rgba(16, 10, 6, 0.7);
+}
+/* v7 C2: the moral section's prose is CREAM like its heading (Wil: "white
+   like the heading"). The `.t-prose` role is unlayered, so a Tailwind
+   `text-neutral-12` utility never won — this rule does. */
+.moral .t-prose,
+.moral .t-meta-body {
+  color: var(--color-neutral-12);
+}
+.moral .t-meta-body {
+  opacity: 0.85;
+}
+/* v7 C2: the moral ground drifts (gsap scrub); it is oversized so no edge
+   ever shows and promoted so the scrub costs no layout. v8 V8-275 (Wil,
+   00:23:18): a 2px soft-focus quiets the hatching behind the text — the
+   scale keeps the blur's soft edge outside the frame even under reduced
+   motion, where the parallax (and its 1.14 scale) never runs. */
+.moral-ground {
+  will-change: transform;
+  filter: blur(2px);
+  transform: scale(1.04);
+}
+.block-gap {
+  margin-top: var(--space-block);
+}
+
+/* Content hugs the TOP of a void — never centres in it (pasqua's half-empty
+   viewport). Applied to void-entered sections. */
+.hug-top {
+  align-self: start;
+}
+
+/* Full-bleed escape from the shell, for hairlines and cinematic media. */
+.bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Hairline rules run full-bleed while content insets (museos). */
+.rule-bleed {
+  border-top: 1px solid var(--hairline);
+}
+
+.rule-top {
+  border-top: 1px solid var(--hairline);
+}
+
+/* A numbered section: one full-width hairline, then the label/content grid. */
+/* v11 item 11 (Wil, 8/22, redlined screenshot): "the space between the top of
+   the content and the divider line feels too tight. If we increase the top
+   spacing by moving all content below the divider line down slightly — without
+   increasing the space below the content — the section should breathe more."
+
+   Measured before: 57px from the rule to the first line of content against
+   ~200px below it at desktop (128 at base) — a 1:3.5 ratio, which reads as
+   cramped rather than as the intended asymmetry. The rule's own padding is the
+   only lever that moves EVERYTHING below it without touching the section's
+   bottom rhythm, because `.sec` only ever sets `margin-top`. Raised to sp-4 /
+   sp-5, which lands the gap at 73 / 97 / 97–109 against 128 / 168 / 200 — a
+   steady ~1:1.75 at every width. Applies to the chapter sections, About and
+   People alike, all of which share this head. */
+.sec-head {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--sp-4);
+}
+@media (min-width: 768px) {
+  .sec-head {
+    padding-top: var(--sp-5);
+  }
+}
+
+/* The label-left / content-right editorial grid (museos). Collapses to a
+   stack below lg. */
+.editorial {
+  display: grid;
+  gap: var(--sp-4);
+}
+@media (min-width: 1024px) {
+  .editorial {
+    grid-template-columns: 3fr 9fr;
+    gap: var(--sp-5);
+  }
+  /* The content column is a container, so display type inside it clamps to
+     the column and not to the window. */
+  .editorial > * + * {
+    container-type: inline-size;
+    --fit-basis: 100cqw;
+  }
+  /* The spine holds its place while the section passes it (museos). */
+  .editorial > .rail {
+    position: sticky;
+    top: calc(var(--ui-inset) + 32px);
+    align-self: start;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * GROUNDS — the dark cinematic default, and ONE cream reading register
+ * that marks the act change (museos). Applied to exactly two places:
+ * the chapter transcript, and About's long text.
+ * ════════════════════════════════════════════════════════════════════════ */
+.ground-cream {
+  --ground: var(--ground-light);
+  --ink: var(--ink-light);
+  --ink-quiet: #6b5b52;
+  --ink-meta: #9c4520;
+  --hairline: rgba(29, 20, 17, 0.18);
+  background: var(--ground-light);
+  color: var(--ink-light);
+}
+.ground-cream .t-display,
+.ground-cream .t-title,
+.ground-cream .t-quote {
+  color: var(--ink-light);
+}
+.ground-cream .t-prose {
+  color: #2a1d18;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * ARTIFACTS — a border marks a MADE THING (a painting, a sketch, a map).
+ * It never wraps a text block, a player, a card, or chrome.
+ * Census rule: ≤1 framed element per viewport.
+ * ════════════════════════════════════════════════════════════════════════ */
+.artifact {
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.artifact-lg {
+  border: 1px solid var(--color-primary-7);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * BUTTONS — two sizes, two variants, NO viewport ladder.
+ * A pair is always the same size: solid + ghost, equal optical weight.
+ * ════════════════════════════════════════════════════════════════════════ */
+.btn,
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-family: var(--font-chrome);
+  /* v14.2 (Wil, 9/16) took this to 700 — LC Text ships 400 and 700, no 500.
+     v14.3 (Wil, 9/16): "too heavy and thick" — back to the original 400.
+     v14.4 (Wil, 9/16): "the original font weight … I do not like the heavier
+     weight" — 400 stands. */
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  /* v14.3 (Wil, 9/16) tried Title Case as authored. v14.4 (Wil, 9/16):
+     "revert all button text to the original styling: ALL CAPS" — the
+     original rule, and every label is authored in sentence case again. */
+  text-transform: uppercase;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+/* v8 V8-002 (Wil, 01:20:46): sides in, top/bottom out — the cap-height
+ * row inside a pill needs less inline padding than block to read equal. */
+.btn {
+  font-size: var(--fs-btn);
+  min-height: 52px;
+  padding-inline: 22px;
+}
+/* v7: on touch screens every small control still clears the 44px target. */
+@media (pointer: coarse) {
+  .btn-sm {
+    min-height: 44px;
+  }
+}
+.btn-sm {
+  font-size: 13px;
+  min-height: 40px;
+  padding-inline: 18px;
+}
+/* The arrow glyph carries its own air — trim the padding on ITS side so
+ * label and icon sit optically centred in the pill. Explicit classes, not
+ * `:has(> .icon:first/last-child)`: a lone icon element beside a text-node
+ * label is both first AND last element child, which trimmed both sides.
+ * Button.astro adds these; React islands hand-author them. */
+.btn.btn-icon-end {
+  padding-inline-end: 17px;
+}
+.btn.btn-icon-start {
+  padding-inline-start: 17px;
+}
+.btn-sm.btn-icon-end {
+  padding-inline-end: 14px;
+}
+.btn-sm.btn-icon-start {
+  padding-inline-start: 14px;
+}
+/* Pressed — item 15. One pixel of travel; the expo-out front-loads it. */
+.btn:active,
+.btn-sm:active {
+  transform: translateY(1px);
+}
+.btn-solid:active {
+  background: #cf4f1f;
+  border-color: #cf4f1f;
+}
+.btn-ghost:active {
+  border-color: var(--color-primary-9);
+}
+.btn-cta:active {
+  filter: brightness(0.96);
+}
+
+/* Solid — dark ink on the orange fill. 5.0:1 against #1d1411 text. */
+.btn-solid {
+  background: var(--color-primary-10);
+  color: var(--color-primary-2);
+  border: 1px solid var(--color-primary-10);
+}
+.btn-solid:hover {
+  background: var(--color-primary-9);
+  border-color: var(--color-primary-9);
+}
+
+/* Ghost — the equal-weight partner. Fill signals primacy, nothing else. */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary-12);
+  border: 1px solid var(--color-primary-7);
+}
+.btn-ghost:hover {
+  border-color: var(--color-primary-11);
+  color: var(--color-neutral-12);
+}
+
+/* Cream-register variants (About / transcript) */
+.ground-cream .btn-ghost {
+  color: #2a1d18;
+  border-color: rgba(29, 20, 17, 0.28);
+}
+.ground-cream .btn-ghost:hover {
+  border-color: rgba(29, 20, 17, 0.55);
+  color: #1d1411;
+}
+
+/* Inverted home pill — the one approved exception, on btn metrics. */
+.btn-cta {
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  border: 1px solid var(--cta-border);
+}
+.btn-cta:hover {
+  filter: brightness(1.04);
+}
+
+/* Text link with an inline icon — the unboxed lateral-nav idiom. */
+.link-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  min-height: 24px;
+  color: var(--ink-meta);
+  transition: color var(--dur-fast) var(--ease);
+}
+.link-meta:hover {
+  color: var(--color-neutral-12);
+}
+.link-meta .icon {
+  transition: transform var(--dur-fast) var(--ease);
+}
+.link-meta:hover .icon {
+  transform: translateX(3px);
+}
+.link-meta:active .icon {
+  transform: translateX(5px);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * ICONS — one geometry, drawn to Caslon: 24 viewBox, 1.3px stroke, butt
+ * caps + miter joins (engraved, not geometric-round), currentColor.
+ * Never non-uniformly scaled. See src/components/icons.ts.
+ * ════════════════════════════════════════════════════════════════════════ */
+.icon {
+  display: inline-block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  fill: none;
+}
+.icon-sm {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.45;
+}
+.icon-lg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.2;
+}
+/* A solid glyph (play). The class is required because `.icon { fill: none }`
+   beats a `fill` presentation attribute in the cascade. */
+.icon-filled {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * STRUCTURAL ISLAND SIZING — plain CSS that cannot vanish.
+ * Layout-critical dimensions must never depend on utility scanning
+ * (the island-CSS bug class). Guarded by scripts/check-css.mjs.
+ * ════════════════════════════════════════════════════════════════════════ */
+/* v11 item 10 (Wil, 8/22): "soften the transition between the image and the
+   sections above and below it. Right now there's a harsh white line at the top
+   and bottom of the image; add a gentle gradient/feathered fade into the
+   surrounding sections. Extend this blend a bit so we can see a little more of
+   the image while making the transitions … feel smoother."
+
+   The old fade was `transparent 12%` — a LINEAR ramp over an eighth of the
+   plate. Against a light archival photograph whose top and bottom edges are
+   dark masonry, a linear ramp that short reads as a cut, which is the line he
+   is seeing. This is the same distance eased instead: a shaped ramp over 18%
+   at each end, so the plate dissolves into the cream rather than stopping in
+   it. The extra image he asks for comes from the plate itself, which is taller
+   now (52/68vh → 62/80vh), so a longer blend still leaves more picture
+   showing, not less.
+
+   And the ground: the section painted nothing, so until the image decoded the
+   page's dark body showed through the full-bleed band — the black flash. It
+   carries the light ground now, which is also what the plate fades into. */
+.painting-interlude {
+  background: var(--ground-light);
+}
+/* V13-04 step 3: the interlude's own clip box (the wipe machinery's
+   .wipe-clip child) painted nothing, so a cold load could show the body's
+   dark ground through it for a frame before the section's own cream
+   background painted. Cream here too, so the clip box can never show
+   anything but the ground it fades into. */
+.painting-interlude .wipe-clip {
+  background: var(--ground-light);
+}
+/* v12 item 5 (Wil, 8/26): "there's a harsh white line at the top and bottom of
+   the image — add a gentle gradient/feathered fade into the surrounding
+   sections. Extend this blend slightly so we can see a bit more of the image,
+   while making the transitions into the surrounding sections feel smoother."
+
+   Measured first: the ground above an interlude and below it is the SAME cream
+   on all five chapters at 390 and 1440 (the scene's transcript panel above,
+   #history below), so v9 V9-202's cream-at-both-edges was right and a dark ramp
+   is not the answer — tried, and it drew a 219-unit hard edge across the seam.
+   What Wil is seeing is the overlay itself: painting opaque cream ON TOP of a
+   photograph washes its top and bottom, and where the wash ends there is a
+   perceptible boundary — a "white line" with the picture still visible under it.
+
+   So the image is FEATHERED instead of covered. A mask takes the photograph's
+   own pixels to transparent at each edge, letting the real cream ground show
+   through, and a mask cannot introduce an edge because it introduces no second
+   colour. The ramp is longer than the old overlay's (24% against 18%) and eased
+   in two stages, and the plate is taller, so more of the picture survives the
+   blend than before. */
+.interlude-img {
+  /* V13-04: the ramp halved (24% → 12% at each end) — same two-stage
+     easing, same shape, just compressed — so the plate shows more picture
+     at the edges instead of dissolving more of it. */
+  /* v14 E27 (client): the fade into the history section below read too
+     strong, so the BOTTOM ramp goes back to v12's 24% (its exact stops, the
+     same two-stage shape); the top ramp keeps V13-04's 12%. */
+  --interlude-feather: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.12) 2%,
+    rgba(0, 0, 0, 0.4) 4.5%,
+    rgba(0, 0, 0, 0.72) 7.5%,
+    rgba(0, 0, 0, 0.92) 10%,
+    #000 12%,
+    #000 76%,
+    rgba(0, 0, 0, 0.92) 80%,
+    rgba(0, 0, 0, 0.72) 85%,
+    rgba(0, 0, 0, 0.4) 91%,
+    rgba(0, 0, 0, 0.12) 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: var(--interlude-feather);
+  mask-image: var(--interlude-feather);
+}
+/* v14 E27 (client): the plate fades in as it decodes rather than arriving in
+   one frame — the chapter script adds `is-loaded` on load (at once when the
+   image is already complete). Gated on `.js` and motion preference, so no-JS
+   and reduced motion see the plate immediately. The <picture> around it keeps
+   the wipe's `.wipe-clip > *` transition off this element, so the two
+   transitions never contend for the shorthand. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .interlude-img {
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease);
+  }
+  .js .interlude-img.is-loaded {
+    opacity: 1;
+  }
+}
+
+/* v11 item 8b (Wil, 8/22): "the `THE MUSEUM • SCROLL TO WALK • DRAG TO LOOK •
+   TAP A PAINTING` chip / tag should be center aligned with the `SKIP THE HALL`
+   button." From 1024 the two share one top inset, but the chip's box is a
+   t-meta line plus 8px of padding while Skip is a .btn-sm — 32px against 40 —
+   so their centres sat 4px apart. The chip row takes the button's height and
+   centres its content inside it. Scoped to the breakpoint where they are
+   actually side by side: below 1024 the chip is mid-screen or bottom-anchored
+   and nothing about its placement changes. */
+@media (min-width: 1024px) {
+  .museum-chip-row {
+    min-height: 40px;
+    align-items: center;
+    /* v13 V13-05c (Wil, 8/26): "the desktop chip should be centred with Skip
+       on its left". v11 settled the VERTICAL (measured: the two centres agree
+       to 0.00px at 1024/1280/1440/1920); what still read as off was the
+       HORIZONTAL — the pill centres on the viewport, which ignores the two
+       standing controls in the same band, so at 1024 it sat 24.6px from Skip
+       against 245.6px of empty on the right. `--cnwm-chip-x` is the measured
+       shift that centres it in the band Skip and the corner menu leave, and
+       the scene writes 0 whenever the pill would not fit that band. */
+    transform: translateX(var(--cnwm-chip-x, 0px));
+  }
+}
+@media (min-width: 1024px) and (pointer: coarse) {
+  .museum-chip-row {
+    min-height: 44px;
+  }
+}
+.map-shell {
+  position: relative;
+  /* v14.3 (Wil, 9/16, item 3 — scroll jitter): `svh`, was `dvh`. The shell is
+     in flow at the top of a page whose index scrolls beneath it. As iOS
+     collapsed its bars on the way down and expanded them on the first scroll
+     up, `dvh` followed: the shell grew and shrank by the bar (≈90px; ≈200px on
+     Wil's address-bar-on-top layout), the index under the reader jumped by
+     the same amount (measured at 390×844: +90/−90 and +200/−200px, layout
+     shift 0.10–0.24) and Mapbox re-sized its canvas each time — the longest
+     task on the page in the 500 ms after a reversal. `svh` is the viewport
+     with the bars expanded, which they are at the page top where the shell is
+     seen, so nothing changes at rest; not `lvh` (round 2's mistake). The one
+     state this does not cover — scrolled to the very top with the bars still
+     collapsed — is one iOS leaves on any scroll up. If his phone ever shows a
+     band of page ground under the map above the card strip, this line goes
+     back to 100dvh. */
+  /* v14.5 (round 8 §5.3): + E, so the map physically continues under the
+     bottom toolbar. See --map-e below for the value and why it is not a
+     constant. `svh` (not dvh) still governs the part the reader sees at rest,
+     so the jitter this note warns about is unchanged. */
+  height: calc(100svh + var(--map-e) + var(--map-t));
+  width: 100%;
+  /* v9 V9-301: while the GL canvas is sizing the uncovered strip must read as
+     the page, not as the canvas's black. */
+  background: var(--color-primary-2);
+  /* v18 (round 19): the runway is the UI layer's `margin-top: T` (below), and
+     a first child's top margin collapses through a parent with no border or
+     padding above it — through this shell, through <main> and through <body>,
+     so once the island mounted all three started T further down the document
+     and the shell's own box ran T…T+height instead of 0…height. Nothing showed
+     on the phone (the canvas paints the runway either way), but Chromium's
+     scroll anchoring follows <main>'s top edge and moved the page by T a
+     second time, to 2T. A block formatting context keeps the margin INSIDE
+     the shell, where it was always meant to be. Flow-root is otherwise a
+     block: T is 0 wherever there are no bars, so nothing else can move. */
+  display: flow-root;
+}
+/* v14.5 (round 8 §5.3) — E, and the three rules that keep every pixel of UI
+ * where it was.
+ *
+ * Round 8's lab measured iOS 26's bars on Wil's phone: 107px at the top and
+ * 92px at the bottom of an 844px screen, with `lvh - svh` reporting their sum
+ * (198.98). CSS cannot report the split, so E is derived, not measured:
+ * `100lvh - 100svh` is the pair, capped at `20svh` so a short landscape
+ * viewport cannot grow absurdly, and the whole expression self-zeroes wherever
+ * lvh == svh — every desktop, Android and any iOS without bars — which is why
+ * no width or orientation query is needed. No px constants: a constant sized
+ * from one phone is wrong on the next, and round 2's `lvh` regression is what
+ * happens when the map's height stops matching the device.
+ *
+ * The @supports gate is the one round 7 already relies on, and round 8's lab
+ * confirmed it fires on Wil's phone even with Request Desktop Website on —
+ * UA spoofing does not change CSS feature support. */
+@supports (-webkit-touch-callout: none) {
+  .map-shell {
+    /* `round(down, …, 1px)` matters, and was measured: a fractional E (168.8px
+       at 390×844) makes the canvas a fractional height, and overviewCamera's
+       fit is a DISCRETE search — it steps the zoom down until every label pill
+       is inside a safe box and none overlap — so a hair of difference in the
+       available box flipped which step won and moved pins by up to 10px. An
+       integer E makes the fit arithmetic exact and the pins land where they
+       always did. If a browser lacks round(), the whole declaration is invalid
+       and --map-e falls back to its @property initial 0px: the map does not
+       grow, which is exactly today's behaviour. */
+    --map-e: round(down, min(calc(100lvh - 100svh), 20svh), 1px);
+  }
+  /* v16 item 1 (Wil, 2026-09-18): T — the mirror of E at the TOP edge, behind
+     the ?glass=1 flag. The top inset is document offsets −107→0 (phase A2), so
+     nothing can be there at scroll 0 by any mechanism; the only way to put map
+     under the address bar is for the page not to be at scroll 0. So the shell
+     grows by T as well as E, the page lands at scroll T (map.astro), and the
+     reader's window is the shell's rows T…T+svh — the same composition as
+     today, shifted off the document's top edge.
+
+     110px, not `20svh`: the measured top bar is 107. `min()` with
+     `100lvh − 100svh` self-zeroes it to 0 wherever there are no bars, so
+     desktop and tablet land at scroll 0 and nothing moves. Integer for the
+     same reason E is — overviewCamera's fit is a discrete search. */
+  /* v17 (Wil, 2026-09-18): "The map page is perfect." Approved on the device
+     behind ?glass=1, so it comes off the flag and ships as the default. */
+  .map-shell {
+    --map-t: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+  }
+}
+/* The UI layer keeps the ORIGINAL box, so every element anchored to its bottom
+   — the hint, the scroll handle, `Take the walk` — holds its screen position
+   with no per-element arithmetic. Two classes, to beat Tailwind's `h-full` on
+   the same element regardless of bundle order (the same reason .map-canvas
+   below is written this way). */
+.map-shell .troymap-root {
+  height: calc(100% - var(--map-e) - var(--map-t));
+  /* v16 item 1: the UI layer sits BELOW the runway, so every element anchored
+     to its top or bottom holds the screen position it has today once the page
+     has landed at scroll T. */
+  margin-top: var(--map-t);
+}
+/* mapbox-gl.css sets `.mapboxgl-map { position: relative }` and loads AFTER
+ * the utility bundle, silently overriding `.absolute` at equal specificity —
+ * the div collapsed to 0 height even with all utilities emitted. Two-class
+ * specificity wins regardless of order. */
+/* v21 (round 27, Wil): "when a user clicks view the 1858 map, it is fully
+   immersive and there are no areas that are different colors. The background
+   needs to be one fill color only, edge to edge." The lens's backdrop was a
+   70% black wash over the UI layer's box; the canvas is T taller above it and
+   E below (the runways), and the bars are glass, so behind the address bar
+   and the toolbar the live map showed undimmed while everything else was
+   washed. Now the wash covers the CANVAS's box — the same top/bottom as
+   .map-canvas below — so the map behind both bars is dimmed exactly like the
+   map around the plate. The plate, the caption and the door keep their
+   geometry: TroyMap adds the runways back as the shell's top and bottom
+   padding. Everything else about the lens — the fade, the close-on-outside,
+   the focus handling — is unchanged.
+
+   v21 (round 29, Wil): round 27 made the fill OPAQUE (the page ground) and he
+   asked for the see-through wash back — "a bit of transparency to it so you
+   can see the map behind it just like before". So the wash is the original
+   70% black again, over the whole canvas box. Safari tints its bars from
+   <body>, and the sampler cannot read a colour through a translucent element,
+   so the shell declares the wash's own colour over the map's ground
+   (0.3 × #353535 = #101010) as its edge colour, and <body> takes it while the
+   lens is open — the tint then matches the dimmed map instead of drawing a
+   lighter band across it. The Mapbox logo and the (i) stay, dimmed under the
+   wash as they always were: the map is visible, so its attribution is owed. */
+.map-shell .lens-shell {
+  inset: 0;
+  top: calc(-1 * var(--map-t));
+  bottom: calc(-1 * var(--map-e));
+  background: rgb(0 0 0 / 0.7);
+}
+.map-shell .map-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  /* v14.5 (round 8 §5.3): top/bottom drive the height so the canvas can reach
+     E BELOW the UI layer and fill the grown shell — `height: 100%` would
+     over-constrain the box and `bottom` would be ignored. E is 0 off iOS, so
+     this computes to exactly the old `inset: 0; height: 100%`. */
+  height: auto;
+  bottom: calc(-1 * var(--map-e));
+  /* v16 item 1: and T ABOVE, so the canvas fills the grown shell at both ends.
+     T is 0 off the flag, so this computes to exactly the old `inset: 0`. */
+  top: calc(-1 * var(--map-t));
+}
+.reveal-frame {
+  aspect-ratio: 3 / 2;
+  width: 100%;
+}
+@media (orientation: portrait) {
+  .reveal-frame {
+    aspect-ratio: 4 / 5;
+  }
+}
+/* Embedded chapter map ("Onward") — now shell-width, cinematic band. */
+.embed-map-shell {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  /* Ground-colored loading shell — tiles arrive onto the house ground, not
+     onto a white flash. */
+  background: var(--color-primary-3);
+}
+@media (min-width: 768px) {
+  .embed-map-shell {
+    height: 380px;
+  }
+}
+@media (min-width: 1200px) {
+  .embed-map-shell {
+    height: 460px;
+  }
+}
+.embed-map-shell .map-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Mapbox's own controls, brought onto the system ───────────────────── */
+.mapboxgl-ctrl-group {
+  background: color-mix(in srgb, var(--color-primary-2) 84%, transparent) !important;
+  border: 1px solid var(--color-primary-7) !important;
+  border-radius: 9999px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+.mapboxgl-ctrl-group button {
+  width: 40px !important;
+  height: 40px !important;
+  background-color: transparent !important;
+}
+.mapboxgl-ctrl-group button + button {
+  border-top: 1px solid var(--color-primary-7) !important;
+}
+.mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1);
+}
+/* v7 (juror pass 7): cooperative-gesture notice on fine pointers — Mapbox's
+   default is a full-map black veil with system type. Ours is the hint chip:
+   a centred pill on the house ground in the meta role, no veil. */
+.mapboxgl-scroll-zoom-blocker,
+.mapboxgl-touch-pan-blocker {
+  top: 50% !important;
+  left: 50% !important;
+  width: max-content !important;
+  max-width: 86vw;
+  height: auto !important;
+  padding: 10px 16px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-2) 86%, transparent) !important;
+  color: var(--color-primary-12) !important;
+  font-family: var(--font-chrome), serif !important;
+  font-size: 12px !important;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Mapbox pulls the show class back after 200 ms; the notice lingers on
+     the hide DELAY (1.4 s), then fades on the UI tier. */
+  transition: opacity var(--dur-fast) var(--ease) 1.4s !important;
+}
+.mapboxgl-scroll-zoom-blocker-show,
+.mapboxgl-touch-pan-blocker-show {
+  transition: opacity 100ms var(--ease) 0s !important;
+}
+/* Juror pass 11: once the page has scrolled, the map's vertical centre is the
+   pill lane. From 1280 up the notice takes the hint chip's slot in the doors'
+   row — below the label-fit safe box, right of the (i), left of the doors —
+   which no stop pill can occupy; the first wheel dismisses the hint, so the
+   two never share it. */
+@media (min-width: 1280px) {
+  .mapboxgl-scroll-zoom-blocker {
+    top: auto !important;
+    bottom: calc(var(--ui-inset) + 16px) !important;
+    left: calc(var(--ui-inset) + 36px) !important;
+    transform: none !important;
+  }
+}
+/* Bottom-left is ONE lane. Mapbox positioned the scale at 10px from the edge
+   and the geolocate button at 14px — two controls four pixels out of line with
+   each other and with everything else on the page. The inset belongs to the
+   CORNER, not to each control: putting it on every control stacked 56px of
+   margin between them and walked the scale bar halfway up the left edge. */
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right {
+  padding: var(--ui-inset);
+}
+/* v14.5 (round 8 §5.3): these live inside the canvas, which now runs E below
+   the UI layer, so they take E back — the Mapbox logo and the attribution are
+   a licence condition and must stay visible. E is 0 everywhere else. */
+.map-shell .mapboxgl-ctrl-bottom-left,
+.map-shell .mapboxgl-ctrl-bottom-right {
+  padding-bottom: calc(var(--ui-inset) + var(--map-e));
+}
+/* v18 (round 19, Wil's screenshot 2): the walk door's gap to the toolbar.
+   On phones the door's bottom sat --ui-inset + 10px above the layout
+   viewport's bottom edge, which is where iOS 26's toolbar region begins; the
+   glass pill itself starts a further ~17px down, so the visible gap read as
+   ~47px against ~11px between the pill and the screen's edge — "still a bit
+   larger than that, but slightly smaller than it is now". The door now sits
+   ON the inset — the lane every floating control uses, bottom-aligned with
+   the (i) beside it (measured 20px above the box's edge for both; the Mapbox
+   logo's own box ends 4px lower): ~37px to the pill. `--map-door-lift` is
+   the tuning knob — `?cta=<px>`
+   on the live page writes it (map.astro), so the number can be dialled on the
+   device without a deploy per guess. Tablets and up keep inset + 12px.
+
+   v19 (round 20, Wil): −4px is the offset he chose on the device (`?cta=-4`),
+   so it is the property's initial value; the flag still overrides it inline.
+   And the chapter cards "inherit the same vertical spacing": ONE token,
+   `--map-lane`, is the door's bottom offset AND the card strip's bottom
+   padding at every width — phones inset + lift (16px), 640 and up inset +
+   12px, the door's existing offset there — so the cards sit exactly where
+   the door sat. Registered because TroyMap parseFloat()s it for the camera's
+   card lift and the strip-fade line. */
+@property --map-door-lift {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -4px;
+}
+@property --map-lane {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
+:root {
+  --map-lane: calc(var(--ui-inset) + var(--map-door-lift));
+}
+@media (min-width: 640px) {
+  :root {
+    --map-lane: calc(var(--ui-inset) + 12px);
+  }
+}
+.map-walk-door {
+  bottom: var(--map-lane);
+}
+.map-cards {
+  padding-bottom: var(--map-lane);
+}
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl,
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl,
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl,
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+  margin: 0 0 8px !important;
+}
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl:last-child,
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl:last-child {
+  margin-bottom: 0 !important;
+}
+/* Attribution stays — it is a licence condition — but it stops shouting. */
+.mapboxgl-ctrl-attrib {
+  background: color-mix(in srgb, var(--color-primary-2) 72%, transparent) !important;
+  border-radius: 6px 0 0 0 !important;
+}
+.mapboxgl-ctrl-attrib,
+.mapboxgl-ctrl-attrib a {
+  color: var(--color-gray-11) !important;
+  font-family: var(--font-chrome) !important;
+  /* The one documented exception to the 12px floor: a third-party licence
+     notice that must be present and must not compete. 10px was illegible. */
+  font-size: 11px !important;
+}
+.mapboxgl-ctrl-logo {
+  opacity: 0.55;
+}
+/* The Where-to-next embed is a small framed artifact: its controls sit at a
+   card inset, not the page's --ui-inset (v7 C5/V7-045). */
+.embed-map-shell .mapboxgl-ctrl-bottom-left,
+.embed-map-shell .mapboxgl-ctrl-bottom-right {
+  padding: 8px;
+}
+
+/* v8 V8-273 (Wil, 00:44:05): the player's hairline→button gap equals the
+ * button→track optical gap below (16px margin + the scrub's transparent
+ * padding: 11px fine / 21px coarse). */
+.player-rule-gap {
+  padding-top: 27px;
+}
+@media (pointer: coarse) {
+  .player-rule-gap {
+    padding-top: 37px;
+  }
+}
+
+/* Narration scrub slider — thin track, real 24px hit area (the track paints
+ * via background clipped to the content box; the padding is tappable) */
+.cnwm-scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 24px;
+  padding-block: 11px;
+  /* v7 V7-056: a thumb-sized hit area on touch screens (44px), same 2px track. */
+  @media (pointer: coarse) {
+    height: 44px;
+    padding-block: 21px;
+  }
+  /* The track paints into the 2px content box; the 24px padding stays tappable.
+     Never set the `background` shorthand on this element — it resets the clip. */
+  background-clip: content-box;
+  background-color: transparent;
+  /* the played fraction (AudioStory sets --pct) */
+  background-image: linear-gradient(to right, var(--color-primary-9) var(--pct, 0%), var(--color-primary-6) var(--pct, 0%));
+  border-radius: 0;
+  outline-offset: 2px;
+  cursor: pointer;
+}
+.cnwm-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 9999px;
+  background: var(--color-primary-9);
+  border: none;
+}
+.cnwm-scrub::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--color-primary-9);
+  border: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * MOTION — opacity + a 24px rise on one easing. Two durations only.
+ * ════════════════════════════════════════════════════════════════════════ */
+
+/* Scroll-reveal: GSAP/IO adds the class; CSS owns the motion. The no-JS and
+   reduced-motion state is simply "everything visible". */
+.reveal,
+.reveal-quote {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
+  }
+  /* Staggered children: --i is set inline on each child. */
+  .js .reveal.is-in > [style*="--i"] {
+    animation: rise var(--dur-slow) var(--ease) both;
+    animation-delay: calc(var(--i) * 200ms);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* The quote settles rather than rises — same duration, no scale. */
+  .js .reveal-quote {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .js .reveal-quote.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
+  }
+
+  /* Per-line mask rise for display type. Measured off museos: the line
+     travels exactly one line-height, opacity NEVER changes (the mask does the
+     work), and siblings stagger by 200ms. */
+  .js .lines .line-inner {
+    display: block;
+    transform: translateY(calc(100% + 0.22em));
+  }
+  .js .lines.is-in .line-inner {
+    transform: none;
+    transition: transform var(--dur-slow) var(--ease);
+    transition-delay: calc(var(--i, 0) * 200ms);
+  }
+
+  /* Media arrives with a clip-wipe and a breath of scale. The clip lives on
+     .wipe-clip, a CHILD — never on .wipe itself: the observer watches .wipe,
+     and Chromium intersects a target against its own clip-path, so a
+     self-clipped section can never report visible and the wipe deadlocks
+     shut (v6 juror pass 2, P0). */
+  .js .wipe .wipe-clip {
+    clip-path: inset(0 0 100% 0);
+  }
+  .js .wipe .wipe-clip > * {
+    transform: scale(1.04);
+  }
+  .js .wipe.is-in .wipe-clip {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path var(--dur-slow) var(--ease);
+  }
+  .js .wipe.is-in .wipe-clip > * {
+    transform: none;
+    transition: transform var(--dur-slow) var(--ease);
+  }
+}
+/* v7 G2 — the mask box gives the ink room. Range/ink measurement (rag.mjs)
+   showed Caslon's J/Q tails overhanging a .95 line box by 2–4px and the W's
+   left side-bearing by 1–2px, so `overflow:hidden` guillotined them
+   ("FOR JUSTICE", "INJUSTICE"). The clip edge now sits .22em below and .12em
+   outside the box; the negative margins hand the room back to the layout so
+   the leading is unchanged. The inner travels the extra .22em so nothing
+   peeks through the padding before the reveal. */
+.lines .line-box {
+  overflow: hidden;
+  display: block;
+  padding: 0 0.12em 0.22em;
+  margin: 0 -0.12em -0.22em;
+  /* An authored line that still has to wrap on a phone wraps balanced
+     ("TUBMAN CREATES / A CROWD", never "…CREATES A / CROWD"). */
+  text-wrap-style: balance;
+}
+
+/* The wipe's clipping child is also its positioning context, so the scrim
+   and credit are clipped WITH the image on every engine. */
+.wipe .wipe-clip {
+  position: relative;
+}
+
+/* The map's card strip: on ≥640 the neighbours fade at the frame edge instead
+   of being guillotined mid-badge (juror P1-4/P1-7). v7 M9: NOT on phones —
+   there the fade read as "dimmed cards"; neighbours peek fully opaque.
+   v13 V13-02 item 3b. From 1024 up the strip is wider than three whole cards
+   will ever fit (514.5 + 16 pitch: three need 1576px), so an outermost PARTIAL
+   is a permanent condition, not a bug — what was a bug is that 28px is too
+   short a ramp to dissolve one. A card cut at the frame edge under a 28px
+   linear fade still reads as a guillotine; eased (the stops approximate a
+   smoothstep, so there is no banding hinge), it reads as the strip continuing
+   past the frame. The ramp reaches 0 four pixels INSIDE the edge, so no
+   partial ever meets the container edge with ink still in it.
+   v14.3 (Wil, 9/16, item 4): "increase the opacity of the chapter cards when
+   they are positioned on the far left or far right edge … not 'ghosted' …
+   the fade-out should feel smoother and more graceful." v13's ramp ran
+   120px, and that is what ghosted them: at 1920 the outermost card rests with
+   197px inside the frame, 120 of them mist (pixel-read alpha reached .85 only
+   96px in); at 1024 half of a 239px partial was gone. The same smoothstep
+   now runs over 44px (4 → 48; alpha ≥ .85 from 38px in, measured at 768,
+   1024, 1440 and 1920), so a card holds as a card and dissolves only in its
+   last 48px. 640–1023 takes the same eased profile in place of its 28px
+   linear cut (a linear ramp has a hinge; the S-curve has none) — one rule from
+   640 up; phones still carry no mask. Revert: v13's 120px stops
+   (0/.06/.25/.55/.85/1 at 4/24/48/72/96/120px) under min-width 1024 and the
+   28px linear under 640. */
+@media (min-width: 640px) {
+  .location-cards-slider {
+    --card-mask: linear-gradient(
+      to right,
+      transparent 0,
+      transparent 4px,
+      rgb(0 0 0 / 0.07) 11px,
+      rgb(0 0 0 / 0.26) 19px,
+      rgb(0 0 0 / 0.5) 26px,
+      rgb(0 0 0 / 0.74) 33px,
+      rgb(0 0 0 / 0.93) 41px,
+      #000 48px,
+      #000 calc(100% - 48px),
+      rgb(0 0 0 / 0.93) calc(100% - 41px),
+      rgb(0 0 0 / 0.74) calc(100% - 33px),
+      rgb(0 0 0 / 0.5) calc(100% - 26px),
+      rgb(0 0 0 / 0.26) calc(100% - 19px),
+      rgb(0 0 0 / 0.07) calc(100% - 11px),
+      transparent calc(100% - 4px)
+    );
+    mask-image: var(--card-mask);
+    -webkit-mask-image: var(--card-mask);
+  }
+}
+/* v7 M9: slide geometry — phones min(343px, 84vw) so ≥ 16px of each neighbour
+   peeks at 360; the approved 428.75 / 514.5 at sm / lg. */
+.walk-slide {
+  min-width: min(343px, 84vw) !important;
+  max-width: min(343px, 84vw) !important;
+}
+@media (min-width: 640px) {
+  .walk-slide {
+    min-width: 428.75px !important;
+    max-width: 428.75px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .walk-slide {
+    min-width: 514.5px !important;
+    max-width: 514.5px !important;
+  }
+}
+/* v7 M6 → v8 V8-202 (Wil, 00:13:54): the card title role stepped up a size
+   (20 → 25.5 → 30) and brightened to the heading cream — the titles read
+   light against the card at the old peach. Caslon Display has one cut, so
+   presence comes from size + ink, not faux bold. */
+.t-card {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.12;
+  color: var(--color-neutral-12);
+  hyphens: none;
+  text-wrap-style: balance;
+}
+@media (min-width: 640px) {
+  .t-card {
+    font-size: 1.59375rem;
+  }
+}
+@media (min-width: 1024px) {
+  .t-card {
+    font-size: 1.875rem;
+  }
+}
+/* v7 M9 → v8 V8-252 (Wil, 00:59:54): the ☰ retreats while a stop is focused
+   on EVERY breakpoint ("you really should hide the menu across all screen
+   sizes when we're taking the walk"); visibility gates it out of the focus
+   order too. Back / Esc bring it back. */
+.cnwm-menu[data-walk="true"] {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.94);
+}
+/* v8 V8-201: while a stop is focused the card strip sits ON the bottom inset
+   (bottom-aligned with the ☰'s axis), so the (i) attribution — a licence
+   requirement — rides just above the strip. Card heights 128/160/192. */
+/* v19 (round 20): the strip now sits on `--map-lane` (the door's lane), so the
+   row above it follows — card height + 8px above the lane. And `+ E`: these
+   controls live in the canvas, which runs E below the UI layer since round 9,
+   and this focused-state rule had never taken E back the way the rest-state
+   rule above does — so on an iPhone the (i) and the logo sat E lower than
+   intended while a stop was focused, behind the cards. E is 0 off iOS. */
+.troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
+.troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
+  padding-bottom: calc(var(--map-lane) + 136px + var(--map-e));
+}
+@media (min-width: 640px) {
+  .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
+  .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
+    padding-bottom: calc(var(--map-lane) + 168px + var(--map-e));
+  }
+}
+@media (min-width: 1024px) {
+  .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-left,
+  .troymap-root[data-walk="true"] .mapboxgl-ctrl-bottom-right {
+    padding-bottom: calc(var(--map-lane) + 200px + var(--map-e));
+  }
+}
+/* v8 V8-203 tucked the phone's (i) beside a bottom-right ☰ (+84px of right
+   padding). v14 E2 (client): the ☰ is top-right on /map as on every other
+   page, so the (i) sits at the plain corner inset — the pocket is gone. */
+/* v14 E25 (client): the 1858 lens caption is ONE line at every width. Below
+   640 the size follows the viewport (precedent: .map-index-title) so the
+   letterspaced caps string fits inside the inset, never under 10px. Measured:
+   43 caps at 12px / +0.10em run 358px; a 360px phone has 320px inside the
+   inset, so 2.9vw (10.4px there, 11.3 at 390, 12 from 414 up) is the largest
+   step that clears every phone width with a few pixels to spare. */
+.lens-caption {
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .lens-caption {
+    font-size: max(10px, min(var(--fs-meta), 2.9vw));
+  }
+}
+/* v7 V7-088: Mapbox's own controls take the house focus ring. */
+.mapboxgl-ctrl button:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Curtain transition panel (GSAP drives y; these are the resting styles) */
+/* ── The walk rail — persistent progress across the five stops ─────────── */
+/* v14.3 (Wil, 9/16: "remove any custom styling that adds a border and/or
+   solid background fill behind the browser address bar / toolbar area … no
+   stray 1px divider line"). The two fixed 2px `.chrome-tint` strips that v12
+   item 17 pinned to the viewport edges (and v13 V13-06 raised to z:100) lived
+   here. On his iPhone they read as a thin coloured line across the top and
+   bottom of every page, so they are gone — see the sampler note in
+   Base.astro. The rail below is the only fixed element left on an edge: a 3px
+   progress hairline, UI rather than a ground. */
+.walk-rail {
+  position: fixed;
+  inset-inline: 0;
+  /* v13 V13-06: the one fixed strip on every chapter page whose offset did
+     NOT resolve through --ui-inset — pinned to the raw top edge, it sat under
+     the notch/status bar on a phone in portrait. env() resolves to 0px on
+     every desktop and most Android, so nothing moves anywhere insets are 0. */
+  top: env(safe-area-inset-top, 0px);
+  z-index: 900;
+  display: flex;
+  gap: 2px;
+}
+/* The stripe reads 3px; the element is 24px so the tap target is real. Where
+   the rail sits over a draggable map it renders as spans instead of links, so
+   it never steals a pan gesture. */
+.walk-rail-nav {
+  height: 24px;
+}
+.walk-rail-static {
+  height: 3px;
+  pointer-events: none;
+}
+.walk-seg {
+  flex: 1;
+  height: 100%;
+  color: var(--hairline);
+  background-image: linear-gradient(to bottom, currentcolor 3px, transparent 3px);
+  transition: color var(--dur-fast) var(--ease);
+}
+.walk-seg[data-state="past"] {
+  color: var(--color-primary-8);
+}
+.walk-seg[data-state="now"] {
+  color: var(--color-primary-10);
+}
+a.walk-seg:hover {
+  color: var(--color-primary-9);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── FLOATING UI — one inset, declared lanes ──────────────────────────────
+ * There were five separate opinions here: the rail at top 0, the burger at
+ * right 12, the mini-player at bottom 16, the map's overlays on their own
+ * insets, and Mapbox's chrome on nobody's. On a 1440 chapter page the burger
+ * floated 124px outside the content's right edge, belonging to no column.
+ *
+ *   top edge, full width, 3px .... walk rail (inert)
+ *   top-right .................... corner menu
+ *   bottom-left .................. mini-player (chapters) / geolocate + scale (map)
+ *   bottom-centre ................ map primary controls
+ *   bottom-right ................. Mapbox attribution
+ *
+ * No two owners share a lane, so no two can collide. */
+/* v11.2 (Wil, 8/24: "Every page on the site should be full bleed"). The page
+ * has run under the notch and the home indicator since v9 added
+ * `viewport-fit=cover`, and NOTHING accounted for it: `env(safe-area-inset-*)`
+ * appeared in exactly one file, on the museum's top chrome. Full bleed without
+ * the insets means the corner menu, the mini-player and the map's controls sit
+ * under the hardware in landscape, and under the status bar and home indicator
+ * when the memorial is opened from a home screen.
+ *
+ * It stays ONE token, which is this block's whole idea — five opinions became
+ * one lane, and per-edge insets would break the alignment that bought. The lane
+ * simply never gets thinner than the deepest safe area on any edge. Where there
+ * are no insets (every desktop, most Android, and this QA environment) each
+ * env() resolves to 0px and the max() IS `var(--gutter)`: 20 / 40 / 56, exactly
+ * as before, byte for byte.
+ *
+ * `@property` is not decoration here. TroyMap and Museum read this token with
+ * `parseFloat(getComputedStyle(...).getPropertyValue("--ui-inset"))`, and an
+ * unregistered custom property computes to its token stream — they would have
+ * read the literal string "max(40px, 0px, …)", got NaN, and silently fallen
+ * back to 20px at every width. Registered as a <length> it computes to a
+ * resolved length and those four readers keep working. */
+@property --ui-inset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
+/* v14.5 (round 8 §5.3): same reason as --ui-inset above, and it bit once —
+   TroyMap reads this with parseFloat to give Mapbox its bottom padding, and
+   while it was unregistered the computed value was the literal token
+   `min(calc(100lvh - 100svh), 20svh)`, which parses to NaN. Registered as a
+   <length> it resolves to px and the camera gets the real number. */
+@property --map-e {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* v16 item 1: T, the top mirror of E. Registered for the same reason — the
+   camera parseFloat()s it, and an unregistered custom property hands back the
+   token stream rather than a resolved length. */
+@property --map-t {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* v17 item 3: B, the corridor canvas's bleed below the visual viewport —
+   /paintings' equivalent of the map's E. Registered because Museum.tsx
+   parseFloat()s it. */
+@property --museum-b {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+:root {
+  /* v14.4 (Safari 26 bars): the background Safari 26 reads from elements
+     pinned to a viewport edge. An opaque colour there becomes a solid band
+     behind the bars; a fully transparent one falls back to the page ground
+     (also a solid band); a semi-transparent one lets the page show through.
+     It is only ever painted where something opaque covers it or at opacity 0,
+     so tuning the alpha here never changes a visible pixel. */
+  --edge-glass: rgb(29 20 17 / 0.02);
+  /* v14.5 (round 8 §5.3): how far the full-page map grows BELOW the layout
+     viewport, so it continues behind iOS 26's bottom toolbar instead of
+     ending where the toolbar starts and showing the index's brown behind it.
+     0 everywhere by default; raised only on .map-shell, below. */
+  --map-e: 0px;
+  /* v16 item 1: the top runway. 0 everywhere by default and off the flag. */
+  --map-t: 0px;
+  --ui-inset: max(
+    var(--gutter),
+    env(safe-area-inset-top, 0px),
+    env(safe-area-inset-right, 0px),
+    env(safe-area-inset-bottom, 0px),
+    env(safe-area-inset-left, 0px)
+  );
+}
+
+/* The menu panel is a dialog, not a peer of whatever is behind it. Over the
+   map it used to sit on top of live markers and slice them in half. */
+.cnwm-menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: color-mix(in srgb, var(--color-neutral-2) 62%, transparent);
+  backdrop-filter: blur(2px);
+  animation: scrim-in var(--dur-fast) var(--ease) both;
+}
+.cnwm-menu-scrim[hidden] {
+  display: none;
+}
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cnwm-menu-scrim {
+    animation: none;
+  }
+}
+
+/* v7 V7-089: the page you are on reads in the accent — no dot, no icon. */
+.cnwm-menu-list a[aria-current="page"] .t-title-sm,
+.cnwm-menu-list a[aria-current="page"].t-meta,
+.cnwm-menu-list a[aria-current="page"].link-meta {
+  color: var(--color-primary-9);
+}
+
+/* The panel can never be taller than the window — at 844×390 it measured 358px
+   in a 390px viewport and covered the entire map stage plus its controls. */
+.cnwm-menu-panel {
+  max-height: calc(100dvh - 2 * var(--ui-inset));
+  overscroll-behavior: contain;
+}
+/* v9 V9-303 (Wil, 8/21: "a double divider/line below the close icon"). On a
+   short screen the panel scrolls, and the close button scrolled away with the
+   content — as it slid under the panel's top edge its own bottom border came
+   to rest a few pixels beneath the panel's border, reading as two hairlines
+   with no icon between them. Pinning it fixes the doubling and keeps Close
+   reachable from anywhere in the list. It carries the panel's own background,
+   so the list passes cleanly underneath. */
+.cnwm-menu-panel > .cnwm-menu-close:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.cnwm-menu-panel > .cnwm-menu-close:last-child {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
+/* v13 V13-07b/09 (Wil: "the doubled rule under the menu's X"). Not two
+   borders — `Menu.astro` focuses the panel's first focusable child on open
+   (the close button top-right, the Home link bottom-right on /map), and the
+   global `:focus-visible` ring's `outline-offset: 3px` draws OUTSIDE that
+   child's box. Because `.cnwm-menu-panel` is `overflow-y: auto`, the ring's
+   top and side segments land past the panel's own edge and get clipped away
+   — only the bottom segment survives, reading as a second hairline a few
+   pixels under the real border. An inward ring (`outline-offset: -3px`) never
+   leaves the panel's clip box, so nothing is clipped and there is exactly one
+   line under the X (or under Home) again. #f26835 on #341a11 still measures
+   5.23:1, comfortably clear of the 3:1 non-text minimum. Scoped to every
+   focusable child of the panel, not just the close button — the bottom-right
+   /map panel focuses Home instead, and it clips against the same top edge. */
+.cnwm-menu-panel :focus-visible {
+  outline-offset: -3px;
+}
+
+/* v20 (round 23, Wil, 2026-09-18): "the menu animates by sliding from the
+   right to the left and from up to down slightly when the user scrolls … its
+   position is getting pushed." It was never animated: --ui-inset is one lane
+   for every corner and takes the deepest of the four safe areas, and
+   env(safe-area-inset-bottom) is 0 with Safari's bars expanded and 34px once
+   they collapse (docs/PLAYBOOK-MOBILE-CHROME.md §1) — so the top-right burger
+   jumped 14px down and 14px left on every scroll down and back on every
+   scroll up, in the same moment its retreat fade ran, which reads as a slide.
+   A corner needs only its own two edges: the top-right menu now takes the
+   gutter, the top inset and the right inset, and nothing at the bottom edge
+   can move it. The fade below is unchanged (his choice: keep it). Every page
+   that shows the menu places it top-right (the map moved there in round 1),
+   so this is the site-wide behaviour he asked for; the bottom-right variant,
+   unused today, keeps --ui-inset, where the bottom inset is the one that
+   matters. No other corner control changes. */
+.cnwm-menu[data-position="top-right"] {
+  --menu-inset: max(var(--gutter), env(safe-area-inset-top, 0px), env(safe-area-inset-right, 0px));
+}
+
+/* The corner menu retreats while the reader is moving forward. */
+.cnwm-menu {
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.cnwm-menu[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.94);
+}
+
+.curtain-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* v14.4 (Safari 26 bars): Safari tints its address bar and toolbar from the
+     background-color of any fixed element touching a viewport edge, and it
+     samples elements that are parked off-screen, transparent or inert. This
+     panel was always rendered, opaque and full-screen, so every page it had
+     ever covered kept a solid band above and below. Two changes: the colour
+     lives on ::before (pseudo-elements are not sampled), and the panel leaves
+     the render tree whenever it is not animating.
+
+     v14.5 (round 8, Wil's Option A): the fill is the PAGE GROUND
+     --color-primary-2 (#1d1411), not --color-neutral-2 (#100a06). Round 8's
+     lab proved the tint Safari takes from this panel cannot be cleared once
+     set: of five variants, only an animated colour change on an element that
+     stays in the tree moved the bar at all, and every removal-based recovery
+     (display:none, a scroll nudge, a body-background flip) left it exactly
+     where it was. So the panel stops handing Safari a colour worth clearing —
+     a stale tint is now the same #1d1411 as the correct one. This IS a visible
+     change to the wipe on every page, and it is approved. */
+  display: none;
+  background-color: var(--edge-glass);
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.curtain-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* v14.5: the page ground, so a tint Safari cannot clear is the right one. */
+  background: var(--color-primary-2);
+}
+.curtain-panel.is-active {
+  display: block;
+}
+.curtain-text {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  /* v14.4: full-screen and fixed, so Safari counts it at both edges even at
+     opacity 0 — rendered only while the curtain moves. */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+/* v7 X1 — page B arrives covered (set by the inline head script before first
+   paint); the module's exit half takes over from this exact state. */
+.curtain-covered .curtain-panel {
+  display: block;
+  transform: none;
+  pointer-events: auto;
+  will-change: transform;
+}
+.curtain-covered .curtain-text {
+  opacity: 1;
+}
+.curtain-text.is-active,
+.curtain-covered .curtain-text {
+  display: flex;
+}
+
+/* ── v14.4: Liquid Glass behind Safari's bars, site-wide ──────────────────
+ * Safari 26 tints its address bar and toolbar from the background-color (and
+ * backdrop-filter) of fixed/sticky elements within ~4px of the top or ~3px
+ * of the bottom that are at least 80% wide and 3px tall — including ones at
+ * opacity 0 or parked off-screen — and otherwise from the page ground. Only
+ * display:none and pseudo-elements are skipped. Nothing in this block may
+ * change a visible pixel: every --edge-glass fill is either covered by an
+ * opaque ::before or drawn at opacity 0. */
+
+/* ── Round 24 (Wil, 2026-09-21), device pass 5: the hall under Safari's bars
+   Two facts, both measured on his phone, and every pass of this round sat
+   on one without the other.
+
+   1. Safari 26 draws its bars as GLASS over the page unless a fixed or
+      sticky element is what its edge probe finds — a hit test a few px
+      inside the layout viewport's top and bottom edges, walked up to the
+      first pinned ancestor — and then the bar is an opaque fill in that
+      element's colour, so a pinned header or footer reads as one piece with
+      the bar (WebKit's LocalFrameView::fixedContainerEdges; rounds 8, 18,
+      23 and this one). The corridor stage was sticky and viewport-sized:
+      found at the bottom edge at rest, at both edges while walking, so both
+      bars were opaque fills and nothing placed under them — strips, colour
+      columns, a tint — could ever show (passes 1–3).
+   2. A pinned box's paint never reaches the bar regions: fixed or sticky,
+      stuck or not, it is clipped at the layout viewport (round 8 A2: 160px
+      of bleed, 21 rendered; round 23 pass 5: a stuck box "now it's
+      transparent"). Only IN-FLOW page paint does — the map's runway, the
+      chapter cover through the pill, the hero ghosting through it.
+
+   So two things, one per fact. THE PIN: the stage is no longer the sticky
+   element; a wrapper, `.museum-pin`, is — a viewport taller than the
+   viewport (`height: 100dvh + P`, P = 100svh where the bars collapse),
+   stuck at `top: −P` and pulled up by `margin-top: −P` so the stage's own
+   box, at the pin's foot, does not move by a pixel in any state. WebKit
+   ignores a pinned box that overshoots the viewport along the edge's axis
+   (its size test; the layout test
+   `color-sampling-ignores-large-sticky-container` skips a 2000px sticky at
+   the top and bottom), so the probe walks past it and both bars stay glass.
+   THE RUNWAY: the canvas renders B rows above and below the stage
+   (Museum.tsx sizeToStage + camera.setViewOffset — the stage's band framed
+   to the pixel, measured), and two in-flow <canvas> strips in the wrap
+   (`.museum-runway`, before the pin in the tree so the stage paints over
+   their overlap) are fed those rows every frame and placed by Museum.tsx in
+   the bar regions: above the viewport's top edge while the stage is stuck,
+   below svh whenever the stage's box reaches it. Page paint, never pinned,
+   so Safari composites it under its glass exactly as it does the map's
+   runway.
+
+   B is the map's T expression and P follows it: both 0 wherever lvh == svh,
+   so on desktop, Android, iPad and in Chromium every rule below reduces to
+   the boxes the stage had — the pin a viewport-tall sticky box with the
+   stage filling it — and the visual gate holds. The tokens live on the wrap
+   so the pin and the stage inherit them. */
+@supports (-webkit-touch-callout: none) {
+  html .museum-wrap {
+    --museum-b: round(down, min(110px, calc(100lvh - 100svh)), 1px);
+    /* P: a whole viewport where B is anything, 0 where B is 0 (the ×1000
+       makes any B at all win the min); svh, so P holds still while the bars
+       move and only the pin's dvh part follows them, as the stage already
+       did */
+    --museum-pin: min(100svh, calc(var(--museum-b) * 1000));
+  }
+}
+@property --museum-pin {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* the pin's negative margin stays inside the wrap (playbook §2, trap 2) */
+.museum-wrap {
+  display: flow-root;
+}
+.museum-pin {
+  position: sticky;
+  top: calc(-1 * var(--museum-pin));
+  height: calc(100dvh + var(--museum-pin));
+  margin-top: calc(-1 * var(--museum-pin));
+  /* Round 28: no `pointer-events: none` here. It only kept the pin's empty
+     top (over the header, at rest) from taking a tap the header does not
+     want anyway, and it is one more thing WebKit's touch regions might read
+     into while the drawer's gesture is failing on his phone. */
+}
+/* svh as a number for Museum.tsx: the bars-expanded viewport height, which
+   holds still while the bars move (playbook §1) — the bottom strip is
+   anchored to it, never to innerHeight. Registered so parseFloat gets a
+   resolved length, like --ui-inset and --museum-b. */
+@property --museum-svh {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+/* The runway strips: absolutely positioned in the wrap, BEFORE the pin in
+   the tree so the stage's ground and canvas paint over their overlap.
+   Placed by `top` (the map's canvas, the one element measured under the
+   toolbar, is positioned by layout and carries no will-change). Hidden
+   until Museum.tsx has something for them; inert. */
+.museum-runway {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  pointer-events: none;
+}
+
+/* ── Round 25 (Wil, 2026-09-22): the hall's lead painting waits for the hall
+   "When the page initially loads, it looks like it's chapter page 2, which
+   flashes for just a second and then the actual page loads." The slot is
+   server-rendered with one full-bleed painting — Chapter 2's "The Altruist",
+   with the series caption — for readers whose hall never mounts (reduced
+   motion, no WebGL, a thin connection, JS off), and to hold the slot's height
+   so nothing shifts when the hall arrives. On a capable phone it showed for
+   the second between first paint and the island's mount, when the stage's
+   ground covered it: painting, brown, hall.
+
+   THE COVER. An opaque page-ground box over the painting, in the lead box
+   itself. It leaves on its own 2.4s after the page's styles apply (a 300ms
+   fade at the house curve), so a capable phone goes brown → hall and never
+   sees the painting, and a reader whose island never runs sees the page
+   ground for 2.4s and then the painting. When the island does run and finds
+   the hall cannot (Museum.tsx's capability gate: no WebGL, reduced motion,
+   a thin connection), it marks the slot `data-hall="off"` and the cover goes
+   at once — the painting is the page for that reader, and appears as soon
+   as the page knows. Without JS (no `.js` on <html>) and under reduced
+   motion the cover never exists: the painting IS the page there, and the
+   fade is motion. 2.4s is the island's mount on a slow phone with room to
+   spare; a mount after that shows the painting for the remainder, which is
+   today's behaviour, shorter.
+
+   WHY THE PAINTING IS NOT FADED ITSELF. Largest Contentful Paint ignores an
+   element at opacity 0 and counts it only once it is visible, so hiding the
+   painting would move the page's LCP candidate 2.4s later and put the M1
+   budget (LCP < 2.5s throttled) at risk. Covered, it still paints beneath
+   the cover at the same moment as before; LCP does not see occlusion.
+   Nothing else on the page changes, and the shots the visual gate takes
+   (reduced motion, and the hall mounted) cannot contain the cover.
+
+   REVERT: delete this block, the `.museum-lead-cover` div in paintings.astro
+   and the `data-hall` line in Museum.tsx. */
+.museum-lead-cover {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary-2);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js #museum-slot:not([data-hall="off"]) .museum-lead-cover {
+    display: block;
+    animation: museum-lead-cover-out var(--dur-fast) var(--ease) 2400ms both;
+  }
+}
+@keyframes museum-lead-cover-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* The corridor stage is full-screen at the pin's foot: its opaque ground
+   moves to ::before (same colour, same box, painted beneath every child). */
+.museum-stage {
+  --museum-svh: 100svh;
+  background-color: var(--edge-glass);
+}
+html .museum-stage {
+  /* round 24: absolute at the pin's foot, one viewport tall (`h-dvh`) */
+  position: absolute;
+  top: var(--museum-pin);
+  left: 0;
+  /* sticky made the stage a stacking context; absolute does not, and its
+     ::before ground (z −1) and its chrome (z 10–30) must keep stacking
+     inside it */
+  isolation: isolate;
+}
+.museum-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-primary-2);
+}
+/* One invisible reading per edge, on every page. Opacity 0, inert, never
+   hit-tested, and out of the Base.astro sampler's reach: `pointer-events:
+   none` keeps the strip out of elementsFromPoint entirely, so it cannot be
+   read as a ground by groundAt() or sectionGroundAt() however tall it is.
+
+   v14.6 (round 8 phase C, Wil's device pass): 4px -> 12px, and the
+   `@supports (-webkit-touch-callout: none)` gate is gone.
+
+   Why. Round 8 phase B shipped this strip as the mechanism for the chapter
+   pages' section-coloured address bar (Base.astro, `data-top-bar="section"`),
+   and on Wil's iPhone no fill appeared at all. Two reasons, both departures
+   from what the round's own plan specified in section 5.1:
+
+   - HEIGHT. The plan said 12px; 4px shipped. This round's evidence table puts
+     the qualifying minimum at 3px on iOS and 6px on macOS, and records 12px as
+     the value bleedblend measured as reliably working. 4px is one pixel over
+     the iOS floor and UNDER the macOS floor, so Mac Safari could never have
+     read it and iOS was sitting on the threshold.
+   - THE GATE. The plan said ungated "so Mac Safari gets them too"; the gate
+     shipped. A2 measured the gate firing true on Wil's iPhone, so it is not
+     what blocked iOS — but it did exclude Mac Safari completely.
+
+   Neither change can paint: opacity is 0 and the box is out of flow, so the
+   12px box is invisible on every platform and the visual gate holds at 0
+   drift. Which of the two was the iOS blocker is what /glass-lab test 4
+   settles on the device, with a VIVID red probe rather than another
+   near-black (test 2's eight answers were useless because every option was a
+   dark brown and Wil could not tell them apart). */
+.edge-glass {
+  display: block;
+  position: fixed;
+  inset-inline: 0;
+  height: 12px;
+  z-index: 950;
+  opacity: 0;
+  pointer-events: none;
+  background-color: var(--edge-glass);
+}
+.edge-glass-top {
+  top: 0;
+}
+.edge-glass-bottom {
+  bottom: 0;
+}
+
+/* ── v14.9 (round 8 phase F): the chapter fill, parked where it cannot be seen
+   Wil, 2026-09-18: "it is supposed to be the same color as the background color
+   of the hero section and it is supposed to remain this same solid fill color
+   as you are scrolling down … it currently transitions into a see-through fill
+   which it should never have done."
+
+   WHY PHASE C FAILED, and it was never the opacity. Phase A2 measured the
+   geometry on his phone: the top bar covers screen y 0–107, and document
+   offset 0 sits at screen y 107. So `top: 0` puts a strip BELOW the address
+   bar, in visible page area — phase C spent four commits sweeping the opacity
+   of an element that was never in the region it was meant to fill, and of
+   course he could see it.
+
+   PARKED IN THE INSET INSTEAD. At `top: -12px` the box spans viewport y −12→0,
+   inside the obscured region. It cannot paint there: a pinned box is clipped at
+   the visual viewport, which A2 measured directly (160px of requested bleed,
+   21px rendered, stopping dead at the viewport edge). It is still SAMPLED —
+   both the community suite and the client brief record an element parked
+   off-screen past the edge as read (`bottom: -8px` with `min-height: 12px`),
+   and the 12px height clears the 3px iOS floor and the 6px macOS one.
+
+   WHY THIS ONE SURVIVES SCROLLING, which nothing else has. What Safari paints
+   from a qualifying element is an opaque background extension across the whole
+   obscured inset — its own UI fill, not page paint. That is the same mechanism
+   that made the original dark bands on /map and /paintings, so it is proven on
+   this site in the opposite direction. Page content minimizing under the bar
+   cannot composite over Safari's own fill, which is exactly what the body
+   fallback could never do.
+
+   OPAQUE, STATIC, #100a06 — the hero's ground, held for the whole page. No
+   sampler, no JS, no transition; the inline strip write in Base.astro that used
+   to repaint this per section is gone with it.
+
+   WHERE IT CANNOT PAINT, WITH CERTAINTY. Anywhere there are no bars the visual
+   viewport IS the layout viewport, so a fixed box at `top: -12px` is simply
+   outside it. Desktop and Android are unaffected by construction, at every
+   breakpoint. NOTE FOR THE GATE: qa:snap captures the viewport at scroll 0, so
+   it cannot photograph this strip either way — the no-paint claim rests on the
+   clip A2 measured, and the iOS bar itself is Wil's check.
+
+   FAIL-SAFE: if Safari declines to sample an element fully off-screen, nothing
+   changes and the page looks exactly as it does today.
+
+   REVERT: delete this rule. */
+/* v15 (Wil, 2026-09-18): "All chapter pages = area behind the top address bar
+   AND bottom toolbar is always hero section brown." Both edges, same lever,
+   same colour. The bottom strip is the mirror image: parked at bottom: -12px
+   it is inside the bottom inset, unpaintable for the same measured reason, and
+   sampled for the same recorded one (the brief's own example is a bottom edge,
+   `bottom: -8px` with `min-height: 12px`).
+
+   This is the ONE page type where an opaque extension is what is wanted: it is
+   Safari's own UI fill, so page content scrolling under either bar cannot
+   composite through it. On /map and /paintings the same mechanism is what must
+   be kept AWAY from the edges, which is why their strips stay at opacity 0. */
+/* v17 (Wil, 2026-09-18): "still transitions to a transparent area behind the
+   address bar on scroll … this is how it used to work."
+
+   HYPOTHESIS 1 FAILED ON THE DEVICE. Parking the strip fully off-screen
+   (top:-12px) made it invisible, but Safari did not sample it — so the brief's
+   section 8.2 note, that an element parked past the edge is still read, does
+   not hold for iOS 26.6.1. That is the third published claim about this build
+   to fail here, after "never draws content" and "opacity:0 is still read".
+
+   HYPOTHESIS 2, and it is the configuration that produced the bands nobody
+   could get rid of. The original unkillable dark bands on /map and /paintings
+   came from a full-width element AT the edge, ON screen, with an opaque
+   background-color. Phase C's strip had all of that and Wil could see it; the
+   off-screen one was invisible and inert. The one combination never tried is
+   both at once: on screen at the edge, so it qualifies, and BEHIND the page, so
+   it cannot be seen. `z-index: -1` puts it under <main>, which has carried an
+   opaque ground since round 14 — a negative-z child of <body> paints below
+   body's non-positioned in-flow descendants, so <main> covers it completely at
+   every scroll depth and on every route.
+
+   WHAT IS STILL UNKNOWN, and Wil should know it before looking: if the
+   transparency he sees is the bar MINIMIZING rather than the sampler declining,
+   no element can fix it — A2 measured that a minimized bar covers nothing and
+   the page runs edge to edge beneath it. This hypothesis is worth one device
+   check because it is free; if it fails the same way, that is the answer and
+   the fill can only exist in the bars' expanded state.
+
+   FAIL-SAFE: invisible either way, so a failure costs nothing but the look it
+   already has.
+
+   REVERT: delete this rule. */
+/* v20 (round 23, Wil's screenshots of 2026-09-18): HYPOTHESIS 2 DID NOT TAKE
+   EITHER. His minimized address bar still showed the painting, the heading and
+   the cream through the glass, under <body>'s brown gradient — so the on-screen
+   strip beneath <main> was not read, and the chapter routes no longer force an
+   opaque extension at either edge: the strips return to the site-wide inert
+   state above (opacity 0), which also keeps the BOTTOM toolbar free of any fill,
+   as he now asks. What replaced them: <body> follows the section at the top
+   edge (the round-21 rule, extended from /map — see the body rules below) and
+   the in-flow `.edge-cover` paints that section's ground over whatever has
+   scrolled past the top edge, which is what the minimized bar shows. */
+
+/* ── v14.7 (round 8 phase D): the root background IS the bar at rest ─────────
+   Wil's annotated device pass, 2026-09-18. Two of his three asks reduce to one
+   mechanism, and it is the only one this round MEASURED rather than assumed.
+
+   Phase A, on his iPhone: "the top bar at rest is not a tint — it reads the
+   page brown because nothing exists above document offset 0, the
+   root-background fallback." That brown is `html`'s background, 60 lines up.
+   So the root background is already driving the bar; naming a different colour
+   per route is all that is needed. No strip, no opacity, nothing Safari has to
+   agree to read — phase C proved it will NOT read an opacity-0 strip, and that
+   every opacity it does read is one Wil can see.
+
+   WHAT THIS CANNOT DO. It cannot make the bar see-through. At rest the page's
+   render surface begins at document offset 0, which sits BELOW the address bar,
+   so on every page there is simply nothing there to show through. A matched
+   colour is the ceiling, and that is what these two rules buy.
+
+   WHY IT PAINTS NOTHING ON THE PAGE. `body` keeps its own background and covers
+   its whole box, so these colours reach only what lies outside it: the bar
+   region above offset 0, and overscroll. The visual gate holds at 0 drift.
+
+   REVERT: delete this block. */
+
+/* ── v14.8 (round 8 phase E): it is <body>, not <html> ───────────────────────
+   Phase D shipped the two colours below on <html> and they did nothing. /map
+   is the one route where the two elements differ enough to tell apart by eye,
+   and Wil's device pass discriminated cleanly: html declares #353535 (present
+   in the emitted CSS and on the built page, both checked) and his address bar
+   still read #1d1411 — the BODY ground. Safari reads <body>.
+
+   Phase A could not have caught this. html and body were BOTH #1d1411 then, so
+   "the root-background fallback" and the body fallback were the same colour and
+   phase D built on the ambiguity. The client brief said <body> all along.
+
+   WHY THE GROUND MOVES TO <main>. body's background-color IS the visible page
+   ground — .sec, .shell, main and section paint nothing — so simply recolouring
+   body would have repainted the page, and /map's index section would have gone
+   mid-grey. <main id="main"> wraps all page content including the footer
+   (verified on the built pages), so painting the ground there puts exactly the
+   same pixels on screen and leaves body's own colour visible only where main
+   does not reach: the bar region and overscroll.
+
+   THE ACCEPTED COST. body drives rubber-band overscroll at BOTH ends, so
+   overscroll on these routes takes the bar colour, and each route's bottom
+   toolbar takes the same colour as its top. That is why the brief listed a body
+   background change as stop-and-report; it was reported and approved.
+
+   WHAT THIS STILL CANNOT DO. A scrolled chapter page composites real content
+   through the bar and always will — that is phase A2's accepted glass-while-
+   scrolled split, and no mechanism reaches it. These colours govern the state
+   at rest, where nothing exists above document offset 0.
+
+   REVERT: delete this block and restore the two `html[...]` selectors. */
+main {
+  background: var(--ground);
+}
+
+/* The five chapter routes: Wil's own stated fallback — "use the default brown
+   that is the section background color for the hero section". The hero is
+   `bg-neutral-2` #100a06; the bar has been showing the page ground #1d1411.
+   v14.8 (Wil, 2026-09-18): STATIC. The colour is set once and holds for the
+   whole page. Tracking the section under the bar as the reader scrolls is
+   dropped at his instruction — it needs either the 12px strip phase C3 proved
+   visible over the hero, or writing body's colour on scroll, which would
+   retint the BOTTOM toolbar on these routes too.
+   v20 (round 23, Wil, 2026-09-18): TRACKING, at his instruction this time —
+   his three screenshots ask for the section's colour behind the minimized bar
+   on every section. This is now the AT-REST and no-JS value only: Base.astro's
+   sampler writes the colour of the section at the top edge to <body> inline
+   as the reader scrolls (the round-21 rule from /map), and the `.edge-cover`
+   below paints the same colour over what has scrolled past. The bottom
+   toolbar's share of Safari's one tint is the residue he was told about. */
+/* Device pass 3 (Wil, 2026-09-18): "the hero section fill on the address bar
+   is too dark; it should be the same as the hero section brown." The heroes'
+   own `background-color` was --color-neutral-2 #100a06, a near-black no one
+   ever sees — the painting covers it — while the scrim beneath the lockup
+   ends in the page ground #1d1411, which IS the brown he means. The heroes
+   carry `bg-primary-2` now ([chapter].astro), so the resolver, the cover,
+   this at-rest value and the page ground agree on #1d1411. */
+html[data-top-bar="section"] body {
+  background-color: var(--color-primary-2);
+}
+
+/* /map: #353535, the Mapbox style's own ground — the same value map.astro
+   already declares on `data-edge-*`, so the band matches the canvas beneath it
+   instead of reading as a brown slab. Matched, NOT see-through (see above).
+   v19 (round 21): this is the AT-REST value only. Once the index scrolls under
+   the minimized bar, Base.astro's edge sampler writes the section's brown to
+   <body> inline (and the grey back when the map returns), because Safari's
+   tint outlives the map otherwise — Wil's grey gradient over the brown index. */
+html[data-root-fill="map"] body {
+  background-color: #353535;
+}
+
+/* ── v20 (round 23): the chapter cover ──────────────────────────────────────
+   Wil's screenshots, 2026-09-18, the chapter pages with the address bar
+   minimized: "set the area behind/around the browser's top UI to a solid fill
+   that matches the background color of the section currently visible at the
+   top of the viewport … the color should update as the user scrolls between
+   sections."
+
+   WHAT THE MINIMIZED BAR SHOWS. The playbook's measured geometry (§1): once
+   the bars minimize the layout viewport starts below the pill, and the region
+   above it — status bar and pill — is glass over whatever the document holds
+   ABOVE the viewport's top edge, i.e. what has just scrolled past, under a
+   short gradient of <body>'s colour. A fixed or sticky box cannot paint there
+   (A2: clipped at the visual viewport); in-flow content can (the map's
+   runway). So the only way to give that glass a solid ground is to put a
+   solid ground in the document, exactly where the scrolled-past content is.
+
+   THE COVER. One absolute box in the document (a child of <body>, so it lives
+   in the scrolling layer, not the viewport layer), 320px tall, moved with the
+   scroll so its BOTTOM edge sits on the walk rail — the 3px progress readout
+   fixed at the viewport's top (`.walk-rail`, z 900, over this at 800): the
+   cover ends 1px inside the top of the rail's line, so the fill ends exactly
+   where the rail begins, with no slit above it and nothing below it. Everything
+   the cover paints is above the viewport by construction; the reader sees it
+   only through the bar. Its colour is the section at the top edge, from the
+   same resolver that writes <body>, so the glass, Safari's tint and the cover
+   agree.
+
+   HOW IT MOVES — device pass 2 (Wil, 2026-09-18, 17:41: the fill "changes
+   height as you scroll", and a slit of content showed between it and the
+   rail). The first push set the transform from `scrollY` on each scroll
+   event, and at rest the cover sat 3–6px above the rail, a different amount
+   after every scroll: the last scroll event's position is not where iOS
+   finally settles, and nothing re-read it. So, where a browser supports
+   scroll-driven animations, the COMPOSITOR moves it: `edge-cover-track`
+   below is a linear animation on a `scroll(root)` timeline whose range is
+   an absolute 0–100000px of scroll offset (not the page's own 0–100%, which
+   would depend on the scrollport's height and change as the bars collapse),
+   so translateY = scrollOffset + rail − 320 at every frame, from the true
+   offset, with no main-thread lag and no stale value. The sampler script
+   self-checks it on the first scroll events (the cover's rendered bottom
+   must sit on the rail's; had a browser mapped the range differently the
+   cover would be a slab sweeping the page, so the check switches the
+   animation off) and otherwise tracks the rail itself from the layout
+   viewport's offset, re-reading for 600 ms after every scroll until the
+   position stops changing. `?cover=js` forces that tracker on the device.
+
+   DEVICE PASS 4 (Wil, 2026-09-18, 20:14, a crop of the expanded bar
+   mid-scroll): the cover's edge sat ~30px above the rail with the archival
+   photo showing between them, and the whole region "buggy / jittery and not
+   smooth". That is a frame's lag at speed — so on his phone the timeline is
+   NOT running on the compositor (or the script was driving). The fifth push
+   tried the one in-flow thing the scrolling thread places itself, a sticky
+   box; DEVICE PASS 5 (20:35) measured the answer: a stuck box is clipped at
+   the viewport exactly like a fixed one and never paints in the bar region
+   — "now it's transparent". And round 8's tests 4 and 5 already showed that
+   an element Safari reads for its own fill has to be a VISIBLE opaque strip,
+   read as a tint source. So the region can only be solid through scrolled
+   page paint, positioned by the page, a frame behind at speed. Pass 5's
+   answer is to make that frame invisible rather than pretend it away: the
+   tracker is the default again, and the cover's bottom edge is feathered in
+   proportion to scroll speed — hard and exact at rest (the state pass 1 got
+   right), soft only while the page moves, when the eye reads a soft edge
+   under the pill as motion and a hard, lagging one as a slit. The timeline
+   stays behind `?cover=track` with `?debug=1` reporting whether his Safari
+   supports and accelerates it.
+
+   THE EDGE — HARD, BY HIS DEVICE PASS. Scrolling is asynchronous on iOS: the
+   compositor moves the page and the main thread follows a frame later, so on
+   a fast upward flick the cover can trail by a frame's worth of scroll and
+   poke that far into the visible page. The first push feathered the bottom
+   16px against that. Wil's device pass (2026-09-18, 15:13, the story
+   section): the cover IS composited through the pill — "almost perfect" —
+   and the feather read as exactly what it is, a gradient: through those 16px
+   the section above the viewport's top edge ghosted in (the dark player
+   ground above the cream transcript). "Just should be a solid fill not a
+   gradient." So the default is 0, a hard edge, and the mask stays only for
+   the flag: `?feather=<px>` softens it on the device if a flash ever shows on
+   a flick; `?cover=off` shows the page without the cover.
+
+   WHERE IT CANNOT SHOW. `display: none` unless the platform has these bars —
+   the `-webkit-touch-callout` gate the playbook records as firing on iOS and
+   nowhere else — so desktop, Android and the visual gate (Chromium at scroll
+   0) never see it, and the script attaches no listener there. Z 800: over
+   every z-index inside <main> (the moral's 10, the onward door's 5), under the
+   walk rail (900), the mini-player (999) and the menu (1000), which live
+   inside the viewport anyway. `pointer-events: none` keeps it out of the
+   sampler's hit tests and the reader's way; `overflow-anchor: none` keeps
+   Chromium's scroll anchoring off it. The bottom toolbar gets nothing from
+   this: Wil's instruction is no fill there.
+
+   REVERT: delete this block, the markup in Base.astro and its tracker. */
+.edge-cover {
+  display: none;
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 320px;
+  z-index: 800;
+  transform: translate3d(0, -320px, 0);
+  will-change: transform;
+  pointer-events: none;
+  overflow-anchor: none;
+  background-color: var(--color-primary-2);
+}
+/* ── Device pass 6 (Wil, 2026-09-18, 22:42): THE VISOR ─────────────────────
+   Three crops, both scroll directions, both bar states: the content behind
+   the bar showed in a 10–40px band above the rail whenever the page moved —
+   the frame of lag, which pass 5's speed feather only blurred. "There should
+   never be a moment where the area behind or around the top address bar is
+   see-through … just one color that fills the area … and changes based on
+   the section color." A cover aimed at the viewport's top edge exposes its
+   lag in the bar region, where nothing fixed can hide it. So the cover is
+   aimed INSIDE the page, at the middle of a fixed, opaque band that can:
+   the walk rail, now `--edge-visor` tall with its 3px line at the bottom and
+   the section's colour written to it by the sampler, instantly, as the
+   cover's is. The frame of lag moves the cover's edge up or down inside the
+   visor, hidden; above it the bar region is solid cover, below it the page.
+   The script leads the scroll by its measured speed so the edge stays near
+   the middle at speed; the visor's half-height absorbs the rest. The cost is
+   the band itself — the fill ends `--edge-visor` below the viewport's top
+   edge rather than at it, and the indicators sit at its foot — which is the
+   design he described from the start: a solid fill that ends at the
+   progress indicators. `?visor=<px>` tries another height on the phone.
+   Only where the cover is (iOS, the chapter routes); Chromium and every
+   other route never see it.
+
+   DEVICE PASS 7 (Wil, 2026-09-19, 06:15: "even better but now it's too
+   tall", and "a little flicker … both fast and slow"). The band's height
+   was the tolerance twice over — half above the middle for lag, half below
+   for the lead — so the cover now aims at the TOP OF THE LINE, the visor's
+   foot, and the whole band above the line is room for the edge to lag
+   upward before the bar region shows anything. An edge that overshoots
+   downward runs behind the line (the rail is z-index 900, above the cover's
+   800, and the band's colour is already behind the line's gaps) and then
+   over the page's first rows in the section's own colour: never
+   see-through. The script's lead is biased the same way (Base.astro). With
+   the tolerance no longer halved, the default is 16px — 13px of room above
+   the line, against pass 6's 16 from a 32px band — and `?visor=` still
+   tunes it; `?visor=3` is the bare line of pass 3, with no room at all. */
+@property --edge-visor {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
+/* Since device pass 13 the cover and the visor exist only in the document
+   mode (`?scroll=doc`): the runway and the still document have nothing to
+   cover. */
+@supports (-webkit-touch-callout: none) {
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static {
+    height: var(--edge-visor);
+    align-items: flex-end;
+    background-color: var(--color-primary-2);
+  }
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .walk-rail-static .walk-seg {
+    height: 3px;
+  }
+}
+@supports (-webkit-touch-callout: none) {
+  html[data-top-bar="section"][data-scroll="doc"]:not([data-cover="off"]) .edge-cover {
+    display: block;
+  }
+}
+/* ── Device pass 8 (Wil, 2026-09-19, 16:38): THE STILL DOCUMENT ─────────────
+   "Why does the solid fill behind and around the address bar need to change
+   size at all when scrolling? Why can't it just be a solid fill that is
+   static and changes color when the section changes color?" Because the
+   region behind Safari's top bar shows scrolled page paint and nothing else
+   (playbook §1: fixed and sticky boxes are clipped at the viewport), so a
+   fill there had to be a piece of the page moved into place every frame,
+   and a frame behind the compositor is what he saw in seven passes. The one
+   STATIC thing Safari paints in that region is the canvas — <body>'s colour
+   — and it shows only where the document has not scrolled past it. So in
+   this mode the document never scrolls: <html> is the viewport's height and
+   clips; <main> is the scroller, exactly the layout viewport plus
+   `--reader-e` under the bottom toolbar (the runway's E from /map, so
+   content still shows through the bottom bar's glass, which he asked to
+   keep), with the same E of padding at its end so the last line can still
+   clear the toolbar. Above the viewport there is nothing but canvas, and
+   <body> already carries the section at the top edge (the sampler), so the
+   bar region is a solid, static fill that switches colour at each section:
+   no cover, no visor, no tracker, nothing to lag. The trade is Safari's own:
+   its bars collapse only when the DOCUMENT scrolls, so here they stay
+   expanded while reading (the address bar and the toolbar, 199px of his
+   screen) — and, the other side of the same coin, nothing on the page ever
+   re-lays out or re-tints because a bar moved. Device pass 9 (Wil,
+   2026-09-19, of the ?scroll=inner link: "It's exactly what I wanted. Please
+   apply it to all the remaining chapter pages"): this IS the chapter default
+   wherever the bars exist — the head script in Base.astro sets
+   `data-scroll="inner"` on every `data-top-bar="section"` route behind the
+   same `-webkit-touch-callout` gate as the cover's, so the cover, the visor
+   and the tracker are off there. `?scroll=doc` restores the document
+   scroller and pass 7's cover for a comparison; nothing else on the site
+   changes. The rules below key on the attribute alone, so `?scroll=inner`
+   still exercises them in Chromium. */
+html[data-scroll="inner"] {
+  height: 100%;
+  overflow: hidden;
+}
+html[data-scroll="inner"] body {
+  height: 100%;
+  min-height: 0;
+}
+html[data-scroll="inner"] main#main {
+  --reader-e: 0px;
+  /* the containing block for its own absolutely positioned descendants (the
+     sr-only spans are `position: absolute`): with <main> static they would
+     resolve to the initial containing block and give the still document a
+     scrollable overflow of their own, which a focus() could scroll */
+  position: relative;
+  box-sizing: border-box;
+  height: calc(100% + var(--reader-e));
+  padding-bottom: var(--reader-e);
+  overflow-y: auto;
+  overflow-x: clip;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+}
+@supports (-webkit-touch-callout: none) {
+  html[data-scroll="inner"] main#main {
+    --reader-e: round(down, min(calc(100lvh - 100svh), 20svh), 1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-scroll="inner"] main#main {
+    scroll-behavior: auto;
+  }
+}
+/* ── Device pass 10 (Wil, 2026-09-19, two crops of the Bakery hero at rest):
+   "a very thin, faint orange line at the bottom of the hero section … hide
+   this line so that it is not visible until you scroll down to that next
+   section", and "decrease the vertical spacing between the text and the
+   bottom toolbar … across all mobile and potentially tablet screen sizes."
+
+   THE LINE. In the still document <main> runs `--reader-e` under the bottom
+   toolbar so content shows through its glass while reading (pass 8), which
+   at rest puts the first 129px of the scene after the hero under the
+   toolbar — and its hairline (`.sec-head`, the numbered section's rule,
+   inset by the gutter) in the strip between the toolbar's capsule and the
+   screen's edge. The hero now carries the same E as margin below it, so
+   the next section begins where the toolbar's run ends and nothing but the
+   page ground sits under the toolbar until the reader scrolls. The hero
+   itself, its scrim and its media are untouched.
+
+   THE INSET — tried and taken back. Pass 10 moved the lockup down to sit
+   one gutter above the toolbar's floating capsule (a 5px inset from the
+   viewport's edge) after his two crops; device pass 11 (2026-09-20: "I've
+   decided that I like the text higher where it was originally, please put
+   it back in that spot") restored item 3's rule — one gutter above the
+   layout viewport's bottom on phones, the collapsing-bars rule on tablets,
+   desktop untouched — which lives in [chapter].astro and needs nothing
+   here. Only the margin below remains of pass 10. */
+html[data-scroll="inner"] #hero {
+  margin-bottom: var(--reader-e, 0px);
+}
+/* ── Device pass 13 (Wil, 2026-09-22): THE RUNWAY ───────────────────────────
+   "The bottom toolbar should automatically hide when the user scrolls down
+   and reappear when the user scrolls up. No other changes." Safari collapses
+   its bars only when the DOCUMENT scrolls; the still document never does.
+   So on phones the document scrolls again — as a solid runway: <body> is
+   sized by script to the chapter's height and carries the section's colour
+   (the sampler's write), and that colour is all that ever sits behind either
+   bar, static, as in the still document. The chapter itself rides in <main>,
+   fixed to the layout viewport and clipped at it (`overflow: clip`, so it is
+   not a scroller and a fragment scrolls the document), and #reader inside
+   it is translated by −scrollY (Base.astro) on a compositor layer. Two
+   costs, stated to him: the page is placed a frame behind the finger, as
+   any page-placed box is, and when the bottom toolbar is up it sits on the
+   section's colour rather than on the chapter's own content (a fixed box
+   never paints beyond the viewport — playbook §1). The still document
+   remains the default on wider screens (the iPad's toolbar never
+   collapses) and behind `?scroll=inner`; `?scroll=doc` is the document
+   scroller with pass 7's cover. Phones only — told from the screen's shorter
+   side in the head script, never the viewport, which iOS reports as 980px
+   until the viewport meta is parsed (pass 14). */
+html[data-scroll="sync"] main#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
+  overflow: clip;
+  z-index: 0;
+}
+html[data-scroll="sync"] #reader {
+  will-change: transform;
+}
+html[data-scroll="sync"] body {
+  min-height: 0;
+}
+/* Device pass 15: the runway is a colour map of the chapter (Base.astro):
+   one block per ground at its own offset, on the page ground, and a cap
+   above the viewport in the colour of the section at the top edge. It sits
+   in the document before <main>, so <main> covers it inside the viewport and
+   only the bar regions ever show it. */
+html[data-scroll="sync"] #runway {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+html[data-scroll="sync"] #runway > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+html[data-scroll="sync"] #runway > .runway-cap {
+  top: 0;
+}
+/* The compositor path (device pass 2, above; behind `?cover=track` since
+   device pass 4 — if the `?debug=1` readout ever shows it supported and the
+   edge smooth on the phone, it becomes the default again). Since device pass
+   7 it aims at the top of the visor's line like the script does. `from` is
+   the rest position: the cover's bottom `--edge-visor` − 3px below the
+   visor's top, which sits at env(safe-area-inset-top) — 0 in a Safari tab.
+   Device pass 3 (Wil,
+   2026-09-18): "the solid extends slightly beyond the progress indicator" —
+   the 3px it used to run behind the line showed through the line's 2px gaps
+   and its translucent "ahead" segments as fill reaching the line's bottom.
+   Now the indicators sit BELOW the fill, touching it, and a sub-pixel edge
+   still lands under the line rather than above it. `to` is the same 100000px
+   further, and the range says those two keyframes span scroll offsets 0 to
+   100000px exactly, so every offset in between maps one-to-one. Longhands,
+   not the shorthand: the timeline must come after `animation` or the
+   shorthand resets it, and the duration stays at its initial `auto`, which is
+   what a scroll timeline needs. Not a motion effect (docs/v4/MOTION.md): the
+   cover is never inside the viewport, so nothing the reader sees moves. */
+@supports (animation-timeline: scroll()) {
+  @keyframes edge-cover-track {
+    from {
+      transform: translate3d(0, calc(var(--edge-visor) - 3px + env(safe-area-inset-top, 0px) - 320px), 0);
+    }
+    to {
+      transform: translate3d(0, calc(100000px + var(--edge-visor) - 3px + env(safe-area-inset-top, 0px) - 320px), 0);
+    }
+  }
+  /* Under `prefers-reduced-motion: reduce` the script's tracker drives the
+     cover instead. Not because this is motion (it is not — nothing the reader
+     sees moves), but because the common reduced-motion idiom forces every
+     `animation-duration` to 0s, and a scroll-driven animation with a 0s
+     duration parks on its END keyframe, 100000px down the page; the probe's
+     own still-sheet did exactly that. The tracker has no such failure mode,
+     and the sampler's self-check would catch it anyway. */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-top-bar="section"][data-cover="track"] .edge-cover {
+      animation-name: edge-cover-track;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 100000px;
+    }
+  }
+}
+
+/* v7 C7 — the hero still reads the portrait focus below md and the landscape
+   focus at md+ (the <picture> swaps the source at the same breakpoint). */
+.hero-still {
+  object-position: var(--focus-px, 50%) var(--focus-p, 50%);
+}
+@media (min-width: 768px) {
+  .hero-still {
+    object-position: center var(--focus-l, 50%);
+  }
+}
+
+/* v7 U6/U7 — the museum's approach chrome. The invisible Easter-egg toggle
+   sits over the projected painting: transparent until focused, when the
+   house ring shows the keyboard user exactly what it covers. */
+.museum-alive-toggle {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  /* v8 V8-328: it exists for KEYBOARD and screen readers (focus + Enter still
+     fire its click). Pointer users toggle by tapping the painting itself,
+     which the canvas handles — and with the overlay out of the pointer path a
+     swipe that starts over the painting reaches the stage, where it opens the
+     plaque instead of dying on an invisible button. */
+  pointer-events: none;
+}
+.museum-alive-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 4px;
+}
+/* v14 E17 (Wil): the v13 V13-05b play/pause cue (`.museum-switch-cue`, its
+   two keyframes and the reduced-motion cut) is gone — "remove the play/pause
+   icon entirely; the interaction should be discoverable through direct
+   interaction only". The invisible `.museum-alive-toggle` above stays for
+   keyboard and screen readers. */
+.museum-sheet {
+  background: color-mix(in srgb, var(--color-primary-2) 90%, transparent);
+  backdrop-filter: blur(10px);
+  /* v12 (Wil, 8/26) stroked the top and sides in `--color-primary-7` so the
+     16px arcs had something to be continuous with. v14 E12 (Wil): "remove the
+     orange/brown border (stroke) around the info card / drawer UI" — no
+     outline in any state, at any width. Radius, blur and ground stay.
+     v14.3 (Wil, 9/16): "reapply the border/stroke on the drawer's top, left,
+     and right edges. Pick a border/stroke colour from our colour palette that
+     is subtle." The same three sides as v12, one step quieter: `--color-
+     primary-6`, the palette's hairline, not the primary-7 frame E12 called
+     orange/brown. The bottom stays open — off-screen, a line there reads as a
+     seam. The sides are stroked so the arcs have something to be continuous
+     with (v12's finding). The body's max-height pays the 1px again and
+     `sheetTravel()` counts it (Museum.tsx), so peek shows the whole stroke
+     above the header. REVERT: `border: 0` here, and those two.
+     Tablet + mobile only by construction — the sheet exists only there; the
+     desktop/landscape `.museum-card` below stays borderless.
+     v14.4 (Wil, 9/16): "change the drawer border/stroke colour to match the
+     horizontal divider line … that separates the painting title from the
+     artist study section (use that divider line colour exactly)". That line
+     is `.museum-study`'s `border-primary-7/60` (Museum.tsx StudyNote), which
+     Tailwind emits as the color-mix below with the hex as its fallback — the
+     same two declarations, so the stroke and the divider are one colour on
+     every engine. REVERT: `var(--color-primary-6)`. */
+  border: 1px solid #80412b99;
+  border-color: color-mix(in oklab, var(--color-primary-7) 60%, transparent);
+  border-bottom: 0;
+  /* v14.2 (Wil, 9/16) took the radius to the site's large step, `--r-lg`
+     (24px). v14.3 (Wil, 9/16): "increase the drawer's corner radius" — 32px,
+     the drawer alone; `--r-lg` still frames the hero and the home page. The
+     head's focus ring follows below. REVERT: `var(--r-lg) var(--r-lg) 0 0`. */
+  border-radius: 32px 32px 0 0;
+  will-change: transform;
+}
+/* v12 gave the desktop/landscape plaque the same 1px `--color-primary-7`
+   stroke as the sheet, at Wil's request; v14 E12 (Wil) takes it off every
+   device again — the card is back to v8's borderless authoring. v14.3 (Wil,
+   9/16) restores the stroke on the SHEET alone ("tablet + mobile"); the card
+   stays as E12 left it. */
+.museum-card {
+  max-height: calc(100dvh - 2 * var(--ui-inset));
+}
+/* v12: on a LANDSCAPE PHONE the stage is only ~390px tall and the card must
+   not swallow it — v8 set the bar at 55% of the stage, and the official
+   painting titles put the card back over it ("Charles Learning How to Read &
+   Write" wraps to three lines in a narrow card where "Uri Gilbert Home" took
+   one). Only short stages are capped; the card scrolls its own overflow, so
+   nothing becomes unreachable, and tall viewports keep the full-height card
+   they have had since v8. */
+@media (max-height: 500px) {
+  .museum-card {
+    /* 55dvh exactly lands ON the bar and rounds over it (measured 215px against
+       a 214.5px stage bar at 844x390); a few px of daylight keeps it inside. */
+    max-height: calc(55dvh - 6px);
+  }
+}
+.museum-sheet-head {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* the header is the handle now that the pill is gone — it must show focus */
+.museum-sheet-head:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: -2px;
+  border-radius: 32px 32px 0 0; /* v14.2: follows the sheet's radius — v14.3 (Wil, 9/16): 32px with it */
+}
+/* v14.2 (Wil, 9/16): in peek the title is the only thing in the header (the X
+   exists in the open state alone), so the header's bottom air matches its top
+   and sides — `--ui-inset` — and the title's box is trimmed to its ink (cap
+   line to baseline: every title is uppercase), so the ink stands exactly one
+   inset from the drawer's edge and one from the stage's. WebKit and Chromium
+   honour text-box-trim; elsewhere it degrades to the line box, ≤ 3px off. The
+   full state keeps its 12px gap to the body. Unlayered, so this beats the
+   header's layered `pb-3` utility whatever the specificity.
+   The 1px: measured at DPR 2 (Chromium 141, the real Caslon Display), the
+   ink's top stood 0.6–1.0px above the inset and its bottom 0.5px inside it on
+   a phone but 1.4–1.9px inside it on a portrait tablet — the drawer's integer
+   translate leaves the header's box 0.81px under the stage edge there. One
+   pixel squares the tablet and keeps the phone within 0.5px.
+   v14.3 (Wil, 9/16): the 1px stroke stands above the header again and
+   `sheetTravel()` counts it, so the header's bottom stays where v14.2 put it
+   and the bottom numbers hold (20.5 phone, 39.5–39.6 tablet). The top is now
+   read from the stroke's outer edge: inset + 0.1 on a phone, + 0.4–0.5 on a
+   portrait tablet — the stroke absorbs the cap overshoot. Nothing here
+   changes. */
+.museum-sheet[data-state="peek"] .museum-sheet-head {
+  padding-bottom: calc(var(--ui-inset) + 1px);
+}
+.museum-sheet[data-state="peek"] .museum-sheet-head .t-title-sm {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+/* v9 V9-103 (Wil, 8/21): the close control is a real round button, centred
+   above the card's content where the v8 drag pill sat — solid on the button
+   token, with air above and below so the header breathes. */
+.museum-sheet-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  /* v14 E9.2 (Wil): "the space from the top of the drawer to the top of the
+     X/Close button matches the space from the bottom of the X/Close button to
+     the top of the painting title." The header's top padding is `--ui-inset`
+     (v13: it matches the left padding), so the gap under the button is the
+     same token — 20 / 20 on a phone, 40 / 40 on a portrait tablet, where it
+     used to be 24 / 18 and 44 / 18. */
+  margin: 0 auto var(--ui-inset);
+  border: 1px solid var(--color-primary-7);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary-3) 92%, transparent);
+  color: var(--color-primary-11);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    height var(--dur-fast) var(--ease),
+    margin-bottom var(--dur-fast) var(--ease),
+    border-width var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+/* Round 31 (Wil, 2026-09-22): the X "should appear instantly by animating in
+   with the expansion of the drawer". Mounted in both states now and folded
+   away in peek — no height, no margin, no stroke, no opacity — so the peek
+   header is exactly as tall as v14.2 left it, and it unfolds over the house
+   300ms the moment applySheet marks the sheet `data-x` (past 12% of the
+   travel, cleared under 8%): the button, its air below (E9.2's inset) and
+   its stroke grow together and the title slides down under it, with the
+   drawer, whatever moves it. Under reduced motion the site-wide clamp makes
+   the fold a cut. REVERT: delete this rule and the four added transitions
+   above; mount the button on `sheet === "full"` again in Museum.tsx. */
+.museum-sheet:not([data-x="1"]) .museum-sheet-close {
+  height: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+}
+.museum-sheet-close:hover {
+  background: var(--color-primary-5);
+  color: var(--color-neutral-12);
+}
+.museum-sheet-close:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 2px;
+}
+
+/* v7 C1 — the storybook initial. `initial-letter` where it exists (Chromium,
+   Safari), a floated fallback elsewhere; Caslon Display in the ink, kerned
+   in a hair. Works through the inline span the transcript renders into and
+   leaves the `narration-active` wash and tap-to-seek untouched. */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+  margin-right: 0.12em;
+}
+@supports not (initial-letter: 3) {
+  .drop-cap::first-letter {
+    float: left;
+    font-size: 3.1em;
+    line-height: 0.82;
+    padding-top: 0.08em;
+    margin-right: 0.1em;
+  }
+}
+
+/* Narration sync highlight — a wash, not a block. `box-decoration-break: clone`
+   makes every wrapped line carry its own even padding, so a multi-line span
+   reads as a highlighter stroke rather than a ragged rectangle. */
+.narration-active {
+  background: color-mix(in srgb, var(--color-primary-4) 62%, transparent);
+  padding: 0.08em 0.26em;
+  margin-inline: -0.26em;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background var(--dur-fast) var(--ease);
+}
+.ground-cream .narration-active {
+  background: #f6ddd0;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+ * A11Y
+ * ════════════════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary-9);
+  outline-offset: 3px;
+}
+.ground-cream :focus-visible {
+  outline-color: #9c4520;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 10001;
+  background: var(--color-neutral-12);
+  color: var(--color-primary-2);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 0.5rem 0;
+}
+.skip-link:focus {
+  /* v13 V13-06: the other raw fixed offset — revealed by focus, it landed
+     under the notch/status bar on both axes. Same env() treatment as
+     --ui-inset's own lane, applied directly since this sits at the true
+     corner rather than on the --ui-inset gutter. */
+  left: env(safe-area-inset-left, 0px);
+  top: env(safe-area-inset-top, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* v8 V8-329: the study thumbnail on the plaque — graphite on paper, set in a
+   thin warm rule so it reads as a drawing pinned beside the label, not as a
+   second painting. */
+.museum-study-img {
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-7) 70%, transparent);
+  object-fit: cover;
+  background: var(--color-primary-3);
+}

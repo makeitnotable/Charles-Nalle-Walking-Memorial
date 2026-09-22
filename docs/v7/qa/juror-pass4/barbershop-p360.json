@@ -1,0 +1,332 @@
+{
+  "route": "/barbershop",
+  "vpk": "p360",
+  "steps": [
+    {
+      "name": "arrival",
+      "burger": {
+        "x": 268,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      },
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 800,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 268,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        }
+      ]
+    },
+    {
+      "name": "burger-scroll",
+      "afterDown": {
+        "x": 270,
+        "y": 34,
+        "w": 68,
+        "h": 68,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "none"
+      },
+      "afterUp": {
+        "x": 268,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "players",
+      "nPlays": 1,
+      "labels": [
+        "Play narration: Peter Baltimore’s Barbershop"
+      ]
+    },
+    {
+      "name": "play",
+      "audioState": [
+        {
+          "src": "ch5-barbershop.mp3",
+          "paused": false,
+          "t": 2.285545,
+          "dur": 114.128938,
+          "ready": 4
+        }
+      ],
+      "pauseOnScreen": [
+        {
+          "label": "Pause narration: Peter Baltimore’s Barbershop",
+          "x": 20,
+          "y": 728,
+          "w": 56,
+          "h": 56
+        },
+        {
+          "label": "Pause narration: Peter Baltimore’s Barbershop",
+          "x": 29,
+          "y": 727,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "name": "tap-paragraph",
+      "before": 2.3347,
+      "after": {
+        "t": 97.163898,
+        "paused": false,
+        "active": 7
+      },
+      "nP": 3
+    },
+    {
+      "name": "pause-visible-sweep",
+      "docH": 9775,
+      "misses": [],
+      "playing": true
+    },
+    {
+      "name": "history-floating",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 800,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 268,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:51",
+          "x": 20,
+          "y": 718,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "moral-colors",
+      "morals": [
+        {
+          "id": "moral",
+          "heading": "WE ARE RESPONSIBLE FOR JUSTICE",
+          "hColor": "rgb(246, 243, 238)",
+          "body": [
+            {
+              "t": "(03)",
+              "color": "rgb(255, 151, 112)",
+              "fs": "26px"
+            },
+            {
+              "t": "THE MORAL",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "The collective effort of the Troy commun",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            },
+            {
+              "t": "THE ARTIST'S STUDY",
+              "color": "rgb(255, 151, 112)",
+              "fs": "12px"
+            },
+            {
+              "t": "The crowd fills the sheet edge to edge a",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            },
+            {
+              "t": "Mark Priest · Nalle Series",
+              "color": "rgb(246, 243, 238)",
+              "fs": "14px"
+            },
+            {
+              "t": "YOUR PART OF IT",
+              "color": "rgb(246, 243, 238)",
+              "fs": "26px"
+            },
+            {
+              "t": "Get involved in local activism, voluntee",
+              "color": "rgb(246, 243, 238)",
+              "fs": "19px"
+            }
+          ],
+          "cap": {
+            "t": "THE ARTIST'S STUDY\n\nThe crowd fills the sheet edge to edge a",
+            "color": "rgb(254, 217, 204)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "moral-floating",
+      "id": "moral",
+      "fl": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 800,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "01:53",
+          "x": 20,
+          "y": 718,
+          "w": 114,
+          "h": 62
+        }
+      ]
+    },
+    {
+      "name": "onward",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 800,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "",
+          "x": 268,
+          "y": 20,
+          "w": 72,
+          "h": 72
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "",
+          "x": 20,
+          "y": 726,
+          "w": 54,
+          "h": 54
+        }
+      ],
+      "contRect": {
+        "x": 86.578125,
+        "y": 536.3125,
+        "width": 186.84375,
+        "height": 48
+      }
+    },
+    {
+      "name": "footer",
+      "nFixed": 3,
+      "hits": [],
+      "footerText": "Charles Nalle Walking Memorial Made by Notable THE PEOPLE OF THIS DAY THE PAINTINGS ABOUT THE MEMORIAL MAP SHARE Walking routes and directions are suggestions only. Explore at your own pace, discretion, and risk."
+    },
+    {
+      "name": "burger-before-menu",
+      "rect": {
+        "x": 268,
+        "y": 20,
+        "w": 72,
+        "h": 72,
+        "op": "1",
+        "vis": "visible",
+        "tf": "none",
+        "pe": "auto"
+      }
+    },
+    {
+      "name": "menu-open",
+      "floating": [
+        {
+          "tag": "div",
+          "cls": "curtain-panel",
+          "text": "",
+          "x": 0,
+          "y": 800,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu-scrim",
+          "text": "",
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "h": 800
+        },
+        {
+          "tag": "div",
+          "cls": "cnwm-menu fixed top-[var(--ui-inset)] right-[var(--ui-inset)",
+          "text": "HOME\n01\nBAKERY\n02\nCOMMISSIONER’S OFFICE\n",
+          "x": 43,
+          "y": 20,
+          "w": 297,
+          "h": 708
+        },
+        {
+          "tag": "div",
+          "cls": "fixed bottom-[var(--ui-inset)] left-[var(--ui-inset)] z-[999",
+          "text": "",
+          "x": 20,
+          "y": 726,
+          "w": 54,
+          "h": 54
+        }
+      ],
+      "expanded": "true"
+    },
+    {
+      "name": "menu-closed",
+      "expanded": "false",
+      "pauseOnScreen": []
+    }
+  ],
+  "log": [
+    "[reqfail] https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/audio/ch5-barbershop.mp3 net::ERR_ABORTED"
+  ]
+}

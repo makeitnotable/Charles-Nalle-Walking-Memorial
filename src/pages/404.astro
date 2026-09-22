@@ -1,0 +1,56 @@
+---
+// 404 — on-system. v3's two buttons here were the chapter pair minus every
+// responsive class, so they rendered 58px tall against the chapters' 86px.
+// There is no ladder now, so the two can no longer disagree.
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { withBase } from "../lib/url";
+---
+
+<Base
+  title="Page not found · Charles Nalle Walking Memorial"
+  description="That page isn’t part of the memorial. Return to the walk or the story."
+>
+  <script is:inline>
+    /* v7 G-L3: GH Pages serves /bakery.html at /bakery and 404s /bakery/.
+       Typed or pasted URLs with a trailing slash are the commonest way to land
+       here — strip it and try again once (the flag stops a loop if the target
+       really is missing). */
+    (function () {
+      try {
+        var p = location.pathname;
+        if (p.length > 1 && p.endsWith("/") && sessionStorage.getItem("cnwm-404-retry") !== p) {
+          sessionStorage.setItem("cnwm-404-retry", p);
+          location.replace(p.replace(/\/+$/, "") + location.search + location.hash);
+        } else {
+          sessionStorage.removeItem("cnwm-404-retry");
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <section class="shell flex min-h-[78dvh] flex-col justify-center pt-28">
+    <p class="t-meta">Off the route</p>
+    {/* A sentence, not a name — display is reserved for the places. This was
+        setting a 36-character sentence at 87px. */}
+    <h1 class="t-title mt-8">
+      This page isn’t<br />part of the memorial
+    </h1>
+    <p class="t-prose beat">
+      The address may have been mistyped, or the page may have moved. The walk
+      is still where it’s always been.
+    </p>
+    <div class="mt-12 flex flex-wrap items-center gap-4">
+      <a href={withBase("")} class="btn btn-solid btn-icon-end" data-curtain-label="Home">
+        Start at the beginning
+        <Icon name="arrow" />
+      </a>
+      <a href={withBase("map")} class="btn btn-ghost btn-icon-end" data-curtain-label="Map">
+        Open the map
+        <Icon name="pin" />
+      </a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</Base>
