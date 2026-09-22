@@ -20,7 +20,13 @@ import { withBase } from "../lib/url";
 >
   {/* Items 3–4: no menu on the title card; the frame runs nearly full-bleed
       (was p-4/p-12 — a picture on a wall, not a doorway). */}
-  <div class="h-dvh p-2.5 md:p-5">
+  {/* Round 33 (Wil's Pixel 6 shots): where a browser draws a gesture bar over
+      the page's bottom edge (Chrome for Android, 24px on his phone), the frame
+      ends above it, as it ends above Safari's toolbar — 10px of ground (20 from
+      768) between the frame and the bar, and the CTA's own inset inside the
+      frame is untouched. --gesture-bar (global.css) is 0 on iOS and wherever
+      no bar is reported, so this is byte for byte `p-2.5 md:p-5` there. */}
+  <div class="h-dvh p-2.5 pb-[calc(0.625rem+var(--gesture-bar))] md:p-5 md:pb-[calc(1.25rem+var(--gesture-bar))]">
     <div class="relative flex h-full flex-col items-center justify-between">
       <!-- The photo frame: film plays inside it, treated like the approved still -->
       <div

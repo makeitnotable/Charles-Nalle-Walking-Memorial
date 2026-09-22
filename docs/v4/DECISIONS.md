@@ -417,3 +417,48 @@ app on `main` — a force push, and one that would publish the old app: run
 it only with the deploy workflow disabled or with `v2` pushed again right
 after. Deleting `release/2026-09-22` and `legacy-spa` returns the branches
 to the old arrangement.
+
+**Refreshed 2026-09-22, round 34, for the map's sign-off.** Wil, on round 29
+live: "As far as i can see map page is done push to master and live site and
+document everything…". The same procedure, an hour later: a merge commit
+with two parents — the mirror's tip `4e01f8f` and round 34's `v2` tip —
+whose tree is `v2`'s, pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. Every later sign-off repeats
+this, so the mirror's history is one merge commit per sign-off, each
+pointing at the `v2` commit it carries. Revert as above.
+## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
+
+**Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
+screenshots: "there is an issue with the distance between the bottom of the
+screen and the home indicator … and the vertical spacing between it and the
+bottom of some of the buttons/ui elements throughout the website." Measured
+from the shots (1080×2400 at 2.625): Chrome draws the page to the screen's
+edge and reports the 24px gesture bar as `env(safe-area-inset-bottom)`, so
+`--ui-inset`'s `max(20px, inset)` is 24 and every bottom control's box stands
+ON the bar's top edge, 10px above the pill (the 1858 door's box at 24.0, the
+museum counter's ink at 28.6; the hero title, on the raw gutter, at 23.2; the
+splash frame's border at 10.7, under the pill; the pill's top at 13.7). The
+`max()` is right on iOS — the toolbar is the floor at rest, and the collapsed
+inset of 34 already clears the indicator by 21px — and wrong only where a bar
+is drawn over the page with no toolbar between.
+
+**Decision.** A bottom lane: `--ui-inset-b` = `max(--ui-inset, gutter +
+--gesture-bar)` and `--gesture-bar` = the reported bottom inset, both defined
+only under `@supports not (-webkit-touch-callout: none)` — the inverse of the
+iOS gate — and equal to `--ui-inset` / 0 everywhere else; every bottom-anchored
+control (the map's lane, controls, lens, handle and hint; the museum's rail,
+drawer and caps; the mini-player) reads the lane, and the two things not on it
+(the splash frame's outer box, the hero lockup's inset) add the bar. iOS and
+every engine with no reported bar are byte-identical (`qa:snap` 36/36 at 0
+drift, `qa:framing` unchanged); on the Pixel the frame, the door, the title
+and the rail sit a gutter above the bar (`qa:gesture`, 86 checks, a 24px bar
+emulated over CDP). It went to the review branch first (playbook rule 4) and to `v2` at his
+instruction the same day ("push them to the live site we are shipping to the
+client"); the device pass is on the live site.
+Plan: `docs/rounds/2026-09-22-round-33-plan.md`; playbook §12.
+
+**Revert:** `git reset --hard client-round-33-base` (= `042518b`); or in
+`global.css` drop the `@property --gesture-bar` / `--ui-inset-b` blocks, the
+two `:root` lines and the `@supports not` block, and put `--ui-inset` back for
+`--ui-inset-b` (and delete `+ var(--gesture-bar)`) in the round's files;
+`scripts/gesture-bar.mjs` and `qa:gesture` go with them.

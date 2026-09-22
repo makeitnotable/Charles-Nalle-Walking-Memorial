@@ -938,9 +938,14 @@ const canonical = new URL(
           return c && c !== "transparent" && !/^rgba\(.*,\s*0\)$/.test(c);
         }
         function map() {
-          base = getComputedStyle(main).backgroundColor;
+          /* the page ground: on #reader in this mode (pass 16 — <main> is
+             transparent so Safari's edge probe finds nothing opaque and
+             fixed), with <main> as the fallback */
+          base = getComputedStyle(reader).backgroundColor;
+          if (!opaque(base)) base = getComputedStyle(main).backgroundColor;
           var rTop = reader.getBoundingClientRect().top;
           var els = reader.querySelectorAll("header, section, footer, .ground-cream, #reader > *");
+          if (!opaque(base)) base = "rgb(29, 20, 17)";
           var seen = [];
           var html = "";
           grounds = [];

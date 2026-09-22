@@ -3151,7 +3151,7 @@ export default function Museum({ works, slotId }: Props) {
               <p className="t-title-sm">{plaque.name}</p>
             </div>
             <div
-              className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset)+8px)]"
+              className="museum-sheet-body px-[var(--ui-inset)] pb-[calc(var(--ui-inset-b)+8px)]"
               aria-hidden={sheet === "peek"}
               /* v13 V13-10c: 118px was a literal that matched neither header
                  state (measured 53.9 peek / 119.9 full on a phone, 56.2 / 122.2
@@ -3202,7 +3202,7 @@ export default function Museum({ works, slotId }: Props) {
                  there, `bottom: var(--ui-inset)` here (the old +4px was the
                  only thing keeping the two apart). It is never recomputed and
                  never cleared, so no viewport change can strand it. */
-              bottom: "var(--ui-inset)",
+              bottom: "var(--ui-inset-b)",
             }}
           >
             {/* Face forward — v13 V13-10b (Wil, 8/26) stood it top-right on

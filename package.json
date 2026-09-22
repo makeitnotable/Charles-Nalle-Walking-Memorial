@@ -38,6 +38,7 @@
     "qa:runway": "node scripts/museum-runway.mjs",
     "qa:lead": "node scripts/museum-lead.mjs",
     "qa:drawer": "node scripts/museum-drawer.mjs",
+    "qa:gesture": "node scripts/gesture-bar.mjs",
     "build:favicon": "node scripts/build-favicon.mjs",
     "build:og": "node scripts/build-og.mjs"
   },
