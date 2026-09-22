@@ -31,11 +31,13 @@ npm run build      # static output in dist/
 
 This code lives on the **`v2` branch** of
 `makeitnotable/Charles-Nalle-Walking-Memorial`, the working and deploy branch.
-Since the 22 September 2026 sign-off, **`main` is a mirror of the shipped `v2`
-tip**, refreshed at each client sign-off and never developed on; the retired
-2024 app that `main` used to hold is on `legacy-spa` (tag `legacy-spa-final`),
-with `match-figma-designs` untouched. Every push to `v2` (or `main`) deploys to
-GitHub Pages at `https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/`
-via `.github/workflows/deploy.yml`; Vercel also builds a branch preview
-automatically. Shipped versions are tagged (`ship-2026-09-22`). At M6 handoff
-the branch graduates to a museum-owned repo.
+Since the 22 September 2026 sign-off, **`main` carries the shipped `v2` tree**
+(a merge commit refreshed at each client sign-off, never developed on); the
+retired 2024 app that `main` used to hold is on `legacy-spa` (tag
+`legacy-spa-final`), with `match-figma-designs` untouched. Every push to `v2`
+(or `main`) deploys to GitHub Pages at
+`https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` via
+`.github/workflows/deploy.yml`; Vercel also builds a branch preview
+automatically. Shipped versions are marked by a `release/<date>` branch
+(`release/2026-09-22`). At M6 handoff the branch graduates to a museum-owned
+repo.

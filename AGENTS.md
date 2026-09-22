@@ -31,16 +31,19 @@ Non-negotiables inherited from the constitution's design baseline:
   (plain `git push`). Every push auto-deploys to GitHub Pages via
   `.github/workflows/deploy.yml`.
 - **`main` is a mirror of the shipped `v2` — never develop on it.** Since the
-  2026-09-22 sign-off (`docs/v4/DECISIONS.md`, "Ship"), `main` holds exactly the
-  `v2` commit that was shipped to the client, refreshed at each sign-off with
-  `git push --force origin v2:main` (its history is `v2`'s, so a force is the
-  only way to move it). The deploy workflow publishes on pushes to `main` as
+  2026-09-22 sign-off (`docs/v4/DECISIONS.md`, "Ship"), `main`'s tree is
+  exactly the `v2` commit shipped to the client. The two histories share no
+  ancestor, so the mirror is a merge commit that carries `v2`'s whole tree
+  (`git commit-tree <v2-tip>^{tree} -p <main-tip> -p <v2-tip>`), pushed to
+  `main` as an ordinary fast-forward — never a force push. Refresh it the same
+  way at each sign-off. The deploy workflow publishes on pushes to `main` as
   well as `v2`, so a push to `main` republishes whatever `main` holds: only ever
-  push the `v2` tip there. The retired 2024 Vite/React app that `main` used to
-  hold — unrelated git history, no common ancestor with this site — lives on
-  `legacy-spa` (tip = tag `legacy-spa-final`); it, `match-figma-designs`,
-  `feat/*`, `fix/*` and `test-branch` are never merged, built, deployed or
-  pushed to. Shipped versions carry a tag (`ship-2026-09-22`).
+  put the `v2` tip's tree there. The retired 2024 Vite/React app that `main`
+  used to hold lives on `legacy-spa` (tip = tag `legacy-spa-final`); it,
+  `match-figma-designs`, `feat/*`, `fix/*` and `test-branch` are never merged,
+  built, deployed or pushed to. Shipped versions are marked by a
+  `release/<date>` branch (this repo's token refuses tag pushes; the matching
+  tag exists only locally).
 - A fresh clone has no `.env` (gitignored) and `astro dev` never reads
   `.env.production`, so `npm run dev` seeds one automatically (`predev` →
   `scripts/ensure-env.mjs`). Without it the map renders with an empty token.

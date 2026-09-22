@@ -401,14 +401,19 @@ the deploy workflow publishes on pushes to both branches — which is why the
 rule was never to touch `main`.
 
 **Decision.** The retired app is preserved as the branch `legacy-spa` (its
-tip is also the tag `legacy-spa-final`), and `main` is made a mirror of the
-shipped `v2` tip, so the branch a reader expects to hold the site does, and
-a push to `main` can only ever republish the site. `v2` stays the working
-and deploy branch; `main` is refreshed at each client sign-off, never
-developed on. The shipped commit is tagged `ship-2026-09-22`. The client
+tip is also the tag `legacy-spa-final`), and `main` carries the shipped `v2`
+tree through a merge commit with two parents — `main`'s old tip and the
+`v2` tip — whose tree is `v2`'s exactly (`git commit-tree`), pushed as an
+ordinary fast-forward: no history is rewritten and nothing is forced. So
+the branch a reader expects to hold the site does, and a push to `main` can
+only ever republish the site. `v2` stays the working and deploy branch;
+`main` is refreshed the same way at each client sign-off, never developed
+on. The shipped commit is marked by the branch `release/2026-09-22` (the tag
+`ship-2026-09-22` exists locally; the remote refuses tag pushes). The client
 handover moves to version 1.1 with the rounds in its changelog.
 
 **Revert:** `git push --force origin legacy-spa:main` restores the retired
-app on `main` (and would publish it: run it only with the deploy workflow
-disabled or with `v2` pushed again right after); delete the tag and the
-`legacy-spa` branch if the old arrangement is wanted back.
+app on `main` — a force push, and one that would publish the old app: run
+it only with the deploy workflow disabled or with `v2` pushed again right
+after. Deleting `release/2026-09-22` and `legacy-spa` returns the branches
+to the old arrangement.

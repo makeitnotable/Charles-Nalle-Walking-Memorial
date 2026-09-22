@@ -320,8 +320,9 @@ What was verified without a phone, for every round: type-check and build,
 (`npm run qa:runway`, `qa:lead`, `qa:drawer`), and the scope gate. What the
 phone alone could verify, Wil verified.
 
-**Shipped as:** the `v2` tip at this date (tag `ship-2026-09-22`), mirrored
-to `main`; the retired 2024 app is on `legacy-spa` (tag `legacy-spa-final`).
+**Shipped as:** the `v2` tip at this date, marked by the branch
+`release/2026-09-22` and carried by `main`; the retired 2024 app is on
+`legacy-spa` (tag `legacy-spa-final`).
 
 **15–16 August 2026 — v7 "The Last Ten Percent" (Wil's page-by-page review)**
 

@@ -10,9 +10,12 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 **`/paintings` IS SIGNED OFF — Wil, 2026-09-22, on round 31: "As far as I
 can see paintings page is done, push to master and live site and document
 everything." Rounds 24–31 are closed. SHIPPED (round 32, docs only): the
-`v2` tip is mirrored to `main` (the retired 2024 app kept on `legacy-spa`,
-tag `legacy-spa-final`), the shipped commit is tagged `ship-2026-09-22`, the
-client handover is at version 1.1 with the rounds in its changelog
+`v2` tip's tree is carried by `main` through a merge commit (the retired
+2024 app kept on `legacy-spa`, tag `legacy-spa-final`; no force push — the
+histories are unrelated and a merge commit is the fast-forward way), the
+shipped commit is the branch `release/2026-09-22` (the tag `ship-2026-09-22`
+exists locally; this repo's token refuses tag pushes), the client handover
+is at version 1.1 with the rounds in its changelog
 (`docs/HANDOVER.md` §10), and the branch rules in `CLAUDE.md` and the
 README say so. Nothing on `/paintings` is open. Other pages: the map and
 the chapter pages are worked from other sessions; their state is in their
