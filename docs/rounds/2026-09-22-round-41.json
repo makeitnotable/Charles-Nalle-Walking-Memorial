@@ -1,0 +1,24 @@
+{
+  "round": 41,
+  "label": "the chapter pages, ?scroll=edge, second pass for Wil's phone (his choice: 'Lets try B'): the trigger strip shrinks to the rail's own 3px behind it, and the corner menu follows the same top inset as the rail so the two hold their approved 20px relation while Safari's bars move; the default (the still document) still untouched",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-41-plan.md",
+  "base": {
+    "tag": "client-round-41-base",
+    "commit": "1dcd2ce2a4a8ad9538a4e5e1d39aa3ebacdb37df",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/styles/global.css",
+    "scripts/chapter-still.mjs",
+    "docs/RUN-STATE.md",
+    "docs/v4/DECISIONS.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/rounds/2026-09-22-round-41.json",
+    "docs/rounds/2026-09-22-round-41-plan.md"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil's read of round 40 on his phone (screenshot, 14:27): the top bar 'changes size' (inherent to collapsing bars; told, and he chose B: 'Lets try B. If i do not like B, be prepared to go with A'), 'the menu is now in the wrong place', 'a weird flicker at the bottom right underneath the progress bars' and 'weird transparency in that area underneath the progress indicators'. Measured from the shot at 3x: the burger's right edge 20px from the screen's edge (its inset), its top ~8px below the rail. The burger is a 72px box straight inside .cnwm-menu with no offset, its inset is a max() that cannot go below the gutter (20), and its retreat transform only moves it DOWN, so the menu had not moved: the RAIL had, ~12px below the viewport's top, which is its top offset, env(safe-area-inset-top). iOS 26 reports a top inset once the bars have moved in a scrolling document; the still document never scrolls, so it never showed. Fix, in the edge mode only: the menu's top becomes the gutter below the same inset the rail rides, calc(env(safe-area-inset-top) + max(gutter, right inset)), byte-identical to round 23's rule at inset 0 and the approved 20px relation at every inset. The band under the rail: the 8px strip's lower 5px, past the rail's 3px stripe, showing whatever treatment Safari gives the fixed element it found; the strip is the rail's own 3px now, behind it. qa:still measures both with the top inset emulated over CDP (Emulation.setSafeAreaInsetsOverride, the round-33/36 idiom): at top 12 the rail sits at 12 and the menu at 32 under the flag (20 + 12), while the default keeps round 23's max() (rail 12, menu 20). Off the flag nothing changes; no route may drift."
+}

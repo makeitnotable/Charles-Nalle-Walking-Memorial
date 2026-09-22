@@ -260,11 +260,127 @@ find, is glass over the chapter's own text. No cover, visor or runway is in
 play; they remain behind `?scroll=doc`, `?scroll=sync` and, for the iPad's
 default, `?scroll=inner`.
 
-**Revert:** in `src/layouts/Base.astro`, delete the `else if (…)
-dataset.scroll = …` branch in the head flags script (the `?scroll=` flags may
-stay); the chapter pages then scroll as a document with pass 7's cover and
-16px band. To choose another mode as the default, make that branch assign
-`"inner"`, `"sync"` or `"edge"` unconditionally. To undo the whole round:
+**Reverted 9/22 (round 38, Wil: the session that ran passes 13–17 "went
+rogue because it auto compacted … there was a point that things were working
+perfectly on the live site, then the linked session broke everything that
+was working on the chapter pages, I need it fixed").** The two amendments
+above are undone and the decision stands as he made it on 9/19: **the still
+document is the chapter default wherever the bars exist** — every iOS chapter
+route, phone and iPad alike — exactly as the round's close-out shipped it
+(`1e5b07d`, approved on his phone: "exactly what I wanted", "we will call
+this done", "everything is perfect … close this out"). The runway
+(`sync`), its colour map, the `chrome` slot, the transparent `<main>`, the
+mini player's portal and the edge trigger (`edge`) are gone from the source,
+not parked behind flags: none of the five passes was confirmed on his phone
+("literally nothing has changed in the last two tries … start fresh"), and
+each rebuilt the page on a hypothesis about Safari's bars. What the
+close-out had stays: `?scroll=doc` is the comparison flag (the document
+scroller with pass 7's cover), `?scroll=inner` exercises the mode in
+Chromium, and `npm run qa:still` (new, `scripts/chapter-still.mjs`) measures
+the mode with the gate and the phone's toolbar run stood in. **The ask that
+started pass 13 — the bottom toolbar hiding on the way down — is open, by
+his decision:** Safari collapses its bars only when the document scrolls,
+and the static fill he approved exists only while the document is still
+(round 23, passes 1–8 measured every page-placed fill lagging a frame at
+the bar). It is the same trade he chose on 9/19; if he wants the other
+side of it, that is a new round with a device pass per push, never a
+default changed on assumption (CLAUDE.md, rule 4).
+
+**Round 40 (9/22, after "Works great!" on round 38 live): "The only thing
+I want is the bottom bar to disappear when the user scrolls down. No other
+changes."** Told that Safari collapses its bars only when the document
+scrolls and collapses both together — so the still document's static top
+fill and a collapsing toolbar cannot both be page paint — he reaffirmed.
+His decision, taken device-first: the mode ships behind `?scroll=edge`
+with the default untouched. The chapter scrolls as a plain document (the
+bars collapse and return; the toolbar is glass over the in-flow text), and
+a fixed, invisible, hit-testable 8px strip on the top edge (`.edge-trigger`)
+asks Safari to paint the top bar as an opaque fill in `<body>`'s colour —
+round 24's measured rule, extended by round 23 pass 16's observation that a
+transparent fixed element kept a bar opaque; `&band=<px>` is the visible
+variant in the section's colour if the invisible strip is not enough of a
+hit. It becomes the default only on his read: then the head script's
+`else if (…) dataset.scroll = "inner"` branch assigns `"edge"` instead
+(one word). **Revert** of round 40: `git reset --hard client-round-40-base`
+(= `3d9aa1c`); off the flag nothing changes anyway.
+
+**Round 41 (9/22, his read of round 40: "the menu is now in the wrong
+place … a weird flicker … underneath the progress bars … weird
+transparency in that area"; told the top bar's size change is inherent to
+collapsing bars, he chose B: "Lets try B. If i do not like B, be prepared
+to go with A").** Measured from his screenshot: the burger 20px from the
+right edge and ~8px below the rail. The burger is a 72px box straight
+inside `.cnwm-menu`, its inset a `max()` that cannot fall below the gutter,
+its retreat transform downward only — so the menu had not moved; the rail
+had, ~12px below the viewport's top, which is its `top:
+env(safe-area-inset-top)`. iOS 26 reports a top inset once its bars have
+moved in a scrolling document; the still document never scrolls, so the
+inset never showed. **Decision, edge mode only:** the menu's top is the
+gutter below the same inset the rail rides (round 23's rule byte for byte
+at inset 0, the approved 20px relation at every inset), and the trigger
+strip is the rail's own 3px behind it (the 8px strip's lower 5px were the
+band under the rail). The default is still the still document. If he
+rejects B, the next round removes the edge flag's code so the source is
+round 38 exactly. **Revert** of round 41: `git reset --hard
+client-round-41-base` (= `1dcd2ce`).
+
+**Round 42 (9/22): A.** Wil, on round 41's link: "Nothing was changed or
+fixed. Go back to the working version I approved." The edge flag's code
+(rounds 40–41) is removed; `src/` is byte-identical to round 38
+(`3d9aa1c`), the still document the iOS default, `?scroll=doc` the only
+comparison flag. The bottom-toolbar ask is closed by his decision: it hides
+only when the document scrolls, which moves the top bar with it, and the
+fixed bars are what he approved. He named "one other that I liked" — the
+working version with the toolbar carrying a solid fill when it reappears
+on a scroll up: that is the runway (this round's passes 13–16, `042518b`),
+in the history, available behind a flag on request. **Revert** of round
+42: `git reset --hard client-round-42-base` (= `566dc62`).
+
+**Round 43 (9/22): the runway, behind `?scroll=sync`.** Wil, after round
+42: "Can we have everything stay the same but will it work where the
+bottom toolbar will disappear on scroll down … I don't mind if the bottom
+toolbar has to have a solid fill … the same way on the address bar. There
+should be absolutely zero changes to the top address bar." Told that the
+one thing no page can remove is that Safari moves the top bar in the same
+animation — it shrinks and grows with the toolbar, while its fill can stay
+the solid section colour — and that the runway's toolbar fill was the page
+brown on his phone (passes 15–16), he chose: "Fine! Let's try it if I don't
+like it we'll officially go with A." **Decision, device-first:** pass 13's
+runway re-applied behind the flag, the default untouched — `<main>` fixed
+and clipped, `#reader` moved by −scrollY, `<body>` the runway in the
+section's colour, the rail out of the moving box at runtime, the mini
+player portaled in this mode only, the menu on the rail's inset (round
+41's rule), the cover `doc`-only; pass 15's colour map and pass 16's
+transparent `<main>` left in the history. His read decides: approve → the
+head script's default assigns `"sync"` (one word); reject → A, the code
+removed as round 42 did. **Revert** of round 43: `git reset --hard
+client-round-43-base` (= `833e382`).
+
+**Approved 9/22 (round 44).** Wil, on the Bakery under the flag, live: "As
+far as i can see the way everything works on the bakery page is how it
+should work on every chapter page. As far as I am concerned, this is done
+push to master and live site and document everything and the final version
+that we are shipping to the client accordingly and to best practices."
+**The runway is the chapter default on phones** — the head script's default
+branch assigns `"sync"` where the screen's shorter side is under 700 (every
+iPhone; told from the screen, never the viewport, which iOS reports as 980
+before the meta is parsed — round 23 pass 14's gate) — **and iPads keep the
+still document** (`"inner"`, 744+): their toolbar never collapses, so the
+runway would cost its one-frame placement for nothing, and the still
+document is what he approved on 9/19. `?scroll=sync|inner|doc` override on
+one page load. The instrument's default checks moved with it (`qa:still`:
+the runway on all five chapters, the still document under `?scroll=inner`).
+Shipped by the same round: the handover's changelog (version 1.4), this
+log's "Ship" refresh, the playbook's §3 closed, the `main` mirror and
+`release/2026-09-22` refreshed to the tip. **Revert** to the still document
+on phones: make that branch assign `"inner"` unconditionally (one word), or
+`git reset --hard client-round-44-base` (= `abb2934`) and push `v2`.
+
+**Revert:** `git reset --hard client-round-38-base` (= `e38460d`) brings
+pass 17's tree back. To choose another mode as the chapter default, make the
+`else if (…) dataset.scroll = "inner"` branch in the head flags script
+(`src/layouts/Base.astro`) assign `"doc"` (the document with the cover) or
+delete it; the `?scroll=` flags may stay. To undo the whole of round 23:
 `git reset --hard client-round-23-base` (= `4d13540`) and push `v2`.
 
 ## Round 24 (Wil's 9/21 round) — `/paintings`: Safari's bars stay glass over the hall
@@ -457,6 +573,24 @@ in the mirror commit's own message), pushed to `main` as a fast-forward, and
 remote held `main` at `d3d827d` (the round-35 mirror) and `release/2026-09-22`
 at `e606214`; the tip this mirror carries: round 36 on top of everything
 round 35 shipped. Revert as above.
+
+**Refreshed 2026-09-22, round 44, for the chapter pages' sign-off.** Wil,
+on round 43 live under the flag: "As far as i can see the way everything
+works on the bakery page is how it should work on every chapter page. As
+far as I am concerned, this is done push to master and live site and
+document everything and the final version that we are shipping to the
+client accordingly and to best practices." The same procedure: a merge
+commit whose tree is round 44's `v2` tip's, its parents `main`'s tip at the
+moment of the push and that `v2` tip (both named in the mirror commit's own
+message), pushed to `main` as a fast-forward, and `release/2026-09-22`
+moved to the same tip. When this round was written the remote held `main`
+at `f1a0e22` (the round-37 mirror, tree = `e38460d`) and
+`release/2026-09-22` at `e38460d`; the tip this mirror carries: rounds
+38–44 (the chapter pages restored to round 23's close, then the runway as
+the phone default, with the record) on top of everything round 37 shipped.
+The `v2` push's run (300, success) published the tree; the mirror is built
+from the round's second push (docs only, the run record) after its own run
+finished, so `main` never races the site's own deploy. Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)

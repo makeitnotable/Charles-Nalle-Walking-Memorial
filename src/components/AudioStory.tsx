@@ -1,6 +1,17 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { ICONS } from "./icons";
+
+/* Round 43 (the runway, `?scroll=sync`): where the chapter rides in a
+   transformed box, the mini player — `position: fixed` — must leave it, or
+   it is positioned by the box and scrolls away with the page; everywhere
+   else it stays in the island, exactly as approved. Decided per render from
+   the mode the head script put on <html>; on the server the latch is false
+   and this is never reached. */
+const miniPlayerHost = (node: ReactNode): ReactNode =>
+  typeof document !== "undefined" && document.documentElement.dataset.scroll === "sync"
+    ? createPortal(node, document.body)
+    : node;
 
 /**
  * The narration object — v4.
@@ -435,15 +446,15 @@ export default function AudioStory({
       </div>
 
       {/* ——— Mini player — bottom LEFT; the corner menu owns the right ———
-          Round 23, device pass 13: rendered into <body> through a portal. In
-          the runway mode the island's ancestor #reader carries a transform,
-          which would make this `position: fixed` box move with the chapter
-          instead of holding the corner; from <body> it is fixed to the
-          viewport in every mode, exactly where it always was. Client only:
-          the latch is false on the server, so nothing here is prerendered. */}
-      {miniLatched &&
-        typeof document !== "undefined" &&
-        createPortal(
+          Round 43 (the runway, `?scroll=sync`, Base.astro): in that mode the
+          island's ancestor #reader carries a transform, and a `position:
+          fixed` box inside a transformed ancestor is positioned by the
+          ancestor, not the viewport — it would ride away with the chapter.
+          There, and only there, the player is rendered into <body> through a
+          portal; in every other mode it stays inside the island exactly as
+          approved. Client only: the latch is false on the server, so nothing
+          here is prerendered either way. */}
+      {miniLatched && miniPlayerHost(
         <div
           className="fixed bottom-[var(--ui-inset-b)] left-[var(--ui-inset)] z-[999]"
           style={{
@@ -475,9 +486,8 @@ export default function AudioStory({
               </p>
             </div>
           </div>
-        </div>,
-        document.body,
-        )}
+        </div>
+      )}
     </div>
   );
 }
