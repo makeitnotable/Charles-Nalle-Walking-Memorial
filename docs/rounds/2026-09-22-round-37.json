@@ -1,0 +1,25 @@
+{
+  "round": 37,
+  "label": "round 36 signed off — /paintings shipped again: the Skip fix's record in the handover (changelog, version 1.3), the ledger, the decisions log and the playbook closed, the main mirror and the release branch refreshed (docs only)",
+  "date": "2026-09-22",
+  "plan": "docs/rounds/2026-09-22-round-37-plan.md",
+  "base": {
+    "tag": "client-round-37-base",
+    "commit": "5e068cfabc4f28e204e250b31168847973e65110",
+    "branch": "v2"
+  },
+  "allowed": [
+    "docs/HANDOVER.md",
+    "docs/RUN-STATE.md",
+    "docs/NEXT-SESSION.md",
+    "docs/PLAYBOOK-MOBILE-CHROME.md",
+    "docs/v4/DECISIONS.md",
+    "docs/rounds/2026-09-22-round-36-plan.md",
+    "docs/rounds/2026-09-22-round-37-plan.md",
+    "docs/rounds/2026-09-22-round-37.json"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-22, on round 36 live: 'As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices.' Docs only: no source file changes, so the visual gate is not run. The ship is the procedure round 32 established and rounds 34 and 35 repeated: main refreshed with a merge commit carrying this tip's tree, pushed as a fast-forward, and release/2026-09-22 moved to this tip. When this round was written the remote held main at d3d827d (the round-35 mirror, tree = e606214) and release/2026-09-22 at e606214; the mirror commit's message names main's tip at the push. The tip it carries: round 36 (Skip holds still while the reader pans the hall) on top of everything shipped by round 35 — /paintings rounds 24–31, /map rounds 17–22, 27 and 29–30, the Android bottom lane (round 33), and round 23's device passes up to pass 17 (the chapter pages, another session, its device read open)."
+}

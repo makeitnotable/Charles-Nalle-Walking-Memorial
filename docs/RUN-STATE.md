@@ -7,8 +7,21 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**`/paintings` IS SIGNED OFF AGAIN — Wil, 2026-09-22, on round 36 live: "As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
+Rounds 24–31 and 36 are closed; nothing on `/paintings` is open. SHIPPED
+(round 37, docs only, base `5e068cf`): the round-36 record joins the handover
+changelog (`docs/HANDOVER.md` §10, version 1.3), the round-36 plan takes its
+Closed section, DECISIONS.md the approval and the "Ship" refresh, playbook
+§1/§10 the sign-off, `docs/NEXT-SESSION.md` the count, and the `main` mirror
+is refreshed the way round 32 established — a merge commit carrying this
+tip's tree, pushed as a fast-forward — with `release/2026-09-22` moved to
+this tip. When this round was written the remote held `main` at `d3d827d`
+(the round-35 mirror) and `release/2026-09-22` at `e606214`. Both pages Wil
+reviewed today and the Android bottom lane are signed off; the chapter
+pages' round-23 device passes (another session) are the open thread.**
+Previous phase text follows.
 **Round 36 (`/paintings`, Skip holds still while the reader pans the hall)
-is ON `v2` AND AWAITING WIL'S DEVICE PASS (2026-09-22).** After the ship he
+WAS ON `v2` AWAITING WIL'S DEVICE PASS (2026-09-22) — signed off, above.** After the ship he
 reported "the skip button in the hall now moves its position when panning
 around the paintings hall … it should never happen." Skip sat on
 `--ui-inset`, the shared corner lane that takes the bottom safe area — 0

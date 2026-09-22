@@ -32,7 +32,7 @@ Detailed history: `docs/rounds/2026-09-17-round-8-plan.md` (the bars),
   `--menu-inset`) and the hall's Skip (round 36, `--skip-inset`) take the
   gutter and their own two edges only — a pan on the hall scrolls the page
   and moved the bars, and Skip with them, until it did ("it should never
-  happen").
+  happen"; signed off on his phone the same day, round 37).
 - **The bars are glass.** In-flow content renders behind both bars once it
   exists there. A `position: fixed` or `sticky` box's overflow is clipped at
   the visual viewport and never reaches the bars (measured: 160px requested,
@@ -363,7 +363,8 @@ only one.
   following the safe-area inset). Round 23 took the top-right menu off the
   shared lane (`--menu-inset`: the gutter and the top and right insets only);
   round 36 took the hall's Skip off it the same way (`--skip-inset`: the
-  gutter, top and left) after he saw it move on a pan. The mini-player, the
+  gutter, top and left) after he saw it move on a pan — signed off on his
+  phone, 2026-09-22, so the top corners are closed. The mini-player, the
   interlude credit and the hall's bottom-centre column (Face forward, the
   dot rail) still ride the bottom lane (`--ui-inset-b`, round 33 — which is
   `--ui-inset` on iOS); each sits at the bottom edge, where the inset is the

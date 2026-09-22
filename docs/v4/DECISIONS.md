@@ -447,6 +447,16 @@ mirror commit's own message), pushed to `main` as a fast-forward, and
 `release/2026-09-22` moved to the same tip. When this round was written
 (18:22 UTC) the remote held `main` at `8095a82` and `release/2026-09-22` at
 `130a48c`; the tip this mirror carries: rounds 33–35 and, from the other sessions, round 34 and round 23's device passes up to the tip's own commit ("Client round 23, device pass 17: the edge trigger — Safari…"). Revert as above.
+
+**Refreshed 2026-09-22, round 37, for the Paintings page's second sign-off.**
+Wil, on round 36 live: "As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
+The same procedure: a merge commit whose tree is round 37's `v2` tip's, its
+parents `main`'s tip at the moment of the push and that `v2` tip (both named
+in the mirror commit's own message), pushed to `main` as a fast-forward, and
+`release/2026-09-22` moved to the same tip. When this round was written the
+remote held `main` at `d3d827d` (the round-35 mirror) and `release/2026-09-22`
+at `e606214`; the tip this mirror carries: round 36 on top of everything
+round 35 shipped. Revert as above.
 ## Round 33 (Wil's 9/22 Pixel round) — the bottom lane under Android's gesture bar
 
 **Evidence.** Wil, 2026-09-22, four Pixel 6 (Chrome, gesture navigation)
@@ -528,3 +538,10 @@ above.
 hand, delete `--skip-inset` from `.museum-stage` in `global.css` and put
 `--ui-inset` back in Skip's `top`/`left` in `Museum.tsx`, and remove
 `scripts/museum-skip.mjs` and the `qa:skip` script.
+
+**Signed off, 2026-09-22.** Wil, on the live site, after his device pass:
+"As far as i can see paintings page is done push to master and live site and document everything and the final version that we are shipping to the client accordingly and to best practices."
+Recorded by round 37 (docs only): the handover's Paintings entry (version
+1.3), this log's "Ship" refresh, the playbook's §1 and §10, the round-36
+plan's Closed section; the `main` mirror and `release/2026-09-22` refreshed
+to that tip.
