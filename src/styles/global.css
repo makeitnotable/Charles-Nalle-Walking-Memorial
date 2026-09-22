@@ -2779,6 +2779,23 @@ html[data-scroll="sync"] main#main {
 }
 html[data-scroll="sync"] #reader {
   will-change: transform;
+  /* Device pass 16 (Wil, 2026-09-22, his crop of the transcript over an
+     opaque brown toolbar, the runway's cream block nowhere in it): Safari 26
+     paints a bar as an OPAQUE FILL when a fixed or sticky element with an
+     opaque background is what it finds at that edge (round 24 measured it
+     on /paintings), and glass otherwise. The fixed <main>, brown, touched
+     the bottom edge, so the bottom toolbar was an opaque brown fill whatever
+     the runway said; the top edge was glass only because the transparent
+     rail sits above <main> there. So the page ground moves from <main> to
+     #reader — the box the compositor moves, which spans every section and
+     paints the same brown behind them — and <main> itself is transparent:
+     nothing fixed and opaque touches either edge, both bars are glass, and
+     the bottom toolbar shows the runway's block for the section arriving
+     from below. Nothing the reader sees changes. */
+  background: var(--ground);
+}
+html[data-scroll="sync"] main#main {
+  background: transparent;
 }
 html[data-scroll="sync"] body {
   min-height: 0;

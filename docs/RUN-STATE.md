@@ -144,6 +144,13 @@ it). Instruments added: `npm run qa:scope`, `qa:snap`, `qa:snap:update`,
 `qa:framing`.
 
 ## CURRENT ITEM
+Round 23, device pass 16 (2026-09-22): the bottom toolbar still an opaque
+brown over cream — Safari paints a bar opaque when a fixed element with an
+opaque background touches that edge (round 24's rule), and the runway's
+fixed <main> is brown. The ground now sits on #reader and <main> is
+transparent in the runway mode; nothing fixed and opaque touches either
+edge. Awaiting his read: glass at the bottom over the runway's block.
+Pass-15 record follows.
 Round 23, device pass 15 (2026-09-22): the runway live on his phone
 ("closer") — the rail rode inside #reader (fixed inside a transform) and
 the bottom toolbar sat on <body>'s one colour (the top edge's). The rail

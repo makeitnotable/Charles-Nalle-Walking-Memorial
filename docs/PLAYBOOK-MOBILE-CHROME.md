@@ -242,6 +242,9 @@ comes through a `chrome` slot after `</main>` — pass 15 found it riding
 away with the page). The runway itself is a colour map of the chapter, not
 one colour: the bottom toolbar shows the section arriving from below, and a
 cap above the viewport holds the top bar to the top-edge section's colour.
+And round 24's rule applies to the fixed `<main>` itself: a fixed box with
+an opaque background touching a bar's edge makes that bar an opaque fill, so
+the page ground rides on `#reader` and `<main>` is transparent (pass 16).
 
 ## 4 · State resets on every open (round 19)
 
