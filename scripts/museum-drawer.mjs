@@ -69,6 +69,8 @@ const STATE = () => {
     stage: { top: sr.top, bottom: sr.bottom },
     wrap: { top: wr.top, bottom: wr.bottom },
     sheetTop: sheet ? sheet.getBoundingClientRect().top : null,
+    /* round 31: the X's fold */
+    x: (() => { const x = document.querySelector(".museum-sheet-close"); if (!x) return null; const cs = getComputedStyle(x); return { on: st.sheetX, height: parseFloat(cs.height), opacity: +cs.opacity, tab: x.tabIndex }; })(),
     travel: sheet && head ? sheet.offsetHeight - sheet.clientTop - head.offsetHeight : null,
     cam: { x: st.cur.x, y: st.cur.y, z: st.cur.z },
     railT: st.railT,
@@ -147,8 +149,10 @@ const scrollBy = async (dy, steps = 5, ms = 80) => {
   const s0 = await page.evaluate(STATE);
   const travel = s0.travel;
   check("scroll", "before", "drawer at peek, travel measured", s0.sheet === "peek" && travel > 100, `travel ${travel}`);
+  check("x", "peek", "X mounted but folded: no height, no opacity, not in the tab order", s0.x && s0.x.on === false && s0.x.height === 0 && s0.x.opacity === 0 && s0.x.tab === -1, JSON.stringify(s0.x));
   await scrollBy(Math.round(travel * 0.4), 4, 60);
   const mid = await page.evaluate(STATE);
+  check("x", "+40% of travel", "X unfolding with the drawer, before any settle", mid.x && mid.x.on === true && mid.x.height > 0 && mid.x.opacity > 0, JSON.stringify(mid.x));
   check("scroll", "+40% of travel", "drawer position follows the scroll", near(mid.sheetPos, 0.4, 0.08) && mid.live === true, `pos ${r1(mid.sheetPos)} · live ${mid.live} · dy ${r1(mid.scrollY - s0.scrollY)}`);
   check("scroll", "+40% of travel", "stage still pinned, mode approach", near(mid.stage.top, 0, 0.5) && mid.mode === "approach", `top ${r1(mid.stage.top)} · ${mid.mode}`);
   check("scroll", "+40% of travel", "camera holds the painting", near(mid.cam.z, s0.cam.z, 0.05) && near(mid.cam.x, s0.cam.x, 0.05), `z ${r1(mid.cam.z)} vs ${r1(s0.cam.z)}`);
@@ -156,11 +160,24 @@ const scrollBy = async (dy, steps = 5, ms = 80) => {
   await page.waitForTimeout(700);
   const full = await page.evaluate(STATE);
   check("scroll", "+80%, settled", "drawer snapped to full", full.sheet === "full" && near(full.sheetPos, 1, 0.01) && full.live === false, `sheet ${full.sheet} · pos ${r1(full.sheetPos)} · live ${full.live}`);
+  check("x", "full, settled", "X unfolded: 44px, opacity 1, in the tab order", full.x && full.x.on === true && near(full.x.height, 44, 0.5) && full.x.opacity === 1 && full.x.tab === 0, JSON.stringify(full.x));
   await scrollBy(-Math.round(travel * 0.9), 5, 80);
   await page.waitForTimeout(700);
   const back = await page.evaluate(STATE);
   check("scroll", "−90%, settled", "drawer collapsed to peek", back.sheet === "peek" && near(back.sheetPos, 0, 0.01), `sheet ${back.sheet} · pos ${r1(back.sheetPos)}`);
   check("scroll", "−90%, settled", "still approach, stage pinned", back.mode === "approach" && near(back.stage.top, 0, 0.5), `${back.mode} · top ${r1(back.stage.top)}`);
+  check("x", "peek again", "X folded again", back.x && back.x.on === false && back.x.height === 0 && back.x.tab === -1, JSON.stringify(back.x));
+  /* the state follows at the ends at once on the scroll path: past the
+     travel the drawer is full before the settle */
+  await scrollBy(Math.round(travel * 1.1), 3, 45);
+  await page.waitForTimeout(40);
+  const atOnce = await page.evaluate(STATE);
+  check("scroll", "+110%, 40ms later", "state full before the settle", atOnce.sheet === "full" && atOnce.live === true, `sheet ${atOnce.sheet} · live ${atOnce.live} · pos ${r1(atOnce.sheetPos)}`);
+  await page.waitForTimeout(600);
+  await scrollBy(-Math.round(travel * 1.3), 4, 60);
+  await page.waitForTimeout(700);
+  const backAgain = await page.evaluate(STATE);
+  check("scroll", "−130%, settled", "peek again", backAgain.sheet === "peek" && near(backAgain.sheetPos, 0, 0.01), `sheet ${backAgain.sheet}`);
 }
 /* ── HIDDEN: a scroll down reveals a hidden drawer ── */
 {

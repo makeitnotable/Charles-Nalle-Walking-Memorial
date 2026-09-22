@@ -364,3 +364,28 @@ calls in `onScroll`, the round-28 state after `settleUntil`, the
 `pointer-events: none` on `.museum-pin` and `pointer-events: auto` on
 `html .museum-stage`; `qa:drawer` with `scripts/museum-drawer.mjs` goes
 with them.
+
+## Round 31 (Wil's 9/22 round) — `/paintings`: the drawer's X unfolds with the drawer
+
+**Evidence.** Wil, 2026-09-22, on round 28 ("almost perfect"): the drawer's
+Close button "takes too long to appear, it shows up maybe a second after
+the drawer is expanded, it seems like it appears out of nowhere, it should
+appear instantly by animating in with the expansion of the drawer." It was
+mounted by the drawer's state, which the scroll path sets only once the
+scroll settles, after the flick's momentum on iOS; and it mounted with no
+transition.
+
+**Decision.** The X is mounted in both states and folded away in peek (no
+height, margin, stroke or opacity), unfolding over `--dur-fast` at `--ease`
+the moment the drawer passes 12% of its travel, whatever moves it; the
+drawer's travel is measured to the header without the X so its mapping
+never jumps; the state follows at the ends at once on the scroll path; the
+sheet's resize observer re-applies the live position rather than the
+state's end. v14.2's peek header is unchanged. No route drifts.
+
+**Revert:** `git reset --hard client-round-31-base` (= `839b00f`); or in
+`Museum.tsx` mount the button on `sheet === "full" && !sheetHidden` again,
+drop `sheetCloseRef`, the `data-x` lines in `applySheet` and `hideSheet`,
+the X-less travel in `sheetTravel`, the end snaps in `scrollDrivesSheet` and
+the observer's live re-apply; in `global.css` delete the round-31 rule and
+its four transitions.

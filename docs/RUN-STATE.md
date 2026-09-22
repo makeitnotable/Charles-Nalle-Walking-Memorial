@@ -7,6 +7,22 @@ commits; verify live = HEAD after each push. Constitution: `docs/PLAN.md`
 `docs/RUN-STATE-v7.md`.*
 
 ## CURRENT PHASE
+**Round 28 (`/paintings`, the drawer expands on scroll) was APPROVED ON HIS
+PHONE, 2026-09-22 ("This is almost perfect. Nothing else needs to be
+changed except…"). Round 31 (`/paintings`, the drawer's X unfolds with the
+drawer) is ON `v2` AND AWAITING WIL'S DEVICE PASS.** Round 31 (2026-09-22),
+from his one note: the drawer's Close button arrived about a second after
+the drawer was up and popped in — it was mounted by the drawer's state,
+which the scroll path sets only once the scroll settles. Now mounted in both
+states and folded in peek, it unfolds over the house 300ms the moment the
+drawer passes 12% of its travel; the travel is measured without it; the
+state follows at the ends at once; the sheet's resize observer re-applies
+the live position (it was throwing a dragged drawer back to peek). Plan:
+`docs/rounds/2026-09-22-round-31-plan.md`; DECISIONS.md; MOTION.md.
+`qa:drawer` 23/23; `qa:runway` 182/182; `qa:snap` 36/36 at 0 drift;
+`qa:scope` clean. Numbered 31: rounds 29–30 and round 23's passes 13–15
+shipped from other sessions meanwhile; base `839b00f`. Previous phase text
+follows.
 **Round 29 (`/map`, the 1858 lens's wash is see-through again, still edge to
 edge) shipped and was APPROVED ON HIS PHONE, 2026-09-22 ("Looks perfect"). The
 map page is signed off again; nothing on `/map` is open.** On round 27's

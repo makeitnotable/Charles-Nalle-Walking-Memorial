@@ -2997,10 +2997,33 @@ html[data-scroll="sync"] #runway > .runway-cap {
   background: color-mix(in srgb, var(--color-primary-3) 92%, transparent);
   color: var(--color-primary-11);
   cursor: pointer;
+  overflow: hidden;
   transition:
     opacity var(--dur-fast) var(--ease),
     background-color var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease);
+    color var(--dur-fast) var(--ease),
+    height var(--dur-fast) var(--ease),
+    margin-bottom var(--dur-fast) var(--ease),
+    border-width var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+/* Round 31 (Wil, 2026-09-22): the X "should appear instantly by animating in
+   with the expansion of the drawer". Mounted in both states now and folded
+   away in peek — no height, no margin, no stroke, no opacity — so the peek
+   header is exactly as tall as v14.2 left it, and it unfolds over the house
+   300ms the moment applySheet marks the sheet `data-x` (past 12% of the
+   travel, cleared under 8%): the button, its air below (E9.2's inset) and
+   its stroke grow together and the title slides down under it, with the
+   drawer, whatever moves it. Under reduced motion the site-wide clamp makes
+   the fold a cut. REVERT: delete this rule and the four added transitions
+   above; mount the button on `sheet === "full"` again in Museum.tsx. */
+.museum-sheet:not([data-x="1"]) .museum-sheet-close {
+  height: 0;
+  margin-bottom: 0;
+  border-width: 0;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
 }
 .museum-sheet-close:hover {
   background: var(--color-primary-5);

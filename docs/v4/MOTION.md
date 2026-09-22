@@ -137,3 +137,12 @@ which uses `position: sticky` rather than a scroll handler.
   is not motion; the fade is the house state tier. Under reduced motion,
   and without JS, the cover does not exist at all — the painting is the page
   there and is there at once.
+
+## Round 31 (2026-09-22)
+
+- **The drawer's X (`/paintings`, `.museum-sheet-close`)** — folded away in
+  peek and unfolding with the drawer: height 0 → 44px, bottom margin 0 →
+  `--ui-inset`, stroke 0 → 1px, opacity 0 → 1 and scale 0.6 → 1 together,
+  `--dur-fast` at `--ease`, triggered by the drawer passing 12% of its
+  travel (`data-x` on the sheet) rather than by its state. The house state
+  tier; a cut under reduced motion by the site-wide clamp.

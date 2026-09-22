@@ -140,6 +140,7 @@ export default function Museum({ works, slotId }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetHeadRef = useRef<HTMLDivElement>(null);
+  const sheetCloseRef = useRef<HTMLButtonElement>(null); // round 31: the X, mounted in both states
   const dotsRef = useRef<HTMLElement>(null);
   /* v12: the phone chip is centred between Skip's lower edge and the arch, so
      Skip's real box is measured rather than reconstructed from its tokens. */
@@ -181,7 +182,17 @@ export default function Museum({ works, slotId }: Props) {
        header's last pixel slid under the stage edge in peek and the title's
        bottom air missed the inset on a portrait tablet. REVERT with the
        border: drop `- el.clientTop`. */
-    return el && head ? Math.max(1, el.offsetHeight - el.clientTop - head.offsetHeight) : 1;
+    if (!el || !head) return 1;
+    /* Round 31: the X folds in and out INSIDE the header (global.css, `data-x`
+       on the sheet), so the header is taller by its box while it is unfolded.
+       Travel is measured to the header WITHOUT it — otherwise the drawer's
+       mapping would jump by (1 − p) × the X's box the moment it started to
+       unfold under a moving finger. At peek the X is folded, so the peek
+       header is exactly the one measured here; at full the translate is 0
+       whatever the header's height. */
+    const x = sheetCloseRef.current;
+    const xBox = x ? x.offsetHeight + (parseFloat(getComputedStyle(x).marginBottom) || 0) : 0;
+    return Math.max(1, el.offsetHeight - el.clientTop - (head.offsetHeight - xBox));
   };
   const applySheet = (pos: number, animate: boolean) => {
     const el = sheetRef.current;
@@ -190,6 +201,13 @@ export default function Museum({ works, slotId }: Props) {
        screen whatever the gesture does */
     const p = pos > 1 ? 1 + Math.min(0.06, (pos - 1) * 0.25) : pos < 0 ? Math.max(-0.06, pos * 0.25) : pos;
     sheetPosRef.current = Math.max(0, Math.min(1, pos));
+    /* Round 31 (Wil, 2026-09-22: the X "should appear instantly by animating
+       in with the expansion of the drawer"): the X unfolds the moment the
+       drawer is on its way up — past 12% of the travel, back under 8% — not
+       when the state settles. The fold itself is CSS (global.css). */
+    const shown = el.dataset.x === "1";
+    if (!shown && pos > 0.12) el.dataset.x = "1";
+    else if (shown && pos < 0.08) delete el.dataset.x;
     el.style.transition = animate ? "transform var(--dur-fast) var(--ease)" : "none";
     el.style.transform = `translateY(${Math.round((1 - p) * sheetTravel())}px)`;
   };
@@ -205,6 +223,7 @@ export default function Museum({ works, slotId }: Props) {
     setSheet("peek");
     sheetPosRef.current = 0;
     if (el) {
+      delete el.dataset.x; // round 31: the X folds as the drawer leaves
       el.style.transition = "transform var(--dur-fast) var(--ease)";
       el.style.transform = `translateY(${Math.round(el.offsetHeight)}px)`;
     }
@@ -287,7 +306,12 @@ export default function Museum({ works, slotId }: Props) {
       return;
     }
     const sync = () => {
-      applySheetFn.current(sheetRefState.current === "full" ? 1 : 0, false);
+      /* round 31: the LIVE position, not the state's end — the X now unfolds
+         inside the header during a drag, and the sheet's box can change by a
+         fraction as it does, which fired this and threw the drawer back to
+         the state's end under a moving finger (measured: pos 0.41 → 0). After
+         a remount the live position is the snapped one (approach resets it). */
+      applySheetFn.current(sheetPosRef.current, false);
       setSheetH(sheetHeadRef.current?.offsetHeight ?? el.getBoundingClientRect().height);
     };
     const ro = new ResizeObserver(sync);
@@ -1557,7 +1581,15 @@ export default function Museum({ works, slotId }: Props) {
             sheetScrollBase = y;
             sheetScrollPos0 = 0;
           }
-        } else applySheetFn.current(sheetScrollPos0 + dy / sheetTravel(), false);
+        } else {
+          const p = sheetScrollPos0 + dy / sheetTravel();
+          applySheetFn.current(p, false);
+          /* round 31: the state follows at the ends at once, as it does on the
+             wheel — nothing that hangs on it (the peek padding) waits for the
+             settle; the X no longer hangs on it at all */
+          if (p >= 1 && sheetRefState.current !== "full") snapSheetFn.current("full");
+          else if (p <= 0 && sheetRefState.current !== "peek") snapSheetFn.current("peek");
+        }
         window.clearTimeout(sheetScrollTimer);
         sheetScrollTimer = window.setTimeout(() => {
           sheetScrollLive = false;
@@ -1715,8 +1747,7 @@ export default function Museum({ works, slotId }: Props) {
               sheetSwipe = 0;
             }
           } else if (sheetSwipe === 1) {
-            const travel = Math.max(1, sheetRef.current.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
-            applySheetFn.current(swipePos0 + (swipeY0 - e.clientY) / travel, false);
+            applySheetFn.current(swipePos0 + (swipeY0 - e.clientY) / sheetTravel(), false); // round 31: one travel, without the X
             svels.push((py - e.clientY) / Math.max(1, now - lastMoveT)); // px/ms, up +
             if (svels.length > 3) svels.shift();
           } else if (sheetSwipe === -1) {
@@ -1898,7 +1929,7 @@ export default function Museum({ works, slotId }: Props) {
           }
           return;
         }
-        const travel = Math.max(1, sEl.offsetHeight - (sheetHeadRef.current?.offsetHeight ?? 0));
+        const travel = sheetTravel(); // round 31: one travel, without the X
         const pos = sheetPosRef.current;
         if (e.deltaY > 0) {
           if (zoom > 1.001) {
@@ -2080,6 +2111,7 @@ export default function Museum({ works, slotId }: Props) {
           setApproached(null);
           setPaintRect(null);
           setSheet("peek");
+          sheetPosRef.current = 0; // round 31: the remount observer re-applies the live position
           sheetHiddenRef.current = false;
           setSheetHidden(false);
           syncAlive();
@@ -2124,6 +2156,7 @@ export default function Museum({ works, slotId }: Props) {
           window.dispatchEvent(new CustomEvent("cnwm:menu-show"));
         }
         setSheet("peek");
+        sheetPosRef.current = 0; // round 31: the remount observer re-applies the live position
         sheetHiddenRef.current = false;
         setSheetHidden(false);
         setApproached(i);
@@ -2697,6 +2730,7 @@ export default function Museum({ works, slotId }: Props) {
             /* round 28 (scripts/museum-drawer.mjs) */
             sheetPos: sheetPosRef.current,
             sheetHidden: sheetHiddenRef.current,
+            sheetX: sheetRef.current?.dataset.x === "1", // round 31
             approachScrollY,
             scrollDrivesSheet: sheetScrollLive,
           };
@@ -3080,11 +3114,25 @@ export default function Museum({ works, slotId }: Props) {
                   in peek than in full again; `sheetTravel()`, the
                   `[sheet, sheetHidden]` layout effect and the
                   `--cnwm-sheet-head` observer re-measure it, as before E8. */}
-              {sheet === "full" && !sheetHidden && (
+              {/* Round 31 (Wil, 2026-09-22): "it shows up maybe a second after
+                  the drawer is expanded … it should appear instantly by
+                  animating in with the expansion of the drawer." It was mounted
+                  by the state, which the scroll path sets only once the scroll
+                  settles — on iOS, after the flick's momentum — and it arrived
+                  with no transition. Mounted in both states now and FOLDED in
+                  peek (global.css: height, margin, stroke and opacity at 0), it
+                  unfolds over the house 300ms the moment the drawer passes 12%
+                  of its travel (`data-x`, applySheet), so it rises with the
+                  drawer whatever moves it. v14.2's look holds: in peek the
+                  title stands alone, and the header is exactly as tall as it
+                  was. Focusable and exposed in the open state only. */}
               <button
+                ref={sheetCloseRef}
                 type="button"
                 className="museum-sheet-close"
                 aria-label="Hide the plaque"
+                aria-hidden={sheet !== "full" || sheetHidden}
+                tabIndex={sheet === "full" && !sheetHidden ? 0 : -1}
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -3097,7 +3145,6 @@ export default function Museum({ works, slotId }: Props) {
                   <path d="M6.7 6.7l10.6 10.6M17.3 6.7L6.7 17.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
                 </svg>
               </button>
-              )}
               {/* v13 V13-05a (Wil, 8/26): the "Location NN" eyebrow is gone
                   from the plaque — the location button in the grid below the
                   hall still carries it. The title takes its place. */}
