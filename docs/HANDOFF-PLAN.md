@@ -33,7 +33,7 @@ is `docs/HANDOVER.md`; this document is the transfer itself.
 | **Narration** | ✅ All six recordings were regenerated on 15 August from the locked text. The two old contradictions (the "Liberty Street" bells, the river leap) are closed. |
 | **QR codes** | 🟡 Made and machine-verified. Not yet released to the fabricator: the museum's plaque addresses must point at the museum-owned site first (Part D). |
 | **Bronze plaques** | 🔴 Waiting on Part E: the QR release, the "ONCE HOUSE THE" typo, and Brian's confirmations. |
-| **Ownership transfer** | 🔴 This plan. Parts A2, B1 and B2 are done; B3 shipped on 23 September: the live map runs on the museum's Mapbox account. |
+| **Ownership transfer** | 🔴 This plan. Parts A and B are done: the museum's GitHub and Mapbox accounts exist, and since 23 September the live map runs on the museum's Mapbox account. Part C, the repository transfer, is next. |
 
 Known limitations that stay after handoff (the map page's weight on slow phones,
 the two never-delivered photographs) are listed plainly in `docs/HANDOVER.md` §8.
@@ -70,7 +70,7 @@ Use a **museum-owned email address that more than one staff member can open**
 (the museum's general inbox is ideal). Never a personal address. Write every
 password and every recovery code into the museum's password records.
 
-### A1 · GitHub (this will hold the website)
+### A1 · GitHub (this will hold the website) — ✅ done
 
 1. Go to `https://github.com/signup`.
 2. Email: the museum inbox. Password: a new, strong one. Username: `hartcluettmuseum`.
@@ -286,10 +286,12 @@ code or on a plaque; the bronze carries only `hartcluett.org/nalle/…`.
    from the Vercel app's access. The same day he deleted Vercel's 237 old
    build records from GitHub with the GitHub command-line tool, so the
    repository's deployment history holds only the site's own publishing runs.
-2. **Delete the old Mapbox token and style** in the `wbmdesign` account:
-   `account.mapbox.com/access-tokens` → the token whose value begins
-   `pk.eyJ1Ijoid2JtZGVzaWdu` → **Delete**; Studio → the CNWM style → **Delete**.
-   The site no longer uses either (B3).
+2. **The old Mapbox token and style** in the `wbmdesign` account. ✅ Settled
+   23 September. The site's old token turned out to be that account's
+   Default public token, which Mapbox does not allow deleting; it stays, and
+   it is public by design (it was always visible in the live site's code).
+   Wil keeps the original CNWM style there as a second backup of the map's
+   design. The site uses neither (B3).
 3. **Send the museum one email** with: the new site address; this plan; the
    operating manual
    (`https://github.com/hartcluettmuseum/Charles-Nalle-Walking-Memorial/blob/main/docs/HANDOVER.md`);
@@ -339,7 +341,7 @@ code or on a plaque; the bronze carries only `hartcluett.org/nalle/…`.
 - [ ] `makeitnotable` is a collaborator; no other outside accounts remain
 - [x] Old Vercel project deleted (23 September)
 - [x] Vercel's leftovers removed from GitHub (23 September)
-- [ ] Old Mapbox token and style deleted
+- [x] Old Mapbox token and style settled (23 September: the token is Wil's default public token and stays; the style is kept as a backup)
 - [ ] ZIP copy stored; logins and recovery codes in the museum's records
 - [ ] The close-out email sent and acknowledged (ownership, documentation, $0 per year)
 - [ ] QR artwork released to Matt; typo fix confirmed by Brian before casting

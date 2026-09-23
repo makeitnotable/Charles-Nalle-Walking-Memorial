@@ -203,20 +203,21 @@ map page does not — see §8.
 
 Do these in order. None of them cost anything.
 
-1. **Museum creates a free GitHub account** for the organisation.
+1. **Museum creates a free GitHub account** for the organisation. ✅ Done.
 2. **Notable transfers the repository** to that account
    (Settings → General → Transfer ownership).
 3. **Museum enables GitHub Pages** from the `main` branch (Settings → Pages →
    Source: GitHub Actions). The site's public address
    changes to `<museum-account>.github.io/Charles-Nalle-Walking-Memorial/`.
-4. **Museum creates a free Mapbox account.** Notable copies the custom map style
-   across and the museum issues its own public token.
-   - The style is currently an **unpublished draft** on the `wbmdesign` account.
-     It must be published before it can be moved.
-   - The token is referenced in two places: `src/components/TroyMap.tsx` and
-     `src/components/EmbedMap.tsx`. Both need the new one.
+4. **Museum creates a free Mapbox account.** ✅ Done 23 September 2026. The
+   museum's account `hartcluettmuseum` owns the published map style and the
+   site's public token.
+   - The style's address is in `src/components/TroyMap.tsx` and
+     `src/components/EmbedMap.tsx`; the token is in `.env.production`.
+   - A backup of the style is kept at `docs/handoff/troy-map-style.json`: in
+     Mapbox Studio, **New style** → **Upload** restores it in any account.
    - Mapbox public tokens (`pk.…`) are safe to commit — they are designed to be
-     visible in a web page. The existing one is committed deliberately.
+     visible in a web page. The museum's is committed deliberately.
 5. **Notable sends the museum six replacement redirect lines** for the new
    address. The museum pastes them in Squarespace. *The bronze is not touched.*
 6. **Re-scan all four physical plaque codes** on cellular data to confirm the
