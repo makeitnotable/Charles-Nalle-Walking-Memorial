@@ -33,7 +33,7 @@ is `docs/HANDOVER.md`; this document is the transfer itself.
 | **Narration** | ✅ All six recordings were regenerated on 15 August from the locked text. The two old contradictions (the "Liberty Street" bells, the river leap) are closed. |
 | **QR codes** | 🟡 Made and machine-verified. Not yet released to the fabricator: the museum's plaque addresses must point at the museum-owned site first (Part D). |
 | **Bronze plaques** | 🔴 Waiting on Part E: the QR release, the "ONCE HOUSE THE" typo, and Brian's confirmations. |
-| **Ownership transfer** | 🔴 This plan. Parts A2, B1 and B2 are done; B3 waits on one click by a repository admin (secret scanning). |
+| **Ownership transfer** | 🔴 This plan. Parts A2, B1 and B2 are done; B3 shipped on 23 September: the live map runs on the museum's Mapbox account. |
 
 Known limitations that stay after handoff (the map page's weight on slow phones,
 the two never-delivered photographs) are listed plainly in `docs/HANDOVER.md` §8.
@@ -119,7 +119,9 @@ The museum uploaded and published the style in its own Studio. Its Style URL is
 `mapbox://styles/hartcluettmuseum/cmud36po6000f01ru0zbjf2q4`. The museum never
 needs to open Studio again.
 
-### B3 · WIL: point the site at the museum's map — ⏳ one click, then one commit
+### B3 · WIL: point the site at the museum's map — ✅ done 23 September (deploy run 307)
+
+The steps below are kept for the record; only step 5 (the phone check) remains.
 
 The change was prepared on 22 September (client round 39) and GitHub refused
 the push: its secret scanning treats the museum's `pk.` token in
