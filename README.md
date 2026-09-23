@@ -24,6 +24,8 @@ npm run build      # static output in dist/
 - `docs/CONTENT-STATUS.md` — every known content correction and its status.
 - `docs/DEVIATIONS.md` — why this repo deviates from the WBM product stack.
 - `docs/v4/` — the design system: standards, naming canon, decisions, motion.
+- `docs/handoff/troy-map-style.json` — a backup of the map's design (its Mapbox
+  style), for re-uploading in Mapbox Studio if it is ever needed.
 - `docs/PLAYBOOK-MOBILE-CHROME.md` — how the site handles Safari's and Android's
   browser bars; read before touching any full-bleed stage.
 - `src/content/chapters/*.json` — all narrative content, one file per chapter.

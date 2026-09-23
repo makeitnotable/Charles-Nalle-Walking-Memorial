@@ -106,12 +106,13 @@ account password once appeared in a screenshot; Wil marked that resolved on
 The map's custom look (its "style") lives today in Wil's Mapbox account as an
 unpublished draft. After this part a museum-owned copy drives the site.
 
-### B1 · WIL: publish and download the style — ✅ done, one item left
+### B1 · WIL: publish and download the style — ✅ done
 
-The style was published, downloaded (`troy-map-style.json`, 85,954 bytes) and
-handed to the museum on 22 September. Left to do: commit a copy at
-`docs/handoff/troy-map-style.json` on `main`, so the museum's repository holds
-the map's design permanently.
+The style was published, downloaded (`troy-map-style.json`) and handed to the
+museum on 22 September. A copy is kept in the repository at
+`docs/handoff/troy-map-style.json` (added 23 September), so the museum always
+holds the map's design. To restore it in any Mapbox account: Studio → **New
+style** → **Upload** → choose that file.
 
 ### B2 · MUSEUM: upload it, publish it, copy its address — ✅ done
 
