@@ -332,7 +332,9 @@ try {
     if (await latchMini(page, session)) {
       const m = await page.evaluate(STATE);
       check(session, "the mini player is portaled out of <main> (in <body>), fixed", m.miniInMain === false && m.miniPosition === "fixed", `inMain ${m.miniInMain} ${m.miniPosition}`);
-      check(session, "the mini player sits on the bottom lane (20px)", near(m.miniBottom, 20, 0.5), r1(m.miniBottom));
+      /* Round 45: on phones the pill is centred on the map door's lane,
+         `--map-lane` = the bottom inset (20) − 4px = 16 (global.css). */
+      check(session, "the mini player sits on the map door's lane (16px)", near(m.miniBottom, 16, 0.5), r1(m.miniBottom));
     }
     check(session, "no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
     await ctx.close();

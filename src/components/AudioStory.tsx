@@ -25,8 +25,9 @@ const miniPlayerHost = (node: ReactNode): ReactNode =>
  * All the machinery is unchanged and must stay that way: per-paragraph
  * timings drive the sync highlight, tapping a paragraph seeks, and the
  * mini-player latches once playback starts and swaps in when the main
- * control scrolls away. The mini-player now lives bottom-LEFT — the corner
- * menu owns the right on chapter pages.
+ * control scrolls away. The mini-player lives bottom-CENTRE on phones and
+ * tablets (the map's "Take the walk" lane, round 45) and bottom-LEFT on
+ * desktops — the corner menu owns the right on chapter pages.
  */
 
 interface Timing {
@@ -323,27 +324,42 @@ export default function AudioStory({
     </span>
   );
 
-  const playButton = (mini = false) => (
+  const controlLabel = `${playing ? "Pause" : "Play"} narration: ${subtitle}${spot && spot.includes("Pt") ? `, ${spot.split("·").pop()?.trim()}` : ""}`;
+
+  const playButton = () => (
     <button
-      ref={mini ? undefined : mainBtnRef}
+      ref={mainBtnRef}
       onClick={toggle}
-      aria-label={`${playing ? "Pause" : "Play"} narration: ${subtitle}${spot && spot.includes("Pt") ? `, ${spot.split("·").pop()?.trim()}` : ""}`}
-      className={`flex shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors ${
-        mini ? "h-11 w-11" : "h-14 w-14"
-      } ${
+      aria-label={controlLabel}
+      className={`flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-full border transition-colors ${
         playing
           ? "border-primary-9 bg-primary-9 text-primary-2"
           : "border-primary-10 bg-primary-10 text-primary-2 hover:border-primary-9 hover:bg-primary-9"
       } ${buffering && playing ? "animate-pulse" : ""}`}
       style={{ transitionDuration: "var(--dur-fast)", transitionTimingFunction: "var(--ease)" }}
     >
-      <Glyph name={playing ? "pause" : "play"} className={mini ? "icon icon-sm" : "icon"} />
-      {!mini && (
-        <span aria-live="polite" className="sr-only">
-          {buffering && playing ? "Narration is buffering" : ""}
-        </span>
-      )}
+      <Glyph name={playing ? "pause" : "play"} className="icon" />
+      <span aria-live="polite" className="sr-only">
+        {buffering && playing ? "Narration is buffering" : ""}
+      </span>
     </button>
+  );
+
+  /* The mini player's circle. Round 45 (Wil): the whole pill is the control,
+     so the circle is a mark inside it, not a second button (a button inside
+     a button is invalid HTML and a double tap target). Hover rides the pill. */
+  const miniGlyph = (
+    <span
+      aria-hidden="true"
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors ${
+        playing
+          ? "border-primary-9 bg-primary-9 text-primary-2"
+          : "border-primary-10 bg-primary-10 text-primary-2 group-hover:border-primary-9 group-hover:bg-primary-9"
+      } ${buffering && playing ? "animate-pulse" : ""}`}
+      style={{ transitionDuration: "var(--dur-fast)", transitionTimingFunction: "var(--ease)" }}
+    >
+      <Glyph name={playing ? "pause" : "play"} className="icon icon-sm" />
+    </span>
   );
 
   const renderItem = (item: Item, globalIndex: number) => {
@@ -445,7 +461,16 @@ export default function AudioStory({
         </div>
       </div>
 
-      {/* ——— Mini player — bottom LEFT; the corner menu owns the right ———
+      {/* ——— Mini player — bottom CENTRE on phones and tablets, bottom LEFT
+          on desktops (the corner menu owns the right) ———
+          Round 45 (Wil, 2026-09-23): "Play / pause controls should be centered
+          on tablet and mobile (same position as the take the walk button on
+          the map page) … tapping the play pause button or anywhere on the
+          controls should allow the user to pause or play the audio." Below the
+          56px-gutter tier (xl, 1280) the pill sits where the map's door sits:
+          centred on the lane the door uses, `--map-lane` (the bottom inset −4px
+          on phones, +12px from 640; global.css). From 1280 it keeps the
+          bottom-left corner exactly as before. The pill itself is the button.
           Round 43 (the runway, `?scroll=sync`, Base.astro): in that mode the
           island's ancestor #reader carries a transform, and a `position:
           fixed` box inside a transformed ancestor is positioned by the
@@ -456,7 +481,7 @@ export default function AudioStory({
           here is prerendered either way. */}
       {miniLatched && miniPlayerHost(
         <div
-          className="fixed bottom-[var(--ui-inset-b)] left-[var(--ui-inset)] z-[999]"
+          className="fixed bottom-[var(--map-lane)] left-1/2 z-[999] -translate-x-1/2 xl:bottom-[var(--ui-inset-b)] xl:left-[var(--ui-inset)] xl:translate-x-0"
           style={{
             opacity: mainVisible ? 0 : 1,
             pointerEvents: mainVisible ? "none" : "auto",
@@ -466,8 +491,11 @@ export default function AudioStory({
           {/* Phones: while the Onward CTA row is on screen the pill shrinks to the
               round play/pause button so it never covers a centred CTA — and it
               never disappears while narration plays (juror pass 3). */}
-          <div
-            className={`flex items-center gap-3 rounded-full py-2 pl-2 ${collapsed ? "pr-4" : "pr-5"} ${ctaInView ? "max-sm:gap-0 max-sm:p-1 max-sm:pr-1" : ""}`}
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={controlLabel}
+            className={`group flex cursor-pointer items-center gap-3 rounded-full py-2 pl-2 text-left ${collapsed ? "pr-4" : "pr-5"} ${ctaInView ? "max-sm:gap-0 max-sm:p-1 max-sm:pr-1" : ""}`}
             style={{
               background: "color-mix(in srgb, var(--color-primary-2) 88%, transparent)",
               backdropFilter: "blur(8px)",
@@ -475,7 +503,7 @@ export default function AudioStory({
               transition: "padding var(--dur-fast) var(--ease)",
             }}
           >
-            {playButton(true)}
+            {miniGlyph}
             <div className={`min-w-0 ${ctaInView ? "max-sm:hidden" : ""}`}>
               {!collapsed && <p className="t-meta truncate">{spot ?? label}</p>}
               <p
@@ -485,7 +513,7 @@ export default function AudioStory({
                 {collapsed ? fmt(time) : `${fmt(time)} / ${fmt(total)}`}
               </p>
             </div>
-          </div>
+          </button>
         </div>
       )}
     </div>
