@@ -121,7 +121,7 @@ needs to open Studio again.
 
 ### B3 · WIL: point the site at the museum's map — ✅ done 23 September (deploy run 307)
 
-The steps below are kept for the record; only step 5 (the phone check) remains.
+Verified the same day on Wil's phone over cellular data: `/map` and the Bakery's map draw with the museum's style and the route line. The steps below are kept for the record.
 
 The change was prepared on 22 September (client round 39) and GitHub refused
 the push: its secret scanning treats the museum's `pk.` token in
