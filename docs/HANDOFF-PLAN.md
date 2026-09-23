@@ -28,7 +28,7 @@ is `docs/HANDOVER.md`; this document is the transfer itself.
 
 | Workstream | Status |
 |---|---|
-| **Website build** | ✅ Complete. The map, the paintings hall, the chapter pages and the Android review were signed off on 22 September; the last edit (the chapter pages' floating play/pause control) shipped on 23 September. The live site is that version. The repository was reduced to essentials the same day: one branch, `main`. |
+| **Website build** | ✅ Complete. The map, the paintings hall, the chapter pages and the Android review were signed off on 22 September; the last edit (the chapter pages' floating play/pause control) shipped on 23 September, and Wil signed off the whole site the same day. The live site is that version. The repository was reduced to essentials the same day: one branch, `main`. |
 | **Historical content** | ✅ Locked. Kathy Sheehan confirmed the copy in writing on 9 August 2026. Nothing in it is open. |
 | **Narration** | ✅ All six recordings were regenerated on 15 August from the locked text. The two old contradictions (the "Liberty Street" bells, the river leap) are closed. |
 | **QR codes** | 🟡 Made and machine-verified. Not yet released to the fabricator: the museum's plaque addresses must point at the museum-owned site first (Part D). |

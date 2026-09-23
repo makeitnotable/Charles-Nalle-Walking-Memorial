@@ -290,6 +290,8 @@ history before that date.*
 
 **23 September 2026 — the floating play/pause control; the repository reduced to essentials (client round 45)**
 
+*Signed off 23 September 2026 by Wil Bayne after a review of the whole site on several devices and screen sizes: "As of right now I approve everything and feel like this project is done and ready to ship." The live site at this date is the shipped version.*
+
 On phones and tablets the small play/pause pill that follows you down a
 chapter now sits centred at the bottom of the screen, where the map page's
 "Take the walk" button sits, and the whole pill responds to a tap — not only
