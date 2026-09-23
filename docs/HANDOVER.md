@@ -290,7 +290,7 @@ instruments (`npm run qa:…`), earlier reports (`docs/v7/…`) and the `v2` and
 the handover clean-up on 23 September 2026; it stays in the repository's git
 history before that date.*
 
-**23 September 2026 — the floating play/pause control; the repository reduced to essentials (client round 45)**
+**23 September 2026 — the floating play/pause control; the site's icon redrawn; the repository reduced to essentials (client round 45)**
 
 *Signed off 23 September 2026 by Wil Bayne after a review of the whole site on several devices and screen sizes: "As of right now I approve everything and feel like this project is done and ready to ship." The live site at this date is the shipped version.*
 
@@ -298,6 +298,14 @@ On phones and tablets the small play/pause pill that follows you down a
 chapter now sits centred at the bottom of the screen, where the map page's
 "Take the walk" button sits, and the whole pill responds to a tap — not only
 the orange circle. On desktops it stays in the bottom-left corner as before.
+
+The site's icon, the CN monogram that shows in browser tabs and on phone
+home screens, was redrawn the same day at Wil's request and to his choice: a
+cream C set high and an orange N set low, the C's tail crossing the N through
+a fine gap. It is drawn separately for each size, so it stays crisp and reads
+"CN" even in a browser tab. The heavy border is gone, and phones get icons
+made for their own rounded and circular masks. Three versions were drawn;
+all three stay on `/styleguide`.
 
 The same day the repository was prepared for the transfer: `main` is now the
 only branch (the `v2` working branch, the release marker and 47 build-round
