@@ -285,6 +285,13 @@ Stated plainly so nobody inherits a surprise.
 
 ## 10 · Changelog
 
+**23 September 2026 — the chapter pages' floating play/pause control (client round 45)**
+
+On phones and tablets the small play/pause pill that follows you down a
+chapter now sits centred at the bottom of the screen, where the map page's
+"Take the walk" button sits, and the whole pill responds to a tap — not only
+the orange circle. On desktops it stays in the bottom-left corner as before.
+
 **22 September 2026 — the chapter pages under Safari's bars (client rounds 23 and 38–44; signed off 22 Sep: "the way everything works on the bakery page is how it should work on every chapter page … this is done")**
 
 The five chapter pages — Bakery, Commissioner, Mansion, Ferry, Barbershop —

@@ -1,0 +1,22 @@
+{
+  "round": 45,
+  "label": "the chapter mini player centred on phones and tablets, on the map door's lane; the whole pill is the play/pause control; desktops unchanged",
+  "date": "2026-09-23",
+  "plan": "docs/rounds/2026-09-23-round-45-plan.md",
+  "base": {
+    "tag": "client-round-45-base",
+    "commit": "cf37acc8c2240aa413855da19f71ea1aec546a94",
+    "branch": "v2"
+  },
+  "allowed": [
+    "src/components/AudioStory.tsx",
+    "scripts/chapter-still.mjs",
+    "docs/HANDOVER.md",
+    "docs/rounds/2026-09-23-round-45.json",
+    "docs/rounds/2026-09-23-round-45-plan.md"
+  ],
+  "snap": {
+    "allowedRoutes": []
+  },
+  "notes": "Wil, 2026-09-23: 'Play / pause controls should be centered on tablet and mobile (same position as the take the walk button on the map page) tapping the play pause button or anywhere on the controls should allow the use to pause or play the audio. (Screenshot attached... this is positioning task only.)' The mini player (the pill that appears once narration plays and the main control has scrolled away) moves to bottom-centre below the 56px-gutter tier (under 1280px), on the lane the map's Take the walk door uses (--map-lane: the bottom inset −4px on phones, +12px from 640px), and the pill itself becomes the button. From 1280px it keeps the bottom-left corner exactly as approved. No rest shot changes: the pill is never in a baseline (it appears only after a real play), so no route may drift. The still instrument's one number moves with the lane (20 → 16 at 390). The base cf37acc is also release/2026-09-22 on the remote."
+}
