@@ -283,8 +283,9 @@ code or on a plaque; the bronze carries only `hartcluett.org/nalle/…`.
    project (its address now answers "404 DEPLOYMENT_NOT_FOUND"), deleted the
    Preview and Production environments Vercel had created on GitHub, pointed
    the repository's About link at the live site, and removed the repository
-   from the Vercel app's access. GitHub keeps the old Vercel build records as
-   history; they are not shown on the site and affect nothing.
+   from the Vercel app's access. The same day he deleted Vercel's 237 old
+   build records from GitHub with the GitHub command-line tool, so the
+   repository's deployment history holds only the site's own publishing runs.
 2. **Delete the old Mapbox token and style** in the `wbmdesign` account:
    `account.mapbox.com/access-tokens` → the token whose value begins
    `pk.eyJ1Ijoid2JtZGVzaWdu` → **Delete**; Studio → the CNWM style → **Delete**.
