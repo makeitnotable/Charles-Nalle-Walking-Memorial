@@ -21,7 +21,7 @@ for a non-technical reader. Nothing in it requires knowing how to code.
 | **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `main` — the only branch; every build round and the retired 2024 app remain in its history | Notable → **museum at handoff** |
 | **Live address** | `makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` | GitHub Pages, free |
 | **Plaque addresses** | `hartcluett.org/nalle/*` | **The museum, permanently** |
-| **The map style** | Mapbox account `wbmdesign` | Notable → **museum at handoff** |
+| **The map style** | Mapbox account `hartcluettmuseum` (style and public token) | **The museum** |
 | **The four QR codes** | `Week 0 Deliverables/QR Codes/` (SVG + PNG) | Museum |
 | **Source paintings, audio, photographs** | `public/media/`, `public/audio/` in the repository | Museum |
 

@@ -32,7 +32,7 @@ import ROUTE from "../data/route.json";
 
 /** Applied to the Mapbox runtime once it lands (see the lifecycle effect). */
 const TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
-const STYLE = "mapbox://styles/wbmdesign/cm9afam6s001b01spbrk5g0l6/draft";
+const STYLE = "mapbox://styles/hartcluettmuseum/cmud36po6000f01ru0zbjf2q4";
 
 const OVERVIEW = {
   center: [-73.6948, 42.7235] as [number, number],
