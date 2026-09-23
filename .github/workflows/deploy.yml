@@ -8,7 +8,7 @@ on:
 env:
   # GH Pages project path for this repo; local dev uses "/"
   BASE: /Charles-Nalle-Walking-Memorial
-  SITE: https://makeitnotable.github.io
+  SITE: https://hartcluettmuseum.github.io
   # Mapbox token comes from the committed .env.production (publishable pk.
   # token — see docs/DEVIATIONS.md). A PUBLIC_MAPBOX_TOKEN Actions variable or
   # secret, if ever set, overrides it; not required.

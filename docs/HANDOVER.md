@@ -18,8 +18,8 @@ for a non-technical reader. Nothing in it requires knowing how to code.
 
 | Thing | Where it lives | Who owns it today |
 |---|---|---|
-| **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `main` — the only branch; every build round and the retired 2024 app remain in its history | Notable → **museum at handoff** |
-| **Live address** | `makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` | GitHub Pages, free |
+| **The website** | `HartCluettMuseum/Charles-Nalle-Walking-Memorial`, branch `main` — the only branch; every build round and the retired 2024 app remain in its history | **The museum** (transferred from Notable's `makeitnotable` account at handoff) |
+| **Live address** | `hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/` | GitHub Pages, free |
 | **Plaque addresses** | `hartcluett.org/nalle/*` | **The museum, permanently** |
 | **The map style** | Mapbox account `hartcluettmuseum` (style and public token) | **The museum** |
 | **The four QR codes** | `Week 0 Deliverables/QR Codes/` (SVG + PNG) | Museum |
@@ -228,15 +228,17 @@ Do these in order. None of them cost anything.
 
 ## 7 · Current redirect lines
 
-Verified returning 200 on 7 August 2026:
+The six lines in Squarespace, pointing at the museum's own address. (From
+7 August 2026 until the handover they pointed at `makeitnotable.github.io`;
+only that word changed.)
 
 ```
-/nalle -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/ 302
-/nalle/bakery -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/bakery 302
-/nalle/commissioners-office -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/commissioners-office 302
-/nalle/mansion -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/mansion 302
-/nalle/barbershop -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/barbershop 302
-/nalle/ferry -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/ferry 302
+/nalle -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/ 302
+/nalle/bakery -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/bakery 302
+/nalle/commissioners-office -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/commissioners-office 302
+/nalle/mansion -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/mansion 302
+/nalle/barbershop -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/barbershop 302
+/nalle/ferry -> https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/ferry 302
 ```
 
 The superseded 2024 prototype that used to be served at

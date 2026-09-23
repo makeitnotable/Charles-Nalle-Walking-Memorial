@@ -36,8 +36,8 @@ npm run build      # static output in dist/
 ## Deploys
 
 This code lives on the **`main` branch** of
-`makeitnotable/Charles-Nalle-Walking-Memorial`, the only branch: working and
+`HartCluettMuseum/Charles-Nalle-Walking-Memorial`, the only branch: working and
 deploy branch in one. Every push to `main` deploys to GitHub Pages at
-`https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` via
-`.github/workflows/deploy.yml`. There is no other deployment. At handoff the
-repository transfers to a museum-owned account (`docs/HANDOFF-PLAN.md`).
+`https://hartcluettmuseum.github.io/Charles-Nalle-Walking-Memorial/` via
+`.github/workflows/deploy.yml`. There is no other deployment. The repository
+belongs to the museum's GitHub account; the transfer is `docs/HANDOFF-PLAN.md`.

@@ -49,16 +49,11 @@ client round 45, on `main`.
 For any later push: GitHub → the repository → **Actions** → the newest "Deploy to
 GitHub Pages" run must show a green check with the title of the latest commit.
 
-**0.3 Put the future address into the site now** (it is known in advance, so
-this is done once, before the move). Tell Claude:
-
-> Replace `makeitnotable.github.io` with `hartcluettmuseum.github.io` in
-> `.github/workflows/deploy.yml` (the `SITE:` line), `astro.config.mjs` (the
-> `site` fallback), `README.md` and `docs/HANDOVER.md` (§1 and §7). Commit to
-> `main` and push.
-
-Until Part C the site's internal "canonical" links will name the future
-address. Visitors cannot see that; it is harmless.
+**0.3 Put the future address into the site now.** ✅ Done 23 September:
+`hartcluettmuseum.github.io` is in `.github/workflows/deploy.yml` (the `SITE:`
+line), `astro.config.mjs`, `README.md` and `docs/HANDOVER.md` (§1 and §7).
+Until Part C the site's internal "canonical" links name the future address.
+Visitors cannot see that; it is harmless.
 
 Done when: Actions shows a green run for that commit.
 
@@ -74,7 +69,9 @@ password and every recovery code into the museum's password records.
 
 1. Go to `https://github.com/signup`.
 2. Email: the museum inbox. Password: a new, strong one. Username: `hartcluettmuseum`.
-   (If GitHub says it is taken, use `hartcluettmuseum`; see the rule above.)
+   The account exists as **`HartCluettMuseum`**. GitHub ignores capitals in
+   account names, and the site's address is always lower case:
+   `hartcluettmuseum.github.io`.
 3. Complete the puzzle, enter the code GitHub emails you, and choose the **Free**
    plan. Skip any "personalize your experience" questions.
 4. **Turn on two-factor authentication now.** GitHub will otherwise demand it
