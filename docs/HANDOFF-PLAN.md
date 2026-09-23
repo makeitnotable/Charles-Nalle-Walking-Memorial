@@ -280,14 +280,11 @@ code or on a plaque; the bronze carries only `hartcluett.org/nalle/…`.
 ## Part F — WIL: close-out (after Parts C and D are verified)
 
 1. **Delete the old Vercel project.** ✅ Done 23 September: Wil deleted the
-   project, so the 2024 prototype is no longer served. Vercel's leftovers on
-   GitHub are removed in the repository's settings: **Settings** →
-   **Environments** → **Preview** → **Delete environment**, then the same for
-   **Production** (never the one named `github-pages`, which publishes the
-   site); and the ⚙ beside **About** → **Website** → the live site's address
-   instead of the old `vercel.app` one. If the Vercel app is installed on the
-   GitHub account, remove its access to this repository: profile picture →
-   **Settings** → **Applications** → **Vercel** → **Configure**.
+   project (its address now answers "404 DEPLOYMENT_NOT_FOUND"), deleted the
+   Preview and Production environments Vercel had created on GitHub, pointed
+   the repository's About link at the live site, and removed the repository
+   from the Vercel app's access. GitHub keeps the old Vercel build records as
+   history; they are not shown on the site and affect nothing.
 2. **Delete the old Mapbox token and style** in the `wbmdesign` account:
    `account.mapbox.com/access-tokens` → the token whose value begins
    `pk.eyJ1Ijoid2JtZGVzaWdu` → **Delete**; Studio → the CNWM style → **Delete**.
@@ -340,7 +337,7 @@ code or on a plaque; the bronze carries only `hartcluett.org/nalle/…`.
 - [ ] The six Squarespace lines point at the new address; all four QR codes tested on cellular
 - [ ] `makeitnotable` is a collaborator; no other outside accounts remain
 - [x] Old Vercel project deleted (23 September)
-- [ ] Vercel's leftovers removed from GitHub (Part F, step 1)
+- [x] Vercel's leftovers removed from GitHub (23 September)
 - [ ] Old Mapbox token and style deleted
 - [ ] ZIP copy stored; logins and recovery codes in the museum's records
 - [ ] The close-out email sent and acknowledged (ownership, documentation, $0 per year)
