@@ -93,9 +93,9 @@ Done when: you can sign in at `github.com` as `hartcluettmuseum`.
 The museum's Mapbox account exists (`hartcluettmuseum`, no card on file), the
 site's public token ("CNWM Website Token", starts with `pk.`) was created and
 sent to Wil, and the map's style is already uploaded and published there (Part
-B). Nothing to do here except keep the login in the password records. One
-housekeeping item: the Mapbox account password once appeared in a screenshot
-sent by email; change it (Mapbox → Account → Security).
+B). Nothing to do here except keep the login in the password records. The
+account password once appeared in a screenshot; Wil marked that resolved on
+23 September 2026.
 
 **Send Wil one thing:** the GitHub username.
 
