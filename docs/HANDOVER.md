@@ -238,10 +238,9 @@ Verified returning 200 on 7 August 2026:
 /nalle/ferry -> https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/ferry 302
 ```
 
-⚠️ **Do not point these at `charles-nalle-walking-memorial.vercel.app`.** That
-deployment still serves the superseded 2024 version of the site; its production
-branch was never switched to `v2`. Either flip it or decommission it, but do not
-send plaque visitors there.
+The superseded 2024 prototype that used to be served at
+`charles-nalle-walking-memorial.vercel.app` was deleted on 23 September 2026.
+GitHub Pages is the site's only host.
 
 ⚠️ **Use these exact chapter names.** The older names `/commissioner1` and
 `/barber` return "page not found" on the current host.
