@@ -18,7 +18,7 @@ for a non-technical reader. Nothing in it requires knowing how to code.
 
 | Thing | Where it lives | Who owns it today |
 |---|---|---|
-| **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `v2` — mirrored to `main` at each client sign-off (the retired 2024 app is kept on `legacy-spa`) | Notable → **museum at handoff** |
+| **The website** | `makeitnotable/Charles-Nalle-Walking-Memorial`, branch `main` — the only branch; every build round and the retired 2024 app remain in its history | Notable → **museum at handoff** |
 | **Live address** | `makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` | GitHub Pages, free |
 | **Plaque addresses** | `hartcluett.org/nalle/*` | **The museum, permanently** |
 | **The map style** | Mapbox account `wbmdesign` | Notable → **museum at handoff** |
@@ -146,7 +146,7 @@ not hand-edit the generated files — replace the source and re-run the script.
 | Animation | GSAP | |
 | Map | Mapbox GL JS | The only third-party service the site depends on |
 | Hosting | GitHub Pages | Free, permanent, no account renewals |
-| Publishing | GitHub Actions | Every commit to `v2` (or `main`, its mirror) rebuilds and republishes |
+| Publishing | GitHub Actions | Every commit to `main` rebuilds and republishes |
 
 **Mapbox is the one external dependency with an account attached.** Its free
 tier is far above anything this site will use, but it is the one thing that
@@ -162,23 +162,18 @@ npm run build    # produce the publishable files
 npm run check    # type-check
 ```
 
-Quality instruments live in `scripts/` and are documented in `docs/`
-(`docs/PLAN.md` Part B, `docs/v7/REVIEW-GUIDE.md` §6). All take
-`--base URL` and default to the dev server on :4321:
-`perf.mjs` (Lighthouse — run against the PRODUCTION build: `npm run build`
-→ `astro preview --port 4322` → `--base http://localhost:4322`),
-`probe.mjs` (rendered-pixel measurements), `states.mjs` (interaction states
-incl. the map's walk/lens and the museum's modes; collisions), `contrast.mjs`
-(WCAG by computed style AND by pixel sampling for text over imagery),
-`rag.mjs` (runts, glyph-ink clips, visible em dashes), `a11y.mjs` (axe +
-keyboard walk + reduced motion + 200 % zoom), `frames.mjs` (curtain frame
-capture), `walk-check.mjs` (map/walk behaviour via `window.__troyMap`),
-`museum-check.mjs` (via `window.__museum`), `audio-check.mjs` (narration
-players), `shots.mjs` / `census.mjs` / `arrival.mjs`,
-`build-favicon.mjs` (the CN mark and icon set), `build-og.mjs`,
-`serve-dist.mjs` (a GitHub-Pages-like static server for 404 checks),
-`build-route.mjs` (regenerates the walking route from Mapbox Directions).
-Run one instrument at a time (they each drive their own Chromium).
+The build guards itself: `npm run build` runs `astro build` and then
+`scripts/check-css.mjs`, six checks on the interactive islands' CSS that fail
+the deploy if a rule is missing. The remaining scripts in `scripts/` regenerate
+assets: `build-favicon.mjs` (the CN mark and icon set), `build-og.mjs` (the
+social preview image), `build-media.mjs`, `build-posters.mjs`,
+`build-studies.mjs`, `build-thumb-tier.mjs`, `build-1858-tier.mjs` and
+`build-edge-colors.mjs` (paintings, stills and films from `masters/`),
+`build-route.mjs` (the walking route from Mapbox Directions) and
+`audio-timings.mjs` (the narration's paragraph timings). The QA instruments
+used during the build (Lighthouse runs, screenshot matrices, phone-bar
+probes) were retired from the repository at the handover clean-up on 23
+September 2026; they remain in git history before that date.
 
 ---
 
@@ -186,7 +181,8 @@ Run one instrument at a time (they each drive their own Chromium).
 
 The site scores **100/100 for accessibility on every page**, with zero
 colour-contrast failures. That is a standard to hold, not a trophy — anything
-added later should be re-measured with `npm run qa:perf`.
+added later should be re-measured with Lighthouse (in Chrome: DevTools →
+Lighthouse → Mobile) against the published site.
 
 Specifically maintained:
 
@@ -210,7 +206,8 @@ Do these in order. None of them cost anything.
 1. **Museum creates a free GitHub account** for the organisation.
 2. **Notable transfers the repository** to that account
    (Settings → General → Transfer ownership).
-3. **Museum enables GitHub Pages** on the `v2` branch. The site's public address
+3. **Museum enables GitHub Pages** from the `main` branch (Settings → Pages →
+   Source: GitHub Actions). The site's public address
    changes to `<museum-account>.github.io/Charles-Nalle-Walking-Memorial/`.
 4. **Museum creates a free Mapbox account.** Notable copies the custom map style
    across and the museum issues its own public token.
@@ -285,12 +282,24 @@ Stated plainly so nobody inherits a surprise.
 
 ## 10 · Changelog
 
-**23 September 2026 — the chapter pages' floating play/pause control (client round 45)**
+*Entries below cite the per-round records (`docs/rounds/…`), the QA
+instruments (`npm run qa:…`), earlier reports (`docs/v7/…`) and the `v2` and
+`release/2026-09-22` branches. All of that was folded into `main` or retired at
+the handover clean-up on 23 September 2026; it stays in the repository's git
+history before that date.*
+
+**23 September 2026 — the floating play/pause control; the repository reduced to essentials (client round 45)**
 
 On phones and tablets the small play/pause pill that follows you down a
 chapter now sits centred at the bottom of the screen, where the map page's
 "Take the walk" button sits, and the whole pill responds to a tap — not only
 the orange circle. On desktops it stays in the bottom-left corner as before.
+
+The same day the repository was prepared for the transfer: `main` is now the
+only branch (the `v2` working branch, the release marker and 47 build-round
+and archive branches were folded into it), and the build rounds' records, QA
+screenshots and instruments were removed from the working tree. Nothing on the
+site changed.
 
 **22 September 2026 — the chapter pages under Safari's bars (client rounds 23 and 38–44; signed off 22 Sep: "the way everything works on the bakery page is how it should work on every chapter page … this is done")**
 

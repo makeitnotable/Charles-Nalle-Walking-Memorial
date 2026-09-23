@@ -1,5 +1,11 @@
 # Playbook — mobile browser chrome, full-bleed stages, and how `/map` was fixed
 
+> **Read at handover (23 September 2026).** The instruments this playbook names
+> (`npm run qa:framing`, `qa:still`, `qa:snap`, `qa:gesture`, …) and the
+> per-round records in `docs/rounds/` were retired from the repository when it
+> was reduced to essentials; they remain in git history before that date. The
+> measurements, the rules and the traps stand as written.
+
 *Written 2026-09-18 at the close of client rounds 19–21, when Wil signed off
 the map page ("Looks and works great. I think the map page's edits are
 complete."). This is the record of what worked, what did not, and the rules

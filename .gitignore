@@ -15,7 +15,7 @@ pnpm-debug.log*
 
 # environment variables (.env.production is deliberately committed — it holds
 # only the publishable Mapbox pk. token that ships in the client bundle anyway;
-# rationale in docs/DEVIATIONS.md, hardening/migration in docs/WIL-PLAYBOOK.md)
+# rationale in docs/DEVIATIONS.md, the swap to the museum's token in docs/HANDOFF-PLAN.md)
 .env
 !.env.production
 
@@ -24,28 +24,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-
-# v4 QA screenshots: evidence lives on disk; only curated before/after JPEGs are
-# committed (docs/v4/qa/before-after/). PNG matrices would add ~50MB per phase.
-docs/v4/qa/**/*.png
-!docs/v4/qa/before-after/**
-
-# v5 audit screenshots (evidence, regenerable — the findings are the artefact)
-docs/v5/qa/
-
-# v6 element-battery screenshots (same rule — .md findings commit, pixels don't)
-docs/v5/elements/**/*.png
-
-# v7 QA evidence (baseline + audits + juror passes): findings (.md/.json) commit,
-# pixels don't — same rule as v5/v6.
-docs/v7/qa/**/*.png
-docs/v7/qa/**/*.jpg
-docs/v7/qa/**/*.jpeg
-docs/v7/qa/**/*.webm
-!docs/v7/qa/before-after/**
-
-# Large regenerable QA JSON (the .md findings + summary.json are the artefact)
-docs/v7/qa/**/lighthouse-*.json
-docs/v7/qa/**/rag.json
-docs/v7/qa/uxwalk-*/*.json
-docs/v7/qa/uxwalk-*/*.log

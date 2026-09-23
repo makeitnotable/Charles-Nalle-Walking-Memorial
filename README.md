@@ -18,26 +18,24 @@ npm run build      # static output in dist/
 
 ## Where things live
 
-- `docs/PLAN.md` — the full rebuild plan (milestones M0–M6). Read this first.
+- `docs/HANDOVER.md` — the museum's operating manual (how the plaques reach the
+  site, how to change words, who to contact, the changelog).
+- `docs/HANDOFF-PLAN.md` — the step-by-step transfer of the site to the museum.
 - `docs/CONTENT-STATUS.md` — every known content correction and its status.
 - `docs/DEVIATIONS.md` — why this repo deviates from the WBM product stack.
+- `docs/v4/` — the design system: standards, naming canon, decisions, motion.
+- `docs/PLAYBOOK-MOBILE-CHROME.md` — how the site handles Safari's and Android's
+  browser bars; read before touching any full-bleed stage.
 - `src/content/chapters/*.json` — all narrative content, one file per chapter.
 - `src/data/about.ts` — About page content.
-- `public/audio/` — narration MP3s.
-- Heavy media (paintings, animations) is **not** in this repo yet — the M1 media
-  pipeline imports it optimized from the legacy asset library.
+- `public/audio/` — narration MP3s; `public/media/` — paintings, stills and
+  films, generated from `masters/` by `scripts/build-*.mjs`.
 
 ## Deploys
 
-This code lives on the **`v2` branch** of
-`makeitnotable/Charles-Nalle-Walking-Memorial`, the working and deploy branch.
-Since the 22 September 2026 sign-off, **`main` carries the shipped `v2` tree**
-(a merge commit refreshed at each client sign-off, never developed on); the
-retired 2024 app that `main` used to hold is on `legacy-spa` (tag
-`legacy-spa-final`), with `match-figma-designs` untouched. Every push to `v2`
-(or `main`) deploys to GitHub Pages at
+This code lives on the **`main` branch** of
+`makeitnotable/Charles-Nalle-Walking-Memorial`, the only branch: working and
+deploy branch in one. Every push to `main` deploys to GitHub Pages at
 `https://makeitnotable.github.io/Charles-Nalle-Walking-Memorial/` via
-`.github/workflows/deploy.yml`; Vercel also builds a branch preview
-automatically. Shipped versions are marked by a `release/<date>` branch
-(`release/2026-09-22`). At M6 handoff the branch graduates to a museum-owned
-repo.
+`.github/workflows/deploy.yml`. There is no other deployment. At handoff the
+repository transfers to a museum-owned account (`docs/HANDOFF-PLAN.md`).
